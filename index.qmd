@@ -98,7 +98,7 @@ There are 11 lectures in this module. Links to the slides and lecture titles are
 | Lecture 9   | [Multiple Regression](slides/codes/multiple_regression.R) <br> [R2 multiple regression](slides/codes/R2_multiple_regression.R) |
 | Lecture 10  | [Simple Regression](slides/codes/simple_regression.R)  <br> [Longley regression](slides/codes/longley_regression.R) <br> [Longley selection](slides/codes/longley_selection.R) <br> [Galileo](slides/codes/galileo.R) <br> [Divorces](slides/codes/divorces.R) |
 | Lecture 11  | [Residual graphs](slides/codes/residual_graphs.R) <br> [Autocorrelation graphic tests](slides/codes/autocorrelation_graph_tests.R) <br> [Multicollinearity](slides/codes/multicollinearity.R) <br> [Stepwise regression: Longley](slides/codes/longley_stepwise.R) <br> [Stepwise regression: Divorces](slides/codes/divorces_stepwise.R)  <br> [Anova models](slides/codes/anova.R) |
-| Appendix    | [2008 Crisis](slides/codes/2008_crisis_code.R) |
+| Appendix B  | [2008 Crisis](slides/codes/2008_crisis_code.R) |
 : {tbl-colwidths="[30,70]"}
 
 

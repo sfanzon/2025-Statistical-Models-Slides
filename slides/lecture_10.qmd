@@ -1,0 +1,3997 @@
+---
+title: "Statistical Models"
+subtitle: "Lecture 10"
+from: markdown+emoji
+author: 
+    - name: Dr. Silvio Fanzon
+      id: sf
+      email: S.Fanzon@hull.ac.uk
+      url: https://www.silviofanzon.com
+      affiliations: University of Hull
+    - name: Dr. John Fry
+      id: jf
+      email: J.M.Fry@hull.ac.uk
+      url: https://www.hull.ac.uk/staff-directory/john-fry
+      affiliations: University of Hull
+---
+
+
+
+::: {.content-hidden}
+$
+{{< include macros.tex >}}
+$
+:::
+
+
+
+
+# Lecture 10: <br>Practical regression{background-color="#cc0164" visibility="uncounted"}
+
+::: footer
+
+<div color="#cc0164">  </div>
+
+:::
+
+
+
+
+
+
+## Outline of Lecture 10 {.smaller}
+
+
+1. Plotting variables in R  
+    * Cross-check formal statistical results with graphical analyses
+    * Important in practical research work
+
+<br>
+
+2. Coefficient of determination $R^2$
+    * $R^2$ measures proportion of variability in the data explained by the model
+    * $R^2$ close to $1$ is good result
+    * Any $R^2$ larger than $0.3$ is potentially worthwhile
+
+
+
+## Outline of Lecture 10 {.smaller}
+
+
+3. t-test for regression
+    * Test the significance of individual parameters
+
+<br>
+
+4. F-test for regression
+    * Test the overall significance of the parameters
+
+
+## Outline of Lecture 10 {.smaller}
+
+
+5. The Longley dataset
+    * Well-known vintage regression example
+
+<br>
+
+6. Model selection
+    * Comparison of nested regression models
+
+<br>
+
+7. Examples of model selection
+
+
+
+
+
+# Part 1: <br>Plotting variables in R {background-color="#cc0164" visibility="uncounted"}
+
+::: footer
+
+<div color="#cc0164">  </div>
+
+:::
+
+
+
+
+## Plotting variables in R {.smaller}
+
+
+Interested in relationship between 2 variables
+
+- Want to plot the 2 variables together
+
+- Cross-check the results of a formal statistical analysis
+
+- Very important in real project work
+
+
+
+## Example: Stock and Gold prices
+
+::: {style="font-size: 0.75em"}
+Dataset with $33$ entries for Stock and Gold price pairs
+:::
+
+
+::: {style="font-size: 0.55em"}
+```{r}
+#| echo: false
+#| layout-ncol: 1
+
+data <- read.table("datasets/L3eg1data.txt")
+
+#Add column labels to data
+colnames(data) <- c("Stock Price","Gold Price")
+
+# Output markdown table from data
+knitr::kable(
+  list(data[1:11,], data[12:22,], data[23:33,]),
+  row.names = TRUE,
+  format = "html", 
+  table.attr = 'class="table simple table-striped table-hover"',
+) 
+
+
+```
+
+:::
+
+
+
+## Example: Stock and Gold prices {.smaller}
+
+
+- The data is stored in a ``.txt`` file
+
+- The file can be downloaded here [stock_gold.txt](datasets/stock_gold.txt)
+
+::: {.column width="54%"}
+
+- The text file looks like this
+![](images/stock_gold.png){width=73%}
+
+:::
+
+::: {.column width="44%"}
+
+- Remarks:
+    * There is a Header
+    * 1st column lists *Stock Price*
+    * 2nd column lists *Gold Price*
+
+:::
+
+
+
+## Reading data into R {.smaller}
+
+
+To read ``stock_gold.txt`` into R proceed as follows:
+
+1. Download [stock_gold.txt](datasets/stock_gold.txt) and move file to Desktop
+
+2. Open the R Console and change working directory to **Desktop**
+
+```r
+# In MacOS type
+setwd("~/Desktop")
+
+# In Windows type
+setwd("C:/Users/YourUsername/Desktop")
+```
+
+
+## Reading data into R {.smaller}
+
+3. Read ``stock_gold.txt`` into R and store it in data-frame ``prices`` with code
+
+```r
+prices = read.table(file = "stock_gold.txt",
+                    header = TRUE)
+```
+
+<br>
+
+**Note:** We are telling ``read.table()`` that
+
+- ``stock_gold.txt`` has a header
+- Headers are *optional*
+- Headers are good practice to describe data
+
+
+
+## Reading data into R {.smaller}
+
+
+4. For safety, let us check we loaded the correct data file 
+
+
+```r
+print(prices)
+```
+
+```{r}
+prices = read.table(file = "datasets/stock_gold.txt",
+                    header = TRUE)
+
+print(prices)
+```
+
+
+
+
+## Store data into vectors {.smaller}
+
+- We now store Stock and Gold prices in 2 vectors
+    * Stock prices are in 1st column of ``prices``
+    * Gold prices are in 2nd column of ``prices``
+
+```r
+stock.price <- prices[ , 1]
+gold.price <- prices[ , 2]
+```
+
+<br>
+
+- Alternatively the same can be achieved with
+
+```r
+stock.price <- prices$stock_price
+gold.price <- prices$gold_price
+```
+
+
+
+## Plot Stock Price vs Gold Price {.smaller}
+
+::::: {.columns style='display: flex !important; height: 80%;'}
+
+::: {.column width="38%" style='display: flex; justify-content: center; align-items: center;'}
+
+
+
+```r
+plot(stock.price, 
+     gold.price, 
+     xlab = "Stock Price", 
+     ylab = "Gold Price",
+     pch = 16
+    )
+```
+
+:::
+
+::: {.column width="61%" style='display: flex; justify-content: center; align-items: center;'}
+
+```{r}
+#| echo: false
+#| fig-asp: 1
+
+# Read the data
+prices <- read.table(file = "datasets/stock_gold.txt",
+                   header = TRUE
+                  )
+
+stock.price <- prices$stock_price
+gold.price <- prices$gold_price
+
+# Create the plot
+plot(stock.price,
+     gold.price, 
+     xlab = "", 
+     ylab= "",
+     pch = 16)
+
+# Add labels
+mtext("Stock Price", side=1, line=3, cex=2.1)
+mtext("Gold Price", side=2, line=2.5, cex=2.1)
+```
+
+:::
+:::::
+
+
+
+
+## Plot Stock Price vs Gold Price {.smaller}
+
+::::: {.columns style='display: flex !important; height: 80%;'}
+
+::: {.column width="38%" style='display: flex; justify-content: center; align-items: center;'}
+
+- ``xlab`` and ``ylab`` specify axes labels
+
+- ``pch`` specifies type of points
+
+- Scaling is achieved with
+    * ``xlim = c(lower, upper)``
+    * ``ylim = c(lower, upper)``
+
+
+:::
+
+
+::: {.column width="61%" style='display: flex; justify-content: center; align-items: center;'}
+
+```{r}
+#| echo: false
+#| fig-asp: 1
+
+# Read the data
+prices <- read.table(file = "datasets/stock_gold.txt",
+                   header = TRUE
+                  )
+
+stock.price <- prices$stock_price
+gold.price <- prices$gold_price
+
+# Create the plot
+plot(stock.price,
+     gold.price, 
+     xlab = "", 
+     ylab= "",
+     pch = 16)
+
+# Add labels
+mtext("Stock Price", side=1, line=3, cex=2.1)
+mtext("Gold Price", side=2, line=2.5, cex=2.1)
+```
+
+:::
+:::::
+
+
+
+## Examining the graph {.smaller}
+
+::::: {.columns style='display: flex !important; height: 80%;'}
+
+::: {.column width="38%" style='display: flex; justify-content: center; align-items: center;'}
+
+- Graph suggests that the 2 variables are negatively correlated
+
+- Need to cross-check with the results of a formal statistical regression analysis
+
+
+:::
+
+
+::: {.column width="61%" style='display: flex; justify-content: center; align-items: center;'}
+
+```{r}
+#| echo: false
+#| fig-asp: 1
+
+# Read the data
+prices <- read.table(file = "datasets/stock_gold.txt",
+                   header = TRUE
+                  )
+
+stock.price <- prices$stock_price
+gold.price <- prices$gold_price
+
+# Create the plot
+plot(stock.price,
+     gold.price, 
+     xlab = "", 
+     ylab= "",
+     pch = 16)
+
+# Add labels
+mtext("Stock Price", side=1, line=3, cex=2.1)
+mtext("Gold Price", side=2, line=2.5, cex=2.1)
+```
+
+:::
+:::::
+
+
+
+
+# Part 2: <br>Coefficient of <br> determination $R^2${background-color="#cc0164" visibility="uncounted"}
+
+::: footer
+
+<div color="#cc0164">  </div>
+
+:::
+
+
+
+## Coefficient of determination $R^2$ {.smaller}
+
+- $R^2$ is defined as
+
+$$
+ R^2 = \frac{ \ESS }{ \TSS } = 1 - \frac{ \RSS }{ \TSS }
+$$
+
+- $R^2$ measures proportion of variability in the data explained by the model
+
+<br>
+
+::: Important
+
+- $R^2$ is automatically computed by R when using ``lm``
+- **High** values of $R^2$ are **better**! 
+
+:::
+
+
+
+
+## Some observations about $R^2$ {.smaller}
+
+::: Warning
+
+$R^2$ increases as more $X$ variables are added to a regression model
+
+:::
+
+This is not necessarily good
+
+- One can add lots of variables and make $R^2 \approx 1$
+
+- This way the model explains the data really well
+    $$
+    y_i \approx \hat y_i \,, \quad \forall \,\, i = 1 , \ldots, n
+    $$ 
+
+- Problem: the model will not make good predictions on new data 
+
+- This is known as **overfitting** and it should be avoided
+
+
+
+
+## Some observations about $R^2$ {.smaller}
+
+- $R^2$ lies between $0$ and $1$
+    * $R^2 = 0$ model explains nothing
+    * $R^2 = 1$ model explains everything
+
+<br>
+
+- Generally: the higher the value of $R^2$ the better the model
+    * Textbook examples often have high values
+    $$
+    R^2 \geq 0.7
+    $$
+    * **Example:** In the *Unemployment* example of Lecture 9 we found
+    $$
+    R^2 = 0.8655401
+    $$
+
+
+
+
+## Some observations about $R^2$ {.smaller}
+
+
+
+::: Important
+
+In practice values 
+$$
+R^2 \geq 0.3
+$$ 
+imply there is a nontrivial amount of variation in the data explained by the model
+
+:::
+
+    
+**Example:** In the *Stock Price* Vs *Gold Price* example we have
+$$
+R^2 = 0.395325
+$$ 
+
+- This shows that *Stock Price* affects *Gold Price*
+- Since $R^2$ is not too large, also other factors affect *Gold Price*
+
+
+
+
+
+## Running the regression in R {.smaller}
+
+- The basic R command used to run regression is
+
+::: {.r-stack}
+
+``lm(formula)``
+
+:::
+
+<br>
+
+- ``lm`` stands for **linear model**
+
+
+
+## Running simple linear regression in R {.smaller}
+
+
+For simple linear regression
+
+$$
+Y_i = \alpha + \beta x_i + \e_i
+$$
+
+the command is
+
+::: {.r-stack}
+
+``lm(y ~ x)``
+
+:::
+
+<br>
+
+- Symbol ``y ~ x`` reads as *$y$ modelled as function of $x$*
+
+- ``y`` is vector containing the data $y_1, \ldots, y_n$
+
+- ``x`` is vector containing the data $x_1, \ldots, x_n$
+
+
+
+
+## Running multiple linear regression in R {.smaller}
+
+
+
+For multiple linear regression
+
+$$
+Y_i = \beta_1 + \beta_2 \, x_{i2} + \ldots + \beta_p \, x_{ip} + \e_i
+$$
+
+the command is 
+
+::: {.r-stack}
+
+``lm (y ~ x2 + x3 + ... + xp)``
+
+:::
+
+<br>
+
+- ``y`` is vector containing the data $y_1, \ldots, y_n$
+
+- ``xj`` is vector containing the data $x_{1j}, \ldots , x_{jp}$ 
+
+
+
+## Running the regression in R {.smaller}
+
+The best way to run regression is
+
+1. Run the regression analysis and store the results in a variable
+
+```r
+fit.model <- lm(formula)
+```
+
+<br>
+
+2. Use command ``summary`` to read output of regression
+
+```r
+summary(fit.model)
+```
+
+**Note:** If you are running the code from ``.R`` file you need to print output
+
+```r
+print( summary(fit.model) )
+```
+
+
+
+
+## Example: Stock and Gold prices {.smaller}
+
+- Stock price is stored in vector 
+    * ``stock.price``
+
+- Gold price is stored in vector 
+    * ``gold.price``
+
+
+- We want to fit the simple linear model
+$$
+\text{gold.price } = \alpha + \beta \, \times  \text{ stock.price } + \text{ error}
+$$
+
+
+```r
+# Fit simple linear regression model
+fit.model <- lm(gold.price ~ stock.price)
+
+# Print result to screen
+summary(fit.model)
+```
+
+
+- The full code can be downloaded here [simple_regression.R](codes/simple_regression.R)
+
+
+
+
+##  {.smaller}
+
+:::: {.columns}
+
+::: {.column width="100%"}
+![](images/simple_regression_output.png){width=78%}
+:::
+
+::::
+
+
+- There is a lot of information here!
+
+- We will make sense of most of it in this lecture
+
+
+
+## Interesting parts of Output {.smaller}
+
+
+
+:::: {.columns}
+
+::: {.column width="100%"}
+![](images/simple_regression_output_cut.png){width=79%}
+:::
+
+::::
+  
+
+- The estimated regression coefficients are under ``estimate``
+    * ``(Intercept)`` refers to the coefficient $\hat \alpha \qquad \implies  \qquad  \hat \alpha = 37.917$
+    * ``stock.price`` refers to the coefficient $\hat \beta \qquad \implies  \qquad  \hat \beta = - 6.169$
+
+
+
+
+## Interesting parts of Output {.smaller}
+
+
+:::: {.columns}
+
+::: {.column width="100%"}
+![](images/simple_regression_output_cut.png){width=79%}
+:::
+
+::::
+
+
+- Other quantities of interest are:
+
+
+| Coefficient $R^2$ | $\texttt{Multiple R-squared:  0.3953}$ |
+|:------------------|:----------                             |
+|**t-statistic for** ``stock.price`` | $\texttt{stock.price t-value:  -4.502}$ |
+| **F-statistic**      |  $\texttt{F-statistic: 20.27}$           |
+: {tbl-colwidths="[50,50]"}
+
+
+
+
+## Plotting the regression line {.smaller}
+
+::::: {.columns style='display: flex !important; height: 80%;'}
+
+::: {.column width="43%" style='display: flex; justify-content: center; align-items: center;'}
+
+
+```r    
+# Data stored in stock.price 
+# and gold.price
+# Plot the data
+plot(stock.price, gold.price, 
+     xlab = "Stock Price", 
+     ylab= "Gold Price",
+     pch = 16)
+
+# Model stored in fit.model
+# Plot the regression line
+abline(fit.model, 
+       col = "red", 
+       lwd = 3)
+```
+
+:::
+
+
+::: {.column width="48%" style='display: flex; justify-content: center; align-items: center;'}
+
+```{r}
+#| echo: false
+#| fig-asp: 1
+
+# Read the data
+prices <- read.table(file = "datasets/stock_gold.txt",
+                     header = TRUE
+                    )
+
+# Store data into vectors
+stock.price <- prices$stock_price
+gold.price <- prices$gold_price
+
+# Fit simple linear regression model
+fit.model <- lm(gold.price ~ stock.price)
+
+# Plot the data
+plot(stock.price,
+     gold.price, 
+     xlab = "", 
+     ylab= "",
+     pch = 16)
+
+# Add labels
+mtext("Stock Price", side=1, line=3, cex=2.1)
+mtext("Gold Price", side=2, line=2.5, cex=2.1)
+
+# Plot the regression line in red
+abline(fit.model, col = "red", lwd = 3)
+```
+
+:::
+
+:::::
+
+
+
+
+## Conclusion {.smaller}
+
+- We fit a simple linear model to *Stock Price* Vs *Gold Price*
+
+- We obtained the regression line
+
+$$
+\Expect[Y | x] = \hat \alpha + \hat \beta x =  37.917 -  6.169 \times x
+$$
+
+- The coefficient of correlation is
+
+$$
+R^2 = 0.395325 \geq 0.3
+$$ 
+
+- Hence the linear model explains the data to a reasonable extent:
+    * *Stock Price* affects *Gold Price*
+    * Since $R^2$ is not too large, also other factors affect *Gold Price*
+
+
+
+
+
+
+## t-test and F-test for regression {.smaller}
+
+- From ``lm`` we also obtained
+
+| **t-statistic for** ``stock.price`` | $\texttt{stock.price t-value:  -4.502}$ |
+|:------------------|:----------                             |
+| **F-statistic**      |  $\texttt{F-statistic: 20.27}$           |
+: {tbl-colwidths="[50,50]"}
+
+<br>
+
+- t-statistic and F-statistic for regression are mathematically **HARD** topic
+
+- In the next two parts we explain what they mean
+    * We however omit mathematical details
+    * If interested check out Section 11.3 of [@casella-berger] and Chapter 11 of [@degroot]
+
+
+
+
+# Part 3: <br>t-test for regression {background-color="#cc0164" visibility="uncounted"}
+
+::: footer
+
+<div color="#cc0164">  </div>
+
+:::
+
+
+
+
+
+## Basic question in regression {.smaller}
+
+What happens to $Y$ as $X$ increases?
+
+- increases?
+
+- decreases?
+
+- nothing?
+
+
+
+
+## Positive gradient {.smaller}
+
+As $X$ increases $Y$ increases
+
+```{r}
+#| echo: false
+#| fig-asp: 1
+
+
+# Create a scatter plot with no data points (type = "n")
+plot(
+  1, 1, 
+  type = "n", 
+  xlab = "", 
+  ylab = "", 
+  xlim = c(0, 5), 
+  ylim = c(0, 5), 
+  frame.plot = TRUE, 
+  axes = FALSE, 
+  asp = 1)
+
+
+mtext("X", side=1, line=3, cex=3)
+mtext("Y", side=2, line=2, cex=3)
+
+# Add the line y = x
+abline(
+  a = 0, 
+  b = 1, 
+  col = "black", 
+  lwd = 2)
+
+```
+
+
+
+## Negative gradient {.smaller}
+
+As $X$ increases $Y$ decreases
+
+```{r}
+#| echo: false
+#| fig-asp: 1
+
+
+# Create a scatter plot with no data points (type = "n")
+plot(
+  1, 1, 
+  type = "n", 
+  xlab = "", 
+  ylab = "", 
+  xlim = c(-3, 3), 
+  ylim = c(-3, 3), 
+  frame.plot = TRUE, 
+  axes = FALSE, 
+  asp = 1)
+
+
+
+mtext("X", side=1, line=3, cex=3)
+mtext("Y", side=2, line=2, cex=3)
+
+# Add the line y = x
+abline(
+  a = 0, 
+  b = -1, 
+  col = "black", 
+  lwd = 2)
+
+```
+
+
+
+## Zero gradient {.smaller}
+
+Changes in $X$ do not affect $Y$
+
+```{r}
+#| echo: false
+#| fig-asp: 1
+
+
+# Create a scatter plot with no data points (type = "n")
+plot(
+  1, 1, 
+  type = "n", 
+  xlab = "", 
+  ylab = "", 
+  xlim = c(0, 5), 
+  ylim = c(0, 5), 
+  frame.plot = TRUE, 
+  axes = FALSE, 
+  asp = 1)
+
+
+mtext("X", side=1, line=3, cex=3)
+mtext("Y", side=2, line=2, cex=3)
+
+# Add the line y = x
+abline(
+  a = 2.5, 
+  b = 0, 
+  col = "black", 
+  lwd = 2)
+
+```
+
+
+
+
+## t-test for simple regression {.smaller}
+
+- Consider the simple linear regression model
+
+$$
+Y_i = \alpha + \beta X_i + \e_i
+$$
+
+
+- We have that 
+
+$$
+X \,\, \text{ affects } \,\, Y \qquad \iff \qquad
+\beta \neq 0
+$$
+
+- $\beta$ is a random quantity which depends on the sample
+
+- Therefore we can study $\beta$ with the hypothesis test
+
+\begin{align*}
+H_0 \colon  & \beta = b \\
+H_1 \colon & \beta \neq b
+\end{align*}
+
+
+
+
+
+## Construction of t-test {.smaller}
+
+- Want to test hypothesis 
+
+\begin{align*}
+H_0 \colon  & \beta = b \\
+H_1 \colon & \beta \neq b
+\end{align*}
+
+- Our best guess for $\beta$ is the estimator $\hat \beta$
+
+- To test above hypotheses, we therefore need to
+    * Know the **distribution** of
+    $$
+    \hat \beta = \frac{ S_{xy} }{ S_{xx} }
+    $$
+    * Construct **t-statistic** involving $\hat \beta$
+
+
+
+
+## Distribution of $\hat \beta$ {.smaller}
+
+::: Theorem
+
+Consider the linear regression model 
+
+$$
+Y_i = \alpha + \beta x_i + \e_i
+$$
+
+with $\e_i$ iid $N(0, \sigma^2)$. Then
+
+$$
+\hat \beta \sim N \left(\beta , \frac{ \sigma^2 }{ S_{xx} } \right)
+$$
+
+:::
+
+
+**Proof:** Quite difficult. If interested see Theorem 11.3.3 in [@casella-berger] 
+
+
+
+
+## Construction of the t-statistic {.smaller}
+
+- We want to construct t-statistic for $\hat \beta$
+
+
+- As for the standard t-test, we want a t-statistic of the form
+
+$$
+t = \frac{\text{Estimate } - \text{ Hypothesised Value}}{\ese}
+$$
+
+
+- We know that 
+
+$$
+\hat \beta \sim N \left(\beta , \frac{ \sigma^2 }{ S_{xx} } \right)
+$$
+
+
+
+## Construction of the t-statistic {.smaller}
+
+
+
+- In particular $\hat \beta$ is an unbiased estimator for $\beta$
+
+$$
+\Expect[ \hat \beta ] = \beta
+$$
+
+- Therefore $\hat \beta$ is the estimate
+
+$$
+t = \frac{\text{Estimate } - \text{ Hypothesised Value}}{\ese} 
+  = \frac{ \hat \beta - \beta }{ \ese }
+$$
+
+
+
+## Estimated Standard Error {.smaller}
+
+- We need to find a **Standard Error** for $\hat \beta$
+
+- We know that 
+
+$$
+\Var [\hat \beta] = \frac{ \sigma^2 }{ S_{xx}}
+$$
+
+- Hence the standard error of $\hat \beta$ is the standard deviation
+
+$$
+\SD [\hat \beta] = \frac{ \sigma }{ S_{xx} }
+$$
+
+- $\SD$ cannot be used for testing, since $\sigma^2$ is unknown
+
+
+
+## Estimated Standard Error {.smaller}
+
+- We however have an estimate for $\sigma^2$
+
+$$
+\hat \sigma^2 = \frac{1}{n} \RSS = \frac1n \sum_{i=1}^n (y_i - \hat y_i)^2
+$$
+
+- $\hat \sigma^2$ was obtained from maximization of the likelihood function (Lecture 8) 
+
+- It can be shown that (see Section 11.3.4 in [@casella-berger])
+
+$$
+\Expect[ \hat\sigma^2 ] = \frac{n-2}{n} \, \sigma^2
+$$
+
+
+
+## Estimated Standard Error {.smaller}
+
+- Therefore $\hat\sigma^2$ is not unbiased estimator of $\sigma^2$
+
+- We hence rescale and introduce $S^2$
+
+$$
+S^2 := \frac{n}{n-2} \, \hat\sigma^2 = \frac{\RSS}{n-2} 
+$$
+
+- This way $S^2$ is unbiased estimator for $\sigma^2$
+
+$$
+\Expect[S^2] =  \frac{n}{n-2}  \, \Expect[\hat\sigma^2] =  \frac{n}{n-2} \, \frac{n-2}{n} \, \sigma^2 = \sigma^2
+$$
+
+
+## Estimated Standard Error {.smaller}
+
+- Recall that the standard deviation of $\hat \beta$ is
+
+$$
+\SD [\hat \beta] = \frac{ \sigma }{ S_{xx} }
+$$
+
+- We replace the unknown $\sigma$ with its unbiased estimator $S$ 
+
+- We obtain the **estimated standard error**
+
+$$
+\ese = \frac{S}{\sqrt{S_{xx}}}
+$$
+
+
+## t-statistic to test $\hat \beta$ {.smaller}
+
+The t-statistic for $\hat \beta$ is then
+
+$$
+t = \frac{\text{Estimate } - \text{ Hypothesised Value}}{\ese}
+  = \frac{ \hat \beta - \beta }{ S / \sqrt{S_{xx}} }
+$$
+
+
+::: Theorem 
+
+Consider the linear regression model 
+
+$$
+Y_i = \alpha + \beta x_i + \e_i
+$$
+
+with $\e_i$ iid $N(0, \sigma^2)$. Then
+
+$$
+t = \frac{ \hat \beta - \beta }{ S / \sqrt{S_{xx}} }  
+\, \sim \,
+t_{n-2}
+$$
+
+:::
+
+
+
+## How to prove the Theorem {.smaller}
+
+- Proof of this Theorem is quite difficult and we omit it
+
+- If you are interested in the proof, see Section 11.3.4 in [@casella-berger]
+
+- The main idea is that t-statistic can be rewritten as
+
+$$
+t = \frac{ \hat \beta - \beta }{ S / \sqrt{S_{xx}} }  
+  = \frac{ U }{ \sqrt{ V/(n-2) } }  
+$$
+
+- Here we defined
+
+$$
+U := \frac{ \hat \beta - \beta }{ \sigma / \sqrt{S_{xx}} } \,, \qquad \quad V := \frac{ (n-2) S^2 }{ \sigma^2 }
+$$
+
+
+## How to prove the Theorem {.smaller}
+
+- We know that 
+
+$$
+\hat \beta \sim N \left(\beta , \frac{ \sigma^2 }{ S_{xx} } \right)
+$$
+
+
+- Therefore 
+
+$$
+U = \frac{ \hat \beta - \beta }{ \sigma / \sqrt{S_{xx}} } \, \sim \, N(0,1)
+$$
+
+
+
+## How to prove the Theorem {.smaller}
+
+- Moreover it can be shown that 
+
+$$
+V = \frac{(n-2) S^2}{\sigma^2} \, \sim \, \chi_{n-2}^2
+$$
+
+- It can also be shown that $U$ and $V$ are independent
+
+
+
+## How to prove the Theorem {.smaller}
+
+- In summary, we have
+
+$$
+t = \frac{ \hat \beta - \beta }{ S / \sqrt{S_{xx}} }  
+  = \frac{ U }{ \sqrt{ V/(n-2) } }  
+$$
+
+- $U$ and $V$ are independent, with
+
+$$
+U \sim N(0,1) \,, \qquad \quad V \sim \chi_{n-2}^2
+$$
+
+- From the Theorem on t-distribution in Lecture 3 we conclude
+
+$$
+t \sim t_{n-2}
+$$
+
+
+
+
+## Summary: t-test for $\beta$ {.smaller}
+
+**Goal**: Estimate the slope $\beta$ for the simple linear model
+
+$$
+Y_i = \alpha + \beta x_i + \e_i \,, \qquad \e_i \, \text{ iid } \, N(0,\sigma^2)
+$$
+
+<br>
+
+**Hypotheses**: If $b$ is guess for $\beta$ the hypotheses are
+
+\begin{align*}
+H_0 & \colon \beta = b \\
+H_1 & \colon \beta \neq b
+\end{align*}
+
+
+
+## Summary: t-test for $\beta$ {.smaller}
+
+
+- The t-statistic is
+
+$$
+t = \frac{\hat \beta - b }{ \ese } \, \sim \, t_{n-2} \,, \qquad \quad
+\ese = \frac{S }{\sqrt{S_{xx}} }
+$$
+
+- In the above we have
+
+$$
+\hat \beta = \frac{ S_{xy} }{ S_{xx} } \,, \qquad \quad S^2 := \frac{\RSS}{n-2} 
+$$
+
+
+- The p-value is
+
+$$
+p = 2 P( t_{n-2} > |t| )
+$$
+
+
+
+
+
+## Example: Stock and Gold prices {.smaller}
+
+- Recall that 
+    * $Y =$ Gold Price
+    * $X =$ Stock Price
+
+- We want to test if *Gold Price* affects *Stock Price* at level $0.05$
+    * Consider the linear model
+    $$
+    Y_i =  \alpha + \beta x_i + \e_i 
+    $$
+    * Test the hypotheses
+    \begin{align*}
+    H_0 & \colon \beta = 0 \\
+    H_1 & \colon \beta \neq 0
+    \end{align*}
+
+
+
+
+## Testing for $\beta = 0$ {.smaller}
+
+- Recall that Stock Prices and Gold Prices are stored in R vectors
+    * ``stock.price``
+    * ``gold.price``
+
+
+- Fit the simple linear model with the following commands
+
+$$
+\text{gold.price } = \alpha + \beta \, \times  \text{ stock.price } + \text{ error}
+$$
+
+
+```r
+# Fit simple linear regression model
+fit.model <- lm(gold.price ~ stock.price)
+
+# Print result to screen
+summary(fit.model)
+```
+
+
+
+## Output: $\ese$, t-statistic, p-value {.smaller}
+
+:::: {.columns}
+
+::: {.column width="100%"}
+![](images/simple_regression_output_cut_2.png){width=70%}
+:::
+
+::::
+  
+
+- $\texttt{(Intercept)}$: 1st row of the table contains statistics related to $\hat \alpha$
+
+- $\texttt{stock.price}$: 2nd row of the table contains statistics related to $\hat \beta$
+    * For larger models there will be additional rows below the 2nd
+    * These will be **informative** about additional regression parameters
+
+
+
+## Output: $\ese$, t-statistic, p-value {.smaller}
+
+:::: {.columns}
+
+::: {.column width="100%"}
+![](images/simple_regression_output_cut_2.png){width=70%}
+:::
+
+::::
+  
+- The 2nd row of the table has to be interpreted as follows
+
+
+| $\texttt{Estimate}$   | $\text{The value of } \hat \beta$                  |
+|:------------------    |:----------                                         |
+| $\texttt{Std. Error}$ | Estimated standard error $\ese$ for $\beta$        |
+| $\texttt{t value}$    | t-statistic $\, t = \dfrac{\hat \beta - 0 }{\ese}$|
+| $\texttt{Pr(>|t|)}$   | p-value $\, p = 2 P( t_{n-2} > |t| )$             |
+| $\texttt{*}$, $\, \texttt{**}$, $\, \texttt{***}$, $\, \texttt{.}$   | Statistical significance -- More stars is better |
+: {tbl-colwidths="[35,65]"}
+
+
+
+
+## Output: $\ese$, t-statistic, p-value {.smaller}
+
+:::: {.columns}
+
+::: {.column width="100%"}
+![](images/simple_regression_output_cut_2.png){width=70%}
+:::
+
+::::
+  
+- The above table then gives
+
+$$
+\hat \beta = -6.169 \,, \qquad \ese = 1.37 \, , \qquad t = - 4.502 \,, \qquad 
+p = 8.9 \times 10^{-5} \
+$$
+
+
+- The $t$-statistic computed by R can also be computed by hand
+
+$$
+  t   = \frac{\hat \beta - 0}{ \ese }
+      = \frac{-6.169}{1.37} = -4.502 
+$$
+
+
+
+
+## Output: $\ese$, t-statistic, p-value {.smaller}
+
+:::: {.columns}
+
+::: {.column width="100%"}
+![](images/simple_regression_output_cut_2.png){width=70%}
+:::
+
+::::
+  
+- The p-value cannot be computed by hand
+
+- However we can find critical value on [Tables](files/Statistics_Tables.pdf)
+
+$$
+n = \text{No. of data points} = 33 \,, \qquad  \text{df} = n - 2 = 31
+$$
+
+- Critical value is $\, t_{31}(0.025) = 2.040$
+
+$$
+|t| = 4.502 > 2.040 = t_{31}(0.025) \quad \implies \quad  p < 0.05
+$$
+
+
+## Output: $\ese$, t-statistic, p-value {.smaller}
+
+:::: {.columns}
+
+::: {.column width="100%"}
+![](images/simple_regression_output_cut_2.png){width=70%}
+:::
+
+::::
+
+
+**Interpretation:** $\, p$ is very small (hence the $\, \texttt{***} \,$ rating)
+
+- Therefore we reject the null hypothesis $H_0$ and the real parameter is $\beta \neq 0$
+
+- Since $\beta \neq 0$ we have that *Stock Prices* affect *Gold Prices*
+
+- The best estimate for $\beta$ is $\hat \beta = -6.169$
+
+- $\hat \beta < 0$ and statistically significant:  
+$\,\,$ 
+As *Stock Prices* increase *Gold Prices* decrease
+
+
+
+## Warning {.smaller}
+
+
+- t-statistic in summary refers to two-sided t-test of whether a coefficient is 0
+
+- If $b = 0$ or one-sided t-test is required
+    * Compute t-statistic by hand
+    $$
+    t = \frac{\hat \beta - b}{\ese}
+    $$
+    * $\, \ese$ is in the 2nd row under $\,\, \texttt{Std. Error}$
+    * Compute p-value *by hand* with $\,\, \texttt{pt(t, df)}$
+
+
+
+
+## t-test for general regression {.smaller}
+
+- Consider the general linear regression model
+
+$$
+Y_i = \beta_1 z_{i1} + \ldots + \beta_{ip} z_{ip} + \e_i \,, \qquad 
+\e_i \, \text{ iid } \, N(0, \sigma^2)
+$$
+
+- We have that 
+
+$$
+Z_j \,\, \text{ affects } \,\, Y \qquad \iff \qquad
+\beta_j \neq 0
+$$
+
+- To see if $Z_j$ affects $Y$ we need to test the hypothesis
+
+\begin{align*}
+H_0 \colon  & \beta_j = b_j \\
+H_1 \colon & \beta_j \neq b_j
+\end{align*}
+
+
+
+
+## Distribution of estimator $\hat \beta$ {.smaller}
+
+
+- The estimator for the general model is
+
+$$
+\hat \beta = (Z^T Z)^{-1} Z^T y
+$$
+
+
+- It can be proven that (see Section 11.5 in [@degroot])
+
+$$
+\hat \beta_j \sim N \left( \beta_j ,  \xi_{jj} \sigma^2 \right)
+$$
+
+- The numbers $\xi_{jj}$ are the diagonal entries of the $p \times p$ matrix
+
+$$
+(Z^T Z)^{-1} =
+\left(
+\begin{array}{ccc}
+\xi_{11} & \ldots & \xi_{1p} \\
+\ldots   & \ldots & \ldots \\
+\xi_{p1} & \ldots & \xi_{pp} \\
+\end{array}
+\right)
+$$
+
+
+
+## Construction of the t-statistic {.smaller}
+
+
+
+- In particular $\hat \beta_j$ is an unbiased estimator for $\beta_j$
+
+$$
+\Expect[ \hat \beta_j ] = \beta_j
+$$
+
+- Therefore the t-statistic for $\hat \beta_j$ is
+
+$$
+t = \frac{\text{Estimate } - \text{ Hypothesised Value}}{\ese} 
+  = \frac{ \hat \beta_j - \beta_j }{ \ese }
+$$
+
+
+
+## Estimated Standard Error {.smaller}
+
+- We need to find a **Standard Error** for $\hat \beta_j$
+
+- We know that 
+
+$$
+\Var [\hat \beta_j] =  \xi_{jj} \, \sigma^2 
+$$
+
+- Hence the standard error of $\hat \beta_j$ is the standard deviation
+
+$$
+\SD [\hat \beta_j] =  \xi_{jj}^{1/2} \, \sigma
+$$
+
+- $\SD$ cannot be used for testing, since $\sigma^2$ is unknown
+
+
+
+
+## Estimated Standard Error {.smaller}
+
+- We however have an estimate for $\sigma^2$
+
+$$
+\hat \sigma^2 = \frac{1}{n} \RSS = \frac1n \sum_{i=1}^n (y_i - \hat y_i)^2
+$$
+
+- $\hat \sigma^2$ was obtained from maximization of the likelihood function (Lecture 9) 
+
+- It can be shown that (see Section 11.5 in [@degroot])
+
+$$
+\Expect[ \hat\sigma^2 ] = \frac{n-p}{n} \, \sigma^2
+$$
+
+
+
+## Estimated Standard Error {.smaller}
+
+- Therefore $\hat\sigma^2$ is not unbiased estimator of $\sigma^2$
+
+- We hence rescale and introduce $S^2$
+
+$$
+S^2 := \frac{n}{n-p} \, \hat\sigma^2 = \frac{\RSS}{n-p} 
+$$
+
+- This way $S^2$ is unbiased estimator for $\sigma^2$
+
+$$
+\Expect[S^2] =  \frac{n}{n-p}  \, \Expect[\hat\sigma^2] =  \frac{n}{n-p} \, \frac{n-p}{n} \, \sigma^2 = \sigma^2
+$$
+
+
+## Estimated Standard Error {.smaller}
+
+- Recall that the standard deviation of $\hat \beta$ is
+
+$$
+\SD [\hat \beta] = \xi_{jj}^{1/2} \, \sigma
+$$
+
+- We replace the unknown $\sigma$ with its unbiased estimator $S$ 
+
+- We obtain the **estimated standard error**
+
+$$
+\ese =\xi_{jj}^{1/2} \,  S
+$$
+
+
+
+## t-statistic to test $\beta_j$ {.smaller}
+
+
+::: Theorem 
+
+Consider the general linear regression model 
+
+$$
+Y_i = \beta_1 z_{i1} + \ldots +\beta_p z_{ip} + \e_i
+$$
+
+with $\e_i$ iid $N(0, \sigma^2)$. Then
+
+$$
+t = \frac{\text{Estimate } - \text{ Hypothesised Value}}{\ese} = \frac{ \hat \beta_j - \beta_j }{ \xi_{jj}^{1/2} \, S}  
+\, \sim \,
+t_{n-p}
+$$
+
+:::
+
+**Proof:** See section 11.5 in [@degroot]
+
+
+## Summary: t-test for $\beta_j$ {.smaller}
+
+**Goal**: Estimate the coefficient $\beta_j$ for the general linear model
+
+$$
+Y_i = \beta_1 z_{i1} + \ldots + \beta_p z_{ip} + \e_i \,, \qquad \e_i \, \text{ iid } \, N(0,\sigma^2)
+$$
+
+<br>
+
+**Hypotheses**: If $b_j$ is guess for $\beta_j$ the hypotheses are
+
+\begin{align*}
+H_0 & \colon \beta_j = b_j \\
+H_1 & \colon \beta_j \neq b_j
+\end{align*}
+
+
+
+## Summary: t-test for $\beta_j$ {.smaller}
+
+- The t-statistic is
+
+$$
+t = \frac{\hat \beta_j - b_j }{ \ese } \, \sim \, t_{n-p} \,, \qquad \quad
+\ese = \xi_{jj}^{1/2} \, S 
+$$
+
+- In the above $\xi_{jj}$ are diagonal entries of $(Z^TZ)^{-1}$ and
+
+$$
+\hat \beta = (Z^TZ)^{-1} Z^T y \,, \qquad \quad S^2 := \frac{\RSS}{n-p} 
+$$
+
+- The p-value is
+
+$$
+p = 2P (t_{n-p} > |t|)
+$$
+
+
+
+## t-test in R: Fit general regression with ``lm`` {.smaller}
+
+
+- If $b_j = 0$ and a two-sided t-test is required
+    * t-statistic is in $j$-th variable row under $\,\, \texttt{t value}$
+    * p-value is in $j$-th variable row under $\,\, \texttt{Pr(>|t|)}$
+
+
+- If $b_j \neq 0$ or one-sided t-test is required
+    * Compute t-statistic by hand
+    $$
+    t = \frac{\hat \beta_j - b_j}{\ese}
+    $$
+    * $\,\, \hat \beta_j$ is in $j$-th variable row under $\,\, \texttt{Estimate}$
+    * $\,\, \ese$ for $\hat \beta_j$ is in $j$-th variable row under $\,\, \texttt{Std. Error}$
+    * Compute p-value *by hand* with $\,\, \texttt{pt(t, df)}$
+
+
+
+## Example: $\ese$ for simple linear regression {.smaller}
+
+- Consider the simple regression model
+
+$$
+Y_i = \alpha + \beta x_i + \e_i
+$$
+
+
+- The design matrix is
+
+$$
+Z = \left( 
+\begin{array}{cc}
+1 & x_1 \\
+\ldots & \ldots \\
+1 & x_n \\
+\end{array}
+\right)
+$$
+
+
+## Example: $\ese$ for simple linear regression {.smaller}
+
+- We have seen in Lecture 9 that
+
+$$
+(Z^T Z)^{-1} = 
+\frac{1}{n S_{xx} }
+\left(
+\begin{array}{cc}
+\sum_{i=1}^n x^2_i & -n \overline{x}\\
+-n\overline{x} & n
+\end{array}
+\right)
+$$
+
+
+- Hence the $\ese$ for $\hat \alpha$ and $\hat \beta$ are
+
+\begin{align*}
+\ese (\hat \alpha) & = \xi_{11}^{1/2} \, S^2 = \sqrt{ \frac{ \sum_{i=1}^n x_i^2 }{ n S_{xx} } } \, S^2 \\[7pt]
+\ese (\hat \beta) & = \xi_{22}^{1/2} \, S^2 = \frac{ S^2 }{ \sqrt{ S_{xx} } }
+\end{align*}
+
+- **Note:** $\, \ese(\hat\beta)$ coincides with the $\ese$ in Slide 50
+
+
+
+
+# Part 4: <br>F-test for regression {background-color="#cc0164" visibility="uncounted"}
+
+::: footer
+
+<div color="#cc0164">  </div>
+
+:::
+
+
+
+## F-test for overall significance {.smaller}
+
+- Want to test the **overall significance** of the model
+
+$$
+Y_i = \beta_1  + \beta_2 x_{i2} + \ldots + \beta_p x_{ip} + \e_i
+$$
+
+- This means answering the question:
+
+$$
+\text{ Does at least one } X_i \text{ affect } Y \text{ ?}
+$$
+
+- How to do this?
+    * Could perform a sequence of t-tests on the $\beta_j$
+    * For statistical reasons this is not really desirable
+    * To assess **overall** significance we can perform **F-test**
+
+
+
+
+## F-test for overall significance {.smaller}
+
+The F-test for overall significance has 3 steps:
+
+1. Define a larger **full model** (with more parameters)
+
+
+2. Define a smaller nested **reduced model** (with fewer parameters)
+
+
+3. Use an F-statistic to decide between larger or smaller model
+
+
+
+## Overall significance for multiple regression {.smaller}
+
+
+
+- Model 1 is the smaller **reduced model**
+- Model 2 is the larger **full model**
+
+\begin{align*}
+\textbf{Model 1:} & \quad Y_i = \beta_1 + \e_i \\[15pt]
+\textbf{Model 2:} & \quad Y_i = \beta_1  + \beta_2 x_{i2} + \ldots + \beta_p x_{ip} + \e_i
+\end{align*}
+
+
+- Choosing the smaller Model 1 is equivalent to accepting $H_0$
+
+\begin{align*}
+H_0 & \colon \, \beta_2 = \beta_3 = \ldots = \beta_p = 0 \\
+H_1 & \colon \text{ At least one of the } \beta_i \text{ is non-zero}
+\end{align*}
+
+
+
+## Overall significance for simple regression {.smaller}
+
+
+- Model 1 is the smaller **reduced model**
+- Model 2 is the larger **full model**
+
+\begin{align*}
+\textbf{Model 1:} & \quad Y_i = \alpha + \e_i \\[15pt]
+\textbf{Model 2:} & \quad Y_i = \alpha  + \beta x_i  + \e_i
+\end{align*}
+
+
+- Choosing the smaller Model 1 is equivalent to accepting $H_0$
+
+\begin{align*}
+H_0 & \colon \beta = 0 \\
+H_1 & \colon \beta \neq 0 
+\end{align*}
+
+
+
+## Construction of F-statistic {.smaller}
+
+- Consider the full model with $p$ parameters
+
+$$
+\textbf{Model 2:}  \quad Y_i = \beta_1  + \beta_2 x_{i2} + \ldots + \beta_p x_{ip} + \e_i
+$$
+
+- Predictions for the full model are
+
+$$
+\hat y_i := \beta_1  + \beta_2 x_{i2} + \ldots + \beta_p x_{ip}  
+$$
+
+- Define the residual sum of squares for the full model
+
+$$
+\RSS(p) := \sum_{i=1}^n (y_i - \hat y_i)^2 
+$$
+
+
+
+## Construction of F-statistic {.smaller}
+
+
+- Consider now the reduced model
+
+$$
+\textbf{Model 1:} \quad Y_i = \beta_1 + \e_i
+$$
+
+
+- Predictions of the reduced model are constant
+
+$$
+\hat y_i = \beta_1 
+$$
+
+- Define the residual sum of squares for the full model
+
+$$
+\RSS(1) := \sum_{i=1}^n (y_i - \beta_1)^2
+$$
+
+
+
+## Construction of F-statistic {.smaller}
+
+- Suppose the parameters of the full model
+$$
+\beta_2, \ldots, \beta_p
+$$
+are not important
+
+- In this case the predictions of full and reduced model will be similar
+
+- Therefore the $\RSS$ for the 2 models are similar
+
+$$
+\RSS (1) \, \approx \, \RSS(p)
+$$
+
+
+
+## Construction of F-statistic {.smaller}
+
+- Recall that $\RSS$ is defined via minimization
+
+$$
+\RSS(k) := \min_{\beta_1 , \ldots , \beta_k} \ \sum_{i=1}^n ( y_i - \hat y_i)^2 \,, \qquad 
+\hat y_i := \beta_1 + \beta_2 x_{i2} + \ldots + \beta_k x_{ik}
+$$
+
+- Therefore $\RSS$ cannot increase if we add parameters to the model
+
+$$
+\RSS(1) \geq \RSS(p)
+$$
+
+- To measure how influential the parameters $\beta_2, \ldots, \beta_p$ are, we study
+
+$$
+\frac{\RSS(1) - \RSS (p)}{\RSS(p)}
+$$
+
+
+
+## Construction of F-statistic {.smaller}
+
+- We now suitably rescale
+
+$$
+\frac{\RSS(1) - \RSS (p)}{\RSS(p)}
+$$
+
+- To this end, note that the degrees of freedom of reduced model are 
+
+$$
+\df (1) = n - 1
+$$
+
+- The degrees of freedom of the full model are 
+
+$$
+\df (p) = n - p
+$$
+
+
+
+## F-statistic for overall significance {.smaller}
+
+
+::: Definition
+
+The **F-statistic** for overall significance is
+
+\begin{align*}
+F & := \frac{\RSS(1) - \RSS (p)}{ \df(1) - \df (p) } \bigg/ 
+\frac{\RSS(p)}{\df(p)}  \\[15pt] 
+  & = \frac{\RSS(1) - \RSS (p)}{ p - 1 } \bigg/ 
+\frac{\RSS(p)}{n - p}
+\end{align*}
+
+:::
+
+
+**Theorem:** The F-statistic for overall significance has F-distribution
+
+$$
+F \, \sim \, F_{p-1,n-p}
+$$
+
+
+
+
+
+
+## Rewriting the F-statistic {.smaller}
+
+::: Proposition
+
+The F-statistic can be rewritten as
+
+\begin{align*}
+F & = \frac{\RSS(1) - \RSS (p)}{ p - 1 } \bigg/ 
+\frac{\RSS(p)}{n - p}  \\[15pt]
+  & = \frac{R^2}{1 - R^2} \, \cdot \, \frac{n - p}{p - 1} 
+\end{align*}
+
+:::
+
+
+
+## Proof of Proposition {.smaller}
+
+- Notice that $\TSS$ does not depend on $p$ since
+
+$$
+\TSS = \sum_{i=1}^n (y_i - \overline{y})^2
+$$
+
+
+- Recall the definition of $R^2$
+
+$$
+R^2 = 1 - \frac{\RSS (p)}{\TSS} 
+$$
+
+
+- From the above we obtain
+
+$$
+\RSS(p) = (1 - R^2) \TSS
+$$
+
+
+
+
+## Proof of Proposition {.smaller}
+
+- By definition we have that 
+
+$$
+\RSS(1) = \min_{\beta_1} \ \sum_{i=1}^n (y_i - \beta_1)^2 
+$$
+
+- **Exercise:** Check that the unique solution to the above problem is
+
+$$
+\beta_1 = \overline{y}
+$$
+
+- Therefore we have
+
+$$
+\RSS(1) =  \sum_{i=1}^n (y_i - \overline{y})^2 = \TSS
+$$
+
+
+
+
+## Proof of Proposition {.smaller}
+
+- We just obtained the two identities
+
+$$
+\RSS(p) = (1 - R^2) \TSS \,, \qquad \quad \RSS(1) = \TSS
+$$
+
+
+- From the above we conclude the proof
+
+\begin{align*}
+F & = \frac{\RSS(1) - \RSS (p)}{ p - 1 } \bigg/ 
+\frac{\RSS(p)}{n - p}  \\[15pt]
+  & = \frac{\TSS - (1 - R^2) \TSS}{ p - 1 } \bigg/ 
+\frac{(1 - R^2) \TSS}{n - p}\\[15pt]
+  & = \frac{R^2}{1 - R^2} \, \cdot \, \frac{n - p}{p - 1} 
+\end{align*}
+
+
+
+
+
+## F-statistic for simple regression {.smaller}
+
+::: Proposition
+
+1. The $F$-statistic for overall significance in simple regression is
+$$
+F = t^2 \,, \qquad \quad t = \frac{\hat \beta}{ S / \sqrt{S_{xx}}}
+$$
+where $t$ is the t-statistic for $\hat \beta$.
+
+2. In particular the p-values for t-test and F-test coincide
+$$
+p = P( t_{n-2} > |t| ) = P( F_{1,n-2} > F )
+$$
+
+:::
+
+**Proof:** Will be left as an exercise
+
+
+
+
+## Summary: F-test for overall significance {.smaller}
+
+**Goal:** Test the **overall significance** of the model
+
+$$
+Y_i = \beta_1  + \beta_2 x_{i2} + \ldots + \beta_p x_{ip} + \e_i
+$$
+
+This means answering the question:
+
+$$
+\text{ Does at least one } X_i \text{ affect } Y \text{ ?}
+$$
+
+
+**Hypotheses:** The above question is equivalent to testing
+
+\begin{align*}
+H_0 & \colon \, \beta_2 = \beta_3 = \ldots = \beta_p = 0 \\
+H_1 & \colon \text{ At least one of the } \beta_i \text{ is non-zero}
+\end{align*}
+
+
+
+## Summary: F-test for overall significance {.smaller}
+
+- F-statistic is
+
+\begin{align*}
+F & = \frac{\RSS(1) - \RSS (p)}{ p - 1 } \bigg/ 
+\frac{\RSS(p)}{n - p}  \\[15pt]
+  & = \frac{R^2}{1 - R^2} \, \cdot \, \frac{n - p}{p - 1} 
+\end{align*}
+
+- Distribution of $F$ is
+
+$$
+F \, \sim  \, F_{p-1,n-p}
+$$
+
+
+
+
+
+## Summary: F-test for overall significance {.smaller}
+
+- The p-value is
+
+$$
+p = P ( F_{p-1,n-2} > F)
+$$
+
+
+- **F-test in R:**
+    * Fit the multiple regression model with ``lm``
+    * F-statistic is listed in the summary
+    * p-value is listed in the summary
+
+
+
+
+
+## Example: Stock and Gold prices {.smaller}
+
+- Recall that 
+    * $Y =$ Gold Price
+    * $X =$ Stock Price
+
+- We want to test the **overall significance** of the model
+
+    $$
+    Y_i =  \alpha + \beta x_i + \e_i 
+    $$
+
+- To this end, perform F-test for the hypotheses
+
+\begin{align*}
+H_0 & \colon \beta = 0 \\
+H_1 & \colon \beta \neq 0
+\end{align*}
+
+
+
+
+
+## F-test for overall significance {.smaller}
+
+- Recall that Stock Prices and Gold Prices are stored in R vectors
+    * ``stock.price``
+    * ``gold.price``
+
+
+- Fit the simple linear model with the following commands
+
+$$
+\text{gold.price } = \alpha + \beta \, \times  \text{ stock.price } + \text{ error}
+$$
+
+
+```r
+# Fit simple linear regression model
+fit.model <- lm(gold.price ~ stock.price)
+
+# Print result to screen
+summary(fit.model)
+```
+
+
+
+## Output: F-statistic and p-value {.smaller}
+
+:::: {.columns}
+
+::: {.column width="100%"}
+![](images/simple_regression_output_cut_3.png){width=80%}
+:::
+
+::::
+  
+
+- F-statistic is $F = 20.27$ 
+
+- Degrees of freedom are $1$ and $31$, meaning that $F \, \sim \, F_{1,31}$
+
+- The p-value is 
+
+$$
+p = P( F_{1,31} > F ) = 8.904 \times 10^{-5}
+$$
+
+
+- **Conclusion:** Strong evidence ($p=0.000$) that *Stock Price* affects *Gold Price*
+
+
+
+
+
+## Output: F-statistic and p-value {.smaller}
+
+:::: {.columns}
+
+::: {.column width="100%"}
+![](images/simple_regression_output_cut_3.png){width=80%}
+:::
+
+::::
+  
+
+We can also compute F-statistic by hand
+
+- From the output we see that $R^2 = 0.3953$
+
+- We have $p = 2$ and $n =33$
+
+- Therefore 
+
+$$
+F = \frac{ R^2 }{ 1 - R^2  } \, \cdot \, \frac{n-p}{p-1} = \frac{0.395325}{0.604675} \, \cdot \, \frac{31}{1} = 20.267
+$$
+
+
+
+
+
+## Output: F-statistic and p-value {.smaller}
+
+:::: {.columns}
+
+::: {.column width="100%"}
+![](images/simple_regression_output_cut_3.png){width=80%}
+:::
+
+::::
+  
+- The p-value cannot be computed by hand
+
+- However we can find critical values close to $F_{1,31} (0.05)$ on [Tables](files/Statistics_Tables.pdf)
+
+$$
+F_{1, 30} (0.05) = 4.17 \,, \qquad \quad  F_{1, 40} (0.05) = 4.08
+$$
+
+
+
+## Output: F-statistic and p-value {.smaller}
+
+:::: {.columns}
+
+::: {.column width="100%"}
+![](images/simple_regression_output_cut_3.png){width=80%}
+:::
+
+::::
+
+- We can approximate $F_{1,31} (0.05)$ by averaging the found values
+
+$$
+F_{1,31}(0.05) \, \approx  \,  \frac{F_{1, 30} (0.05) +  F_{1, 40} (0.05)}{2} = 4.125
+$$
+
+- We reject $H_0$ since
+
+$$
+F = 20.267 > 4.125 = F_{1,31}(0.05) \quad \implies \quad  p < 0.05
+$$
+
+
+
+
+
+
+# Part 5: <br>The Longley dataset {background-color="#cc0164" visibility="uncounted"}
+
+::: footer
+
+<div color="#cc0164">  </div>
+
+:::
+
+
+
+
+## Longley dataset {.smaller}
+
+```{r}
+longley <- read.table(file = "datasets/longley.txt",
+                      header = TRUE)
+
+head(longley,n=3)
+```
+
+
+**Goal:** Explain the number of *Employed* people $Y$ in the US in terms of
+
+- $X_2$ *GNP* Gross National Product
+- $X_3$ number of *Unemployed*
+- $X_4$ number of people in the *Armed Forces*
+- $X_5$ *non-institutionalised Population* $\geq$ age 14 (not in care of insitutions)
+- $X_6$ *Years* from 1947 to 1962
+
+
+
+
+## R commands for reading in the data {.smaller}
+
+- Longley dataset available here [longley.txt](datasets/longley.txt)
+
+- Download the file and place it in current working directory
+
+```r
+# Read data file
+longley <- read.table(file = "longley.txt",
+                      header = TRUE)
+
+# Store columns in vectors
+x2 <- longley[ , 1]
+x3 <- longley[ , 2]
+x4 <- longley[ , 3]
+x5 <- longley[ , 4]
+x6 <- longley[ , 5]
+y <- longley[ , 6]
+```
+
+
+## R commands for fitting multiple regression {.smaller}
+
+- We want to fit the multiple regression model
+
+$$
+Y = \beta_1 + \beta_2 \, X_2 + \beta_3 \, X_3 + \beta_4 \, X_4 + \beta_5 \, X_5
+    + \beta_6 \, X_6 + \e
+$$
+
+
+```r
+# Fit multiple regression model
+model <- lm(y ~ x2 + x3 + x4 + x5 + x6)
+
+# Print summary
+summary(model)
+```
+
+<br>
+
+- Full code can be downloaded here [longley_regression.R](codes/longley_regression.R)
+
+
+##  {.smaller}
+
+:::: {.columns}
+
+::: {.column width="100%"}
+![](images/longley_output.png){width=70%}
+:::
+
+::::
+
+
+
+## Interpreting R output {.smaller}
+
+We are interested in the following information
+
+1. The $R^2$ statistic
+
+2. The individual t-statistics
+
+3. The F-statistic to assess overall significance
+
+
+
+## The $R^2$ statistic {.smaller}
+
+:::: {.columns}
+
+::: {.column width="100%"}
+![](images/longley_output_1.png){width=85%}
+:::
+
+::::
+
+- We have that $R^2=0.9955$ 
+
+- $R^2$ is very high which suggests we might have quite a good model
+
+- This means the model explains around 99.6\% of the variability in the data
+
+- There is a chance $R^2$ is too high to be true (see later)
+
+
+
+
+## The individual t-statistics {.smaller}
+
+- Look at p-values for each variable $X_j$
+
+- Recall: Such p-values refer to the two-sided t-test
+
+$$
+H_0 \colon \, \beta_j = 0 \qquad  \quad
+H_1 \colon \, \beta_j \neq 0
+$$
+
+
+::: {.column width="48%"}
+
+- Find $X_j$ for which $p < 0.05$
+    * For $X_j$ we reject $H_0$
+    * Therefore $\beta_j \neq 0$
+    * Hence $X_j$ influences $Y$ 
+    * $X_j$ is statistically significant
+
+:::
+
+::: {.column width="48%"}
+
+- In dissertations $p < 0.1$ is OK
+    * Weak evidence against $H_0$
+    * $X_j$ has some weak effect on $Y$
+
+:::
+
+
+
+
+
+
+## The individual t-statistics {.smaller}
+
+::: {.column width="100%"}
+![](images/longley_output_3.png){width=83%}
+:::
+
+- Stars in output help you find the significant p-values
+
+| Significance code       | p-value               |  Coefficient        |
+|:------------------    |:----------              |:-----------------   |
+|  No stars             |  $0.1 \leq p \leq 1$    |  $\beta_j = 0$      |
+|  $\texttt{.}$         |  $0.05 \leq p < 0.1$    |  $\beta_j = 0$      |
+|  $\texttt{*}$         |  $0.1 \leq p < 0.05$    |  $\beta_j \neq 0$   |
+|  $\texttt{**}$        |  $0.001 \leq p < 0.01$  |  $\beta_j \neq 0$   |
+|  $\texttt{***}$       |  $p < 0.001$            |  $\beta_j \neq 0$   |
+: {tbl-colwidths="[35,40,25]"}
+
+
+
+##  {.smaller}
+
+::: {.column width="100%"}
+![](images/longley_output_2.png){width=68%}
+:::
+
+**Interpretation:** Not all variables are statistically significant
+
+- This is because some variables have no stars 
+- Significant variables have at least one star
+
+
+
+
+## {.smaller}
+
+::: {.column width="100%"}
+![](images/longley_output_2.png){width=68%}
+:::
+
+1. Intercept has two stars $\, \texttt{**}$ and hence is significant
+    * The p-value is $p = 0.001932$
+    * Since $p < 0.05$ we conclude that the real intercept is $\beta_1 \neq 0$
+    * Estimated intercept is $\hat \beta_1 = -3.45 \times 10^{3}$
+
+
+
+
+## {.smaller}
+
+::: {.column width="100%"}
+![](images/longley_output_2.png){width=68%}
+:::
+
+
+2. $X_2$ and $X_5$ have no stars
+    * p-values are $p \geq 0.1$ and therefore  $\beta_2 = \beta_5 = 0$
+    * Notice that the estimates $\hat \beta_2$ and $\hat \beta_5$ are not zero
+    * However these estimates have to be ignored due to t-test
+    * $X_2$ and $X_5$ have no effect on $Y$
+    * Hence *GNP* and *Non-Institutionalized* do not affect *Number of Employed*
+
+
+
+
+##  {.smaller}
+
+::: {.column width="100%"}
+![](images/longley_output_2.png){width=68%}
+:::
+
+
+3. $X_3$ has three stars $\, \texttt{***}$ and hence is significant
+    * Since $p<0.05$ we have that $\beta_3 \neq 0$
+    * Estimated coefficient is $\hat \beta_3 < 0$
+    * Since $\hat \beta_3 < 0$ we have that $X_3$ negatively affects $Y$
+    * As the *Number of Unemployed* increases the *Number of Employed* decreases
+
+
+
+
+##  {.smaller}
+
+::: {.column width="100%"}
+![](images/longley_output_2.png){width=68%}
+:::
+
+
+4. $X_4$ has three stars $\, \texttt{***}$ and hence is significant
+    * Since $p<0.05$ we have that $\beta_4 \neq 0$
+    * Estimated coefficient is $\hat \beta_4 < 0$
+    * Therefore $X_4$ negatively affects $Y$
+    * As the size of *Armed Forces* increases the *Number of Employed* decreases
+
+
+
+##  {.smaller}
+
+::: {.column width="100%"}
+![](images/longley_output_2.png){width=68%}
+:::
+
+
+5. $X_6$ has two stars $\, \texttt{**}$ and hence is significant
+    * Since $p<0.05$ we have that $\beta_6 \neq 0$
+    * Estimated coefficient is $\hat \beta_6 > 0$
+    * Therefore $X_6$ positively affects $Y$
+    * Remember that $X_6$ is the *Year*
+    * The *Number of Employed* is increasing every year from 1947 to 1962
+
+
+
+
+## The F-statistic to assess overall significance {.smaller}
+
+:::: {.columns}
+
+::: {.column width="100%"}
+![](images/longley_output_1.png){width=85%}
+:::
+
+::::
+
+- The F-statistic is $F = 438.8$ with distribution $F_{5, 10}$
+
+- The p-value for F-test is $p = 2.242 \times 10^{-11} < 0.05$
+
+- Recall: Such p-value refers to the F-test for
+
+$$
+H_0 \colon \, \beta_2 =  \ldots = \beta_6 = 0  \,, \qquad 
+H_1 \colon \, \text{At least one } \beta_j \neq 0
+$$
+
+- Since $p < 0.05$ we reject $H_0$
+
+- There is evidence that at least one of the $X$-variables affects $Y$
+
+
+
+## Conclusions {.smaller}
+
+
+- There is evidence that at least one of the $X$-variables affects $Y$
+
+- We have seen that 
+    * $X_2$ and $X_5$ do not affect $Y$
+    * $X_3$ and $X_4$ negatively affect $Y$
+    * $X_6$ positively affects $Y$
+
+- The $R^2$ statistic is really high:
+    * The model explains around 99.6% of the variability in the data
+
+
+
+
+::: {.content-hidden}
+
+**Question:** Do you think the high $R^2$ statistic is suspicious?
+
+
+
+
+## Observations {.smaller}
+
+- $X_3$ and $X_4$ are *Unemployment Rate* and *Number of Unemployed*
+    * These quantities are clearly equivalent 
+    * Do we need to include both in the model? 
+
+- $X_3$ and $X_4$ negatively affect the *Number of Employed*
+    * Number of Employed and Unemployed are clearly inversely proportional
+    * No wonder $X_3, X_4$ and $Y$ are negatively correlated!
+    * $X_3$ and $X_4$ provide no meaningful explanation for $Y$!
+
+- $X_6$ is the yearly trend
+    * We saw that $X_6$ positively affects the *Number of Employed*
+    * This just means the *Number of Employed* is increasing between 1947 and 1962
+
+
+## Answer {.smaller}
+
+The model does really well because it is **trivial**
+
+- It tells us that the *Number of Employed* is increasing between 1947 and 1962
+    * This is clear just by looking at data for $Y$
+
+- It tells us that *Employment* and *Unemployment* are inversely proportional
+    * Thanks a lot!
+
+:::
+
+
+
+
+
+
+
+# Part 6: <br> Model selection <br> {background-color="#cc0164" visibility="uncounted"}
+
+::: footer
+
+<div color="#cc0164">  </div>
+
+:::
+
+
+
+
+## Testing regression parameters {.smaller}
+
+**Summary:** We have seen
+
+- **t-test**
+    * Test the significance of individual parameters
+    \begin{align*}
+    H_0 & \colon \, \beta_j = 0 \\
+    H_1 & \colon \, \beta_j \neq 0
+    \end{align*}
+
+
+## Testing regression parameters {.smaller}
+
+- **F-test**
+    * Test the overall significance of the model
+    * This is done by comparing two **nested** regression models
+    \begin{align*}
+    \textbf{Model 1:} & \qquad Y_ i= \beta_1 + \e_i \\[10pt]
+    \textbf{Model 2:} & \qquad Y_ i= \beta_1 + \beta_2 x_{2, i}+ \ldots + \beta_p x_{p, i} + \e_i
+    \end{align*}
+    * The comparison is achieved with F-test for
+    \begin{align*}
+    H_0 & \colon \, \beta_2 = \beta_3 = \ldots = \beta_p = 0 \\
+    H_1 & \colon \text{ At least one of the } \beta_i \text{ is non-zero}
+    \end{align*}
+    * Choosing Model 1 is equivalent to accepting $H_0$
+
+
+
+## More general nested models {.smaller}
+
+- Consider the more general **nested** models
+
+\begin{align*}
+    \textbf{Model 1:} & \quad Y_ i =\beta_1 + \beta_2 x_{2, i}+ \ldots + \beta_{k} x_{k, i} + \e_i \\[10pt]
+    \textbf{Model 2:} & \quad Y_ i= \beta_1 + \beta_2 x_{2, i}+ \ldots + \beta_{k} x_{k, i} + \beta_{k + 1} x_{k + 1, i} + 
+    \ldots + \beta_{p} x_{p, i} + \e_i
+\end{align*}
+
+
+- Model 1 has k parameters
+
+- Model 2 has p parameters with $p > k$
+
+- The two models coincide if
+
+$$
+\beta_{k + 1} = \beta_{k + 2} = \ldots = \beta_p = 0 
+$$
+
+**Question:** How do we decide which model is better?
+
+
+## Model selection {.smaller}
+
+- Consider the more general **nested** models
+
+\begin{align*}
+    \textbf{Model 1:} & \quad Y_ i =\beta_1 + \beta_2 x_{2, i}+ \ldots + \beta_{k} x_{k, i} + \e_i \\[10pt]
+    \textbf{Model 2:} & \quad Y_ i= \beta_1 + \beta_2 x_{2, i}+ \ldots + \beta_{k} x_{k, i} + \beta_{k + 1} x_{k + 1, i} + 
+    \ldots + \beta_{p} x_{p, i} + \e_i
+\end{align*}
+
+
+- Define the predictions for the two models
+
+\begin{align*}
+\hat y_i^1 & := \beta_1 + \beta_2 x_{2, i}+ \ldots + \beta_{k} x_{k, i} \\[10pt]
+\hat y_i^2 & :=  \beta_1 + \beta_2 x_{2, i}+ \ldots + \beta_{k} x_{k, i} + \beta_{k + 1} x_{k + 1, i} + 
+    \ldots + \beta_{p} x_{p, i}
+\end{align*}
+
+
+
+
+## Model selection {.smaller}
+
+- Consider the more general **nested** models
+
+\begin{align*}
+    \textbf{Model 1:} & \quad Y_ i =\beta_1 + \beta_2 x_{2, i}+ \ldots + \beta_{k} x_{k, i} + \e_i \\[10pt]
+    \textbf{Model 2:} & \quad Y_ i= \beta_1 + \beta_2 x_{2, i}+ \ldots + \beta_{k} x_{k, i} + \beta_{k + 1} x_{k + 1, i} + 
+    \ldots + \beta_{p} x_{p, i} + \e_i
+\end{align*}
+
+- $\RSS$ measures variation between data and prediction
+
+\begin{align*}
+    \textbf{Model 1:} & \quad \RSS_1 := \RSS (k) = \sum_{i=1}^n (y_i - \hat y_i^1)^2 \\[10pt]
+    \textbf{Model 2:} & \quad \RSS_2 := \RSS (p) = \sum_{i=1}^n (y_i - \hat y_i^2)^2
+\end{align*}
+
+
+
+## Extra sum of squares {.smaller}
+
+- Consider the more general **nested** models
+
+\begin{align*}
+    \textbf{Model 1:} & \quad Y_ i =\beta_1 + \beta_2 x_{2, i}+ \ldots + \beta_{k} x_{k, i} + \e_i \\[10pt]
+    \textbf{Model 2:} & \quad Y_ i= \beta_1 + \beta_2 x_{2, i}+ \ldots + \beta_{k} x_{k, i} + \beta_{k + 1} x_{k + 1, i} + 
+    \ldots + \beta_{p} x_{p, i} + \e_i
+\end{align*}
+
+
+- The **extra sum of squares** is the difference
+
+$$
+\RSS_1 - \RSS_2 := \RSS (k) - \RSS (p)
+$$
+
+
+
+## Construction of F-statistic {.smaller}
+
+**Goal:** Use $\RSS$ to construct statistic to compare the 2 models
+
+- Suppose the extra parameters of Model 2 
+$$
+\beta_{k+1}, \, \beta_{k+2} , \, \ldots , \, \beta_p
+$$
+are not important
+
+- Hence the predictions of the 2 models will be similar
+$$
+\hat y_i^1 \, \approx \, \hat y_i^2
+$$
+
+- Therefore the $\RSS$ for the 2 models are similar
+$$
+\RSS_1 \, \approx \, \RSS_2
+$$
+
+
+## Construction of F-statistic {.smaller}
+
+- Recall that $\RSS$ cannot increase if we increase parameters
+
+$$
+k < p \quad \implies \quad \RSS (k) \geq \RSS (p)
+$$
+
+
+- To measure influence of extra parameters 
+$$
+\beta_{k+1}, \, \beta_{k+2} , \, \ldots , \, \beta_p
+$$
+we consider the ratio
+$$
+\frac{ \RSS_1 - \RSS_2 }{ \RSS_2 } = \frac{ \RSS (k) - \RSS (p) }{ \RSS(p) }
+$$
+
+
+
+## Construction of F-statistic {.smaller}
+
+- We now suitably rescale
+
+$$
+\frac{ \RSS_1 - \RSS_2 }{ \RSS_2 }
+$$
+
+- Note that the degrees of freedom are
+    * Model 1:
+    $$
+    k \text{ parameters } \quad \implies \quad \df_1 =  n - k
+    $$
+    * Model 2:
+    $$
+    p \text{ parameters } \quad \implies \quad \df_2 = n - p
+    $$
+
+
+## F-statistic for model selection {.smaller}
+
+::: Definition
+
+The F-statistic for model selection is
+
+\begin{align*}
+F & = \frac{ \RSS_1 - \RSS_2 }{ \df_1 - \df_2  } \bigg/
+      \frac{ \RSS_2 }{ \df_2  }  \\[20pt]
+ & = \frac{ \RSS(k) - \RSS(p) }{ p - k  } \bigg/
+      \frac{ \RSS(p) }{ n - p  }  
+\end{align*}
+
+:::
+
+**Theorem:** The F-statistic for model selection has F-distribution
+
+$$
+F \, \sim  \, F_{\df_1 - \df_2 , \, \df_2} = F_{p - k, \, n - p}
+$$
+
+
+## Rewriting the F-statistic {.smaller}
+
+- Recall the formulas for sums of squares
+
+$$
+\TSS = \ESS(p) + \RSS(p)  \,, \qquad \quad
+\TSS = \ESS(k) + \RSS(k)  
+$$
+
+- **Note:** $\TSS$ does not depend on numeber of parameters
+
+- Also define the coefficient of determination for the two models
+
+$$
+R_1^2 := R^2 (k) := \frac{ \ESS(k) }{ \TSS }
+\, , \qquad \quad 
+R_2^2 := R^2 (p) := \frac{ \ESS(p) }{ \TSS }
+$$
+
+
+
+## Rewriting the F-statistic {.smaller}
+
+
+
+\begin{align*}
+\RSS(k) - \RSS(p) & = \ESS(p) - \ESS(k) \\[10pt]
+                  & = \TSS ( R^2(p) - R^2(k) ) \\[10pt]
+                  & = \TSS ( R^2_2 - R^2_1 ) \\[20pt]
+\RSS(p) & = \TSS - \ESS(p)  \\[10pt]
+        & = \TSS  - \TSS \, \cdot \, R^2 (p) \\[10pt]
+        & = \TSS (1 - R^2(p)) \\[10pt]
+        & = \TSS (1 - R_2^2)
+\end{align*}
+
+
+## Rewriting the F-statistic {.smaller}
+
+Therefore the F-statistic can be rewritten as
+
+\begin{align*}
+F & = \frac{ \RSS_1 - \RSS_2 }{ \df_1 - \df_2  } \bigg/
+      \frac{ \RSS_2 }{ \df_2 }   \\[20pt]
+  & = \frac{ \TSS (R^2_2 - R^2_1) }{\TSS (1 - R^2_2 )}  \, \cdot \,  \frac{n-p}{p-k} \\[20pt]
+  & = \frac{ R^2_2 - R^2_1 }{1 - R^2_2}  \, \cdot \,  \frac{n-p}{p-k}
+\end{align*}
+
+
+
+## F-test for overall significance revisited {.smaller}
+
+- The F-test for overall significance allows to select between models
+\begin{align*}
+    \textbf{Model 1:} & \qquad Y_ i= \beta_1 + \e_i \\[10pt]
+    \textbf{Model 2:} & \qquad Y_ i= \beta_1 + \beta_2 x_{2, i}+ \ldots + \beta_p x_{p, i} + \e_i
+\end{align*}
+
+- Model 1 has $k = 1$ parameters
+
+- F-statistic for model selection coincides with F-statistic for overall significance
+
+$$
+F = \frac{ \RSS(1) - \RSS(p) }{ p - 1  } \bigg/
+      \frac{ \RSS(p) }{ n - p  }
+$$
+
+
+
+## Summary: F-test for model selection {.smaller}
+
+**Goal:** Choose one of the nested models
+
+\begin{align*}
+    \textbf{Model 1:} & \quad Y_ i =\beta_1 + \beta_2 x_{2, i}+ \ldots + \beta_{k} x_{k, i} + \e_i \\[10pt]
+    \textbf{Model 2:} & \quad Y_ i= \beta_1 + \beta_2 x_{2, i}+ \ldots + \beta_{k} x_{k, i} + \beta_{k + 1} x_{k + 1, i} + 
+    \ldots + \beta_{p} x_{p, i} + \e_i
+\end{align*}
+
+
+**Hypotheses:** Choosing a model is equivalent to testing
+
+\begin{align*}
+H_0 \colon & \, \beta_{k+1} = \beta_{k+2} = \ldots  = \beta_p \\[5pt]
+H_1 \colon & \, \text{ At least one among } \beta_{k+1}, \ldots, \beta_p \text{ is non-zero}
+\end{align*}
+
+- $H_0$ is in favor of Model 1
+- $H_1$ is in favor of Model 2
+
+
+
+## Summary: F-test for model selection {.smaller}
+
+- The F-statistic is
+
+\begin{align*}
+F & = \frac{ \RSS_1 - \RSS_2 }{ \df_1 - \df_2  } \bigg/
+      \frac{ \RSS_2 }{ \df_2  }   \\[20pt]
+  & = \frac{ R^2_2 - R^2_1 }{1 - R^2_2 }  \, \cdot \,  \frac{n-p}{p-k}
+\end{align*}
+
+- Distribution of $F$ is
+
+$$
+F \, \sim \, F_{ \df_1 - \df_2 , \, \df_2 } = F_{p-k, \, n-p}
+$$
+
+
+
+## Summary: F-test for model selection {.smaller}
+
+- The p-value is
+
+$$
+p = P(F_{p-k,n-p} > F)
+$$
+
+- **F-test for model selection in R:**
+    - Fit the two models with $\,\texttt{lm}$
+    - Use the command $\, \texttt{anova} \qquad\quad$  (more on this later)
+
+
+- **Alternative:**
+    - Find $R^2_1$ and $R^2_2$ in summary
+    - Compute F-statistic and p-value
+
+
+
+# Part 7: <br>Examples of <br> model selection {background-color="#cc0164" visibility="uncounted"}
+
+::: footer
+
+<div color="#cc0164">  </div>
+
+:::
+
+
+
+
+## Examples of model selection {.smaller}
+
+We illustrate F-test for Model Selection with 3 examples:
+
+- Joint significance in Multiple linear Regression
+- Polynomial regression 1
+- Polynomial regression 2
+
+
+
+## Example 1: Multiple linear regression {.smaller}
+
+- Consider again the Longley dataset
+
+```{r}
+longley <- read.table(file = "datasets/longley.txt",
+                      header = TRUE)
+
+head(longley,n=3)
+```
+
+
+**Goal:** Explain the number of *Employed* people $Y$ in the US in terms of
+
+- $X_2$ *GNP* Gross National Product
+- $X_3$ number of *Unemployed*
+- $X_4$ number of people in the *Armed Forces*
+- $X_5$ *non-institutionalised Population* $\geq$ age 14 (not in care of insitutions)
+- $X_6$ *Years* from 1947 to 1962
+
+
+
+## Example 1: Multiple linear regression {.smaller}
+
+**Previously:** Using t-test for parameters significance we showed that
+
+- $X_2$ and $X_5$ do not affect $Y$
+- $X_3$ and $X_4$ negatively affect $Y$
+- $X_6$ positively affects $Y$
+
+**Question:** Since $X_2$ and $X_5$ do not affect $Y$, can we exclude them from the model?
+
+
+## Two competing models {.smaller}
+
+
+We therefore want to select between the models:
+
+
+- **Model 1:** The reduced model without $X_2$ and $X_5$
+
+$$
+Y = \beta_1 + \beta_3 X_3 + \beta_4 X_4 + 
+       \beta_6 X_6 + \e
+$$
+
+- **Model 2:** The full model
+
+$$
+Y = \beta_1 + \beta_2 X_2 + \beta_3 X_3 + \beta_4 X_4 + 
+       \beta_5 X_5 +  \beta_6 X_6 + \e
+$$
+
+
+
+
+
+## R commands for reading in the data {.smaller}
+
+- We read the data in the same way we did earlier
+
+- Longley dataset available here [longley.txt](datasets/longley.txt)
+
+- Download the file and place it in current working directory
+
+```r
+# Read data file
+longley <- read.table(file = "longley.txt",
+                      header = TRUE)
+
+# Store columns in vectors
+x2 <- longley[ , 1]
+x3 <- longley[ , 2]
+x4 <- longley[ , 3]
+x5 <- longley[ , 4]
+x6 <- longley[ , 5]
+y <- longley[ , 6]
+```
+
+
+## R commands for fitting multiple regression {.smaller}
+
+1. Fit the two multiple regression models
+
+\begin{align*}
+\textbf{Model 1:} & \quad Y = \beta_1 + \beta_3 X_3 + \beta_4 X_4 + 
+       \beta_6 X_6 + \e \\[10pt]
+\textbf{Model 2:} & \quad Y = \beta_1 + \beta_2 X_2 + \beta_3 X_3 + \beta_4 X_4 + 
+       \beta_5 X_5 +  \beta_6 X_6 + \e
+\end{align*}
+
+
+```r
+# Fit Model 1 and Model 2
+model.1 <- lm(y ~ x3 + x4 + x6)
+model.2 <- lm(y ~ x2 + x3 + x4 + x5 + x6)
+```
+
+2. F-test for model selection is done using the command $\, \texttt{anova}$
+
+```r
+# F-test for model selection
+anova(model.1, model.2, test = "F")
+```
+
+
+- Full code can be downloaded here [longley_selection.R](codes/longley_selection.R)
+
+
+
+
+## Anova output {.smaller}
+
+
+```{r}
+# Read data file
+longley <- read.table(file = "datasets/longley.txt",
+                      header = TRUE)
+
+# Store columns in vectors
+x2 <- longley[ , 1]
+x3 <- longley[ , 2]
+x4 <- longley[ , 3]
+x5 <- longley[ , 4]
+x6 <- longley[ , 5]
+y <- longley[ , 6]
+
+# Fit Model 0 and Model 1
+model.1 <- lm(y ~ x3 + x4 + x6)
+model.2 <- lm(y ~ x2 + x3 + x4 + x5 + x6)
+
+# F-test for model selection
+anova(model.1, model.2, test = "F")
+```
+
+
+**Interpretation:**
+
+- First two lines tell us which models are being compared
+
+
+
+
+
+## Anova output {.smaller}
+
+```{r}
+# Read data file
+longley <- read.table(file = "datasets/longley.txt",
+                      header = TRUE)
+
+# Store columns in vectors
+x2 <- longley[ , 1]
+x3 <- longley[ , 2]
+x4 <- longley[ , 3]
+x5 <- longley[ , 4]
+x6 <- longley[ , 5]
+y <- longley[ , 6]
+
+# Fit Model 0 and Model 1
+model.1 <- lm(y ~ x3 + x4 + x6)
+model.2 <- lm(y ~ x2 + x3 + x4 + x5 + x6)
+
+# F-test for model selection
+anova(model.1, model.2, test = "F")
+```
+
+**Interpretation:**
+
+- $\texttt{Res.Df} \,$ are the degrees of freedom of each model
+    * The sample size of longley is 16
+    * Model 1 has $k=4$ parameters
+    * Model 2 has $p=6$ parameters
+    * $\df_1 = n - k = 16 - 4 = 12   \quad \qquad \df_2 = n - p = 16 - 6 = 10$
+
+
+
+## Anova output {.smaller}
+
+```{r}
+# Read data file
+longley <- read.table(file = "datasets/longley.txt",
+                      header = TRUE)
+
+# Store columns in vectors
+x2 <- longley[ , 1]
+x3 <- longley[ , 2]
+x4 <- longley[ , 3]
+x5 <- longley[ , 4]
+x6 <- longley[ , 5]
+y <- longley[ , 6]
+
+# Fit Model 0 and Model 1
+model.1 <- lm(y ~ x3 + x4 + x6)
+model.2 <- lm(y ~ x2 + x3 + x4 + x5 + x6)
+
+# F-test for model selection
+anova(model.1, model.2, test = "F")
+```
+
+**Interpretation:**
+
+- $\texttt{Df} \,$ is difference in degrees of freedom
+    * $\df_1 = 12$
+    * $\df_2 = 10$
+    * Therefore the difference is
+    $$
+    \df_1 - \df_2 = 12 - 10 = 2
+    $$
+
+
+
+
+
+## Anova output {.smaller}
+
+
+```{r}
+# Read data file
+longley <- read.table(file = "datasets/longley.txt",
+                      header = TRUE)
+
+# Store columns in vectors
+x2 <- longley[ , 1]
+x3 <- longley[ , 2]
+x4 <- longley[ , 3]
+x5 <- longley[ , 4]
+x6 <- longley[ , 5]
+y <- longley[ , 6]
+
+# Fit Model 1 and Model 2
+model.1 <- lm(y ~ x3 + x4 + x6)
+model.2 <- lm(y ~ x2 + x3 + x4 + x5 + x6)
+
+# F-test for model selection
+anova(model.1, model.2, test = "F")
+```
+
+**Interpretation:**
+
+- $\texttt{RSS} \,$ is the residual sum of squares for each model
+    * $\RSS_1 = 1.32336$
+    * $\RSS_2 = 0.83935$
+
+- $\texttt{Sum of Sq} \,$ is the extra sum of squares
+    * $\RSS_1 - \RSS_2 = 0.48401$
+
+
+
+
+
+
+## Anova output {.smaller}
+
+
+```{r}
+# Read data file
+longley <- read.table(file = "datasets/longley.txt",
+                      header = TRUE)
+
+# Store columns in vectors
+x2 <- longley[ , 1]
+x3 <- longley[ , 2]
+x4 <- longley[ , 3]
+x5 <- longley[ , 4]
+x6 <- longley[ , 5]
+y <- longley[ , 6]
+
+# Fit Model 1 and Model 2
+model.1 <- lm(y ~ x3 + x4 + x6)
+model.2 <- lm(y ~ x2 + x3 + x4 + x5 + x6)
+
+# F-test for model selection
+anova(model.1, model.2, test = "F")
+```
+
+**Interpretation:**
+
+- $\texttt{F} \,$ is the F-statistic for model selection
+
+\begin{align*}
+F & = \frac{ \RSS_1 - \RSS_2 }{ \df_1 - \df_2 } \bigg/ 
+      \frac{ \RSS_2 }{ \df_2 } \\
+  & = \frac{ 1.32336 - 0.83935 }{ 12 - 10 } \bigg/ 
+      \frac{ 0.83935 }{ 10 } =  2.8833
+\end{align*}
+
+
+
+
+## Anova output {.smaller}
+
+
+```{r}
+# Read data file
+longley <- read.table(file = "datasets/longley.txt",
+                      header = TRUE)
+
+# Store columns in vectors
+x2 <- longley[ , 1]
+x3 <- longley[ , 2]
+x4 <- longley[ , 3]
+x5 <- longley[ , 4]
+x6 <- longley[ , 5]
+y <- longley[ , 6]
+
+# Fit Model 1 and Model 2
+model.1 <- lm(y ~ x3 + x4 + x6)
+model.2 <- lm(y ~ x2 + x3 + x4 + x5 + x6)
+
+# F-test for model selection
+anova(model.1, model.2, test = "F")
+```
+
+**Interpretation:**
+
+- $\texttt{Pr(>F)}$ is the p-value for F-test
+    * $F \, \sim \, F_{\df_1 - \df_2 , \, \df_2 } = F_{2, 10}$
+    * Therefore the p-value is
+    $$
+    p = P(F_{2,10} > F) = 0.1026
+    $$
+
+
+
+
+## Anova output {.smaller}
+
+
+```{r}
+# Read data file
+longley <- read.table(file = "datasets/longley.txt",
+                      header = TRUE)
+
+# Store columns in vectors
+x2 <- longley[ , 1]
+x3 <- longley[ , 2]
+x4 <- longley[ , 3]
+x5 <- longley[ , 4]
+x6 <- longley[ , 5]
+y <- longley[ , 6]
+
+# Fit Model 1 and Model 2
+model.1 <- lm(y ~ x3 + x4 + x6)
+model.2 <- lm(y ~ x2 + x3 + x4 + x5 + x6)
+
+# F-test for model selection
+anova(model.1, model.2, test = "F")
+```
+
+**Conclusion:**
+
+- The p-value is $p = 0.1026 > 0.05$
+- This means we cannot reject $H_0$
+- Therefore the reduced Model 1 has to be preferred
+- This gives statistical evidence that $X_2$ and $X_5$ can be excluded from the model
+- *GNP* and *Non-institutionalised* do not affect *Number of Employed*
+
+
+
+
+## Example 2: Motion of falling bodies {.smaller}
+
+Engraving (1546): people believed projectiles follow circular trajectories ([source](https://www.alamy.com/engraving-depicting-the-path-of-a-projectile-shown-as-a-circular-arc-rather-than-a-parabolic-arc-as-was-later-proved-to-be-the-case-by-galileo-galileo-galilei-1564-1642-an-italian-polymath-dated-16th-century-image186386912.html))
+
+
+
+![](images/engraving.jpg){width=73%}
+
+
+
+
+## {.smaller}
+
+- 1609: Galileo proved mathematically that projectile trajectories are parabolic
+    * His finding was based on empirical data
+    * A ball (covered in ink) was released on an inclined plane from *Initial Height*
+    * Ink mark on the floor represented the *Horizontal Distance* traveled
+    * Unit of measure is *punti*  $\qquad\quad 1 \text{ punto} = 169/180 \, \text{mm}$
+
+![](images/galileo_0.png){width=73%}
+
+
+
+
+## {.smaller}
+
+- We have access to Galileo's original data [@drake_galileo]
+- Does a parabolic (quadratic) trajectory really explain the data? 
+- Let's fit a polynomial regression model and find out!
+
+![](images/galileo.png){width=73%}
+
+
+
+
+## Plotting the data {.smaller}
+
+<br>
+
+| **Initial Height** | 100  | 200 | 300 | 450 | 600 | 800 | 1000 |
+|:------------------ |:---- |:--  |:--- |:--- |:--  |:-   |:-    |
+| **Horizontal Distance** | 253  | 337 | 395 | 451 | 495 | 534 | 573 |
+
+<br>
+
+```r
+# Enter the data
+height <- c(100, 200, 300, 450, 600, 800, 1000)
+distance <- c(253, 337, 395, 451, 495, 534, 573)
+
+# Scatter plot of data
+plot(height, distance, pch = 16)
+```
+
+
+##  {.smaller}
+
+We clearly see a parabola. 
+Therefore we expect a relation of the form
+
+$$
+{\rm distance} = \beta_1 + \beta_2 \, {\rm height } + \beta_3 \, {\rm height }^2
+$$
+
+```{r}
+#| echo: false
+#| fig-asp: 1
+
+# Enter the data
+height <- c(100, 200, 300, 450, 600, 800, 1000)
+distance <- c(253, 337, 395, 451, 495, 534, 573)
+
+# Scatter plot of data
+plot(height, distance, xlab = "", ylab = "", pch = 16, cex = 2)
+
+# Add labels
+mtext("Initial height", side = 1, line = 3, cex = 2.1)
+mtext("Horizontal distance", side = 2, line = 2.5, cex = 2.1)
+```
+
+
+## Fit linear model {.smaller}
+
+
+$$
+{\rm distance} = \beta_1 + \beta_2 \, {\rm height } 
+$$
+
+
+```r
+# Fit linear model
+linear <- lm(distance ~ height)
+summary(linear)
+```
+
+```verbatim
+
+Multiple R-squared:  0.9264,	Adjusted R-squared:  0.9116 
+
+
+```
+
+
+- The coefficient of correlation is $R^2 = 0.9264$
+- $R^2$ is quite high, showing that a linear model fits reasonably well
+
+
+
+
+## Is a quadratic model better? {.smaller}
+
+$$
+{\rm distance} = \beta_1 + \beta_2 \, {\rm height } + \beta_3  
+\, {\rm height }^2
+$$
+
+<br>
+
+**Note:** To specify powers we need to type $\,\, \texttt{I}$
+
+```r
+# Fit quadratic model
+quadratic <- lm(distance ~ height + I( height^2 ))
+summary(quadratic)
+```
+
+```verbatim
+
+Multiple R-squared:  0.9903,	Adjusted R-squared:  0.9855 
+
+
+```
+
+
+
+- The coefficient of correlation is $R^2 = 0.9903$
+- This is higher than the previous score $R^2 = 0.9264$
+- The quadratic trajectory explains $99\%$ of variability in the data
+
+
+
+## Why not try a cubic model? {.smaller}
+
+
+$$
+{\rm distance} = \beta_1 + \beta_2 \, {\rm height } + \beta_3  
+\, {\rm height }^2 + \beta_4 \, {\rm height }^3 
+$$
+
+<br>
+
+```r
+# Fit cubic model
+cubic <- lm(distance ~ height + I( height^2 ) + I (height^3))
+summary(cubic)
+```
+```verbatim
+
+Multiple R-squared:  0.9994,	Adjusted R-squared:  0.9987 
+
+
+```
+
+
+- The coefficient of correlation is $R^2 = 0.9994$
+- This is higher than the score of quadratic model $R^2 = 0.9903$
+- What is going on?
+
+
+
+## Quadratic vs cubic {.smaller}
+
+- Which model is better: quadratic or cubic?
+
+- Let us perform F-test for model selection
+
+
+```r
+# Model selection
+anova(quadratic, cubic, test = "F")
+```
+
+```verbatim
+
+Analysis of Variance Table
+
+Model 1: distance ~ height + I(height^2)
+Model 2: distance ~ height + I(height^2) + I(height^3)
+  Res.Df    RSS Df Sum of Sq     F  Pr(>F)   
+1      4 744.08                              
+2      3  48.25  1    695.82 43.26 0.00715 **
+```
+
+
+## Model selection: quadratic Vs cubic {.smaller}
+
+- The F-test is significant since $p = 0.007 < 0.05$
+
+- This means we should reject the null hypothesis that 
+
+$$
+\beta_4 = 0
+$$
+
+- Therefore the quadratic model does not describe the data well
+
+- The underlying relationship from Galileo’s data is cubic and not quadratic
+
+- Probably the *inclined plane* introduced drag
+
+- Code can be downloaded here [galileo.R](codes/galileo.R)
+
+
+
+## Plot: Quadratic Vs Cubic {.smaller}
+
+```{r}
+#| echo: true
+#| code-fold: true
+#| code-summary: "Click here for full code"
+#| fig-asp: 1
+
+# Enter the data
+height <- c(100, 200, 300, 450, 600, 800, 1000)
+distance <- c(253, 337, 395, 451, 495, 534, 573)
+
+# Scatter plot of data
+plot(height, distance, xlab = "", ylab = "", pch = 16, cex = 2)
+
+# Add labels
+mtext("Initial height", side = 1, line = 3, cex = 2.1)
+mtext("Horizontal distance", side = 2, line = 2.5, cex = 2.1)
+
+# Fit quadratic model
+quadratic <- lm(distance ~ height + I( height^2 ))
+
+# Fit cubic model
+cubic <- lm(distance ~ height + I( height^2 ) + I (height^3))
+
+# Plot quadratic Vs Cubic
+polynomial <- Vectorize(function(x, ps) {
+  n <- length(ps)
+  sum(ps*x^(1:n-1))
+}, "x")
+curve(polynomial(x, coef(quadratic)), add=TRUE, col = "red", lwd = 2)
+curve(polynomial(x, coef(cubic)), add=TRUE, col = "blue", lty = 2, lwd = 2)
+legend("topleft", legend = c("quadratic", "cubic"), 
+       col = c("red", "blue"), lty = c(1,2), lwd = 2, cex = 2.5)
+```
+
+
+## Why not try higher degree polynomials {.smaller}
+
+$$
+{\rm distance} = \beta_1 + \beta_2 \, {\rm height } + \beta_3  
+\, {\rm height }^2 + \beta_4 \, {\rm height }^3 
++ \beta_5 \, {\rm height }^4 
+$$
+
+<br>
+
+```r
+# Fit quartic model
+quartic <- lm(distance ~ height + I( height^2 ) + I (height^3) 
+                                                + I (height^4))
+summary(quartic)
+```
+```verbatim
+
+Multiple R-squared:  0.9998,	Adjusted R-squared:  0.9995
+
+
+```
+
+- We obtain a coefficient $R^2 = 0.9998$
+- This is even higher than cubic model coefficient $R^2 =  0.9994$
+- Is the quartic model actually better?
+
+
+
+## Model selection: cubic Vs quartic {.smaller}
+
+
+```r
+# Model selection
+anova(cubic, quartic, test = "F")
+```
+
+```verbatim
+
+Analysis of Variance Table
+
+Model 1: distance ~ height + I(height^2) + I(height^3)
+Model 2: distance ~ height + I(height^2) + I(height^3) + I(height^4)
+  Res.Df    RSS Df Sum of Sq      F Pr(>F)
+1      3 48.254                           
+2      2 12.732  1    35.522 5.5799  0.142
+
+
+```
+
+- The F-test is not significant since $p = 0.142 > 0.05$
+
+- This means we cannot reject the null hypothesis that $\beta_5 = 0$
+
+- The cubic models does better than quartic, despite higher $R^2$
+
+- The underlying relationship from Galileo’s data is indeed cubic!
+
+
+
+
+
+
+## Example 3: Divorces {.smaller}
+
+
+- Data from **Daily Mirror** gives 
+    * Percentage of divorces caused by adultery VS years of marriage
+
+- Original analysis claimed
+    * Divorce-risk peaks at year 2 then decreases thereafter
+
+- Is this conclusion misleading?
+    * Does a quadratic model offers a better fit than a straight line model?
+    
+
+
+## Divorces dataset {.smaller}
+### Percent of divorces caused by adultery by year of marriage
+
+<br>
+
+| **Years of Marriage**              | 1   |  2   |  3  |  4  | 5  |   6  |  7  |
+|:---------------------------------- |:--- |:-    |:--  |:--  |:-- |:---  |:--  |
+| **\% divorces adultery**        | 3.51| 9.50 | 8.91| 9.35|8.18| 6.43 | 5.31|
+: {tbl-colwidths="[30,10,10,10,10,10,10,10]"}
+
+
+<br>
+
+
+| **Years of Marriage**              | 8   |  9   | 10  | 15  |20  |  25  | 30  |
+|:---------------------------------- |:--- |:-    |:--  |:--  |:-- |:---  |:--  |
+| **\% divorces adultery**        | 5.07| 3.65 | 3.80| 2.83|1.51| 1.27 | 0.49|
+: {tbl-colwidths="[30,10,10,10,10,10,10,10]"}
+
+
+
+
+
+## Plot: Years of Marriage Vs Divorce-risk {.smaller}
+
+::: {.column width="48%"}
+
+- Looks like: Divorce-risk is
+    * First low, 
+    * then peaks at year 2
+    * then decreases
+
+- Change of trend suggests: 
+    * Higher order model might be good fit
+    * Consider quadratic model 
+
+
+:::
+
+::: {.column width="48%"}
+```{r}
+#| echo: true
+#| code-fold: true
+#| code-summary: "Click here for full code"
+#| fig-asp: 1
+
+# Divorces data
+year <- c(1, 2, 3, 4, 5, 6,7, 8, 9, 10, 15, 20, 25, 30)
+percent <- c(3.51, 9.5, 8.91, 9.35, 8.18, 6.43, 5.31, 
+             5.07, 3.65, 3.8, 2.83, 1.51, 1.27, 0.49)
+
+# Scatter plot of data
+plot(year, percent, xlab = "", ylab = "", pch = 16, cex = 2)
+
+# Add labels
+mtext("Years of marriage", side = 1, line = 3, cex = 2.1)
+mtext("Risk of divorce by adultery", side = 2, line = 2.5, cex = 2.1)
+```
+:::
+
+
+## Fitting linear model  {.smaller}
+
+```r
+# Divorces data
+year <- c(1, 2, 3, 4, 5, 6,7, 8, 9, 10, 15, 20, 25, 30)
+percent <- c(3.51, 9.5, 8.91, 9.35, 8.18, 6.43, 5.31, 
+             5.07, 3.65, 3.8, 2.83, 1.51, 1.27, 0.49)
+
+# Fit linear model
+linear <- lm(percent ~ year)
+summary(linear)
+```
+
+```verbatim
+
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept)  7.88575    0.78667  10.024 3.49e-07 ***
+year        -0.27993    0.05846  -4.788 0.000442 ***
+
+
+```
+
+- t-test for $\beta_2$ is significant since $p = 0.0004 < 0.05$
+- Therefore $\beta_2 \neq 0$ and the estimate is $\hat \beta_2 = -0.27993$
+- The risk of divorce decreases with years of marriage (because $\hat \beta_2 < 0$)
+
+
+
+## Fitting quadratic model  {.smaller}
+
+- Linear model offered a reasonable explanation of the divorce data
+
+- Is quadratic model better?
+
+
+```r
+# Fit quadratic model
+quadratic <- lm(percent ~ year + I( year^2 ))
+summary(quadratic)
+```
+
+```verbatim
+
+             Estimate Std. Error t value Pr(>|t|)    
+(Intercept)  8.751048   1.258038   6.956  2.4e-05 ***
+year        -0.482252   0.235701  -2.046   0.0654 .  
+I(year^2)    0.006794   0.007663   0.887   0.3943 
+
+
+```
+
+- t-test for $\beta_3$ is not significant since $p = 0.3943 > 0.05$
+
+- Cannot reject null hypothesis $\beta_3 = 0 \quad \implies \quad$ Quadratic term not needed! 
+
+- The original analysis in the **Daily Mirror is probably mistaken**
+
+
+
+
+## Model selection: Linear Vs Quadratic {.smaller}
+
+- We concluded that a linear model is better fit
+
+- To cross check this result we do F-test for model selection
+
+```r
+# Model selection
+anova(linear, quadratic, test = "F")
+```
+
+```verbatim
+
+Model 1: percent ~ year
+Model 2: percent ~ year + I(year^2)
+  Res.Df    RSS Df Sum of Sq     F Pr(>F)
+1     12 42.375                          
+2     11 39.549  1     2.826 0.786 0.3943
+
+
+```
+
+
+- F-test is not significant since $p = 0.3943 > 0.05$
+- We cannot reject the null hypothesis that $\beta_3 = 0$
+- Quadratic model is worse than linear model
+
+
+## Conclusions {.smaller}
+
+- Daily Mirror Claim: Divorce-risk peaks at year 2 then decreases thereafter
+    * Claim suggests higher order model needed to explain change in trend
+
+
+- Analysis conducted: 
+    * Fit linear and quadratic regression models 
+    * t-test of significance discarded quadratic term
+    * F-test for model selection discarded Quadratic model
+
+- Findings: Claims in Daily Mirror are misleading
+    * Linear model seems to be better than quadratic
+    * This suggests divorce-risk generally decreases over time
+    * Peak in year 2 can be explained by unusually low divorce-risk in 1st year
+
+- Code is available here [divorces.R](codes/divorces.R)
+
+
+## {.smaller}
+
+- Visual confirmation: Linear model is better and divorce-risk is decreasing
+
+- Peak in year 2 should be explained by unusually low divorce-risk in 1st year
+
+
+```{r} 
+#| echo: true
+#| code-fold: true
+#| code-summary: "Click here for full code"
+#| fig-asp: 1
+
+# Divorces data
+year <- c(1, 2, 3, 4, 5, 6,7, 8, 9, 10, 15, 20, 25, 30)
+percent <- c(3.51, 9.5, 8.91, 9.35, 8.18, 6.43, 5.31, 
+             5.07, 3.65, 3.8, 2.83, 1.51, 1.27, 0.49)
+
+# Fit linear model
+linear <- lm(percent ~ year)
+
+# Fit quadratic model
+quadratic <- lm(percent ~ year + I( year^2 ))
+
+# Scatter plot of data
+plot(year, percent, xlab = "", ylab = "", pch = 16, cex = 2)
+
+# Add labels
+mtext("Years of marriage", side = 1, line = 3, cex = 2.1)
+mtext("Risk of divorce by adultery", side = 2, line = 2.5, cex = 2.1)
+
+# Plot Linear Vs Quadratic
+polynomial <- Vectorize(function(x, ps) {
+  n <- length(ps)
+  sum(ps*x^(1:n-1))
+}, "x")
+curve(polynomial(x, coef(linear)), add=TRUE, col = "red", lwd = 2)
+curve(polynomial(x, coef(quadratic)), add=TRUE, col = "blue", lty = 2, lwd = 2)
+legend("topright", legend = c("Linear", "Quadratic"), 
+       col = c("red", "blue"), lty = c(1,2), cex = 3, lwd = 3)
+```
+
+
+
+## Why not try higher order polynomials {.smaller}
+
+- Let us compare Linear model with Order 6 Model
+
+```r
+# Fit order 6 model
+order_6 <- lm(percent ~ year  + I( year^2 ) + I( year^3 ) + 
+                              + I( year^4 ) + I( year^5 ) +
+                              + I( year^6 ))
+
+# Model selection
+anova(linear, order_6)
+```
+
+```verbatim
+
+Model 1: percent ~ year
+Model 2: percent ~ year + I(year^2) + I(year^3) + I(year^4) + I(year^5) + 
+    +I(year^6)
+  Res.Df    RSS Df Sum of Sq      F   Pr(>F)   
+1     12 42.375                                
+2      7  3.724  5    38.651 14.531 0.001404 **
+```
+
+
+## Why not try higher order polynomials {.smaller}
+
+
+- F-test is significant since $p = 0.001 < 0.05$
+
+- This means we reject the null hypothesis that
+
+$$
+\beta_3 = \beta_4 = \beta_5 = \beta_6 = 0
+$$
+
+- The Order 6 model is better than the Linear model
+
+- Peak divorce-rate in Year 2 is well explained by order 6 regression
+
+- What is going on? Let us plot the regression functions
+
+
+
+
+## {.smaller}
+
+
+
+::: {.column width="45%"}
+
+<br>
+
+- There are more peaks: 
+    * Decreasing risk of divorce for 23 years
+    * But it gets boring after 27 years!
+
+- **Model overfits**: 
+    * Data is very well explained
+    * but predictions are not realistic
+
+- Linear model should be preferred
+
+:::
+
+
+::: {.column width="46%"}
+
+```{r} 
+#| echo: true
+#| code-fold: true
+#| code-summary: "Click here for full code"
+#| fig-asp: 1
+
+# Divorces data
+year <- c(1, 2, 3, 4, 5, 6,7, 8, 9, 10, 15, 20, 25, 30)
+percent <- c(3.51, 9.5, 8.91, 9.35, 8.18, 6.43, 5.31, 
+             5.07, 3.65, 3.8, 2.83, 1.51, 1.27, 0.49)
+
+# Fit linear model
+linear <- lm(percent ~ year)
+
+# Fit order 6 model
+order_6 <- lm(percent ~ year  + I( year^2 ) + I( year^3 ) + 
+                                I( year^4 ) + I( year^5 ) +
+                                I( year^6 ))
+
+# Scatter plot of data
+plot(year, percent, xlab = "", ylab = "", pch = 16, cex = 2)
+
+# Add labels
+mtext("Years of marriage", side = 1, line = 3, cex = 2.1)
+mtext("Risk of divorce by adultery", side = 2, line = 2.5, cex = 2.1)
+
+# Plot Linear Vs Quadratic
+polynomial <- Vectorize(function(x, ps) {
+  n <- length(ps)
+  sum(ps*x^(1:n-1))
+}, "x")
+curve(polynomial(x, coef(linear)), add=TRUE, col = "red", lwd = 2)
+curve(polynomial(x, coef(order_6)), add=TRUE, col = "blue", lty = 2, lwd = 3)
+legend("topright", legend = c("Linear", "Order 6"), 
+       col = c("red", "blue"), lty = c(1,2), cex = 3, lwd = 3)
+```
+
+:::
+
+
+
+
+## References

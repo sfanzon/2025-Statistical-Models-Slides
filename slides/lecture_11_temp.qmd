@@ -1,0 +1,203 @@
+---
+title: "Statistical Models"
+subtitle: "Lecture 11"
+from: markdown+emoji
+author: 
+    - name: Dr. Silvio Fanzon
+      id: sf
+      email: S.Fanzon@hull.ac.uk
+      url: https://www.silviofanzon.com
+      affiliations: University of Hull
+    - name: Dr. John Fry
+      id: jf
+      email: J.M.Fry@hull.ac.uk
+      url: https://www.hull.ac.uk/staff-directory/john-fry
+      affiliations: University of Hull
+---
+
+
+
+::: {.content-hidden}
+$
+{{< include macros.tex >}}
+$
+:::
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Part 5: <br> Two-way ANOVA {background-color="#cc0164" visibility="uncounted"}
+
+::: footer
+
+<div color="#cc0164">  </div>
+
+:::
+
+::: footer
+
+<div color="#cc0164">  </div>
+
+:::
+
+
+
+# Part 6: <br> Two-way ANOVA <br> with interactions {background-color="#cc0164" visibility="uncounted"}
+
+::: footer
+
+<div color="#cc0164">  </div>
+
+:::
+
+::: footer
+
+<div color="#cc0164">  </div>
+
+:::
+
+
+
+
+
+
+
+
+# Part 7: <br> ANCOVA {background-color="#cc0164" visibility="uncounted"}
+
+::: footer
+
+<div color="#cc0164">  </div>
+
+:::
+
+::: footer
+
+<div color="#cc0164">  </div>
+
+:::
+
+
+
+
+
+
+
+
+
+::: {.content-hidden}
+
+- ANOVA is lesson 11 John
+
+- John never really defines ANOVA as generalization of t-test to multiple populations
+
+- That's clever to be quicker. But I would do it the classic way and follow Verzani or DeGroot
+
+- It would be good do classic ANOVA and then connect to regression
+
+- Best way would be to do ANOVA classically + R (DeGroot and Verzani 12.1)
+
+- Then do ANOVA and Linear regression interpretation
+
+- Then move to dummy variable models and ANCOVA
+
+- We have already seen how regression can be used to perform t-test
+    * With two dummy variables $1_A$ and $1_B$
+    * With one dummy variable $1_A$ (in this case it would be good to give exercise to compute t-statistic for $\beta$ explicitly and see it coincides with t-statistic for two-sample t-test with common variance (pooled estimator))
+
+- Anova generalizes t-test. Therefore linear regression can be used for ANOVA in 2 ways:
+    * 1 dummy variable for each population
+    * $k-1$ dummy variables 
+
+- For this see Verzani section 12.2
+
+
+- He does the examples of t-test as simple regression that I covered in exercises
+
+$$
+Y_i = \alpha + \beta 1_{A}(i)  + \e_i
+$$
+
+where $1_{A}(i) = 1$ if sample i is from population $A$ and $0$ if not. Turns out $1_A$ is just a factor
+
+- It also does the case of t-test intepreted as multiple regression with two dummy variables without intercept
+
+$$
+Y_i = \beta_1 1_{A}(i) + \beta_2 1_B(i) + \e_i
+$$
+
+where $1_{A}(i) = 1$ if sample i is from population $A$ and $0$ if not. Same for $1_B(i)$
+
+
+
+Some slides I already made
+
+## What is ANOVA? {.smaller}
+
+- ANOVA stands for Analysis of Variance
+
+- ANOVA is a generalization of the t-test for two independent samples
+    * ANOVA allows to compare the means of several independent populations
+
+- In the *Fridge Sales* example the populations are the 4 *Quarters*
+    * For each quarter we have a list of *Fridge sales* values
+    * We want to compare average fridge sales for each Quarter
+
+- ANOVA hypothesis test: is there a difference in average sales for each Quarter?
+    * If $\mu_{i}$ is average sales in Quarter $i$ then
+    \begin{align*}
+    H_0 & \colon \mu_{1} =  \mu_{2} =  \mu_{3} =  \mu_{4}  \\
+    H_1 & \colon  \mu_i \neq \mu_j \, \text{ for at least one pair i and j}
+    \end{align*}
+
+
+
+## Linear Regression for ANOVA {.smaller}
+
+- Already seen that linear regression can be used to perform two-sample t-test
+
+- There were 2 main ideas
+    * One shown in Lecture 8
+    * The other shown in Homework
+
+- The same ideas apply to ANOVA with $k$ populations
+
+- Let us recall these ideas
+
+
+
+
+## Recap: Linear Regression for t-test {.smaller}
+
+- We have 2 populations $A$ and $B$ distributed like $N(\mu_A, \sigma_A^2)$ and $N(\mu_B, \sigma_B^2)$
+
+- We have two samples
+  * Sample of size $n_A$ from population $A$
+  $$
+  a = (a_1, \ldots, a_{n_A})
+  $$
+  * Sample of size $n_B$ from population $B$
+  $$
+  b = (b_1, \ldots, b_{n_B})
+  $$
+
+- Two-sample t-test compares means $\mu_A$ and $\mu_B$ by computing t-statistic
+$$
+t = \frac{ \overline{a} - \overline{b} }{\ese}
+$$
+
+
+:::
+
+
+
+

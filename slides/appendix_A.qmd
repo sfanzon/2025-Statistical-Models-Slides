@@ -1,0 +1,2325 @@
+---
+title: "Statistical Models"
+subtitle: "Appendix A"
+from: markdown+emoji
+author: 
+    - name: Dr. Silvio Fanzon
+      id: sf
+      email: S.Fanzon@hull.ac.uk
+      url: https://www.silviofanzon.com
+      affiliations: University of Hull
+    - name: Dr. John Fry
+      id: jf
+      email: J.M.Fry@hull.ac.uk
+      url: https://www.hull.ac.uk/staff-directory/john-fry
+      affiliations: University of Hull
+---
+
+
+
+::: {.content-hidden}
+$
+{{< include macros.tex >}}
+$
+:::
+
+
+
+
+# Appendix A: <br>Probability Revision {background-color="#cc0164" visibility="uncounted"}
+
+::: footer
+
+<div color="#cc0164">  </div>
+
+:::
+
+
+
+
+
+## Outline of Appendix A
+
+1. Functions in R
+
+
+
+
+
+
+# Part 1: <br>Functions in R {background-color="#cc0164" visibility="uncounted"}
+
+::: footer
+
+<div color="#cc0164">  </div>
+
+:::
+
+
+
+## Expressions and objects {.smaller}
+
+- Basic way to interact with R is through **expression evaluation**:
+  * You enter an epression
+  * The system evaluates it and prints the result
+
+- Expressions work on **objects**
+- **Object**: anything that can be assigned to a variable
+- Objects encountered so far are:
+  * Scalars
+  * Vectors
+
+
+
+## Functions and arguments {.smaller}
+
+- **Functions** are a class of objects
+
+- Format of a function is **name** followed by parentheses containing **arguments**
+
+- Functions take **arguments** and **return** a result
+
+- We already encountered several built in functions:
+  * ``plot(x, y)``
+  * ``lines(x, y)``
+  * ``seq(x)``
+  * ``print("Stats is great!")``
+  * ``cat("R is great!")``
+  * ``mean(x)``
+  * ``sin(x)``
+
+
+## Functions and arguments {.smaller}
+
+- Functions have **actual arguments** and **formal arguments**
+- Example: 
+  * ``plot(x, y)`` has formal arguments two vectors ``x`` and ``y``
+  * ``plot(height, weight)`` has actual arguments ``height`` and ``weight``
+
+- When you write ``plot(height, weight)`` the arguments are matched:
+  * ``height`` corresponds to x-variable
+  * ``weight`` corresponds to y-variable
+  * This is called **positional matching**
+  
+  
+
+## Functions and arguments {.smaller}
+
+- If a function has a lot of arguments, positional matching is tedious
+
+- For example ``plot()`` accepts the following (and more!) arguments
+
+| Argument |                        Description    |
+|:--------:|:-------------------------------------:|
+| ``x``    | x coordinate of points in the plot    |
+| ``y``    | y coordinate of points in the plot    |
+| ``type`` | Type of plot to be drawn              |
+| ``main`` | Title of the plot                     |
+| ``xlab`` | Label of x axis                       |
+| ``ylab`` | Label of y axis                       | 
+| ``pch``  | Shape of points                       |
+
+
+
+
+
+## Functions and arguments {.smaller}
+
+Issue with having too many arguments is the following:
+
+- We might want to specify ``pch = 2``
+- But then we would have to match all the arguments preceding
+``pch``
+  * ``x``
+  * ``y``
+  * ``type``
+  * ``xlab``
+  * ``ylab``
+
+
+
+## Functions and arguments {.smaller}
+
+- Thankfully we can use **named actual arguments**:
+  * The name of a formal argument can be matched to an actual argument
+  * This is independent of position
+
+- For example we can specify ``pch = 2`` by the call
+  * ``plot(weight, height, pch = 2)``
+
+- In the above:
+  * ``weight`` is implicitly matched to ``x``
+  * ``height`` is implicitly matched to ``y``
+  * ``pch`` is explicitly matched to ``2``
+  
+- Note that the following call would give same output
+  * ``plot(x = weight, y = height, pch = 2)``
+
+
+
+
+
+
+## Functions and arguments {.smaller}
+
+- Named actual arguments **override** positional arguments
+- Example: The following commands yield the same plot
+  * ``plot(height, weight)``
+  * ``plot(x = height, y = weight)``
+  * ``plot(y = weight, x = height)``
+
+
+
+
+
+## Functions and arguments {.smaller}
+
+We have already seen another example of **named actual arguments**
+
+- ``seq(from = 1, to = 11, by = 2)``
+- ``seq(1, 11, 2)``
+- These yield the same output. Why?
+- Because in this case **named actual arguments** match **positional arguments**
+
+
+
+
+## Functions and arguments {.smaller}
+
+If however we want to divide the interval $[1, 11]$ in $5$ equal parts:
+
+- Have to use ``seq(1, 11, length.out = 6)``
+
+
+```{r}
+#| echo: true
+seq(1, 11, length.out = 6)
+```
+
+- The above is different from ``seq(1, 11, 6)``
+```{r}
+#| echo: true
+seq(1, 11, 6)
+```
+
+- They are different because:
+  * The 3rd positional argument of ``seq()`` is ``by``
+  * Hence the command ``seq(1, 11, 6)`` assumes that ``by = 6``
+
+
+
+## Functions and arguments {.smaller}
+### Warning
+
+- You can call functions without specifying arguments
+- However you have to use brackets ``()``
+- Example:
+  * ``getwd()`` -- which outputs current working directory
+  * ``ls()`` -- which outputs names of objects currently in memory
+
+
+
+
+## Custom functions {.smaller}
+
+- You can define your own functions in R
+- Syntax for definining custom function ``my_function`` is below
+- You can call your custom function by typing
+    * ``my_function(arguments)``
+
+```r
+my_function <- function(first = "1st argument", 
+                        ... ,
+                        nth = "n-th argument") {
+  
+  # Code here: This is where you tell the function what to do
+
+  return(object)      # Object to be returned  
+}
+```
+
+
+## Custom functions -- Example {.smaller}
+
+- The R function ``mean(x)`` computes the sample mean of vector ``x``
+- We want to define our own function to compute the mean
+
+- **Example:** The mean of ``x`` could be computed via
+    * ``sum(x) / length(x)``
+- We want to implement this code into the function ``my_mean(x)``
+    * ``my_mean`` takes vector ``x`` as argument
+    * ``my_mean`` returns a scalar -- the mean of ``x``
+
+```r
+# Definition of custom function my_mean(x)
+my_mean <- function(vector = x) {
+  
+  mean_of_x <- sum(x) / length(x)
+  
+  return(mean_of_x)  
+}
+```
+
+
+
+## Custom functions -- Example {.smaller}
+
+
+- Let us use our function ``my_mean`` on an example
+
+```r
+# Generate a random vector of 1000 entries from N(0,1)
+x <- rnorm(1000)
+
+# Compute mean of x with my_mean
+xbar <- my_mean(x)
+
+# Compute mean of x with built in function mean
+xbar_check <- mean(x)
+  
+cat("Mean of x computed with my_mean is:", xbar)
+cat("Mean of x computed with R mean is:", xbar_check)
+cat("They coincide!")
+```
+
+```{r}
+my_mean <- function(vector = x) {
+  
+  mean_of_x <- sum(x) / length(x)
+  
+  return(mean_of_x)  
+}
+
+# Generate a random vector of 1000 entries from N(0,1)
+x <- rnorm(1000)
+
+# Compute mean of x with my_mean
+xbar <- my_mean(x)
+
+# Compute mean of x with built in function mean
+xbar_check <- mean(x)
+  
+cat("Mean of x computed with my_mean is:", xbar)
+cat("Mean of x computed with R mean is:", xbar_check)
+cat("They coincide!")
+```
+
+
+
+
+# Part 2: <br>More on Vectors {background-color="#cc0164" visibility="uncounted"}
+
+::: footer
+
+<div color="#cc0164">  </div>
+
+:::
+
+
+
+## More on vectors {.smaller}
+
+- We have seen vectors of numbers
+- Further type of vectors are:
+  * Character vectors
+  * Logical vectors
+
+
+## Character vectors {.smaller}
+
+- A character vector is a vector of text strings
+- Elements are specified and printed in quotes
+
+```{r}
+#| echo: true
+x <- c("Red", "Green", "Blue")
+print(x)
+```
+
+- You can use single- or double-quote symbols to specify strings
+- This is as long as the left quote is the same as the right quote
+
+```{r}
+#| echo: true
+x <- c('Red', 'Green', 'Blue')
+print(x)
+```
+
+
+
+## Character vectors {.smaller}
+
+``Print`` and ``cat`` produce different output on character vectors:
+
+- ``print(x)`` prints all the strings in ``x`` separately
+- ``cat(x)`` concatenates strings. There is no way to tell how many were there
+
+
+::: {.column width="45%"}
+
+```r
+x <- c("Red", "Green", "Blue")
+print(x)
+cat(x)
+```
+
+```{r}
+x <- c("Red", "Green", "Blue")
+print(x)
+cat(x)
+```
+
+:::
+
+
+
+::: {.column width="45%"}
+
+```r
+y <- c("Red Green", "Blue")
+print(y)
+cat(y)
+```
+
+```{r}
+y <- c("Red Green", "Blue")
+print(y)
+cat(y)
+```
+
+:::
+
+
+## Logical vectors {.smaller}
+
+- Logical vectors can take the values ``TRUE``, ``FALSE`` or ``NA``
+- ``TRUE`` and ``FALSE`` can be abbreviated with ``T`` and ``F``
+- ``NA`` stands for **not available**
+
+```{r}
+#| echo: true
+
+# Create logical vector
+x <- c(T, T, F, T, NA)
+
+# Print the logical vector
+print(x)
+```
+
+
+## Logical vectors {.smaller}
+
+- Logical vectors are extremely useful to evaluate conditions
+
+- Example:
+  * given a numerical vector ``x``
+  * we want to count how many entries are above a value ``t``
+
+
+```r
+# Generate a vector containing sequence 1 to 8
+x <- seq(from = 1 , to = 8, by = 1)
+
+# Generate vector of flags for entries strictly above 5
+y <- ( x > 5 )
+
+cat("Vector x is: (", x, ")")
+cat("Entries above 5 are: (", y, ")")
+```
+
+
+```{r}
+# Generate a vector containing sequence 1 to 8
+x <- seq(from = 1 , to = 8, by = 1)
+
+# Generate vector of flags for entries strictly above 5
+y <- ( x > 5 )
+
+cat("Vector x is: (", x, ")")
+cat("Entries above 5 are: (", y, ")")
+```
+
+
+
+## Logical vectors -- Application {.smaller}
+
+- Generate a vector of 1000 numbers from $N(0,1)$
+- Count how many entries are above the mean $0$
+- Since there are many (1000) entries, we expect a result close to 500
+    * This is because *sample mean* converges to *true mean* $0$
+
+**Question**: How to do this?
+
+**Hint**: ``T/F`` are interpreted as ``1/0`` in arithmetic operations
+
+
+::: {.column width="45%"}
+```{r}
+#| echo: true
+T + T
+T + F
+```
+
+:::
+
+::: {.column width="45%"}
+```{r}
+#| echo: true
+F + F
+F + T + 3
+```
+
+:::
+
+
+
+## Logical vectors -- Application {.smaller}
+
+- The function ``sum(x)`` sums the entries of a vector ``x``
+- We can use ``sum(x)`` to count the number of ``T`` entries in a logical vector ``x``
+
+
+
+```r
+x <- rnorm(1000)       # Generates vector with 1000 normal entries
+
+y <- (x > 0)           # Generates logical vector of entries above 0
+
+above_zero <- sum(y)   # Counts entries above zero
+
+cat("Number of entries which are above the average 0 is", above_zero)
+cat("This is pretty close to 500!")
+```
+
+
+```{r}
+# Generate vector with 1000 normal entries
+x <- rnorm(1000)
+
+# Generate logical vector of entries above 0
+y <- (x > 0)
+
+# Count entries above zero
+above_zero <- sum(y)
+
+cat("Number of entries which are above the average 0 is", above_zero)
+cat("This is pretty close to 500!")
+```
+
+
+
+## Missing values {.smaller}
+
+- In practical data analysis, a data point is frequently unavailable
+- Statistical software needs ways to deal with this
+- R allows vectors to contain a special ``NA`` value - Not Available
+- ``NA`` is carried through in computations: operations on ``NA`` yield ``NA`` as the result
+
+
+```{r}
+#| echo: true
+
+2 * NA
+NA + NA
+T + NA
+```
+
+
+
+
+## Indexing vectors {.smaller}
+
+- Components of a vector can be retrieved by **indexing**
+
+- ``vector[k]`` returns k-th component of ``vector``
+
+<br>
+
+```{r}
+#| echo: true
+
+vector <- c("Cat", "Dog", "Mouse")
+
+second_element <- vector[2]           # Access 2nd entry of vector
+
+print(second_element)
+```
+
+
+
+
+## Replacing vector elements {.smaller}
+
+To modify an element of a vector use the following:
+
+- ``vector[k] <- value`` stores ``value`` in k-th component of ``vector``
+
+<br>
+
+```{r}
+#| echo: true
+
+vector <- c("Cat", "Dog", "Mouse")
+
+# We replace 2nd entry of vector with string "Horse"
+vector[2] <- "Horse"
+
+print(vector)
+```
+
+
+
+
+## Vector slicing {.smaller}
+
+Returning multiple items of a vactor is known as **slicing**
+
+- ``vector[c(k1, ..., kn)]`` returns components ``k1, ..., kn``
+- ``vector[k1:k2]`` returns components ``k1`` to ``k2``
+
+```{r}
+#| echo: true
+
+vector <- c(11, 22, 33, 44, 55, 66, 77, 88, 99, 100)
+
+# We store 1st, 3rd, 5th entries of vector in slice
+slice <- vector[c(1, 3, 5)]   
+
+print(slice)
+
+```
+
+
+## Vector slicing {.smaller}
+
+```{r}
+#| echo: true
+
+vector <- c(11, 22, 33, 44, 55, 66, 77, 88, 99, 100)
+
+# We store 2nd to 7th entries of vector in slice
+slice <- vector[2:7]
+
+print(slice)
+```
+
+
+
+## Deleting vector elements {.smaller}
+
+- Elements of a vector ``x`` can be deleted by using
+    * ``x[ -c(k1, ..., kn) ]`` which deletes entries ``k1, ..., kn``
+    
+```r
+# Create a vector x
+x <- c(11, 22, 33, 44, 55, 66, 77, 88, 99, 100)
+
+# Print vector x
+cat("Vector x is:", x)
+
+# Delete 2nd, 3rd and 7th entries of x
+x <- x[ -c(2, 3, 7) ]
+
+# Print x again
+cat("Vector x with 2nd, 3rd and 7th entries removed:", x)
+```
+
+
+```{r}
+# Create a vector x
+x <- c(11, 22, 33, 44, 55, 66, 77, 88, 99, 100)
+
+# Print vector x
+cat("Vector x is:", x)
+
+# Delete 2nd, 3rd and 7th entries of x
+x <- x[ -c(2, 3, 7) ]
+
+# Print x again
+cat("Vector x with 2nd, 3rd and 7th entries removed:", x)
+```
+
+
+
+## Logical Subsetting {.smaller}
+
+
+- You can index or slice vectors by entering explicit indices
+- You can also index vectors, or **subset**, by using **logical flag vectors**:
+    * Element is extracted if corresponding entry in the flag vector is TRUE 
+    * Logical flag vectors should be the same length as vector to subset
+
+**Code**: Suppose given a vector ``x``
+
+- Create a flag vector by using 
+    * ``flag <- condition(x)``
+
+- ``condition()`` is any function which returns ``T/F`` vector of same length as ``x``
+
+- Subset ``x`` by using 
+    * ``x[flag]``  
+
+
+
+
+## Logical Subsetting {.smaller}
+### Example
+
+- The following code extracts negative components from a numeric vector
+- This can be done by using
+    * ``x[ x < 0 ]``
+
+```r
+# Create numeric vector x
+x <- c(5, -2.3, 4, 4, 4, 6, 8, 10, 40221, -8)
+
+# Get negative components from x and store them in neg_x
+neg_x <- x[ x < 0 ]
+
+cat("Vector x is:", x)
+cat("Negative components of x are:", neg_x)
+```
+
+
+```{r} 
+# Create numeric vector x
+x <- c(5, -2.3, 4, 4, 4, 6, 8, 10, 40221, -8)
+
+# Get negative components from x and store them in neg_x
+neg_x <- x[ x < 0 ]
+
+cat("Vector x is:", x)
+cat("Negative components of x are:", neg_x)
+```
+
+
+
+## Logical Subsetting {.smaller}
+### Example
+
+- The following code extracts components falling between ``a`` and ``b``
+- This can be done by using logical operator and ``&``
+    * ``x[ (x > a) & (x < b) ]``
+
+```r
+# Create numeric vector
+x <- c(5, -2.3, 4, 4, 4, 6, 8, 10, 40221, -8)
+
+# Get components between 0 and 100
+range_x <- x[ (x > 0) & (x < 100) ]
+
+cat("Vector x is:", x)
+cat("Components of x between 0 and 100 are:", range_x)
+```
+
+
+```{r} 
+# Create numeric vector
+x <- c(5, -2.3, 4, 4, 4, 6, 8, 10, 40221, -8)
+
+# Get components between 0 and 100
+range_x <- x[ (x > 0) & (x < 100) ]
+
+cat("Vector x is:", x)
+cat("Components of x between 0 and 100 are:", range_x)
+```
+
+
+
+## The function Which {.smaller}
+
+- ``which()`` allows to convert a logical vector ``flag`` into a numeric index vector 
+    * ``which(flag)`` is vector of indices of ``flag`` which correspond to ``TRUE``
+
+
+```r
+# Create a logical flag vector
+flag <- c(T, F, F, T, F)
+
+# Indices for  flag which
+true_flag <- which(flag)
+
+cat("Flag vector is:", flag)
+cat("Positions for which Flag is TRUE are:", true_flag)
+```
+
+
+```{r}
+# Create a logical flag vector
+flag <- c(T, F, F, T, F)
+
+# Indices for  flag which
+true_flag <- which(flag)
+
+cat("Flag vector is:", flag)
+cat("Positions for which Flag is TRUE are:", true_flag)
+```
+
+
+
+## The function Which -- Application {.smaller}
+
+``which()`` can be used to delete certain entries from a vector ``x``
+
+- Create a flag vector by using 
+    * ``flag <- condition(x)``
+
+- ``condition()`` is any function which returns ``T/F`` vector of same length as ``x``
+
+- Delete entries flagged by ``condition`` using the code
+    * ``x[ -which(flag) ]``
+
+
+
+
+## The function Which -- Application {.smaller}
+### Example
+
+```r
+# Create numeric vector x
+x <- c(5, -2.3, 4, 4, 4, 6, 8, 10, 40221, -8)
+
+# Print x
+cat("Vector x is:", x)
+
+# Flag positive components of x
+flag_pos_x <- (x > 0)
+
+# Remove positive components from x
+ x <- x[ -which(flag_pos_x) ]
+
+# Print x again
+cat("Vector x with positive components removed:", x)
+```
+
+
+```{r} 
+# Create numeric vector x
+x <- c(5, -2.3, 4, 4, 4, 6, 8, 10, 40221, -8)
+
+# Print x
+cat("Vector x is:", x)
+
+# Flag positive components of x
+flag_pos_x <- (x > 0)
+
+# Remove positive components from x
+ x <- x[ -which(flag_pos_x) ]
+
+# Print x again
+cat("Vector x with positive components removed:", x)
+```
+
+
+
+
+
+## Functions that create vectors {.smaller}
+
+The main functions to generate vectors are
+
+- ``c()`` concatenate
+- ``seq()`` sequence
+- ``rep()`` replicate
+
+We have already met ``c()`` and ``seq()`` but there are more details to discuss
+
+
+
+## Concatenate {.smaller}
+
+**Recall:** ``c()`` generates a vector containing the input values
+
+```{r}
+#| echo: true
+
+# Generate a vector of values 1, 2, 3, 4, 5
+x <- c(1, 2, 3, 4, 5)
+
+# Print the vector
+print(x)
+```
+
+
+## Concatenate {.smaller}
+
+- ``c()`` can also concatenate vectors 
+- This was you can **add** entries to an **existing vector**
+
+```{r}
+#| echo: true
+
+# Create 2 vectors
+x <- c(1, 2, 3, 4, 5)
+y <- c(6, 7, 8)
+
+# Concatenate vectors x and y, and also add element 9
+z <- c(x, y, 9)
+
+# Print the resulting vector
+print(z)
+```
+
+
+
+
+## Concatenate {.smaller}
+
+
+- You can assign names to vector elements
+
+- This modiﬁes the way the vector is printed
+
+```{r}
+#| echo: true
+
+# We specify a vector with 3 named entries
+x <- c(first = "Red", second = "Green", third = "Blue")
+
+# Print the named vector
+print(x)
+```
+
+
+## Concatenate {.smaller}
+
+Given a named vector ``x``
+
+- Names can be extracted with ``names(x)``
+- Values can be extracted with ``unname(x)``
+
+```r
+# Create named vector
+x <- c(first = "Red", second = "Green", third = "Blue")
+
+# Access names of x via names(x)
+names_x <- names(x)
+
+# Access values of x via unname(x)
+values_x <- unname(x)
+
+cat("Names of x are:", names(x))
+cat("Values of x are:", unname(x))
+```
+
+
+```{r}
+# Create named vector
+x <- c(first = "Red", second = "Green", third = "Blue")
+
+# Names of componenents of x are accessed via names(x)
+names_x <- names(x)
+
+# Values of componenents of x are accessed via unname(x)
+values_x <- unname(x)
+
+cat("Names of x are:", names(x))
+cat("Values of x are:", unname(x))
+```
+
+
+## Concatenate {.smaller}
+
+- All elements of a vector have the **same** type
+- Concatenating vectors of different types leads to conversion
+
+
+```{r}
+#| echo: true
+
+c(FALSE, 2)        # Converts FALSE to 0
+```
+
+<br>
+
+```{r}
+#| echo: true
+
+c(pi, "stats")     # Converts pi to string 
+
+```
+
+<br>
+
+```{r}
+#| echo: true
+
+c(TRUE, "stats")   # Converts TRUE to string
+```
+
+
+
+## Sequence {.smaller}
+
+- Recall the syntax of ``seq`` is
+  * ``seq(from =, to =, by =, length.out =)``
+
+- Omitting the third argument assumes that ``by = 1``
+
+```{r}
+#| echo: true
+
+# The following generates a vector of integers from 1 to 6
+x <- seq(1, 6)
+
+print(x)
+```
+
+
+## Sequence {.smaller}
+
+
+- ``seq(x1, x2)`` is equivalent to ``x1:x2``
+- Syntax ``x1:x2`` is **preferred** to ``seq(x1, x2)``
+
+
+```r
+# Generate two vectors of integers from 1 to 6
+x <- seq(1, 6)
+y <- 1:6
+
+cat("Vector x is:", x)
+cat("Vector y is:", y)
+cat("They are the same!")
+```
+
+
+```{r}
+# Generate two vectors of integers from 1 to 6
+x <- seq(1, 6)
+y <- 1:6
+
+cat("Vector x is:", x)
+cat("Vector y is:", y)
+cat("They are the same!")
+```
+
+
+
+
+
+
+## Replicate {.smaller}
+
+``rep`` generates repeated values from a vector:
+
+- ``x`` vector 
+- ``n`` integer
+- ``rep(x, n)`` repeats ``n`` times the vector ``x``
+
+```r
+# Create a vector with 3 components
+x <- c(2, 1, 3)
+
+# Repeats 4 times the vector x
+y <- rep(x, 4)
+
+cat("Original vector is:", x)
+cat("Original vector repeated 4 times:", y)
+```
+
+```{r}
+# Create a vector with 3 components
+x <- c(2, 1, 3)
+
+# Repeats 4 times the vector x
+y <- rep(x, 4)
+
+cat("Original vector is:", x)
+cat("Original vector repeated 4 times:", y)
+```
+  
+
+## Replicate {.smaller}
+
+
+The second argument of ``rep()`` can also be a vector:
+
+- Given ``x`` and ``y`` vectors
+- ``rep(x, y)`` repeats entries of ``x`` as many times as corresponding entries of ``y``
+
+
+```r
+x <- c(2, 1, 3)         # Vector to replicate
+y <- c(1, 2, 3)         # Vector saying how to replicate 
+
+z <- rep(x, y)          # 1st entry of x is replicated 1 time
+                        # 2nd entry of x is replicated 2 times
+                        # 3rd entry of x is replicated 3 times
+
+cat("Original vector is:", x)
+cat("Original vector repeated is:", z)
+```
+
+
+```{r}
+x <- c(2, 1, 3)         # Vector to replicate
+y <- c(1, 2, 3)         # Vector saying how to replicate 
+
+z <- rep(x, y)          # 1st entry of x is replicated 1 time
+                        # 2nd entry of x is replicated 2 times
+                        # 3rd entry of x is replicated 3 times
+
+cat("Original vector is:", x)
+cat("Original vector repeated is:", z)
+```
+
+## Replicate {.smaller}
+
+- ``rep()`` can be useful to create vectors of labels
+- **Example**: Suppose we want to collect some numeric data on 3 Cats and 4 Dogs
+
+
+```{r}
+#| echo: true
+
+x <- c("Cat", "Dog")     # Vector to replicate
+
+y <- rep(x, c(3, 4))     # 1st entry of x is replicated 3 times
+                         # 2nd entry of x is replicated 4 times
+
+cat("Vector of labels is:", y)
+```
+
+
+
+
+
+# Part 3: <br>Lists {background-color="#cc0164" visibility="uncounted"}
+
+::: footer
+
+<div color="#cc0164">  </div>
+
+:::
+
+
+
+## Lists {.smaller}
+
+
+- Vectors can contain only one data type (number, character, boolean)
+
+- Lists are data structures that can contain **any R object**
+
+- Lists can be created similarly to vectors, with the command ``list()``
+
+```{r}
+#| echo: true
+
+# List containing a number, a vector, and a string
+my_list <- list(2, c(T,F,T,T), "hello")
+
+# Print the list
+print(my_list)
+```
+
+
+
+
+## Retrieving elements {.smaller}
+
+Elements of a list can be retrieved by **indexing**
+
+- ``my_list[[k]]`` returns k-th element of ``my_list``
+
+<br>
+
+```{r}
+#| echo: true
+# Consider again the same list
+my_list <- list(2, c(T,F,T,T), "hello")
+
+# Access 2nd element of my_list and store it in variable
+second_element <- my_list[[2]]
+
+# In this case the variable second_element is a vector
+print(second_element)
+
+```
+
+
+
+## List slicing {.smaller}
+
+
+You can return multiple items of a list via **slicing**
+
+- ``my_list[c(k1, ..., kn)]`` returns elements in positions ``k1, ..., kn``
+- ``my_list[k1:k2]`` returns elements ``k1`` to ``k2``
+
+```{r}
+#| echo: true
+
+my_list <- list(2, c(T,F), "Cat", "Dog", pi, 42)
+
+# We store 1st, 3rd, 5th entries of my_list in slice
+slice <- my_list[c(1, 3, 5)]
+
+print(slice)
+
+```
+
+
+## List slicing {.smaller}
+
+
+```{r}
+#| echo: true
+
+my_list <- list(2, c(T,F), "Cat", "Dog", pi, 42)
+
+# We store 2nd to 4th entries of my_list in slice
+slice <- my_list[2:4]
+
+print(slice)
+
+```
+
+
+## Naming {.smaller}
+
+- Components of a list can be **named**. Names can be assigned with
+    * ``names(my_list) <- c("name_1", ..., "name_k")``
+
+```{r}
+#| echo: true
+
+# Create list with 3 elements
+my_list <- list(2, c(T,F,T,T), "hello")
+
+# Name each of the 3 elements
+names(my_list) <- c("number", "TF_vector", "string")
+
+# Print the named list: the list is printed along with element names 
+print(my_list)
+
+```
+
+
+
+## Accessing a name {.smaller}
+
+- A component of ``my_list`` named ``my_name`` can be accessed with dollar operator
+    * ``my_list$my_name``
+
+```{r}
+#| echo: true
+
+# Create list with 3 elements and name them
+my_list <- list(2, c(T,F,T,T), "hello")
+names(my_list) <- c("number", "TF_vector", "string")
+
+# Access 2nd element using dollar operator and store it in variable
+second_component <- my_list$TF_vector
+
+# Print 2nd element
+print(second_component)
+
+```
+
+
+
+
+# Part 4: <br>Data Frames {background-color="#cc0164" visibility="uncounted"}
+
+::: footer
+
+<div color="#cc0164">  </div>
+
+:::
+
+
+
+## Data Frames {.smaller}
+
+- Data Frames are the best way of presenting a data set in R:
+    * Each variable has assigned a collection of recorded observations
+
+- Data frames can contain any R object
+
+- Data Frames are similar to Lists, with the difference that:
+    * Members of a Data Frame must all be vectors of equal length
+
+
+
+
+
+## Constructing a Data Frame {.smaller}
+
+- Data frames are constructed similarly to lists, using ``data.frame()``
+
+- **Important**: Elements of data frame must be vectors of the same length
+
+- **Example**: We construct the **Family Guy** data frame. Variables are
+    * ``person`` -- Name of character
+    * ``age`` -- Age of character
+    * ``sex`` -- Sex of character
+
+```r
+family <- data.frame(
+  person = c("Peter", "Lois", "Meg", "Chris", "Stewie"),
+  age = c(42, 40, 17, 14, 1),
+  sex = c("M", "F" , "F", "M", "M")
+)
+```
+
+
+
+## Printing a Data Frame {.smaller}
+
+::: {.column width="44%"}
+
+- R prints data frames like matrices
+- First row contains vector names
+
+:::
+
+::: {.column width="54%"}
+
+- First column contains row names
+- Data are paired: e.g. Peter is 42 and Male
+
+:::
+
+```{r}
+#| echo: true
+
+family <- data.frame(
+  person = c("Peter", "Lois", "Meg", "Chris", "Stewie"),
+  age = c(42, 40, 17, 14, 1),
+  sex = c("M", "F" , "F", "M", "M")
+)
+
+print(family)
+
+```
+
+
+## Extracting data {.smaller}
+
+- Think of a data frame as a *matrix*
+
+- You can extract element in position ``(m,n)`` by using
+    * ``my_data[m, n]``
+
+- **Example**: Peter is in 1st row. We can extract Peter's name as follows
+
+
+```r
+extracted <- family[1, 1]
+
+print(extracted)
+```
+
+```{r}
+family <- data.frame(
+  person = c("Peter", "Lois", "Meg", "Chris", "Stewie"),
+  age = c(42, 40, 17, 14, 1),
+  sex = c("M", "F" , "F", "M", "M")
+)
+
+extracted <- family[1, 1]
+
+print(extracted)
+```
+
+
+
+
+## Extracting data {.smaller}
+
+To extract multiple elements on the same row or column type
+
+- ``my_data[c(k1,...,kn), m] `` $\quad$ or $\quad$ `` my_data[k1:k2, m]``
+- ``my_data[n, c(k1,...,km)] `` $\quad$ or $\quad$ `` my_data[n, k1:k2]``
+
+**Example**: Meg is listed in 3rd row. We extract her *age* and *sex*
+
+
+```r
+meg_data <- family[3, 2:3]
+
+print(meg_data)
+```
+
+```{r}
+family <- data.frame(
+  person = c("Peter", "Lois", "Meg", "Chris", "Stewie"),
+  age = c(42, 40, 17, 14, 1),
+  sex = c("M", "F" , "F", "M", "M")
+)
+
+meg_data <- family[3, 2:3]
+
+print(meg_data)
+```
+
+
+
+## Extracting data {.smaller}
+
+To extract entire rows or columns type
+
+- ``my_data[c(k1,...,kn), ] `` $\quad$ or $\quad$ `` my_data[k1:k2, ]``
+- ``my_data[, c(k1,...,km)] `` $\quad$ or $\quad$ `` my_data[, k1:k2]``
+
+
+```r
+peter_data <- family[1, ]      # Extracts first row - Peter
+sex_age <- family[, c(3,2)]    # Extracts third and second columns:
+                               # sex and age
+
+print(peter_data)
+print(sex_age)
+```
+
+```{r}
+
+family <- data.frame(
+  person = c("Peter", "Lois", "Meg", "Chris", "Stewie"),
+  age = c(42, 40, 17, 14, 1),
+  sex = c("M", "F" , "F", "M", "M")
+)
+
+peter_data <- family[1, ]
+sex_age <- family[, c(3,2)]
+
+print(peter_data)
+print(sex_age)
+
+```
+
+
+
+## Extracting data {.smaller}
+
+Use dollar operator to access data frame columns
+
+- Suppose data set ``my_data`` contains a variable called ``my_variable``
+- ``my_data$my_variable`` accesses column ``my_variable``
+- ``my_data$my_variable`` is a vector
+
+**Example**: To access *age* in the ``family`` data frame type
+
+```r
+ages <- family$age        # Stores ages in a vector
+
+cat("Ages of the Family Guy characters are", ages)
+cat("Meg's age is", ages[3])
+```
+
+```{r}
+family <- data.frame(
+  person = c("Peter", "Lois", "Meg", "Chris", "Stewie"),
+  age = c(42, 40, 17, 14, 1),
+  sex = c("M", "F" , "F", "M", "M")
+)
+
+ages <- family$age
+
+cat("Ages of the Family Guy characters are", ages)
+cat("Meg's age is", ages[3])
+```
+
+
+
+
+## Size of a data frame {.smaller}
+
+The size of a data frame can be discovered using:
+
+- ``nrow(my_data)`` $\quad$ number of rows
+- ``ncol(my_data)`` $\quad$ number of columns
+- ``dim(my_data)`` $\quad \quad$ vector containing number of rows and columns
+
+
+```r
+family_dim <- dim(family)    # Stores dimensions of family in a vector
+
+cat("The Family Guy data frame has", family_dim[1], 
+    "rows and", family_dim[2], "columns")
+```
+
+```{r}
+family <- data.frame(
+  person = c("Peter", "Lois", "Meg", "Chris", "Stewie"),
+  age = c(42, 40, 17, 14, 1),
+  sex = c("M", "F" , "F", "M", "M")
+)
+
+family_dim <- dim(family)
+
+cat("The Family Guy data frame has", family_dim[1], 
+    "rows and", family_dim[2], "columns")
+
+```
+
+
+
+
+## Adding Data {.smaller}
+
+
+Adding data to an existing data frame ``my_data``
+
+- Add more records (adding to rows) 
+    * Create single row data frame ``new_record``
+    * ``new_record`` must match the structure of ``my_data``
+    * Add to ``my_data`` with ``my_data <- rbind(my_data, new_record)``
+
+- Add a set of observations for a new variable (adding to columns)
+    * Create a vector ``new_variable``
+    * ``new_variable`` must have as many components as rows in ``my_data``
+    * Add to ``my_data`` with ``my_data <- cbind(my_data, new_variable)``
+
+    
+
+## Example: Add new record {.smaller}
+
+- Consider the usual **Family Guy** data frame ``family``
+- Suppose we want to add data for **Brian**
+- Create a new record: a single row data frame with columns   
+    * *person*, *age*, *sex*
+
+```{r}
+#| echo: true
+
+new_record <- data.frame(
+  person = "Brian",
+  age = 7,
+  sex = "M"
+)
+
+print(new_record)
+```
+
+
+
+
+## Example: Add new record {.smaller}
+
+
+- Now we add ``new_record`` to ``family``
+
+```r
+family <- rbind(family, new_record)
+
+print(family)
+```
+
+```{r}
+family <- data.frame(
+  person = c("Peter", "Lois", "Meg", "Chris", "Stewie"),
+  age = c(42, 40, 17, 14, 1),
+  sex = c("M", "F" , "F", "M", "M")
+)
+
+new_record <- data.frame(
+  person = "Brian",
+  age = 7,
+  sex = "M"
+)
+
+family <- rbind(family, new_record)
+print(family)
+```
+
+
+
+## Example: Add new variable {.smaller}
+
+- We want to add a new variable to the **Family Guy** data frame ``family``
+- This variable is called ``funny``
+- It records how funny each character is, with levels
+    * *Low*, *Med*, *High*
+- Create a vector ``funny`` with entries matching each character (including **Brian**)
+
+
+```{r}
+#| echo: true
+
+funny <- c("High", "High", "Low", "Med", "High", "Med")
+
+print(funny)
+
+```
+
+
+## Example: Add new variable {.smaller}
+
+- Add ``funny`` to the **Family Guy** data frame ``family``
+
+
+
+```r
+family <- cbind(family, funny)
+
+print(family)
+```
+
+
+```{r}
+family <- data.frame(
+  person = c("Peter", "Lois", "Meg", "Chris", "Stewie"),
+  age = c(42, 40, 17, 14, 1),
+  sex = c("M", "F" , "F", "M", "M")
+)
+
+new_record <- data.frame(
+  person = "Brian",
+  age = 7,
+  sex = "M"
+)
+
+family <- rbind(family, new_record)
+
+funny <- c("High", "High", "Low", "Med", "High", "Med")
+
+family <- cbind(family, funny)
+print(family)
+```
+
+
+
+## Adding a new variable: alternative way {.smaller}
+
+Instead of using ``cbind`` we can add a new varibale using dollar operator:
+
+- We want to add a variable called ``new_variable``
+- Create a vector ``v`` containing values for the new variable
+- ``v`` must have as many components as rows in ``my_data``
+- Add to ``my_data`` with ``my_data$new_variable <- v``
+    
+
+
+
+## Adding a new variable: alternative way {.smaller}
+
+**Example**: 
+
+- We add age expressed in months to the **Family Guy** data frame ``family``
+- Age in months can be computed by multiplying vector ``family$age`` by $12$
+
+
+```r
+v <- family$age * 12       # Computes vector of ages in months
+
+family$age.months <- v     # Stores vector as new column in family
+
+print(family)
+```
+
+
+```{r}
+family <- data.frame(
+  person = c("Peter", "Lois", "Meg", "Chris", "Stewie"),
+  age = c(42, 40, 17, 14, 1),
+  sex = c("M", "F" , "F", "M", "M")
+)
+
+new_record <- data.frame(
+  person = "Brian",
+  age = 7,
+  sex = "M"
+)
+
+family <- rbind(family, new_record)
+
+funny <- c("High", "High", "Low", "Med", "High", "Med")
+
+family <- cbind(family, funny)
+
+v <- family$age * 12
+family$age.months <- v
+print(family)
+```
+
+
+
+
+## Logical Record Subsets {.smaller}
+
+- We saw how to use **logical flag vectors** to subset vectors
+
+- We can use logical flag vectors to subset data frames as well
+
+- Suppose to have data frame ``my_data`` containing a variable ``my_variable``
+
+- Want to subset records in ``my_data`` for which  ``my_variable`` satisfies a condition
+
+- Use commands
+    * ``flag <- condition(my_data$my_variable)``
+    * ``my_data[flag, ]``
+ 
+
+
+
+## Logical Record Subsets {.smaller}
+
+**Example**:
+
+- Consider again the **Family Guy** data frame ``family``
+- We subset Male characters using flag ``family$sex == "M"``
+
+
+
+```r
+# Create flag vector for male Family Guy characters
+flag <- (family$sex == "M")
+
+# Subset data frame "family" and store in data frame "subset"
+subset <- family[flag, ]
+
+# Print subset
+print(subset)
+```
+
+```{r}
+family <- data.frame(
+  person = c("Peter", "Lois", "Meg", "Chris", "Stewie"),
+  age = c(42, 40, 17, 14, 1),
+  sex = c("M", "F" , "F", "M", "M")
+)
+
+new_record <- data.frame(
+  person = "Brian",
+  age = 7,
+  sex = "M"
+)
+
+family <- rbind(family, new_record)
+
+funny <- c("High", "High", "Low", "Med", "High", "Med")
+
+family <- cbind(family, funny)
+
+family$age.months <- family$age * 12
+
+flag <- (family$sex == "M")
+subset <- family[flag, ]
+print(subset)
+```
+
+
+
+
+
+
+# Part 5: <br>Data Entry {background-color="#cc0164" visibility="uncounted"}
+
+::: footer
+
+<div color="#cc0164">  </div>
+
+:::
+
+
+
+## Reading data from files {.smaller}
+
+- R has a many functions for reading **characters** from stored **files** 
+
+- We will see how to read **Table-Format** files
+
+- **Table-Formats** are just tables stored in plain-text files
+
+- Typical file estensions are:
+    * ``.txt`` for plain-text files
+    * ``.csv`` for comma-separated values
+
+
+- **Table-Formats** can be read into R with the command
+    * ``read.table()``
+
+
+
+
+## Table-Formats {.smaller}
+### 4 key features
+    
+1. **Header**: 
+    * If present, header should be the first line of the file
+    * Header is used to provide names for each column of data
+    * If a header is present, you need to tell this to R when importing
+    * If not, R cannot tell if first line is a header or observed data values
+
+
+
+
+## Table-Formats {.smaller}
+### 4 key features
+
+2. **Delimiter**: 
+    * A character used to separate the entries in each line
+    * Delimiter character cannot be used for anything else in the file
+    * Delimiter tells R when a specific entry begins and ends
+    * Default delimiter is **whitespace**
+
+
+
+## Table-Formats {.smaller}
+### 4 key features
+
+3. **Missing value**: 
+    * Character string used exclusively to denote a missing value
+    * When reading the file, R will turn these entries into ``NA``
+
+
+
+## Table-Formats {.smaller}
+### 4 key features
+
+4. **Comments**:
+    * Table files can include comments
+    * Comment lines start with $\quad$ ``#``
+    * R ignores such comments
+
+
+
+
+## Table-Formats {.smaller}
+### Example
+
+- Table-Format for **Family Guy** characters can be downloaded here [family_guy.txt](datasets/family_guy.txt)
+
+
+::: {.column width="54%"}
+
+- The text file looks like this
+
+![](images/family_guy.png){width=78%}
+
+:::
+
+::: {.column width="44%"}
+
+- Remarks:
+    * Header is present
+    * Delimiter is **whitespace**
+    * Missing values denoted by ``*``
+
+:::
+
+
+
+## read.table command {.smaller}
+
+- Table-Formats can be read via ``read.table()``
+    * This reads a ``.txt`` or ``.csv`` file and outputs a data frame
+- Options of ``read.table()``
+    * ``header = T/F`` -- Tells R if a header is present
+    * ``na.strings = "string"`` -- Tells R that ``"string"`` means ``NA``
+
+
+
+## Reading our first Table-Format file {.smaller}
+
+To read ``family_guy.txt`` into R proceed as follows:
+
+1. Download [family_guy.txt](datasets/family_guy.txt) and move file to Desktop
+
+2. Open the R Console and change working directory to **Desktop**
+
+```r
+# In MacOS type
+setwd("~/Desktop")
+
+# In Windows type
+setwd("C:/Users/YourUsername/Desktop")
+```
+
+
+## Reading our first Table-Format file {.smaller}
+
+
+3. Read ``family_guy.txt`` into R and store it in data frame ``family`` with code
+
+```r
+family = read.table(file = "family_guy.txt",
+                    header = TRUE,
+                    na.strings = "*"
+                    )
+```
+
+4. Note that we are telling ``read.table()`` that
+    * ``family_guy.txt`` has a header
+    * Missing values are denoted by ``*``
+
+
+
+## Reading our first Table-Format file {.smaller}
+
+
+::: {.column width="48%"}
+5. Print data frame ``family`` to screen
+
+```r
+print(family)
+```
+
+```{r}
+family = read.table(file = "datasets/family_guy.txt",
+                    header = TRUE,
+                    na.strings = "*"
+                    )
+print(family)
+```
+
+:::
+
+::: {.column width="48%"}
+
+- For comparison this is the ``.txt`` file
+
+![](images/family_guy.png){width=85%}
+
+:::
+
+
+
+
+
+## Application: t-test {.smaller}
+
+**Example**: Analysis of Consumer Confidence Index for 2008 crisis from Lecture 4
+
+- We imported data into R using ``c()``
+- This is ok for small datasets
+- Suppose the CCI data is stored in a ``.txt`` file instead
+
+
+**Goal**: Perform t-test on CCI difference for mean difference $\mu = 0$
+
+- By reading CCI data into R using ``read.table()``
+- By manipulating CCI data using **data frames**
+
+
+
+
+## Application: t-test {.smaller}
+
+- The CCI dataset can be downloaded here [2008_crisis.txt](datasets/2008_crisis.txt)
+
+- The text file looks like this
+
+![](images/2008_crisis.png){width=78%}
+
+
+
+## Application: t-test {.smaller}
+
+To perform the t-test on data ``2008_crisis.txt`` we proceed as follows:
+
+1. Download dataset [2008_crisis.txt](datasets/2008_crisis.txt) and move file to Desktop
+
+2. Open the R Console and change working directory to **Desktop**
+
+```r
+# In MacOS type
+setwd("~/Desktop")
+
+# In Windows type
+setwd("C:/Users/YourUsername/Desktop")
+```
+
+3. Read ``2008_crisis.txt`` into R and store it in data frame ``scores`` with code
+
+```r
+scores = read.table(file = "2008_crisis",
+                    header = TRUE
+                    )
+```
+
+
+## Application: t-test {.smaller}
+
+4. Store 2nd and 3rd columns of ``scores`` into 2 vectors
+
+```r
+# CCI from 2007 is stored in 2nd column
+score_2007 <- scores[, 2]
+
+# CCI from 2009 is stored in 3nd column
+score_2009 <- scores[, 3]
+```
+
+
+5. Now the t-test can be performed as done in Lecture 4
+
+```r
+# Compute vector of differences
+difference <- score_2007 - score_2009
+
+# Perform t-test on difference with null hypothesis mu = 0
+t.test(difference, mu = 0)
+```
+
+
+
+## Application: t-test {.smaller}
+
+6. We obtain the same result of Lecture 4
+    * p-value is $p < 0.05$
+    * Reject $H_0$: The mean difference is not $0$
+    * In details, the output of ``t.test`` is below
+
+- For convenience you can download the full code [2008_crisis_code.R](codes/2008_crisis_code.R)
+
+```{r}
+# Read ``2008_crisis.txt`` into R and store in "scores"
+scores = read.table(file = "datasets/2008_crisis.txt",
+                    header = TRUE
+                    )
+
+# Extract scores of 2007 and 2009 in 2 vectors
+score_2007 <- scores[, 2]
+score_2009 <- scores[, 3]
+
+# Compute difference
+difference <- score_2007 - score_2009
+
+# Perform t-test on difference with null hypothesis mu = 0
+t.test(difference, mu = 0)
+```
+
+
+
+
+
+# Part 6: <br>R Style Guide {background-color="#cc0164" visibility="uncounted"}
+
+::: footer
+
+<div color="#cc0164">  </div>
+
+:::
+
+
+## R Style Guide {.smaller}
+
+- Styling your code is optional
+- However it is considered good manners to do so
+- Good coding style makes code more readable
+- Highly recommended, especially for assignments
+- The next few slides on Style are based on these two posts:
+  * Style Guide by Hadley Wickham ([link](http://adv-r.had.co.nz/Style.html#:~:text=When%20indenting%20your%20code%2C%20use,definition%20runs%20over%20multiple%20lines.))
+  * Google's R Style Guide ([link](https://google.github.io/styleguide/Rguide.html))
+
+
+
+## File names {.smaller}
+
+They should be meaningful and end in .R
+
+```r
+# Good
+football-models.R  
+utility-functions.R
+homework_1.R
+homework1.R
+
+# Bad
+footballmodels.r # Hard to read
+stuff.r          # What is inside this file?
+code.r           # Same as above
+
+```
+
+
+
+## Objects names {.smaller}
+
+- Objects names shoulde be lowercase
+- Use an underscore (``_``) to separate words within a name
+- Variable names should be nouns, not verbs
+- Come up with names that are concise and meaningful
+
+```r
+# Good
+day_one  # This will clearly store the value of first day
+day_1    # Still clear
+
+
+# Bad
+first_day_of_the_month  # Too long
+dayone                  # Hard to read
+DayOne                  # Mix of upper and lower case
+fdm                     # Hard to guess what this means
+```
+
+
+
+
+## Functions names {.smaller}
+
+- Name functions with ``BigCamelCase`` ([link](https://en.wikipedia.org/wiki/Camel_case))
+- This is to clearly distinguish functions from other objects
+- Functions names should be verbs
+- Come up with names that are concise and meaningful
+
+```r
+# Good
+DoNothing <- function() {
+  return(invisible(NULL))
+}
+
+# Bad
+donothing <- function() {
+  return(invisible(NULL))
+}
+```
+
+
+
+
+
+## Object and functions names {.smaller}
+
+If possible avoid using names of existing functions and variables
+
+
+```r
+# Bad
+T <- FALSE                  # T is reserved for the boolean TRUE
+c <- 10                     # c denotes the concatenation operator
+mean <- function(x) sum(x)  # mean already denotes a built in function
+```
+
+
+
+## Assignment {.smaller}
+
+Use ``<-`` and not ``=`` for assignment
+
+```r 
+# Good
+x <- 5
+
+# Bad
+x = 5
+```
+
+
+
+
+## Spacing {.smaller}
+
+- Spacing is **really** something you should be careful about
+- Place spaces around all infix operators (``=``, ``+``, ``-``, ``<-``, etc.) 
+- Place spaces around ``=`` when calling a function 
+- Always put a space after a comma, never before (like in regular English)
+
+```r 
+# Good
+average <- mean(feet / 12 + inches, na.rm = TRUE)
+
+# Bad
+average<-mean(feet/12+inches,na.rm=TRUE)
+```
+
+
+
+
+## Spacing with Brackets {.smaller}
+
+- Do not place spaces around code in parentheses or square brackets
+- Unless there is a comma
+
+```r
+# Good
+if (condition) do(x)
+diamonds[5, ]
+
+# Bad
+if ( condition ) do(x)  # No spaces around condition
+x[1,]                   # Needs a space after the comma
+x[1 ,]                  # Space goes after comma not before
+```
+
+
+
+
+## Spacing - Exceptions {.smaller}
+
+- Symbols ``:``, ``::`` and ``:::`` do not need spacing
+
+```r
+# Good
+x <- 1:10
+
+# Bad
+x <- 1 : 10
+```
+
+- Place a space before left parentheses, except in a function call
+
+```r
+#Good
+if (condition) do(x)
+plot(x, y)
+
+# Bad
+if(condition)do(x)    # (condition) needs spacing
+plot (x, y)           # This does not need spacing
+```
+
+
+
+## Extra Spacing {.smaller}
+
+Extra spacing is ok if it improves alignment of ``=`` or ``<-``
+
+```r
+list(
+  total = a + b + c, 
+  mean  = (a + b + c) / n
+)
+```
+
+
+
+## Curly braces {.smaller}
+
+- An opening curly brace should never go on its own line 
+- An opening curly brace should always be followed by a new line
+- Always **indent** the code inside curly braces
+
+
+::: {.column width="45%"}
+
+```r
+# Good
+
+if (y < 0 && debug) {
+  message("Y is negative")
+}
+
+if (y == 0) {
+  log(x)
+} 
+```
+
+:::
+
+
+::: {.column width="45%"}
+
+```r
+# Bad
+
+if (y < 0 && debug)
+message("Y is negative")
+
+
+if (y == 0) 
+{
+  log(x)} 
+```
+
+:::
+
+
+
+
+
+## Line length {.smaller}
+
+- Limit code to 80 characters per line
+- This fits comfortably on a printed page 
+- If you run out of room, encapsulate some of the work in separate function
+
+
+
+
+## Indentation {.smaller}
+
+- When indenting your code, use two spaces
+- Never use tabs or mix tabs and spaces
+- Indentation should be used for **functions**, **if**, **for**, etc.
+
+```r
+SumTwoNumbers <- function(x, y) {
+  s = x + y
+  return(s)
+}
+```
+
+
+
+## Indentation - Exception {.smaller}
+
+If a function definition runs over multiple lines, indent the second line to where the definition starts
+
+```r
+long_function_name <- function(a = "a long argument", 
+                               b = "another argument",
+                               c = "another long argument") {
+  # As usual code is indented by two spaces.
+}
+```
+
+
+
+
+## Use explicit returns {.smaller}
+
+- Functions can return objects
+- R has an implicit return feature
+- Do not rely on this feature, but explicitly mention ``return(object)``
+
+```r
+# Good
+AddValues <- function(x, y) {
+  return(x + y)                     # Function returns x+y
+}
+
+# Bad
+AddValues <- function(x, y) {
+  x + y                             # Function still returns x+y
+}                                   # but it is not immediate to see it
+```
+
+
+
+
+## Named arguments {.smaller}
+
+- Often you can call a function without explicitly naming arguments:
+  * ``plot(height, weight)``
+  * ``mean(weight)``
+
+- This might be fine for ``plot()`` or ``mean``
+
+- However for less common functions:
+  * One might struggle to remember the meaning of **arguments positions**
+  * It is therefore good practice to **name arguments**
+
+```r
+# Good
+seq(from = 1, to = 11, by = 1)
+
+# Bad
+seq(1, 11, 1)
+```
+
+
+
+## Comments {.smaller}
+
+- **Most importantly**: Comment your code
+- Each line of a comment should begin with comment symbol ``#`` and a single space
+
+```r 
+# Here we sum two numbers  
+x+y
+```
+
+
+- Use commented lines of ``-`` and ``=`` to break up code into easily readable chunks
+
+```r
+# Load data ---------------------------
+
+# Plot data ---------------------------
+```

@@ -8,11 +8,6 @@ author:
       email: S.Fanzon@hull.ac.uk
       url: https://www.silviofanzon.com
       affiliations: University of Hull
-    - name: Dr. John Fry
-      id: jf
-      email: J.M.Fry@hull.ac.uk
-      url: https://www.hull.ac.uk/staff-directory/john-fry
-      affiliations: University of Hull
 ---
 
 

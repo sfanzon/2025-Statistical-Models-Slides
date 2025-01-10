@@ -40,7 +40,7 @@ Up to date information about the module will be published on the University of H
 
 ::: {.content-visible when-format="html"}
 <div style="text-align: center;">
-**[canvas.hull.ac.uk/courses/70065](https://canvas.hull.ac.uk/courses/70065)**
+**[canvas.hull.ac.uk/courses/75082](https://canvas.hull.ac.uk/courses/75082)**
 </div>
 :::
 

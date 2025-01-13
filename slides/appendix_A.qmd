@@ -33,16 +33,47 @@ $
 
 
 
+## Introduction {.smaller}
+
+- In this Appendix we review some fundamental Probability notions
+- You saw these in the Y1 module **Introduction to Probability & Statistics**
+- We will adopt a slightly more mature mathematical approach
+- Remember: The mathematical description might look (a bit) different, but the concepts are the same
+
+**Topics reviewed**:
+    
+::: {.column width="38%"}
+    
+- Sample space
+- Events
+- Probability measure
+- Conditional probability
+- Events independence
+
+:::
+
+::: {.column width="58%"}
+
+- Random Variable (Discrete and Continuous)
+- Distribution
+- cdf, pmf, pdf
+- Expected value and Variance
+
+:::
+
+
+
+
 ## Outline of Appendix A
 
-1. Functions in R
+1. Probability space
+2. Random variables
+3. Expected value
 
 
 
 
-
-
-# Part 1: <br>Functions in R {background-color="#cc0164" visibility="uncounted"}
+# Part 1: <br>Probability space {background-color="#cc0164" visibility="uncounted"}
 
 ::: footer
 
@@ -52,257 +83,458 @@ $
 
 
 
-## Expressions and objects {.smaller}
 
-- Basic way to interact with R is through **expression evaluation**:
-  * You enter an epression
-  * The system evaluates it and prints the result
 
-- Expressions work on **objects**
-- **Object**: anything that can be assigned to a variable
-- Objects encountered so far are:
-  * Scalars
-  * Vectors
+## Sample space {.smaller}
 
 
+::: Definition
+### Sample space
 
-## Functions and arguments {.smaller}
+A set $\Omega$ of all possible outcomes of some experiment
 
-- **Functions** are a class of objects
+:::
 
-- Format of a function is **name** followed by parentheses containing **arguments**
 
-- Functions take **arguments** and **return** a result
+**Examples**:
 
-- We already encountered several built in functions:
-  * ``plot(x, y)``
-  * ``lines(x, y)``
-  * ``seq(x)``
-  * ``print("Stats is great!")``
-  * ``cat("R is great!")``
-  * ``mean(x)``
-  * ``sin(x)``
+- Coin toss: results in Heads $= H$ and Tails $= T$ 
+$$
+\Omega = \{ H, T \}
+$$
 
+- Student grade for *Statistical Models*: a number between $0$ and $100$
+$$
+\Omega = \{ x \in \mathbb{R} \, \colon \, 0 \leq x \leq 100 \} = [0,100]
+$$
 
-## Functions and arguments {.smaller}
 
-- Functions have **actual arguments** and **formal arguments**
-- Example: 
-  * ``plot(x, y)`` has formal arguments two vectors ``x`` and ``y``
-  * ``plot(height, weight)`` has actual arguments ``height`` and ``weight``
 
-- When you write ``plot(height, weight)`` the arguments are matched:
-  * ``height`` corresponds to x-variable
-  * ``weight`` corresponds to y-variable
-  * This is called **positional matching**
-  
-  
 
-## Functions and arguments {.smaller}
 
-- If a function has a lot of arguments, positional matching is tedious
 
-- For example ``plot()`` accepts the following (and more!) arguments
+## Events {.smaller}
 
-| Argument |                        Description    |
-|:--------:|:-------------------------------------:|
-| ``x``    | x coordinate of points in the plot    |
-| ``y``    | y coordinate of points in the plot    |
-| ``type`` | Type of plot to be drawn              |
-| ``main`` | Title of the plot                     |
-| ``xlab`` | Label of x axis                       |
-| ``ylab`` | Label of y axis                       | 
-| ``pch``  | Shape of points                       |
 
+::: Definition
+### Event
 
+A subset $E$ of the sample space $\Omega$ (including $\emptyset$ and $\Omega$ itself)
 
+:::
 
 
-## Functions and arguments {.smaller}
+**Operations with events**:
 
-Issue with having too many arguments is the following:
+- **Union** of two events $A$ and $B$
+$$
+A \cup B := \{ x \in \Omega \colon x \in A \, \text{ or } \, x \in B \}
+$$
 
-- We might want to specify ``pch = 2``
-- But then we would have to match all the arguments preceding
-``pch``
-  * ``x``
-  * ``y``
-  * ``type``
-  * ``xlab``
-  * ``ylab``
+- **Intersection** of two events $A$ and $B$
+$$
+A \cap B := \{ x \in \Omega \colon x \in A \, \text{ and } \, x \in B \}
+$$
 
 
 
-## Functions and arguments {.smaller}
 
-- Thankfully we can use **named actual arguments**:
-  * The name of a formal argument can be matched to an actual argument
-  * This is independent of position
+## Events {.smaller}
 
-- For example we can specify ``pch = 2`` by the call
-  * ``plot(weight, height, pch = 2)``
 
-- In the above:
-  * ``weight`` is implicitly matched to ``x``
-  * ``height`` is implicitly matched to ``y``
-  * ``pch`` is explicitly matched to ``2``
-  
-- Note that the following call would give same output
-  * ``plot(x = weight, y = height, pch = 2)``
+**More Operations with events**:
 
+- **Complement** of an event $A$
+$$
+A^c  := \{ x \in \Omega \colon x \notin A  \}
+$$
 
 
+- **Infinite Union** of a family of events $A_i$ with $i \in I$
 
+$$
+\bigcup_{i \in I} A_i := \{ x \in \Omega \colon x \in A_i \, \text{ for some } \, i \in I \}
+$$
 
+- **Infinite Intersection** of a family of events $A_i$ with $i \in I$
 
-## Functions and arguments {.smaller}
+$$
+\bigcap_{i \in I} A_i := \{ x \in \Omega \colon x \in A_i \, \text{ for all } \, i \in I \}
+$$
 
-- Named actual arguments **override** positional arguments
-- Example: The following commands yield the same plot
-  * ``plot(height, weight)``
-  * ``plot(x = height, y = weight)``
-  * ``plot(y = weight, x = height)``
 
 
 
 
+## Events {.smaller}
 
-## Functions and arguments {.smaller}
+**Example**: Consider sample space and events
+$$
+\Omega := (0,1] \,, \quad 
+A_i = \left[\frac{1}{i} , 1 \right] \,, \quad i \in \mathbb{N}
+$$
+Then
+$$
+\bigcup_{i \in I} A_i = (0,1] \,, \quad 
+\bigcap_{i \in I} A_i = \{ 1 \}
+$$
 
-We have already seen another example of **named actual arguments**
 
-- ``seq(from = 1, to = 11, by = 2)``
-- ``seq(1, 11, 2)``
-- These yield the same output. Why?
-- Because in this case **named actual arguments** match **positional arguments**
 
 
 
+## Events {.smaller}
 
-## Functions and arguments {.smaller}
+::: Definition
+### Disjoint
 
-If however we want to divide the interval $[1, 11]$ in $5$ equal parts:
+Two events $A$ and $B$ are **disjoint** if
+$$
+A \cap B = \emptyset
+$$
+Events $A_1, A_2, \ldots$ are **pairwise disjoint** if
+$$
+A_i \cap A_j = \emptyset \,, \quad \forall \, i \neq j
+$$
+:::
 
-- Have to use ``seq(1, 11, length.out = 6)``
 
 
-```{r}
-#| echo: true
-seq(1, 11, length.out = 6)
-```
 
-- The above is different from ``seq(1, 11, 6)``
-```{r}
-#| echo: true
-seq(1, 11, 6)
-```
 
-- They are different because:
-  * The 3rd positional argument of ``seq()`` is ``by``
-  * Hence the command ``seq(1, 11, 6)`` assumes that ``by = 6``
+## Events {.smaller}
 
+::: Definition
+### Partition
 
+The collection of events  $A_1, A_2, \ldots$ is a **partition** of $\Omega$ if
 
-## Functions and arguments {.smaller}
-### Warning
+1. $A_1, A_2, \ldots$ are pairwise disjoint
+2. $\Omega = \cup_{i=1}^\infty A_i$
 
-- You can call functions without specifying arguments
-- However you have to use brackets ``()``
-- Example:
-  * ``getwd()`` -- which outputs current working directory
-  * ``ls()`` -- which outputs names of objects currently in memory
+:::
 
 
 
 
-## Custom functions {.smaller}
 
-- You can define your own functions in R
-- Syntax for definining custom function ``my_function`` is below
-- You can call your custom function by typing
-    * ``my_function(arguments)``
 
-```r
-my_function <- function(first = "1st argument", 
-                        ... ,
-                        nth = "n-th argument") {
-  
-  # Code here: This is where you tell the function what to do
+## What's a Probability? {.smaller}
 
-  return(object)      # Object to be returned  
-}
-```
 
+- To each event $E \subset \Omega$ we would like to associate a number
+$$
+P(E) \in [0,1]
+$$
 
-## Custom functions -- Example {.smaller}
+- The number $P(E)$ is called the **probability** of $E$
 
-- The R function ``mean(x)`` computes the sample mean of vector ``x``
-- We want to define our own function to compute the mean
+- The number $P(E)$ models the **frequency of occurrence** of $E$:
 
-- **Example:** The mean of ``x`` could be computed via
-    * ``sum(x) / length(x)``
-- We want to implement this code into the function ``my_mean(x)``
-    * ``my_mean`` takes vector ``x`` as argument
-    * ``my_mean`` returns a scalar -- the mean of ``x``
+    * $P(E)$ small means $E$ has low chance of occurring
+    * $P(E)$ large means $E$ has high chance of occurring
 
-```r
-# Definition of custom function my_mean(x)
-my_mean <- function(vector = x) {
-  
-  mean_of_x <- sum(x) / length(x)
-  
-  return(mean_of_x)  
-}
-```
+- **Technical issue**:
 
+    * One cannot associate a number $P(E)$ for all events in $\Omega$
+    * Probability function $P$ only defined for a **smaller** family of events
+    * Such family of events is called $\sigma$-algebra
 
 
-## Custom functions -- Example {.smaller}
 
 
-- Let us use our function ``my_mean`` on an example
 
-```r
-# Generate a random vector of 1000 entries from N(0,1)
-x <- rnorm(1000)
 
-# Compute mean of x with my_mean
-xbar <- my_mean(x)
+## $\sigma$-algebras {.smaller}
 
-# Compute mean of x with built in function mean
-xbar_check <- mean(x)
-  
-cat("Mean of x computed with my_mean is:", xbar)
-cat("Mean of x computed with R mean is:", xbar_check)
-cat("They coincide!")
-```
 
-```{r}
-my_mean <- function(vector = x) {
-  
-  mean_of_x <- sum(x) / length(x)
-  
-  return(mean_of_x)  
-}
+::: Definition
+### sigma-algebra
 
-# Generate a random vector of 1000 entries from N(0,1)
-x <- rnorm(1000)
+Let $\mathcal{B}$ be a collection of events. We say that $\mathcal{B}$ is a $\sigma$-algebra if
 
-# Compute mean of x with my_mean
-xbar <- my_mean(x)
+1. $\emptyset \in \mathcal{B}$
+2. If $A \in \mathcal{B}$ then $A^c \in \mathcal{B}$
+3. If $A_1,A_2 , \ldots \in \mathcal{B}$ then $\cup_{i=1}^\infty A_i \in \mathcal{B}$
 
-# Compute mean of x with built in function mean
-xbar_check <- mean(x)
-  
-cat("Mean of x computed with my_mean is:", xbar)
-cat("Mean of x computed with R mean is:", xbar_check)
-cat("They coincide!")
-```
 
+:::
 
 
 
-# Part 2: <br>More on Vectors {background-color="#cc0164" visibility="uncounted"}
+**Remarks**:
+
+- Since $\emptyset \in \mathcal{B}$ and $\emptyset^c = \Omega$, we deduce that
+$\Omega \in \mathcal{B}$
+
+- Thanks to DeMorgan's Law we have that
+$$
+A_1,A_2 , \ldots \in \mathcal{B} \quad \implies \quad \cap_{i=1}^\infty A_i \in \mathcal{B}
+$$
+
+
+
+
+
+
+## $\sigma$-algebras {.smaller}
+### Examples
+
+Suppose $\Omega$ is any set: 
+
+- Then
+$$
+\mathcal{B} = \{ \emptyset, \Omega \}
+$$
+is a $\sigma$-algebra
+
+
+- The power set of $\Omega$
+$$
+\mathcal{B} = \operatorname{Power} (\Omega) := \{ A \colon A \subset \Omega \}
+$$
+is a $\sigma$-algebra
+
+
+
+
+
+
+## $\sigma$-algebras {.smaller}
+### Examples
+
+
+- If $\Omega$ has $n$ elements then $\mathcal{B} = \operatorname{Power} (\Omega)$ contains $2^n$ sets
+
+- If $\Omega = \{ 1,2,3\}$ then
+\begin{align*}
+\mathcal{B} = \operatorname{Power} (\Omega) = \big\{ & \{1\} , \, \{2\}, \, \{3\}  \\
+                                       &  \{1,2\} , \, \{2,3\}, \, \{1,3\}      \\
+                                       & \emptyset , \{1,2,3\}   \big\}
+\end{align*}
+
+- If $\Omega$ is **uncountable** then the power set of $\Omega$ is not easy to describe
+
+
+
+
+
+
+## Lebesgue $\sigma$-algebra {.smaller}
+
+
+::: Question
+
+$\mathbb{R}$ is uncountable. Which $\sigma$-algebra do we consider?
+
+:::
+
+
+::: Definition 
+### Lebesgue sigma-algebra
+
+
+The Lebesgue $\sigma$-algebra on $\mathbb{R}$ is the smallest $\sigma$-algebra $\mathcal{L}$ containing all sets of the form
+$$
+(a,b) \,, \quad (a,b] \,, \quad [a,b) \,, \quad [a,b] 
+$$
+for all $a,b \in \mathbb{R}$
+
+:::
+
+
+
+## Lebesgue $\sigma$-algebra {.smaller}
+
+
+::: Important
+
+Therefore the events of $\R$ are 
+
+- Intervals
+- Unions and intersection of intervals
+- Countable Unions and intersection of intervals
+
+:::
+
+
+::: Warning 
+
+- I only told you that the Lebsesgue $\sigma$-algebra $\mathcal{L}$ **exists**
+- Explicitly showing that $\mathcal{L}$ exists is not easy, see [@rosenthal]
+
+:::
+
+
+
+
+## Probability measure {.smaller}
+
+Suppose given:
+
+- $\Omega$ sample space 
+- $\mathcal{B}$ a $\sigma$-algebra on $\Omega$
+
+::: Definition
+### Probability measure
+
+A **probability measure** on $\Omega$ is a map
+$$
+P \colon \mathcal{B} \to [0,1]
+$$
+such that the **Axioms of Probability** hold
+
+1. $P(\Omega) = 1$
+2. If $A_1, A_2,\ldots$ are pairwise disjoint then
+$P\left( \bigcup_{i=1}^\infty  A_i \right)  = \sum_{i=1}^\infty P(A_i)$
+
+:::
+
+
+
+
+## Properties of Probability {.smaller}
+
+Let $A, B \in \mathcal{B}$. As a consequence of the Axioms of Probability:
+
+
+1. $P(\emptyset) = 0$
+2. If $A$ and $B$ are disjoint then
+$$
+P(A \cup B) = P(A) + P(B)
+$$
+3. $P(A^c) = 1 - P(A)$
+4. $P(A) = P(A \cap B) + P(A \cap B^c)$
+5. $P(A\cup B) = P(A) + P(B) - P(A \cap B)$
+6. If $A \subset B$ then
+$$
+P(A) \leq P(B)
+$$
+
+
+
+
+
+## Properties of Probability {.smaller} 
+
+7. Suppose $A$ is an event and $B_1,B_2, \ldots$ a partition of $\Omega$. Then
+$$
+P(A) = \sum_{i=1}^\infty  P(A \cap B_i)
+$$
+8. Suppose $A_1,A_2, \ldots$ are events. Then
+$$
+P\left( \bigcup_{i=1}^\infty  A_i \right)  \leq  \sum_{i=1}^\infty P(A_i)
+$$
+
+
+
+
+## Example: Fair Coin Toss {.smaller}
+
+- The sample space for **coin toss** is $\Omega = \{ H, T \}$
+
+- We take as $\sigma$-algebra the power set of $\Omega$
+$$
+\mathcal{B} = \{  \emptyset , \, \{H\}  , \, \{T\} , \, \{H,T\}   \}
+$$
+
+- We suppose that the coin is fair
+
+    * This means $P \colon \mathcal{B} \to [0,1]$ satisfies
+    $$
+    P(\{H\}) = P(\{T\})
+    $$
+    * Assuming the above we get
+    $$
+    1 = P(\Omega) = P(\{H\} \cup \{T\}) = 
+    P(\{H\}) + P(\{T\}) = 2 P(\{H\})
+    $$
+    * Therefore 
+    $P(\{H\}) = P(\{T\}) = \frac12$
+
+
+
+
+
+## Conditional Probability {.smaller}
+
+::: Definition
+### Conditional Probability
+
+Let $A,B$ be events in $\Omega$ with 
+$$
+P(B)>0 
+$$ 
+The **conditional probability** of $A$ given $B$ is
+$$
+P(A|B) := \frac{P(A \cap B)}{P(B)} 
+$$
+
+:::
+
+
+
+
+## Conditional Probability {.smaller}
+### Intuition
+
+The conditional probability
+$$
+P(A|B) = \frac{P( A \cap B)}{P(B)}
+$$ 
+represents the probability of $A$, knowing that $B$ has happened:
+
+- If $B$ has happened, then $B$ is the *new sample space* 
+- Therefore $A \cap B^c$ cannot happen, and we are only interested in $A \cap B$
+- Hence it makes sense to define $P(A|B) \propto P(A \cap B)$
+- We divide $P(A\cap B)$ by $P(B)$ so that $P(A|B) \in [0,1]$ is still a probability
+- The function $A \mapsto P(A|B)$ is a probability measure on $\Omega$
+
+
+
+
+## Bayes' Rule {.smaller}
+
+
+- For two events $A$ and $B$ is holds
+
+$$
+P(A | B ) = P(B|A) \frac{P(A)}{P(B)}
+$$
+
+
+- Given a partition $A_1, A_2, \ldots$ of the sample space we have
+
+$$
+P(A_i | B ) = \frac{ P(B|A_i) P(A_i)}{\sum_{j=1}^\infty P(B | A_j) P(A_j)}
+$$
+
+
+
+
+
+## Independence {.smaller}
+
+
+::: Definition
+
+Two events $A$ and $B$ are **independent** if 
+$$
+P(A \cap B) = P(A)P(B)
+$$
+A collection of events $A_1 , \ldots ,A_n$ are **mutually independent** if
+for any subcollection $A_{i_1}, \ldots, A_{i_k}$ it holds
+$$
+P \left(  \bigcap_{j=1}^k A_j  \right) = \prod_{j=1}^k  P(A_{i_j})
+$$
+
+:::
+
+
+
+
+
+# Part 2: <br>Random variables {background-color="#cc0164" visibility="uncounted"}
 
 ::: footer
 
@@ -312,1562 +544,417 @@ cat("They coincide!")
 
 
 
-## More on vectors {.smaller}
+## Random Variables {.smaller}
+### Motivation
 
-- We have seen vectors of numbers
-- Further type of vectors are:
-  * Character vectors
-  * Logical vectors
+- Consider the experiment of flipping a coin $50$ times
+- The sample space consists of $2^{50}$ elements
+- Elements are vectors of $50$ entries recording the outcome $H$ or $T$ of each flip
+- This is a very large sample space!
 
 
-## Character vectors {.smaller}
+Suppose we are only interested in
+$$
+X = \text{ number of } \, H \, \text{ in } \, 50 \, \text{flips}
+$$
 
-- A character vector is a vector of text strings
-- Elements are specified and printed in quotes
-
-```{r}
-#| echo: true
-x <- c("Red", "Green", "Blue")
-print(x)
-```
-
-- You can use single- or double-quote symbols to specify strings
-- This is as long as the left quote is the same as the right quote
-
-```{r}
-#| echo: true
-x <- c('Red', 'Green', 'Blue')
-print(x)
-```
+- Then the new sample space is the set of integers
+$\{ 0,1,2,\ldots,50\}$
+- This is much smaller!
+- $X$ is called a Random Variable
 
 
 
-## Character vectors {.smaller}
 
-``Print`` and ``cat`` produce different output on character vectors:
-
-- ``print(x)`` prints all the strings in ``x`` separately
-- ``cat(x)`` concatenates strings. There is no way to tell how many were there
+## Random Variables {.smaller}
 
 
-::: {.column width="45%"}
+Assume given
 
-```r
-x <- c("Red", "Green", "Blue")
-print(x)
-cat(x)
-```
+- $\Omega$ sample space
+- $\mathcal{B}$ a $\sigma$-algebra of events on $\Omega$
+- $P \colon \mathcal{B} \to [0,1]$ a probability measure
 
-```{r}
-x <- c("Red", "Green", "Blue")
-print(x)
-cat(x)
-```
+
+::: Definition
+### Random variable
+
+A function $X \colon \Omega \to \mathbb{R}$
 
 :::
 
 
-
-::: {.column width="45%"}
-
-```r
-y <- c("Red Green", "Blue")
-print(y)
-cat(y)
-```
-
-```{r}
-y <- c("Red Green", "Blue")
-print(y)
-cat(y)
-```
-
-:::
-
-
-## Logical vectors {.smaller}
-
-- Logical vectors can take the values ``TRUE``, ``FALSE`` or ``NA``
-- ``TRUE`` and ``FALSE`` can be abbreviated with ``T`` and ``F``
-- ``NA`` stands for **not available**
-
-```{r}
-#| echo: true
-
-# Create logical vector
-x <- c(T, T, F, T, NA)
-
-# Print the logical vector
-print(x)
-```
-
-
-## Logical vectors {.smaller}
-
-- Logical vectors are extremely useful to evaluate conditions
-
-- Example:
-  * given a numerical vector ``x``
-  * we want to count how many entries are above a value ``t``
-
-
-```r
-# Generate a vector containing sequence 1 to 8
-x <- seq(from = 1 , to = 8, by = 1)
-
-# Generate vector of flags for entries strictly above 5
-y <- ( x > 5 )
-
-cat("Vector x is: (", x, ")")
-cat("Entries above 5 are: (", y, ")")
-```
-
-
-```{r}
-# Generate a vector containing sequence 1 to 8
-x <- seq(from = 1 , to = 8, by = 1)
-
-# Generate vector of flags for entries strictly above 5
-y <- ( x > 5 )
-
-cat("Vector x is: (", x, ")")
-cat("Entries above 5 are: (", y, ")")
-```
+We will abbreviate Random Variable with rv
 
 
 
-## Logical vectors -- Application {.smaller}
-
-- Generate a vector of 1000 numbers from $N(0,1)$
-- Count how many entries are above the mean $0$
-- Since there are many (1000) entries, we expect a result close to 500
-    * This is because *sample mean* converges to *true mean* $0$
-
-**Question**: How to do this?
-
-**Hint**: ``T/F`` are interpreted as ``1/0`` in arithmetic operations
 
 
-::: {.column width="45%"}
-```{r}
-#| echo: true
-T + T
-T + F
-```
+## Random Variables {.smaller}
+### Technical remark 
 
-:::
 
-::: {.column width="45%"}
-```{r}
-#| echo: true
-F + F
-F + T + 3
-```
+::: Definition
+### Random variable
+
+A [**measurable**]{style="color:#cc0164;"}
+function $X \colon \Omega \to \mathbb{R}$
 
 :::
 
 
+**Technicality**: 
+$X$ is a [**measurable**]{style="color:#cc0164;"}
+function if
+$$
+\{ X \in I \} := \{ \omega \in \Omega \colon X(\omega) \in I \} \in \mathcal{B} \,, \quad \forall \, I \in \mathcal{L}
+$$
+where 
 
-## Logical vectors -- Application {.smaller}
+- $\mathcal{L}$ is the Lebsgue $\sigma$-algebra on $\mathbb{R}$
+- $\mathcal{B}$ is the given $\sigma$-algebra on $\Omega$
 
-- The function ``sum(x)`` sums the entries of a vector ``x``
-- We can use ``sum(x)`` to count the number of ``T`` entries in a logical vector ``x``
 
 
 
-```r
-x <- rnorm(1000)       # Generates vector with 1000 normal entries
+## Random Variables {.smaller}
+### Notation
 
-y <- (x > 0)           # Generates logical vector of entries above 0
+- In particular $I \in \mathcal{L}$ can be of the form
+$$
+(a,b) \,, \quad (a,b] \,, \quad [a,b) \,, \quad [a,b] \,, \quad 
+\forall \, a, b \in \mathbb{R}
+$$
 
-above_zero <- sum(y)   # Counts entries above zero
+- In this case the set 
+$$
+\{X \in I\} \in \mathcal{B}
+$$ 
+is denoted by, respectively:
+$$
+\{ a < X < b \} \,, \quad \{ a < X \leq b \} \,, \quad \{ a \leq X < b \} \,, \quad \{ a \leq X \leq b \}
+$$
 
-cat("Number of entries which are above the average 0 is", above_zero)
-cat("This is pretty close to 500!")
-```
+- If $a=b=x$ then $I=[x,x]=\{x\}$. Then we denote
+$$
+\{X \in I\} = \{X = x\}
+$$
 
 
-```{r}
-# Generate vector with 1000 normal entries
-x <- rnorm(1000)
 
-# Generate logical vector of entries above 0
-y <- (x > 0)
+## Distribution {.smaller}
+### Why do we require measurability?
 
-# Count entries above zero
-above_zero <- sum(y)
+**Answer**: Because it allows to define a new probability measure on $\mathbb{R}$
 
-cat("Number of entries which are above the average 0 is", above_zero)
-cat("This is pretty close to 500!")
-```
 
+::: Definition
+### Distribution
 
-
-## Missing values {.smaller}
-
-- In practical data analysis, a data point is frequently unavailable
-- Statistical software needs ways to deal with this
-- R allows vectors to contain a special ``NA`` value - Not Available
-- ``NA`` is carried through in computations: operations on ``NA`` yield ``NA`` as the result
-
-
-```{r}
-#| echo: true
-
-2 * NA
-NA + NA
-T + NA
-```
-
-
-
-
-## Indexing vectors {.smaller}
-
-- Components of a vector can be retrieved by **indexing**
-
-- ``vector[k]`` returns k-th component of ``vector``
-
-<br>
-
-```{r}
-#| echo: true
-
-vector <- c("Cat", "Dog", "Mouse")
-
-second_element <- vector[2]           # Access 2nd entry of vector
-
-print(second_element)
-```
-
-
-
-
-## Replacing vector elements {.smaller}
-
-To modify an element of a vector use the following:
-
-- ``vector[k] <- value`` stores ``value`` in k-th component of ``vector``
-
-<br>
-
-```{r}
-#| echo: true
-
-vector <- c("Cat", "Dog", "Mouse")
-
-# We replace 2nd entry of vector with string "Horse"
-vector[2] <- "Horse"
-
-print(vector)
-```
-
-
-
-
-## Vector slicing {.smaller}
-
-Returning multiple items of a vactor is known as **slicing**
-
-- ``vector[c(k1, ..., kn)]`` returns components ``k1, ..., kn``
-- ``vector[k1:k2]`` returns components ``k1`` to ``k2``
-
-```{r}
-#| echo: true
-
-vector <- c(11, 22, 33, 44, 55, 66, 77, 88, 99, 100)
-
-# We store 1st, 3rd, 5th entries of vector in slice
-slice <- vector[c(1, 3, 5)]   
-
-print(slice)
-
-```
-
-
-## Vector slicing {.smaller}
-
-```{r}
-#| echo: true
-
-vector <- c(11, 22, 33, 44, 55, 66, 77, 88, 99, 100)
-
-# We store 2nd to 7th entries of vector in slice
-slice <- vector[2:7]
-
-print(slice)
-```
-
-
-
-## Deleting vector elements {.smaller}
-
-- Elements of a vector ``x`` can be deleted by using
-    * ``x[ -c(k1, ..., kn) ]`` which deletes entries ``k1, ..., kn``
-    
-```r
-# Create a vector x
-x <- c(11, 22, 33, 44, 55, 66, 77, 88, 99, 100)
-
-# Print vector x
-cat("Vector x is:", x)
-
-# Delete 2nd, 3rd and 7th entries of x
-x <- x[ -c(2, 3, 7) ]
-
-# Print x again
-cat("Vector x with 2nd, 3rd and 7th entries removed:", x)
-```
-
-
-```{r}
-# Create a vector x
-x <- c(11, 22, 33, 44, 55, 66, 77, 88, 99, 100)
-
-# Print vector x
-cat("Vector x is:", x)
-
-# Delete 2nd, 3rd and 7th entries of x
-x <- x[ -c(2, 3, 7) ]
-
-# Print x again
-cat("Vector x with 2nd, 3rd and 7th entries removed:", x)
-```
-
-
-
-## Logical Subsetting {.smaller}
-
-
-- You can index or slice vectors by entering explicit indices
-- You can also index vectors, or **subset**, by using **logical flag vectors**:
-    * Element is extracted if corresponding entry in the flag vector is TRUE 
-    * Logical flag vectors should be the same length as vector to subset
-
-**Code**: Suppose given a vector ``x``
-
-- Create a flag vector by using 
-    * ``flag <- condition(x)``
-
-- ``condition()`` is any function which returns ``T/F`` vector of same length as ``x``
-
-- Subset ``x`` by using 
-    * ``x[flag]``  
-
-
-
-
-## Logical Subsetting {.smaller}
-### Example
-
-- The following code extracts negative components from a numeric vector
-- This can be done by using
-    * ``x[ x < 0 ]``
-
-```r
-# Create numeric vector x
-x <- c(5, -2.3, 4, 4, 4, 6, 8, 10, 40221, -8)
-
-# Get negative components from x and store them in neg_x
-neg_x <- x[ x < 0 ]
-
-cat("Vector x is:", x)
-cat("Negative components of x are:", neg_x)
-```
-
-
-```{r} 
-# Create numeric vector x
-x <- c(5, -2.3, 4, 4, 4, 6, 8, 10, 40221, -8)
-
-# Get negative components from x and store them in neg_x
-neg_x <- x[ x < 0 ]
-
-cat("Vector x is:", x)
-cat("Negative components of x are:", neg_x)
-```
-
-
-
-## Logical Subsetting {.smaller}
-### Example
-
-- The following code extracts components falling between ``a`` and ``b``
-- This can be done by using logical operator and ``&``
-    * ``x[ (x > a) & (x < b) ]``
-
-```r
-# Create numeric vector
-x <- c(5, -2.3, 4, 4, 4, 6, 8, 10, 40221, -8)
-
-# Get components between 0 and 100
-range_x <- x[ (x > 0) & (x < 100) ]
-
-cat("Vector x is:", x)
-cat("Components of x between 0 and 100 are:", range_x)
-```
-
-
-```{r} 
-# Create numeric vector
-x <- c(5, -2.3, 4, 4, 4, 6, 8, 10, 40221, -8)
-
-# Get components between 0 and 100
-range_x <- x[ (x > 0) & (x < 100) ]
-
-cat("Vector x is:", x)
-cat("Components of x between 0 and 100 are:", range_x)
-```
-
-
-
-## The function Which {.smaller}
-
-- ``which()`` allows to convert a logical vector ``flag`` into a numeric index vector 
-    * ``which(flag)`` is vector of indices of ``flag`` which correspond to ``TRUE``
-
-
-```r
-# Create a logical flag vector
-flag <- c(T, F, F, T, F)
-
-# Indices for  flag which
-true_flag <- which(flag)
-
-cat("Flag vector is:", flag)
-cat("Positions for which Flag is TRUE are:", true_flag)
-```
-
-
-```{r}
-# Create a logical flag vector
-flag <- c(T, F, F, T, F)
-
-# Indices for  flag which
-true_flag <- which(flag)
-
-cat("Flag vector is:", flag)
-cat("Positions for which Flag is TRUE are:", true_flag)
-```
-
-
-
-## The function Which -- Application {.smaller}
-
-``which()`` can be used to delete certain entries from a vector ``x``
-
-- Create a flag vector by using 
-    * ``flag <- condition(x)``
-
-- ``condition()`` is any function which returns ``T/F`` vector of same length as ``x``
-
-- Delete entries flagged by ``condition`` using the code
-    * ``x[ -which(flag) ]``
-
-
-
-
-## The function Which -- Application {.smaller}
-### Example
-
-```r
-# Create numeric vector x
-x <- c(5, -2.3, 4, 4, 4, 6, 8, 10, 40221, -8)
-
-# Print x
-cat("Vector x is:", x)
-
-# Flag positive components of x
-flag_pos_x <- (x > 0)
-
-# Remove positive components from x
- x <- x[ -which(flag_pos_x) ]
-
-# Print x again
-cat("Vector x with positive components removed:", x)
-```
-
-
-```{r} 
-# Create numeric vector x
-x <- c(5, -2.3, 4, 4, 4, 6, 8, 10, 40221, -8)
-
-# Print x
-cat("Vector x is:", x)
-
-# Flag positive components of x
-flag_pos_x <- (x > 0)
-
-# Remove positive components from x
- x <- x[ -which(flag_pos_x) ]
-
-# Print x again
-cat("Vector x with positive components removed:", x)
-```
-
-
-
-
-
-## Functions that create vectors {.smaller}
-
-The main functions to generate vectors are
-
-- ``c()`` concatenate
-- ``seq()`` sequence
-- ``rep()`` replicate
-
-We have already met ``c()`` and ``seq()`` but there are more details to discuss
-
-
-
-## Concatenate {.smaller}
-
-**Recall:** ``c()`` generates a vector containing the input values
-
-```{r}
-#| echo: true
-
-# Generate a vector of values 1, 2, 3, 4, 5
-x <- c(1, 2, 3, 4, 5)
-
-# Print the vector
-print(x)
-```
-
-
-## Concatenate {.smaller}
-
-- ``c()`` can also concatenate vectors 
-- This was you can **add** entries to an **existing vector**
-
-```{r}
-#| echo: true
-
-# Create 2 vectors
-x <- c(1, 2, 3, 4, 5)
-y <- c(6, 7, 8)
-
-# Concatenate vectors x and y, and also add element 9
-z <- c(x, y, 9)
-
-# Print the resulting vector
-print(z)
-```
-
-
-
-
-## Concatenate {.smaller}
-
-
-- You can assign names to vector elements
-
-- This modiﬁes the way the vector is printed
-
-```{r}
-#| echo: true
-
-# We specify a vector with 3 named entries
-x <- c(first = "Red", second = "Green", third = "Blue")
-
-# Print the named vector
-print(x)
-```
-
-
-## Concatenate {.smaller}
-
-Given a named vector ``x``
-
-- Names can be extracted with ``names(x)``
-- Values can be extracted with ``unname(x)``
-
-```r
-# Create named vector
-x <- c(first = "Red", second = "Green", third = "Blue")
-
-# Access names of x via names(x)
-names_x <- names(x)
-
-# Access values of x via unname(x)
-values_x <- unname(x)
-
-cat("Names of x are:", names(x))
-cat("Values of x are:", unname(x))
-```
-
-
-```{r}
-# Create named vector
-x <- c(first = "Red", second = "Green", third = "Blue")
-
-# Names of componenents of x are accessed via names(x)
-names_x <- names(x)
-
-# Values of componenents of x are accessed via unname(x)
-values_x <- unname(x)
-
-cat("Names of x are:", names(x))
-cat("Values of x are:", unname(x))
-```
-
-
-## Concatenate {.smaller}
-
-- All elements of a vector have the **same** type
-- Concatenating vectors of different types leads to conversion
-
-
-```{r}
-#| echo: true
-
-c(FALSE, 2)        # Converts FALSE to 0
-```
-
-<br>
-
-```{r}
-#| echo: true
-
-c(pi, "stats")     # Converts pi to string 
-
-```
-
-<br>
-
-```{r}
-#| echo: true
-
-c(TRUE, "stats")   # Converts TRUE to string
-```
-
-
-
-## Sequence {.smaller}
-
-- Recall the syntax of ``seq`` is
-  * ``seq(from =, to =, by =, length.out =)``
-
-- Omitting the third argument assumes that ``by = 1``
-
-```{r}
-#| echo: true
-
-# The following generates a vector of integers from 1 to 6
-x <- seq(1, 6)
-
-print(x)
-```
-
-
-## Sequence {.smaller}
-
-
-- ``seq(x1, x2)`` is equivalent to ``x1:x2``
-- Syntax ``x1:x2`` is **preferred** to ``seq(x1, x2)``
-
-
-```r
-# Generate two vectors of integers from 1 to 6
-x <- seq(1, 6)
-y <- 1:6
-
-cat("Vector x is:", x)
-cat("Vector y is:", y)
-cat("They are the same!")
-```
-
-
-```{r}
-# Generate two vectors of integers from 1 to 6
-x <- seq(1, 6)
-y <- 1:6
-
-cat("Vector x is:", x)
-cat("Vector y is:", y)
-cat("They are the same!")
-```
-
-
-
-
-
-
-## Replicate {.smaller}
-
-``rep`` generates repeated values from a vector:
-
-- ``x`` vector 
-- ``n`` integer
-- ``rep(x, n)`` repeats ``n`` times the vector ``x``
-
-```r
-# Create a vector with 3 components
-x <- c(2, 1, 3)
-
-# Repeats 4 times the vector x
-y <- rep(x, 4)
-
-cat("Original vector is:", x)
-cat("Original vector repeated 4 times:", y)
-```
-
-```{r}
-# Create a vector with 3 components
-x <- c(2, 1, 3)
-
-# Repeats 4 times the vector x
-y <- rep(x, 4)
-
-cat("Original vector is:", x)
-cat("Original vector repeated 4 times:", y)
-```
-  
-
-## Replicate {.smaller}
-
-
-The second argument of ``rep()`` can also be a vector:
-
-- Given ``x`` and ``y`` vectors
-- ``rep(x, y)`` repeats entries of ``x`` as many times as corresponding entries of ``y``
-
-
-```r
-x <- c(2, 1, 3)         # Vector to replicate
-y <- c(1, 2, 3)         # Vector saying how to replicate 
-
-z <- rep(x, y)          # 1st entry of x is replicated 1 time
-                        # 2nd entry of x is replicated 2 times
-                        # 3rd entry of x is replicated 3 times
-
-cat("Original vector is:", x)
-cat("Original vector repeated is:", z)
-```
-
-
-```{r}
-x <- c(2, 1, 3)         # Vector to replicate
-y <- c(1, 2, 3)         # Vector saying how to replicate 
-
-z <- rep(x, y)          # 1st entry of x is replicated 1 time
-                        # 2nd entry of x is replicated 2 times
-                        # 3rd entry of x is replicated 3 times
-
-cat("Original vector is:", x)
-cat("Original vector repeated is:", z)
-```
-
-## Replicate {.smaller}
-
-- ``rep()`` can be useful to create vectors of labels
-- **Example**: Suppose we want to collect some numeric data on 3 Cats and 4 Dogs
-
-
-```{r}
-#| echo: true
-
-x <- c("Cat", "Dog")     # Vector to replicate
-
-y <- rep(x, c(3, 4))     # 1st entry of x is replicated 3 times
-                         # 2nd entry of x is replicated 4 times
-
-cat("Vector of labels is:", y)
-```
-
-
-
-
-
-# Part 3: <br>Lists {background-color="#cc0164" visibility="uncounted"}
-
-::: footer
-
-<div color="#cc0164">  </div>
+The **distribution** of a random variable $X \colon \Omega \to \mathbb{R}$ is the probability measure on $\mathbb{R}$
+$$
+P_X \colon \mathcal{L} \to [0,1] \,, \quad P_X (I) := P \left( \{X \in I\} \right) \,, \,\, \forall \, I \in  \mathcal{L}
+$$
 
 :::
 
 
+**Note**: 
 
-## Lists {.smaller}
-
-
-- Vectors can contain only one data type (number, character, boolean)
-
-- Lists are data structures that can contain **any R object**
-
-- Lists can be created similarly to vectors, with the command ``list()``
-
-```{r}
-#| echo: true
-
-# List containing a number, a vector, and a string
-my_list <- list(2, c(T,F,T,T), "hello")
-
-# Print the list
-print(my_list)
-```
+- One can show that $P_X$ satisfies the *Probability Axioms*
+- Thus $P_X$ is a probability measure on $\mathbb{R}$
+- In the future we will denote 
+$P \left( X \in I \right) := P \left( \{X \in I\} \right)$
 
 
 
 
-## Retrieving elements {.smaller}
-
-Elements of a list can be retrieved by **indexing**
-
-- ``my_list[[k]]`` returns k-th element of ``my_list``
-
-<br>
-
-```{r}
-#| echo: true
-# Consider again the same list
-my_list <- list(2, c(T,F,T,T), "hello")
-
-# Access 2nd element of my_list and store it in variable
-second_element <- my_list[[2]]
-
-# In this case the variable second_element is a vector
-print(second_element)
-
-```
 
 
 
-## List slicing {.smaller}
+## Distribution {.smaller}
+### Why is the distribution useful?
+
+**Answer**: Because it allows to define a random variable $X$
+
+- by specifying the distribution values
+$$
+P \left( X \in I \right) 
+$$
+- rather than defining an explicit function $X \colon \Omega \to \mathbb{R}$
 
 
-You can return multiple items of a list via **slicing**
+**Important**: More often than not
 
-- ``my_list[c(k1, ..., kn)]`` returns elements in positions ``k1, ..., kn``
-- ``my_list[k1:k2]`` returns elements ``k1`` to ``k2``
-
-```{r}
-#| echo: true
-
-my_list <- list(2, c(T,F), "Cat", "Dog", pi, 42)
-
-# We store 1st, 3rd, 5th entries of my_list in slice
-slice <- my_list[c(1, 3, 5)]
-
-print(slice)
-
-```
-
-
-## List slicing {.smaller}
-
-
-```{r}
-#| echo: true
-
-my_list <- list(2, c(T,F), "Cat", "Dog", pi, 42)
-
-# We store 2nd to 4th entries of my_list in slice
-slice <- my_list[2:4]
-
-print(slice)
-
-```
-
-
-## Naming {.smaller}
-
-- Components of a list can be **named**. Names can be assigned with
-    * ``names(my_list) <- c("name_1", ..., "name_k")``
-
-```{r}
-#| echo: true
-
-# Create list with 3 elements
-my_list <- list(2, c(T,F,T,T), "hello")
-
-# Name each of the 3 elements
-names(my_list) <- c("number", "TF_vector", "string")
-
-# Print the named list: the list is printed along with element names 
-print(my_list)
-
-```
-
-
-
-## Accessing a name {.smaller}
-
-- A component of ``my_list`` named ``my_name`` can be accessed with dollar operator
-    * ``my_list$my_name``
-
-```{r}
-#| echo: true
-
-# Create list with 3 elements and name them
-my_list <- list(2, c(T,F,T,T), "hello")
-names(my_list) <- c("number", "TF_vector", "string")
-
-# Access 2nd element using dollar operator and store it in variable
-second_component <- my_list$TF_vector
-
-# Print 2nd element
-print(second_component)
-
-```
+- We care about the distribution of $X$
+- We do not care about how $X$ is defined
 
 
 
 
-# Part 4: <br>Data Frames {background-color="#cc0164" visibility="uncounted"}
 
-::: footer
+## Example - Three coin tosses {.smaller}
 
-<div color="#cc0164">  </div>
+
+- Sample space $\Omega$ given by the below values of $\omega$
+
++:---------:+:----:+:---:+:---:+:---:+:---:+:---:+:---:+:---:+
+| $\omega$  | HHH  | HHT | HTH | THH | TTH | THT | HTT | TTT |
++-----------+------+-----+-----+-----+-----+-----+-----+-----+
+
+
+- The probability of each outcome is the same
+$$
+P(\omega) = \frac{1}{2} \times \frac{1}{2} \times \frac{1}{2} = \frac{1}{8} \,, \quad \forall \, \omega \in \Omega
+$$
+
+
+- Define the random variable $X \colon \Omega \to \R$ by
+$$
+X(\omega) :=  \text{ Number of H in }  \omega
+$$
+
+|           |      |     |     |     |     |     |     |     |
+|:---------:|:----:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| $\omega$  | HHH  | HHT | HTH | THH | TTH | THT | HTT | TTT |
+|$X(\omega)$|  $3$ | $2$ | $2$ | $2$ | $1$ | $1$ | $1$ | $0$ | 
+
+
+
+
+## Example - Three coin tosses {.smaller}
+
+
+- Recall the definition of $X$
+
+|           |      |     |     |     |     |     |     |     |
+|:---------:|:----:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| $\omega$  | HHH  | HHT | HTH | THH | TTH | THT | HTT | TTT |
+|$X(\omega)$|  $3$ | $2$ | $2$ | $2$ | $1$ | $1$ | $1$ | $0$ | 
+
+
+- The range of $X$ is $\{0,1,2,3\}$
+
+- Hence the only interesting values of $P_X$ are
+$$
+P(X=0) \,, \quad 
+P(X=1) \,, \quad 
+P(X=2) \,, \quad 
+P(X=3)
+$$
+
+
+
+
+## Example - Three coin tosses {.smaller}
+
+
+- Recall the definition of $X$
+
+|           |      |     |     |     |     |     |     |     |
+|:---------:|:----:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| $\omega$  | HHH  | HHT | HTH | THH | TTH | THT | HTT | TTT |
+|$X(\omega)$|  $3$ | $2$ | $2$ | $2$ | $1$ | $1$ | $1$ | $0$ | 
+
+
+- We compute
+\begin{align*}
+P(X=0) & = P(TTT) = \frac{1}{8} \\
+P(X=1) & = P(TTH) + P(THT) + P(HTT) = \frac{3}{8} \\
+P(X=2) & = P(HHT) + P(HTH) + P(THH) = \frac{3}{8} \\
+P(X=3) & = P(HHH) = \frac{1}{8}
+\end{align*}
+
+
+
+
+## Example - Three coin tosses {.smaller}
+
+
+- Recall the definition of $X$
+
+|           |      |     |     |     |     |     |     |     |
+|:---------:|:----:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| $\omega$  | HHH  | HHT | HTH | THH | TTH | THT | HTT | TTT |
+|$X(\omega)$|  $3$ | $2$ | $2$ | $2$ | $1$ | $1$ | $1$ | $0$ | 
+
+
+- The distribution of $X$ is summarized in the table below
+
+|           |               |               |              |               |
+|:---------:|:-------------:|:-------------:|:------------:|:-------------:|
+| $x$       | $0$           | $1$           | $2$          |     $3$       |
+|$P(X=x)$   | $\frac{1}{8}$ | $\frac{3}{8}$ | $\frac{3}{8}$| $\frac{1}{8}$ | 
+: {tbl-colwidths="[40,15,15,15,15]"}
+
+
+
+
+
+
+## Cumulative Distribution Function {.smaller}
+
+
+**Recall**: The **distribution** of a rv $X \colon \Omega \to \mathbb{R}$ is the probability measure on $\mathbb{R}$
+$$
+P_X \colon \mathcal{L} \to [0,1] \,, \quad P_X (I) := P \left( X \in I \right) \,, \,\, \forall \, I \in  \mathcal{L}
+$$
+
+::: Definition
+### cdf
+
+The **cumulative distribution function** or **cdf** of a rv $X \colon \Omega \to \mathbb{R}$ is
+$$
+F_X \colon \mathbb{R} \to \mathbb{R} \,, \quad 
+F_X(x) := P_X (X \leq x) 
+$$
 
 :::
 
 
-
-## Data Frames {.smaller}
-
-- Data Frames are the best way of presenting a data set in R:
-    * Each variable has assigned a collection of recorded observations
-
-- Data frames can contain any R object
-
-- Data Frames are similar to Lists, with the difference that:
-    * Members of a Data Frame must all be vectors of equal length
-
-
-
-
-
-## Constructing a Data Frame {.smaller}
-
-- Data frames are constructed similarly to lists, using ``data.frame()``
-
-- **Important**: Elements of data frame must be vectors of the same length
-
-- **Example**: We construct the **Family Guy** data frame. Variables are
-    * ``person`` -- Name of character
-    * ``age`` -- Age of character
-    * ``sex`` -- Sex of character
-
-```r
-family <- data.frame(
-  person = c("Peter", "Lois", "Meg", "Chris", "Stewie"),
-  age = c(42, 40, 17, 14, 1),
-  sex = c("M", "F" , "F", "M", "M")
-)
-```
-
-
-
-## Printing a Data Frame {.smaller}
-
-::: {.column width="44%"}
-
-- R prints data frames like matrices
-- First row contains vector names
-
-:::
-
-::: {.column width="54%"}
-
-- First column contains row names
-- Data are paired: e.g. Peter is 42 and Male
-
-:::
-
-```{r}
-#| echo: true
-
-family <- data.frame(
-  person = c("Peter", "Lois", "Meg", "Chris", "Stewie"),
-  age = c(42, 40, 17, 14, 1),
-  sex = c("M", "F" , "F", "M", "M")
-)
-
-print(family)
-
-```
-
-
-## Extracting data {.smaller}
-
-- Think of a data frame as a *matrix*
-
-- You can extract element in position ``(m,n)`` by using
-    * ``my_data[m, n]``
-
-- **Example**: Peter is in 1st row. We can extract Peter's name as follows
-
-
-```r
-extracted <- family[1, 1]
-
-print(extracted)
-```
-
-```{r}
-family <- data.frame(
-  person = c("Peter", "Lois", "Meg", "Chris", "Stewie"),
-  age = c(42, 40, 17, 14, 1),
-  sex = c("M", "F" , "F", "M", "M")
-)
-
-extracted <- family[1, 1]
-
-print(extracted)
-```
-
-
-
-
-## Extracting data {.smaller}
-
-To extract multiple elements on the same row or column type
-
-- ``my_data[c(k1,...,kn), m] `` $\quad$ or $\quad$ `` my_data[k1:k2, m]``
-- ``my_data[n, c(k1,...,km)] `` $\quad$ or $\quad$ `` my_data[n, k1:k2]``
-
-**Example**: Meg is listed in 3rd row. We extract her *age* and *sex*
-
-
-```r
-meg_data <- family[3, 2:3]
-
-print(meg_data)
-```
-
-```{r}
-family <- data.frame(
-  person = c("Peter", "Lois", "Meg", "Chris", "Stewie"),
-  age = c(42, 40, 17, 14, 1),
-  sex = c("M", "F" , "F", "M", "M")
-)
-
-meg_data <- family[3, 2:3]
-
-print(meg_data)
-```
-
-
-
-## Extracting data {.smaller}
-
-To extract entire rows or columns type
-
-- ``my_data[c(k1,...,kn), ] `` $\quad$ or $\quad$ `` my_data[k1:k2, ]``
-- ``my_data[, c(k1,...,km)] `` $\quad$ or $\quad$ `` my_data[, k1:k2]``
-
-
-```r
-peter_data <- family[1, ]      # Extracts first row - Peter
-sex_age <- family[, c(3,2)]    # Extracts third and second columns:
-                               # sex and age
-
-print(peter_data)
-print(sex_age)
-```
-
-```{r}
-
-family <- data.frame(
-  person = c("Peter", "Lois", "Meg", "Chris", "Stewie"),
-  age = c(42, 40, 17, 14, 1),
-  sex = c("M", "F" , "F", "M", "M")
-)
-
-peter_data <- family[1, ]
-sex_age <- family[, c(3,2)]
-
-print(peter_data)
-print(sex_age)
-
-```
-
-
-
-## Extracting data {.smaller}
-
-Use dollar operator to access data frame columns
-
-- Suppose data set ``my_data`` contains a variable called ``my_variable``
-- ``my_data$my_variable`` accesses column ``my_variable``
-- ``my_data$my_variable`` is a vector
-
-**Example**: To access *age* in the ``family`` data frame type
-
-```r
-ages <- family$age        # Stores ages in a vector
-
-cat("Ages of the Family Guy characters are", ages)
-cat("Meg's age is", ages[3])
-```
-
-```{r}
-family <- data.frame(
-  person = c("Peter", "Lois", "Meg", "Chris", "Stewie"),
-  age = c(42, 40, 17, 14, 1),
-  sex = c("M", "F" , "F", "M", "M")
-)
-
-ages <- family$age
-
-cat("Ages of the Family Guy characters are", ages)
-cat("Meg's age is", ages[3])
-```
-
-
-
-
-## Size of a data frame {.smaller}
-
-The size of a data frame can be discovered using:
-
-- ``nrow(my_data)`` $\quad$ number of rows
-- ``ncol(my_data)`` $\quad$ number of columns
-- ``dim(my_data)`` $\quad \quad$ vector containing number of rows and columns
-
-
-```r
-family_dim <- dim(family)    # Stores dimensions of family in a vector
-
-cat("The Family Guy data frame has", family_dim[1], 
-    "rows and", family_dim[2], "columns")
-```
-
-```{r}
-family <- data.frame(
-  person = c("Peter", "Lois", "Meg", "Chris", "Stewie"),
-  age = c(42, 40, 17, 14, 1),
-  sex = c("M", "F" , "F", "M", "M")
-)
-
-family_dim <- dim(family)
-
-cat("The Family Guy data frame has", family_dim[1], 
-    "rows and", family_dim[2], "columns")
-
-```
-
-
-
-
-## Adding Data {.smaller}
-
-
-Adding data to an existing data frame ``my_data``
-
-- Add more records (adding to rows) 
-    * Create single row data frame ``new_record``
-    * ``new_record`` must match the structure of ``my_data``
-    * Add to ``my_data`` with ``my_data <- rbind(my_data, new_record)``
-
-- Add a set of observations for a new variable (adding to columns)
-    * Create a vector ``new_variable``
-    * ``new_variable`` must have as many components as rows in ``my_data``
-    * Add to ``my_data`` with ``my_data <- cbind(my_data, new_variable)``
-
-    
-
-## Example: Add new record {.smaller}
-
-- Consider the usual **Family Guy** data frame ``family``
-- Suppose we want to add data for **Brian**
-- Create a new record: a single row data frame with columns   
-    * *person*, *age*, *sex*
-
-```{r}
-#| echo: true
-
-new_record <- data.frame(
-  person = "Brian",
-  age = 7,
-  sex = "M"
-)
-
-print(new_record)
-```
-
-
-
-
-## Example: Add new record {.smaller}
-
-
-- Now we add ``new_record`` to ``family``
-
-```r
-family <- rbind(family, new_record)
-
-print(family)
-```
-
-```{r}
-family <- data.frame(
-  person = c("Peter", "Lois", "Meg", "Chris", "Stewie"),
-  age = c(42, 40, 17, 14, 1),
-  sex = c("M", "F" , "F", "M", "M")
-)
-
-new_record <- data.frame(
-  person = "Brian",
-  age = 7,
-  sex = "M"
-)
-
-family <- rbind(family, new_record)
-print(family)
-```
-
-
-
-## Example: Add new variable {.smaller}
-
-- We want to add a new variable to the **Family Guy** data frame ``family``
-- This variable is called ``funny``
-- It records how funny each character is, with levels
-    * *Low*, *Med*, *High*
-- Create a vector ``funny`` with entries matching each character (including **Brian**)
-
-
-```{r}
-#| echo: true
-
-funny <- c("High", "High", "Low", "Med", "High", "Med")
-
-print(funny)
-
-```
-
-
-## Example: Add new variable {.smaller}
-
-- Add ``funny`` to the **Family Guy** data frame ``family``
-
-
-
-```r
-family <- cbind(family, funny)
-
-print(family)
-```
-
-
-```{r}
-family <- data.frame(
-  person = c("Peter", "Lois", "Meg", "Chris", "Stewie"),
-  age = c(42, 40, 17, 14, 1),
-  sex = c("M", "F" , "F", "M", "M")
-)
-
-new_record <- data.frame(
-  person = "Brian",
-  age = 7,
-  sex = "M"
-)
-
-family <- rbind(family, new_record)
-
-funny <- c("High", "High", "Low", "Med", "High", "Med")
-
-family <- cbind(family, funny)
-print(family)
-```
-
-
-
-## Adding a new variable: alternative way {.smaller}
-
-Instead of using ``cbind`` we can add a new varibale using dollar operator:
-
-- We want to add a variable called ``new_variable``
-- Create a vector ``v`` containing values for the new variable
-- ``v`` must have as many components as rows in ``my_data``
-- Add to ``my_data`` with ``my_data$new_variable <- v``
+## Cumulative Distribution Function {.smaller}
+### Intuition
+
+- $F_X$ is the *primitive* of $P_X$:
+    * Recall from Analysis: The primitive of a continuous function $g \colon \R \to \R$ is 
+    $$
+    G(x):=\int_{-\infty}^x g(y) \,dy
+    $$
+    * Note that $P_X$ is not a function but a **distribution**
+    * However the definition of cdf as a primitive still makes sense
+
+
+- $P_X$ will be the *derivative* of $F_X$ - In a suitable generalized sense
+    * Recall from Analysis: Fundamental Theorem of Calculus says 
+    $G'(x)=g(x)$
+    * Since $F_X$ is the primitive of $P_X$, it will still hold
+    $F_X'=P_X$ in the **sense of distributions**
     
 
 
 
-## Adding a new variable: alternative way {.smaller}
 
-**Example**: 
-
-- We add age expressed in months to the **Family Guy** data frame ``family``
-- Age in months can be computed by multiplying vector ``family$age`` by $12$
-
-
-```r
-v <- family$age * 12       # Computes vector of ages in months
-
-family$age.months <- v     # Stores vector as new column in family
-
-print(family)
-```
-
-
-```{r}
-family <- data.frame(
-  person = c("Peter", "Lois", "Meg", "Chris", "Stewie"),
-  age = c(42, 40, 17, 14, 1),
-  sex = c("M", "F" , "F", "M", "M")
-)
-
-new_record <- data.frame(
-  person = "Brian",
-  age = 7,
-  sex = "M"
-)
-
-family <- rbind(family, new_record)
-
-funny <- c("High", "High", "Low", "Med", "High", "Med")
-
-family <- cbind(family, funny)
-
-v <- family$age * 12
-family$age.months <- v
-print(family)
-```
-
-
-
-
-## Logical Record Subsets {.smaller}
-
-- We saw how to use **logical flag vectors** to subset vectors
-
-- We can use logical flag vectors to subset data frames as well
-
-- Suppose to have data frame ``my_data`` containing a variable ``my_variable``
-
-- Want to subset records in ``my_data`` for which  ``my_variable`` satisfies a condition
-
-- Use commands
-    * ``flag <- condition(my_data$my_variable)``
-    * ``my_data[flag, ]``
- 
-
-
-
-## Logical Record Subsets {.smaller}
-
-**Example**:
-
-- Consider again the **Family Guy** data frame ``family``
-- We subset Male characters using flag ``family$sex == "M"``
-
-
-
-```r
-# Create flag vector for male Family Guy characters
-flag <- (family$sex == "M")
-
-# Subset data frame "family" and store in data frame "subset"
-subset <- family[flag, ]
-
-# Print subset
-print(subset)
-```
-
-```{r}
-family <- data.frame(
-  person = c("Peter", "Lois", "Meg", "Chris", "Stewie"),
-  age = c(42, 40, 17, 14, 1),
-  sex = c("M", "F" , "F", "M", "M")
-)
-
-new_record <- data.frame(
-  person = "Brian",
-  age = 7,
-  sex = "M"
-)
-
-family <- rbind(family, new_record)
-
-funny <- c("High", "High", "Low", "Med", "High", "Med")
-
-family <- cbind(family, funny)
-
-family$age.months <- family$age * 12
-
-flag <- (family$sex == "M")
-subset <- family[flag, ]
-print(subset)
-```
-
-
-
-
-
-
-# Part 5: <br>Data Entry {background-color="#cc0164" visibility="uncounted"}
-
-::: footer
-
-<div color="#cc0164">  </div>
-
-:::
-
-
-
-## Reading data from files {.smaller}
-
-- R has a many functions for reading **characters** from stored **files** 
-
-- We will see how to read **Table-Format** files
-
-- **Table-Formats** are just tables stored in plain-text files
-
-- Typical file estensions are:
-    * ``.txt`` for plain-text files
-    * ``.csv`` for comma-separated values
-
-
-- **Table-Formats** can be read into R with the command
-    * ``read.table()``
-
-
-
-
-## Table-Formats {.smaller}
-### 4 key features
-    
-1. **Header**: 
-    * If present, header should be the first line of the file
-    * Header is used to provide names for each column of data
-    * If a header is present, you need to tell this to R when importing
-    * If not, R cannot tell if first line is a header or observed data values
-
-
-
-
-## Table-Formats {.smaller}
-### 4 key features
-
-2. **Delimiter**: 
-    * A character used to separate the entries in each line
-    * Delimiter character cannot be used for anything else in the file
-    * Delimiter tells R when a specific entry begins and ends
-    * Default delimiter is **whitespace**
-
-
-
-## Table-Formats {.smaller}
-### 4 key features
-
-3. **Missing value**: 
-    * Character string used exclusively to denote a missing value
-    * When reading the file, R will turn these entries into ``NA``
-
-
-
-## Table-Formats {.smaller}
-### 4 key features
-
-4. **Comments**:
-    * Table files can include comments
-    * Comment lines start with $\quad$ ``#``
-    * R ignores such comments
-
-
-
-
-## Table-Formats {.smaller}
+## Distribution Function {.smaller}
 ### Example
 
-- Table-Format for **Family Guy** characters can be downloaded here [family_guy.txt](datasets/family_guy.txt)
+
+- Consider again 3 coin tosses and the rv
+$X(\omega) :=  \text{ Number of H in }  \omega$
+
+- We computed that the distribution $P_X$ of $X$ is
+
+|           |               |               |              |               |
+|:---------:|:-------------:|:-------------:|:------------:|:-------------:|
+| $x$       | $0$           | $1$           | $2$          |     $3$       |
+|$P(X=x)$   | $\frac{1}{8}$ | $\frac{3}{8}$ | $\frac{3}{8}$| $\frac{1}{8}$ | 
+: {tbl-colwidths="[40,15,15,15,15]"}
 
 
-::: {.column width="54%"}
+::: {.column width="38%"}
 
-- The text file looks like this
-
-![](images/family_guy.png){width=78%}
+- One can compute
+$$
+F_X(x) = 
+\begin{cases}
+0  & \text{if } x < 0 \\
+\frac{1}{8}  & \text{if } 0 \leq x < 1 \\
+\frac{1}{2}  & \text{if } 1 \leq x < 2 \\
+\frac{7}{8}  & \text{if } 2 \leq x < 3 \\
+1            & \text{if } 3 \leq x
+\end{cases}
+$$
 
 :::
 
-::: {.column width="44%"}
 
-- Remarks:
-    * Header is present
-    * Delimiter is **whitespace**
-    * Missing values denoted by ``*``
+::: {.column width="56%"}
+
+- For example
+\begin{align*}
+F_X(2.1) & = P(X \leq 2.1) \\
+         & = P(X=0,1 \text{ or } 2) \\
+         & = P(X=0) + P(X=1) + P(X=2) \\
+         & = \frac{1}{8} + \frac{3}{8} + \frac{3}{8} = \frac{7}{8}
+\end{align*}
 
 :::
 
 
 
-## read.table command {.smaller}
-
-- Table-Formats can be read via ``read.table()``
-    * This reads a ``.txt`` or ``.csv`` file and outputs a data frame
-- Options of ``read.table()``
-    * ``header = T/F`` -- Tells R if a header is present
-    * ``na.strings = "string"`` -- Tells R that ``"string"`` means ``NA``
 
 
+## Cumulative Distribution Function {.smaller}
+### Example
 
-## Reading our first Table-Format file {.smaller}
-
-To read ``family_guy.txt`` into R proceed as follows:
-
-1. Download [family_guy.txt](datasets/family_guy.txt) and move file to Desktop
-
-2. Open the R Console and change working directory to **Desktop**
-
-```r
-# In MacOS type
-setwd("~/Desktop")
-
-# In Windows type
-setwd("C:/Users/YourUsername/Desktop")
-```
-
-
-## Reading our first Table-Format file {.smaller}
-
-
-3. Read ``family_guy.txt`` into R and store it in data frame ``family`` with code
-
-```r
-family = read.table(file = "family_guy.txt",
-                    header = TRUE,
-                    na.strings = "*"
-                    )
-```
-
-4. Note that we are telling ``read.table()`` that
-    * ``family_guy.txt`` has a header
-    * Missing values are denoted by ``*``
-
-
-
-## Reading our first Table-Format file {.smaller}
-
-
-::: {.column width="48%"}
-5. Print data frame ``family`` to screen
-
-```r
-print(family)
-```
 
 ```{r}
-family = read.table(file = "datasets/family_guy.txt",
-                    header = TRUE,
-                    na.strings = "*"
-                    )
-print(family)
+# Define the step function
+step_function <- function(x) {
+  if (x < 0) {
+    return(0)
+  } else if (x < 1) {
+    return(1/8)
+  } else if (x < 2) {
+    return(1/2)
+  } else if (x < 3) {
+    return(7/8)
+  } else {
+    return(1)
+  }
+}
+
+# Generate x values
+x_values <- seq(-1, 4, length.out = 1000)
+
+# Calculate corresponding y values using the step function
+y_values <- sapply(x_values, step_function)
+
+# Create a data frame for ggplot
+plot(x_values, 
+    y_values, 
+    type = 's',
+    xlab = "",
+    ylab = "")
+
+mtext("x", side=1, line=3, cex=2)
+mtext("F_X(x)", side=2, line=2.5, cex=2)
+
 ```
+
+
+
+::: {.column width="43%"}
+
+- Plot of $F_X$: it is a **step function**
+- $F_X'=0$ except at $x=0,1,2,3$
+- $F_X$ jumps at $x=0,1,2,3$ 
 
 :::
 
-::: {.column width="48%"}
+::: {.column width="56%"}
 
-- For comparison this is the ``.txt`` file
+- Size of jump at $x$ is $P(X=x)$ 
+- $F_X'=P_X$ in the sense of **distributions**
+<br> (Advanced analysis concept - not covered)
 
-![](images/family_guy.png){width=85%}
+:::
+
+
+
+
+## Discrete Random Variables {.smaller}
+
+In the previous example:
+
+- The cdf $F_X$ had **jumps**
+- Hence $F_X$ was **discountinuous**
+- We take this as definition of **discrete** rv
+
+
+
+::: Definition
+
+$X \colon \Omega \to \mathbb{R}$ is **discrete** if $F_X$ has jumps
 
 :::
 
@@ -1875,114 +962,389 @@ print(family)
 
 
 
-## Application: t-test {.smaller}
+## Probability Mass Function {.smaller}
 
-**Example**: Analysis of Consumer Confidence Index for 2008 crisis from Lecture 4
+- In this slide $X$ is a **discrete** rv
+- Therefore $F_X$ has **jumps**
 
-- We imported data into R using ``c()``
-- This is ok for small datasets
-- Suppose the CCI data is stored in a ``.txt`` file instead
+::: Definition
 
+The **Probability Mass Function** or **pmf** of a discrete rv $X$ is
+$$
+f_X \colon \mathbb{R} \to \mathbb{R} \,, \quad 
+f_X(x) := P(X = x) 
+$$
 
-**Goal**: Perform t-test on CCI difference for mean difference $\mu = 0$
-
-- By reading CCI data into R using ``read.table()``
-- By manipulating CCI data using **data frames**
-
-
-
-
-## Application: t-test {.smaller}
-
-- The CCI dataset can be downloaded here [2008_crisis.txt](datasets/2008_crisis.txt)
-
-- The text file looks like this
-
-![](images/2008_crisis.png){width=78%}
+:::
 
 
 
-## Application: t-test {.smaller}
+## Probability Mass Function {.smaller}
 
-To perform the t-test on data ``2008_crisis.txt`` we proceed as follows:
+::: Proposition
 
-1. Download dataset [2008_crisis.txt](datasets/2008_crisis.txt) and move file to Desktop
+The **pmf** $f_X(x) = P(X=x)$ can be used to
 
-2. Open the R Console and change working directory to **Desktop**
+- compute probabilities
+    $$
+    P(a \leq X \leq b) = \sum_{k = a}^b f_X (k) \,, \quad \forall \, a,b \in 
+    \mathbb{Z} \,, \,\, a \leq b 
+    $$
+- compute the **cdf**
+    $$
+    F_X(x) = P(X \leq x) = \sum_{k=-\infty}^x f_X(k)
+    $$
 
-```r
-# In MacOS type
-setwd("~/Desktop")
-
-# In Windows type
-setwd("C:/Users/YourUsername/Desktop")
-```
-
-3. Read ``2008_crisis.txt`` into R and store it in data frame ``scores`` with code
-
-```r
-scores = read.table(file = "2008_crisis",
-                    header = TRUE
-                    )
-```
-
-
-## Application: t-test {.smaller}
-
-4. Store 2nd and 3rd columns of ``scores`` into 2 vectors
-
-```r
-# CCI from 2007 is stored in 2nd column
-score_2007 <- scores[, 2]
-
-# CCI from 2009 is stored in 3nd column
-score_2009 <- scores[, 3]
-```
-
-
-5. Now the t-test can be performed as done in Lecture 4
-
-```r
-# Compute vector of differences
-difference <- score_2007 - score_2009
-
-# Perform t-test on difference with null hypothesis mu = 0
-t.test(difference, mu = 0)
-```
+:::
 
 
 
-## Application: t-test {.smaller}
 
-6. We obtain the same result of Lecture 4
-    * p-value is $p < 0.05$
-    * Reject $H_0$: The mean difference is not $0$
-    * In details, the output of ``t.test`` is below
 
-- For convenience you can download the full code [2008_crisis_code.R](codes/2008_crisis_code.R)
+## Example 1 - Discrete RV {.smaller}
+
+- Consider again 3 coin tosses and the RV
+$X(\omega) :=  \text{ Number of H in }  \omega$
+
+- The pmf of $X$ is $f_X(x):=P(X=x)$, which we have already computed
+
+|           |               |               |              |               |
+|:---------:|:-------------:|:-------------:|:------------:|:-------------:|
+| $x$       | $0$           | $1$           | $2$          |     $3$       |
+|$f_X(x)= P(X=x)$ | $\frac{1}{8}$ | $\frac{3}{8}$ | $\frac{3}{8}$| $\frac{1}{8}$ | 
+: {tbl-colwidths="[40,15,15,15,15]"}
+
+
 
 ```{r}
-# Read ``2008_crisis.txt`` into R and store in "scores"
-scores = read.table(file = "datasets/2008_crisis.txt",
-                    header = TRUE
-                    )
+# Example data
+values <- c(0, 1, 2, 3)
+probabilities <- c(1/8, 3/8, 3/8, 1/8)
 
-# Extract scores of 2007 and 2009 in 2 vectors
-score_2007 <- scores[, 2]
-score_2009 <- scores[, 3]
+# Plot PMF
+plot(values, 
+    probabilities, 
+    xlab = "",
+    ylab = "",
+    xaxt='n',
+    type="h", 
+    lwd=4, 
+    col="blue")
 
-# Compute difference
-difference <- score_2007 - score_2009
+axis(1, at = values,labels = T)
+mtext("x", side=1, line=3, cex=2)
+mtext("f_X(x)", side=2, line=2.5, cex=2)
 
-# Perform t-test on difference with null hypothesis mu = 0
-t.test(difference, mu = 0)
+points(values, probabilities, col = "red", pch = 16)
+
+grid()
 ```
 
 
 
 
 
-# Part 6: <br>R Style Guide {background-color="#cc0164" visibility="uncounted"}
+
+
+## Example 2 - Geometric Distribution {.smaller}
+
+- Suppose $p \in (0,1)$ is a given probability of **success**
+- Hence $1-p$ is probability of **failure**
+- Consider the random variable 
+$$
+X = \text{ Number of attempts to obtain first success}
+$$
+- Since each trial is independent, the pmf of $X$ is
+$$
+f_X (x) = P(X=x) = (1-p)^{x-1} p \,, \quad \forall \, x \in \mathbb{N}
+$$
+- This is called **geometric distribution**
+
+
+
+## Example 2 - Geometric Distribution {.smaller}
+
+- We want to compute the cdf of $X$: For $x \in \mathbb{N}$ with $x > 0$
+\begin{align*}
+F_X(x) & = P(X \leq x) = \sum_{k=1}^x P(X=k) = \sum_{k=1}^x f_X(k) \\
+       & = \sum_{k=1}^x (1-p)^{k-1} p 
+         = \frac{1-(1-p)^x}{1-(1-p)} p = 1 - (1-p)^x 
+\end{align*}
+where we used the formula for the sum of geometric series:
+$$
+\sum_{k=1}^x t^{k-1} = \frac{1-t^x}{1-t} \,, \quad t \neq 1 
+$$
+
+
+
+## Example 2 - Geometric Distribution {.smaller}
+
+
+- $F_X$ is flat between two consecutive natural numbers:
+\begin{align*}
+F_X(x+k) & = P(X \leq x+k) \\
+         & = P(X \leq x) \\
+         & = F_X(x) 
+\end{align*} 
+for all $x \in \mathbb{N}, k \in [0,1)$
+
+- Therefore $F_X$ has **jumps** and $X$ is **discrete**
+
+
+
+
+
+## Continuous Random Variables {.smaller} 
+
+**Recall**: $X$ is **discrete** if $F_X$ has **jumps**
+
+
+::: Definition
+### Continuous Random Variable
+
+$X \colon \Omega \to \mathbb{R}$ is **continuous** if 
+$F_X$ is **continuous**
+
+:::
+
+
+
+
+
+
+
+## Probability Mass Function? {.smaller}
+
+- Suppose $X$ is a **continuous** rv
+- Therefore $F_X$ is **continuous**
+
+::: Question 
+
+Can we define the Probability Mass Function for $X$?
+
+:::
+
+
+**Answer**: 
+
+- Yes we can, but it would be useless - pmf carries no information
+- This is because 
+$$
+f_X(x) = P(X=x) = 0 \,, \quad \forall \, x \in \mathbb{R}
+$$
+
+
+
+
+## Probability Mass Function? {.smaller}
+
+
+- Indeed, for all $\varepsilon>0$ we have $\{ X = x \} \subset \{  x - \varepsilon < X \leq x  \}$
+- Therefore by the properties of probabilities we have
+\begin{align*}
+P (X = x ) & \leq P(  x - \varepsilon < X \leq x ) \\
+           & = P(X \leq x) - P(X \leq x - \varepsilon) \\
+           & = F_X(x) - F_X(x-\varepsilon)
+\end{align*}
+where we also used the definition of $F_X$
+- Since $F_X$ is continuous we get
+$$
+0 \leq P(X = x) \leq \lim_{\varepsilon \to 0} F_X(x) - F_X(x-\varepsilon) = 0
+$$
+- Then $f_X(x) = P(X=x) = 0$ for all $x \in \mathbb{R}$
+
+
+
+
+
+
+## Probability Density Function {.smaller}
+
+**pmf** carries no information for continuous RV -- We instead define the **pdf**
+
+
+::: Definition
+
+The **Probability Density Function** or **pdf** of a continuous rv $X$ is
+a function $f_X \colon \mathbb{R} \to \mathbb{R}$ s.t.
+$$
+F_X(x) =  \int_{-\infty}^x f_X(t) \, dt  \,, \quad \forall \, x \in
+\mathbb{R}
+$$
+
+:::
+
+
+**Technical issue**: 
+
+- If $X$ is continuous then pdf **does not exist** in general  
+(absolute continuity is required)
+- Counterexamples are rare, therefore we will **assume** existence of pdf
+
+
+
+
+## Probability Density Function {.smaller}
+### Properties
+
+::: Proposition
+
+Suppose $X$ is continuous rv. They hold
+
+- The **cdf** $F_X$ is continuous and differentiable (a.e.) with
+$$
+F_X' = f_X
+$$
+
+- Probability can be computed via
+    $$
+    P(a \leq X \leq b) = \int_{a}^b f_X (t) \, dt \,, \quad \forall \, a,b \in 
+    \mathbb{R} \,, \,\, a \leq b 
+    $$
+
+:::
+
+
+
+
+
+## Example - Logistic Distribution {.smaller}
+
+
+- The random variable $X$ has **logistic distribution** if its **pdf** is
+$$
+f_X(x) = \frac{e^{-x}}{(1+e^{-x})^2}
+$$
+
+
+
+```{r}
+
+# Define the probability density function (PDF)
+f_X <- function(x) {
+  exp(-x) / (1 + exp(-x))^2
+}
+
+# Generate x values for plotting
+x_values <- seq(-10, 10, length.out = 1000)
+
+# Calculate corresponding y values
+y_values <- f_X(x_values)
+
+# Plot the distribution using base R plot function
+plot(x_values, 
+    y_values, 
+    type = "l", 
+    col = "blue", 
+    lwd = 4,
+    xlab = "", 
+    ylab = "")
+
+mtext("x", side=1, line=3, cex=2)
+mtext("f_X", side=2, line=2.5, cex=2)
+
+
+# Add a grid for better visualization
+grid()
+
+```
+
+
+
+## Example - Logistic Distribution {.smaller}
+
+
+- The random variable $X$ has **logistic distribution** if its **pdf** is
+$$
+f_X(x) = \frac{e^{-x}}{(1+e^{-x})^2}
+$$
+
+
+
+- The **cdf** can be computed to be
+$$
+F_X(x) = \int_{-\infty}^x f_X(t) \, dt = \frac{1}{1+e^{-x}}
+$$
+
+
+- The RHS is known as **logistic function**
+
+
+
+
+
+## Example - Logistic Distribution {.smaller}
+
+
+**Application**: Logistic function models expected score in chess (see [Wikipedia](https://en.wikipedia.org/wiki/Elo_rating_system))
+
+
+
+- $R_A$ is ELO rating of player $A$, $R_B$ is ELO rating of player $B$
+- $E_A$ is expected score of player $A$: 
+$$
+E_A := P(A \text{ wins}) + \frac12 P(A \text{ draws})
+$$
+- $E_A$ modelled by logistic function
+$$
+E_A := \frac{1}{1+ 10^{(R_B-R_A)/400} }
+$$
+- Example: Beginner is rated $1000$, International Master is rated $2400$
+$$
+R_{\rm Begin} = 1000, \quad  R_{\rm IM}=2400 , \quad E_{\rm Begin} = \frac{1}{1 + 10^{1400/400}} = 0.00031612779
+$$
+
+
+
+
+## Characterization of pmf and pdf {.smaller}
+
+
+::: Theorem
+
+Let $f \colon \mathbb{R} \to \mathbb{R}$. Then $f$ is pmf or pdf of a RV $X$ iff
+
+1. $f(x) \geq 0$ for all $x \in \mathbb{R}$
+2. $\sum_{x=-\infty}^\infty f(x) = 1 \,\,\,$ (pmf) $\quad$ or $\quad$ $\int_{-\infty}^\infty f(x) \, dx = 1\,\,\,$ (pdf)
+
+:::
+
+In the above setting: 
+
+- The RV $X$ has **distribution**
+$$
+P(X = x) = f(x)  \,\,\, \text{ (pmf) } \quad  \text{ or }  \quad
+P(a \leq X \leq b) = \int_a^b f(t) \, dt   \,\,\, \text{ (pdf)}
+$$
+
+- The symbol $X \sim f$ denotes that $X$ has distribution $f$
+
+
+
+
+
+## Summary - Random Variables {.smaller}
+
+- Given probability space $(\Omega, \mathcal{B}, P)$ and a Random Variable $X \colon \Omega \to \mathbb{R}$
+
+- **Cumulative Density Function (cdf)**:
+$F_X(x) := P(X \leq x)$
+
+
+| Discrete RV                       |        Continuous RV         |
+|--------------                     |----------------              |
+| $F_X$ has **jumps**               |  $F_X$ is **continuous**     |
+|**Probability Mass Function (pmf)**|**Probability Density Function (pdf)**|
+| $f_X(x) := P(X=x)$                | $f_X(x) := F_X'(x)$          |  
+| $f_X \geq 0$                      |  $f_X \geq 0$                |
+|$\sum_{x=-\infty}^\infty f_X(x) = 1$| $\int_{-\infty}^\infty f_X(x) \, dx = 1$ |
+| $F_X (x) = \sum_{k=-\infty}^x f_X(k)$| $F_X (x) = \int_{-\infty}^x f_X(t) \, dt$
+| $P(a \leq X \leq b) = \sum_{k = a}^{b} f_X(k)$ | $P(a \leq X \leq b) = \int_a^b f_X(t) \, dt$ |
+
+
+
+
+# Part 3: <br>Expected value {background-color="#cc0164" visibility="uncounted"}
 
 ::: footer
 
@@ -1991,226 +1353,157 @@ t.test(difference, mu = 0)
 :::
 
 
-## R Style Guide {.smaller}
 
-- Styling your code is optional
-- However it is considered good manners to do so
-- Good coding style makes code more readable
-- Highly recommended, especially for assignments
-- The next few slides on Style are based on these two posts:
-  * Style Guide by Hadley Wickham ([link](http://adv-r.had.co.nz/Style.html#:~:text=When%20indenting%20your%20code%2C%20use,definition%20runs%20over%20multiple%20lines.))
-  * Google's R Style Guide ([link](https://google.github.io/styleguide/Rguide.html))
 
 
+## Functions of Random Variables {.smaller}
 
-## File names {.smaller}
+- $X \colon \Omega \to \mathbb{R}$ random variable and $g \colon \mathbb{R} \to \mathbb{R}$ function
+- Then $Y:=g(X) \colon \Omega \to \mathbb{R}$ is random variable
+- For $A \subset \mathbb{R}$ we define the pre-image 
+$$
+g^{-1}(A) := \{  x \in \mathbb{R} \colon g(x) \in A \}
+$$
+- For $A=\{y\}$ single element set we denote
+$$
+g^{-1}(\{y\}) = g^{-1}(y) =  \{  x \in \mathbb{R} \colon g(x) = y \}
+$$
+- The distribution of $Y$ is
+$$
+P(Y \in A) = P(g(X) \in A ) = P(X \in g^{-1}(A))
+$$
 
-They should be meaningful and end in .R
 
-```r
-# Good
-football-models.R  
-utility-functions.R
-homework_1.R
-homework1.R
 
-# Bad
-footballmodels.r # Hard to read
-stuff.r          # What is inside this file?
-code.r           # Same as above
+## Functions of Random Variables {.smaller}
 
-```
+**Question**: What is the relationship between $f_X$ and $f_Y$?
 
+- **$X$ discrete**: Then $Y$ is discrete and
+$$
+f_Y (y) = P(Y = y) = \sum_{x \in g^{-1}(y)} P(X=x) = \sum_{x \in g^{-1}(y)} f_X(x) 
+$$
 
+- **$X$ and $Y$ continuous**: Then
+\begin{align*}
+F_Y(y) & = P(Y \leq y) = P(g(X) \leq y) \\
+       & = P(\{ x \in \mathbb{R} \colon g(x) \leq y \}   ) = \int_{\{ x \in \mathbb{R} \colon g(x) \leq y \}} f_X(t) \, dt
+\end{align*}
 
-## Objects names {.smaller}
 
-- Objects names shoulde be lowercase
-- Use an underscore (``_``) to separate words within a name
-- Variable names should be nouns, not verbs
-- Come up with names that are concise and meaningful
 
-```r
-# Good
-day_one  # This will clearly store the value of first day
-day_1    # Still clear
 
 
-# Bad
-first_day_of_the_month  # Too long
-dayone                  # Hard to read
-DayOne                  # Mix of upper and lower case
-fdm                     # Hard to guess what this means
-```
+## Functions of Random Variables {.smaller}
 
+**Issue**: The below set may be tricky to compute
+$$
+\{ x \in \mathbb{R} \colon g(x) \leq y \}
+$$
 
+However it can be easily computed if $g$ is **strictly monotone**:
 
+- **g strictly increasing**: Meaning that 
+$$
+x_1 < x_2 \quad \implies \quad g(x_1) < g(x_2)
+$$
 
-## Functions names {.smaller}
+- **g strictly decreasing**: Meaning that 
+$$
+x_1 < x_2 \quad \implies \quad g(x_1) > g(x_2)
+$$
 
-- Name functions with ``BigCamelCase`` ([link](https://en.wikipedia.org/wiki/Camel_case))
-- This is to clearly distinguish functions from other objects
-- Functions names should be verbs
-- Come up with names that are concise and meaningful
+- In both cases $g$ is **invertible**
 
-```r
-# Good
-DoNothing <- function() {
-  return(invisible(NULL))
-}
 
-# Bad
-donothing <- function() {
-  return(invisible(NULL))
-}
-```
 
 
 
+## Functions of Random Variables {.smaller}
 
+Let $g$ be **strictly increasing**:
 
-## Object and functions names {.smaller}
+- Then
+$$
+\{ x \in \mathbb{R} \colon g(x) \leq y \} = \{ x \in \mathbb{R} \colon x \leq g^{-1}(y) \}
+$$
 
-If possible avoid using names of existing functions and variables
+- Therefore
+\begin{align*}
+F_Y(y) & = \int_{\{ x \in \mathbb{R} \colon g(x) \leq y \}} f_X(t) \, dt 
+         = \int_{\{ x \in \mathbb{R} \colon x \leq g^{-1}(y) \}} f_X(t) \, dt  \\
+       & = \int_{-\infty}^{g^{-1}(y)} f_X(t) \, dt 
+         = F_X(g^{-1}(y)) 
+\end{align*}
 
 
-```r
-# Bad
-T <- FALSE                  # T is reserved for the boolean TRUE
-c <- 10                     # c denotes the concatenation operator
-mean <- function(x) sum(x)  # mean already denotes a built in function
-```
 
 
 
-## Assignment {.smaller}
+## Functions of Random Variables {.smaller}
 
-Use ``<-`` and not ``=`` for assignment
+Let $g$ be **strictly decreasing**:
 
-```r 
-# Good
-x <- 5
+- Then
+$$
+\{ x \in \mathbb{R} \colon g(x) \leq y \} = \{ x \in \mathbb{R} \colon x \geq g^{-1}(y) \}
+$$
 
-# Bad
-x = 5
-```
+- Therefore
+\begin{align*}
+F_Y(y) & = \int_{\{ x \in \mathbb{R} \colon g(x) \leq y \}} f_X(t) \, dt 
+         = \int_{\{ x \in \mathbb{R} \colon x \geq g^{-1}(y) \}} f_X(t) \, dt  \\
+       & = \int_{g^{-1}(y)}^{\infty} f_X(t) \, dt 
+         = 1 - \int_{-\infty}^{g^{-1}(y)}f_X(t) \, dt  \\
+       & = 1 - F_X(g^{-1}(y)) 
+\end{align*}
 
 
 
 
-## Spacing {.smaller}
 
-- Spacing is **really** something you should be careful about
-- Place spaces around all infix operators (``=``, ``+``, ``-``, ``<-``, etc.) 
-- Place spaces around ``=`` when calling a function 
-- Always put a space after a comma, never before (like in regular English)
+## Summary - Functions of Random Variables {.smaller}
 
-```r 
-# Good
-average <- mean(feet / 12 + inches, na.rm = TRUE)
 
-# Bad
-average<-mean(feet/12+inches,na.rm=TRUE)
-```
+- **$X$ discrete**: Then $Y$ is discrete and
+$$
+f_Y (y) = \sum_{x \in g^{-1}(y)} f_X(x) 
+$$
 
+- **$X$ and $Y$ continuous**: Then
+$$
+F_Y(y) = \int_{\{ x \in \mathbb{R} \colon g(x) \leq y \}} f_X(t) \, dt
+$$
 
+- **$X$ and $Y$ continuous** and
+    * **$g$ strictly increasing**: $F_Y(y) = F_X(g^{-1}(y))$
+    * **$g$ strictly decreasing**: $F_Y(y) = 1 - F_X(g^{-1}(y))$
 
 
-## Spacing with Brackets {.smaller}
 
-- Do not place spaces around code in parentheses or square brackets
-- Unless there is a comma
 
-```r
-# Good
-if (condition) do(x)
-diamonds[5, ]
 
-# Bad
-if ( condition ) do(x)  # No spaces around condition
-x[1,]                   # Needs a space after the comma
-x[1 ,]                  # Space goes after comma not before
-```
 
 
+## Expected Value {.smaller}
 
+Expected value is the **average** value of a random variable
 
-## Spacing - Exceptions {.smaller}
 
-- Symbols ``:``, ``::`` and ``:::`` do not need spacing
+::: Definition
 
-```r
-# Good
-x <- 1:10
+$X$ rv and $g \colon \mathbb{R} \to \mathbb{R}$ function. The **expected value** or **mean**
+of $g(X)$ is $\Expect [g(X)]$
 
-# Bad
-x <- 1 : 10
-```
+- If $X$ discrete
+$$
+\Expect [g(X)]:= \sum_{x \in \mathbb{R}} g(x) f_X(x) = \sum_{x \in \mathbb{R}} g(x) P(X = x)
+$$
 
-- Place a space before left parentheses, except in a function call
-
-```r
-#Good
-if (condition) do(x)
-plot(x, y)
-
-# Bad
-if(condition)do(x)    # (condition) needs spacing
-plot (x, y)           # This does not need spacing
-```
-
-
-
-## Extra Spacing {.smaller}
-
-Extra spacing is ok if it improves alignment of ``=`` or ``<-``
-
-```r
-list(
-  total = a + b + c, 
-  mean  = (a + b + c) / n
-)
-```
-
-
-
-## Curly braces {.smaller}
-
-- An opening curly brace should never go on its own line 
-- An opening curly brace should always be followed by a new line
-- Always **indent** the code inside curly braces
-
-
-::: {.column width="45%"}
-
-```r
-# Good
-
-if (y < 0 && debug) {
-  message("Y is negative")
-}
-
-if (y == 0) {
-  log(x)
-} 
-```
-
-:::
-
-
-::: {.column width="45%"}
-
-```r
-# Bad
-
-if (y < 0 && debug)
-message("Y is negative")
-
-
-if (y == 0) 
-{
-  log(x)} 
-```
+- If $X$ continuous
+$$
+\Expect [g(X)]:= \int_{-\infty}^{\infty} g(x) f_X(x) \, dx
+$$
 
 :::
 
@@ -2218,103 +1511,441 @@ if (y == 0)
 
 
 
-## Line length {.smaller}
-
-- Limit code to 80 characters per line
-- This fits comfortably on a printed page 
-- If you run out of room, encapsulate some of the work in separate function
+## Expected Value  {.smaller}
+### Properties
 
 
+In particular we have^[These follow by taking $g(x)=x$ in previous definitions, so that $g(X) = X$]
 
 
-## Indentation {.smaller}
+- If $X$ discrete
+$$
+\Expect [X] = \sum_{x \in \mathbb{R}} x f_X(x) = \sum_{x \in \mathbb{R}} x P(X = x)
+$$
 
-- When indenting your code, use two spaces
-- Never use tabs or mix tabs and spaces
-- Indentation should be used for **functions**, **if**, **for**, etc.
-
-```r
-SumTwoNumbers <- function(x, y) {
-  s = x + y
-  return(s)
-}
-```
-
-
-
-## Indentation - Exception {.smaller}
-
-If a function definition runs over multiple lines, indent the second line to where the definition starts
-
-```r
-long_function_name <- function(a = "a long argument", 
-                               b = "another argument",
-                               c = "another long argument") {
-  # As usual code is indented by two spaces.
-}
-```
+- If $X$ continuous
+$$
+\Expect [X] = \int_{-\infty}^{\infty} x f_X(x) \, dx
+$$
 
 
 
 
-## Use explicit returns {.smaller}
-
-- Functions can return objects
-- R has an implicit return feature
-- Do not rely on this feature, but explicitly mention ``return(object)``
-
-```r
-# Good
-AddValues <- function(x, y) {
-  return(x + y)                     # Function returns x+y
-}
-
-# Bad
-AddValues <- function(x, y) {
-  x + y                             # Function still returns x+y
-}                                   # but it is not immediate to see it
-```
 
 
 
 
-## Named arguments {.smaller}
+## Expected Value  {.smaller}
+### Properties
 
-- Often you can call a function without explicitly naming arguments:
-  * ``plot(height, weight)``
-  * ``mean(weight)``
+::: Theorem
 
-- This might be fine for ``plot()`` or ``mean``
-
-- However for less common functions:
-  * One might struggle to remember the meaning of **arguments positions**
-  * It is therefore good practice to **name arguments**
-
-```r
-# Good
-seq(from = 1, to = 11, by = 1)
-
-# Bad
-seq(1, 11, 1)
-```
+$X$ rv, $g,h \colon \R \to \R$ functions and $a,b,c \in \mathbb{R}$. The expected value is **linear**
+\begin{equation} \tag{1}
+\Expect [a g(X) + b h(X) + c] = a\Expect [g(X)] + b \Expect [h(X)] + c
+\end{equation}
+In particular
+\begin{align} \tag{2}
+\Expect[aX] & = a \Expect[X] \\
+\Expect [c] & = c \tag{3}
+\end{align}
+:::
 
 
 
-## Comments {.smaller}
-
-- **Most importantly**: Comment your code
-- Each line of a comment should begin with comment symbol ``#`` and a single space
-
-```r 
-# Here we sum two numbers  
-x+y
-```
 
 
-- Use commented lines of ``-`` and ``=`` to break up code into easily readable chunks
+## Expected Value  {.smaller}
+### Proof of Theorem
 
-```r
-# Load data ---------------------------
+- Equation (2) follows from (1) by setting $g(x)=x$ and $b=c=0$
 
-# Plot data ---------------------------
-```
+- Equation (3) follows from (1) by setting $a=b=0$
+
+- To show (1), suppose $X$ is continuous and set $p(x):=ag(x)+bh(x)+c$
+\begin{align*}
+\Expect [ag(X) + & b h(X) + c]  = \Expect [p(X)] = \int_{\R} p(x) f_X(x) \, dx \\
+& = \int_{\R} (ag(x) + bh(x) + c) f_X(x) \, dx  \\
+& = a\int_{\R} g(x) f_X(x) \, dx  + b\int_{\R} h(x) f_X(x) \, dx +  c\int_{\R} f_X(x) \, dx  \\
+& = a \Expect[g(X)] + b \Expect[h(X)] + c
+\end{align*}
+
+- If $X$ is discrete just replace integrals with series in the above argument
+
+
+
+
+
+
+
+## Expected Value  {.smaller}
+### Further Properties
+
+Below are further properties of $\Expect$, which we do not prove
+
+::: Theorem
+
+Suppose $X$ and $Y$ are rv. The expected value is:
+
+- **Monotone**: $X \leq Y  \quad \implies \quad \Expect [X] \leq  \Expect [Y]$
+
+- **Non-degenerate**: $\Expect[|X|] = 0 \quad \implies \quad X = 0$
+
+- $X=Y \quad \implies \quad \Expect[X]=\Expect[Y]$ 
+
+:::
+
+
+
+
+
+
+## Variance {.smaller}
+
+Variance measures how much a rv $X$ deviates from $\Expect[X]$
+
+::: Definition
+### Variance
+
+The **variance** of a random variable $X$ is
+$$
+\Var[X]:= \Expect[(X - \Expect[X])^2]
+$$
+
+:::
+
+
+**Note**:
+
+- $\Var [X] = 0 \quad \implies \quad (X - \Expect[X])^2 = 0 \quad  \implies \quad X = \Expect [X]$
+- If $\Var[X]$ is small then $X$ is close to $\Expect[X]$
+- If $\Var[X]$ is large then $X$ is very variable
+
+
+
+
+## Variance {.smaller}
+### Equivalent formula
+
+::: Proposition
+$$
+\Var[X] =  \Expect[X^2] - \Expect[X]^2
+$$
+:::
+
+**Proof:**
+\begin{align*}
+\Var[X] & = \Expect[(X - \Expect[X])^2] \\
+        & = \Expect[X^2 - 2 X \Expect[X] +  \Expect[X]^2] \\  
+        & = \Expect[X^2] - \Expect[2 X \Expect[X]]  + \Expect[ \Expect[X]^2] \\
+        & = \Expect[X^2] - 2 \Expect[X]^2 + \Expect[X]^2 \\
+        & = \Expect[X^2] - \Expect[X]^2
+\end{align*}
+
+
+
+
+
+## Variance {.smaller}
+### Variance is quadratic
+
+::: Proposition
+
+$X$ rv and $a,b \in \R$. Then
+$$
+\Var[a X + b] = a^2 \Var[X] 
+$$
+
+:::
+
+
+**Proof:** Using linearity of $\Expect$ and the fact that $\Expect[c]=c$ for constants:
+\begin{align*}
+\Var[a X + b] & = \Expect[ (aX + b)^2 ] - \Expect[ aX + b ]^2 \\
+              & = \Expect[ a^2X^2 + b^2 + 2abX ] - ( a\Expect[X]  + b)^2 \\
+              & = a^2 \Expect[ X^2 ] + b^2 + 2ab \Expect[X] - 
+                  a^2 \Expect[X]^2   - b^2 - 2ab \Expect[X] \\
+              & = a^2 ( \Expect[ X^2 ] - \Expect[ X ]^2 ) = a^2 \Var[X]
+\end{align*}
+
+
+
+
+
+## Variance {.smaller}
+### How to compute the Variance
+
+We have
+$$
+\Var[X] =  \Expect[X^2] - \Expect[X]^2
+$$
+
+- $X$ discrete:
+$$
+E[X] = \sum_{x \in \mathbb{R}} x f_X(x) \,, \qquad 
+E[X^2] = \sum_{x \in \mathbb{R}} x^2 f_X(x)
+$$
+
+
+- $X$ continuous:
+$$
+E[X] = \int_{-\infty}^\infty x f_X(x) \, dx \,, \qquad 
+E[X^2] = \int_{-\infty}^\infty x^2 f_X(x) \, dx
+$$
+
+
+
+
+
+## Example - Gamma distribution {.smaller}
+### Definition
+
+
+The **Gamma distribution** with parameters $\alpha,\beta>0$ is
+$$
+f(x) := \frac{x^{\alpha-1} e^{-\beta{x}} \beta^{\alpha}}{\Gamma(\alpha)} \,, \quad x > 0
+$$
+where $\Gamma$ is the **Gamma function**
+$$
+\Gamma(a) :=\int_0^{\infty} x^{a-1} e^{-x} \, dx
+$$
+
+
+
+
+
+## Example - Gamma distribution {.smaller}
+### Definition
+
+**Properties of $\Gamma$**:
+
+- The Gamma function coincides with the factorial on natural numbers
+$$
+\Gamma(n)=(n-1)! \,, \quad \forall \, n \in \N
+$$
+
+- More in general
+$$
+\Gamma(a)=(a-1)\Gamma(a-1) \,, \quad \forall \, a > 0
+$$
+
+
+-  Definition of $\Gamma$ implies normalization of the Gamma distribution:
+$$
+\int_0^{\infty} f(x) \,dx = 
+\int_0^{\infty} \frac{x^{\alpha-1} e^{-\beta{x}} \beta^{\alpha}}{\Gamma(\alpha)}  \, dx
+=  1 
+$$
+
+
+
+## Example - Gamma distribution {.smaller}
+### Definition
+
+$X$ has Gamma distribution with parameters $\alpha,\beta$ if 
+
+- the pdf of $X$ is
+$$
+f_X(x) = 
+\begin{cases} 
+\dfrac{x^{\alpha-1} e^{-\beta{x}} \beta^{\alpha}}{\Gamma(\alpha)}  & \text{ if } x > 0 \\
+0                                                                 & \text{ if } x \leq 0
+\end{cases}
+$$
+
+- In this case we write $X \sim \Gamma(\alpha,\beta)$
+
+- $\alpha$ is **shape** parameter
+
+- $\beta$ is **rate** parameter
+
+
+
+
+## Example - Gamma distribution {.smaller}
+### Plot
+
+Plotting $\Gamma(\alpha,\beta)$ for parameters $(2,1)$ and $(3,2)$
+
+```{r}
+# Set the shape and rate parameters for the first gamma distribution
+alpha1 <- 2
+beta1 <- 1
+
+# Set the shape and rate parameters for the second gamma distribution
+alpha2 <- 3
+beta2 <- 2
+
+# Generate values for the x-axis
+x_values <- seq(0, 15, by = 0.1)
+
+# Calculate the probability density function (PDF) values for each x for the first distribution
+pdf_values1 <- dgamma(x_values, shape = alpha1, rate = beta1)
+
+# Calculate the probability density function (PDF) values for each x for the second distribution
+pdf_values2 <- dgamma(x_values, shape = alpha2, rate = beta2)
+
+# Plot the gamma PDFs
+plot(x_values, 
+    pdf_values1, 
+    type = "l", 
+    col = "blue", lwd = 2,
+    xlab = "", 
+    ylab = "",
+    ylim = c(0, max(pdf_values1, pdf_values2) + 0.1))
+
+lines(x_values, 
+      pdf_values2, 
+      col = "red", 
+      lwd = 2)
+
+mtext("x", side=1, line=3, cex=2)
+mtext("pdf", side=2, line=2.5, cex=2)
+
+# Add a legend
+legend("topright", legend = c(paste("Gamma(", alpha1, ",", beta1, ")", sep = ""),
+                              paste("Gamma(", alpha2, ",", beta2, ")", sep = "")),
+       col = c("blue", "red"), lty = 1, lwd = 2, cex = 1.5)
+
+```  
+
+
+
+
+
+## Example - Gamma distribution {.smaller}
+### Expected value
+
+Let $X \sim \Gamma(\alpha,\beta)$. We have:
+\begin{align*}
+\Expect [X] & = \int_{-\infty}^\infty x f_X(x) \, dx  \\
+            & = \int_0^\infty  x \, \frac{x^{\alpha-1} e^{-\beta{x}} \beta^{\alpha}}{\Gamma(\alpha)} \, dx \\
+            & = \frac{ \beta^{\alpha} }{ \Gamma(\alpha) }
+            \int_0^\infty  x^{\alpha} e^{-\beta{x}}  \, dx
+\end{align*}
+
+
+
+## Example - Gamma distribution {.smaller}
+### Expected value
+
+Recall previous calculation:
+$$
+\Expect [X] = \frac{ \beta^{\alpha} }{ \Gamma(\alpha) }
+            \int_0^\infty  x^{\alpha} e^{-\beta{x}}  \, dx
+$$
+Change variable $y=\beta x$ and recall definition of $\Gamma$:
+\begin{align*}
+ \int_0^\infty  x^{\alpha} e^{-\beta{x}}  \, dx & = 
+  \int_0^\infty  \frac{1}{\beta^{\alpha}} (\beta x)^{\alpha} e^{-\beta{x}} \frac{1}{\beta} \, \beta \, dx \\
+  & = \frac{1}{\beta^{\alpha+1}} \int_0^\infty  y^{\alpha} e^{-y} \, dy \\
+  & = \frac{1}{\beta^{\alpha+1}} \Gamma(\alpha+1)
+\end{align*}
+
+
+
+
+## Example - Gamma distribution {.smaller}
+### Expected value
+
+Therefore
+\begin{align*}
+\Expect [X] & = \frac{ \beta^{\alpha} }{ \Gamma(\alpha) }
+            \int_0^\infty  x^{\alpha} e^{-\beta{x}}  \, dx \\
+            & =  \frac{ \beta^{\alpha} }{ \Gamma(\alpha) } \, \frac{1}{\beta^{\alpha+1}} \Gamma(\alpha+1) \\
+            & = \frac{\Gamma(\alpha+1)}{\beta \Gamma(\alpha)}
+\end{align*}
+
+Recalling that $\Gamma(\alpha+1)=\alpha \Gamma(\alpha)$:
+$$
+\Expect [X] = \frac{\Gamma(\alpha+1)}{\beta \Gamma(\alpha)} = \frac{\alpha}{\beta}
+$$
+
+
+
+## Example - Gamma distribution {.smaller}
+### Variance
+
+We want to compute
+$$
+\Var[X] = \Expect[X^2] - \Expect[X]^2
+$$
+
+- We already have $\Expect[X]$
+- Need to compute $\Expect[X^2]$
+
+
+
+## Example - Gamma distribution {.smaller}
+### Variance
+
+Proceeding similarly we have:
+
+\begin{align*}
+\Expect[X^2] & = \int_{-\infty}^{\infty} x^2 f_X(x) \, dx \\
+             & = \int_{0}^{\infty}  x^2 \, \frac{ x^{\alpha-1} \beta^{\alpha} e^{- \beta x} }{ \Gamma(\alpha) } \, dx \\
+             & =  \frac{\beta^{\alpha}}{\Gamma(\alpha)} \int_{0}^{\infty}  x^{\alpha+1} e^{- \beta x} \, dx 
+\end{align*}
+
+
+
+
+## Example - Gamma distribution {.smaller}
+### Variance
+
+Recall previous calculation:
+$$
+\Expect [X^2] =  \frac{\beta^{\alpha}}{\Gamma(\alpha)} \int_{0}^{\infty}  x^{\alpha+1} e^{- \beta x} \, dx 
+$$
+Change variable $y=\beta x$ and recall definition of $\Gamma$:
+\begin{align*}
+ \int_0^\infty  x^{\alpha+1} e^{-\beta{x}}  \, dx & = 
+  \int_0^\infty  \frac{1}{\beta^{\alpha+1}} (\beta x)^{\alpha + 1} e^{-\beta{x}} \frac{1}{\beta} \, \beta \, dx \\
+  & = \frac{1}{\beta^{\alpha+2}} \int_0^\infty  y^{\alpha + 1 } e^{-y} \, dy \\
+  & = \frac{1}{\beta^{\alpha+2}} \Gamma(\alpha+2)
+\end{align*}
+
+
+
+## Example - Gamma distribution {.smaller}
+### Variance
+
+Therefore
+$$
+\Expect [X^2]  = \frac{ \beta^{\alpha} }{ \Gamma(\alpha) }
+            \int_0^\infty  x^{\alpha+1} e^{-\beta{x}}  \, dx 
+             =  \frac{ \beta^{\alpha} }{ \Gamma(\alpha) } \, \frac{1}{\beta^{\alpha+2}} \Gamma(\alpha+2) 
+              = \frac{\Gamma(\alpha+2)}{\beta^2 \Gamma(\alpha)}
+$$
+Now use following formula twice $\Gamma(\alpha+1)=\alpha \Gamma(\alpha)$:
+$$
+\Gamma(\alpha+2)= (\alpha + 1) \Gamma(\alpha + 1) = (\alpha + 1) \alpha \Gamma(\alpha)
+$$
+Substituting we get
+$$
+\Expect [X^2] = \frac{\Gamma(\alpha+2)}{\beta^2 \Gamma(\alpha)} = \frac{(\alpha+1) \alpha}{\beta^2}
+$$
+
+
+
+## Example - Gamma distribution {.smaller}
+### Variance
+
+Therefore
+$$
+\Expect [X] = \frac{\alpha}{\beta}  \quad \qquad
+\Expect [X^2] = \frac{(\alpha+1) \alpha}{\beta^2}
+$$
+and the variance is
+\begin{align*}
+\Var[X] & = \Expect [X^2] - \Expect [X]^2 \\
+        & = \frac{(\alpha+1) \alpha}{\beta^2} - \frac{\alpha^2}{\beta^2} \\
+        & = \frac{\alpha}{\beta^2}
+\end{align*}
+
+
+
+
+
+
+## References

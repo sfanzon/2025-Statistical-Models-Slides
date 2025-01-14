@@ -686,15 +686,15 @@ mtext("Gold Price", side=2, line=2.5, cex=2)
 
 
 
-## Probability revision {.smaller}
+## Probability revision -- Part 1 {.smaller}
 
-- You are expected to recall main concepts from Y1 module  
+- You are expected to know the main concepts from Y1 module  
 **Introduction to Probability & Statistics**
 
-- Self-contained revision material in <a href="appendix_A.qmd">Appendix A</a> 
+- Self-contained revision material available in <a href="appendix_A.qmd">Appendix A</a> 
 
 
-**Topics to review**:
+**Topics to review**: Sections 1, 2, 3 of <a href="appendix_A.qmd">Appendix A</a>
     
 ::: {.column width="38%"}
     

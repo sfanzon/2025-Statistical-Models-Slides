@@ -37,9 +37,9 @@ $
 
 1. Module info
 2. Introduction
-3. Probability revision
+3. Probability revision I
 4. Moment generating functions
-
+5. Probability revision II
 
 
 
@@ -676,7 +676,7 @@ mtext("Gold Price", side=2, line=2.5, cex=2)
 
 
 
-# Part 3: <br>Probability revision {background-color="#cc0164" visibility="uncounted"}
+# Part 3: <br>Probability revision I {background-color="#cc0164" visibility="uncounted"}
 
 ::: footer
 
@@ -686,15 +686,15 @@ mtext("Gold Price", side=2, line=2.5, cex=2)
 
 
 
-## Probability revision -- Part 1 {.smaller}
+## Probability revision I {.smaller}
 
-- You are expected to know the main concepts from Y1 module  
+- You are expected to be familiar with the main concepts from Y1 module  
 **Introduction to Probability & Statistics**
 
 - Self-contained revision material available in <a href="appendix_A.qmd">Appendix A</a> 
 
 
-**Topics to review**: Sections 1, 2, 3 of <a href="appendix_A.qmd">Appendix A</a>
+**Topics to review**: Sections 1--3 of <a href="appendix_A.qmd">Appendix A</a>
     
 ::: {.column width="38%"}
     
@@ -749,23 +749,19 @@ $F_X(x) := P(X \leq x)$
 
 ## Expected Value {.smaller}
 
-Expected value is the **average** value of a random variable
+
+- Suppose $X \colon \Omega \to \R$ is RV and $g \colon \R \to \R$ a function
+- Then $g(X) \colon \Omega \to \R$ is a RV
 
 
 ::: Definition
 
-$X$ rv and $g \colon \mathbb{R} \to \mathbb{R}$ function. The **expected value** or **mean**
-of $g(X)$ is $\Expect [g(X)]$
+The **expected value** of the random variable $g(X)$ is
 
-- If $X$ discrete
-$$
-\Expect [g(X)]:= \sum_{x \in \mathbb{R}} g(x) f_X(x) = \sum_{x \in \mathbb{R}} g(x) P(X = x)
-$$
-
-- If $X$ continuous
-$$
-\Expect [g(X)]:= \int_{-\infty}^{\infty} g(x) f_X(x) \, dx
-$$
+\begin{align*}
+\Expect [g(X)] & := \sum_{x} g(x) f_X(x) = \sum_{x \in \mathbb{R}} g(x) P(X = x)   \quad \text{ if } X \text{ discrete} \\
+\Expect [g(X)] & :=  \int_{-\infty}^{\infty} g(x) f_X(x) \, dx   \quad \text{ if } X \text{ continuous}
+\end{align*}
 
 :::
 
@@ -809,59 +805,16 @@ $$
 
 :::
 
-
-**Note**:
-
-- $\Var [X] = 0 \quad \implies \quad (X - \Expect[X])^2 = 0 \quad  \implies \quad X = \Expect [X]$
-- If $\Var[X]$ is small then $X$ is close to $\Expect[X]$
-- If $\Var[X]$ is large then $X$ is very variable
-
-
-
-
-## Variance {.smaller}
-### Equivalent formula
-
 ::: Proposition
+### Useful formula for variance
+
 $$
 \Var[X] =  \Expect[X^2] - \Expect[X]^2
 $$
+
 :::
 
-**Proof:**
-\begin{align*}
-\Var[X] & = \Expect[(X - \Expect[X])^2] \\
-        & = \Expect[X^2 - 2 X \Expect[X] +  \Expect[X]^2] \\  
-        & = \Expect[X^2] - \Expect[2 X \Expect[X]]  + \Expect[ \Expect[X]^2] \\
-        & = \Expect[X^2] - 2 \Expect[X]^2 + \Expect[X]^2 \\
-        & = \Expect[X^2] - \Expect[X]^2
-\end{align*}
 
-
-
-
-
-
-## Variance {.smaller}
-### How to compute the Variance
-
-We have
-$$
-\Var[X] =  \Expect[X^2] - \Expect[X]^2
-$$
-
-- $X$ discrete:
-$$
-E[X] = \sum_{x \in \mathbb{R}} x f_X(x) \,, \qquad 
-E[X^2] = \sum_{x \in \mathbb{R}} x^2 f_X(x)
-$$
-
-
-- $X$ continuous:
-$$
-E[X] = \int_{-\infty}^\infty x f_X(x) \, dx \,, \qquad 
-E[X^2] = \int_{-\infty}^\infty x^2 f_X(x) \, dx
-$$
 
 
 
@@ -1132,16 +1085,8 @@ and the variance is
 
 - We abbreviate **Moment generating function** with **MGF**
 
-- MGF is almost the Laplace transform of the probability density function
-
 - MGF provides a short-cut to calculating mean and variance
 
-- MGF gives a way of proving distributional results for sums of independent random variables
-
-
-
-
-## Moment generating function {.smaller}
 
 
 ::: Definition
@@ -1620,6 +1565,511 @@ As the above is the mgf of a Gamma distribution, by the previous Theorem we infe
 
 
 
+# Part 5: <br>Probability revision II {background-color="#cc0164" visibility="uncounted"}
+
+::: footer
+
+<div color="#cc0164">  </div>
+
+:::
+
+
+
+## Probability revision II {.smaller}
+
+- You are expected to be familiar with the main concepts from Y1 module    
+**Introduction to Probability & Statistics**
+
+- Self-contained revision material available in <a href="appendix_A.qmd">Appendix A</a> 
+
+
+**Topics to review**: Sections 4--5 of <a href="appendix_A.qmd">Appendix A</a>
+    
+::: {.column width="38%"}
+    
+- Random vectors
+- Bivariate vectors
+- Joint pdf and pmf
+- Marginals
+
+:::
+
+::: {.column width="58%"}
+
+- Conditional distributions
+- Conditional expectation
+- Conditional variance
+
+:::
+
+
+
+
+
+
+
+## Univariate vs Bivariate vs Multivariate {.smaller}
+
+- Probability models seen so far only involve 1 random variable
+    * These are called **univariate models**
+
+- We are also interested in probability models involving multiple variables:
+    * Models with 2 random variables are called **bivariate**
+    * Models with more than 2 random variables are called **multivariate**
+
+
+
+
+## Random vectors {.smaller}
+### Definition
+
+**Recall**: a random variable is a **measurable** function
+$$
+X \colon \Omega \to \R \,, \quad \Omega \,\, \text{ sample space}
+$$
+
+::: Definition
+
+A **random vector** is a measurable function $\XX \colon \Omega \to \R^n$. We say that
+
+- $\XX$ is **univariate** if $n=1$
+- $\XX$ is **bivariate** if $n=2$
+- $\XX$ is **multivariate** if $n \geq 3$
+
+:::
+
+
+
+
+
+## Random vectors {.smaller}
+### Notation
+
+- The components of a random vector $\XX$ are denoted by
+$$
+\XX = (X_1, \ldots, X_n) 
+$$
+with $X_i \colon \Omega \to \R$ random variables
+
+
+- We denote a two-dimensional bivariate random vector by 
+$$
+(X,Y)
+$$
+with $X,Y \colon \Omega \to \R$ random variables
+
+
+
+
+
+## Summary - Bivariate Random Vectors {.smaller}
+
+
+| $(X,Y)$ discrete random vector       |  $(X,Y)$ continuous random vector         |
+|--------------                        |----------------                           |
+| $X$ and $Y$ discrete RV                |  $X$ and $Y$ continuous RV                  |
+|**Joint pmf**                         |**Joint pdf**                              |
+| $f_{X,Y}(x,y) := P(X=x,Y=y)$         | $P((X,Y) \in A) = \int_A f_X(x,y) \,dxdy$ |  
+| $f_{X,Y} \geq 0$                     |  $f_{X,Y} \geq 0$                         |
+|$\sum_{(x,y)\in \R^2} f_{X,Y}(x,y)=1$ | $\int_{\R^2} f_{X,Y}(x,y) \, dxdy= 1$     |
+|**Marginal pmfs**                     | **Marginal pdfs**                         |
+| $f_X (x) := P(X=x)$                  |$P(a \leq X \leq b) = \int_a^b f_X(x) \,dx$|
+| $f_Y (y) := P(Y=y)$                  |$P(a \leq Y \leq b) = \int_a^b f_Y(y) \,dy$|
+|$f_X (x)=\sum_{y \in \R} f_{X,Y}(x,y)$|$f_X(x) = \int_{\R} f_{X,Y}(x,y) \,dy$     |
+|$f_Y (y)=\sum_{x \in \R} f_{X,Y}(x,y)$|$f_Y(y) = \int_{\R} f_{X,Y}(x,y) \,dx$     |
+
+
+
+
+
+
+## Expected Value {.smaller}
+
+
+- Suppose $(X,Y) \colon \Omega \to \R^2$ is random vector and $g \colon \R^2 \to \R$ function
+- Then $g(X,Y) \colon \Omega \to \R$ is random variable
+
+
+::: Definition
+
+The **expected value** of the random variable $g(X,Y)$ is
+\begin{align*}
+\Expect [g(X,Y)] & := \sum_{x,y} g(x,y)  P(X=x,Y=y)   \quad \text{ if } (X,Y) \text{ discrete} \\
+\Expect [g(X,Y)] & := \int_{\R^2} g(x,y) f_{X,Y}(x,y) \, dxdy   \quad \text{ if } (X,Y) \text{ continuous}
+\end{align*}
+
+:::
+
+
+**Notation**:The symbol $\int_{\R^2}$ denotes the double integral $\int_{-\infty}^\infty\int_{-\infty}^\infty$
+
+
+
+
+
+## Conditional distributions {.smaller}
+
+
+$(X,Y)$ rv with joint pdf (or pmf) $f_{X,Y}$ and marginal pdfs (or pmfs)
+$f_X, f_Y$
+
+- The **conditional pdf (or pmf) of $Y$ given that $X=x$** is the function $f(\cdot | x)$
+$$
+f(y|x) := \frac{f_{X,Y}(x,y)}{f_X(x)} \, , \qquad \text{ whenever} \quad f_X(x)>0
+$$
+
+- The **conditional pdf (or pmf) of $X$ given that $Y=y$** is the function $f(\cdot | y)$
+$$
+f(x|y) := \frac{f_{X,Y}(x,y)}{f_Y(y)}\, , \qquad \text{ whenever} \quad f_Y(y)>0
+$$
+
+- **Notation**: We will often write
+    * $Y|X$ to denote the distribution $f(y|x)$
+    * $X|Y$ to denote the distribution $f(x|y)$
+
+
+
+
+## Conditional expectation  {.smaller}
+
+
+::: Definition
+
+$(X,Y)$ random vector and $g \colon \R \to \R$ function. The **conditional expectation** of $g(Y)$ given $X=x$ is
+\begin{align*}
+\Expect [g(Y) | x] & := \sum_{y} g(y) f(y|x)   \quad \text{ if } (X,Y) \text{ discrete} \\
+\Expect [g(Y) | x] & := \int_{y \in \R} g(y) f(y|x) \, dy   \quad \text{ if } (X,Y) \text{ continuous}
+\end{align*}
+
+:::
+
+- $\Expect [g(Y) | x]$ is a real number for all $x \in \R$
+- $\Expect [g(Y) | X]$ denotes the Random Variable $h(X)$ where $h(x):=\Expect [g(Y) | x]$
+
+
+
+
+## Conditional variance  {.smaller}
+
+
+::: Definition
+
+$(X,Y)$ random vector. The **conditional variance** of $Y$ given $X=x$ 
+is
+$$
+\Var [Y | x]  := \Expect[Y^2|x] - \Expect[Y|x]^2 
+$$
+
+:::
+
+- $\Var [Y | x]$ is a real number for all $x \in \R$
+- $\Var [Y | X]$ denotes the Random Variable 
+$$
+\Var [Y | X] := \Expect[Y^2|X] - \Expect[Y|X]^2 
+$$
+
+
+
+
+## Exercise - Conditional distribution  {.smaller}
+
+Assume given a continuous random vector $(X,Y)$ with **joint pdf**
+$$
+f_{X,Y}(x,y) := e^{-y}  \,\, \text{ if } \,\, 0 < x < y  \,, \quad 
+f_{X,Y}(x,y) :=0    \,\, \text{ otherwise}
+$$
+
+::: {.column width="42%"}
+
+- Compute $f_X$ and $f(y|x)$
+- Compute $\Expect[Y|X]$
+- Compute $\Var[Y|X]$
+
+:::
+
+::: {.column width="50%"}
+
+```{r}
+
+library(plotly)
+
+# Define the function
+f <- function(x, y) {
+  if (0 < x && x < y) {
+    return(exp(-y))
+  } else {
+    return(0)
+  }
+}
+
+# Generate data for the surface plot
+x_vals <- seq(0, 2, length.out = 200)
+y_vals <- seq(0, 2, length.out = 200)
+
+z_matrix <- outer(x_vals, y_vals, Vectorize(function(x, y) f(x, y)))
+
+# Create a 3D surface plot using plot_ly
+plot_ly(
+  x = x_vals,
+  y = y_vals,
+  z = z_matrix,
+  type = "surface",
+  colors = "viridis",
+  showscale = FALSE
+) %>% 
+    layout(
+    scene = list(
+      xaxis = list(title = "x"),
+      yaxis = list(title = "y"),
+      zaxis = list(title = "f_XY"),
+      camera = list(
+        eye = list(x = 1.87, y = 0.88, z = 0.64)
+      )
+    ),
+    width = 800,
+    height = 600
+  )
+
+
+```
+
+:::
+
+
+
+::: footer
+
+<div color="#cc0164">  </div>
+
+:::
+
+
+
+
+
+
+## Solution  {.smaller}
+
+- We compute $f_X$, the **marginal pdf of $X$**:
+  * If $x \leq 0$ then $f_{X,Y}(x,y)=0$. Therefore
+    $$
+    f_X(x) = \int_{-\infty}^\infty f_{X,Y}(x,y) \, dy = 0 
+    $$
+  * If $x > 0$ then $f_{X,Y}(x,y)=e^{-y}$ if $y>x$, and $f_{X,Y}(x,y)=0$ if $y \leq x$. Thus
+  \begin{align*}
+  f_X(x) & = \int_{-\infty}^\infty f_{X,Y}(x,y) \, dy = 
+  \int_{x}^\infty e^{-y} \, dy \\
+  & = - e^{-y} \bigg|_{y=x}^{y=\infty}  = -e^{-\infty} + e^{-x}  = e^{-x} 
+  \end{align*}
+
+
+
+
+
+## Solution  {.smaller}
+
+
+- The **marginal pdf of $X$** has then **exponential distribution**
+$$
+f_{X}(x) = 
+\begin{cases}
+e^{-x} & \text{ if } x > 0 \\
+0      & \text{ if } x \leq 0 
+\end{cases}
+$$
+
+
+```{r}
+
+# Define the probability density function (PDF)
+f_X <- function(x) {
+  exp(-x)
+}
+
+# Generate x values for plotting
+x_values <- seq(0, 4, length.out = 100)
+
+# Calculate corresponding y values
+y_values <- f_X(x_values)
+
+# Plot the distribution using base R plot function
+plot(x_values, 
+    y_values, 
+    type = "l", 
+    col = "blue", 
+    lwd = 4,
+    xlab = "", 
+    ylab = "")
+
+mtext("x", side=1, line=3, cex=2)
+mtext("f_X", side=2, line=2.5, cex=2)
+
+
+# Add a grid for better visualization
+grid()
+
+```
+
+
+
+
+## Solution  {.smaller}
+
+
+- We now compute $f(y|x)$, the **conditional pdf of $Y$ given $X=x$**:
+    * Note that $f_X(x)>0$ for all $x>0$
+    * Hence assume fixed some $x>0$
+    * If $y>x$ we have $f_{X,Y}(x,y)=e^{-y}$. Hence
+    $$
+    f(y|x) := \frac{f_{X,Y}(x,y)}{f_X(x)} = \frac{e^{-y}}{e^{-x}} = e^{-(y-x)}
+    $$
+    * If $y \leq x$ we have $f_{X,Y}(x,y)=0$. Hence
+    $$
+    f(y|x) := \frac{f_{X,Y}(x,y)}{f_X(x)} = \frac{0}{e^{-x}} = 0
+    $$
+
+
+
+
+
+## Solution  {.smaller}
+
+
+- The conditional distribution $Y|X$ is therefore **exponential**
+$$
+f(y|x) = 
+\begin{cases}
+e^{-(y-x)} & \text{ if } y > x \\
+0      & \text{ if } y \leq x 
+\end{cases}
+$$
+
+- The **conditional expectation** of $Y$ given $X=x$ is
+\begin{align*}
+\Expect[Y|x] & = \int_{-\infty}^\infty y f(y|x) \, dy 
+               = \int_{x}^\infty y e^{-(y-x)} \, dy \\
+             & = -(y+1) e^{-(y-x)} \bigg|_{x}^\infty =  x + 1  
+\end{align*}
+where we integrated by parts
+
+
+
+
+
+## Solution  {.smaller}
+
+
+- Therefore **conditional expectation** of $Y$ given $X=x$ is
+$$
+\Expect[Y|x] = x + 1  
+$$
+
+- This can also be interpreted as the random variable
+$$
+\Expect[Y|X] = X + 1  
+$$
+
+
+
+
+
+## Solution  {.smaller}
+
+
+- The **conditional second moment** of $Y$ given $X=x$ is
+\begin{align*}
+\Expect[Y^2|x] & = \int_{-\infty}^\infty y^2 f(y|x) \, dy 
+               = \int_{x}^\infty y^2 e^{-(y-x)} \, dy \\
+             & = (y^2+2y+2) e^{-(y-x)} \bigg|_{x}^\infty = x^2 + 2x + 2 
+\end{align*}
+where we integrated by parts
+
+- The **conditional variance** of $Y$ given $X=x$ is
+$$
+\Var[Y|x] = \Expect[Y^2|x] - \Expect[Y|x]^2 = x^2 + 2x + 2 - (x+1)^2 = 1
+$$
+
+- This can also be interpreted as the random variable
+$$
+\Var[Y|X] = 1
+$$
+
+
+
+
+
+## Conditional Expectation {.smaller}
+### A useful formula
+
+::: Theorem
+
+$(X,Y)$ random vector. Then
+$$
+\Expect[X] = \Expect[ \Expect[X|Y] ]
+$$
+
+:::
+
+**Note**: The above formula contains abuse of notation -- $\Expect$ has 3 meanings
+
+- First $\Expect$ is with respect to the marginal of $X$
+- Second $\Expect$ is with respect to the marginal of $Y$
+- Third $\Expect$ is with respect to the conditional distribution $X|Y$
+
+
+
+## Conditional Variance {.smaller}
+### A useful formula
+
+::: Theorem
+
+$(X,Y)$ random vector. Then
+$$
+\Var[X] = \Expect[ \Var[ X|Y] ] + \Var [\Expect[X|Y]]
+$$
+
+:::
+
+
+**Exercise:** Suppose that the distribution of $Y$, conditional on $X = x$, is $N(x, x^2)$. Suppose $X$ is uniform on $[0,1]$.
+
+- Compute $\Expect[Y]$
+- Compute $\Var[Y]$
+
+
+## Conditional Variance {.smaller}
+### Solution
+
+- By assumption $X$ is uniform on $[0,1]$. Therefore
+\begin{align*}
+f_X(x) & =  \chi_{[0,1]}(x) = 
+\begin{cases}
+1  & \, \text{ if } \, x \in [0,1] \\
+0  & \, \text{ otherwise }
+\end{cases} \\
+ \Expect[X] & = \int_\R x f_{X}(x)\, dx = \int_0^1 x \, dx = \frac12  \\
+ \Expect[X^2] & = \int_\R x^2 f_{X} (x)\, dx = \int_0^1 x^2 \, dx = \frac13 \\
+ \Var[X] & = \Expect[X^2] - \Expect[X]^2 = \frac13 - \frac{1}{4} = \frac{1}{12}
+\end{align*}
+
+
+## Conditional Variance {.smaller}
+### Solution
+
+- By assumption $Y | X = x$ is $N(x,x^2)$. Therefore
+$$
+\Expect[Y|X] = X \,, \qquad  
+\Var[Y|X] = X^2 
+$$
+
+- Therefore we conclude
+\begin{align*}
+\Expect[Y] & = \Expect[ \Expect[Y|X] ] = \Expect[X] = \frac12 \\
+& \phantom{s} \\
+\Var[Y] & = \Expect[\Var[Y|X]] + \Var[\Expect[Y|X]] \\ 
+        & = \Var[X] + \Expect[X^2] \\
+        & = \frac{1}{12} + \frac13 = \frac{5}{12} 
+\end{align*}
 
 
 
@@ -1684,4 +2134,6 @@ knitr::kable(data[23:33,], row.names = TRUE)
 :::
 
 :::
+
+
 

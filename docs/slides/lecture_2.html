@@ -360,47 +360,15 @@
   </style>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
   <style>
-  .Axiom {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .DONE {
-    --color1: #cce7b1;
-    --color2: #86b754;
-  }
-  .Corollary {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Conjecture {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
   .Definition {
     --color1: #c6e6ed;
     --color2: #1995ad;
   }
-  .Theorem {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Idea {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Example {
-    --color1: #bce5de;
-    --color2: #21aa93;
-  }
-  .Remark {
-    --color1: #bce5de;
-    --color2: #21aa93;
-  }
-  .Proposition {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
   .Lemma {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Warning {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
@@ -412,15 +380,31 @@
     --color1: #f4cce0;
     --color2: #db4d92;
   }
+  .Example {
+    --color1: #bce5de;
+    --color2: #21aa93;
+  }
+  .DONE {
+    --color1: #cce7b1;
+    --color2: #86b754;
+  }
+  .Proposition {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
   .Notation {
     --color1: #c6e6ed;
     --color2: #1995ad;
   }
-  .Warning {
+  .Idea {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
-  .Important {
+  .Axiom {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Theorem {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
@@ -428,9 +412,25 @@
     --color1: #f1f1f2;
     --color2: #c0c0c1;
   }
+  .Important {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
   .Question {
     --color1: #f4cce0;
     --color2: #db4d92;
+  }
+  .Corollary {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Conjecture {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Remark {
+    --color1: #bce5de;
+    --color2: #21aa93;
   }
   </style>
 </head>
@@ -476,10 +476,10 @@
 <li>Multivariate random vectors</li>
 </ol>
 </section>
-<section id="probability-revision-part-2" class="slide level2 smaller">
-<h2>Probability revision – Part 2</h2>
+<section id="probability-revision-iii" class="slide level2 smaller">
+<h2>Probability revision III</h2>
 <ul>
-<li><p>You are expected to know the main concepts from Y1 module<br>
+<li><p>You are expected to be familiar with the main concepts from Y1 module<br>
 <strong>Introduction to Probability &amp; Statistics</strong></p></li>
 <li><p>Self-contained revision material available in <a href="../slides/appendix_A.html">Appendix A</a></p></li>
 </ul>
@@ -499,233 +499,7 @@
 <li>Covariance and correlation</li>
 <li>Multivariate random vectors</li>
 </ul>
-</div></section>
-<section id="univariate-vs-bivariate-vs-multivariate" class="slide level2 smaller">
-<h2>Univariate vs Bivariate vs Multivariate</h2>
-<ul>
-<li>Probability models seen so far only involve 1 random variable
-<ul>
-<li>These are called <strong>univariate models</strong></li>
-</ul></li>
-<li>We are also interested in probability models involving multiple variables:
-<ul>
-<li>Models with 2 random variables are called <strong>bivariate</strong></li>
-<li>Models with more than 2 random variables are called <strong>multivariate</strong></li>
-</ul></li>
-</ul>
-</section>
-<section id="random-vectors" class="slide level2 smaller">
-<h2>Random vectors</h2>
-<h3 id="definition">Definition</h3>
-<p><strong>Recall</strong>: a random variable is a <strong>measurable</strong> function <span class="math display">
-X \colon \Omega \to \mathbb{R}\,, \quad \Omega \,\, \text{ sample space}
-</span></p>
-<div id="Definition*-1.1" class="Definition">
-<details class="Definition fbx-simplebox fbx-default" open=""><summary><strong>Definition</strong></summary><div>
-<p>A <strong>random vector</strong> is a measurable function <span class="math inline">\mathbf{X}\colon \Omega \to \mathbb{R}^n</span>. We say that</p>
-<ul>
-<li><span class="math inline">\mathbf{X}</span> is <strong>univariate</strong> if <span class="math inline">n=1</span></li>
-<li><span class="math inline">\mathbf{X}</span> is <strong>bivariate</strong> if <span class="math inline">n=2</span></li>
-<li><span class="math inline">\mathbf{X}</span> is <strong>multivariate</strong> if <span class="math inline">n \geq 3</span></li>
-</ul>
-</div></details>
-</div>
-</section>
-<section id="random-vectors-1" class="slide level2 smaller">
-<h2>Random vectors</h2>
-<h3 id="notation">Notation</h3>
-<ul>
-<li><p>The components of a random vector <span class="math inline">\mathbf{X}</span> are denoted by <span class="math display">
-\mathbf{X}= (X_1, \ldots, X_n)
-</span> with <span class="math inline">X_i \colon \Omega \to \mathbb{R}</span> random variables</p></li>
-<li><p>We denote a two-dimensional bivariate random vector by <span class="math display">
-(X,Y)
-</span> with <span class="math inline">X,Y \colon \Omega \to \mathbb{R}</span> random variables</p></li>
-</ul>
-</section>
-<section id="summary---bivariate-random-vectors" class="slide level2 smaller">
-<h2>Summary - Bivariate Random Vectors</h2>
-<table class="caption-top">
-<colgroup>
-<col style="width: 46%">
-<col style="width: 53%">
-</colgroup>
-<thead>
-<tr class="header">
-<th><span class="math inline">(X,Y)</span> discrete random vector</th>
-<th><span class="math inline">(X,Y)</span> continuous random vector</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><span class="math inline">X</span> and <span class="math inline">Y</span> discrete RV</td>
-<td><span class="math inline">X</span> and <span class="math inline">Y</span> continuous RV</td>
-</tr>
-<tr class="even">
-<td><strong>Joint pmf</strong></td>
-<td><strong>Joint pdf</strong></td>
-</tr>
-<tr class="odd">
-<td><span class="math inline">f_{X,Y}(x,y) := P(X=x,Y=y)</span></td>
-<td><span class="math inline">P((X,Y) \in A) = \int_A f_X(x,y) \,dxdy</span></td>
-</tr>
-<tr class="even">
-<td><span class="math inline">f_{X,Y} \geq 0</span></td>
-<td><span class="math inline">f_{X,Y} \geq 0</span></td>
-</tr>
-<tr class="odd">
-<td><span class="math inline">\sum_{(x,y)\in \mathbb{R}^2} f_{X,Y}(x,y)=1</span></td>
-<td><span class="math inline">\int_{\mathbb{R}^2} f_{X,Y}(x,y) \, dxdy= 1</span></td>
-</tr>
-<tr class="even">
-<td><strong>Marginal pmfs</strong></td>
-<td><strong>Marginal pdfs</strong></td>
-</tr>
-<tr class="odd">
-<td><span class="math inline">f_X (x) := P(X=x)</span></td>
-<td><span class="math inline">P(a \leq X \leq b) = \int_a^b f_X(x) \,dx</span></td>
-</tr>
-<tr class="even">
-<td><span class="math inline">f_Y (y) := P(Y=y)</span></td>
-<td><span class="math inline">P(a \leq Y \leq b) = \int_a^b f_Y(y) \,dy</span></td>
-</tr>
-<tr class="odd">
-<td><span class="math inline">f_X (x)=\sum_{y \in \mathbb{R}} f_{X,Y}(x,y)</span></td>
-<td><span class="math inline">f_X(x) = \int_{\mathbb{R}} f_{X,Y}(x,y) \,dy</span></td>
-</tr>
-<tr class="even">
-<td><span class="math inline">f_Y (y)=\sum_{x \in \mathbb{R}} f_{X,Y}(x,y)</span></td>
-<td><span class="math inline">f_Y(y) = \int_{\mathbb{R}} f_{X,Y}(x,y) \,dx</span></td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="conditional-distributions" class="slide level2 smaller">
-<h2>Conditional distributions</h2>
-<p><span class="math inline">(X,Y)</span> rv with joint pdf (or pmf) <span class="math inline">f_{X,Y}</span> and marginal pdfs (or pmfs) <span class="math inline">f_X, f_Y</span></p>
-<ul>
-<li><p>The <strong>conditional pdf (or pmf) of <span class="math inline">Y</span> given that <span class="math inline">X=x</span></strong> is the function <span class="math inline">f(\cdot | x)</span> <span class="math display">
-f(y|x) := \frac{f_{X,Y}(x,y)}{f_X(x)} \, , \qquad \text{ whenever} \quad f_X(x)&gt;0
-</span></p></li>
-<li><p>The <strong>conditional pdf (or pmf) of <span class="math inline">X</span> given that <span class="math inline">Y=y</span></strong> is the function <span class="math inline">f(\cdot | y)</span> <span class="math display">
-f(x|y) := \frac{f_{X,Y}(x,y)}{f_Y(y)}\, , \qquad \text{ whenever} \quad f_Y(y)&gt;0
-</span></p></li>
-<li><p><strong>Notation</strong>: We will often write</p>
-<ul>
-<li><span class="math inline">Y|X</span> to denote the distribution <span class="math inline">f(y|x)</span></li>
-<li><span class="math inline">X|Y</span> to denote the distribution <span class="math inline">f(x|y)</span></li>
-</ul></li>
-</ul>
-</section>
-<section id="conditional-expectation" class="slide level2 smaller">
-<h2>Conditional expectation</h2>
-<div id="Definition*-1.2" class="Definition">
-<p></p><details class="Definition fbx-simplebox fbx-default" open=""><summary><strong>Definition</strong></summary><div><span class="math inline">(X,Y)</span> random vector and <span class="math inline">g \colon \mathbb{R}\to \mathbb{R}</span> function. The <strong>conditional expectation</strong> of <span class="math inline">g(Y)</span> given <span class="math inline">X=x</span> is <span class="math display">\begin{align*}
-{\rm I\kern-.3em E}[g(Y) | x] &amp; := \sum_{y} g(y) f(y|x)   \quad \text{ if } (X,Y) \text{ discrete} \\
-{\rm I\kern-.3em E}[g(Y) | x] &amp; := \int_{y \in \mathbb{R}} g(y) f(y|x) \, dy   \quad \text{ if } (X,Y) \text{ continuous}
-\end{align*}</span><p></p>
-</div></details>
-</div>
-<ul>
-<li><span class="math inline">{\rm I\kern-.3em E}[g(Y) | x]</span> is a real number for all <span class="math inline">x \in \mathbb{R}</span></li>
-<li><span class="math inline">{\rm I\kern-.3em E}[g(Y) | X]</span> denotes the Random Variable <span class="math inline">h(X)</span> where <span class="math inline">h(x):={\rm I\kern-.3em E}[g(Y) | x]</span></li>
-</ul>
-</section>
-<section id="conditional-variance" class="slide level2 smaller">
-<h2>Conditional variance</h2>
-<div id="Definition*-1.3" class="Definition">
-<p></p><details class="Definition fbx-simplebox fbx-default" open=""><summary><strong>Definition</strong></summary><div><span class="math inline">(X,Y)</span> random vector. The <strong>conditional variance</strong> of <span class="math inline">Y</span> given <span class="math inline">X=x</span> is <span class="math display">
-{\rm Var}[Y | x]  := {\rm I\kern-.3em E}[Y^2|x] - {\rm I\kern-.3em E}[Y|x]^2
-</span><p></p>
-</div></details>
-</div>
-<ul>
-<li><span class="math inline">{\rm Var}[Y | x]</span> is a real number for all <span class="math inline">x \in \mathbb{R}</span></li>
-<li><span class="math inline">{\rm Var}[Y | X]</span> denotes the Random Variable <span class="math display">
-{\rm Var}[Y | X] := {\rm I\kern-.3em E}[Y^2|X] - {\rm I\kern-.3em E}[Y|X]^2
-</span></li>
-</ul>
-</section>
-<section id="conditional-expectation-1" class="slide level2 smaller">
-<h2>Conditional Expectation</h2>
-<h3 id="a-useful-formula">A useful formula</h3>
-<div id="Theorem*-1.4" class="Theorem">
-<p></p><details class="Theorem fbx-simplebox fbx-default" open=""><summary><strong>Theorem</strong></summary><div><span class="math inline">(X,Y)</span> random vector. Then <span class="math display">
-{\rm I\kern-.3em E}[X] = {\rm I\kern-.3em E}[ {\rm I\kern-.3em E}[X|Y] ]
-</span><p></p>
-</div></details>
-</div>
-<p><strong>Note</strong>: The above formula contains abuse of notation – <span class="math inline">{\rm I\kern-.3em E}</span> has 3 meanings</p>
-<ul>
-<li>First <span class="math inline">{\rm I\kern-.3em E}</span> is with respect to the marginal of <span class="math inline">X</span></li>
-<li>Second <span class="math inline">{\rm I\kern-.3em E}</span> is with respect to the marginal of <span class="math inline">Y</span></li>
-<li>Third <span class="math inline">{\rm I\kern-.3em E}</span> is with respect to the conditional distribution <span class="math inline">X|Y</span></li>
-</ul>
-</section>
-<section id="conditional-expectation-2" class="slide level2 smaller">
-<h2>Conditional Expectation</h2>
-<h3 id="proof-of-theorem">Proof of Theorem</h3>
-<ul>
-<li><p>Suppose <span class="math inline">(X,Y)</span> is continuous</p></li>
-<li><p>Recall that <span class="math inline">{\rm I\kern-.3em E}[X|Y]</span> denotes the random variable <span class="math inline">g(Y)</span> with <span class="math display">
-g(y):= {\rm I\kern-.3em E}[X|y] := \int_{\mathbb{R}} xf(x|y) \, dx
-</span></p></li>
-<li><p>Also recall that by definition <span class="math display">
-f_{X,Y}(x,y)= f(x|y)f_Y(y)
-</span></p></li>
-</ul>
-</section>
-<section id="conditional-expectation-3" class="slide level2 smaller">
-<h2>Conditional Expectation</h2>
-<h3 id="proof-of-theorem-1">Proof of Theorem</h3>
-<ul>
-<li><p>Therefore <span class="math display">\begin{align*}
-{\rm I\kern-.3em E}[{\rm I\kern-.3em E}[X|Y]] &amp; = {\rm I\kern-.3em E}[g(Y)] =  \int_{\mathbb{R}} g(y) f_Y(y) \, dy  \\
-                    &amp; = \int_{\mathbb{R}}  \left(  \int_{\mathbb{R}} xf(x|y) \, dx   \right) f_Y(y)\, dy
-                      = \int_{\mathbb{R}^2}  x f(x|y) f_Y(y) \, dx dy  \\
-                    &amp; = \int_{\mathbb{R}^2}  x f_{X,Y}(x,y) \, dx dy
-                      = \int_{\mathbb{R}}  x \left( \int_{\mathbb{R}} f_{X,Y}(x,y)\, dy \right) \, dx   \\
-                    &amp; = \int_{\mathbb{R}}  x f_{X}(x) \, dx  
-                      = {\rm I\kern-.3em E}[X]
-\end{align*}</span></p></li>
-<li><p>If <span class="math inline">(X,Y)</span> is discrete the thesis follows by replacing intergrals with series</p></li>
-</ul>
-</section>
-<section id="conditional-expectation-4" class="slide level2 smaller">
-<h2>Conditional Expectation</h2>
-<h3 id="example---application-of-the-formula">Example - Application of the formula</h3>
-<ul>
-<li><p>Consider again the continuous random vector <span class="math inline">(X,Y)</span> with <strong>joint pdf</strong> <span class="math display">
-f_{X,Y}(x,y) := e^{-y}  \,\, \text{ if } \,\, 0 &lt; x &lt; y  \,, \quad
-f_{X,Y}(x,y) :=0    \,\, \text{ otherwise}
-</span></p></li>
-<li><p>We have proven that <span class="math display">
-{\rm I\kern-.3em E}[Y|X] = X + 1  
-</span></p></li>
-<li><p>We have also shown that <span class="math inline">f_X</span> is exponential <span class="math display">
-f_{X}(x) =
-\begin{cases}
-e^{-x} &amp; \text{ if } x &gt; 0 \\
-0      &amp; \text{ if } x \leq 0
-\end{cases}
-</span></p></li>
-</ul>
-</section>
-<section id="conditional-expectation-5" class="slide level2 smaller">
-<h2>Conditional Expectation</h2>
-<h3 id="example---application-of-the-formula-1">Example - Application of the formula</h3>
-<ul>
-<li><p>From the knowledge of <span class="math inline">f_X</span> we can compute <span class="math inline">{\rm I\kern-.3em E}[X]</span> <span class="math display">
-{\rm I\kern-.3em E}[X] = \int_0^\infty x e^{-x} \, dx = -(x+1)e^{-x} \bigg|_{x=0}^{x=\infty} = 1
-</span></p></li>
-<li><p>Using the Theorem we can compute <span class="math inline">{\rm I\kern-.3em E}[Y]</span> <strong>without</strong> computing <span class="math inline">f_Y</span>: <span class="math display">\begin{align*}
-{\rm I\kern-.3em E}[Y] &amp; = {\rm I\kern-.3em E}[ {\rm I\kern-.3em E}[Y|X] ] \\
-         &amp; = {\rm I\kern-.3em E}[X + 1] \\
-         &amp; = {\rm I\kern-.3em E}[X] + 1  \\
-         &amp; = 1 + 1 = 2
-\end{align*}</span></p></li>
-</ul>
-</section></section>
+</div></section></section>
 <section>
 <section id="part-3-independence" class="title-slide slide level1 center" data-background-color="#cc0164" data-visibility="uncounted">
 <h1>Part 3: <br>Independence</h1>
@@ -922,7 +696,7 @@ X|Y \sim X \qquad \qquad Y|X \sim Y
 </section>
 <section id="covariance" class="slide level2 smaller">
 <h2>Covariance</h2>
-<h3 id="definition-1">Definition</h3>
+<h3 id="definition">Definition</h3>
 <p><strong>Notation</strong>: Given two rv <span class="math inline">X</span> and <span class="math inline">Y</span> we denote <span class="math display">\begin{align*}
 &amp; \mu_X := {\rm I\kern-.3em E}[X]   \qquad &amp; \mu_Y &amp; := {\rm I\kern-.3em E}[Y] \\
 &amp; \sigma^2_X := {\rm Var}[X] \qquad  &amp; \sigma^2_Y &amp; := {\rm Var}[Y]
@@ -1014,7 +788,7 @@ X|Y \sim X \qquad \qquad Y|X \sim Y
 </section>
 <section id="covariance-4" class="slide level2 smaller">
 <h2>Covariance</h2>
-<h3 id="proof-of-theorem-2">Proof of Theorem</h3>
+<h3 id="proof-of-theorem">Proof of Theorem</h3>
 <p>Using linearity of <span class="math inline">{\rm I\kern-.3em E}</span> and the fact that <span class="math inline">{\rm I\kern-.3em E}[c]=c</span> for <span class="math inline">c \in \mathbb{R}</span>: <span class="math display">\begin{align*}
 {\rm Cov}(X,Y) : &amp; = {\rm I\kern-.3em E}[ \,\, (X - {\rm I\kern-.3em E}[X]) (Y - {\rm I\kern-.3em E}[Y]) \,\,  ] \\
             &amp;  = {\rm I\kern-.3em E}\left[ \,\, XY - X {\rm I\kern-.3em E}[Y] - Y {\rm I\kern-.3em E}[X] + {\rm I\kern-.3em E}[X]{\rm I\kern-.3em E}[Y] \,\, \right]  \\
@@ -1187,7 +961,7 @@ f_{X_i}(x_i) &amp; := \int_{\mathbb{R}^{n-1}}f_{\mathbf{X}} (x_1, \ldots, x_n) \
 </div></details>
 </div>
 </section>
-<section id="conditional-distributions-1" class="slide level2 smaller">
+<section id="conditional-distributions" class="slide level2 smaller">
 <h2>Conditional distributions</h2>
 <p>We now define conditional distributions given the first <span class="math inline">k</span> coordinates</p>
 <div id="Definition*-4.7" class="Definition">
@@ -1199,7 +973,7 @@ f(x_{k+1},\ldots,x_n | x_1 , \ldots , x_k) := \frac{f_{\mathbf{X}}(x_1,\ldots,x_
 </div></details>
 </div>
 </section>
-<section id="conditional-distributions-2" class="slide level2 smaller">
+<section id="conditional-distributions-1" class="slide level2 smaller">
 <h2>Conditional distributions</h2>
 <p>Similarly, we can define the conditional distribution given the <span class="math inline">i</span>-th coordinate</p>
 <div id="Definition*-4.8" class="Definition">
@@ -1293,7 +1067,7 @@ Z \sim N(\mu,\sigma^2)
 </section>
 <section id="sum-of-independent-normals-3" class="slide level2 smaller">
 <h2>Sum of independent Normals</h2>
-<h3 id="proof-of-theorem-3">Proof of Theorem</h3>
+<h3 id="proof-of-theorem-1">Proof of Theorem</h3>
 <ul>
 <li><p>We have seen in Slide 119 in Lecture 1 that if <span class="math inline">X_i \sim N(\mu_i,\sigma_i^2)</span> then <span class="math display">
 M_{X_i}(t) = \exp \left( \mu_i t + \frac{t^2 \sigma_i^2}{2} \right)
@@ -1308,7 +1082,7 @@ M_{Z}(t) &amp; = \prod_{i=1}^n M_{X_i}(t) =
 </section>
 <section id="sum-of-independent-normals-4" class="slide level2 smaller">
 <h2>Sum of independent Normals</h2>
-<h3 id="proof-of-theorem-4">Proof of Theorem</h3>
+<h3 id="proof-of-theorem-2">Proof of Theorem</h3>
 <ul>
 <li><p>Therefore <span class="math inline">Z</span> has moment generating function <span class="math display">
 M_{Z}(t) = \exp \left( \mu t + \frac{t^2 \sigma^2 }{2} \right)
@@ -1336,7 +1110,7 @@ Z \sim \Gamma(\alpha,\beta)
 </section>
 <section id="sum-of-independent-gammas-1" class="slide level2 smaller">
 <h2>Sum of independent Gammas</h2>
-<h3 id="proof-of-theorem-5">Proof of Theorem</h3>
+<h3 id="proof-of-theorem-3">Proof of Theorem</h3>
 <ul>
 <li><p>We have seen in Slide 126 in Lecture 1 that if <span class="math inline">X_i \sim \Gamma(\alpha_i,\beta)</span> then <span class="math display">
 M_{X_i}(t) = \frac{\beta^{\alpha_i}}{(\beta-t)^{\alpha_i}}
@@ -1351,7 +1125,7 @@ M_{Z}(t) &amp; = \prod_{i=1}^n M_{X_i}(t) =
 </section>
 <section id="sum-of-independent-gammas-2" class="slide level2 smaller">
 <h2>Sum of independent Gammas</h2>
-<h3 id="proof-of-theorem-6">Proof of Theorem</h3>
+<h3 id="proof-of-theorem-4">Proof of Theorem</h3>
 <ul>
 <li><p>Therefore <span class="math inline">Z</span> has moment generating function <span class="math display">
 M_{Z}(t) = \frac{\beta^{\alpha}}{(\beta-t)^{\alpha}}

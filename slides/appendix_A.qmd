@@ -1490,27 +1490,21 @@ $$
 
 
 
-
-
 ## Expected Value {.smaller}
 
-Expected value is the **average** value of a random variable
+
+- Suppose $X \colon \Omega \to \R$ is RV and $g \colon \R \to \R$ a function
+- Then $g(X) \colon \Omega \to \R$ is a RV
 
 
 ::: Definition
 
-$X$ rv and $g \colon \mathbb{R} \to \mathbb{R}$ function. The **expected value** or **mean**
-of $g(X)$ is $\Expect [g(X)]$
+The **expected value** of the random variable $g(X)$ is
 
-- If $X$ discrete
-$$
-\Expect [g(X)]:= \sum_{x \in \mathbb{R}} g(x) f_X(x) = \sum_{x \in \mathbb{R}} g(x) P(X = x)
-$$
-
-- If $X$ continuous
-$$
-\Expect [g(X)]:= \int_{-\infty}^{\infty} g(x) f_X(x) \, dx
-$$
+\begin{align*}
+\Expect [g(X)] & := \sum_{x} g(x) f_X(x) = \sum_{x \in \mathbb{R}} g(x) P(X = x)   \quad \text{ if } X \text{ discrete} \\
+\Expect [g(X)] & :=  \int_{-\infty}^{\infty} g(x) f_X(x) \, dx   \quad \text{ if } X \text{ continuous}
+\end{align*}
 
 :::
 
@@ -2627,17 +2621,23 @@ $$
 
 
 
-## Example - Conditional distribution  {.smaller}
+## Exercise - Conditional distribution  {.smaller}
 
-
-
-- Continuous random vector $(X,Y)$ with **joint pdf**
+Assume given a continuous random vector $(X,Y)$ with **joint pdf**
 $$
 f_{X,Y}(x,y) := e^{-y}  \,\, \text{ if } \,\, 0 < x < y  \,, \quad 
 f_{X,Y}(x,y) :=0    \,\, \text{ otherwise}
 $$
 
+::: {.column width="42%"}
 
+- Compute $f_X$ and $f(y|x)$
+- Compute $\Expect[Y|X]$
+- Compute $\Var[Y|X]$
+
+:::
+
+::: {.column width="50%"}
 
 ```{r}
 
@@ -2683,6 +2683,8 @@ plot_ly(
 
 ```
 
+:::
+
 
 
 ::: footer
@@ -2696,7 +2698,7 @@ plot_ly(
 
 
 
-## Example - Conditional distribution  {.smaller}
+## Solution  {.smaller}
 
 - We compute $f_X$, the **marginal pdf of $X$**:
   * If $x \leq 0$ then $f_{X,Y}(x,y)=0$. Therefore
@@ -2714,7 +2716,7 @@ plot_ly(
 
 
 
-## Example - Conditional distribution  {.smaller}
+## Solution  {.smaller}
 
 
 - The **marginal pdf of $X$** has then **exponential distribution**
@@ -2761,7 +2763,7 @@ grid()
 
 
 
-## Example - Conditional distribution  {.smaller}
+## Solution  {.smaller}
 
 
 - We now compute $f(y|x)$, the **conditional pdf of $Y$ given $X=x$**:
@@ -2780,7 +2782,7 @@ grid()
 
 
 
-## Example - Conditional distribution  {.smaller}
+## Solution  {.smaller}
 
 
 - The conditional distribution $Y|X$ is therefore **exponential**
@@ -2804,7 +2806,7 @@ where we integrated by parts
 
 
 
-## Example - Conditional distribution  {.smaller}
+## Solution  {.smaller}
 
 
 - Therefore **conditional expectation** of $Y$ given $X=x$ is
@@ -2821,7 +2823,7 @@ $$
 
 
 
-## Example - Conditional distribution  {.smaller}
+## Solution  {.smaller}
 
 
 - The **conditional second moment** of $Y$ given $X=x$ is
@@ -2947,6 +2949,59 @@ $$
 
 
 
+
+## Conditional Variance {.smaller}
+### A useful formula
+
+::: Theorem
+
+$(X,Y)$ random vector. Then
+$$
+\Var[X] = \Expect[ \Var[ X|Y] ] + \Var [\Expect[X|Y]]
+$$
+
+:::
+
+
+**Exercise:** Suppose that the distribution of $Y$, conditional on $X = x$, is $N(x, x^2)$. Suppose $X$ is uniform on $[0,1]$.
+
+- Compute $\Expect[Y]$
+- Compute $\Var[Y]$
+
+
+## Conditional Variance {.smaller}
+### Solution
+
+- By assumption $X$ is uniform on $[0,1]$. Therefore
+\begin{align*}
+f_X(x) & =  \chi_{[0,1]}(x) = 
+\begin{cases}
+1  & \, \text{ if } \, x \in [0,1] \\
+0  & \, \text{ otherwise }
+\end{cases} \\
+ \Expect[X] & = \int_\R x f_{X}(x)\, dx = \int_0^1 x \, dx = \frac12  \\
+ \Expect[X^2] & = \int_\R x^2 f_{X} (x)\, dx = \int_0^1 x^2 \, dx = \frac13 \\
+ \Var[X] & = \Expect[X^2] - \Expect[X]^2 = \frac13 - \frac{1}{4} = \frac{1}{12}
+\end{align*}
+
+
+## Conditional Variance {.smaller}
+### Solution
+
+- By assumption $Y | X = x$ is $N(x,x^2)$. Therefore
+$$
+\Expect[Y|X] = X \,, \qquad  
+\Var[Y|X] = X^2 
+$$
+
+- Therefore we conclude
+\begin{align*}
+\Expect[Y] & = \Expect[ \Expect[Y|X] ] = \Expect[X] = \frac12 \\
+& \phantom{s} \\
+\Var[Y] & = \Expect[\Var[Y|X]] + \Var[\Expect[Y|X]] \\ 
+        & = \Var[X] + \Expect[X^2] \\
+        & = \frac{1}{12} + \frac13 = \frac{5}{12} 
+\end{align*}
 
 
 

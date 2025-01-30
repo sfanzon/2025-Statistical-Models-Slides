@@ -67,16 +67,16 @@ There are 11 lectures in this module. Links to the slides and lecture titles are
 | **Slides** | **Title** | 
 |:------      |:------     |
 | <a href="slides/lecture_1.qmd">Lecture 1</a>   | An introduction to Statistics                 |
-| <a href="slides/lecture_2.qmd">Lecture 2</a>   | Multivariate distributions                    |
-| <a href="slides/lecture_3.qmd">Lecture 3</a>   | Random samples                                |
-| <a href="slides/lecture_4.qmd">Lecture 4</a>   | Hypothesis tests in R -- Part 1               |
-| <a href="slides/lecture_5.qmd">Lecture 5</a>   | Hypothesis tests in R -- Part 2               |
-| <a href="slides/lecture_6.qmd">Lecture 6</a>   | Two-sample hypothesis tests                   |
-| <a href="slides/lecture_7.qmd">Lecture 7</a>   | The chi-squared test                          |
-| <a href="slides/lecture_8.qmd">Lecture 8</a>   | The maths of regression                       |
-| <a href="slides/lecture_9.qmd">Lecture 9</a>   | General linear regression                     |
-| <a href="slides/lecture_10.qmd">Lecture 10</a> | Practical regression                          |
-| <a href="slides/lecture_11.qmd">Lecture 11</a> | Violation of regression assumptions and ANOVA |
+| <a href="slides/lecture_2.qmd">Lecture 2</a>   | Random samples                                |
+| <a href="slides/lecture_3.qmd">Lecture 3</a>   | Hypothesis tests in R -- Part 1               |
+| <a href="slides/lecture_4.qmd">Lecture 4</a>   | Hypothesis tests in R -- Part 2               |
+| <a href="slides/lecture_5.qmd">Lecture 5</a>   | Two-sample hypothesis tests                   |
+| <a href="slides/lecture_6.qmd">Lecture 6</a>   | The chi-squared test                          |
+| <a href="slides/lecture_7.qmd">Lecture 7</a>   | The maths of regression                       |
+| <a href="slides/lecture_8.qmd">Lecture 8</a>   | General linear regression                     |
+| <a href="slides/lecture_9.qmd">Lecture 9</a>   | Practical regression                          |
+| <a href="slides/lecture_10.qmd">Lecture 10</a> | Violation of regression assumption            |
+| <a href="slides/lecture_11.qmd">Lecture 11</a> | ANOVA                                         |
 | <a href="slides/appendix_A.qmd">Appendix A</a> | Probability revision                          |
 | <a href="slides/appendix_B.qmd">Appendix B</a> | More on R                                     |
 : {tbl-colwidths="[30,70]"}
@@ -90,14 +90,15 @@ There are 11 lectures in this module. Links to the slides and lecture titles are
 
 | **Lecture** | **Codes**                                                                                                                 | 
 |:------      |:------                                                                                                                    |
-| Lecture 4   | [One-Sample t-test](slides/codes/one_sample_t_test.R)                                                                     | 
-| Lecture 5   | [Variance ratio test](slides/codes/variance_ratio_test.R)                                                                 |
-| Lecture 6   | [Two-Sample t-test](slides/codes/two_sample_t_test.R) <br> [F-test](slides/codes/F_test.R) <br> [F-test First Principles](slides/codes/F_test_first_principles.R) |
-| Lecture 7   | [Goodness-of-fit](slides/codes/good_fit.R) <br> [Goodness-of-fit First Principles](slides/codes/good_fit_first_principles.R) <br> [Monte Carlo $\pi$](slides/codes/monte_carlo_pi.R) <br> [Monte Carlo p-value](slides/codes/monte_carlo_p_value.R) <br> [Goodness-of-fit Contingency](slides/codes/good_fit_contingency.R) <br> [Independence Test](slides/codes/independence_test.R) |
-| Lecture 8   | [Least-squares Solution 1](slides/codes/least_squares_1.R) <br>  [Least-squares Solution 2](slides/codes/least_squares_2.R)        |
-| Lecture 9   | [Multiple Regression](slides/codes/multiple_regression.R) <br> [R2 multiple regression](slides/codes/R2_multiple_regression.R) |
-| Lecture 10  | [Simple Regression](slides/codes/simple_regression.R)  <br> [Longley regression](slides/codes/longley_regression.R) <br> [Longley selection](slides/codes/longley_selection.R) <br> [Galileo](slides/codes/galileo.R) <br> [Divorces](slides/codes/divorces.R) |
-| Lecture 11  | [Residual graphs](slides/codes/residual_graphs.R) <br> [Autocorrelation graphic tests](slides/codes/autocorrelation_graph_tests.R) <br> [Multicollinearity](slides/codes/multicollinearity.R) <br> [Stepwise regression: Longley](slides/codes/longley_stepwise.R) <br> [Stepwise regression: Divorces](slides/codes/divorces_stepwise.R)  <br> [Anova models](slides/codes/anova.R) |
+| Lecture 3   | [One-Sample t-test](slides/codes/one_sample_t_test.R)                                                                     | 
+| Lecture 3   | [Variance ratio test](slides/codes/variance_ratio_test.R)                                                                 |
+| Lecture 5   | [Two-Sample t-test](slides/codes/two_sample_t_test.R) <br> [F-test](slides/codes/F_test.R) <br> [F-test First Principles](slides/codes/F_test_first_principles.R) |
+| Lecture 6   | [Goodness-of-fit](slides/codes/good_fit.R) <br> [Goodness-of-fit First Principles](slides/codes/good_fit_first_principles.R) <br> [Monte Carlo $\pi$](slides/codes/monte_carlo_pi.R) <br> [Monte Carlo p-value](slides/codes/monte_carlo_p_value.R) <br> [Goodness-of-fit Contingency](slides/codes/good_fit_contingency.R) <br> [Independence Test](slides/codes/independence_test.R) |
+| Lecture 7   | [Least-squares Solution 1](slides/codes/least_squares_1.R) <br>  [Least-squares Solution 2](slides/codes/least_squares_2.R)        |
+| Lecture 8   | [Multiple Regression](slides/codes/multiple_regression.R) <br> [R2 multiple regression](slides/codes/R2_multiple_regression.R) |
+| Lecture 9  | [Simple Regression](slides/codes/simple_regression.R)  <br> [Longley regression](slides/codes/longley_regression.R) <br> [Longley selection](slides/codes/longley_selection.R) <br> [Galileo](slides/codes/galileo.R) <br> [Divorces](slides/codes/divorces.R) |
+| Lecture 10  | [Residual graphs](slides/codes/residual_graphs.R) <br> [Autocorrelation graphic tests](slides/codes/autocorrelation_graph_tests.R) <br> [Multicollinearity](slides/codes/multicollinearity.R) <br> [Stepwise regression: Longley](slides/codes/longley_stepwise.R) <br> [Stepwise regression: Divorces](slides/codes/divorces_stepwise.R) |
+| Lecture 11  | [Anova models](slides/codes/anova.R)           |
 | Appendix B  | [2008 Crisis](slides/codes/2008_crisis_code.R) |
 : {tbl-colwidths="[30,70]"}
 

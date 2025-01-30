@@ -55,7 +55,7 @@ $
 
 
 
-## Contact details
+## Contact details {.smaller}
 
 - **Lecturer:** Dr. Silvio Fanzon
 - **Email:** S.Fanzon@hull.ac.uk
@@ -67,7 +67,7 @@ $
 
 
 
-## Questions
+## Questions {.smaller}
 
 
 - If you have any questions please feel free to ``email me``
@@ -78,7 +78,7 @@ $
 
 
 
-## Lectures
+## Lectures {.smaller}
 
 Each week we have
 
@@ -95,7 +95,7 @@ Each week we have
 
 
 
-## Assessment 
+## Assessment  {.smaller}
 
 This module will be assessed as follows:
 
@@ -111,7 +111,7 @@ This module will be assessed as follows:
 
 
 
-## Rules for Coursework
+## Rules for Coursework {.smaller}
 
 
 - Coursework available on Canvas from Week 9
@@ -127,7 +127,7 @@ This module will be assessed as follows:
 
 
 
-## Rules for Homework
+## Rules for Homework {.smaller}
 
 
 - 10 Homework papers, posted weekly on **[Canvas](https://canvas.hull.ac.uk/courses/75082)** 
@@ -146,7 +146,7 @@ This module will be assessed as follows:
 
 
 
-## How to submit assignments
+## How to submit assignments {.smaller}
 
 - Submit **PDFs only** on **[Canvas](https://canvas.hull.ac.uk/courses/75082)**
 
@@ -164,7 +164,7 @@ This module will be assessed as follows:
 
 
 
-## Key submission dates
+## Key submission dates {.smaller}
 
 ::: {.column width="48%"}
 
@@ -200,7 +200,7 @@ This module will be assessed as follows:
 
 
 
-## References
+## References {.smaller}
 ### Main textbooks  
 
 
@@ -227,7 +227,7 @@ Slides are self-contained and based on the book
 
 
 
-## References
+## References {.smaller}
 ### Main textbooks 
 
 
@@ -255,7 +255,7 @@ Slides are self-contained and based on the book
 
 
 
-## References
+## References {.smaller}
 ### Secondary References 
 
 ::: {.column width="69%"}
@@ -281,7 +281,7 @@ Slides are self-contained and based on the book
 
 
 
-## References
+## References {.smaller}
 ### Secondary References 
 
 ::: {.column width="69%"}
@@ -321,7 +321,7 @@ Slides are self-contained and based on the book
 
 
 
-## The nature of Statistics
+## The nature of Statistics {.smaller}
 
 - Statistics is a mathematical subject
 
@@ -339,7 +339,7 @@ Slides are self-contained and based on the book
 
 
 
-## Overview of the module
+## Overview of the module {.smaller}
 
 
 Module has **11 Lectures**, divided into two parts:
@@ -352,7 +352,7 @@ Module has **11 Lectures**, divided into two parts:
 
 
 
-## Overview of the module
+## Overview of the module {.smaller}
 ### Part I - Mathematical statistics
 
 1. Introduction to statistics
@@ -366,7 +366,7 @@ Module has **11 Lectures**, divided into two parts:
 
 
 
-## Overview of the module
+## Overview of the module {.smaller}
 ### Part II - Applied statistics
 
 
@@ -374,7 +374,7 @@ Module has **11 Lectures**, divided into two parts:
 8. The extra sum of squares principle and regression modelling assumptions
 9. Violations of regression assumptions -- Autocorrelation
 10. Violation of regression assumptions -- Multicollinearity
-10. Dummy variable regression models 
+10. ANOVA -- Dummy variable regression models 
 
 
 
@@ -419,7 +419,7 @@ Module has **11 Lectures**, divided into two parts:
 
 
 
-## Analysing a general dataset
+## Analysing a general dataset {.smaller}
 
 **Two basic questions:**
 
@@ -443,7 +443,7 @@ Module has **11 Lectures**, divided into two parts:
 
 
 
-## Motivating regression
+## Motivating regression {.smaller}
 
 **Basic question in regression:**
 
@@ -454,7 +454,7 @@ Module has **11 Lectures**, divided into two parts:
   * nothing?
 
 
-**In this way regression can be seen as a more advanced version of high-school maths**
+**Regression can be seen as the probabilistic version of (deterministic) linear correlation**
 
 
 
@@ -462,7 +462,7 @@ Module has **11 Lectures**, divided into two parts:
 
 
 
-## Positive gradient
+## Positive gradient {.smaller}
 
 As $X$ increases $Y$ increases
 
@@ -499,7 +499,7 @@ abline(
 
 
 
-## Negative gradient
+## Negative gradient {.smaller}
 
 As $X$ increases $Y$ decreases
 
@@ -538,7 +538,7 @@ abline(
 
 
 
-## Zero gradient
+## Zero gradient {.smaller}
 
 Changes in $X$ do not affect $Y$
 
@@ -576,7 +576,7 @@ abline(
 
 
 
-## Real data example
+## Real data example {.smaller}
 
 
 - Real data is more **imperfect**

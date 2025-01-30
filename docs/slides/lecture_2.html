@@ -360,27 +360,11 @@
   </style>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
   <style>
-  .Proof {
-    --color1: #f1f1f2;
-    --color2: #c0c0c1;
-  }
-  .Proposition {
+  .Axiom {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
-  .Question {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Definition {
-    --color1: #c6e6ed;
-    --color2: #1995ad;
-  }
-  .Lemma {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Idea {
+  .Warning {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
@@ -392,23 +376,27 @@
     --color1: #cce7b1;
     --color2: #86b754;
   }
-  .Corollary {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
   .Notation {
     --color1: #c6e6ed;
     --color2: #1995ad;
   }
-  .Warning {
-    --color1: #f4cce0;
-    --color2: #db4d92;
+  .Example {
+    --color1: #bce5de;
+    --color2: #21aa93;
   }
-  .Axiom {
-    --color1: #f4cce0;
-    --color2: #db4d92;
+  .Definition {
+    --color1: #c6e6ed;
+    --color2: #1995ad;
   }
-  .Theorem {
+  .Proof {
+    --color1: #f1f1f2;
+    --color2: #c0c0c1;
+  }
+  .TODO {
+    --color1: #e7b1b4;
+    --color2: #8c3236;
+  }
+  .Question {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
@@ -416,7 +404,23 @@
     --color1: #f4cce0;
     --color2: #db4d92;
   }
+  .Lemma {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Idea {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
   .Important {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Proposition {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Theorem {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
@@ -424,13 +428,9 @@
     --color1: #f4cce0;
     --color2: #db4d92;
   }
-  .Example {
-    --color1: #bce5de;
-    --color2: #21aa93;
-  }
-  .TODO {
-    --color1: #e7b1b4;
-    --color2: #8c3236;
+  .Corollary {
+    --color1: #f4cce0;
+    --color2: #db4d92;
   }
   </style>
 </head>
@@ -734,15 +734,16 @@ X|Y \sim X \qquad \qquad Y|X \sim Y
 </div></details>
 </div>
 </section>
-<section id="correlation-1" class="slide level2 smaller">
-<h2>Correlation</h2>
-<p>Correlation detects <strong>linear relationships</strong> between <span class="math inline">X</span> and <span class="math inline">Y</span></p>
+<section id="correlation-detects-linear-relationships" class="slide level2 smaller">
+<h2>Correlation detects linear relationships</h2>
 <div id="Theorem*-2.9" class="Theorem">
 <details class="Theorem fbx-simplebox fbx-default" open=""><summary><strong>Theorem</strong></summary><div>
 <p>For any random variables <span class="math inline">X</span> and <span class="math inline">Y</span> we have</p>
 <ul>
 <li><span class="math inline">- 1\leq \rho_{XY} \leq 1</span></li>
-<li><span class="math inline">|\rho_{XY}|=1</span> if and only if there exist <span class="math inline">a,b \in \mathbb{R}</span> such that <span class="math inline">Y = aX + b</span>
+<li><span class="math inline">|\rho_{XY}|=1</span> if and only if there exist <span class="math inline">a,b \in \mathbb{R}</span> such that <span class="math display">
+P(Y = aX + b) = 1
+</span>
 <ul>
 <li>If <span class="math inline">\rho_{XY}=1</span> then <span class="math inline">a&gt;0</span> <span class="math inline">\qquad \qquad \quad</span> (positive linear correlation)</li>
 <li>If <span class="math inline">\rho_{XY}=-1</span> then <span class="math inline">a&lt;0</span> <span class="math inline">\qquad \qquad</span> (negative linear correlation)</li>
@@ -768,6 +769,53 @@ X|Y \sim X \qquad \qquad Y|X \sim Y
 <li>Moreover <span class="math inline">\rho_{XY}=0</span> by definition</li>
 </ul>
 </section>
+<section id="example-1" class="slide level2 smaller">
+<h2>Example 1</h2>
+<ul>
+<li><p>Assume <span class="math inline">X</span> and <span class="math inline">Z</span> are independent, and <span class="math display">
+X  \sim {\rm uniform} \left( 0,1 \right)  \,, \qquad
+Z  \sim {\rm uniform} \left( 0, \frac{1}{10} \right)
+</span></p></li>
+<li><p>Define <span class="math inline">Y = X + Z</span></p></li>
+<li><p>Since <span class="math inline">X</span> and <span class="math inline">Z</span> are independent, and <span class="math inline">Z</span> is uniform, we have that <span class="math display">
+Y | X = x  \, \sim \,  {\rm uniform} \left( x, x + \frac{1}{10} \right)
+</span> (adding <span class="math inline">x</span> to <span class="math inline">Z</span> simply shifts the uniform distribution of <span class="math inline">Z</span> by <span class="math inline">x</span>)</p></li>
+</ul>
+</section>
+<section id="example-1-1" class="slide level2 smaller">
+<h2>Example 1</h2>
+<ul>
+<li><p>In particular, the conditional pdf of <span class="math inline">Y</span> given <span class="math inline">X = x</span> is <span class="math display">
+f(y|x) =
+\begin{cases}
+10 &amp; \text{ if } \, y \in \left[ x , x + \frac{1}{10} \right] \\
+0  &amp; \text{ otherwise}
+\end{cases}
+</span></p></li>
+<li><p>As <span class="math inline">X</span> is uniform on <span class="math inline">(0,1)</span>, its pdf is <span class="math display">
+f_X(x) =
+\begin{cases}
+1 &amp; \text{ if } \, x \in \left[ 0 , 1  \right] \\
+0  &amp; \text{ otherwise}
+\end{cases}
+</span></p></li>
+<li><p>Therefore, the joint distribution of <span class="math inline">(X,Y)</span> is <span class="math display">
+f_{X,Y}(x,y) = f(y|x)f_X(x) = \begin{cases}
+10 &amp; \text{ if } \, x \in [0,1] \, \text{ and } \, y \in \left[ x , x + \frac{1}{10} \right] \\
+0  &amp; \text{ otherwise}
+\end{cases}
+</span></p></li>
+</ul>
+</section>
+<section id="example-1-2" class="slide level2 smaller">
+<h2>Example 1</h2>
+<p>In gray: region where <span class="math inline">f_{X,Y}(x,y)&gt;0</span></p>
+<ul>
+<li>When <span class="math inline">X</span> increases, <span class="math inline">Y</span> increases linearly (not surprising, since <span class="math inline">Y = X + Z</span>)</li>
+<li>We expect the correlation <span class="math inline">\rho_{XY}</span> to be close to <span class="math inline">1</span></li>
+</ul>
+
+<img data-src="lecture_2_files/figure-revealjs/unnamed-chunk-1-1.png" width="960" class="r-stretch"></section>
 <section id="formula-for-variance" class="slide level2 smaller">
 <h2>Formula for Variance</h2>
 <h3 id="variance-is-quadratic">Variance is quadratic</h3>
@@ -1287,6 +1335,44 @@ Z \sim \Gamma(\alpha, \beta )
         ]
       });
     </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
     <script id="quarto-html-after-body" type="application/javascript">
     window.document.addEventListener("DOMContentLoaded", function (event) {
       const toggleBodyColorMode = (bsSheetEl) => {

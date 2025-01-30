@@ -1537,7 +1537,7 @@ $$
 
 
 ## Expected Value  {.smaller}
-### Properties
+### Expected value is linear
 
 ::: Theorem
 
@@ -3459,7 +3459,9 @@ For any random variables $X$ and $Y$ we have
 
 - $- 1\leq \rho_{XY} \leq 1$
 - $|\rho_{XY}|=1$ if and only if there exist $a,b \in \R$ such that
-$Y = aX + b$
+$$
+P(Y = aX + b) = 1
+$$
     * If $\rho_{XY}=1$ then $a>0$  $\qquad \qquad \quad$ (positive linear correlation)
     * If $\rho_{XY}=-1$ then $a<0$ $\qquad \qquad$ (negative linear correlation)
 

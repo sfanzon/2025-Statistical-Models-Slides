@@ -323,7 +323,27 @@
   </style>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
   <style>
-  .Proposition {
+  .Lemma {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Question {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Remark {
+    --color1: #bce5de;
+    --color2: #21aa93;
+  }
+  .Proof {
+    --color1: #f1f1f2;
+    --color2: #c0c0c1;
+  }
+  .Idea {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Important {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
@@ -335,11 +355,7 @@
     --color1: #f4cce0;
     --color2: #db4d92;
   }
-  .Proof {
-    --color1: #f1f1f2;
-    --color2: #c0c0c1;
-  }
-  .Important {
+  .Axiom {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
@@ -347,17 +363,21 @@
     --color1: #f4cce0;
     --color2: #db4d92;
   }
+  .Proposition {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .DONE {
+    --color1: #cce7b1;
+    --color2: #86b754;
+  }
   .Corollary {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
-  .Axiom {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Example {
-    --color1: #bce5de;
-    --color2: #21aa93;
+  .Definition {
+    --color1: #c6e6ed;
+    --color2: #1995ad;
   }
   .TODO {
     --color1: #e7b1b4;
@@ -367,33 +387,13 @@
     --color1: #f4cce0;
     --color2: #db4d92;
   }
-  .Question {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Definition {
-    --color1: #c6e6ed;
-    --color2: #1995ad;
-  }
-  .DONE {
-    --color1: #cce7b1;
-    --color2: #86b754;
-  }
-  .Remark {
-    --color1: #bce5de;
-    --color2: #21aa93;
-  }
-  .Lemma {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
   .Warning {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
-  .Idea {
-    --color1: #f4cce0;
-    --color2: #db4d92;
+  .Example {
+    --color1: #bce5de;
+    --color2: #21aa93;
   }
   </style>
 </head>
@@ -404,18 +404,35 @@
 
 <section class="slide level2">
 
-<p><a href="#/Definition*-4.1"><strong>Definition</strong></a></p>
-<p><a href="#/variance-1"><strong>Definition</strong></a>: Variance</p>
-<p><a href="#/useful-formula-for-variance"><strong>Proposition</strong></a>: Useful formula for variance</p>
-<p><a href="#/Definition*-5.1"><strong>Definition</strong></a></p>
-<p><a href="#/Theorem*-5.2"><strong>Theorem</strong></a></p>
-<p><a href="#/Theorem*-5.3"><strong>Theorem</strong></a></p>
-<p><a href="#/Definition*-6.1"><strong>Definition</strong></a></p>
-<p><a href="#/Definition*-6.2"><strong>Definition</strong></a></p>
-<p><a href="#/Definition*-6.3"><strong>Definition</strong></a></p>
-<p><a href="#/Definition*-6.4"><strong>Definition</strong></a></p>
-<p><a href="#/Theorem*-6.5"><strong>Theorem</strong></a></p>
-<p><a href="#/Theorem*-6.6"><strong>Theorem</strong></a></p>
+<p><a href="#/independence"><strong>Definition</strong></a>: Independence</p>
+<p><a href="#/Theorem*-2.2"><strong>Theorem</strong></a></p>
+<p><a href="#/Theorem*-2.3"><strong>Theorem</strong></a></p>
+<p><a href="#/Theorem*-2.4"><strong>Theorem</strong></a></p>
+<p><a href="#/Question*-2.5"><strong>Question</strong></a></p>
+<p><a href="#/Definition*-2.6"><strong>Definition</strong></a></p>
+<p><a href="#/Theorem*-2.7"><strong>Theorem</strong></a></p>
+<p><a href="#/Definition*-2.8"><strong>Definition</strong></a></p>
+<p><a href="#/Theorem*-2.9"><strong>Theorem</strong></a></p>
+<p><a href="#/Theorem*-2.10"><strong>Theorem</strong></a></p>
+<p><a href="#/Theorem*-2.11"><strong>Theorem</strong></a></p>
+<p><a href="#/Definition*-3.1"><strong>Definition</strong></a></p>
+<p><a href="#/Definition*-3.2"><strong>Definition</strong></a></p>
+<p><a href="#/Definition*-3.3"><strong>Definition</strong></a></p>
+<p><a href="#/Definition*-3.4"><strong>Definition</strong></a></p>
+<p><a href="#/Definition*-3.5"><strong>Definition</strong></a></p>
+<p><a href="#/Definition*-3.6"><strong>Definition</strong></a></p>
+<p><a href="#/Definition*-3.7"><strong>Definition</strong></a></p>
+<p><a href="#/Definition*-3.8"><strong>Definition</strong></a></p>
+<p><a href="#/Definition*-3.9"><strong>Definition</strong></a></p>
+<p><a href="#/Proposition*-3.10"><strong>Proposition</strong></a></p>
+<p><a href="#/Theorem*-3.11"><strong>Theorem</strong></a></p>
+<p><a href="#/Theorem*-3.12"><strong>Theorem</strong></a></p>
+<p><a href="#/Theorem*-3.13"><strong>Theorem</strong></a></p>
+<p><a href="#/Theorem*-3.14"><strong>Theorem</strong></a></p>
+<p><a href="#/Theorem*-3.15"><strong>Theorem</strong></a></p>
+<p><a href="#/Theorem*-3.16"><strong>Theorem</strong></a></p>
+<p><a href="#/Theorem*-3.17"><strong>Theorem</strong></a></p>
+<p><a href="#/Theorem*-3.18"><strong>Theorem</strong></a></p>
 
 <div class="quarto-auto-generated-content">
 <div class="footer footer-default">

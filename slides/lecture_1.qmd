@@ -789,6 +789,17 @@ $$
 
 
 
+## Expected Value  {.smaller}
+### Expected value is linear
+
+::: Theorem
+
+Let $X$ be a rv, and $a,b \in \mathbb{R}$ constants. Then
+$$
+\Expect[aX + b]  = a \Expect[X] + b
+$$
+:::
+
 
 
 ## Variance {.smaller}
@@ -806,13 +817,31 @@ $$
 :::
 
 ::: Proposition
-### Useful formula for variance
+### Equivalent formula
 
 $$
 \Var[X] =  \Expect[X^2] - \Expect[X]^2
 $$
 
 :::
+
+
+
+
+
+## Variance {.smaller}
+### Variance is quadratic
+
+::: Proposition
+
+$X$ rv and $a,b \in \R$. Then
+$$
+\Var[a X + b] = a^2 \Var[X] 
+$$
+
+:::
+
+
 
 
 

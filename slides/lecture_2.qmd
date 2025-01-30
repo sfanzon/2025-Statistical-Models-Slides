@@ -428,9 +428,8 @@ $$
 
 
 
-## Correlation {.smaller}
+## Correlation detects linear relationships  {.smaller}
 
-Correlation detects **linear relationships** between $X$ and $Y$
 
 ::: Theorem
 
@@ -438,7 +437,9 @@ For any random variables $X$ and $Y$ we have
 
 - $- 1\leq \rho_{XY} \leq 1$
 - $|\rho_{XY}|=1$ if and only if there exist $a,b \in \R$ such that
-$Y = aX + b$
+$$
+P(Y = aX + b) = 1
+$$
     * If $\rho_{XY}=1$ then $a>0$  $\qquad \qquad \quad$ (positive linear correlation)
     * If $\rho_{XY}=-1$ then $a<0$ $\qquad \qquad$ (negative linear correlation)
 
@@ -474,7 +475,98 @@ $$
 
 
 
+## Example 1 {.smaller}
 
+- Assume $X$ and $Z$ are independent, and
+$$
+X  \sim {\rm uniform} \left( 0,1 \right)  \,, \qquad 
+Z  \sim {\rm uniform} \left( 0, \frac{1}{10} \right) 
+$$
+
+
+- Define $Y = X + Z$
+
+- Since $X$ and $Z$ are independent, and $Z$ is uniform, we have that
+$$
+Y | X = x  \, \sim \,  {\rm uniform} \left( x, x + \frac{1}{10} \right) 
+$$
+(adding $x$ to $Z$ simply shifts the uniform distribution of $Z$ by $x$)
+
+
+
+
+## Example 1 {.smaller}
+
+- In particular, the conditional pdf of $Y$ given $X = x$ is
+$$
+f(y|x) = 
+\begin{cases}
+10 & \text{ if } \, y \in \left[ x , x + \frac{1}{10} \right] \\
+0  & \text{ otherwise}
+\end{cases}
+$$
+
+- As $X$ is uniform on $(0,1)$, its pdf is
+$$
+f_X(x) = 
+\begin{cases}
+1 & \text{ if } \, x \in \left[ 0 , 1  \right] \\
+0  & \text{ otherwise}
+\end{cases}
+$$
+
+- Therefore, the joint distribution of $(X,Y)$ is
+$$
+f_{X,Y}(x,y) = f(y|x)f_X(x) = \begin{cases}
+10 & \text{ if } \, x \in [0,1] \, \text{ and } \, y \in \left[ x , x + \frac{1}{10} \right] \\
+0  & \text{ otherwise}
+\end{cases}
+$$
+
+
+
+## Example 1 {.smaller}
+
+In gray: region where $f_{X,Y}(x,y)>0$
+
+- When $X$ increases, $Y$ increases linearly (not surprising, since $Y = X + Z$)
+- We expect the correlation $\rho_{XY}$ to be close to $1$
+
+```{r}
+# Load necessary library
+library(ggplot2)
+
+# Define the function to check where f_{X,Y}(x,y) is nonzero
+f_XY <- function(x, y) {
+  if (x >= 0 & x <= 1 & y >= x & y <= x + 1/10) {
+    return(1)  # Nonzero region (1 means presence)
+  } else {
+    return(0)  # Zero region (0 means absence)
+  }
+}
+
+# Generate a finer grid of (x, y) values
+x_values <- seq(0, 1, length.out = 300)  
+y_values <- seq(0, 1.1, length.out = 300)  
+
+# Create a matrix to store function values
+z_matrix <- outer(x_values, y_values, Vectorize(f_XY))
+
+# Convert to a data frame for ggplot2
+df <- expand.grid(x = x_values, y = y_values)
+df$z <- as.vector(z_matrix)
+
+# Plot the filled region with geom_tile()
+ggplot(df, aes(x, y, fill = factor(z))) +
+  geom_tile() +  
+  scale_fill_manual(values = c("white", "gray30")) +  # White for 0, dark gray for nonzero
+  labs(title = "Region where f_{X,Y}(x,y) is nonzero",
+       x = "x", y = "y") +
+  theme_minimal() +
+  theme(legend.position = "none")  # Remove legend for clarity
+
+
+```
 
 
 ## Formula for Variance {.smaller}

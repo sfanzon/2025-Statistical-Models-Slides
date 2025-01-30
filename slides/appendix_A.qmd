@@ -2963,14 +2963,34 @@ $$
 :::
 
 
-**Exercise:** Suppose that the distribution of $Y$, conditional on $X = x$, is $N(x, x^2)$. Suppose $X$ is uniform on $[0,1]$.
-
-- Compute $\Expect[Y]$
-- Compute $\Var[Y]$
 
 
-## Conditional Variance {.smaller}
-### Solution
+
+## Exercise {.smaller}
+
+Let $n \in \N$ be constant, and the random vector $(X,Y)$ satisfy the following:
+
+- $X$ has uniform distribution on $[0,1]$, meaning that its pdf is
+$$
+f_X(x) =  \chi_{[0,1]}(x) = 
+\begin{cases}
+1  & \, \text{ if } \, x \in [0,1] \\
+0  & \, \text{ otherwise }
+\end{cases}
+$$
+
+- The distribution of $Y$, conditional on $X = x$, is binomial $\binomial(n,x)$. This means
+$$
+P(Y = k | X = x) = \binom{n}{k} x^k (1-x)^{n-k} \,, \quad k = 0 , 1 , \ldots ,n \,,
+$$
+where the binomial coefficient is $\binom{n}{k} = \frac{n!}{k!(n-k)!}$      		
+
+**Question:** Compute $\Expect[Y]$ and $\Var[Y]$
+
+
+
+
+## Solution {.smaller}
 
 - By assumption $X$ is uniform on $[0,1]$. Therefore
 \begin{align*}
@@ -2985,23 +3005,26 @@ f_X(x) & =  \chi_{[0,1]}(x) =
 \end{align*}
 
 
-## Conditional Variance {.smaller}
-### Solution
+## Solution {.smaller}
 
-- By assumption $Y | X = x$ is $N(x,x^2)$. Therefore
+
+- By assumption $Y | X = x$ is $\binomial(n,x)$. Using well-known formulas, we get
 $$
-\Expect[Y|X] = X \,, \qquad  
-\Var[Y|X] = X^2 
+\Expect[Y|X] = nX \,, \qquad  
+\Var[Y|X] = nX(1-X) 
 $$
 
 - Therefore we conclude
 \begin{align*}
-\Expect[Y] & = \Expect[ \Expect[Y|X] ] = \Expect[X] = \frac12 \\
+\Expect[Y] & = \Expect[ \Expect[Y|X] ] = \Expect[nX] = n \Expect[X] = \frac{n}{2} \\
 & \phantom{s} \\
 \Var[Y] & = \Expect[\Var[Y|X]] + \Var[\Expect[Y|X]] \\ 
-        & = \Var[X] + \Expect[X^2] \\
-        & = \frac{1}{12} + \frac13 = \frac{5}{12} 
+        & = \Expect[nX(1-X)] + \Var[nX] \\
+        & = n \Expect[X] - n\Expect[X^2] + n^2\Var[X] \\
+        & = \frac{n}{2} - \frac{n}{3} + \frac{n^2}{12} = \frac{n}{6}  + \frac{n^2}{12} 
 \end{align*}
+
+
 
 
 
@@ -3099,8 +3122,100 @@ $$
 
 
 
-## Independence of random variables {.smaller}
-### Consequences of independence
+## Exercise {.smaller}
+
+A student leaves for class between 8 AM and 8:30 AM and takes between 40 and 50 minutes to get there
+
+- Denote by $X$ the time of departure 
+    * $X = 0$ corresponds to 8 AM
+    * $X = 30$ corresponds to 8:30 AM
+- Denote by $Y$ the travel time
+
+- Assume that $X$ and $Y$ are independent and uniformly distributed
+
+
+**Question:** Find the probability that the student arrives to class before 9 AM
+
+
+
+
+
+## Solution {.smaller}
+
+
+- By assumption $X$ is uniform on $(0,30)$. Therefore
+$$
+f_X(x)  = 
+\begin{cases}
+\frac{1}{30} & \text{ if } \, x \in (0,30)  \\
+0 & \text{ otherwise }
+\end{cases}
+$$
+
+- By assumption $Y$ is uniform on $(40,50)$. Therefore
+$$
+f_Y(y) = 
+\begin{cases}
+\frac{1}{10} & \text{ if } \, y \in (40,50)  \\
+0 & \text{ otherwise }
+\end{cases}
+$$
+where we used that $50 - 40 = 10$
+
+
+
+## Solution {.smaller}
+
+
+- Define the rectangle
+$$
+R = (0,30) \times (40,50)
+$$
+
+- Since $X$ and $Y$ are independent, we get
+
+$$
+f_{X,Y}(x,y) = f_X(x)f_Y(y) = 
+\begin{cases}
+\frac{1}{300} & \text{ if } \, (x,y) \in R  \\
+0 & \text{ otherwise }
+\end{cases}
+$$
+
+
+
+## Solution {.smaller}
+
+- The arrival time is given by $X + Y$
+
+- Therefore, the student arrives to class before 9 AM iff $X + Y < 60$
+
+- Notice that 
+$$
+\{X + Y < 60 \}  = \{ (x,y) \in \R^2 \, \colon \, 0 \leq x < 60 - y,  40 \leq y < 50 \} 
+$$
+
+## Solution {.smaller}
+
+Therefore, the probability of arriving before 9 AM is
+
+\begin{align*}
+P(\text{arrives before 9 AM}) & = P(X + Y < 60) \\
+                              & = \int_{\{X+Y < 60\}} f_{X,Y} (x,y) \, dxdy  \\
+                              & = \int_{40}^{50} \left( \int_0^{60-y} \frac{1}{300} \, dx 
+                              \right) \, dy  \\
+                              & = \frac{1}{300}  \int_{40}^{50} (60 - y) \, dy \\
+                              & = \frac{1}{300} \ y \left(  60 - \frac{y}{2} \right) \Bigg|_{y=40}^{y=50} \\
+                              & = \frac{1}{300} \cdot (1750 - 1600) = \frac12
+\end{align*}
+
+
+
+
+
+
+
+## Consequences of independence {.smaller}
 
 ::: Theorem
 
@@ -3122,7 +3237,7 @@ $$
 
 
 
-## Independence of random variables {.smaller}
+## Consequences of independence {.smaller}
 ### Proof of First Statement
 
 - Define the function $p(x,y):=g(x)h(y)$. Then
@@ -3140,7 +3255,7 @@ $$
 
 
 
-## Independence of random variables {.smaller}
+## Consequences of independence {.smaller}
 ### Proof of Second Statement
 
 - Define the product set 
@@ -3164,6 +3279,7 @@ P(X \in A , Y \in B) & = \int_{A \times B} f_{X,Y}(x,y) \, dxdy \\
 
 
 
+
 # Part 7: <br>Covariance and correlation {background-color="#cc0164" visibility="uncounted"}
 
 ::: footer
@@ -3176,7 +3292,8 @@ P(X \in A , Y \in B) & = \int_{A \times B} f_{X,Y}(x,y) \, dxdy \\
 
 
 
-## Relationship between Random Variables {.smaller}
+## Covariance & Correlation {.smaller}
+### Relationship between RV
 
 
 Given two random variables $X$ and $Y$ we said that
@@ -3197,7 +3314,8 @@ $$
 
 
 
-## Relationship between Random Variables {.smaller}
+## Covariance & Correlation {.smaller}
+### Relationship between RV
 
 
 If $X$ and $Y$ are **not independent** then there is a **relationship** between them

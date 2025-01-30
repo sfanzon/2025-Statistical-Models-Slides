@@ -1562,7 +1562,7 @@ $$
 As the above is the mgf of a Gamma distribution, by the previous Theorem we infer $Y \sim \Gamma(\alpha,\beta)$
 
 
-
+ 
 
 
 # Part 5: <br>Probability revision II {background-color="#cc0164" visibility="uncounted"}
@@ -2031,14 +2031,32 @@ $$
 :::
 
 
-**Exercise:** Suppose that the distribution of $Y$, conditional on $X = x$, is $N(x, x^2)$. Suppose $X$ is uniform on $[0,1]$.
 
-- Compute $\Expect[Y]$
-- Compute $\Var[Y]$
+## Exercise {.smaller}
+
+Let $n \in \N$ be constant, and the random vector $(X,Y)$ satisfy the following:
+
+- $X$ has uniform distribution on $[0,1]$, meaning that its pdf is
+$$
+f_X(x) =  \chi_{[0,1]}(x) = 
+\begin{cases}
+1  & \, \text{ if } \, x \in [0,1] \\
+0  & \, \text{ otherwise }
+\end{cases}
+$$
+
+- The distribution of $Y$, conditional on $X = x$, is binomial $\binomial(n,x)$. This means
+$$
+P(Y = k | X = x) = \binom{n}{k} x^k (1-x)^{n-k} \,, \quad k = 0 , 1 , \ldots ,n \,,
+$$
+where the binomial coefficient is $\binom{n}{k} = \frac{n!}{k!(n-k)!}$      		
+
+**Question:** Compute $\Expect[Y]$ and $\Var[Y]$
 
 
-## Conditional Variance {.smaller}
-### Solution
+
+
+## Solution {.smaller}
 
 - By assumption $X$ is uniform on $[0,1]$. Therefore
 \begin{align*}
@@ -2053,22 +2071,23 @@ f_X(x) & =  \chi_{[0,1]}(x) =
 \end{align*}
 
 
-## Conditional Variance {.smaller}
-### Solution
+## Solution {.smaller}
 
-- By assumption $Y | X = x$ is $N(x,x^2)$. Therefore
+
+- By assumption $Y | X = x$ is $\binomial(n,x)$. Using well-known formulas, we get
 $$
-\Expect[Y|X] = X \,, \qquad  
-\Var[Y|X] = X^2 
+\Expect[Y|X] = nX \,, \qquad  
+\Var[Y|X] = nX(1-X) 
 $$
 
 - Therefore we conclude
 \begin{align*}
-\Expect[Y] & = \Expect[ \Expect[Y|X] ] = \Expect[X] = \frac12 \\
+\Expect[Y] & = \Expect[ \Expect[Y|X] ] = \Expect[nX] = n \Expect[X] = \frac{n}{2} \\
 & \phantom{s} \\
 \Var[Y] & = \Expect[\Var[Y|X]] + \Var[\Expect[Y|X]] \\ 
-        & = \Var[X] + \Expect[X^2] \\
-        & = \frac{1}{12} + \frac13 = \frac{5}{12} 
+        & = \Expect[nX(1-X)] + \Var[nX] \\
+        & = n \Expect[X] - n\Expect[X^2] + n^2\Var[X] \\
+        & = \frac{n}{2} - \frac{n}{3} + \frac{n^2}{12} = \frac{n}{6}  + \frac{n^2}{12} 
 \end{align*}
 
 
@@ -2077,6 +2096,8 @@ $$
 
 
 ## References
+
+
 
 
 

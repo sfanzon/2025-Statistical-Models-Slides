@@ -21,7 +21,7 @@ $
 
 
 
-# Lecture 2: <br>Multivariate distributions<br>{background-color="#cc0164" visibility="uncounted"}
+# Lecture 2: <br>Random samples<br>{background-color="#cc0164" visibility="uncounted"}
 
 ::: footer
 
@@ -35,12 +35,18 @@ $
 
 ## Outline of Lecture 2
 
-1. Bivariate random vectors
-2. Conditional distributions
-3. Independence
-4. Covariance and correlation
-5. Multivariate random vectors
+1. Probability revision III
 
+
+
+
+# Part 1: <br>Probability revision III {background-color="#cc0164" visibility="uncounted"}
+
+::: footer
+
+<div color="#cc0164">  </div>
+
+:::
 
 
 
@@ -52,41 +58,19 @@ $
 - Self-contained revision material available in <a href="appendix_A.qmd">Appendix A</a> 
 
 
-**Topics to review**: Sections 4--8 of <a href="appendix_A.qmd">Appendix A</a>
+**Topics to review**: Sections 6--7 of <a href="appendix_A.qmd">Appendix A</a>
     
 ::: {.column width="38%"}
     
-- Random vectors
-- Bivariate vectors
-- Joint pdf and pmf
-- Marginals
-- Conditional distributions
-- Conditional expectation
+- Independence of random variables
+- Covariance and correlation
 
 :::
 
 ::: {.column width="58%"}
 
-- Independence of random variables
-- Covariance and correlation
-- Multivariate random vectors
 
 :::
-
-
-
-
-
-
-
-# Part 3: <br>Independence {background-color="#cc0164" visibility="uncounted"}
-
-::: footer
-
-<div color="#cc0164">  </div>
-
-:::
-
 
 
 
@@ -94,33 +78,11 @@ $
 
 
 ## Independence of random variables  {.smaller}
-### Intuition
-
-- In previous example: the conditional distribution of $Y$ given $X=x$ was
-$$
-f(y|x) = 
-\begin{cases}
-e^{-(y-x)} & \text{ if } y > x \\
-0      & \text{ if } y \leq x 
-\end{cases}
-$$
-
-- In particular $f(y|x)$ depends on $x$
-
-- This means that knowledge of $X$ gives information on $Y$
-
-- When $X$ does not give any information on $Y$ we say that 
-$X$ and $Y$ are **independent**
 
 
-
-
-
-## Independence of random variables {.smaller}
-### Formal definition
 
 ::: Definition
-
+### Independence
 $(X,Y)$ random vector with joint pdf or pmf $f_{X,Y}$ and marginal pdfs or pmfs $f_X,f_Y$. We say that $X$ and $Y$ are **independent** random variables if
 $$
 f_{X,Y}(x,y)  =  f_X(x)f_Y(y) \,, \quad \forall \, (x,y) \in \R^2 
@@ -170,9 +132,100 @@ $$
 
 
 
+## Exercise {.smaller}
 
-## Independence of random variables {.smaller}
-### Consequences of independence
+A student leaves for class between 8 AM and 8:30 AM and takes between 40 and 50 minutes to get there
+
+- Denote by $X$ the time of departure 
+    * $X = 0$ corresponds to 8 AM
+    * $X = 30$ corresponds to 8:30 AM
+- Denote by $Y$ the travel time
+
+- Assume that $X$ and $Y$ are independent and uniformly distributed
+
+
+**Question:** Find the probability that the student arrives to class before 9 AM
+
+
+
+
+
+## Solution {.smaller}
+
+
+- By assumption $X$ is uniform on $(0,30)$. Therefore
+$$
+f_X(x)  = 
+\begin{cases}
+\frac{1}{30} & \text{ if } \, x \in (0,30)  \\
+0 & \text{ otherwise }
+\end{cases}
+$$
+
+- By assumption $Y$ is uniform on $(40,50)$. Therefore
+$$
+f_Y(y) = 
+\begin{cases}
+\frac{1}{10} & \text{ if } \, y \in (40,50)  \\
+0 & \text{ otherwise }
+\end{cases}
+$$
+where we used that $50 - 40 = 10$
+
+
+
+## Solution {.smaller}
+
+
+- Define the rectangle
+$$
+R = (0,30) \times (40,50)
+$$
+
+- Since $X$ and $Y$ are independent, we get
+
+$$
+f_{X,Y}(x,y) = f_X(x)f_Y(y) = 
+\begin{cases}
+\frac{1}{300} & \text{ if } \, (x,y) \in R  \\
+0 & \text{ otherwise }
+\end{cases}
+$$
+
+
+
+## Solution {.smaller}
+
+- The arrival time is given by $X + Y$
+
+- Therefore, the student arrives to class before 9 AM iff $X + Y < 60$
+
+- Notice that 
+$$
+\{X + Y < 60 \}  = \{ (x,y) \in \R^2 \, \colon \, 0 \leq x < 60 - y,  40 \leq y < 50 \} 
+$$
+
+## Solution {.smaller}
+
+Therefore, the probability of arriving before 9 AM is
+
+\begin{align*}
+P(\text{arrives before 9 AM}) & = P(X + Y < 60) \\
+                              & = \int_{\{X+Y < 60\}} f_{X,Y} (x,y) \, dxdy  \\
+                              & = \int_{40}^{50} \left( \int_0^{60-y} \frac{1}{300} \, dx 
+                              \right) \, dy  \\
+                              & = \frac{1}{300}  \int_{40}^{50} (60 - y) \, dy \\
+                              & = \frac{1}{300} \ y \left(  60 - \frac{y}{2} \right) \Bigg|_{y=40}^{y=50} \\
+                              & = \frac{1}{300} \cdot (1750 - 1600) = \frac12
+\end{align*}
+
+
+
+
+
+
+
+## Consequences of independence {.smaller}
 
 ::: Theorem
 
@@ -194,56 +247,13 @@ $$
 
 
 
-## Independence of random variables {.smaller}
-### Proof of First Statement
 
-- Define the function $p(x,y):=g(x)h(y)$. Then
-\begin{align*}
-\Expect[g(X)h(Y)] & = \Expect(p(X,Y)) = \int_{\R^2} p(x,y) f_{X,Y}(x,y)  \, dxdy \\
-                  & = \int_{\R^2} g(x)h(y) f_X(x) f_Y(y)  \, dxdy \\
-                  & = \left( \int_{-\infty}^\infty g(x) f_X(x) \, dx \right)
-                      \left( \int_{-\infty}^\infty h(y) f_Y(y) \, dy \right) \\
-                  & = \Expect[g(X)] \Expect[h(Y)]
-\end{align*}
-
-- Proof in the discrete case is the same: replace intergrals with series
-
-
-
-
-
-## Independence of random variables {.smaller}
-### Proof of Second Statement
-
-- Define the product set 
-$$
-A \times B :=\{ (x,y) \in \R^2 \colon x \in A , y \in B\}
-$$
-
-
-- Therefore we get
-\begin{align*}
-P(X \in A , Y \in B) & = \int_{A \times B} f_{X,Y}(x,y) \, dxdy \\
-                     & = \int_{A \times B} f_X(x) f_Y(y) \, dxdy \\
-                     & = \left(\int_{A} f_X(x) \, dx \right)
-                         \left(\int_{B} f_Y(y) \, dy \right) \\
-                     & = P(X \in A) P(Y \in B)
-\end{align*}
-
-
-
-
-
-
-
-
-## Independence of random variables {.smaller}
-### Moment generating functions
+## Application: MGF of sums {.smaller}
 
 ::: Theorem
 
 Suppose $X$ and $Y$ are independent random variables and denote by 
-$M_X$ and $M_Y$ their moment generating functions. Then
+$M_X$ and $M_Y$ their MGFs. Then
 $$
 M_{X + Y} (t) = M_X(t) M_Y(t)
 $$
@@ -264,13 +274,12 @@ M_{X + Y} (t) & = \Expect[e^{t(X+Y)}] = \Expect[e^{tX}e^{tY}] \\
 
 
 
-## Example  {.smaller}
-### Sum of independent normals
+## Example - Sum of independent normals {.smaller}
 
 - Suppose $X \sim N (\mu_1, \sigma_1^2)$ and $Y \sim N (\mu_2, \sigma_2^2)$ 
 are independent normal random variables
 
-- We have seen in Slide 119 in Lecture 1 that for normal distributions
+- We have seen in Lecture 1 that for normal distributions
 $$
 M_X(t) = \exp \left( \mu_1 t + \frac{t^2 \sigma_1^2}{2} \right) \,, \qquad
 M_Y(t) = \exp \left( \mu_2 t + \frac{t^2 \sigma_2^2}{2} \right)
@@ -288,8 +297,7 @@ M_{X+Y}(t) & =  M_{X}(t) M_{Y}(t) =
 
 
 
-## Example  {.smaller}
-### Sum of independent normals
+## Example - Sum of independent normals {.smaller}
 
 - Therefore $Z := X + Y$ has moment generating function
 $$
@@ -301,7 +309,7 @@ $$
 \text{mean }\quad \mu_1 + \mu_2 \quad \text{ and variance} \quad  \sigma_1^2 + \sigma_2^2
 $$
 
-- By the Theorem in Slide 132 of Lecture 1 we have
+- By the Theorem in Slide 68 of Lecture 1 we have
 $$
 Z \sim N(\mu_1 + \mu_2, \sigma_1^2 + \sigma_2^2)
 $$
@@ -314,20 +322,9 @@ $$
 
 
 
-# Part 4: <br>Covariance and correlation {background-color="#cc0164" visibility="uncounted"}
 
-::: footer
-
-<div color="#cc0164">  </div>
-
-:::
-
-
-
-
-
-## Relationship between Random Variables {.smaller}
-
+## Covariance & Correlation {.smaller}
+### Relationship between RV
 
 Given two random variables $X$ and $Y$ we said that
 
@@ -347,7 +344,8 @@ $$
 
 
 
-## Relationship between Random Variables {.smaller}
+## Covariance & Correlation {.smaller}
+### Relationship between RV
 
 
 If $X$ and $Y$ are **not independent** then there is a **relationship** between them
@@ -391,40 +389,6 @@ $$
 
 
 ## Covariance {.smaller}
-### Remark 
-
-The sign of $\Cov(X,Y)$ gives information about the relationship between $X$ and $Y$:
-
-- If $X$ is **large**, is $Y$ likely to be **small** or **large**?
-- If $X$ is **small**, is $Y$ likely to be **small** or **large**?
-- Covariance encodes the above questions
-
-
-
-## Covariance {.smaller}
-### Remark 
-
-The sign of $\Cov(X,Y)$ gives information about the relationship between $X$ and $Y$
-
-|                             |$X$ small: $\, X<\mu_X$|$X$ large: $\, X>\mu_X$|
-|-----------------------------|----------------------------|-----------------------------|
-|$Y$ small: $\, Y<\mu_Y$|     $(X-\mu_X)(Y-\mu_Y)>0$ |  $(X-\mu_X)(Y-\mu_Y)<0$     |
-|$Y$ large: $\, Y>\mu_Y$|     $(X-\mu_X)(Y-\mu_Y)<0$ |  $(X-\mu_X)(Y-\mu_Y)>0$     |
-: {tbl-colwidths="[30,35,35]"}
-
-<br>
-
-|                             |$X$ small: $\, X<\mu_X$|$X$ large: $\, X>\mu_X$|
-|-----------------------------|----------------------------|-----------------------------|
-|$Y$ small: $\, Y<\mu_Y$|     $\Cov(X,Y)>0$          |  $\Cov(X,Y)<0$              |
-|$Y$ large: $\, Y>\mu_Y$|     $\Cov(X,Y)<0$          |  $\Cov(X,Y)>0$              |
-: {tbl-colwidths="[30,35,35]"}
-
-
-
-
-
-## Covariance {.smaller}
 ### Alternative Formula
 
 ::: Theorem 
@@ -435,23 +399,6 @@ $$
 $$
 
 :::
-
-
-
-
-## Covariance {.smaller}
-### Proof of Theorem
-
-Using linearity of $\Expect$ and the fact that $\Expect[c]=c$ for $c \in \R$:
-\begin{align*}
-\Cov(X,Y) : & = \Expect[ \,\, (X - \Expect[X]) (Y - \Expect[Y]) \,\,  ] \\
-            &  = \Expect \left[ \,\, XY - X \Expect[Y] - Y \Expect[X] + \Expect[X]\Expect[Y] \,\, \right]  \\
-            &  = \Expect[XY] - \Expect[ X \Expect[Y] ]
-               - \Expect[ Y \Expect[X] ] + \Expect[\Expect[X] \Expect[Y]] \\
-            & =  \Expect[XY] - \Expect[X] \Expect[Y]    
-               - \Expect[Y] \Expect[X] + \Expect[X] \Expect[Y] \\
-            & =  \Expect[XY] - \Expect[X] \Expect[Y]    
-\end{align*}
 
 
 

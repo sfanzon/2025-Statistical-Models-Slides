@@ -360,47 +360,11 @@
   </style>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
   <style>
-  .Definition {
-    --color1: #c6e6ed;
-    --color2: #1995ad;
-  }
-  .Lemma {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Warning {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .TODO {
-    --color1: #e7b1b4;
-    --color2: #8c3236;
-  }
-  .Problem {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Example {
-    --color1: #bce5de;
-    --color2: #21aa93;
-  }
-  .DONE {
-    --color1: #cce7b1;
-    --color2: #86b754;
-  }
-  .Proposition {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
   .Notation {
     --color1: #c6e6ed;
     --color2: #1995ad;
   }
-  .Idea {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Axiom {
+  .Important {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
@@ -408,29 +372,65 @@
     --color1: #f4cce0;
     --color2: #db4d92;
   }
-  .Proof {
-    --color1: #f1f1f2;
-    --color2: #c0c0c1;
-  }
-  .Important {
+  .Conjecture {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
-  .Question {
+  .Axiom {
     --color1: #f4cce0;
     --color2: #db4d92;
+  }
+  .Warning {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Idea {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Proposition {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Example {
+    --color1: #bce5de;
+    --color2: #21aa93;
   }
   .Corollary {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
-  .Conjecture {
+  .Problem {
     --color1: #f4cce0;
     --color2: #db4d92;
+  }
+  .TODO {
+    --color1: #e7b1b4;
+    --color2: #8c3236;
+  }
+  .Question {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Lemma {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .DONE {
+    --color1: #cce7b1;
+    --color2: #86b754;
+  }
+  .Proof {
+    --color1: #f1f1f2;
+    --color2: #c0c0c1;
   }
   .Remark {
     --color1: #bce5de;
     --color2: #21aa93;
+  }
+  .Definition {
+    --color1: #c6e6ed;
+    --color2: #1995ad;
   }
   </style>
 </head>
@@ -458,8 +458,8 @@
 
 </section>
 <section>
-<section id="lecture-2-multivariate-distributions" class="title-slide slide level1 center" data-background-color="#cc0164" data-visibility="uncounted">
-<h1>Lecture 2: <br>Multivariate distributions<br></h1>
+<section id="lecture-2-random-samples" class="title-slide slide level1 center" data-background-color="#cc0164" data-visibility="uncounted">
+<h1>Lecture 2: <br>Random samples<br></h1>
 <div class="footer">
 <div color="#cc0164">
 
@@ -469,12 +469,17 @@
 <section id="outline-of-lecture-2" class="slide level2">
 <h2>Outline of Lecture 2</h2>
 <ol type="1">
-<li>Bivariate random vectors</li>
-<li>Conditional distributions</li>
-<li>Independence</li>
-<li>Covariance and correlation</li>
-<li>Multivariate random vectors</li>
+<li>Probability revision III</li>
 </ol>
+</section></section>
+<section>
+<section id="part-1-probability-revision-iii" class="title-slide slide level1 center" data-background-color="#cc0164" data-visibility="uncounted">
+<h1>Part 1: <br>Probability revision III</h1>
+<div class="footer">
+<div color="#cc0164">
+
+</div>
+</div>
 </section>
 <section id="probability-revision-iii" class="slide level2 smaller">
 <h2>Probability revision III</h2>
@@ -483,59 +488,25 @@
 <strong>Introduction to Probability &amp; Statistics</strong></p></li>
 <li><p>Self-contained revision material available in <a href="../slides/appendix_A.html">Appendix A</a></p></li>
 </ul>
-<p><strong>Topics to review</strong>: Sections 4–8 of <a href="../slides/appendix_A.html">Appendix A</a></p>
+<p><strong>Topics to review</strong>: Sections 6–7 of <a href="../slides/appendix_A.html">Appendix A</a></p>
 <div class="column" style="width:38%;">
-<ul>
-<li>Random vectors</li>
-<li>Bivariate vectors</li>
-<li>Joint pdf and pmf</li>
-<li>Marginals</li>
-<li>Conditional distributions</li>
-<li>Conditional expectation</li>
-</ul>
-</div><div class="column" style="width:58%;">
 <ul>
 <li>Independence of random variables</li>
 <li>Covariance and correlation</li>
-<li>Multivariate random vectors</li>
 </ul>
-</div></section></section>
-<section>
-<section id="part-3-independence" class="title-slide slide level1 center" data-background-color="#cc0164" data-visibility="uncounted">
-<h1>Part 3: <br>Independence</h1>
-<div class="footer">
-<div color="#cc0164">
+</div><div class="column" style="width:58%;">
 
-</div>
-</div>
-</section>
+</div></section>
 <section id="independence-of-random-variables" class="slide level2 smaller">
 <h2>Independence of random variables</h2>
-<h3 id="intuition">Intuition</h3>
-<ul>
-<li><p>In previous example: the conditional distribution of <span class="math inline">Y</span> given <span class="math inline">X=x</span> was <span class="math display">
-f(y|x) =
-\begin{cases}
-e^{-(y-x)} &amp; \text{ if } y &gt; x \\
-0      &amp; \text{ if } y \leq x
-\end{cases}
-</span></p></li>
-<li><p>In particular <span class="math inline">f(y|x)</span> depends on <span class="math inline">x</span></p></li>
-<li><p>This means that knowledge of <span class="math inline">X</span> gives information on <span class="math inline">Y</span></p></li>
-<li><p>When <span class="math inline">X</span> does not give any information on <span class="math inline">Y</span> we say that <span class="math inline">X</span> and <span class="math inline">Y</span> are <strong>independent</strong></p></li>
-</ul>
-</section>
-<section id="independence-of-random-variables-1" class="slide level2 smaller">
-<h2>Independence of random variables</h2>
-<h3 id="formal-definition">Formal definition</h3>
-<div id="Definition*-2.1" class="Definition">
-<p></p><details class="Definition fbx-simplebox fbx-default" open=""><summary><strong>Definition</strong></summary><div><span class="math inline">(X,Y)</span> random vector with joint pdf or pmf <span class="math inline">f_{X,Y}</span> and marginal pdfs or pmfs <span class="math inline">f_X,f_Y</span>. We say that <span class="math inline">X</span> and <span class="math inline">Y</span> are <strong>independent</strong> random variables if <span class="math display">
+<div id="independence" class="Definition" title="Independence">
+<p></p><details class="Definition fbx-simplebox fbx-default" open=""><summary><strong>Definition: </strong>Independence</summary><div><span class="math inline">(X,Y)</span> random vector with joint pdf or pmf <span class="math inline">f_{X,Y}</span> and marginal pdfs or pmfs <span class="math inline">f_X,f_Y</span>. We say that <span class="math inline">X</span> and <span class="math inline">Y</span> are <strong>independent</strong> random variables if <span class="math display">
 f_{X,Y}(x,y)  =  f_X(x)f_Y(y) \,, \quad \forall \, (x,y) \in \mathbb{R}^2
 </span><p></p>
 </div></details>
 </div>
 </section>
-<section id="independence-of-random-variables-2" class="slide level2 smaller">
+<section id="independence-of-random-variables-1" class="slide level2 smaller">
 <h2>Independence of random variables</h2>
 <h3 id="conditional-distributions-and-probabilities">Conditional distributions and probabilities</h3>
 <p>If <span class="math inline">X</span> and <span class="math inline">Y</span> are <strong>independent</strong> then <span class="math inline">X</span> gives no information on <span class="math inline">Y</span> (and vice-versa):</p>
@@ -549,7 +520,7 @@ P(Y \in A | x) &amp; = \int_{y \in A} f(y|x) \, dy = \int_{y \in A} f_Y(y) \, dy
 \end{align*}</span></p></li>
 </ul>
 </section>
-<section id="independence-of-random-variables-3" class="slide level2 smaller">
+<section id="independence-of-random-variables-2" class="slide level2 smaller">
 <h2>Independence of random variables</h2>
 <h3 id="characterization-of-independence---densities">Characterization of independence - Densities</h3>
 <div id="Theorem*-2.2" class="Theorem">
@@ -564,9 +535,80 @@ f_{X,Y}(x,y) = g(x)h(y) \,, \quad \forall \, (x,y) \in \mathbb{R}^2
 </div></details>
 </div>
 </section>
-<section id="independence-of-random-variables-4" class="slide level2 smaller">
-<h2>Independence of random variables</h2>
-<h3 id="consequences-of-independence">Consequences of independence</h3>
+<section id="exercise" class="slide level2 smaller">
+<h2>Exercise</h2>
+<p>A student leaves for class between 8 AM and 8:30 AM and takes between 40 and 50 minutes to get there</p>
+<ul>
+<li><p>Denote by <span class="math inline">X</span> the time of departure</p>
+<ul>
+<li><span class="math inline">X = 0</span> corresponds to 8 AM</li>
+<li><span class="math inline">X = 30</span> corresponds to 8:30 AM</li>
+</ul></li>
+<li><p>Denote by <span class="math inline">Y</span> the travel time</p></li>
+<li><p>Assume that <span class="math inline">X</span> and <span class="math inline">Y</span> are independent and uniformly distributed</p></li>
+</ul>
+<p><strong>Question:</strong> Find the probability that the student arrives to class before 9 AM</p>
+</section>
+<section id="solution" class="slide level2 smaller">
+<h2>Solution</h2>
+<ul>
+<li><p>By assumption <span class="math inline">X</span> is uniform on <span class="math inline">(0,30)</span>. Therefore <span class="math display">
+f_X(x)  =
+\begin{cases}
+\frac{1}{30} &amp; \text{ if } \, x \in (0,30)  \\
+0 &amp; \text{ otherwise }
+\end{cases}
+</span></p></li>
+<li><p>By assumption <span class="math inline">Y</span> is uniform on <span class="math inline">(40,50)</span>. Therefore <span class="math display">
+f_Y(y) =
+\begin{cases}
+\frac{1}{10} &amp; \text{ if } \, y \in (40,50)  \\
+0 &amp; \text{ otherwise }
+\end{cases}
+</span> where we used that <span class="math inline">50 - 40 = 10</span></p></li>
+</ul>
+</section>
+<section id="solution-1" class="slide level2 smaller">
+<h2>Solution</h2>
+<ul>
+<li><p>Define the rectangle <span class="math display">
+R = (0,30) \times (40,50)
+</span></p></li>
+<li><p>Since <span class="math inline">X</span> and <span class="math inline">Y</span> are independent, we get</p></li>
+</ul>
+<p><span class="math display">
+f_{X,Y}(x,y) = f_X(x)f_Y(y) =
+\begin{cases}
+\frac{1}{300} &amp; \text{ if } \, (x,y) \in R  \\
+0 &amp; \text{ otherwise }
+\end{cases}
+</span></p>
+</section>
+<section id="solution-2" class="slide level2 smaller">
+<h2>Solution</h2>
+<ul>
+<li><p>The arrival time is given by <span class="math inline">X + Y</span></p></li>
+<li><p>Therefore, the student arrives to class before 9 AM iff <span class="math inline">X + Y &lt; 60</span></p></li>
+<li><p>Notice that <span class="math display">
+\{X + Y &lt; 60 \}  = \{ (x,y) \in \mathbb{R}^2 \, \colon \, 0 \leq x &lt; 60 - y,  40 \leq y &lt; 50 \}
+</span></p></li>
+</ul>
+</section>
+<section id="solution-3" class="slide level2 smaller">
+<h2>Solution</h2>
+<p>Therefore, the probability of arriving before 9 AM is</p>
+<p><span class="math display">\begin{align*}
+P(\text{arrives before 9 AM}) &amp; = P(X + Y &lt; 60) \\
+                              &amp; = \int_{\{X+Y &lt; 60\}} f_{X,Y} (x,y) \, dxdy  \\
+                              &amp; = \int_{40}^{50} \left( \int_0^{60-y} \frac{1}{300} \, dx
+                              \right) \, dy  \\
+                              &amp; = \frac{1}{300}  \int_{40}^{50} (60 - y) \, dy \\
+                              &amp; = \frac{1}{300} \ y \left(  60 - \frac{y}{2} \right) \Bigg|_{y=40}^{y=50} \\
+                              &amp; = \frac{1}{300} \cdot (1750 - 1600) = \frac12
+\end{align*}</span></p>
+</section>
+<section id="consequences-of-independence" class="slide level2 smaller">
+<h2>Consequences of independence</h2>
 <div id="Theorem*-2.3" class="Theorem">
 <details class="Theorem fbx-simplebox fbx-default" open=""><summary><strong>Theorem</strong></summary><div>
 <p>Suppose <span class="math inline">X</span> and <span class="math inline">Y</span> are independent random variables. Then</p>
@@ -581,41 +623,10 @@ P(X \in A, Y \in B) = P(X \in A) P(Y \in B)
 </div></details>
 </div>
 </section>
-<section id="independence-of-random-variables-5" class="slide level2 smaller">
-<h2>Independence of random variables</h2>
-<h3 id="proof-of-first-statement">Proof of First Statement</h3>
-<ul>
-<li><p>Define the function <span class="math inline">p(x,y):=g(x)h(y)</span>. Then <span class="math display">\begin{align*}
-{\rm I\kern-.3em E}[g(X)h(Y)] &amp; = {\rm I\kern-.3em E}(p(X,Y)) = \int_{\mathbb{R}^2} p(x,y) f_{X,Y}(x,y)  \, dxdy \\
-                &amp; = \int_{\mathbb{R}^2} g(x)h(y) f_X(x) f_Y(y)  \, dxdy \\
-                &amp; = \left( \int_{-\infty}^\infty g(x) f_X(x) \, dx \right)
-                    \left( \int_{-\infty}^\infty h(y) f_Y(y) \, dy \right) \\
-                &amp; = {\rm I\kern-.3em E}[g(X)] {\rm I\kern-.3em E}[h(Y)]
-\end{align*}</span></p></li>
-<li><p>Proof in the discrete case is the same: replace intergrals with series</p></li>
-</ul>
-</section>
-<section id="independence-of-random-variables-6" class="slide level2 smaller">
-<h2>Independence of random variables</h2>
-<h3 id="proof-of-second-statement">Proof of Second Statement</h3>
-<ul>
-<li><p>Define the product set <span class="math display">
-A \times B :=\{ (x,y) \in \mathbb{R}^2 \colon x \in A , y \in B\}
-</span></p></li>
-<li><p>Therefore we get <span class="math display">\begin{align*}
-P(X \in A , Y \in B) &amp; = \int_{A \times B} f_{X,Y}(x,y) \, dxdy \\
-                   &amp; = \int_{A \times B} f_X(x) f_Y(y) \, dxdy \\
-                   &amp; = \left(\int_{A} f_X(x) \, dx \right)
-                       \left(\int_{B} f_Y(y) \, dy \right) \\
-                   &amp; = P(X \in A) P(Y \in B)
-\end{align*}</span></p></li>
-</ul>
-</section>
-<section id="independence-of-random-variables-7" class="slide level2 smaller">
-<h2>Independence of random variables</h2>
-<h3 id="moment-generating-functions">Moment generating functions</h3>
+<section id="application-mgf-of-sums" class="slide level2 smaller">
+<h2>Application: MGF of sums</h2>
 <div id="Theorem*-2.4" class="Theorem">
-<p></p><details class="Theorem fbx-simplebox fbx-default" open=""><summary><strong>Theorem</strong></summary><div>Suppose <span class="math inline">X</span> and <span class="math inline">Y</span> are independent random variables and denote by <span class="math inline">M_X</span> and <span class="math inline">M_Y</span> their moment generating functions. Then <span class="math display">
+<p></p><details class="Theorem fbx-simplebox fbx-default" open=""><summary><strong>Theorem</strong></summary><div>Suppose <span class="math inline">X</span> and <span class="math inline">Y</span> are independent random variables and denote by <span class="math inline">M_X</span> and <span class="math inline">M_Y</span> their MGFs. Then <span class="math display">
 M_{X + Y} (t) = M_X(t) M_Y(t)
 </span><p></p>
 </div></details>
@@ -626,12 +637,11 @@ M_{X + Y} (t) &amp; = {\rm I\kern-.3em E}[e^{t(X+Y)}] = {\rm I\kern-.3em E}[e^{t
               &amp; = M_X(t) M_Y(t)
 \end{align*}</span></p>
 </section>
-<section id="example" class="slide level2 smaller">
-<h2>Example</h2>
-<h3 id="sum-of-independent-normals">Sum of independent normals</h3>
+<section id="example---sum-of-independent-normals" class="slide level2 smaller">
+<h2>Example - Sum of independent normals</h2>
 <ul>
 <li><p>Suppose <span class="math inline">X \sim N (\mu_1, \sigma_1^2)</span> and <span class="math inline">Y \sim N (\mu_2, \sigma_2^2)</span> are independent normal random variables</p></li>
-<li><p>We have seen in Slide 119 in Lecture 1 that for normal distributions <span class="math display">
+<li><p>We have seen in Lecture 1 that for normal distributions <span class="math display">
 M_X(t) = \exp \left( \mu_1 t + \frac{t^2 \sigma_1^2}{2} \right) \,, \qquad
 M_Y(t) = \exp \left( \mu_2 t + \frac{t^2 \sigma_2^2}{2} \right)
 </span></p></li>
@@ -643,9 +653,8 @@ M_{X+Y}(t) &amp; =  M_{X}(t) M_{Y}(t) =
 \end{align*}</span></p></li>
 </ul>
 </section>
-<section id="example-1" class="slide level2 smaller">
-<h2>Example</h2>
-<h3 id="sum-of-independent-normals-1">Sum of independent normals</h3>
+<section id="example---sum-of-independent-normals-1" class="slide level2 smaller">
+<h2>Example - Sum of independent normals</h2>
 <ul>
 <li><p>Therefore <span class="math inline">Z := X + Y</span> has moment generating function <span class="math display">
 M_{Z}(t) = M_{X+Y}(t) = \exp \left( (\mu_1 + \mu_2) t + \frac{t^2 (\sigma_1^2 + \sigma_2^2)}{2} \right)
@@ -653,23 +662,15 @@ M_{Z}(t) = M_{X+Y}(t) = \exp \left( (\mu_1 + \mu_2) t + \frac{t^2 (\sigma_1^2 + 
 <li><p>The above is the mgf of a <strong>normal distribution</strong> with <span class="math display">
 \text{mean }\quad \mu_1 + \mu_2 \quad \text{ and variance} \quad  \sigma_1^2 + \sigma_2^2
 </span></p></li>
-<li><p>By the Theorem in Slide 132 of Lecture 1 we have <span class="math display">
+<li><p>By the Theorem in Slide 68 of Lecture 1 we have <span class="math display">
 Z \sim N(\mu_1 + \mu_2, \sigma_1^2 + \sigma_2^2)
 </span></p></li>
 <li><p><strong>Sum of independent normals is normal</strong></p></li>
 </ul>
-</section></section>
-<section>
-<section id="part-4-covariance-and-correlation" class="title-slide slide level1 center" data-background-color="#cc0164" data-visibility="uncounted">
-<h1>Part 4: <br>Covariance and correlation</h1>
-<div class="footer">
-<div color="#cc0164">
-
-</div>
-</div>
 </section>
-<section id="relationship-between-random-variables" class="slide level2 smaller">
-<h2>Relationship between Random Variables</h2>
+<section id="covariance-correlation" class="slide level2 smaller">
+<h2>Covariance &amp; Correlation</h2>
+<h3 id="relationship-between-rv">Relationship between RV</h3>
 <p>Given two random variables <span class="math inline">X</span> and <span class="math inline">Y</span> we said that</p>
 <ul>
 <li><p><span class="math inline">X</span> and <span class="math inline">Y</span> are <strong>independent</strong> if <span class="math display">
@@ -681,10 +682,11 @@ X|Y \sim X \qquad \qquad Y|X \sim Y
 </span></p></li>
 </ul>
 </section>
-<section id="relationship-between-random-variables-1" class="slide level2 smaller">
-<h2>Relationship between Random Variables</h2>
+<section id="covariance-correlation-1" class="slide level2 smaller">
+<h2>Covariance &amp; Correlation</h2>
+<h3 id="relationship-between-rv-1">Relationship between RV</h3>
 <p>If <span class="math inline">X</span> and <span class="math inline">Y</span> are <strong>not independent</strong> then there is a <strong>relationship</strong> between them</p>
-<div id="Question*-3.1" class="Question">
+<div id="Question*-2.5" class="Question">
 <p></p><details class="Question fbx-simplebox fbx-default" open=""><summary><strong>Question</strong></summary><div>How do we measure the strength of such dependence?<p></p>
 </div></details>
 </div>
@@ -701,7 +703,7 @@ X|Y \sim X \qquad \qquad Y|X \sim Y
 &amp; \mu_X := {\rm I\kern-.3em E}[X]   \qquad &amp; \mu_Y &amp; := {\rm I\kern-.3em E}[Y] \\
 &amp; \sigma^2_X := {\rm Var}[X] \qquad  &amp; \sigma^2_Y &amp; := {\rm Var}[Y]
 \end{align*}</span></p>
-<div id="Definition*-3.2" class="Definition">
+<div id="Definition*-2.6" class="Definition">
 <p></p><details class="Definition fbx-simplebox fbx-default" open=""><summary><strong>Definition</strong></summary><div>The <strong>covariance</strong> of <span class="math inline">X</span> and <span class="math inline">Y</span> is the number <span class="math display">
 {\rm Cov}(X,Y) := {\rm I\kern-.3em E}[  (X - \mu_X) (Y - \mu_Y)  ]
 </span><p></p>
@@ -710,94 +712,13 @@ X|Y \sim X \qquad \qquad Y|X \sim Y
 </section>
 <section id="covariance-1" class="slide level2 smaller">
 <h2>Covariance</h2>
-<h3 id="remark">Remark</h3>
-<p>The sign of <span class="math inline">{\rm Cov}(X,Y)</span> gives information about the relationship between <span class="math inline">X</span> and <span class="math inline">Y</span>:</p>
-<ul>
-<li>If <span class="math inline">X</span> is <strong>large</strong>, is <span class="math inline">Y</span> likely to be <strong>small</strong> or <strong>large</strong>?</li>
-<li>If <span class="math inline">X</span> is <strong>small</strong>, is <span class="math inline">Y</span> likely to be <strong>small</strong> or <strong>large</strong>?</li>
-<li>Covariance encodes the above questions</li>
-</ul>
-</section>
-<section id="covariance-2" class="slide level2 smaller">
-<h2>Covariance</h2>
-<h3 id="remark-1">Remark</h3>
-<p>The sign of <span class="math inline">{\rm Cov}(X,Y)</span> gives information about the relationship between <span class="math inline">X</span> and <span class="math inline">Y</span></p>
-<table class="caption-top" style="width:100%;">
-<colgroup>
-<col style="width: 30%">
-<col style="width: 35%">
-<col style="width: 35%">
-</colgroup>
-<thead>
-<tr class="header">
-<th></th>
-<th><span class="math inline">X</span> small: <span class="math inline">\, X&lt;\mu_X</span></th>
-<th><span class="math inline">X</span> large: <span class="math inline">\, X&gt;\mu_X</span></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><span class="math inline">Y</span> small: <span class="math inline">\, Y&lt;\mu_Y</span></td>
-<td><span class="math inline">(X-\mu_X)(Y-\mu_Y)&gt;0</span></td>
-<td><span class="math inline">(X-\mu_X)(Y-\mu_Y)&lt;0</span></td>
-</tr>
-<tr class="even">
-<td><span class="math inline">Y</span> large: <span class="math inline">\, Y&gt;\mu_Y</span></td>
-<td><span class="math inline">(X-\mu_X)(Y-\mu_Y)&lt;0</span></td>
-<td><span class="math inline">(X-\mu_X)(Y-\mu_Y)&gt;0</span></td>
-</tr>
-</tbody>
-</table>
-<p><br></p>
-<table class="caption-top" style="width:100%;">
-<colgroup>
-<col style="width: 30%">
-<col style="width: 35%">
-<col style="width: 35%">
-</colgroup>
-<thead>
-<tr class="header">
-<th></th>
-<th><span class="math inline">X</span> small: <span class="math inline">\, X&lt;\mu_X</span></th>
-<th><span class="math inline">X</span> large: <span class="math inline">\, X&gt;\mu_X</span></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><span class="math inline">Y</span> small: <span class="math inline">\, Y&lt;\mu_Y</span></td>
-<td><span class="math inline">{\rm Cov}(X,Y)&gt;0</span></td>
-<td><span class="math inline">{\rm Cov}(X,Y)&lt;0</span></td>
-</tr>
-<tr class="even">
-<td><span class="math inline">Y</span> large: <span class="math inline">\, Y&gt;\mu_Y</span></td>
-<td><span class="math inline">{\rm Cov}(X,Y)&lt;0</span></td>
-<td><span class="math inline">{\rm Cov}(X,Y)&gt;0</span></td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="covariance-3" class="slide level2 smaller">
-<h2>Covariance</h2>
 <h3 id="alternative-formula">Alternative Formula</h3>
-<div id="Theorem*-3.3" class="Theorem">
+<div id="Theorem*-2.7" class="Theorem">
 <p></p><details class="Theorem fbx-simplebox fbx-default" open=""><summary><strong>Theorem</strong></summary><div>The covariance of <span class="math inline">X</span> and <span class="math inline">Y</span> can be computed via <span class="math display">
 {\rm Cov}(X,Y) = {\rm I\kern-.3em E}[XY] - {\rm I\kern-.3em E}[X]{\rm I\kern-.3em E}[Y]
 </span><p></p>
 </div></details>
 </div>
-</section>
-<section id="covariance-4" class="slide level2 smaller">
-<h2>Covariance</h2>
-<h3 id="proof-of-theorem">Proof of Theorem</h3>
-<p>Using linearity of <span class="math inline">{\rm I\kern-.3em E}</span> and the fact that <span class="math inline">{\rm I\kern-.3em E}[c]=c</span> for <span class="math inline">c \in \mathbb{R}</span>: <span class="math display">\begin{align*}
-{\rm Cov}(X,Y) : &amp; = {\rm I\kern-.3em E}[ \,\, (X - {\rm I\kern-.3em E}[X]) (Y - {\rm I\kern-.3em E}[Y]) \,\,  ] \\
-            &amp;  = {\rm I\kern-.3em E}\left[ \,\, XY - X {\rm I\kern-.3em E}[Y] - Y {\rm I\kern-.3em E}[X] + {\rm I\kern-.3em E}[X]{\rm I\kern-.3em E}[Y] \,\, \right]  \\
-            &amp;  = {\rm I\kern-.3em E}[XY] - {\rm I\kern-.3em E}[ X {\rm I\kern-.3em E}[Y] ]
-               - {\rm I\kern-.3em E}[ Y {\rm I\kern-.3em E}[X] ] + {\rm I\kern-.3em E}[{\rm I\kern-.3em E}[X] {\rm I\kern-.3em E}[Y]] \\
-            &amp; =  {\rm I\kern-.3em E}[XY] - {\rm I\kern-.3em E}[X] {\rm I\kern-.3em E}[Y]    
-               - {\rm I\kern-.3em E}[Y] {\rm I\kern-.3em E}[X] + {\rm I\kern-.3em E}[X] {\rm I\kern-.3em E}[Y] \\
-            &amp; =  {\rm I\kern-.3em E}[XY] - {\rm I\kern-.3em E}[X] {\rm I\kern-.3em E}[Y]    
-\end{align*}</span></p>
 </section>
 <section id="correlation" class="slide level2 smaller">
 <h2>Correlation</h2>
@@ -806,7 +727,7 @@ X|Y \sim X \qquad \qquad Y|X \sim Y
 <li><p><span class="math inline">{\rm Cov}(X,Y)</span> encodes only <strong>qualitative</strong> information about the relationship between <span class="math inline">X</span> and <span class="math inline">Y</span></p></li>
 <li><p>To obtain <strong>quantitative</strong> information we introduce the <strong>correlation</strong></p></li>
 </ul>
-<div id="Definition*-3.4" class="Definition">
+<div id="Definition*-2.8" class="Definition">
 <p></p><details class="Definition fbx-simplebox fbx-default" open=""><summary><strong>Definition</strong></summary><div>The <strong>correlation</strong> of <span class="math inline">X</span> and <span class="math inline">Y</span> is the number <span class="math display">
 \rho_{XY} := \frac{{\rm Cov}(X,Y)}{\sigma_X \sigma_Y}
 </span><p></p>
@@ -816,7 +737,7 @@ X|Y \sim X \qquad \qquad Y|X \sim Y
 <section id="correlation-1" class="slide level2 smaller">
 <h2>Correlation</h2>
 <p>Correlation detects <strong>linear relationships</strong> between <span class="math inline">X</span> and <span class="math inline">Y</span></p>
-<div id="Theorem*-3.5" class="Theorem">
+<div id="Theorem*-2.9" class="Theorem">
 <details class="Theorem fbx-simplebox fbx-default" open=""><summary><strong>Theorem</strong></summary><div>
 <p>For any random variables <span class="math inline">X</span> and <span class="math inline">Y</span> we have</p>
 <ul>
@@ -834,7 +755,7 @@ X|Y \sim X \qquad \qquad Y|X \sim Y
 <section id="correlation-covariance" class="slide level2 smaller">
 <h2>Correlation &amp; Covariance</h2>
 <h3 id="independent-random-variables">Independent random variables</h3>
-<div id="Theorem*-3.6" class="Theorem">
+<div id="Theorem*-2.10" class="Theorem">
 <p></p><details class="Theorem fbx-simplebox fbx-default" open=""><summary><strong>Theorem</strong></summary><div>If <span class="math inline">X</span> and <span class="math inline">Y</span> are independent random variables then <span class="math display">
 {\rm Cov}(X,Y) = 0 \,, \qquad \rho_{XY}=0
 </span><p></p>
@@ -850,7 +771,7 @@ X|Y \sim X \qquad \qquad Y|X \sim Y
 <section id="formula-for-variance" class="slide level2 smaller">
 <h2>Formula for Variance</h2>
 <h3 id="variance-is-quadratic">Variance is quadratic</h3>
-<div id="Theorem*-3.7" class="Theorem">
+<div id="Theorem*-2.11" class="Theorem">
 <p></p><details class="Theorem fbx-simplebox fbx-default" open=""><summary><strong>Theorem</strong></summary><div>For any two random variables <span class="math inline">X</span> and <span class="math inline">Y</span> and <span class="math inline">a,b \in \mathbb{R}</span> <span class="math display">
 {\rm Var}[aX + bY] = a^2 {\rm Var}[X] + b^2 {\rm Var}[Y] + 2 {\rm Cov}(X,Y)
 </span> If <span class="math inline">X</span> and <span class="math inline">Y</span> are independent then <span class="math display">
@@ -888,7 +809,7 @@ X|Y \sim X \qquad \qquad Y|X \sim Y
 <section id="discrete-and-continuous-multivariate-random-vectors" class="slide level2 smaller">
 <h2>Discrete and Continuous Multivariate Random Vectors</h2>
 <p>Everything we defined for <strong>bivariate</strong> vectors extends to <strong>multivariate</strong> vectors</p>
-<div id="Definition*-4.1" class="Definition">
+<div id="Definition*-3.1" class="Definition">
 <details class="Definition fbx-simplebox fbx-default" open=""><summary><strong>Definition</strong></summary><div>
 <p>The random vector <span class="math inline">\mathbf{X}\colon \Omega \to \mathbb{R}^n</span> is:</p>
 <ul>
@@ -900,7 +821,7 @@ X|Y \sim X \qquad \qquad Y|X \sim Y
 </section>
 <section id="joint-pmf" class="slide level2 smaller">
 <h2>Joint pmf</h2>
-<div id="Definition*-4.2" class="Definition">
+<div id="Definition*-3.2" class="Definition">
 <p></p><details class="Definition fbx-simplebox fbx-default" open=""><summary><strong>Definition</strong></summary><div>The <strong>joint pmf</strong> of a continuous random vector <span class="math inline">\mathbf{X}</span> is <span class="math inline">f_{\mathbf{X}} \colon \mathbb{R}^n \to \mathbb{R}</span> defined by <span class="math display">
 f_{\mathbf{X}} (\mathbf{x}) = f_{\mathbf{X}}(x_1,\ldots,x_n) := P(X_1 = x_1 , \ldots , X_n = x_n ) \,, \qquad \forall \, \mathbf{x}\in \mathbb{R}^n
 </span><p></p>
@@ -912,7 +833,7 @@ P(\mathbf{X}\in A) = \sum_{\mathbf{x}\in A} f_{\mathbf{X}}(\mathbf{x})
 </section>
 <section id="joint-pdf" class="slide level2 smaller">
 <h2>Joint pdf</h2>
-<div id="Definition*-4.3" class="Definition">
+<div id="Definition*-3.3" class="Definition">
 <p></p><details class="Definition fbx-simplebox fbx-default" open=""><summary><strong>Definition</strong></summary><div>The <strong>joint pdf</strong> of a continuous random vector <span class="math inline">\mathbf{X}</span> is a function <span class="math inline">f_{\mathbf{X}} \colon \mathbb{R}^n \to \mathbb{R}</span> such that <span class="math display">
 P (\mathbf{X}\in A) := \int_A f_{\mathbf{X}}(x_1 ,\ldots, x_n) \, dx_1 \ldots dx_n = \int_{A} f_{\mathbf{X}}(\mathbf{x}) \, d\mathbf{x}\,, \quad \forall \, A \subset \mathbb{R}^n
 </span><p></p>
@@ -922,7 +843,7 @@ P (\mathbf{X}\in A) := \int_A f_{\mathbf{X}}(x_1 ,\ldots, x_n) \, dx_1 \ldots dx
 </section>
 <section id="expected-value" class="slide level2 smaller">
 <h2>Expected Value</h2>
-<div id="Definition*-4.4" class="Definition">
+<div id="Definition*-3.4" class="Definition">
 <p></p><details class="Definition fbx-simplebox fbx-default" open=""><summary><strong>Definition</strong></summary><div><span class="math inline">\mathbf{X}\colon \Omega \to \mathbb{R}^n</span> random vector and <span class="math inline">g \colon \mathbb{R}^n \to \mathbb{R}</span> function. The <strong>expected value</strong> of the random variable <span class="math inline">g(X)</span> is <span class="math display">\begin{align*}
 {\rm I\kern-.3em E}[g(\mathbf{X})] &amp; := \sum_{x \in \mathbb{R}^n} g(\mathbf{x}) f_{\mathbf{X}} (\mathbf{x})  \qquad &amp; (\mathbf{X}\text{ discrete}) \\
 {\rm I\kern-.3em E}[g(\mathbf{X})] &amp; := \int_{\mathbb{R}^n} g(\mathbf{x}) f_{\mathbf{X}} (\mathbf{x}) \, d\mathbf{x}\qquad &amp; \qquad  (\mathbf{X}\text{ continuous})
@@ -936,7 +857,7 @@ P (\mathbf{X}\in A) := \int_A f_{\mathbf{X}}(x_1 ,\ldots, x_n) \, dx_1 \ldots dx
 <li><p><strong>Marginal pmf or pdf</strong> of any <strong>subset</strong> of the coordinates <span class="math inline">(X_1,\ldots,X_n)</span> can be computed by integrating or summing the remaining coordinates</p></li>
 <li><p>To ease notations, we only define maginals wrt the first <span class="math inline">k</span> coordinates</p></li>
 </ul>
-<div id="Definition*-4.5" class="Definition">
+<div id="Definition*-3.5" class="Definition">
 <p></p><details class="Definition fbx-simplebox fbx-default" open=""><summary><strong>Definition</strong></summary><div>The <strong>marginal pmf</strong> or <strong>marginal pdf</strong> of the random vector <span class="math inline">\mathbf{X}</span> with respect to the first <span class="math inline">k</span> coordinates is the function <span class="math inline">f \colon \mathbb{R}^k \to \mathbb{R}</span> defined by <span class="math display">\begin{align*}
 f(x_1,\ldots,x_k) &amp; := \sum_{ (x_{k+1}, \ldots, x_n) \in \mathbb{R}^{n-k} }  
 f_{\mathbf{X}} (x_1 , \ldots , x_n)  \quad &amp; (\mathbf{X}\text{ discrete}) \\
@@ -950,7 +871,7 @@ f(x_1,\ldots,x_k) &amp; := \int_{\mathbb{R}^{n-k}}f_{\mathbf{X}} (x_1 , \ldots, 
 <ul>
 <li>We use a special notation for <strong>marginal pmf or pdf</strong> wrt a single coordinate</li>
 </ul>
-<div id="Definition*-4.6" class="Definition">
+<div id="Definition*-3.6" class="Definition">
 <p></p><details class="Definition fbx-simplebox fbx-default" open=""><summary><strong>Definition</strong></summary><div>The <strong>marginal pmf</strong> or <strong>marginal pdf</strong> of the random vector <span class="math inline">\mathbf{X}</span> with respect to the <span class="math inline">i</span>-th coordinate is the function <span class="math inline">f_{X_i} \colon \mathbb{R}\to \mathbb{R}</span> defined by <span class="math display">\begin{align*}
 f_{X_i}(x_i) &amp; := \sum_{ \tilde{x} \in \mathbb{R}^{n-1} }  
 f_{\mathbf{X}} (x_1, \ldots, x_n)  \quad &amp; (\mathbf{X}\text{ discrete}) \\
@@ -964,7 +885,7 @@ f_{X_i}(x_i) &amp; := \int_{\mathbb{R}^{n-1}}f_{\mathbf{X}} (x_1, \ldots, x_n) \
 <section id="conditional-distributions" class="slide level2 smaller">
 <h2>Conditional distributions</h2>
 <p>We now define conditional distributions given the first <span class="math inline">k</span> coordinates</p>
-<div id="Definition*-4.7" class="Definition">
+<div id="Definition*-3.7" class="Definition">
 <p></p><details class="Definition fbx-simplebox fbx-default" open=""><summary><strong>Definition</strong></summary><div>Let <span class="math inline">\mathbf{X}</span> be a random vector and suppose that the marginal pmf or pdf wrt the first <span class="math inline">k</span> coordinates satisfies <span class="math display">
 f(x_1,\ldots,x_k) &gt; 0 \,, \quad \forall \, (x_1,\ldots,x_k ) \in \mathbb{R}^k
 </span> The <strong>conditional pmf or pdf</strong> of <span class="math inline">(X_{k+1},\ldots,X_n)</span> given <span class="math inline">X_1 = x_1, \ldots , X_k = x_k</span> is the function of <span class="math inline">(x_{k+1},\ldots,x_{n})</span> defined by <span class="math display">
@@ -976,7 +897,7 @@ f(x_{k+1},\ldots,x_n | x_1 , \ldots , x_k) := \frac{f_{\mathbf{X}}(x_1,\ldots,x_
 <section id="conditional-distributions-1" class="slide level2 smaller">
 <h2>Conditional distributions</h2>
 <p>Similarly, we can define the conditional distribution given the <span class="math inline">i</span>-th coordinate</p>
-<div id="Definition*-4.8" class="Definition">
+<div id="Definition*-3.8" class="Definition">
 <p></p><details class="Definition fbx-simplebox fbx-default" open=""><summary><strong>Definition</strong></summary><div>Let <span class="math inline">\mathbf{X}</span> be a random vector and suppose that for a given <span class="math inline">x_i \in \mathbb{R}</span> <span class="math display">
 f_{X_i}(x_i) &gt; 0
 </span> The <strong>conditional pmf or pdf</strong> of <span class="math inline">\tilde{X}</span> given <span class="math inline">X_i = x_i</span> is the function of <span class="math inline">\tilde{x}</span> defined by <span class="math display">
@@ -988,25 +909,25 @@ f(\tilde{x} | x_i ) := \frac{f_{\mathbf{X}}(x_1,\ldots,x_n)}{f_{X_i}(x_i)}
 </div></details>
 </div>
 </section>
-<section id="independence" class="slide level2 smaller">
+<section id="independence-1" class="slide level2 smaller">
 <h2>Independence</h2>
-<div id="Definition*-4.9" class="Definition">
+<div id="Definition*-3.9" class="Definition">
 <p></p><details class="Definition fbx-simplebox fbx-default" open=""><summary><strong>Definition</strong></summary><div><span class="math inline">\mathbf{X}=(X_1,\ldots,X_n)</span> random vector with joint pmf or pdf <span class="math inline">f_{\mathbf{X}}</span> and marginals <span class="math inline">f_{X_i}</span>. We say that the random variables <span class="math inline">X_1,\ldots,X_n</span> are <strong>mutually independent</strong> if <span class="math display">
 f_{\mathbf{X}}(x_1,\ldots,x_n) = f_{X_1}(x_1) \cdot \ldots \cdot f_{X_n}(x_n) = \prod_{i=1}^n f_{X_i}(x_i)
 </span><p></p>
 </div></details>
 </div>
-<div id="Proposition*-4.10" class="Proposition">
+<div id="Proposition*-3.10" class="Proposition">
 <p></p><details class="Proposition fbx-simplebox fbx-default" open=""><summary><strong>Proposition</strong></summary><div>If <span class="math inline">X_1,\ldots,X_n</span> are mutually independent then for all <span class="math inline">A_i \subset \mathbb{R}</span> <span class="math display">
 P(X_1 \in A_1 , \ldots , X_n \in A_n) = \prod_{i=1}^n P(X_i \in A_i)
 </span><p></p>
 </div></details>
 </div>
 </section>
-<section id="independence-1" class="slide level2 smaller">
+<section id="independence-2" class="slide level2 smaller">
 <h2>Independence</h2>
 <h3 id="characterization-result">Characterization result</h3>
-<div id="Theorem*-4.11" class="Theorem">
+<div id="Theorem*-3.11" class="Theorem">
 <details class="Theorem fbx-simplebox fbx-default" open=""><summary><strong>Theorem</strong></summary><div>
 <p><span class="math inline">\mathbf{X}=(X_1,\ldots,X_n)</span> random vector with joint pmf or pdf <span class="math inline">f_{\mathbf{X}}</span>. They are equivalent:</p>
 <ul>
@@ -1018,20 +939,20 @@ f_{\mathbf{X}}(x_1,\ldots,x_n) =  \prod_{i=1}^n g_{i}(x_i)
 </div></details>
 </div>
 </section>
-<section id="independence-2" class="slide level2 smaller">
+<section id="independence-3" class="slide level2 smaller">
 <h2>Independence</h2>
 <h3 id="expectation-of-product">Expectation of product</h3>
-<div id="Theorem*-4.12" class="Theorem">
+<div id="Theorem*-3.12" class="Theorem">
 <p></p><details class="Theorem fbx-simplebox fbx-default" open=""><summary><strong>Theorem</strong></summary><div><span class="math inline">X_1,\ldots,X_n</span> be mutually independent random variables and <span class="math inline">g_i(x_i)</span> functions. Then <span class="math display">
 {\rm I\kern-.3em E}[ g_1(X_1) \cdot \ldots \cdot g_n(X_n) ] = \prod_{i=1}^n {\rm I\kern-.3em E}[g_i(X_i)]
 </span><p></p>
 </div></details>
 </div>
 </section>
-<section id="independence-3" class="slide level2 smaller">
+<section id="independence-4" class="slide level2 smaller">
 <h2>Independence</h2>
 <h3 id="a-very-useful-theorem">A very useful theorem</h3>
-<div id="Theorem*-4.13" class="Theorem">
+<div id="Theorem*-3.13" class="Theorem">
 <p></p><details class="Theorem fbx-simplebox fbx-default" open=""><summary><strong>Theorem</strong></summary><div><span class="math inline">X_1,\ldots,X_n</span> be mutually independent random variables and <span class="math inline">g_i(x_i)</span> function only of <span class="math inline">x_i</span>. Then the random variables <span class="math display">
 g_1(X_1) \,, \ldots \,, g_n(X_n)
 </span> are mutually independent<p></p>
@@ -1040,10 +961,10 @@ g_1(X_1) \,, \ldots \,, g_n(X_n)
 <p><strong>Proof</strong>: Omitted. See <span class="citation" data-cites="casella-berger">[<a href="#/references" role="doc-biblioref" onclick="">1</a>]</span> page 184</p>
 <p><strong>Example</strong>: <span class="math inline">X_1,\ldots,X_n \,</span> independent <span class="math inline">\,\, \implies \,\, X_1^2, \ldots, X_n^2 \,</span> independent</p>
 </section>
-<section id="independence-4" class="slide level2 smaller">
+<section id="independence-5" class="slide level2 smaller">
 <h2>Independence</h2>
 <h3 id="mgf-of-sum">MGF of sum</h3>
-<div id="Theorem*-4.14" class="Theorem">
+<div id="Theorem*-3.14" class="Theorem">
 <p></p><details class="Theorem fbx-simplebox fbx-default" open=""><summary><strong>Theorem</strong></summary><div><span class="math inline">X_1,\ldots,X_n</span> be mutually independent random variables with mgfs <span class="math inline">M_{X_1}(t),\ldots, M_{X_n}(t)</span>. Define the random variable <span class="math display">
 Z := X_1 + \ldots + X_n
 </span> The mgf of <span class="math inline">Z</span> satisfies <span class="math display">
@@ -1052,9 +973,9 @@ M_Z(t) = \prod_{i=1}^n M_{X_i}(t)
 </div></details>
 </div>
 </section>
-<section id="sum-of-independent-normals-2" class="slide level2 smaller">
+<section id="sum-of-independent-normals" class="slide level2 smaller">
 <h2>Sum of independent Normals</h2>
-<div id="Theorem*-4.15" class="Theorem">
+<div id="Theorem*-3.15" class="Theorem">
 <p></p><details class="Theorem fbx-simplebox fbx-default" open=""><summary><strong>Theorem</strong></summary><div>Let <span class="math inline">X_1,\ldots,X_n</span> be mutually independent random variables with normal distribution <span class="math inline">X_i \sim N (\mu_i,\sigma_i^2)</span>. Define <span class="math display">
 Z := X_1 + \ldots + X_n
 </span> and <span class="math display">
@@ -1065,9 +986,9 @@ Z \sim N(\mu,\sigma^2)
 </div></details>
 </div>
 </section>
-<section id="sum-of-independent-normals-3" class="slide level2 smaller">
+<section id="sum-of-independent-normals-1" class="slide level2 smaller">
 <h2>Sum of independent Normals</h2>
-<h3 id="proof-of-theorem-1">Proof of Theorem</h3>
+<h3 id="proof-of-theorem">Proof of Theorem</h3>
 <ul>
 <li><p>We have seen in Slide 119 in Lecture 1 that if <span class="math inline">X_i \sim N(\mu_i,\sigma_i^2)</span> then <span class="math display">
 M_{X_i}(t) = \exp \left( \mu_i t + \frac{t^2 \sigma_i^2}{2} \right)
@@ -1080,9 +1001,9 @@ M_{Z}(t) &amp; = \prod_{i=1}^n M_{X_i}(t) =
 \end{align*}</span></p></li>
 </ul>
 </section>
-<section id="sum-of-independent-normals-4" class="slide level2 smaller">
+<section id="sum-of-independent-normals-2" class="slide level2 smaller">
 <h2>Sum of independent Normals</h2>
-<h3 id="proof-of-theorem-2">Proof of Theorem</h3>
+<h3 id="proof-of-theorem-1">Proof of Theorem</h3>
 <ul>
 <li><p>Therefore <span class="math inline">Z</span> has moment generating function <span class="math display">
 M_{Z}(t) = \exp \left( \mu t + \frac{t^2 \sigma^2 }{2} \right)
@@ -1097,7 +1018,7 @@ Z \sim N(\mu, \sigma^2 )
 </section>
 <section id="sum-of-independent-gammas" class="slide level2 smaller">
 <h2>Sum of independent Gammas</h2>
-<div id="Theorem*-4.16" class="Theorem">
+<div id="Theorem*-3.16" class="Theorem">
 <p></p><details class="Theorem fbx-simplebox fbx-default" open=""><summary><strong>Theorem</strong></summary><div>Let <span class="math inline">X_1,\ldots,X_n</span> be mutually independent random variables with Gamma distribution <span class="math inline">X_i \sim \Gamma (\alpha_i,\beta)</span>. Define <span class="math display">
 Z := X_1 + \ldots + X_n
 </span> and <span class="math display">
@@ -1110,7 +1031,7 @@ Z \sim \Gamma(\alpha,\beta)
 </section>
 <section id="sum-of-independent-gammas-1" class="slide level2 smaller">
 <h2>Sum of independent Gammas</h2>
-<h3 id="proof-of-theorem-3">Proof of Theorem</h3>
+<h3 id="proof-of-theorem-2">Proof of Theorem</h3>
 <ul>
 <li><p>We have seen in Slide 126 in Lecture 1 that if <span class="math inline">X_i \sim \Gamma(\alpha_i,\beta)</span> then <span class="math display">
 M_{X_i}(t) = \frac{\beta^{\alpha_i}}{(\beta-t)^{\alpha_i}}
@@ -1125,7 +1046,7 @@ M_{Z}(t) &amp; = \prod_{i=1}^n M_{X_i}(t) =
 </section>
 <section id="sum-of-independent-gammas-2" class="slide level2 smaller">
 <h2>Sum of independent Gammas</h2>
-<h3 id="proof-of-theorem-4">Proof of Theorem</h3>
+<h3 id="proof-of-theorem-3">Proof of Theorem</h3>
 <ul>
 <li><p>Therefore <span class="math inline">Z</span> has moment generating function <span class="math display">
 M_{Z}(t) = \frac{\beta^{\alpha}}{(\beta-t)^{\alpha}}
@@ -1141,7 +1062,7 @@ Z \sim \Gamma(\alpha, \beta )
 <section id="expectation-of-sums" class="slide level2 smaller">
 <h2>Expectation of sums</h2>
 <h3 id="expectation-is-linear">Expectation is linear</h3>
-<div id="Theorem*-4.17" class="Theorem">
+<div id="Theorem*-3.17" class="Theorem">
 <p></p><details class="Theorem fbx-simplebox fbx-default" open=""><summary><strong>Theorem</strong></summary><div>For random variables <span class="math inline">X_1,\ldots,X_n</span> and scalars <span class="math inline">a_1,\ldots,a_n</span> we have <span class="math display">
 {\rm I\kern-.3em E}[a_1X_1 + \ldots + a_nX_n] = a_1 {\rm I\kern-.3em E}[X_1] + \ldots + a_n {\rm I\kern-.3em E}[X_n]
 </span><p></p>
@@ -1151,7 +1072,7 @@ Z \sim \Gamma(\alpha, \beta )
 <section id="variance-of-sums" class="slide level2 smaller">
 <h2>Variance of sums</h2>
 <h3 id="variance-is-quadratic-1">Variance is quadratic</h3>
-<div id="Theorem*-4.18" class="Theorem">
+<div id="Theorem*-3.18" class="Theorem">
 <p></p><details class="Theorem fbx-simplebox fbx-default" open=""><summary><strong>Theorem</strong></summary><div>For random variables <span class="math inline">X_1,\ldots,X_n</span> and scalars <span class="math inline">a_1,\ldots,a_n</span> we have <span class="math display">\begin{align*}
 {\rm Var}[a_1X_1 + \ldots + a_nX_n] = a_1^2 {\rm Var}[X_1] &amp; + \ldots + a^2_n {\rm Var}[X_n] \\
                                                  &amp; + 2 \sum_{i \neq j} {\rm Cov}(X_i,X_j)

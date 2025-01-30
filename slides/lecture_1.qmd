@@ -325,7 +325,7 @@ Slides are self-contained and based on the book
 
 - Statistics is a mathematical subject
 
-- Will use a combination of hand calculation and software (R)
+- We will use a combination of hand calculation and software (R)
 
 - Software (R) is really useful, particularly for dissertations
 
@@ -382,12 +382,12 @@ Module has **11 Lectures**, divided into two parts:
 
 
 
-## Simple but useful questions {.smaller}
+## Questions we will address {.smaller}
 
 
 ::: {.column width="48%"}
 
-**Generic data:**
+**1. Generic data:**
 
 - What is a *typical* observation
   * What is the **mean**?
@@ -400,7 +400,7 @@ Module has **11 Lectures**, divided into two parts:
 
 ::: {.column width="48%"}
 
-**Regression:**
+**2. Regression:**
 
 - What happens to $Y$ as $X$ increases?
   * increases?
@@ -419,7 +419,7 @@ Module has **11 Lectures**, divided into two parts:
 
 
 
-## Analysing a general dataset {.smaller}
+## Question 1 -- Analysing a general dataset {.smaller}
 
 **Two basic questions:**
 
@@ -443,7 +443,7 @@ Module has **11 Lectures**, divided into two parts:
 
 
 
-## Motivating regression {.smaller}
+## Question 2 -- Regression {.smaller}
 
 **Basic question in regression:**
 
@@ -628,24 +628,66 @@ knitr::kable(
 
 
 ## Real data example {.smaller}
-### Visualizing the data
+### Visualizing the data: Plot Stock Price VS Gold Price
 
 
 ::::: {.columns style='display: flex !important; height: 80%;'}
 
 ::: {.column width="38%" style='display: flex; justify-content: center; align-items: center;'}
 
-- Plot Stock Price against Gold Price
-
 - Observation: 
-
-  * As Stock price decreases, Gold price increases
+    * As Stock price decreases, Gold price increases
 
 - Why? This might be because:
     * Stock price decreases
     * People invest in secure assets (Gold)
     * Gold demand increases
     * Gold price increases
+:::
+
+
+::: {.column width="61%" style='display: flex; justify-content: center; align-items: center;'}
+
+```{r}
+#| echo: false
+#| fig-asp: 1
+
+data1 <- read.table("datasets/L3eg1data.txt")
+realgoldprice<-data1[,1]
+realstockprice<-data1[,2]
+plot(realgoldprice,
+  realstockprice, 
+  xlab="", 
+  ylab="")
+
+mtext("Stock Price", side=1, line=3, cex=2)
+mtext("Gold Price", side=2, line=2.5, cex=2)
+
+```
+
+:::
+
+:::::
+
+
+
+
+
+
+## Real data example {.smaller}
+### Visualizing the data: Plot Stock Price VS Gold Price
+
+
+::::: {.columns style='display: flex !important; height: 80%;'}
+
+::: {.column width="38%" style='display: flex; justify-content: center; align-items: center;'}
+
+- Inverse proportionality relation evident for dataset
+
+- **Question**: 
+    * How likely are we to observe it on new data?
+
+- Regression gives rigorous answer
 
 :::
 
@@ -672,6 +714,10 @@ mtext("Gold Price", side=2, line=2.5, cex=2)
 :::
 
 :::::
+
+
+
+
 
 
 
@@ -1341,7 +1387,7 @@ Replacing $\mu$ by $(t\sigma^2 + \mu)$ in (1) we obtain
 \begin{equation} \tag{3}
 \int_{-\infty}^{\infty} \exp \left(- \frac{x^2}{2\sigma^2} + \frac{(t\sigma^2+\mu) x}{\sigma^2} \right) \, dx 
 = \exp \left( \frac{(t\sigma^2+\mu)^2}{2\sigma^2}  \right) \,  
-\frac{1}{\sqrt{2\pi}\sigma}
+\sqrt{2\pi}\sigma
 \end{equation}
 Substituting (3) in (2) and simplifying we get
 $$

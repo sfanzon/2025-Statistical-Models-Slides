@@ -140,7 +140,7 @@ This module will be assessed as follows:
 
 - Homework must be submitted on **[Canvas](https://canvas.hull.ac.uk/courses/75082)**
 
-- Deadline: **14:00 on Mondays**
+- Deadline: **14:00 on Thursday**
 
 
 
@@ -170,12 +170,12 @@ This module will be assessed as follows:
 
 |  **Assignment** |**Due date** |
 |:--------        |:----------- |
-| Homework 1      | 3 Feb       |
-| Homework 2      | 10 Feb      |
-| Homework 3      | 17 Feb      |
-| Homework 4      | 24 Feb      |
-| Homework 5      | 3 Mar       |
-| Homework 6      | 10 Mar      |
+| Homework 1      | 6 Feb       |
+| Homework 2      | 13 Feb      |
+| Homework 3      | 20 Feb      |
+| Homework 4      | 27 Feb      |
+| Homework 5      | 6 Mar       |
+| Homework 6      | 13 Mar      |
 
 
 :::
@@ -186,10 +186,10 @@ This module will be assessed as follows:
 
 |  **Assignment** |**Due date** |
 |:--------        |:----------- |
-| Homework 7      | 17 Mar      |
-| Homework 8      | 24 Mar      |
-| Homework 9      | 31 Mar      |
-| Homework 10     | 7 Apr       |
+| Homework 7      | 20 Mar      |
+| Homework 8      | 27 Mar      |
+| Homework 9      | 3 Apr       |
+| Homework 10     | 10 Apr      |
 | Easter :sunglasses:    | 14-25 Apr   |
 | Coursework      | 1 May       |
 

@@ -3449,9 +3449,7 @@ $$
 
 
 
-## Correlation {.smaller}
-
-Correlation detects **linear relationships** between $X$ and $Y$
+## Correlation detects linear relationships  {.smaller}
 
 ::: Theorem
 

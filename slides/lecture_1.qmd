@@ -1987,7 +1987,6 @@ grid()
 
 
 
-
 ## Solution  {.smaller}
 
 
@@ -2010,7 +2009,7 @@ grid()
 ## Solution  {.smaller}
 
 
-- The conditional distribution $Y|X$ is therefore **exponential**
+- The conditional distribution $Y|X$ is therefore **exponential**, shifted by $x$
 $$
 f(y|x) = 
 \begin{cases}
@@ -2039,10 +2038,18 @@ $$
 \Expect[Y|x] = x + 1  
 $$
 
+
 - This can also be interpreted as the random variable
 $$
 \Expect[Y|X] = X + 1  
 $$
+
+
+- This is not surprising! 
+    * The distribution of $Y|X$ is just an exponential translated by $X$
+    * Therefore, the expected value of $Y|X$ is the expected value of the exponential distribution, which is $1$, translated by $X$
+
+
 
 
 
@@ -2064,10 +2071,24 @@ $$
 \Var[Y|x] = \Expect[Y^2|x] - \Expect[Y|x]^2 = x^2 + 2x + 2 - (x+1)^2 = 1
 $$
 
-- This can also be interpreted as the random variable
+
+
+## Solution  {.smaller}
+
+- The conditional variance can be interpreted as the random variable
 $$
 \Var[Y|X] = 1
 $$
+
+- This is not surprising! 
+    * The distribution of $Y|X$ is just an exponential translated by $X$
+    * Therefore, the shape of the distribution does not change
+    * This implies
+    $$
+    \Var[Y|X = x ] = \Var[Y | X = 0] = 1
+    $$
+
+
 
 
 

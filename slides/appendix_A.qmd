@@ -2785,7 +2785,7 @@ grid()
 ## Solution  {.smaller}
 
 
-- The conditional distribution $Y|X$ is therefore **exponential**
+- The conditional distribution $Y|X$ is therefore **exponential**, shifted by $x$
 $$
 f(y|x) = 
 \begin{cases}
@@ -2814,10 +2814,18 @@ $$
 \Expect[Y|x] = x + 1  
 $$
 
+
 - This can also be interpreted as the random variable
 $$
 \Expect[Y|X] = X + 1  
 $$
+
+
+- This is not surprising! 
+    * The distribution of $Y|X$ is just an exponential translated by $X$
+    * Therefore, the expected value of $Y|X$ is the expected value of the exponential distribution, which is $1$, translated by $X$
+
+
 
 
 
@@ -2839,10 +2847,22 @@ $$
 \Var[Y|x] = \Expect[Y^2|x] - \Expect[Y|x]^2 = x^2 + 2x + 2 - (x+1)^2 = 1
 $$
 
-- This can also be interpreted as the random variable
+
+
+## Solution  {.smaller}
+
+- The conditional variance can be interpreted as the random variable
 $$
 \Var[Y|X] = 1
 $$
+
+- This is not surprising! 
+    * The distribution of $Y|X$ is just an exponential translated by $X$
+    * Therefore, the shape of the distribution does not change
+    * This implies
+    $$
+    \Var[Y|X = x ] = \Var[Y | X = 0] = 1
+    $$
 
 
 
@@ -3516,6 +3536,305 @@ $$
 
 
 **Proof**: Exercise
+
+
+
+
+
+
+## Example 1 {.smaller}
+
+- Assume $X$ and $Z$ are independent, and
+$$
+X  \sim {\rm uniform} \left( 0,1 \right)  \,, \qquad 
+Z  \sim {\rm uniform} \left( 0, \frac{1}{10} \right) 
+$$
+
+
+- Consider the random variable 
+$$
+Y = X + Z
+$$
+
+- Since $X$ and $Z$ are independent, and $Z$ is uniform, we have that
+$$
+Y | X = x  \, \sim \,  {\rm uniform} \left( x, x + \frac{1}{10} \right) 
+$$
+(adding $x$ to $Z$ simply shifts the uniform distribution of $Z$ by $x$)
+
+- **Question:** Is the correlation $\rho_{XY}$ between $X$ and $Y$ high or low?
+
+
+
+## Example 1 {.smaller}
+
+- As $Y | X  \, \sim \,  {\rm uniform} \left( X, X + \frac{1}{10} \right)$, the conditional pdf of $Y$ given $X = x$ is
+$$
+f(y|x) = 
+\begin{cases}
+10 & \text{ if } \, y \in \left( x , x + \frac{1}{10} \right) \\
+0  & \text{ otherwise}
+\end{cases}
+$$
+
+- As $X  \sim {\rm uniform} (0,1)$, its pdf is
+$$
+f_X(x) = 
+\begin{cases}
+1 & \text{ if } \, x \in \left( 0 , 1  \right) \\
+0  & \text{ otherwise}
+\end{cases}
+$$
+
+- Therefore, the joint distribution of $(X,Y)$ is
+$$
+f_{X,Y}(x,y) = f(y|x)f_X(x) = \begin{cases}
+10 & \text{ if } \, x \in (0,1) \, \text{ and } \, y \in \left( x , x + \frac{1}{10} \right) \\
+0  & \text{ otherwise}
+\end{cases}
+$$
+
+
+
+## Example 1 {.smaller}
+
+In gray: the region where $f_{X,Y}(x,y)>0$
+
+- When $X$ increases, $Y$ increases linearly (not surprising, since $Y = X + Z$)
+- We expect the correlation $\rho_{XY}$ to be close to $1$
+
+```{r}
+# Load necessary library
+library(ggplot2)
+
+# Define the function to check where f_{X,Y}(x,y) is nonzero
+f_XY <- function(x, y) {
+  if (x >= 0 & x <= 1 & y >= x & y <= x + 1/10) {
+    return(1)  # Nonzero region (1 means presence)
+  } else {
+    return(0)  # Zero region (0 means absence)
+  }
+}
+
+# Generate a finer grid of (x, y) values
+x_values <- seq(0, 1, length.out = 300)  
+y_values <- seq(0, 1.1, length.out = 300)  
+
+# Create a matrix to store function values
+z_matrix <- outer(x_values, y_values, Vectorize(f_XY))
+
+# Convert to a data frame for ggplot2
+df <- expand.grid(x = x_values, y = y_values)
+df$z <- as.vector(z_matrix)
+
+# Plot the filled region with 1:1 aspect ratio
+ggplot(df, aes(x, y, fill = factor(z))) +
+  geom_tile() +  
+  scale_fill_manual(values = c("white", "gray30")) +  # White for 0, dark gray for nonzero
+  labs(x = "X", y = "Y") +  # Remove title
+  theme_minimal() +
+  theme(legend.position = "none",  # Remove legend for clarity
+        aspect.ratio = 1)  # Set aspect ratio to 1:1
+
+```
+
+
+
+## Example 1 -- Computing $\rho_{XY}${.smaller}
+
+- For a random variable $W \sim {\rm uniform} (a,b)$, we have
+$$
+\Expect[W] = \frac{a+b}{2} \,, \qquad 
+\Var[W] = \frac{(b-a)^2}{12}
+$$
+
+- Since $X \sim {\rm uniform} (0,1)$ and $Z \sim {\rm uniform} (0,1/10)$, we have
+$$
+\Expect[X] = \frac12 \,, \qquad 
+\Var[X] = \frac{1}{12} \,, \qquad 
+\Expect[Z] = \frac{1}{20} \,, \qquad 
+\Var[Z] = \frac{1}{1200}
+$$
+
+
+- Since $X$ and $Z$ are independent, we also have
+$$
+\Var[Y] = \Var[X + Z] =  \Var[X] + \Var[Z] = \frac{1}{12} + \frac{1}{1200} 
+$$
+
+
+
+
+
+## Example 1 -- Computing $\rho_{XY}${.smaller}
+
+- Since $X$ and $Z$ are independent, we have
+$$
+\Expect[XZ] = \Expect[X]\Expect[Z]
+$$
+
+- We conclude that
+\begin{align*}
+\Cov(X,Y) & = \Expect[XY] -  \Expect[X] \Expect[Y] \\
+          & = \Expect[X(X + Z)] -  \Expect[X] \Expect[X + Z] \\
+          & = \Expect[X(X + Z)] -  \Expect[X] \Expect[X + Z] \\
+          & = \Expect[X^2] - \Expect[X]^2 + \Expect[XZ] - \Expect[X]\Expect[Z] \\
+          & = \Var[X] = \frac{1}{12}
+\end{align*}
+
+
+
+## Example 1 -- Computing $\rho_{XY}${.smaller}
+
+
+- The correlation between $X$ and $Y$ is
+\begin{align*}
+\rho_{XY} & = \frac{\Cov(X,Y)}{\sqrt{\Var[X]}\sqrt{\Var[Y]}} \\
+          & = \frac{\frac{1}{12}}{\sqrt{\frac{1}{12}}  \sqrt{ \frac{1}{12} + \frac{1}{1200}} } = \sqrt{\frac{100}{101}}
+\end{align*}
+
+- As expected, we have very high correlation $\rho_{XY} \approx 1$
+
+- This confirms a very strong **linear** relationship between $X$ and $Y$
+
+
+
+
+
+
+
+## Example 2 {.smaller}
+
+- Assume $X$ and $Z$ are independent, and
+$$
+X  \sim {\rm uniform} \left( -1,1 \right)  \,, \qquad 
+Z  \sim {\rm uniform} \left( 0, \frac{1}{10} \right) 
+$$
+
+
+- Define the random variable 
+$$
+Y = X^2 + Z
+$$
+
+- Since $X$ and $Z$ are independent, and $Z$ is uniform, we have that
+$$
+Y | X = x  \, \sim \,  {\rm uniform} \left( x^2, x^2 + \frac{1}{10} \right) 
+$$
+(adding $x$ to $Z$ simply shifts the uniform distribution of $Z$ by $x$)
+
+- **Question:** Is the correlation $\rho_{XY}$ between $X$ and $Y$ high or low?
+
+
+
+## Example 2 {.smaller}
+
+- As $Y | X  \, \sim \,  {\rm uniform} \left( X^2, X^2 + \frac{1}{10} \right)$, the conditional pdf of $Y$ given $X = x$ is
+$$
+f(y|x) = 
+\begin{cases}
+10 & \text{ if } \, y \in \left( x^2 , x^2 + \frac{1}{10} \right) \\
+0  & \text{ otherwise}
+\end{cases}
+$$
+
+- As $X  \sim {\rm uniform} (-1,1)$, its pdf is
+$$
+f_X(x) = 
+\begin{cases}
+\frac12 & \text{ if } \, x \in \left( -1 , 1  \right) \\
+0  & \text{ otherwise}
+\end{cases}
+$$
+
+- Therefore, the joint distribution of $(X,Y)$ is
+$$
+f_{X,Y}(x,y) = f(y|x)f_X(x) = \begin{cases}
+10 & \text{ if } \, x \in (-1,1) \, \text{ and } \, y \in \left( x^2 , x^2 + \frac{1}{10} \right) \\
+0  & \text{ otherwise}
+\end{cases}
+$$
+
+
+
+## Example 2 {.smaller}
+
+In gray: the region where $f_{X,Y}(x,y)>0$
+
+- When $X$ increases, $Y$ increases quadratically (not surprising, as $Y = X^2 + Z$)
+- There is no linear relationship between $X$ and $Y$ $\,\, \implies \,\,$ we expect $\, \rho_{XY} \approx 0$
+
+```{r}
+# Load necessary library
+library(ggplot2)
+
+# Define the function to check where f_{X,Y}(x,y) is nonzero
+f_XY <- function(x, y) {
+  if (x > -1 & x < 1 & y > x^2 & y < x^2 + 1/10) {
+    return(1)  # Nonzero region (1 means presence)
+  } else {
+    return(0)  # Zero region (0 means absence)
+  }
+}
+
+# Generate a finer grid of (x, y) values
+x_values <- seq(-1, 1, length.out = 300)  # x in (-1,1)
+y_values <- seq(0, 1.1, length.out = 300)  # y in a reasonable range
+
+# Create a matrix to store function values
+z_matrix <- outer(x_values, y_values, Vectorize(f_XY))
+
+# Convert to a data frame for ggplot2
+df <- expand.grid(x = x_values, y = y_values)
+df$z <- as.vector(z_matrix)
+
+# Plot the filled region with 1:1 aspect ratio
+ggplot(df, aes(x, y, fill = factor(z))) +
+  geom_tile() +  
+  scale_fill_manual(values = c("white", "gray30")) +  # White for 0, dark gray for nonzero
+  labs(x = "X", y = "Y") +
+  theme_minimal() +
+  theme(legend.position = "none",  # Remove legend for clarity
+        aspect.ratio = 1)  # Set aspect ratio to 1:1
+
+```
+
+
+
+## Example 2 -- Computing $\rho_{XY}${.smaller}
+
+- Since $X \sim {\rm uniform} (-1,1)$, we can compute that
+$$
+\Expect[X] = \Expect[X^3] = 0
+$$
+
+
+- Since $X$ and $Z$ are independent, we have
+$$
+\Expect[XZ] = \Expect[X]\Expect[Z] = 0
+$$
+
+
+
+
+## Example 2 -- Computing $\rho_{XY}${.smaller}
+
+- Compute the covariance
+\begin{align*}
+\Cov(X,Y) & = \Expect[XY] -  \Expect[X] \Expect[Y] \\
+          & = \Expect[XY] \\
+          & = \Expect[X(X^2 + Z)]  \\
+          & = \Expect[X^3] + \Expect[XZ] = 0
+\end{align*}
+
+
+- The correlation between $X$ and $Y$ is
+$$
+\rho_{XY}  = \frac{\Cov(X,Y)}{\sqrt{\Var[X]}\sqrt{\Var[Y]}} = 0 
+$$
+
+
+- This confirms there is **no linear** relationship between $X$ and $Y$
 
 
 

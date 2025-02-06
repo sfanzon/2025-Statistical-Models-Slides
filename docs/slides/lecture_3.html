@@ -31,7 +31,92 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
-  </style>
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+      margin-bottom: 0em;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
   <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto.css">
   <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
@@ -340,31 +425,23 @@
   </style>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
   <style>
-  .Question {
+  .Axiom {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
-  .Corollary {
-    --color1: #f4cce0;
-    --color2: #db4d92;
+  .DONE {
+    --color1: #cce7b1;
+    --color2: #86b754;
   }
   .Example {
     --color1: #bce5de;
     --color2: #21aa93;
   }
-  .Definition {
-    --color1: #c6e6ed;
-    --color2: #1995ad;
-  }
-  .Conjecture {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
   .Notation {
     --color1: #c6e6ed;
     --color2: #1995ad;
   }
-  .Lemma {
+  .Warning {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
@@ -372,35 +449,15 @@
     --color1: #f4cce0;
     --color2: #db4d92;
   }
-  .Axiom {
+  .Question {
     --color1: #f4cce0;
     --color2: #db4d92;
-  }
-  .TODO {
-    --color1: #e7b1b4;
-    --color2: #8c3236;
-  }
-  .Warning {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Important {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Idea {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Proof {
-    --color1: #f1f1f2;
-    --color2: #c0c0c1;
   }
   .Remark {
     --color1: #bce5de;
     --color2: #21aa93;
   }
-  .Proposition {
+  .Lemma {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
@@ -408,9 +465,37 @@
     --color1: #f4cce0;
     --color2: #db4d92;
   }
-  .DONE {
-    --color1: #cce7b1;
-    --color2: #86b754;
+  .Proof {
+    --color1: #f1f1f2;
+    --color2: #c0c0c1;
+  }
+  .Important {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .TODO {
+    --color1: #e7b1b4;
+    --color2: #8c3236;
+  }
+  .Conjecture {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Corollary {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Definition {
+    --color1: #c6e6ed;
+    --color2: #1995ad;
+  }
+  .Proposition {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Idea {
+    --color1: #f4cce0;
+    --color2: #db4d92;
   }
   </style>
 </head>
@@ -438,8 +523,8 @@
 
 </section>
 <section>
-<section id="lecture-3-random-samples" class="title-slide slide level1 center" data-background-color="#cc0164" data-visibility="uncounted">
-<h1>Lecture 3: <br>Random samples</h1>
+<section id="lecture-3-hypothesis-tests-in-r-part-1" class="title-slide slide level1 center" data-background-color="#cc0164" data-visibility="uncounted">
+<h1>Lecture 3: <br>Hypothesis tests in R <br> Part 1</h1>
 <div class="footer">
 <div color="#cc0164">
 
@@ -448,29 +533,33 @@
 </section>
 <section id="outline-of-lecture-3" class="slide level2">
 <h2>Outline of Lecture 3</h2>
-<ol start="4" type="1">
+<ol type="1">
 <li>Hypothesis testing</li>
+<li>The t-test</li>
+<li>The basics of R</li>
+<li>Vectors</li>
+<li>The t-test in R</li>
+<li>Graphics</li>
 </ol>
 </section></section>
 <section>
-<section id="part-6-hypothesis-testing" class="title-slide slide level1 center" data-background-color="#cc0164" data-visibility="uncounted">
-<h1>Part 6: <br>Hypothesis testing</h1>
+<section id="part-1-hypothesis-testing" class="title-slide slide level1 center" data-background-color="#cc0164" data-visibility="uncounted">
+<h1>Part 1: <br>Hypothesis testing</h1>
 <div class="footer">
 <div color="#cc0164">
 
 </div>
 </div>
 </section>
-<section id="hypothesis-testing" class="slide level2 smaller">
-<h2>Hypothesis testing</h2>
-<h3 id="definition-of-hypothesis">Definition of Hypothesis</h3>
+<section id="definition-of-hypothesis" class="slide level2 smaller">
+<h2>Definition of Hypothesis</h2>
 <ul>
 <li><strong>Idea</strong>:
 <ul>
 <li>Interested in knowing a population parameter <span class="math inline">\theta</span></li>
 <li><span class="math inline">\theta</span> cannot be measured directly</li>
 <li>We can sample the population and draw conclusions on <span class="math inline">\theta</span></li>
-<li>Such conclusions are <strong>hypotheses</strong></li>
+<li>Such conclusions are called <strong>hypotheses</strong></li>
 </ul></li>
 </ul>
 <div id="Definition*-2.1" class="Definition">
@@ -478,9 +567,8 @@
 </div></details>
 </div>
 </section>
-<section id="hypothesis-testing-1" class="slide level2 smaller">
-<h2>Hypothesis testing</h2>
-<h3 id="complementary-hypotheses">Complementary hypotheses</h3>
+<section id="complementary-hypotheses" class="slide level2 smaller">
+<h2>Complementary hypotheses</h2>
 <ul>
 <li><p>Two hypotheses are <strong>complementary</strong> if exactly one of them can be true</p></li>
 <li><p>Complementary hypotheses are called:</p>
@@ -491,9 +579,8 @@
 <li><p><strong>Goal</strong>: Find a way to decide which between <span class="math inline">H_0</span> and <span class="math inline">H_1</span> is true</p></li>
 </ul>
 </section>
-<section id="hypothesis-testing-2" class="slide level2 smaller">
-<h2>Hypothesis testing</h2>
-<h3 id="how-to-model-hypotheses">How to model hypotheses</h3>
+<section id="how-to-model-hypotheses" class="slide level2 smaller">
+<h2>How to model hypotheses</h2>
 <p>We denote by:</p>
 <ul>
 <li><span class="math inline">\theta</span> a population parameter</li>
@@ -504,9 +591,8 @@ H_0 \colon &amp; \theta \in \Theta_0  &amp; \qquad \text{ null hypothesis} \\
 H_1 \colon &amp; \theta \in \Theta_0^c  &amp; \qquad \text{ alternative hypothesis}
 \end{align*}</span></p>
 </section>
-<section id="hypothesis-testing-3" class="slide level2 smaller">
-<h2>Hypothesis testing</h2>
-<h3 id="definition-of-hypothesis-test">Definition of Hypothesis test</h3>
+<section id="definition-of-hypothesis-test" class="slide level2 smaller">
+<h2>Definition of Hypothesis test</h2>
 <div id="Definition*-2.2" class="Definition">
 <details class="Definition fbx-simplebox fbx-default" open=""><summary><strong>Definition</strong></summary><div>
 <p>A <strong>hypothesis test</strong> is a rule to decide:</p>
@@ -517,66 +603,53 @@ H_1 \colon &amp; \theta \in \Theta_0^c  &amp; \qquad \text{ alternative hypothes
 </div></details>
 </div>
 </section>
-<section id="hypothesis-testing-4" class="slide level2 smaller">
-<h2>Hypothesis testing</h2>
-<h3 id="acceptance-and-critical-regions">Acceptance and Critical regions</h3>
+<section id="acceptance-and-critical-regions" class="slide level2 smaller">
+<h2>Acceptance and Critical regions</h2>
 <p>The sample space is partitioned into two regions:</p>
 <ul>
-<li><strong>Acceptance region:</strong> For samples <span class="math inline">\mathbf{X}</span> in this region we <strong>accept</strong> <span class="math inline">H_0</span></li>
-<li><strong>Critical region:</strong> For samples <span class="math inline">\mathbf{X}</span> in this region we <strong>reject</strong> <span class="math inline">H_0</span></li>
+<li><strong>Acceptance region:</strong> For samples <span class="math inline">\mathbf{x}</span> in this region we <strong>accept</strong> <span class="math inline">H_0</span></li>
+<li><strong>Critical region:</strong> For samples <span class="math inline">\mathbf{x}</span> in this region we <strong>reject</strong> <span class="math inline">H_0</span></li>
 </ul>
-<p><strong>In most cases:</strong> Critical region is defined in terms of a statistic <span class="math inline">W(\mathbf{X})</span></p>
+<p><strong>In most cases:</strong> Critical region is defined in terms of a test statistic <span class="math inline">W(\mathbf{x})</span></p>
 <p><strong>Example</strong>: We could decide to reject <span class="math inline">H_0</span> if <span class="math display">
-W(\mathbf{X}) \in R
+W(\mathbf{x}) \in R
 </span> with <span class="math inline">R \subset \mathbb{R}</span> some rejection region</p>
 </section>
-<section id="hypothesis-testing-5" class="slide level2 smaller">
-<h2>Hypothesis testing</h2>
-<h3 id="one-sided-vs-two-sided-tests">One-sided vs Two-sided Tests</h3>
+<section id="one-sided-vs-two-sided-tests" class="slide level2 smaller">
+<h2>One-sided vs Two-sided Tests</h2>
 <p>Let <span class="math inline">\theta</span> be one dimensional parameter. A hypothesis test is:</p>
 <ul>
-<li><p><strong>One-sided</strong> if the null hypotheses are of the form <span class="math display">
-H_0 \colon \theta \leq \theta_0
-\qquad
-\text{ or }
-\qquad
-H_0 \colon \theta \geq \theta_0
-</span> with corresponding one-sided alternative hypotheses <span class="math display">
+<li><p><strong>One-sided:</strong> if the null and alternative hypotheses are of the form <span class="math display">
+H_0 \colon \theta \leq \theta_0 \,, \qquad
 H_1 \colon \theta &gt; \theta_0
-\qquad
-\text{ or }
-\qquad
+</span> or also <span class="math display">
+H_0 \colon \theta \geq \theta_0 \,, \qquad
 H_1 \colon \theta &lt; \theta_0
 </span></p></li>
-<li><p><strong>Two-sided</strong> if the null and alternative hypotheses are of the form <span class="math display">
-H_0 \colon \theta = \theta_0  \qquad   
-\text{ and } \qquad
+<li><p><strong>Two-sided:</strong> if the null and alternative hypotheses are of the form <span class="math display">
+H_0 \colon \theta = \theta_0  \,, \qquad   
 H_1 \colon \theta \neq \theta_0
 </span></p></li>
 </ul>
 </section>
-<section id="hypothesis-testing-6" class="slide level2 smaller">
-<h2>Hypothesis testing</h2>
-<h3 id="philosophical-issues">Philosophical issues</h3>
+<section id="example-1-two-sided-test" class="slide level2 smaller">
+<h2>Example 1: Two-sided test</h2>
+<p>We want to assess whether a <strong>coin is fair</strong></p>
 <ul>
-<li><span class="math inline">H_0</span> is usually a <strong>conservative hypothesis</strong></li>
-<li>If a test indicates to <strong>reject</strong> <span class="math inline">H_0</span>, people do that happily and accept <span class="math inline">H_1</span></li>
-<li>If a test indicates to <strong>accept</strong> <span class="math inline">H_0</span> there are issues:
+<li><p>To test fairness, toss the coin many times and record outcome</p></li>
+<li><p><span class="math inline">\theta =</span> proportion of Heads</p></li>
+<li><p>The decision is between:</p>
 <ul>
-<li>Some people like to reject <span class="math inline">H_1</span> and accept <span class="math inline">H_0</span></li>
-<li>Some people like to reject <span class="math inline">H_1</span>, but do not believe fully in <span class="math inline">H_0</span>. They would like to reject <span class="math inline">H_0</span>, but do not have enough evidence to do so</li>
-</ul></li>
-<li><strong>Our position:</strong> We do not care, and we either
-<ul>
-<li>decide in favor of <span class="math inline">H_0</span> - or <strong>accept</strong> <span class="math inline">H_0</span></li>
-<li>decide in favor of <span class="math inline">H_1</span> - or <strong>accept</strong> <span class="math inline">H_1</span></li>
+<li>Null hypothesis: The coin is fair <span class="math inline">\,\, \implies \,\, \theta = \frac12</span></li>
+<li>Alternative hypothesis: The coin is not fair <span class="math inline">\,\, \implies \,\, \theta \neq \frac12</span></li>
 </ul></li>
 </ul>
+<p><strong>Hypothesis test</strong>: <span class="math inline">\qquad \quad H_0 \colon \theta = \frac12  \,, \qquad
+H_1 \colon \theta \neq \frac12</span></p>
 </section>
-<section id="hypothesis-testing-7" class="slide level2 smaller">
-<h2>Hypothesis testing</h2>
-<h3 id="example-1---two-seded-test">Example 1 - Two-seded test</h3>
-<p>The <em>University of Cottingham Road</em> wants to advertise its MBA Program: <span class="math display">
+<section id="example-2-one-sided-test" class="slide level2 smaller">
+<h2>Example 2: One-sided test</h2>
+<p>A <em>University</em> wants to advertise its MBA Program: <span class="math display">
 \text{ MBA } = \text{ higher salary }
 </span></p>
 <ul>
@@ -584,36 +657,1365 @@ H_1 \colon \theta \neq \theta_0
 <li><p>The University has only access to incomplete data (could not ask all former students). Need hypothesis testing</p></li>
 <li><p><span class="math inline">\theta =</span> average change in salary after <strong>completing the MBA program</strong></p>
 <ul>
-<li>Null hypothesis: There is no change <span class="math inline">\,\, \implies \,\, \theta=0</span></li>
-<li>Alternative hypothesis: There is a change <span class="math inline">\,\, \implies \,\, \theta \neq 0</span></li>
+<li>Null hypothesis: No improvement in salary <span class="math inline">\,\, \implies \,\, \theta \leq 0</span></li>
+<li>Alternative hypothesis: Salary increases <span class="math inline">\,\, \implies \,\, \theta &gt; 0</span></li>
 </ul></li>
 </ul>
-<p><strong>Hypothesis test</strong>: <span class="math inline">\qquad \quad H_0 \colon \theta = 0 \,, \qquad
-H_1 \colon \theta \neq 0</span></p>
+<p><strong>Hypothesis test</strong>: <span class="math inline">\qquad \quad H_0 \colon \theta \leq 0 \,, \qquad
+H_1 \colon \theta &gt; 0</span></p>
+</section></section>
+<section>
+<section id="part-2-the-t-test" class="title-slide slide level1 center" data-background-color="#cc0164" data-visibility="uncounted">
+<h1>Part 2: <br>The t-test</h1>
+<div class="footer">
+<div color="#cc0164">
+
+</div>
+</div>
 </section>
-<section id="hypothesis-testing-8" class="slide level2 smaller">
-<h2>Hypothesis testing</h2>
-<h3 id="example-2---one-sided-test">Example 2 - One-sided test</h3>
-<p>Manager at a <em>Computer Factory</em> wants to know the proportion of defective components produced</p>
+<section id="one-sample-two-sided-t-test" class="slide level2 smaller">
+<h2>One-sample Two-sided t-test</h2>
+<p><strong>Goal</strong>: estimate the mean <span class="math inline">\mu</span> of a normal population <span class="math inline">N(\mu,\sigma^2)</span>. If <span class="math inline">\mu_0</span> is guess for <span class="math inline">\mu</span> <span class="math display">
+H_0 \colon \mu = \mu_0 \qquad H_1 \colon \mu \neq \mu_0
+</span></p>
 <ul>
-<li>Testing is expensive and they can only test a limited sample</li>
-<li><span class="math inline">\theta =</span> proportion of defective components</li>
-<li>Manager is happy if <span class="math inline">\theta</span> is less than some <span class="math inline">\theta_0</span></li>
-<li>The decision is between:
+<li><strong>One-sample</strong> means we sample only from one population</li>
+<li>The variance <span class="math inline">\sigma</span> is unknown</li>
+<li>Suppose the sample size is <span class="math inline">n</span>, with sample <span class="math inline">X_1 ,\ldots,X_n</span></li>
+<li>We consider the t-statistics <span class="math display">
+T = \frac{\overline{X}-\mu_0}{S/\sqrt{n}}
+</span></li>
+<li>Recall: <span class="math inline">T \sim t_{n-1}</span> Student’s t-distribution with <span class="math inline">n-1</span> degrees of freedom</li>
+</ul>
+</section>
+<section id="procedure-for-all-tests" class="slide level2 smaller">
+<h2>Procedure for all tests</h2>
+<ol type="1">
+<li>Calculation</li>
+<li>Reference statistical tables or numerical values</li>
+<li>Interpretation</li>
+</ol>
+</section>
+<section id="one-sample-two-sided-t-test-1" class="slide level2 smaller">
+<h2>One-sample Two-sided t-test</h2>
+<h3 id="calculation">Calculation</h3>
 <ul>
-<li>Null hypothesis: Defective components less than <span class="math inline">\theta_0</span> <span class="math inline">\,\, \implies \,\, \theta &lt; \theta_0</span></li>
-<li>Alternative hypothesis: Defective components more than <span class="math inline">\theta_0</span> <span class="math inline">\,\, \implies \,\, \theta \geq \theta_0</span></li>
+<li>We have <span class="math inline">n</span> samples available <span class="math inline">x_1,\ldots,x_n</span></li>
+<li>Compute <strong>sample mean</strong> <span class="math display">
+\overline{x} = \frac{1}{n} \sum_{i=1}^n x_i
+</span></li>
+<li>Compute the <strong>sample standard deviation</strong> <span class="math display">
+s = \sqrt{\frac{\sum_{i=1}^n x_i^2 - n \overline{x}^2}{n-1}}
+</span></li>
+</ul>
+</section>
+<section id="one-sample-two-sided-t-test-2" class="slide level2 smaller">
+<h2>One-sample Two-sided t-test</h2>
+<h3 id="calculation-1">Calculation</h3>
+<ul>
+<li><p>Compute the <strong>estimated standard error</strong> <span class="math display">
+\mathop{\mathrm{e.s.e.}}= \frac{s}{\sqrt{n}}
+</span></p></li>
+<li><p>Compute the <strong>t-statistic</strong> <span class="math display">
+t = \frac{\text{estimate } - \text{ hypothesised value}}{\mathop{\mathrm{e.s.e.}}}
+= \frac{\overline x - \mu_0}{s/\sqrt{n}}
+</span></p></li>
+<li><p><span class="math inline">\mu_0</span> is the value of the null hypothesis <span class="math inline">H_0</span></p></li>
+</ul>
+</section>
+<section id="one-sample-two-sided-t-test-3" class="slide level2 smaller">
+<h2>One-sample Two-sided t-test</h2>
+<h3 id="p-value">p-value</h3>
+<ul>
+<li><p>After computing <strong>t-statistic</strong>, we need to compute the <strong>p-value</strong></p></li>
+<li><p><strong>p-value</strong> is a measure of how strange the data is in relation to the null hypothesis</p></li>
+<li><p>We have 2 options:</p>
+<ul>
+<li><strong>LOW</strong> p-value <span class="math inline">\quad \implies \quad</span> <strong>reject</strong> <span class="math inline">H_0</span></li>
+<li><strong>HIGH</strong> p-value <span class="math inline">\quad \implies \quad</span> <strong>do not reject</strong> <span class="math inline">H_0</span></li>
+</ul></li>
+<li><p>In this module we reject <span class="math inline">H_0</span> for p-values <span class="math display">
+p&lt;0.05
+</span></p></li>
+</ul>
+</section>
+<section id="one-sample-two-sided-t-test-4" class="slide level2 smaller">
+<h2>One-sample Two-sided t-test</h2>
+<h3 id="p-value-1">p-value</h3>
+<ul>
+<li><p>For two-sided t-test the p-value is defined as <span class="math display">
+p := 2P(t_{n-1}&gt; |t|)
+</span> where <span class="math inline">t_{n-1}</span> is the t-distribution with <span class="math inline">n-1</span> degrees of freedom</p></li>
+<li><p>In other words, the p-value is <span class="math display">
+p = 2P(\text{Observing values more extreme than t }| \, \mu=\mu_0)
+</span></p></li>
+</ul>
+</section>
+<section id="one-sample-two-sided-t-test-5" class="slide level2 smaller">
+<h2>One-sample Two-sided t-test</h2>
+<h3 id="p-value-2">p-value</h3>
+<ul>
+<li><p><span class="math inline">p&lt;0.05</span> means that the test statistic <span class="math inline">t</span> is <strong>extreme</strong>: <span class="math inline">\,\, P(t_{n-1}&gt; |t|)&lt;0.025</span></p></li>
+<li><p><span class="math inline">t</span> falls in the <strong>grey areas</strong> in the <span class="math inline">t_{n-1}</span> plot below: Each grey area measures <span class="math inline">0.025</span></p></li>
+</ul>
+
+<img data-src="lecture_3_files/figure-revealjs/unnamed-chunk-1-1.png" width="960" class="r-stretch"></section>
+<section id="one-sample-two-sided-t-test-6" class="slide level2 smaller">
+<h2>One-sample Two-sided t-test</h2>
+<h3 id="p-value-3">p-value</h3>
+<ul>
+<li>How to compute <span class="math inline">p</span>?
+<ul>
+<li>Use statistical tables – Available <a href="files/Statistics_Tables.pdf">here</a></li>
+<li>Use R – Next sections</li>
 </ul></li>
 </ul>
-<p><strong>Hypothesis test</strong>: <span class="math inline">\qquad \quad H_0 \colon \theta &lt; \theta_0 \,, \qquad
-H_1 \colon \theta \geq \theta_0</span></p>
 </section>
-<section id="references" class="slide level2">
+<section id="one-sample-two-sided-t-test-7" class="slide level2 smaller">
+<h2>One-sample Two-sided t-test</h2>
+<h3 id="reference-statistical-tables">Reference statistical tables</h3>
+<p>Find Table 13.1 in this <a href="files/Statistics_Tables.pdf">file</a></p>
+<ul>
+<li>Look at the row with Degree of Freedom <span class="math inline">n-1</span> (or its closest value)</li>
+<li>Find <strong>critical value</strong> <span class="math inline">t^* := t_{n-1}(0.025)</span> in column <span class="math inline">0.025</span></li>
+<li><strong>Example</strong>: <span class="math inline">n=10</span>, DF <span class="math inline">=9</span>, <span class="math inline">t^*=t_{9}(0.025)=2.262</span></li>
+</ul>
+
+<img data-src="images/t_test_statistic_table.png" style="width:82.0%" class="r-stretch"></section>
+<section id="one-sample-two-sided-t-test-8" class="slide level2 smaller">
+<h2>One-sample Two-sided t-test</h2>
+<h3 id="reference-statistical-tables-1">Reference statistical tables</h3>
+<ul>
+<li><p>The critical value <span class="math inline">t^* = t_{n-1}(0.025)</span> found in the table satisfies <span class="math display">
+P(t_{n-1}&gt;t^*) = 0.025
+</span></p></li>
+<li><p>By definition of <span class="math inline">p</span>-value for two-sided t-test we have <span class="math display">
+p := 2P(t_{n-1}&gt;|t|)
+</span></p></li>
+<li><p>Therefore, for <span class="math inline">|t|&gt;t^*</span> <span class="math display">\begin{align*}
+p &amp; := 2P(t_{n-1}&gt;|t|) \\
+&amp; &lt;  2P(t_{n-1}&gt;t^*) = 2 \cdot (0.025) = 0.05
+\end{align*}</span></p></li>
+<li><p><strong>Conclusion</strong>: <span class="math inline">\quad |t|&gt;t^*  \iff  p&lt;0.05 \qquad</span> (Extreme <span class="math inline">t</span> <span class="math inline">\iff</span> low p-value)</p></li>
+</ul>
+</section>
+<section id="one-sample-two-sided-t-test-9" class="slide level2 smaller">
+<h2>One-sample Two-sided t-test</h2>
+<h3 id="interpretation">Interpretation</h3>
+<p>Recall that <span class="math inline">p = 2P ( \text{Observing values more extreme than t } | \mu = \mu_0)</span></p>
+<p>We have two possibilities:</p>
+<ul>
+<li><span class="math inline">|t|&gt;t^*</span>
+<ul>
+<li>In this case <span class="math inline">p&lt;0.05</span></li>
+<li>The observed statistic <span class="math inline">t</span> is very unlikely under <span class="math inline">H_0 \,\, \implies \,\,</span> <strong>reject</strong> <span class="math inline">H_0</span></li>
+</ul></li>
+<li><span class="math inline">|t| \leq t^*</span>
+<ul>
+<li>In this case <span class="math inline">p&gt;0.05</span></li>
+<li>The observed statistic <span class="math inline">t</span> is not unlikely under <span class="math inline">H_0 \,\, \implies \,\,</span> <strong>do not reject</strong> <span class="math inline">H_0</span></li>
+</ul></li>
+</ul>
+</section>
+<section id="example-2008-crisis" class="slide level2 smaller">
+<h2>Example: 2008 crisis</h2>
+<ul>
+<li><strong>Data:</strong> Monthly Consumer Confidence Index (CCI) in 2007 and 2009</li>
+<li><strong>Question:</strong> Did the crash of 2008 have lasting impact upon CCI?</li>
+<li><strong>Observation</strong>: Data shows a massive drop in CCI between 2009 and 2007</li>
+<li><strong>Method:</strong> Use <span class="math inline">t</span>-test to see if data is sufficient to prove that CCI actually dropped</li>
+</ul>
+<table class="caption-top" style="width:100%;">
+<colgroup>
+<col style="width: 41%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Month</th>
+<th style="text-align: center;">J</th>
+<th style="text-align: center;">F</th>
+<th style="text-align: center;">M</th>
+<th style="text-align: center;">A</th>
+<th style="text-align: center;">M</th>
+<th style="text-align: center;">J</th>
+<th style="text-align: center;">J</th>
+<th style="text-align: center;">A</th>
+<th style="text-align: center;">S</th>
+<th style="text-align: center;">O</th>
+<th style="text-align: center;">N</th>
+<th style="text-align: center;">D</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">CCI 2007</td>
+<td style="text-align: center;">86</td>
+<td style="text-align: center;">86</td>
+<td style="text-align: center;">88</td>
+<td style="text-align: center;">90</td>
+<td style="text-align: center;">99</td>
+<td style="text-align: center;">97</td>
+<td style="text-align: center;">97</td>
+<td style="text-align: center;">96</td>
+<td style="text-align: center;">99</td>
+<td style="text-align: center;">97</td>
+<td style="text-align: center;">90</td>
+<td style="text-align: center;">90</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">CCI 2009</td>
+<td style="text-align: center;">24</td>
+<td style="text-align: center;">22</td>
+<td style="text-align: center;">21</td>
+<td style="text-align: center;">21</td>
+<td style="text-align: center;">19</td>
+<td style="text-align: center;">18</td>
+<td style="text-align: center;">17</td>
+<td style="text-align: center;">18</td>
+<td style="text-align: center;">21</td>
+<td style="text-align: center;">23</td>
+<td style="text-align: center;">22</td>
+<td style="text-align: center;">21</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">Difference</td>
+<td style="text-align: center;">62</td>
+<td style="text-align: center;">64</td>
+<td style="text-align: center;">67</td>
+<td style="text-align: center;">69</td>
+<td style="text-align: center;">80</td>
+<td style="text-align: center;">79</td>
+<td style="text-align: center;">80</td>
+<td style="text-align: center;">78</td>
+<td style="text-align: center;">78</td>
+<td style="text-align: center;">74</td>
+<td style="text-align: center;">68</td>
+<td style="text-align: center;">69</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="example-2008-crisis-1" class="slide level2 smaller">
+<h2>Example: 2008 crisis</h2>
+<ul>
+<li>This is really a <strong>two-sample</strong> problem – CCI data in 2 populations: 2007 and 2009</li>
+<li>It reduces to a <strong>one-sample</strong> problem because we have directly comparable units</li>
+<li>If units cannot be compared, then we must use a two-sample approach</li>
+<li>Two-sample approach will be discussed later</li>
+</ul>
+<table class="caption-top" style="width:100%;">
+<colgroup>
+<col style="width: 41%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Month</th>
+<th style="text-align: center;">J</th>
+<th style="text-align: center;">F</th>
+<th style="text-align: center;">M</th>
+<th style="text-align: center;">A</th>
+<th style="text-align: center;">M</th>
+<th style="text-align: center;">J</th>
+<th style="text-align: center;">J</th>
+<th style="text-align: center;">A</th>
+<th style="text-align: center;">S</th>
+<th style="text-align: center;">O</th>
+<th style="text-align: center;">N</th>
+<th style="text-align: center;">D</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">CCI 2007</td>
+<td style="text-align: center;">86</td>
+<td style="text-align: center;">86</td>
+<td style="text-align: center;">88</td>
+<td style="text-align: center;">90</td>
+<td style="text-align: center;">99</td>
+<td style="text-align: center;">97</td>
+<td style="text-align: center;">97</td>
+<td style="text-align: center;">96</td>
+<td style="text-align: center;">99</td>
+<td style="text-align: center;">97</td>
+<td style="text-align: center;">90</td>
+<td style="text-align: center;">90</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">CCI 2009</td>
+<td style="text-align: center;">24</td>
+<td style="text-align: center;">22</td>
+<td style="text-align: center;">21</td>
+<td style="text-align: center;">21</td>
+<td style="text-align: center;">19</td>
+<td style="text-align: center;">18</td>
+<td style="text-align: center;">17</td>
+<td style="text-align: center;">18</td>
+<td style="text-align: center;">21</td>
+<td style="text-align: center;">23</td>
+<td style="text-align: center;">22</td>
+<td style="text-align: center;">21</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">Difference</td>
+<td style="text-align: center;">62</td>
+<td style="text-align: center;">64</td>
+<td style="text-align: center;">67</td>
+<td style="text-align: center;">69</td>
+<td style="text-align: center;">80</td>
+<td style="text-align: center;">79</td>
+<td style="text-align: center;">80</td>
+<td style="text-align: center;">78</td>
+<td style="text-align: center;">78</td>
+<td style="text-align: center;">74</td>
+<td style="text-align: center;">68</td>
+<td style="text-align: center;">69</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="example-2008-crisis-2" class="slide level2 smaller">
+<h2>Example: 2008 crisis</h2>
+<h3 id="setting-up-the-test">Setting up the test</h3>
+<ul>
+<li>We want to test if there was a change in CCI from 2007 to 2009</li>
+<li>We are really only interested in the difference in CCI</li>
+<li>Let <span class="math inline">\mu</span> be the (unknown) average difference in CCI</li>
+<li>The <strong>null hypothesis</strong> is that there was (on average) no change in CCI <span class="math display">
+H_0 \colon \mu = 0
+</span></li>
+<li>The <strong>alternative hypothesis</strong> is that there was some change: <span class="math display">
+H_1 \colon \mu \neq 0
+</span></li>
+<li>Note that this is a <strong>two-sided</strong> test</li>
+</ul>
+</section>
+<section id="example-2008-crisis-3" class="slide level2 smaller">
+<h2>Example: 2008 crisis</h2>
+<h3 id="calculation-2">Calculation</h3>
+<p>Using the available data, we need to compute:</p>
+<ul>
+<li><p>Sample mean and standard deviation <span class="math display">
+\overline{x} = \frac{1}{n} \sum_{i=1}^n x_i \qquad
+s = \sqrt{\frac{\sum_{i=1}^n x_i^2 - n \overline{x}^2}{n-1}}
+</span></p></li>
+<li><p>Test statistic <span class="math display">
+t = \frac{\overline x - \mu_0}{s/\sqrt{n}}
+</span></p></li>
+</ul>
+</section>
+<section id="example-2008-crisis-4" class="slide level2 smaller">
+<h2>Example: 2008 crisis</h2>
+<h3 id="calculation-3">Calculation</h3>
+<p><br></p>
+<table class="caption-top" style="width:100%;">
+<colgroup>
+<col style="width: 41%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">CCI</th>
+<th style="text-align: center;">J</th>
+<th style="text-align: center;">F</th>
+<th style="text-align: center;">M</th>
+<th style="text-align: center;">A</th>
+<th style="text-align: center;">M</th>
+<th style="text-align: center;">J</th>
+<th style="text-align: center;">J</th>
+<th style="text-align: center;">A</th>
+<th style="text-align: center;">S</th>
+<th style="text-align: center;">O</th>
+<th style="text-align: center;">N</th>
+<th style="text-align: center;">D</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">Difference</td>
+<td style="text-align: center;">62</td>
+<td style="text-align: center;">64</td>
+<td style="text-align: center;">67</td>
+<td style="text-align: center;">69</td>
+<td style="text-align: center;">80</td>
+<td style="text-align: center;">79</td>
+<td style="text-align: center;">80</td>
+<td style="text-align: center;">78</td>
+<td style="text-align: center;">78</td>
+<td style="text-align: center;">74</td>
+<td style="text-align: center;">68</td>
+<td style="text-align: center;">69</td>
+</tr>
+</tbody>
+</table>
+<p><span class="math display">\begin{align*}
+\overline{x} &amp; =\frac{1}{n} \sum_{i=1}^{n} x_i=\frac{1}{12} \left(62+64+67+{\ldots}+68+69\right)=\frac{868}{12}=72.33 \\
+\sum_{i=1}^{n} x_i^2 &amp; = 62^2+64^2+67^2+{\ldots}+68^2+69^2 = 63260 \\
+s &amp; = \sqrt{ \frac{\sum_{i=1}^n x_i^2 - n \overline{x}^2}{n-1} } = \sqrt{\frac{63260-12\left(\frac{868}{12}\right)^2}{11}} = \sqrt{\frac{474.666}{11}} = 6.5689
+\end{align*}</span></p>
+</section>
+<section id="example-2008-crisis-5" class="slide level2 smaller">
+<h2>Example: 2008 crisis</h2>
+<h3 id="calculation-4">Calculation</h3>
+<ul>
+<li>The sample size is <span class="math inline">n=12</span></li>
+<li>The sample mean is <span class="math inline">\overline{x}=72.33</span></li>
+<li>The sample standard deviation is <span class="math inline">s = 6.5689</span></li>
+<li>The <strong>hypothesized mean</strong> is <span class="math inline">\mu_0 = 0</span></li>
+<li>The <strong>t-statistic</strong> is <span class="math display">
+t = \frac{\overline{x} - \mu_0}{s/\sqrt{n}} =
+\frac{72.33 - 0}{6.5689/\sqrt{12}} = 38.145
+</span></li>
+</ul>
+</section>
+<section id="example-2008-crisis-6" class="slide level2 smaller">
+<h2>Example: 2008 crisis</h2>
+<h3 id="reference-statistical-tables-2">Reference statistical tables</h3>
+<p>Find Table 13.1 in this <a href="files/Statistics_Tables.pdf">file</a></p>
+<ul>
+<li>Find row with DF <span class="math inline">= n-1</span> (or closest). Find critical value <span class="math inline">t^*</span> in column <span class="math inline">0.025</span></li>
+<li>In our case: <span class="math inline">n=12</span>, DF <span class="math inline">=11</span>, <span class="math inline">t^*=  t_{11}(0.025) =2.201</span></li>
+</ul>
+
+<img data-src="images/t_test_statistic_table_bis.png" style="width:82.0%" class="r-stretch"></section>
+<section id="example-2008-crisis-7" class="slide level2 smaller">
+<h2>Example: 2008 crisis</h2>
+<h3 id="reference-statistical-tables-3">Reference statistical tables</h3>
+<ul>
+<li>Plot of <span class="math inline">t_{11}</span> distribution. White area is <span class="math inline">0.95</span>, total shaded area is <span class="math inline">0.05</span></li>
+<li>Probability of observing <span class="math inline">|t|&gt;t^* = 2.201</span> is <span class="math inline">p&lt;0.025</span></li>
+</ul>
+
+<img data-src="lecture_3_files/figure-revealjs/unnamed-chunk-2-1.png" width="960" class="r-stretch"></section>
+<section id="example-2008-crisis-8" class="slide level2 smaller">
+<h2>Example: 2008 crisis</h2>
+<h3 id="interpretation-1">Interpretation</h3>
+<ul>
+<li><p>We have computed:</p>
+<ul>
+<li>Test statistic <span class="math inline">t = 38.145</span></li>
+<li>Critical value <span class="math inline">t^* = 2.201</span></li>
+</ul></li>
+<li><p>Therefore <span class="math display">
+|t| = 38.145 &gt; 2.201 = t^*
+</span></p></li>
+<li><p>This implies <strong>rejecting</strong> the null hypothesis <span class="math display">
+H_0 \colon \mu = 0
+</span></p></li>
+</ul>
+</section>
+<section id="example-2008-crisis-9" class="slide level2 smaller">
+<h2>Example: 2008 crisis</h2>
+<h3 id="interpretation-2">Interpretation</h3>
+<ul>
+<li><p>t-test implies that mean difference in CCI is <span class="math display">
+\mu \neq 0
+</span></p></li>
+<li><p>The sample mean difference is positive (<span class="math inline">\bar{x}=72.33</span>)</p></li>
+<li><p><strong>Conclusions</strong>:</p>
+<ul>
+<li>CCI has changed from 2007 to 2009 (backed by t-test)</li>
+<li>CCI seems higher in 2007 than in 2009 (backed by sample mean)</li>
+<li>The 2008 crash seems to have reduced consumer confidence</li>
+</ul></li>
+</ul>
+</section></section>
+<section>
+<section id="part-3-the-basics-of-r" class="title-slide slide level1 center" data-background-color="#cc0164" data-visibility="uncounted">
+<h1>Part 3: <br>The basics of R</h1>
+<div class="footer">
+<div color="#cc0164">
+
+</div>
+</div>
+</section>
+<section id="what-is-r" class="slide level2 smaller">
+<h2>What is R?</h2>
+<ul>
+<li>R is a <em>high-level</em> programming language (like <strong>Python</strong>)</li>
+<li>This means R deals automatically with some details of computer execution:
+<ul>
+<li>Memory allocation</li>
+<li>Resources allocation</li>
+</ul></li>
+<li>R is focused on manipulating and analyzing data</li>
+</ul>
+</section>
+<section id="references" class="slide level2 smaller">
+<h2>References</h2>
+<h3 id="slides-are-based-on">Slides are based on</h3>
+<div class="column" style="width:49%;">
+<ul>
+<li><p><span class="citation" data-cites="dalgaard">[<a href="#/references-1" role="doc-biblioref" onclick="">1</a>]</span> Dalgaard, P. <br> <em>Introductory statistics with R</em> <br> Second Edition, Springer, 2008</p></li>
+<li><p><span class="citation" data-cites="davies">[<a href="#/references-1" role="doc-biblioref" onclick="">2</a>]</span> Davies, T.M. <br> <em>The book of R</em> <br> No Starch Press, 2016</p></li>
+</ul>
+</div><div class="column" style="width:35%;">
+<p><strong>Concise Statistics with R</strong></p>
+<p><br></p>
+<p><strong>Comprehensive R manual</strong></p>
+</div></section>
+<section id="installing-r-on-computer" class="slide level2 smaller">
+<h2>Installing R on computer</h2>
+<ul>
+<li>R is freely available on Windows, Mac OS and Linux</li>
+<li>To install:
+<ul>
+<li>Download R from CRAN <a href="https://cran.r-project.org">https://cran.r-project.org</a></li>
+<li>Make sure you choose the right version for your system</li>
+<li>Follow the instructions to install</li>
+</ul></li>
+</ul>
+</section>
+<section id="how-to-use-r" class="slide level2 smaller">
+<h2>How to use R?</h2>
+<ul>
+<li><p>We have installed R. What now?</p></li>
+<li><p>Launch the R Console. There are two ways:</p>
+<ul>
+<li>Find the <strong>R application</strong> on your computer</li>
+<li>Open a terminal, type <strong>R</strong>, exectute</li>
+</ul></li>
+</ul>
+<p><strong>Don’t have a laptop in class:</strong> Run R code in browser</p>
+<ul>
+<li><a href="https://www.mycompiler.io/new/r">mycompiler.io/new/r</a></li>
+</ul>
+</section>
+<section id="r-application" class="slide level2 smaller">
+<h2>R application</h2>
+<h3 id="this-is-how-the-r-console-looks-on-the-mac-os-app">This is how the R Console looks on the Mac OS app</h3>
+
+<img data-src="images/R_Console.png" style="width:82.0%" class="r-stretch"></section>
+<section id="r-from-terminal" class="slide level2 smaller">
+<h2>R from terminal</h2>
+<h3 id="this-is-how-the-r-console-looks-on-the-mac-os-terminal">This is how the R Console looks on the Mac OS Terminal</h3>
+
+<img data-src="images/R_Terminal.png" style="width:82.0%" class="r-stretch"></section>
+<section id="what-can-r-do" class="slide level2 smaller">
+<h2>What can R do?</h2>
+<ul>
+<li>R Console is waiting for commands</li>
+<li>You can use the R Console <strong>interactively</strong>:
+<ul>
+<li>Type a command after the symbol <code>&gt;</code></li>
+<li>Press <code>Enter</code> to execute</li>
+<li>R will respond</li>
+</ul></li>
+</ul>
+</section>
+<section id="warning" class="slide level2 smaller">
+<h2>Warning</h2>
+<ul>
+<li>The following slides might look like a lot of information</li>
+<li>However you do not have to remember all the material</li>
+<li>It is enough to:
+<ul>
+<li>Try to understand the examples</li>
+<li>Know that certain commands exist and what they do</li>
+</ul></li>
+<li>Combining commands to create complex codes comes with <strong>experience</strong></li>
+</ul>
+</section>
+<section id="simple-code-can-lead-to-impressive-results" class="slide level2 smaller">
+<h2>Simple code can lead to impressive results</h2>
+<p><strong>Example</strong>: Plotting 1000 values randomly generated from <span class="math inline">N(0,1)</span> distribution</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">rnorm</span>(<span class="dv">1000</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="lecture_3_files/figure-revealjs/unnamed-chunk-3-1.png" width="960" class="r-stretch"></section>
+<section id="r-as-a-calculator" class="slide level2 smaller">
+<h2>R as a calculator</h2>
+<h3 id="r-can-perform-basic-mathematical-operations">R can perform basic mathematical operations</h3>
+<p>Below you can see R code and the corresponding answer</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">+</span> <span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">*</span> <span class="dv">3</span> <span class="sc">-</span> <span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span> <span class="sc">^</span> <span class="dv">7</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 133</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="sc">-</span><span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4.539993e-05</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(<span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.6931472</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a aria-hidden="true" tabindex="-1"></a>pi</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3.141593</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">sin</span>(pi<span class="sc">/</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1</code></pre>
+</div>
+</div>
+</section>
+<section id="r-scripts" class="slide level2 smaller">
+<h2>R Scripts</h2>
+<ul>
+<li><p>The interactive R Console is OK for short codes</p></li>
+<li><p>For longer code use <strong>R scripts</strong></p>
+<ul>
+<li>Write your code in a text editor</li>
+<li>Save your code to a <strong>plain text</strong> file with <code>.txt</code> or <code>.R</code> extension</li>
+<li>Execute your code in the R Console with <code>source("file_name.R")</code></li>
+</ul></li>
+<li><p>Examples of text editors</p>
+<ul>
+<li>TextPad (Windows)</li>
+<li>TextEdit (MacOS)</li>
+<li><a href="https://code.visualstudio.com/docs/languages/r">VisualStudio Code</a> (Cross platform)</li>
+</ul></li>
+</ul>
+</section>
+<section id="rstudio" class="slide level2 smaller">
+<h2>RStudio</h2>
+<ul>
+<li>RStudio is an alternative to R Console and text editors: <a href="https://posit.co/download/rstudio-desktop/">Download here</a>
+<ul>
+<li>RStudio is an <em>Integrated Development Environment (IDE)</em></li>
+<li>It is the R version of <em>Spyder</em> for Python</li>
+</ul></li>
+<li>RStudio includes:
+<ul>
+<li>Direct-submission code editor</li>
+<li>Separate point-and-click panes for files, objects, and project management</li>
+<li>Creation of markup documents incorporating R code</li>
+</ul></li>
+</ul>
+</section>
+<section id="working-directory" class="slide level2 smaller">
+<h2>Working Directory</h2>
+<h3 id="r-console">R console</h3>
+<ul>
+<li><p>R session has a working directory associated with it</p></li>
+<li><p>Unless specified, R will use a <strong>default</strong> working directory</p></li>
+<li><p>To check the location of the working directory, use the <code>getwd</code> function</p></li>
+<li><p>On my MacOS system I get <span class="math inline">\qquad</span> <img data-src="images/r_working_directory.png" style="width:32.0%"></p></li>
+<li><p>File paths are always enclosed in double quotation marks</p></li>
+<li><p>Note that R uses <strong>forward slashes</strong> (not backslashes) for paths</p></li>
+<li><p>You can change the default working directory using the function <code>setwd</code></p></li>
+</ul>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">"/folder1/folder2/folder3/"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li>File path can be relative to current working directory or full (system root drive)</li>
+</ul>
+</section>
+<section id="working-directory-1" class="slide level2 smaller">
+<h2>Working Directory</h2>
+<h3 id="rstudio-1">RStudio</h3>
+<p>In RStudio you can set the working directory from the menu bar:</p>
+<ul>
+<li>Session <code>-&gt;</code> Set Working Directory <code>-&gt;</code> Choose Directory</li>
+</ul>
+</section>
+<section id="comments" class="slide level2 smaller">
+<h2>Comments</h2>
+<ul>
+<li>Good practice to <strong>document</strong> your code</li>
+<li>This means adding comments directly in the code</li>
+<li>Comments should be brief and explain what a chunk of code does</li>
+<li>To insert a comment, preface the line with a hash mark <code>#</code></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># This is a comment in R</span></span>
+<span id="cb15-2"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Comments are ignored by R</span></span>
+<span id="cb15-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">1</span>   <span class="co"># This works out the result of one plus one!</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2</code></pre>
+</div>
+</div>
+</section>
+<section id="r-packages" class="slide level2 smaller">
+<h2>R Packages</h2>
+<ul>
+<li>The base installation of R comes ready with:
+<ul>
+<li>Commands for numeric calculations</li>
+<li>Common statistical analyses</li>
+<li>Plotting and visualization</li>
+</ul></li>
+<li>More specialized techniques and data sets are contained in <strong>packages</strong> (libraries)</li>
+</ul>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># To install a package, run</span></span>
+<span id="cb17-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"package_name"</span>)</span>
+<span id="cb17-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># To load a package into your code, type</span></span>
+<span id="cb17-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"package_name"</span>)</span>
+<span id="cb17-6"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-7"><a aria-hidden="true" tabindex="-1"></a><span class="co"># To update all the packages currently installed, type</span></span>
+<span id="cb17-8"><a aria-hidden="true" tabindex="-1"></a><span class="fu">update.packages</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="help" class="slide level2 smaller">
+<h2>Help!</h2>
+<ul>
+<li>R comes with <strong>help files</strong> that you can use to search for particular functionality</li>
+<li>For example you can check out how to precisely use a given function</li>
+<li>To call for help type <code>help(object_name)</code></li>
+</ul>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">help</span>(mean)     <span class="co"># Mean is R function to compute average of some values</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+<img data-src="images/R_help.png" style="width:62.0%" class="r-stretch"></section>
+<section id="further-help" class="slide level2 smaller">
+<h2>Further Help</h2>
+<ul>
+<li>Sometimes the output of <code>help()</code> can be cryptic</li>
+<li>Seek help through <strong>Google</strong>
+<ul>
+<li>Qualify the search with <strong>R</strong> or the name of an R package</li>
+<li>Paste an error message – chances are it is common error</li>
+</ul></li>
+<li>Even better: Search engines specialized for R
+<ul>
+<li><a href="https://search.r-project.org">search.r-project.org</a></li>
+<li><a href="https://rseek.org">Rseek.org</a></li>
+</ul></li>
+</ul>
+</section>
+<section id="example-plotting-random-numbers" class="slide level2 smaller">
+<h2>Example: Plotting random numbers</h2>
+<p>Let us go back to the example of the command <code>plot(rnorm(1000))</code></p>
+<p>The function <code>rnorm(n)</code> outputs <span class="math inline">n</span> randomly generated numbers from <span class="math inline">N(0,1)</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  0.07859233 -1.11995488  1.18542624 -0.98248004 -0.14618549</code></pre>
+</div>
+</div>
+<p>The above values can be plotted by concatenating the <code>plot</code> command</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">rnorm</span>(<span class="dv">5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
+<p><strong>Note</strong>:</p>
+<ul>
+<li><p>The values plotted (next slide) are, for sure, different from the ones listed above</p></li>
+<li><p>This is because every time you call <code>rnorm(5)</code>, new values are generated</p></li>
+<li><p>We need to <strong>store</strong> the generated values if we want to re-use them (more later)</p></li>
+</ul>
+</section>
+<section id="example-plotting-random-numbers-output" class="slide level2 smaller output-location-slide"><h2>Example: Plotting random numbers</h2><div class="cell output-location-slide">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="lecture_3_files/figure-revealjs/unnamed-chunk-7-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div></section><section id="variables-and-assignments" class="slide level2 smaller">
+<h2>Variables and Assignments</h2>
+<ul>
+<li>Values can be stored (assigned) in <strong>symbolic variables</strong> or <strong>objects</strong></li>
+<li>The <strong>assignment operator</strong> in R is denoted by <code>&lt;-</code><br>
+(an arrow pointing to the variable to which the value is assigned)</li>
+</ul>
+<p><strong>Example:</strong></p>
+<ul>
+<li>To assign the value <code>2</code> to the variable <code>x</code>, enter <code>x &lt;- 2</code></li>
+<li>To recover the value in <code>x</code>, just type <code>x</code></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Store 2 in the variable x</span></span>
+<span id="cb22-2"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb22-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Print x to screen</span></span>
+<span id="cb22-5"><a aria-hidden="true" tabindex="-1"></a>x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2</code></pre>
+</div>
+</div>
+</section>
+<section id="variables-and-assignments-1" class="slide level2 smaller">
+<h2>Variables and Assignments</h2>
+<p><strong>Continuation of Example:</strong></p>
+<ul>
+<li>From now on, <code>x</code> has the value <code>2</code></li>
+<li>The variable <code>x</code> can be used in subsequent operations</li>
+<li>Such operations do not alter the value of <code>x</code></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Assign 2 to x</span></span>
+<span id="cb24-2"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb24-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Compute x + x and print to screen</span></span>
+<span id="cb24-5"><a aria-hidden="true" tabindex="-1"></a>x <span class="sc">+</span> x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># x still contains 2</span></span>
+<span id="cb26-2"><a aria-hidden="true" tabindex="-1"></a>x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2</code></pre>
+</div>
+</div>
+</section>
+<section id="print-and-cat" class="slide level2 smaller">
+<h2>Print and Cat</h2>
+<ul>
+<li><p>If you save the following code in a <code>.R</code> file and run it, you will obtain no output</p></li>
+<li><p>This is because you need to tell R to print <code>x</code> to screen</p></li>
+</ul>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb28-2"><a aria-hidden="true" tabindex="-1"></a>x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><br></p>
+<ul>
+<li>To print a variable to screen use the function <code>print()</code></li>
+</ul>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb29-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2</code></pre>
+</div>
+</div>
+</section>
+<section id="print-and-cat-1" class="slide level2 smaller">
+<h2>Print and Cat</h2>
+<ul>
+<li>Suppose you wish to print the sentence <strong>Stats is great!</strong> to screen</li>
+<li>To do this, we need to store this sentence in a <strong>string</strong></li>
+<li>A string is just a sequence of <strong>characters</strong> enclosed by:
+<ul>
+<li>double-quotations marks</li>
+<li>or single quotations marks</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a aria-hidden="true" tabindex="-1"></a>sentence <span class="ot">=</span> <span class="st">"Stats is great!"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="print-and-cat-2" class="slide level2 smaller">
+<h2>Print and Cat</h2>
+<ul>
+<li>If now we wish to print the string <code>sentence</code> to screen we can use</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a aria-hidden="true" tabindex="-1"></a>sentence <span class="ot">&lt;-</span> <span class="st">"Stats is great!"</span></span>
+<span id="cb32-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(sentence)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Stats is great!"</code></pre>
+</div>
+</div>
+<p><br></p>
+<ul>
+<li>To avoid R displaying the quotation marks, we can instead use <code>cat()</code></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a aria-hidden="true" tabindex="-1"></a>sentence <span class="ot">&lt;-</span> <span class="st">"Stats is great!"</span></span>
+<span id="cb34-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(sentence)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Stats is great!</code></pre>
+</div>
+</div>
+</section>
+<section id="print-and-cat-3" class="slide level2 smaller">
+<h2>Print and Cat</h2>
+<ul>
+<li><code>cat</code> can be used to combine strings and variables in a single output</li>
+</ul>
+<p><br></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Store the result of 2 + 2 in variable two.plus.two</span></span>
+<span id="cb36-2"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-3"><a aria-hidden="true" tabindex="-1"></a>two.plus.two <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">+</span> <span class="dv">2</span></span>
+<span id="cb36-4"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-5"><a aria-hidden="true" tabindex="-1"></a><span class="co"># We want to print to screen the following message:</span></span>
+<span id="cb36-6"><a aria-hidden="true" tabindex="-1"></a><span class="co"># "The result of 2 + 2 is two.plus.two"</span></span>
+<span id="cb36-7"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-8"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"The result of 2 + 2 is"</span>, two.plus.two)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>The result of 2 + 2 is 4</code></pre>
+</div>
+</div>
+</section>
+<section id="example---your-first-r-code" class="slide level2 smaller">
+<h2>Example - Your first R code</h2>
+<ol type="1">
+<li>Open a text editor and copy paste the below code</li>
+</ol>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># This codes sums two numbers and prints result on screen</span></span>
+<span id="cb38-2"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb38-3"><a aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb38-4"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-5"><a aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> x <span class="sc">+</span> y</span>
+<span id="cb38-6"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-7"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Print the result on screen</span></span>
+<span id="cb38-8"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Code run successfully!"</span>)</span>
+<span id="cb38-9"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"The sum of"</span>, x , <span class="st">"and"</span>, y, <span class="st">"is"</span>, result)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="example---your-first-r-code-1" class="slide level2 smaller">
+<h2>Example - Your first R code</h2>
+<ol start="2" type="1">
+<li><p>Save to a <strong>plain text</strong> file named either</p>
+<ul>
+<li><code>my_first_code.R</code></li>
+<li><code>my_first_code.txt</code></li>
+</ul></li>
+<li><p>Move this file to <strong>Desktop</strong></p></li>
+<li><p>Open the R Console and change working directory to <strong>Desktop</strong></p></li>
+</ol>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># In MacOS type</span></span>
+<span id="cb39-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">"~/Desktop"</span>)</span>
+<span id="cb39-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># In Windows type</span></span>
+<span id="cb39-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">"C:/Users/YourUsername/Desktop"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="example---your-first-r-code-2" class="slide level2 smaller">
+<h2>Example - Your first R code</h2>
+<ol start="5" type="1">
+<li>Run your code in the R Console by typying either</li>
+</ol>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"my_first_code.R"</span>)</span>
+<span id="cb40-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"my_first_code.txt"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ol start="6" type="1">
+<li>You should get the following output</li>
+</ol>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>Code run successfully!</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>The sum of 1 and 2 is 3</code></pre>
+</div>
+</div>
+</section>
+<section id="the-workspace" class="slide level2 smaller">
+<h2>The workspace</h2>
+<ul>
+<li>Variables created in a session are stored in a <strong>Workspace</strong></li>
+<li>To display stored variables use
+<ul>
+<li><code>ls()</code></li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Create 3 variables x, y, z</span></span>
+<span id="cb43-2"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb43-3"><a aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="st">"Dog"</span></span>
+<span id="cb43-4"><a aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> pi</span>
+<span id="cb43-5"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-6"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Workspace contains variables x, y, z</span></span>
+<span id="cb43-7"><a aria-hidden="true" tabindex="-1"></a><span class="co"># This can be displayed by using ls()</span></span>
+<span id="cb43-8"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "x" "y" "z"</code></pre>
+</div>
+</div>
+</section>
+<section id="the-workspace-1" class="slide level2 smaller">
+<h2>The workspace</h2>
+<p>You can remove variables from workspace by using</p>
+<ul>
+<li><code>rm()</code></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Create 3 variables x, y, z</span></span>
+<span id="cb45-2"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb45-3"><a aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="st">"Dog"</span></span>
+<span id="cb45-4"><a aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> pi</span>
+<span id="cb45-5"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-6"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Remove x from workspace</span></span>
+<span id="cb45-7"><a aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(x)</span>
+<span id="cb45-8"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-9"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Now the workspace contains only y and z</span></span>
+<span id="cb45-10"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span>( )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "y" "z"</code></pre>
+</div>
+</div>
+</section>
+<section id="the-workspace-2" class="slide level2 smaller">
+<h2>The workspace</h2>
+<p>To completely clear the workspace use</p>
+<ul>
+<li><code>rm(list = ls())</code></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Create 3 variables x, y, z</span></span>
+<span id="cb47-2"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb47-3"><a aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="st">"Dog"</span></span>
+<span id="cb47-4"><a aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> pi</span>
+<span id="cb47-5"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-6"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Remove all variables from workspace</span></span>
+<span id="cb47-7"><a aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">ls</span>())</span>
+<span id="cb47-8"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-9"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Let us check that the workspace is empty</span></span>
+<span id="cb47-10"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span>( )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>character(0)</code></pre>
+</div>
+</div>
+</section>
+<section id="saving-the-workspace" class="slide level2 smaller">
+<h2>Saving the Workspace</h2>
+<ul>
+<li>You can save the workspace using the command
+<ul>
+<li><code>save.image("file_name.RData")</code></li>
+</ul></li>
+<li>The file <code>file_name.RData</code>
+<ul>
+<li>Is saved in the working directory</li>
+<li>Contains all the objects currently in the workspace</li>
+</ul></li>
+<li>You can load a saved workspace in a new R session with the command
+<ul>
+<li><code>load("file_name.RData")</code></li>
+</ul></li>
+</ul>
+</section>
+<section id="project-management" class="slide level2 smaller">
+<h2>Project Management</h2>
+<ul>
+<li><p>Recommended: keep all the files related to a project in a single <strong>folder</strong></p></li>
+<li><p>Such folder will have to be set as working directory in R Console</p></li>
+<li><p>Saving the workspace could be <strong>dangerous</strong></p>
+<ul>
+<li>This is because R Console automatically loads existing saved workspaces</li>
+<li>You might forget that this happens, and have undesired objects in workspace</li>
+<li>This might lead to unintended results</li>
+</ul></li>
+<li><p>Always store your code in <strong>R Scripts</strong></p></li>
+</ul>
+</section>
+<section id="exiting-r-and-saving" class="slide level2 smaller">
+<h2>Exiting R and Saving</h2>
+<p>To quit the R Console type <code>q()</code></p>
+<ul>
+<li>You will be asked if you want to save your session</li>
+<li>If you say <strong>YES</strong>, the session will be saved in a <code>.RData</code> file in the working directory</li>
+<li>Such file will be automatically loaded when you re-open the R Console</li>
+<li>I recommend you <strong>DO NOT</strong> save your session</li>
+</ul>
+</section>
+<section id="exiting-r-and-saving-1" class="slide level2 smaller">
+<h2>Exiting R and Saving</h2>
+<h3 id="summary">Summary</h3>
+<ul>
+<li>Write your code in <strong>R Scripts</strong></li>
+<li>These are <code>.txt</code> or <code>.R</code> text files</li>
+<li>For later: Data should be stored in <code>.txt</code> files</li>
+<li><strong>DO NOT</strong> save your session when prompted</li>
+</ul>
+</section></section>
+<section>
+<section id="part-4-vectors" class="title-slide slide level1 center" data-background-color="#cc0164" data-visibility="uncounted">
+<h1>Part 4: <br>Vectors</h1>
+<div class="footer">
+<div color="#cc0164">
+
+</div>
+</div>
+</section>
+<section id="vectors" class="slide level2 smaller">
+<h2>Vectors</h2>
+<ul>
+<li>We saw how to store a single value in a variable</li>
+<li>Series of values can be stored in <strong>vectors</strong></li>
+<li>Vectors can be constructed via the command <code>c()</code></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Constuct a vector and store it in variable "vector"</span></span>
+<span id="cb49-2"><a aria-hidden="true" tabindex="-1"></a>vector <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">60</span>, <span class="dv">72</span>, <span class="dv">57</span>, <span class="dv">90</span>, <span class="dv">95</span>, <span class="dv">72</span>)</span>
+<span id="cb49-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Print vector</span></span>
+<span id="cb49-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(vector)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 60 72 57 90 95 72</code></pre>
+</div>
+</div>
+</section>
+<section id="vectorized-arithmetic" class="slide level2 smaller">
+<h2>Vectorized arithmetic</h2>
+<ul>
+<li>A vector is handled by R as a <strong>single</strong> object</li>
+<li>You can do calculations with vectors, as long as they are of the same length</li>
+<li><strong>Important</strong>: Operations are exectuted component-wise</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Constuct two vectors of radius and height of 6 cylinders</span></span>
+<span id="cb51-2"><a aria-hidden="true" tabindex="-1"></a>radius <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">5</span>, <span class="dv">9</span>, <span class="dv">9</span>, <span class="dv">7</span>)</span>
+<span id="cb51-3"><a aria-hidden="true" tabindex="-1"></a>height <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">1.7</span>, <span class="fl">1.8</span>, <span class="fl">1.6</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="fl">1.9</span>)</span>
+<span id="cb51-4"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-5"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Compute the volume of each cylinder and store it in "volume"</span></span>
+<span id="cb51-6"><a aria-hidden="true" tabindex="-1"></a>volume <span class="ot">&lt;-</span> pi <span class="sc">*</span> radius<span class="sc">^</span><span class="dv">2</span> <span class="sc">*</span> height</span>
+<span id="cb51-7"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-8"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Print volume</span></span>
+<span id="cb51-9"><a aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(volume)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 192.2655 277.0885 125.6637 508.9380 254.4690 292.4823</code></pre>
+</div>
+</div>
+</section>
+<section id="vectorized-arithmetic-1" class="slide level2 smaller">
+<h2>Vectorized arithmetic</h2>
+<ul>
+<li>If 2 vectors do not have the same length then the shorter vector is <strong>cycled</strong></li>
+<li>This is called <strong>broadcasting</strong></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>)</span>
+<span id="cb53-2"><a aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb53-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-4"><a aria-hidden="true" tabindex="-1"></a>a <span class="sc">+</span> b</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1 3 3 5 5 7 7</code></pre>
+</div>
+</div>
+<ul>
+<li>In the example the vector <code>a</code> has 7 components while <code>b</code> has 2 components</li>
+<li>The operation <code>a + b</code> is executed as follows:
+<ul>
+<li><code>b</code> is copied 4 times to match the length of <code>a</code></li>
+<li><code>a + b</code> is then obtained by <span class="math display">
+a + \tilde{b} = (1, 2, 3, 4, 5, 6, 7) + (0, 1, 0, 1, 0, 1, 0) =
+(1, 3, 3, 5, 5, 7, 7)
+</span></li>
+</ul></li>
+</ul>
+</section>
+<section id="vectorized-arithmetic-2" class="slide level2 smaller">
+<h2>Vectorized arithmetic</h2>
+<p>Useful applications of broadcasting are:</p>
+<ul>
+<li>Multiplying a vector by a scalar</li>
+<li>Adding a scalar to each component of a vector</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a aria-hidden="true" tabindex="-1"></a>vector <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>)</span>
+<span id="cb55-2"><a aria-hidden="true" tabindex="-1"></a>scalar <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb55-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Multiplication of vector by a scalar</span></span>
+<span id="cb55-5"><a aria-hidden="true" tabindex="-1"></a>vector <span class="sc">*</span> scalar</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  2  4  6  8 10 12</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Summing a scalar to each component of a vector</span></span>
+<span id="cb57-2"><a aria-hidden="true" tabindex="-1"></a>vector <span class="sc">+</span> scalar</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3 4 5 6 7 8</code></pre>
+</div>
+</div>
+</section>
+<section id="sum-and-length" class="slide level2 smaller">
+<h2>Sum and length</h2>
+<p>Two very useful vector operators are:</p>
+<ul>
+<li><code>sum(x)</code> which returns the sum of the components of <code>x</code></li>
+<li><code>length(x)</code> which returns the length of <code>x</code></li>
+</ul>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>)</span>
+<span id="cb59-2"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-3"><a aria-hidden="true" tabindex="-1"></a>sum <span class="ot">&lt;-</span> <span class="fu">sum</span>(x)</span>
+<span id="cb59-4"><a aria-hidden="true" tabindex="-1"></a>length <span class="ot">&lt;-</span> <span class="fu">length</span>(x)</span>
+<span id="cb59-5"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-6"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Here is the vector x:"</span>, x)</span>
+<span id="cb59-7"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"The components of vector x sum to"</span>, sum)</span>
+<span id="cb59-8"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"The length of vector x is"</span>, length)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>Here is the vector x: ( 1 2 3 4 5 )</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>The components of vector x sum to 15</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>The length of vector x is 5</code></pre>
+</div>
+</div>
+</section>
+<section id="computing-sample-mean-and-variance" class="slide level2 smaller">
+<h2>Computing sample mean and variance</h2>
+<h3 id="using-vectorized-operations">Using vectorized operations</h3>
+<p>Given a vector <span class="math inline">\mathbf{x}= (x_1,\ldots,x_n)</span> we want to compute sample mean and variance <span class="math display">
+\overline{x} = \frac{1}{n} \sum_{i=1}^n x_i \,, \qquad
+s^2 =  \frac{\sum_{i=1}^n (x_i -  \overline{x})^2 }{n-1}  
+</span></p>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Computing sample mean of vector x</span></span>
+<span id="cb63-2"><a aria-hidden="true" tabindex="-1"></a>xbar <span class="ot">=</span> <span class="fu">sum</span>(x) <span class="sc">/</span> <span class="fu">length</span>(x)</span>
+<span id="cb63-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-4"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-5"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Computing sample variance of vector x</span></span>
+<span id="cb63-6"><a aria-hidden="true" tabindex="-1"></a>n <span class="ot">=</span> <span class="fu">length</span>(x)</span>
+<span id="cb63-7"><a aria-hidden="true" tabindex="-1"></a>s2 <span class="ot">=</span> <span class="fu">sum</span>( (x <span class="sc">-</span> barx)<span class="sc">^</span><span class="dv">2</span> ) <span class="sc">/</span> (n <span class="sc">-</span> <span class="dv">1</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="computing-sample-mean-and-variance-1" class="slide level2 smaller">
+<h2>Computing sample mean and variance</h2>
+<h3 id="using-built-in-functions">Using built in functions</h3>
+<ul>
+<li>R is a statistical language</li>
+<li>There are built in functions to compute sample mean and variance:
+<ul>
+<li><code>mean(x)</code> computes the sample mean of <code>x</code></li>
+<li><code>sd(x)</code> computes the sample standard deviation of <code>x</code></li>
+<li><code>var(x)</code> computes the sample variance of <code>x</code></li>
+</ul></li>
+</ul>
+</section>
+<section id="computing-sample-mean-and-variance-2" class="slide level2 smaller">
+<h2>Computing sample mean and variance</h2>
+<h3 id="example">Example</h3>
+<ul>
+<li>Let us go back to an Example we saw in Lecure 3</li>
+<li>Below is the Wage data on 10 Advertising Professionals Accountants</li>
+</ul>
+<table class="caption-top">
+<colgroup>
+<col style="width: 19%">
+<col style="width: 8%">
+<col style="width: 7%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 7%">
+<col style="width: 8%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;"><strong>Professional</strong></th>
+<th style="text-align: center;"><span class="math inline">x_1</span></th>
+<th style="text-align: center;"><span class="math inline">x_2</span></th>
+<th style="text-align: center;"><span class="math inline">x_3</span></th>
+<th style="text-align: center;"><span class="math inline">x_4</span></th>
+<th style="text-align: center;"><span class="math inline">x_5</span></th>
+<th style="text-align: center;"><span class="math inline">x_6</span></th>
+<th style="text-align: center;"><span class="math inline">x_7</span></th>
+<th style="text-align: center;"><span class="math inline">x_8</span></th>
+<th style="text-align: center;"><span class="math inline">x_9</span></th>
+<th style="text-align: center;"><span class="math inline">x_{10}</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><strong>Wage</strong></td>
+<td style="text-align: center;">36</td>
+<td style="text-align: center;">40</td>
+<td style="text-align: center;">46</td>
+<td style="text-align: center;">54</td>
+<td style="text-align: center;">57</td>
+<td style="text-align: center;">58</td>
+<td style="text-align: center;">59</td>
+<td style="text-align: center;">60</td>
+<td style="text-align: center;">62</td>
+<td style="text-align: center;">63</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>In Lecture 3 we have computed <span class="math inline">\overline{x}</span> and <span class="math inline">s^2</span> by hand</li>
+<li>Let us compute them using R</li>
+</ul>
+</section>
+<section id="computing-sample-mean-and-variance-3" class="slide level2 smaller">
+<h2>Computing sample mean and variance</h2>
+<h3 id="example-1">Example</h3>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># First store the wage data into a vector</span></span>
+<span id="cb64-2"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">36</span>, <span class="dv">40</span>, <span class="dv">46</span>, <span class="dv">54</span>, <span class="dv">57</span>, <span class="dv">58</span>, <span class="dv">59</span>, <span class="dv">60</span>, <span class="dv">62</span>, <span class="dv">63</span>)</span>
+<span id="cb64-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Compute the sample mean using formula</span></span>
+<span id="cb64-5"><a aria-hidden="true" tabindex="-1"></a>xbar <span class="ot">=</span> <span class="fu">sum</span>(x) <span class="sc">/</span> <span class="fu">length</span>(x)</span>
+<span id="cb64-6"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-7"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Compute the sample mean using built in R function</span></span>
+<span id="cb64-8"><a aria-hidden="true" tabindex="-1"></a>xbar_check <span class="ot">=</span> <span class="fu">mean</span>(x)</span>
+<span id="cb64-9"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-10"><a aria-hidden="true" tabindex="-1"></a><span class="co"># We now print both results to screen</span></span>
+<span id="cb64-11"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Sample mean computed with formula is"</span>, xbar)</span>
+<span id="cb64-12"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Sample mean computed by R is"</span>, xbar_check)</span>
+<span id="cb64-13"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"They coincide!"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>Sample mean computed with formula is 53.5</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Sample mean computed by R is 53.5</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>They coincide!</code></pre>
+</div>
+</div>
+</section>
+<section id="computing-sample-mean-and-variance-4" class="slide level2 smaller">
+<h2>Computing sample mean and variance</h2>
+<h3 id="example-2">Example</h3>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Compute the sample variance using formula</span></span>
+<span id="cb68-2"><a aria-hidden="true" tabindex="-1"></a>xbar <span class="ot">=</span> <span class="fu">mean</span>(x)</span>
+<span id="cb68-3"><a aria-hidden="true" tabindex="-1"></a>n <span class="ot">=</span> <span class="fu">length</span>(x)</span>
+<span id="cb68-4"><a aria-hidden="true" tabindex="-1"></a>s2 <span class="ot">=</span> <span class="fu">sum</span>( (x <span class="sc">-</span> xbar)<span class="sc">^</span><span class="dv">2</span> ) <span class="sc">/</span> (n <span class="sc">-</span> <span class="dv">1</span>) </span>
+<span id="cb68-5"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb68-6"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Compute the sample variance using built in R function</span></span>
+<span id="cb68-7"><a aria-hidden="true" tabindex="-1"></a>s2_check <span class="ot">=</span> <span class="fu">var</span>(x)</span>
+<span id="cb68-8"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb68-9"><a aria-hidden="true" tabindex="-1"></a><span class="co"># We now print both results to screen</span></span>
+<span id="cb68-10"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Sample variance computed with formula is"</span>, s2)</span>
+<span id="cb68-11"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Sample variance computed by R is"</span>, s2_check)</span>
+<span id="cb68-12"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"They coincide!"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>Sample variance computed with formula is 90.27778</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Sample variance computed by R is 90.27778</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>They coincide!</code></pre>
+</div>
+</div>
+</section>
+<section id="references-1" class="slide level2 smaller scrollable">
 <h2>References</h2>
 
 <div class="quarto-auto-generated-content">
 <div class="footer footer-default">
 <p><a href="../index.html">Homepage</a> &nbsp;&nbsp;&nbsp;&nbsp; <a href="../license.html">License</a> &nbsp;&nbsp;&nbsp;&nbsp; <a href="https://www.silviofanzon.com/contact">Contact</a></p>
+</div>
+</div>
+<div id="refs" class="references csl-bib-body" data-entry-spacing="0" role="list">
+<div id="ref-dalgaard" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[1] </div><div class="csl-right-inline">Dalgaard, Peter, Introductory statistics with <span>R</span>, Second Edition, Springer, 2008.</div>
+</div>
+<div id="ref-davies" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[2] </div><div class="csl-right-inline">Davies, Tilman M., The book of <span>R</span>, No Starch Press, 2016.</div>
 </div>
 </div>
 </section></section>
@@ -808,6 +2210,44 @@ H_1 \colon \theta \geq \theta_0</span></p>
         ]
       });
     </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
     <script id="quarto-html-after-body" type="application/javascript">
     window.document.addEventListener("DOMContentLoaded", function (event) {
       const toggleBodyColorMode = (bsSheetEl) => {

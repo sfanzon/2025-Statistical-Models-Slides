@@ -19,7 +19,7 @@ $
 :::
 
 
-# Lecture 3: <br>Random samples{background-color="#cc0164" visibility="uncounted"}
+# Lecture 3: <br>Hypothesis tests in R <br> Part 1 {background-color="#cc0164" visibility="uncounted"}
 
 ::: footer
 
@@ -33,7 +33,12 @@ $
 
 ## Outline of Lecture 3
 
-4. Hypothesis testing
+1. Hypothesis testing
+2. The t-test
+3. The basics of R
+4. Vectors
+5. The t-test in R
+6. Graphics
 
 
 
@@ -41,8 +46,7 @@ $
 
 
 
-
-# Part 6: <br>Hypothesis testing{background-color="#cc0164" visibility="uncounted"}
+# Part 1: <br>Hypothesis testing{background-color="#cc0164" visibility="uncounted"}
 
 ::: footer
 
@@ -52,15 +56,13 @@ $
 
 
 
-## Hypothesis testing {.smaller}
-### Definition of Hypothesis
-
+## Definition of Hypothesis {.smaller}
 
 - **Idea**:
   * Interested in knowing a population parameter $\theta$
   * $\theta$ cannot be measured directly
   * We can sample the population and draw conclusions on $\theta$
-  * Such conclusions are **hypotheses**
+  * Such conclusions are called **hypotheses**
 
 
 ::: Definition
@@ -72,8 +74,7 @@ A **hypothesis** is a statement about a population parameter
 
 
 
-## Hypothesis testing {.smaller}
-### Complementary hypotheses
+## Complementary hypotheses {.smaller}
 
 
 - Two hypotheses are **complementary** if exactly one of them can be true
@@ -87,8 +88,7 @@ A **hypothesis** is a statement about a population parameter
 
 
 
-## Hypothesis testing {.smaller}
-### How to model hypotheses
+## How to model hypotheses {.smaller}
 
 We denote by:
 
@@ -106,9 +106,7 @@ H_1 \colon & \theta \in \Theta_0^c  & \qquad \text{ alternative hypothesis}
 
 
 
-## Hypothesis testing {.smaller}
-### Definition of Hypothesis test
-
+## Definition of Hypothesis test {.smaller}
 
 ::: Definition
 
@@ -120,76 +118,72 @@ A **hypothesis test** is a rule to decide:
 :::
 
 
-## Hypothesis testing {.smaller}
-### Acceptance and Critical regions
+## Acceptance and Critical regions {.smaller}
 
 The sample space is partitioned into two regions:
 
-- **Acceptance region:** For samples $\XX$ in this region we **accept** $H_0$
-- **Critical region:** For samples $\XX$ in this region we **reject** $H_0$
+- **Acceptance region:** For samples $\xx$ in this region we **accept** $H_0$
+- **Critical region:** For samples $\xx$ in this region we **reject** $H_0$
 
-**In most cases:** Critical region is defined in terms of a statistic $W(\XX)$
+**In most cases:** Critical region is defined in terms of a test statistic $W(\xx)$
 
 
 **Example**: We could decide to reject $H_0$ if 
 $$
-W(\XX) \in R
+W(\xx) \in R
 $$ 
 with $R \subset \R$ some rejection region
 
 
 
-## Hypothesis testing {.smaller}
-### One-sided vs Two-sided Tests
+## One-sided vs Two-sided Tests {.smaller}
 
 Let $\theta$ be one dimensional parameter. A hypothesis test is:
 
-- **One-sided** if the null hypotheses are of the form
+- **One-sided:** if the null and alternative hypotheses are of the form
   $$ 
-  H_0 \colon \theta \leq \theta_0 
-  \qquad 
-  \text{ or } 
-  \qquad 
-  H_0 \colon \theta \geq \theta_0 
-  $$
-  with corresponding one-sided alternative hypotheses
-  $$ 
+  H_0 \colon \theta \leq \theta_0 \,, \qquad 
   H_1 \colon \theta > \theta_0 
-  \qquad 
-  \text{ or } 
-  \qquad 
+  $$
+  or also
+  $$ 
+  H_0 \colon \theta \geq \theta_0 \,, \qquad 
   H_1 \colon \theta < \theta_0 
   $$
 
-- **Two-sided** if the null and alternative hypotheses are of the form
+- **Two-sided:** if the null and alternative hypotheses are of the form
   $$ 
-  H_0 \colon \theta = \theta_0  \qquad   
-  \text{ and } \qquad 
+  H_0 \colon \theta = \theta_0  \,, \qquad   
   H_1 \colon \theta \neq \theta_0 
   $$
 
 
 
-## Hypothesis testing {.smaller}
-### Philosophical issues
-
-- $H_0$ is usually a **conservative hypothesis**
-- If a test indicates to **reject** $H_0$, people do that happily and accept $H_1$
-- If a test indicates to **accept** $H_0$ there are issues:
-    * Some people like to reject $H_1$ and accept $H_0$
-    * Some people like to reject $H_1$, but do not believe fully in $H_0$. They would like to reject $H_0$, but do not have enough evidence to do so
-
-- **Our position:** We do not care, and we either
-    * decide in favor of $H_0$ - or **accept** $H_0$
-    * decide in favor of $H_1$ - or **accept** $H_1$
 
 
+## Example 1: Two-sided test {.smaller}
 
-## Hypothesis testing {.smaller}
-### Example 1 - Two-seded test
+We want to assess whether a **coin is fair**
+
+- To test fairness, toss the coin many times and record outcome
+
+- $\theta =$ proportion of Heads
+
+- The decision is between:
+    * Null hypothesis: The coin is fair $\,\, \implies \,\, \theta = \frac12$
+    * Alternative hypothesis: The coin is not fair $\,\, \implies \,\, \theta \neq \frac12$
+
+**Hypothesis test**:
+$\qquad \quad H_0 \colon \theta = \frac12  \,, \qquad 
+H_1 \colon \theta \neq \frac12$
+ 
 
 
-The *University of Cottingham Road* wants to advertise its MBA Program: 
+
+
+## Example 2: One-sided test {.smaller}
+
+A *University* wants to advertise its MBA Program: 
 $$
 \text{ MBA } = \text{ higher salary }
 $$
@@ -199,32 +193,1377 @@ $$
 - The University has only access to incomplete data (could not ask all former students). Need hypothesis testing
 
 - $\theta =$ average change in salary after **completing the MBA program**
-  * Null hypothesis: There is no change $\,\, \implies \,\, \theta=0$
-  * Alternative hypothesis: There is a change $\,\, \implies \,\, \theta \neq 0$
+  * Null hypothesis: No improvement in salary $\,\, \implies \,\, \theta \leq 0$
+  * Alternative hypothesis: Salary increases $\,\, \implies \,\, \theta > 0$
 
 **Hypothesis test**: 
-$\qquad \quad H_0 \colon \theta = 0 \,, \qquad 
-H_1 \colon \theta \neq 0$
+$\qquad \quad H_0 \colon \theta \leq 0 \,, \qquad 
+H_1 \colon \theta > 0$
 
 
 
-## Hypothesis testing {.smaller}
-### Example 2 - One-sided test
 
 
-Manager at a *Computer Factory* wants to know the proportion of defective components produced
 
-- Testing is expensive and they can only test a limited sample
-- $\theta =$ proportion of defective components
-- Manager is happy if $\theta$ is less than some $\theta_0$
-- The decision is between:
-    * Null hypothesis: Defective components less than $\theta_0$ $\,\, \implies \,\, \theta < \theta_0$
-    * Alternative hypothesis: Defective components more than $\theta_0$ $\,\, \implies \,\, \theta \geq \theta_0$
+# Part 2: <br>The t-test {background-color="#cc0164" visibility="uncounted"}
 
-**Hypothesis test**:
-$\qquad \quad H_0 \colon \theta < \theta_0 \,, \qquad 
-H_1 \colon \theta \geq \theta_0$
- 
+::: footer
+
+<div color="#cc0164">  </div>
+
+:::
+
+
+## One-sample Two-sided t-test {.smaller}
+
+**Goal**: estimate the mean $\mu$ of a normal population $N(\mu,\sigma^2)$. If $\mu_0$ is guess for $\mu$
+$$
+H_0 \colon \mu = \mu_0 \qquad H_1 \colon \mu \neq \mu_0
+$$
+
+- **One-sample** means we sample only from one population
+- The variance $\sigma$ is unknown
+- Suppose the sample size is $n$, with sample $X_1 ,\ldots,X_n$
+- We consider the t-statistics
+$$
+T = \frac{\overline{X}-\mu_0}{S/\sqrt{n}}
+$$
+- Recall: $T \sim t_{n-1}$ Student's t-distribution with $n-1$ degrees of freedom
+
+
+
+
+
+
+## Procedure for all tests {.smaller}
+
+1. Calculation
+2. Reference statistical tables or numerical values
+3. Interpretation
+
+
+
+
+
+## One-sample Two-sided t-test {.smaller}
+### Calculation
+
+- We have $n$ samples available $x_1,\ldots,x_n$
+- Compute **sample mean**
+$$
+\overline{x} = \frac{1}{n} \sum_{i=1}^n x_i
+$$
+- Compute the **sample standard deviation**
+$$
+s = \sqrt{\frac{\sum_{i=1}^n x_i^2 - n \overline{x}^2}{n-1}}
+$$
+
+
+
+
+## One-sample Two-sided t-test {.smaller}
+### Calculation
+
+
+- Compute the **estimated standard error**
+$$
+\ese = \frac{s}{\sqrt{n}}
+$$
+
+- Compute the **t-statistic**
+$$
+t = \frac{\text{estimate } - \text{ hypothesised value}}{\ese}
+= \frac{\overline x - \mu_0}{s/\sqrt{n}}
+$$
+
+- $\mu_0$ is the value of the null hypothesis $H_0$ 
+
+
+
+
+## One-sample Two-sided t-test {.smaller}
+### p-value
+
+
+- After computing **t-statistic**, we need to compute the **p-value**
+
+- **p-value** is a measure of how strange the data is in relation to the null hypothesis
+
+
+- We have 2 options:
+    * **LOW** p-value $\quad \implies \quad$  **reject** $H_0$
+    * **HIGH** p-value $\quad \implies \quad$  **do not reject** $H_0$
+
+- In this module we reject $H_0$ for p-values 
+$$
+p<0.05
+$$
+
+
+
+
+## One-sample Two-sided t-test {.smaller}
+### p-value
+
+- For two-sided t-test the p-value is defined as
+$$
+p := 2P(t_{n-1}> |t|)
+$$
+where $t_{n-1}$ is the t-distribution with $n-1$ degrees of freedom
+
+- In other words, the p-value is
+$$
+p = 2P(\text{Observing values more extreme than t }| \, \mu=\mu_0)
+$$
+
+
+
+
+
+## One-sample Two-sided t-test {.smaller}
+### p-value
+
+- $p<0.05$ means that the test statistic $t$ is **extreme**: $\,\, P(t_{n-1}> |t|)<0.025$
+
+- $t$ falls in the **grey areas** in the $t_{n-1}$ plot below: Each grey area measures $0.025$
+
+
+```{r}
+# Degrees of freedom
+df <- 11
+
+# Values for x-axis
+x <- seq(-4, 4, length.out = 1000)
+
+# Calculate PDF of t-distribution
+pdf <- dt(x, df)
+
+# Plot PDF
+plot(x, pdf, type = "l", col = "blue", lwd = 2, xlab = "x", ylab = "Density")
+
+# Shade area where p-value < 0.025
+x_fill_left <- x[x <= qt(0.025, df)]
+y_fill_left <- pdf[x <= qt(0.025, df)]
+polygon(c(x_fill_left, rev(x_fill_left)), c(y_fill_left, rep(0, length(y_fill_left))), col = "gray", border = NA)
+
+# Shade area where p-value > 0.975
+x_fill_right <- x[x >= qt(0.975, df)]
+y_fill_right <- pdf[x >= qt(0.975, df)]
+polygon(c(x_fill_right, rev(x_fill_right)), c(y_fill_right, rep(0, length(y_fill_right))), col = "gray", border = NA)
+
+# Add legend
+legend("topright", legend = c("area = 0.025 x 2"), fill = "gray", cex = 1.3)
+
+
+```
+
+
+
+
+
+
+## One-sample Two-sided t-test {.smaller}
+### p-value
+
+
+- How to compute $p$?
+    * Use statistical tables -- Available [here](files/Statistics_Tables.pdf)
+    * Use R -- Next sections
+
+
+
+
+## One-sample Two-sided t-test {.smaller}
+### Reference statistical tables
+
+
+Find Table 13.1 in this
+[file](files/Statistics_Tables.pdf)
+
+- Look at the row with Degree of Freedom $n-1$ (or its closest value)
+- Find **critical value** $t^* := t_{n-1}(0.025)$ in column $0.025$
+- **Example**: $n=10$, DF $=9$, $t^*=t_{9}(0.025)=2.262$
+
+![](images/t_test_statistic_table.png){width=82%}
+
+
+
+
+
+## One-sample Two-sided t-test {.smaller}
+### Reference statistical tables 
+
+
+- The critical value $t^* = t_{n-1}(0.025)$ found in the table satisfies
+$$
+P(t_{n-1}>t^*) = 0.025
+$$
+
+- By definition of $p$-value for two-sided t-test we have
+$$
+p := 2P(t_{n-1}>|t|) 
+$$
+
+- Therefore, for $|t|>t^*$
+\begin{align*}
+p & := 2P(t_{n-1}>|t|) \\
+  & <  2P(t_{n-1}>t^*) = 2 \cdot (0.025) = 0.05
+\end{align*}
+
+- **Conclusion**: $\quad |t|>t^*  \iff  p<0.05 \qquad$ (Extreme $t$ $\iff$ low p-value)
+
+
+
+
+
+
+## One-sample Two-sided t-test {.smaller}
+### Interpretation
+
+
+Recall that $p = 2P ( \text{Observing values more extreme than t } | \mu = \mu_0)$
+
+We have two possibilities: 
+
+- $|t|>t^*$
+  * In this case $p<0.05$
+  * The observed statistic $t$ is very unlikely under $H_0 \,\, \implies \,\,$ **reject** $H_0$
+
+
+- $|t| \leq t^*$
+  * In this case $p>0.05$
+  * The observed statistic $t$ is not unlikely under $H_0 \,\, \implies \,\,$ **do not reject** $H_0$
+
+
+
+
+## Example: 2008 crisis {.smaller}
+
+- **Data:** Monthly Consumer Confidence Index (CCI) in 2007 and 2009
+- **Question:** Did the crash of 2008 have lasting impact upon CCI?
+- **Observation**: Data shows a massive drop in CCI between 2009 and 2007 
+- **Method:** Use $t$-test to see if data is sufficient to prove that CCI actually dropped
+
+| Month                    | J | F | M | A | M | J | J | A | S | O | N | D |
+|:------------------------:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+| CCI 2007                 |86 | 86| 88| 90| 99| 97| 97| 96| 99| 97| 90| 90|
+| CCI 2009                 |24 | 22| 21| 21| 19| 18| 17| 18| 21| 23| 22| 21|
+| Difference               |62 | 64| 67| 69| 80| 79| 80| 78| 78| 74| 68| 69|
+
+
+
+
+
+
+## Example: 2008 crisis {.smaller}
+
+- This is really a **two-sample** problem -- CCI data in 2 populations: 2007 and 2009 
+- It reduces to a **one-sample** problem because we have directly comparable units
+- If units cannot be compared, then we must use a two-sample approach
+- Two-sample approach will be discussed later
+
+
+| Month                    | J | F | M | A | M | J | J | A | S | O | N | D |
+|:------------------------:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+| CCI 2007                 |86 | 86| 88| 90| 99| 97| 97| 96| 99| 97| 90| 90|
+| CCI 2009                 |24 | 22| 21| 21| 19| 18| 17| 18| 21| 23| 22| 21|
+| Difference               |62 | 64| 67| 69| 80| 79| 80| 78| 78| 74| 68| 69|
+
+
+
+
+## Example: 2008 crisis {.smaller}
+### Setting up the test
+
+
+- We want to test if there was a change in CCI from 2007 to 2009
+- We are really only interested in the difference in CCI
+- Let $\mu$ be the (unknown) average difference in CCI
+- The **null hypothesis** is that there was (on average) no change in CCI
+$$
+H_0 \colon \mu = 0 
+$$
+- The **alternative hypothesis** is that there was some change:
+$$
+H_1 \colon \mu \neq 0 
+$$
+- Note that this is a **two-sided** test
+
+
+
+
+## Example: 2008 crisis {.smaller}
+### Calculation
+
+Using the available data, we need to compute:
+
+- Sample mean and standard deviation
+$$
+\overline{x} = \frac{1}{n} \sum_{i=1}^n x_i \qquad 
+s = \sqrt{\frac{\sum_{i=1}^n x_i^2 - n \overline{x}^2}{n-1}}
+$$
+
+- Test statistic
+$$
+t = \frac{\overline x - \mu_0}{s/\sqrt{n}}
+$$
+
+
+
+## Example: 2008 crisis {.smaller}
+### Calculation
+
+<br>
+
+|CCI                       | J | F | M | A | M | J | J | A | S | O | N | D |
+|:------------------------:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+| Difference               |62 | 64| 67| 69| 80| 79| 80| 78| 78| 74| 68| 69|
+
+
+\begin{align*}
+\overline{x} & =\frac{1}{n} \sum_{i=1}^{n} x_i=\frac{1}{12} \left(62+64+67+{\ldots}+68+69\right)=\frac{868}{12}=72.33 \\
+\sum_{i=1}^{n} x_i^2 & = 62^2+64^2+67^2+{\ldots}+68^2+69^2 = 63260 \\
+s & = \sqrt{ \frac{\sum_{i=1}^n x_i^2 - n \overline{x}^2}{n-1} } = \sqrt{\frac{63260-12\left(\frac{868}{12}\right)^2}{11}} = \sqrt{\frac{474.666}{11}} = 6.5689
+\end{align*}
+
+
+
+## Example: 2008 crisis {.smaller}
+### Calculation
+
+
+- The sample size is $n=12$
+- The sample mean is $\overline{x}=72.33$
+- The sample standard deviation is $s = 6.5689$
+- The **hypothesized mean** is $\mu_0 = 0$
+- The **t-statistic** is
+$$
+t = \frac{\overline{x} - \mu_0}{s/\sqrt{n}} =
+\frac{72.33 - 0}{6.5689/\sqrt{12}} = 38.145
+$$
+
+
+
+
+
+
+
+## Example: 2008 crisis {.smaller}
+### Reference statistical tables
+
+
+Find Table 13.1 in this [file](files/Statistics_Tables.pdf)
+
+- Find row with DF $= n-1$ (or closest). Find critical value $t^*$ in column $0.025$
+- In our case: $n=12$, DF $=11$, $t^*=  t_{11}(0.025) =2.201$
+
+![](images/t_test_statistic_table_bis.png){width=82%}
+
+
+
+
+
+
+## Example: 2008 crisis {.smaller}
+### Reference statistical tables
+
+- Plot of $t_{11}$ distribution. White area is $0.95$, total shaded area is $0.05$
+- Probability of observing $|t|>t^* = 2.201$ is $p<0.025$
+
+
+```{r}
+# Degrees of freedom
+df <- 11
+
+# Values for x-axis
+x <- seq(-4, 4, length.out = 1000)
+
+# Calculate PDF of t-distribution
+pdf <- dt(x, df)
+
+# Plot PDF
+plot(x, pdf, type = "l", col = "blue", lwd = 2, xlab = "x", ylab = "Density")
+
+# Shade area where p-value < 0.025
+x_fill_left <- x[x <= qt(0.025, df)]
+y_fill_left <- pdf[x <= qt(0.025, df)]
+polygon(c(x_fill_left, rev(x_fill_left)), c(y_fill_left, rep(0, length(y_fill_left))), col = "gray", border = NA)
+
+# Shade area where p-value > 0.975
+x_fill_right <- x[x >= qt(0.975, df)]
+y_fill_right <- pdf[x >= qt(0.975, df)]
+polygon(c(x_fill_right, rev(x_fill_right)), c(y_fill_right, rep(0, length(y_fill_right))), col = "gray", border = NA)
+
+# Add annotations for p value = 0.025 on both sides
+text(qt(0.025, df), dt(qt(0.025, df), df) + 0.05, paste("t* =", round(qt(0.025, df), 4)), pos = 3, col = "red", cex = 1.3, adj = c(8.5, 4.5))
+text(qt(0.975, df), dt(qt(0.975, df), df) + 0.05, paste("t* =", round(qt(0.975, df), 4)), pos = 3, col = "red", cex = 1.3, adj = c(5.5, 4.5))
+
+# Add legend
+legend("topright", legend = c("area = 0.025 x 2"), fill = "gray", cex = 1.3)
+
+
+```
+
+
+
+
+## Example: 2008 crisis {.smaller}
+### Interpretation
+
+- We have computed:
+  * Test statistic $t = 38.145$
+  * Critical value $t^* = 2.201$
+
+- Therefore
+$$
+|t| = 38.145 > 2.201 = t^*
+$$
+
+- This implies **rejecting** the null hypothesis
+$$
+H_0 \colon \mu = 0
+$$
+
+
+
+## Example: 2008 crisis {.smaller}
+### Interpretation
+
+- t-test implies that mean difference in CCI is 
+$$
+\mu \neq 0
+$$
+
+- The sample mean difference is positive ($\bar{x}=72.33$) 
+
+- **Conclusions**: 
+  * CCI has changed from 2007 to 2009 (backed by t-test)
+  * CCI seems higher in 2007 than in 2009 (backed by sample mean)
+  * The 2008 crash seems to have reduced consumer confidence
+
+
+
+
+
+
+
+
+# Part 3: <br>The basics of R {background-color="#cc0164" visibility="uncounted"}
+
+::: footer
+
+<div color="#cc0164">  </div>
+
+:::
+
+
+
+## What is R? {.smaller}
+
+- R is a *high-level* programming language (like **Python**) 
+- This means R deals automatically with some details of computer execution:
+  * Memory allocation
+  * Resources allocation
+- R is focused on manipulating and analyzing data
+
+
+
+## References {.smaller}
+### Slides are based on
+
+
+::: {.column width="49%"}
+
+- [@dalgaard] Dalgaard, P. 
+<br> *Introductory statistics with R*
+<br> Second Edition, Springer, 2008   
+
+
+- [@davies] Davies, T.M.
+<br> *The book of R*
+<br> No Starch Press, 2016   
+
+:::
+
+
+::: {.column width="35%"}
+
+**Concise Statistics with R**
+
+<br>
+
+**Comprehensive R manual**
+
+:::
+
+
+
+
+
+## Installing R on computer {.smaller}
+
+- R is freely available on Windows, Mac OS and Linux
+- To install:
+  * Download R from CRAN [https://cran.r-project.org](https://cran.r-project.org)
+  * Make sure you choose the right version for your system
+  * Follow the instructions to install
+
+
+
+
+
+
+## How to use R? {.smaller}
+
+- We have installed R. What now?
+
+- Launch the R Console. There are two ways:
+  * Find the **R application** on your computer
+  * Open a terminal, type **R**, exectute
+
+
+**Don't have a laptop in class:** Run R code in browser
+
+- [mycompiler.io/new/r](https://www.mycompiler.io/new/r)
+
+
+
+
+
+## R application {.smaller}
+### This is how the R Console looks on the Mac OS app
+
+![](images/R_Console.png){width=82%}
+
+
+
+## R from terminal {.smaller}
+### This is how the R Console looks on the Mac OS Terminal
+
+![](images/R_Terminal.png){width=82%}
+
+
+
+
+## What can R do?  {.smaller}
+
+- R Console is waiting for commands
+- You can use the R Console **interactively**:
+    * Type a command after the symbol ``>``
+    * Press ``Enter`` to execute
+    * R will respond
+
+
+
+## Warning  {.smaller}
+
+- The following slides might look like a lot of information
+- However you do not have to remember all the material
+- It is enough to:
+  * Try to understand the examples
+  * Know that certain commands exist and what they do
+- Combining commands to create complex codes comes with **experience** 
+
+
+
+## Simple code can lead to impressive results  {.smaller}
+
+**Example**: Plotting 1000 values randomly generated from $N(0,1)$ distribution 
+
+```{r}
+#| echo: true
+plot(rnorm(1000))
+```
+
+
+
+
+## R as a calculator {.smaller}
+### R can perform basic mathematical operations
+
+Below you can see R code and the corresponding answer
+
+```{r}
+#| echo: true
+
+2 + 2
+2 * 3 - 1 + 2 ^ 7
+exp(-10)
+log(2)
+pi
+sin(pi/2)
+
+```
+
+
+
+
+## R Scripts {.smaller}
+
+- The interactive R Console is OK for short codes
+
+- For longer code use **R scripts**
+  * Write your code in a text editor
+  * Save your code to a **plain text** file with ``.txt`` or ``.R`` extension
+  * Execute your code in the R Console with ``source("file_name.R")``
+
+- Examples of text editors
+  * TextPad (Windows)
+  * TextEdit (MacOS)
+  * [VisualStudio Code](https://code.visualstudio.com/docs/languages/r) (Cross platform)
+
+
+
+
+## RStudio {.smaller}
+
+
+
+- RStudio is an alternative to R Console and text editors: [Download here](https://posit.co/download/rstudio-desktop/)
+  * RStudio is an *Integrated Development Environment (IDE)*
+  * It is the R version of *Spyder* for Python
+
+
+
+- RStudio includes: 
+  * Direct-submission code editor
+  * Separate point-and-click panes for files, objects, and project management 
+  * Creation of markup documents incorporating R code
+  
+
+
+
+
+
+## Working Directory {.smaller}
+### R console
+
+- R session has a working directory associated with it 
+- Unless specified, R will use a **default** working directory
+- To check the location of the working directory, use the ``getwd`` function
+- On my MacOS system I get $\qquad$
+![](images/r_working_directory.png){width=32%}
+
+- File paths are always enclosed in double quotation marks
+- Note that R uses **forward slashes** (not backslashes) for paths
+- You can change the default working directory using the function ```setwd```
+
+```r
+setwd("/folder1/folder2/folder3/")
+
+```
+
+- File path can be relative to current working directory or full (system root drive)
+
+
+
+
+## Working Directory {.smaller}
+### RStudio
+
+
+In RStudio you can set the working directory from the menu bar:
+
+- Session ``->`` Set Working Directory ``->`` Choose Directory
+
+
+
+
+## Comments {.smaller}
+
+- Good practice to **document** your code
+- This means adding comments directly in the code
+- Comments should be brief and explain what a chunk of code does
+- To insert a comment, preface the line with a hash mark ``  #``
+
+```{r}
+#| echo: true
+
+# This is a comment in R
+# Comments are ignored by R
+
+1 + 1   # This works out the result of one plus one!
+```
+
+
+
+
+
+## R Packages {.smaller}
+
+- The base installation of R comes ready with:
+  * Commands for numeric calculations
+  * Common statistical analyses
+  * Plotting and visualization
+  
+- More specialized techniques and data sets are contained in **packages** (libraries)
+
+
+```r
+# To install a package, run
+install.packages("package_name")
+
+# To load a package into your code, type
+library("package_name")
+
+# To update all the packages currently installed, type
+update.packages()
+```
+
+
+
+
+
+## Help! {.smaller}
+
+- R comes with **help files** that you can use to search for particular functionality
+- For example you can check out how to precisely use a given function
+- To call for help type ``help(object_name)``
+
+
+```r
+help(mean)     # Mean is R function to compute average of some values
+```
+
+![](images/R_help.png){width=62%}
+
+
+
+
+## Further Help {.smaller}
+
+- Sometimes the output of ``help()`` can be cryptic
+- Seek help through **Google**
+  * Qualify the search with **R** or the name of an R package
+  * Paste an error message -- chances are it is common error
+- Even better: Search engines specialized for R
+  * [search.r-project.org](https://search.r-project.org)
+  * [Rseek.org](https://rseek.org)
+
+
+
+
+
+## Example: Plotting random numbers {.smaller}
+
+Let us go back to the example of the command 
+``plot(rnorm(1000))``
+
+The function ``rnorm(n)`` outputs $n$ randomly generated numbers from $N(0,1)$
+
+```{r}
+#| echo: true
+rnorm(5)
+```
+
+The above values can be plotted by concatenating the ``plot`` command
+
+```{r}
+#| echo: true
+#| output-location: slide
+plot(rnorm(5))
+```
+
+**Note**: 
+
+- The values plotted (next slide) are, for sure, different from the ones listed above
+
+- This is because every time you call ``rnorm(5)``, new values are generated
+
+- We need to **store** the generated values if we want to re-use them (more later)
+
+
+
+## Variables and Assignments {.smaller}
+
+- Values can be stored (assigned) in **symbolic variables** or **objects**
+- The **assignment operator** in R is denoted by `` <-``  
+(an arrow pointing to the variable to which the value is assigned)
+
+
+**Example:**
+
+- To assign the value ``2`` to the variable ``x``, enter ``x <- 2``
+- To recover the value in ``x``, just type ``x``
+
+```{r}
+#| echo: true
+# Store 2 in the variable x
+x <- 2
+
+# Print x to screen
+x
+```
+
+
+
+## Variables and Assignments {.smaller}
+
+**Continuation of Example:**
+
+- From now on, ``x`` has the value ``2`` 
+- The variable ``x`` can be used in subsequent operations
+- Such operations do not alter the value of ``x``
+
+```{r}
+#| echo: true
+# Assign 2 to x
+x <- 2
+
+# Compute x + x and print to screen
+x + x
+
+# x still contains 2
+x
+```
+
+
+
+
+## Print and Cat {.smaller}
+
+- If you save the following code in a ``.R`` file and run it,
+you will obtain no output
+
+- This is because you need to tell R to print ``x`` to screen
+
+```r
+x <- 2
+x
+```
+
+
+<br>
+
+- To print a variable to screen use the function ``print()``
+
+
+```r
+x <- 2
+print(x)
+```
+```{r}
+x <- 2
+print(x)
+```
+
+
+
+## Print and Cat {.smaller}
+
+- Suppose you wish to print the sentence **Stats is great!** to screen
+- To do this, we need to store this sentence in a **string**
+- A string is just a sequence of **characters** enclosed by:
+  * double-quotations marks
+  * or single quotations marks
+
+```r
+sentence = "Stats is great!"
+```
+
+
+## Print and Cat {.smaller}
+
+- If now we wish to print the string ``sentence`` to screen we can use
+
+```{r}
+#| echo: true
+sentence <- "Stats is great!"
+print(sentence)
+```
+
+<br>
+
+- To avoid R displaying the quotation marks, we can instead
+use ``cat()``
+
+```{r}
+#| echo: true
+sentence <- "Stats is great!"
+cat(sentence)
+```
+
+
+## Print and Cat {.smaller}
+
+- ``cat`` can be used to combine strings and variables in a single output
+
+<br>
+
+```{r}
+#| echo: true
+
+# Store the result of 2 + 2 in variable two.plus.two
+
+two.plus.two <- 2 + 2
+
+# We want to print to screen the following message:
+# "The result of 2 + 2 is two.plus.two"
+
+cat("The result of 2 + 2 is", two.plus.two)
+```
+
+
+
+
+## Example - Your first R code {.smaller}
+
+1. Open a text editor and copy paste the below code
+
+```r
+# This codes sums two numbers and prints result on screen
+x <- 1
+y <- 2
+
+result <- x + y
+
+# Print the result on screen
+cat("Code run successfully!")
+cat("The sum of", x , "and", y, "is", result)
+```
+
+
+
+## Example - Your first R code {.smaller}
+
+2. Save to a **plain text** file named either
+    * ``my_first_code.R``
+    * ``my_first_code.txt``
+
+3. Move this file to **Desktop**
+
+4. Open the R Console and change working directory to **Desktop**
+
+```r
+# In MacOS type
+setwd("~/Desktop")
+
+# In Windows type
+setwd("C:/Users/YourUsername/Desktop")
+```
+
+
+
+## Example - Your first R code {.smaller}
+
+5. Run your code in the R Console by typying either
+
+```r
+source("my_first_code.R")
+source("my_first_code.txt")
+```
+
+6. You should get the following output
+
+```{r}
+# This codes sums two numbers and prints result on screen
+x <- 1
+y <- 2
+
+result <- x + y
+
+# Print the result on screen
+cat("Code run successfully!")
+cat("The sum of", x , "and", y, "is", result)
+```
+
+
+
+
+
+## The workspace {.smaller}
+
+- Variables created in a session are stored in a **Workspace**
+- To display stored variables use 
+    * ``ls()``
+
+```{r}
+rm(list = ls())
+```
+
+```{r}
+#| echo: true
+
+# Create 3 variables x, y, z
+x <- 2
+y <- "Dog"
+z <- pi
+
+# Workspace contains variables x, y, z
+# This can be displayed by using ls()
+ls()
+```
+
+
+
+## The workspace {.smaller}
+
+You can remove variables from workspace by using 
+
+- ``rm()``
+
+```{r}
+#| echo: true
+
+# Create 3 variables x, y, z
+x <- 2
+y <- "Dog"
+z <- pi
+
+# Remove x from workspace
+rm(x)
+
+# Now the workspace contains only y and z
+ls( )
+```
+
+
+
+
+## The workspace {.smaller}
+
+To completely clear the workspace use 
+
+- ``rm(list = ls())``
+
+```{r}
+#| echo: true
+
+# Create 3 variables x, y, z
+x <- 2
+y <- "Dog"
+z <- pi
+
+# Remove all variables from workspace
+rm(list = ls())
+
+# Let us check that the workspace is empty
+ls( )
+```
+
+
+
+
+## Saving the Workspace {.smaller}
+
+
+- You can save the workspace using the command
+  * ``save.image("file_name.RData")``
+
+- The file ``file_name.RData``
+  * Is saved in the working directory
+  * Contains all the objects currently in the workspace
+
+- You can load a saved workspace in a new R session with the command
+  * ``load("file_name.RData")``
+
+
+
+## Project Management {.smaller}
+
+- Recommended: keep all the files related to a project in a single **folder**
+
+- Such folder will have to be set as working directory in R Console
+
+- Saving the workspace could be **dangerous**
+  * This is because R Console automatically loads existing saved workspaces
+  * You might forget that this happens, and have undesired objects in workspace
+  * This might lead to unintended results
+
+- Always store your code in **R Scripts**
+
+
+
+
+## Exiting R and Saving {.smaller}
+
+To quit the R Console type ``q()``
+
+- You will be asked if you want to save your session
+- If you say **YES**, the session will be saved in a ``.RData`` file in the working directory
+- Such file will be automatically loaded when you re-open the R Console
+- I recommend you **DO NOT** save your session
+
+
+
+
+## Exiting R and Saving {.smaller}
+### Summary
+
+
+- Write your code in **R Scripts**
+- These are ``.txt`` or ``.R`` text files
+- For later: Data should be stored in ``.txt`` files
+- **DO NOT** save your session when prompted
+
+
+
+
+
+
+
+# Part 4: <br>Vectors {background-color="#cc0164" visibility="uncounted"}
+
+::: footer
+
+<div color="#cc0164">  </div>
+
+:::
+
+
+
+
+
+## Vectors {.smaller}
+
+- We saw how to store a single value in a variable
+- Series of values can be stored in **vectors**
+- Vectors can be constructed via the command ``c()``
+
+```{r}
+#| echo: true
+
+# Constuct a vector and store it in variable "vector"
+vector <- c(60, 72, 57, 90, 95, 72)
+
+# Print vector
+print(vector)
+```
+
+
+
+
+
+
+
+
+
+## Vectorized arithmetic {.smaller}
+
+- A vector is handled by R as a **single** object
+- You can do calculations with vectors, as long as they are of the same length
+- **Important**: Operations are exectuted component-wise
+
+```{r}
+#| echo: true
+
+# Constuct two vectors of radius and height of 6 cylinders
+radius <- c(6, 7, 5, 9, 9, 7)
+height <- c(1.7, 1.8, 1.6, 2, 1, 1.9)
+
+# Compute the volume of each cylinder and store it in "volume"
+volume <- pi * radius^2 * height
+
+# Print volume
+print(volume)
+```
+
+
+
+
+## Vectorized arithmetic {.smaller}
+
+- If 2 vectors do not have the same length then the shorter vector is **cycled**
+- This is called **broadcasting**
+
+```{r}
+#| echo: true
+
+a <- c(1, 2, 3, 4, 5, 6, 7)
+b <- c(0, 1)
+
+a + b
+```
+
+- In the example the vector ``a`` has 7 components while ``b`` has 2 components
+- The operation ``a + b`` is executed as follows:
+  * ``b`` is copied 4 times to match the length of ``a``
+  * ``a + b`` is then obtained by
+  $$
+  a + \tilde{b} = (1, 2, 3, 4, 5, 6, 7) + (0, 1, 0, 1, 0, 1, 0) = 
+  (1, 3, 3, 5, 5, 7, 7)
+  $$
+
+
+## Vectorized arithmetic {.smaller}
+
+Useful applications of broadcasting are:
+
+- Multiplying a vector by a scalar
+- Adding a scalar to each component of a vector
+
+```{r}
+#| echo: true
+
+vector <- c(1, 2, 3, 4, 5, 6)
+scalar <- 2
+
+# Multiplication of vector by a scalar
+vector * scalar
+
+# Summing a scalar to each component of a vector
+vector + scalar
+```
+
+
+
+## Sum and length {.smaller}
+
+Two very useful vector operators are:
+
+- ``sum(x)`` which returns the sum of the components of ``x``
+- ``length(x)`` which returns the length of ``x``
+
+
+```r
+x <- c(1, 2, 3, 4, 5)
+
+sum <- sum(x)
+length <- length(x)
+
+cat("Here is the vector x:", x)
+cat("The components of vector x sum to", sum)
+cat("The length of vector x is", length)
+```
+
+```{r}
+x <- c(1, 2, 3, 4, 5)
+
+sum <- sum(x)
+length <- length(x)
+
+cat("Here is the vector x: (", x, ")")
+cat("The components of vector x sum to", sum)
+cat("The length of vector x is", length)
+```
+
+
+## Computing sample mean and variance {.smaller}
+### Using vectorized operations
+
+Given a vector $\xx = (x_1,\ldots,x_n)$ we want to compute sample mean and variance
+$$
+\overline{x} = \frac{1}{n} \sum_{i=1}^n x_i \,, \qquad 
+s^2 =  \frac{\sum_{i=1}^n (x_i -  \overline{x})^2 }{n-1}  
+$$
+
+
+```r
+# Computing sample mean of vector x
+xbar = sum(x) / length(x)
+
+
+# Computing sample variance of vector x
+n = length(x)
+s2 = sum( (x - barx)^2 ) / (n - 1) 
+
+```
+
+
+
+## Computing sample mean and variance {.smaller}
+### Using built in functions
+
+- R is a statistical language
+- There are built in functions to compute sample mean and variance:
+  * ``mean(x)`` computes the sample mean of ``x``
+  * ``sd(x)`` computes the sample standard deviation of ``x``
+  * ``var(x)`` computes the sample variance of ``x``
+
+
+
+
+## Computing sample mean and variance {.smaller}
+### Example
+
+- Let us go back to an Example we saw in Lecure 3
+- Below is the Wage data on 10 Advertising Professionals Accountants
+
+|**Professional**| $x_1$ | $x_2$| $x_3$ | $x_4$ | $x_5$ | $x_6$ | $x_7$ | $x_8$ | $x_9$ |$x_{10}$|
+|:--------------:|:-----:|:----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:----:|:-----:|
+|     **Wage**   |   36  |  40  |  46  |  54  |  57  |  58  |  59  |  60  |  62  |  63  |
+
+
+- In Lecture 3 we have computed $\overline{x}$ and $s^2$ by hand
+- Let us compute them using R
+
+
+
+## Computing sample mean and variance {.smaller}
+### Example
+
+
+```r
+# First store the wage data into a vector
+x <- c(36, 40, 46, 54, 57, 58, 59, 60, 62, 63)
+
+# Compute the sample mean using formula
+xbar = sum(x) / length(x)
+
+# Compute the sample mean using built in R function
+xbar_check = mean(x)
+
+# We now print both results to screen
+cat("Sample mean computed with formula is", xbar)
+cat("Sample mean computed by R is", xbar_check)
+cat("They coincide!")
+```
+
+```{r}
+# First store the wage data into a vector
+x <- c(36, 40, 46, 54, 57, 58, 59, 60, 62, 63)
+
+# Let us compute the mean by using formula
+xbar = sum(x) / length(x)
+
+# Compute the mean by using built in R function
+xbar_check = mean(x)
+
+# We now print both results to screen
+cat("Sample mean computed with formula is", xbar)
+cat("Sample mean computed by R is", xbar_check)
+cat("They coincide!")
+```
+
+
+
+## Computing sample mean and variance {.smaller}
+### Example
+
+
+```r
+# Compute the sample variance using formula
+xbar = mean(x)
+n = length(x)
+s2 = sum( (x - xbar)^2 ) / (n - 1) 
+
+# Compute the sample variance using built in R function
+s2_check = var(x)
+
+# We now print both results to screen
+cat("Sample variance computed with formula is", s2)
+cat("Sample variance computed by R is", s2_check)
+cat("They coincide!")
+```
+
+```{r}
+# Again, store the wage data into a vector
+x <- c(36, 40, 46, 54, 57, 58, 59, 60, 62, 63)
+
+# Compute the sample variance using formula
+xbar = mean(x)
+n = length(x)
+s2 = sum( (x - xbar)^2 ) / (n - 1) 
+
+# Compute the sample variance using built in R function
+s2_check = var(x)
+
+# We now print both results to screen
+cat("Sample variance computed with formula is", s2)
+cat("Sample variance computed by R is", s2_check)
+cat("They coincide!")
+```
+
 
 
 

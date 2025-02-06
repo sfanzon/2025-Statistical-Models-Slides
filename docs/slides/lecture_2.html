@@ -360,9 +360,25 @@
   </style>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
   <style>
-  .Proof {
-    --color1: #f1f1f2;
-    --color2: #c0c0c1;
+  .Corollary {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Warning {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Question {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Proposition {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Definition {
+    --color1: #c6e6ed;
+    --color2: #1995ad;
   }
   .Example {
     --color1: #bce5de;
@@ -372,25 +388,33 @@
     --color1: #bce5de;
     --color2: #21aa93;
   }
+  .Theorem {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
   .Conjecture {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
-  .Idea {
+  .Problem {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
-  .Notation {
-    --color1: #c6e6ed;
-    --color2: #1995ad;
+  .Proof {
+    --color1: #f1f1f2;
+    --color2: #c0c0c1;
+  }
+  .Important {
+    --color1: #f4cce0;
+    --color2: #db4d92;
   }
   .DONE {
     --color1: #cce7b1;
     --color2: #86b754;
   }
-  .Question {
-    --color1: #f4cce0;
-    --color2: #db4d92;
+  .Notation {
+    --color1: #c6e6ed;
+    --color2: #1995ad;
   }
   .TODO {
     --color1: #e7b1b4;
@@ -400,35 +424,11 @@
     --color1: #f4cce0;
     --color2: #db4d92;
   }
-  .Warning {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Corollary {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Important {
+  .Idea {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
   .Axiom {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Definition {
-    --color1: #c6e6ed;
-    --color2: #1995ad;
-  }
-  .Theorem {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Problem {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Proposition {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
@@ -540,6 +540,11 @@ f_{X,Y}(x,y) = g(x)h(y) \,, \quad \forall \, (x,y) \in \mathbb{R}^2
 </ul>
 </div></details>
 </div>
+<p><strong>Note:</strong></p>
+<ul>
+<li><span class="math inline">g(x)</span> and <span class="math inline">h(y)</span> are not necessarily the pdfs or pmfs of <span class="math inline">X</span> and <span class="math inline">Y</span></li>
+<li>However they coincide with <span class="math inline">f_X</span> and <span class="math inline">f_Y</span>, up to rescaling by a constant</li>
+</ul>
 </section>
 <section id="exercise" class="slide level2 smaller">
 <h2>Exercise</h2>
@@ -865,7 +870,6 @@ f_{X,Y}(x,y) = f(y|x)f_X(x) = \begin{cases}
 <li><p>We conclude that <span class="math display">\begin{align*}
 {\rm Cov}(X,Y) &amp; = {\rm I\kern-.3em E}[XY] -  {\rm I\kern-.3em E}[X] {\rm I\kern-.3em E}[Y] \\
         &amp; = {\rm I\kern-.3em E}[X(X + Z)] -  {\rm I\kern-.3em E}[X] {\rm I\kern-.3em E}[X + Z] \\
-        &amp; = {\rm I\kern-.3em E}[X(X + Z)] -  {\rm I\kern-.3em E}[X] {\rm I\kern-.3em E}[X + Z] \\
         &amp; = {\rm I\kern-.3em E}[X^2] - {\rm I\kern-.3em E}[X]^2 + {\rm I\kern-.3em E}[XZ] - {\rm I\kern-.3em E}[X]{\rm I\kern-.3em E}[Z] \\
         &amp; = {\rm Var}[X] = \frac{1}{12}
 \end{align*}</span></p></li>
@@ -894,7 +898,7 @@ Y = X^2 + Z
 </span></p></li>
 <li><p>Since <span class="math inline">X</span> and <span class="math inline">Z</span> are independent, and <span class="math inline">Z</span> is uniform, we have that <span class="math display">
 Y | X = x  \, \sim \,  {\rm uniform} \left( x^2, x^2 + \frac{1}{10} \right)
-</span> (adding <span class="math inline">x</span> to <span class="math inline">Z</span> simply shifts the uniform distribution of <span class="math inline">Z</span> by <span class="math inline">x</span>)</p></li>
+</span> (adding <span class="math inline">x^2</span> to <span class="math inline">Z</span> simply shifts the uniform distribution of <span class="math inline">Z</span> by <span class="math inline">x^2</span>)</p></li>
 <li><p><strong>Question:</strong> Is the correlation <span class="math inline">\rho_{XY}</span> between <span class="math inline">X</span> and <span class="math inline">Y</span> high or low?</p></li>
 </ul>
 </section>

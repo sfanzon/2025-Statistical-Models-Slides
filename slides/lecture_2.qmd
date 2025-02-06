@@ -134,6 +134,10 @@ $$
 
 ::: 
 
+**Note:**
+
+- $g(x)$ and $h(y)$ are not necessarily the pdfs or pmfs of $X$ and $Y$
+- However they coincide with $f_X$ and $f_Y$, up to rescaling by a constant 
 
 
 
@@ -638,7 +642,6 @@ $$
 \begin{align*}
 \Cov(X,Y) & = \Expect[XY] -  \Expect[X] \Expect[Y] \\
           & = \Expect[X(X + Z)] -  \Expect[X] \Expect[X + Z] \\
-          & = \Expect[X(X + Z)] -  \Expect[X] \Expect[X + Z] \\
           & = \Expect[X^2] - \Expect[X]^2 + \Expect[XZ] - \Expect[X]\Expect[Z] \\
           & = \Var[X] = \frac{1}{12}
 \end{align*}
@@ -682,7 +685,7 @@ $$
 $$
 Y | X = x  \, \sim \,  {\rm uniform} \left( x^2, x^2 + \frac{1}{10} \right) 
 $$
-(adding $x$ to $Z$ simply shifts the uniform distribution of $Z$ by $x$)
+(adding $x^2$ to $Z$ simply shifts the uniform distribution of $Z$ by $x^2$)
 
 - **Question:** Is the correlation $\rho_{XY}$ between $X$ and $Y$ high or low?
 

@@ -1776,7 +1776,7 @@ $$
 
 - The sample variance is defined by
 $$
-S^2=\frac{\sum_{i=1}{n}(X_i-\overline{X})^2}{n-1}=\frac{\sum_{i=1}^n X_i^2-n{\overline{X}^2}}{n-1}
+S^2=\frac{\sum_{i=1}^{n} (X_i-\overline{X})^2}{n-1}=\frac{\sum_{i=1}^n X_i^2-n{\overline{X}^2}}{n-1}
 $$
 
 - Where does the $n-1$ factor in the denominator come from?  
@@ -1822,7 +1822,7 @@ $$
 
 - The realization of the sample variance $S^2$ is denoted 
 $$
-s^2=\frac{\sum_{i=1}{n}(x_i-\overline{x})^2}{n-1}=\frac{\sum_{i=1}^n x_i^2-n{\overline{x}^2}}{n-1}
+s^2=\frac{\sum_{i=1}^{n}(x_i-\overline{x})^2}{n-1}=\frac{\sum_{i=1}^n x_i^2-n{\overline{x}^2}}{n-1}
 $$
 
 
@@ -1832,9 +1832,11 @@ $$
 
 
 
-## Example calculation {.smaller}
+## Exercise {.smaller}
 
-- Wage data on 10 Advertising Professionals Accountants
+Wage data on 10 Mathematicians
+
+<br>
 
 |**Professional**| $x_1$ | $x_2$| $x_3$ | $x_4$ | $x_5$ | $x_6$ | $x_7$ | $x_8$ | $x_9$ |$x_{10}$|
 |:--------------:|:-----:|:----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:----:|:-----:|
@@ -1843,12 +1845,12 @@ $$
 
 <br>
 
-- **Task**: Estimate **population mean** and **variance**
+**Question**: Estimate **population mean** and **variance**
 
 
 
 
-## Solution to the example {.smaller}
+## Solution to the Exercise {.smaller}
 
 - **Number** of advertising professionals $n=10$
 

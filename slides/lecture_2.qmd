@@ -1454,7 +1454,7 @@ $$
 f(x|\theta)
 $$
 
-- It is therefore desirable to determine $\theta$, with reasonable certanty
+- It is therefore desirable to determine $\theta$, with reasonable certainty
 
 
 **Definitions:**

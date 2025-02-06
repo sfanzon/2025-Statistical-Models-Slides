@@ -327,15 +327,23 @@
     --color1: #c6e6ed;
     --color2: #1995ad;
   }
+  .DONE {
+    --color1: #cce7b1;
+    --color2: #86b754;
+  }
+  .Remark {
+    --color1: #bce5de;
+    --color2: #21aa93;
+  }
+  .Axiom {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
   .TODO {
     --color1: #e7b1b4;
     --color2: #8c3236;
   }
-  .Lemma {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Question {
+  .Conjecture {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
@@ -343,7 +351,7 @@
     --color1: #f4cce0;
     --color2: #db4d92;
   }
-  .Axiom {
+  .Warning {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
@@ -355,11 +363,19 @@
     --color1: #bce5de;
     --color2: #21aa93;
   }
+  .Question {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
   .Notation {
     --color1: #c6e6ed;
     --color2: #1995ad;
   }
-  .Problem {
+  .Idea {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Corollary {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
@@ -367,31 +383,15 @@
     --color1: #f1f1f2;
     --color2: #c0c0c1;
   }
-  .Conjecture {
+  .Lemma {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
-  .Remark {
-    --color1: #bce5de;
-    --color2: #21aa93;
-  }
-  .Idea {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .DONE {
-    --color1: #cce7b1;
-    --color2: #86b754;
-  }
-  .Warning {
+  .Problem {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
   .Theorem {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Corollary {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
@@ -404,80 +404,60 @@
 
 <section class="slide level2">
 
-<p><a href="#/sample-space-1"><strong>Definition</strong></a>: Sample space</p>
-<p><a href="#/event"><strong>Definition</strong></a>: Event</p>
-<p><a href="#/disjoint"><strong>Definition</strong></a>: Disjoint</p>
-<p><a href="#/partition"><strong>Definition</strong></a>: Partition</p>
-<p><a href="#/sigma-algebra"><strong>Definition</strong></a>: sigma-algebra</p>
-<p><a href="#/Question*-2.6"><strong>Question</strong></a></p>
-<p><a href="#/lebesgue-sigma-algebra-1"><strong>Definition</strong></a>: Lebesgue sigma-algebra</p>
-<p><a href="#/Important*-2.8"><strong>Important</strong></a></p>
-<p><a href="#/Warning*-2.9"><strong>Warning</strong></a></p>
-<p><a href="#/probability-measure-1"><strong>Definition</strong></a>: Probability measure</p>
-<p><a href="#/conditional-probability-1"><strong>Definition</strong></a>: Conditional Probability</p>
-<p><a href="#/Definition*-2.12"><strong>Definition</strong></a></p>
-<p><a href="#/random-variable"><strong>Definition</strong></a>: Random variable</p>
-<p><a href="#/random-variable-1"><strong>Definition</strong></a>: Random variable</p>
-<p><a href="#/distribution-1"><strong>Definition</strong></a>: Distribution</p>
-<p><a href="#/cdf"><strong>Definition</strong></a>: cdf</p>
+<p><a href="#/independence"><strong>Definition</strong></a>: Independence</p>
+<p><a href="#/Theorem*-2.2"><strong>Theorem</strong></a></p>
+<p><a href="#/Theorem*-2.3"><strong>Theorem</strong></a></p>
+<p><a href="#/Theorem*-2.4"><strong>Theorem</strong></a></p>
+<p><a href="#/Question*-2.5"><strong>Question</strong></a></p>
+<p><a href="#/Definition*-2.6"><strong>Definition</strong></a></p>
+<p><a href="#/Theorem*-2.7"><strong>Theorem</strong></a></p>
+<p><a href="#/Definition*-2.8"><strong>Definition</strong></a></p>
+<p><a href="#/Theorem*-2.9"><strong>Theorem</strong></a></p>
+<p><a href="#/Theorem*-2.10"><strong>Theorem</strong></a></p>
+<p><a href="#/Theorem*-2.11"><strong>Theorem</strong></a></p>
+<p><a href="#/Definition*-3.1"><strong>Definition</strong></a></p>
+<p><a href="#/Definition*-3.2"><strong>Definition</strong></a></p>
+<p><a href="#/Definition*-3.3"><strong>Definition</strong></a></p>
+<p><a href="#/Definition*-3.4"><strong>Definition</strong></a></p>
 <p><a href="#/Definition*-3.5"><strong>Definition</strong></a></p>
 <p><a href="#/Definition*-3.6"><strong>Definition</strong></a></p>
-<p><a href="#/Proposition*-3.7"><strong>Proposition</strong></a></p>
-<p><a href="#/continuous-random-variable"><strong>Definition</strong></a>: Continuous Random Variable</p>
-<p><a href="#/Question*-3.9"><strong>Question</strong></a></p>
-<p><a href="#/Definition*-3.10"><strong>Definition</strong></a></p>
-<p><a href="#/Proposition*-3.11"><strong>Proposition</strong></a></p>
+<p><a href="#/Definition*-3.7"><strong>Definition</strong></a></p>
+<p><a href="#/Definition*-3.8"><strong>Definition</strong></a></p>
+<p><a href="#/Definition*-3.9"><strong>Definition</strong></a></p>
+<p><a href="#/Proposition*-3.10"><strong>Proposition</strong></a></p>
+<p><a href="#/Theorem*-3.11"><strong>Theorem</strong></a></p>
 <p><a href="#/Theorem*-3.12"><strong>Theorem</strong></a></p>
+<p><a href="#/Theorem*-3.13"><strong>Theorem</strong></a></p>
+<p><a href="#/Theorem*-3.14"><strong>Theorem</strong></a></p>
+<p><a href="#/Theorem*-3.15"><strong>Theorem</strong></a></p>
+<p><a href="#/Theorem*-3.16"><strong>Theorem</strong></a></p>
+<p><a href="#/Theorem*-3.17"><strong>Theorem</strong></a></p>
+<p><a href="#/Theorem*-3.18"><strong>Theorem</strong></a></p>
 <p><a href="#/Definition*-4.1"><strong>Definition</strong></a></p>
-<p><a href="#/Theorem*-4.2"><strong>Theorem</strong></a></p>
-<p><a href="#/Theorem*-4.3"><strong>Theorem</strong></a></p>
-<p><a href="#/variance-1"><strong>Definition</strong></a>: Variance</p>
-<p><a href="#/Proposition*-4.5"><strong>Proposition</strong></a></p>
-<p><a href="#/Proposition*-4.6"><strong>Proposition</strong></a></p>
+<p><a href="#/Definition*-4.2"><strong>Definition</strong></a></p>
+<p><a href="#/Definition*-4.3"><strong>Definition</strong></a></p>
 <p><a href="#/Definition*-5.1"><strong>Definition</strong></a></p>
-<p><a href="#/Definition*-5.2"><strong>Definition</strong></a></p>
+<p><a href="#/Problem*-5.2"><strong>Problem</strong></a></p>
 <p><a href="#/Definition*-5.3"><strong>Definition</strong></a></p>
-<p><a href="#/Definition*-5.4"><strong>Definition</strong></a></p>
-<p><a href="#/Definition*-5.5"><strong>Definition</strong></a></p>
-<p><a href="#/Theorem*-5.6"><strong>Theorem</strong></a></p>
+<p><a href="#/Theorem*-5.4"><strong>Theorem</strong></a></p>
+<p><a href="#/Lemma*-5.5"><strong>Lemma</strong></a></p>
+<p><a href="#/Problem*-5.6"><strong>Problem</strong></a></p>
 <p><a href="#/Definition*-5.7"><strong>Definition</strong></a></p>
-<p><a href="#/Definition*-5.8"><strong>Definition</strong></a></p>
-<p><a href="#/Definition*-5.9"><strong>Definition</strong></a></p>
-<p><a href="#/Definition*-5.10"><strong>Definition</strong></a></p>
-<p><a href="#/Theorem*-5.11"><strong>Theorem</strong></a></p>
-<p><a href="#/Theorem*-5.12"><strong>Theorem</strong></a></p>
-<p><a href="#/Theorem*-5.13"><strong>Theorem</strong></a></p>
+<p><a href="#/Proposition*-5.8"><strong>Proposition</strong></a></p>
+<p><a href="#/Theorem*-5.9"><strong>Theorem</strong></a></p>
 <p><a href="#/Definition*-6.1"><strong>Definition</strong></a></p>
-<p><a href="#/Definition*-6.2"><strong>Definition</strong></a></p>
-<p><a href="#/Definition*-6.3"><strong>Definition</strong></a></p>
-<p><a href="#/Definition*-6.4"><strong>Definition</strong></a></p>
-<p><a href="#/Theorem*-6.5"><strong>Theorem</strong></a></p>
-<p><a href="#/Theorem*-6.6"><strong>Theorem</strong></a></p>
-<p><a href="#/Definition*-7.1"><strong>Definition</strong></a></p>
+<p><a href="#/Theorem*-6.2"><strong>Theorem</strong></a></p>
+<p><a href="#/Question*-7.1"><strong>Question</strong></a></p>
 <p><a href="#/Theorem*-7.2"><strong>Theorem</strong></a></p>
-<p><a href="#/Theorem*-7.3"><strong>Theorem</strong></a></p>
-<p><a href="#/Question*-8.1"><strong>Question</strong></a></p>
-<p><a href="#/Definition*-8.2"><strong>Definition</strong></a></p>
-<p><a href="#/Theorem*-8.3"><strong>Theorem</strong></a></p>
-<p><a href="#/Definition*-8.4"><strong>Definition</strong></a></p>
-<p><a href="#/Theorem*-8.5"><strong>Theorem</strong></a></p>
+<p><a href="#/Lemma*-7.3"><strong>Lemma</strong></a></p>
+<p><a href="#/Problem*-8.1"><strong>Problem</strong></a></p>
+<p><a href="#/Question*-8.2"><strong>Question</strong></a></p>
+<p><a href="#/Problem*-8.3"><strong>Problem</strong></a></p>
+<p><a href="#/Question*-8.4"><strong>Question</strong></a></p>
+<p><a href="#/Definition*-8.5"><strong>Definition</strong></a></p>
 <p><a href="#/Theorem*-8.6"><strong>Theorem</strong></a></p>
 <p><a href="#/Theorem*-8.7"><strong>Theorem</strong></a></p>
-<p><a href="#/Definition*-9.1"><strong>Definition</strong></a></p>
-<p><a href="#/Definition*-9.2"><strong>Definition</strong></a></p>
-<p><a href="#/Definition*-9.3"><strong>Definition</strong></a></p>
-<p><a href="#/Definition*-9.4"><strong>Definition</strong></a></p>
-<p><a href="#/Definition*-9.5"><strong>Definition</strong></a></p>
-<p><a href="#/Definition*-9.6"><strong>Definition</strong></a></p>
-<p><a href="#/Definition*-9.7"><strong>Definition</strong></a></p>
-<p><a href="#/Definition*-9.8"><strong>Definition</strong></a></p>
-<p><a href="#/Definition*-9.9"><strong>Definition</strong></a></p>
-<p><a href="#/Proposition*-9.10"><strong>Proposition</strong></a></p>
-<p><a href="#/Theorem*-9.11"><strong>Theorem</strong></a></p>
-<p><a href="#/Theorem*-9.12"><strong>Theorem</strong></a></p>
-<p><a href="#/Theorem*-9.13"><strong>Theorem</strong></a></p>
-<p><a href="#/Theorem*-9.14"><strong>Theorem</strong></a></p>
-<p><a href="#/Theorem*-9.15"><strong>Theorem</strong></a></p>
+<p><a href="#/expectation-and-variance-of-t-distribution"><strong>Proposition</strong></a>: Expectation and Variance of t-distribution</p>
 
 <div class="quarto-auto-generated-content">
 <div class="footer footer-default">

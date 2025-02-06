@@ -2083,7 +2083,7 @@ $$
 - This is not surprising! 
     * The distribution of $Y|X$ is just an exponential translated by $X$
     * Therefore, the shape of the distribution does not change
-    * This implies
+    * Thus, the variance of $Y|X$ does not depend on $X$
     $$
     \Var[Y|X = x ] = \Var[Y | X = 0] = 1
     $$

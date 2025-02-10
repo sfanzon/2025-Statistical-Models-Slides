@@ -31,89 +31,8 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
-    /* CSS for syntax highlighting */
-    pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { line-height: 1.25; }
-    pre > code.sourceCode > span:empty { height: 1.2em; }
-    .sourceCode { overflow: visible; }
-    code.sourceCode > span { color: inherit; text-decoration: inherit; }
-    div.sourceCode { margin: 1em 0; }
-    pre.sourceCode { margin: 0; }
-    @media screen {
-    div.sourceCode { overflow: auto; }
-    }
-    @media print {
-    pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
-    }
-    pre.numberSource code
-      { counter-reset: source-line 0; }
-    pre.numberSource code > span
-      { position: relative; left: -4em; counter-increment: source-line; }
-    pre.numberSource code > span > a:first-child::before
-      { content: counter(source-line);
-        position: relative; left: -1em; text-align: right; vertical-align: baseline;
-        border: none; display: inline-block;
-        -webkit-touch-callout: none; -webkit-user-select: none;
-        -khtml-user-select: none; -moz-user-select: none;
-        -ms-user-select: none; user-select: none;
-        padding: 0 4px; width: 4em;
-        color: #aaaaaa;
-      }
-    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-    div.sourceCode
-      { color: #003b4f; background-color: #f1f3f5; }
-    @media screen {
-    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-    }
-    code span { color: #003b4f; } /* Normal */
-    code span.al { color: #ad0000; } /* Alert */
-    code span.an { color: #5e5e5e; } /* Annotation */
-    code span.at { color: #657422; } /* Attribute */
-    code span.bn { color: #ad0000; } /* BaseN */
-    code span.bu { } /* BuiltIn */
-    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
-    code span.ch { color: #20794d; } /* Char */
-    code span.cn { color: #8f5902; } /* Constant */
-    code span.co { color: #5e5e5e; } /* Comment */
-    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
-    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
-    code span.dt { color: #ad0000; } /* DataType */
-    code span.dv { color: #ad0000; } /* DecVal */
-    code span.er { color: #ad0000; } /* Error */
-    code span.ex { } /* Extension */
-    code span.fl { color: #ad0000; } /* Float */
-    code span.fu { color: #4758ab; } /* Function */
-    code span.im { color: #00769e; } /* Import */
-    code span.in { color: #5e5e5e; } /* Information */
-    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
-    code span.op { color: #5e5e5e; } /* Operator */
-    code span.ot { color: #003b4f; } /* Other */
-    code span.pp { color: #ad0000; } /* Preprocessor */
-    code span.sc { color: #5e5e5e; } /* SpecialChar */
-    code span.ss { color: #20794d; } /* SpecialString */
-    code span.st { color: #20794d; } /* String */
-    code span.va { color: #111111; } /* Variable */
-    code span.vs { color: #20794d; } /* VerbatimString */
-    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto.css">
-  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
-  <script>document.addEventListener("DOMContentLoaded", function () {
- var mathElements = document.getElementsByClassName("math");
- var macros = [];
- for (var i = 0; i < mathElements.length; i++) {
-  var texText = mathElements[i].firstChild;
-  if (mathElements[i].tagName == "SPAN") {
-   katex.render(texText.data, mathElements[i], {
-    displayMode: mathElements[i].classList.contains('display'),
-    throwOnError: false,
-    macros: macros,
-    fleqn: false
-   });
-}}});
-  </script>
-  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
   <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -405,69 +324,9 @@
   </style>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
   <style>
-  .Theorem {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .TODO {
-    --color1: #e7b1b4;
-    --color2: #8c3236;
-  }
-  .Problem {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
   .Idea {
     --color1: #f4cce0;
     --color2: #db4d92;
-  }
-  .Lemma {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Axiom {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .DONE {
-    --color1: #cce7b1;
-    --color2: #86b754;
-  }
-  .Definition {
-    --color1: #c6e6ed;
-    --color2: #1995ad;
-  }
-  .Question {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Proof {
-    --color1: #f1f1f2;
-    --color2: #c0c0c1;
-  }
-  .Proposition {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Remark {
-    --color1: #bce5de;
-    --color2: #21aa93;
-  }
-  .Example {
-    --color1: #bce5de;
-    --color2: #21aa93;
-  }
-  .Corollary {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Important {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Notation {
-    --color1: #c6e6ed;
-    --color2: #1995ad;
   }
   .Warning {
     --color1: #f4cce0;
@@ -476,6 +335,66 @@
   .Conjecture {
     --color1: #f4cce0;
     --color2: #db4d92;
+  }
+  .Notation {
+    --color1: #c6e6ed;
+    --color2: #1995ad;
+  }
+  .Remark {
+    --color1: #bce5de;
+    --color2: #21aa93;
+  }
+  .Axiom {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Lemma {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Corollary {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Example {
+    --color1: #bce5de;
+    --color2: #21aa93;
+  }
+  .Problem {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .DONE {
+    --color1: #cce7b1;
+    --color2: #86b754;
+  }
+  .Theorem {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Question {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .TODO {
+    --color1: #e7b1b4;
+    --color2: #8c3236;
+  }
+  .Definition {
+    --color1: #c6e6ed;
+    --color2: #1995ad;
+  }
+  .Proposition {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Important {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Proof {
+    --color1: #f1f1f2;
+    --color2: #c0c0c1;
   }
   </style>
 </head>
@@ -516,678 +435,8 @@
 <ol type="1">
 <li></li>
 </ol>
-</section></section>
-<section>
-<section id="part-5-the-t-test-in-r" class="title-slide slide level1 center" data-background-color="#cc0164" data-visibility="uncounted">
-<h1>Part 5: <br>The t-test in R</h1>
-<div class="footer">
-<div color="#cc0164">
-
-</div>
-</div>
 </section>
-<section id="t-test-in-r" class="slide level2 smaller">
-<h2>t-test in R</h2>
-<ul>
-<li>We are now ready to do some statistics in R</li>
-<li>We start by looking at the <strong>t-test</strong></li>
-<li>Specifically, to the <strong>One-sample Two-sided t-test</strong></li>
-</ul>
-<p><strong>Goal of t-test</strong>: Estimate mean <span class="math inline">\mu</span> of normal population <span class="math inline">N(\mu,\sigma^2)</span>. If <span class="math inline">\mu_0</span> is guess for <span class="math inline">\mu</span> <span class="math display">
-H_0 \colon \mu = \mu_0 \qquad H_1 \colon \mu \neq \mu_0
-</span></p>
-<p><strong>Method</strong>: Given sample <span class="math inline">X_1 ,\ldots,X_n</span> we look at the statistics <span class="math display">
-T = \frac{\overline{X}-\mu_0}{S/\sqrt{n}} \sim t_{n-1}
-</span></p>
-</section>
-<section id="t-test-by-hand" class="slide level2 smaller">
-<h2>t-test by hand</h2>
-<ol type="1">
-<li><p>Given the data <span class="math inline">x_1,\ldots,x_n</span>, compute the <strong>t-statistic</strong> <span class="math display">
-t = \frac{\text{estimate } - \text{ hypothesised value}}{\mathop{\mathrm{e.s.e.}}}
-= \frac{\overline x - \mu_0}{s/\sqrt{n}}
-</span> with <strong>sample mean</strong> and <strong>sample standard deviation</strong> <span class="math display">
-\overline{x} = \frac{1}{n} \sum_{i=1}^n x_i \,, \qquad
-s = \sqrt{\frac{\sum_{i=1}^n x_i^2 - n \overline{x}^2}{n-1}}
-</span></p></li>
-<li><p>Find the critical value <span class="math inline">t^* = t_{n-1}(0.025)</span> in <a href="files/Statistics_Tables.pdf">Statistical Table 13.1</a></p></li>
-</ol>
-<ul>
-<li>If <span class="math inline">|t|&gt;t^*</span> reject <span class="math inline">H_0</span>. The mean is not <span class="math inline">\mu_0</span></li>
-<li>If <span class="math inline">|t| \leq t^*</span> do not reject <span class="math inline">H_0</span>. There is not enough evidence</li>
-</ul>
-</section>
-<section id="t-test" class="slide level2 smaller">
-<h2>t-test</h2>
-<ol type="1">
-<li><p>Given the sample <span class="math inline">x_1,\ldots,x_n</span>, R can compute the <strong>t-statistic</strong> <span class="math display">
-t = \frac{\text{estimate } - \text{ hypothesised value}}{\mathop{\mathrm{e.s.e.}}}
-= \frac{\overline x - \mu_0}{s/\sqrt{n}}
-</span></p></li>
-<li><p>R can compute the precise p-value (no need for Statistical Tables) <span class="math display">
-p = 2P(|t_{n-1}|&gt;t)
-</span></p></li>
-</ol>
-<ul>
-<li>If <span class="math inline">p &lt; 0.05</span> reject <span class="math inline">H_0</span>. The mean is not <span class="math inline">\mu_0</span></li>
-<li>If <span class="math inline">p \geq 0.05</span> do not reject <span class="math inline">H_0</span>. There is not enough evidence</li>
-</ul>
-<p><strong>Note:</strong> The above operations can be done at the same time by command <code>t.test</code></p>
-</section>
-<section id="t-test-code-in-r" class="slide level2 smaller">
-<h2>t-test code in R</h2>
-<ol type="1">
-<li>Store the sample <span class="math inline">x_1,\ldots,x_n</span> in an R vector using
-<ul>
-<li><code>data_vector &lt;- c(x1, ..., xn)</code></li>
-</ul></li>
-<li>Perform a two-sided t-test on <code>data_vector</code> with null hypothesis <code>mu0</code> using
-<ul>
-<li><code>t.test(data_vector, mu = mu0)</code></li>
-</ul></li>
-<li>Read output. R will tell you
-<ul>
-<li>t-statistic</li>
-<li>degrees of freedom</li>
-<li>p-value</li>
-<li>alternative hypothesis</li>
-<li>confidence interval (where true mean is likely to be)</li>
-<li>sample mean</li>
-</ul></li>
-</ol>
-</section>
-<section id="t-test-command" class="slide level2 smaller">
-<h2>t-test command</h2>
-<p>Relevant options of <code>t.test</code> are</p>
-<ol type="1">
-<li><p><code>mu = mu0</code> tells R to test null hypothesis <span class="math display">
-H_0 \colon \mu = \mu_0
-</span></p></li>
-<li><p>If <code>mu = mu0</code> is not specified, R assumes <span class="math inline">\mu_0 = 0</span></p></li>
-<li><p><code>alternative = "greater"</code> tells R to perform one-sided t-test <span class="math display">
-H_0 \colon \mu &gt; \mu_0
-</span></p></li>
-</ol>
-</section>
-<section id="t-test-command-1" class="slide level2 smaller">
-<h2>t-test command</h2>
-<ol start="4" type="1">
-<li><p><code>alternative = "smaller"</code> tells R to perform one-sided t-test <span class="math display">
-H_0 \colon \mu &lt; \mu_0
-</span></p></li>
-<li><p><code>conf.level = n</code> changes the confidence interval level to <code>n</code> (default is <span class="math inline">0.95</span>)</p></li>
-</ol>
-</section>
-<section id="example-2008-crisis" class="slide level2 smaller">
-<h2>Example: 2008 crisis</h2>
-<p>Let us go back to the 2008 Crisis example</p>
-<ul>
-<li><strong>Data:</strong> Monthly Consumer Confidence Index (CCI) in 2007 and 2009</li>
-<li><strong>Question:</strong> Did the crash of 2008 have lasting impact upon CCI?</li>
-<li><strong>Observation</strong>: Data shows a massive drop in CCI between 2009 and 2007</li>
-<li><strong>Method:</strong> Use <span class="math inline">t</span>-test to see if data is sufficient to prove that CCI actually dropped</li>
-</ul>
-<table class="caption-top" style="width:100%;">
-<colgroup>
-<col style="width: 41%">
-<col style="width: 4%">
-<col style="width: 4%">
-<col style="width: 4%">
-<col style="width: 4%">
-<col style="width: 4%">
-<col style="width: 4%">
-<col style="width: 4%">
-<col style="width: 4%">
-<col style="width: 4%">
-<col style="width: 4%">
-<col style="width: 4%">
-<col style="width: 4%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: center;">Month</th>
-<th style="text-align: center;">J</th>
-<th style="text-align: center;">F</th>
-<th style="text-align: center;">M</th>
-<th style="text-align: center;">A</th>
-<th style="text-align: center;">M</th>
-<th style="text-align: center;">J</th>
-<th style="text-align: center;">J</th>
-<th style="text-align: center;">A</th>
-<th style="text-align: center;">S</th>
-<th style="text-align: center;">O</th>
-<th style="text-align: center;">N</th>
-<th style="text-align: center;">D</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;">CCI 2007</td>
-<td style="text-align: center;">86</td>
-<td style="text-align: center;">86</td>
-<td style="text-align: center;">88</td>
-<td style="text-align: center;">90</td>
-<td style="text-align: center;">99</td>
-<td style="text-align: center;">97</td>
-<td style="text-align: center;">97</td>
-<td style="text-align: center;">96</td>
-<td style="text-align: center;">99</td>
-<td style="text-align: center;">97</td>
-<td style="text-align: center;">90</td>
-<td style="text-align: center;">90</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">CCI 2009</td>
-<td style="text-align: center;">24</td>
-<td style="text-align: center;">22</td>
-<td style="text-align: center;">21</td>
-<td style="text-align: center;">21</td>
-<td style="text-align: center;">19</td>
-<td style="text-align: center;">18</td>
-<td style="text-align: center;">17</td>
-<td style="text-align: center;">18</td>
-<td style="text-align: center;">21</td>
-<td style="text-align: center;">23</td>
-<td style="text-align: center;">22</td>
-<td style="text-align: center;">21</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">Difference</td>
-<td style="text-align: center;">62</td>
-<td style="text-align: center;">64</td>
-<td style="text-align: center;">67</td>
-<td style="text-align: center;">69</td>
-<td style="text-align: center;">80</td>
-<td style="text-align: center;">79</td>
-<td style="text-align: center;">80</td>
-<td style="text-align: center;">78</td>
-<td style="text-align: center;">78</td>
-<td style="text-align: center;">74</td>
-<td style="text-align: center;">68</td>
-<td style="text-align: center;">69</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="example-2008-crisis-1" class="slide level2 smaller">
-<h2>Example: 2008 crisis</h2>
-<h3 id="setting-up-the-test">Setting up the test</h3>
-<ul>
-<li><p>We want to test if there was a change in CCI from 2007 to 2009</p></li>
-<li><p>We interested in the difference in CCI</p></li>
-<li><p>The <strong>null hypothesis</strong> is that there was (on average) no change in CCI <span class="math display">
-H_0 \colon \mu = 0
-</span></p></li>
-<li><p>The <strong>alternative hypothesis</strong> is that there was some change: <span class="math display">
-H_1 \colon \mu \neq 0
-</span></p></li>
-</ul>
-</section>
-<section id="example-2008-crisis-2" class="slide level2 smaller">
-<h2>Example: 2008 crisis</h2>
-<h3 id="r-code">R code</h3>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Enter CCI data in 2 vectors using function c()</span></span>
-<span id="cb1-2"><a aria-hidden="true" tabindex="-1"></a>score_2007 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">86</span>, <span class="dv">86</span>, <span class="dv">88</span>, <span class="dv">90</span>, <span class="dv">99</span>, <span class="dv">97</span>, <span class="dv">97</span>, <span class="dv">96</span>, <span class="dv">99</span>, <span class="dv">97</span>, <span class="dv">90</span>, <span class="dv">90</span>)</span>
-<span id="cb1-3"><a aria-hidden="true" tabindex="-1"></a>score_2009 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">24</span>, <span class="dv">22</span>, <span class="dv">21</span>, <span class="dv">21</span>, <span class="dv">19</span>, <span class="dv">18</span>, <span class="dv">17</span>, <span class="dv">18</span>, <span class="dv">21</span>, <span class="dv">23</span>, <span class="dv">22</span>, <span class="dv">21</span>)</span>
-<span id="cb1-4"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Compute vector of differences in CCI</span></span>
-<span id="cb1-6"><a aria-hidden="true" tabindex="-1"></a>difference <span class="ot">&lt;-</span> score_2007 <span class="sc">-</span> score_2009</span>
-<span id="cb1-7"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Perform t-test on difference with null hypothesis mu = 0</span></span>
-<span id="cb1-9"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Store answer in "answer"</span></span>
-<span id="cb1-10"><a aria-hidden="true" tabindex="-1"></a>answer <span class="ot">-&gt;</span> <span class="fu">t.test</span>(difference, <span class="at">mu =</span> <span class="dv">0</span>)</span>
-<span id="cb1-11"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Print the answer</span></span>
-<span id="cb1-13"><a aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(answer)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<ul>
-<li>Code can be downloaded here <a href="codes/one_sample_t_test.R">one_sample_t_test.R</a></li>
-</ul>
-</section>
-<section id="example-2008-crisis-3" class="slide level2 smaller">
-<h2>Example: 2008 crisis</h2>
-<h3 id="output-of-t.test">Output of t.test</h3>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>
-    One Sample t-test
-
-data:  difference
-t = 38.144, df = 11, p-value = 4.861e-13
-alternative hypothesis: true mean is not equal to 0
-95 percent confidence interval:
- 68.15960 76.50706
-sample estimates:
-mean of x 
- 72.33333 </code></pre>
-</div>
-</div>
-</section>
-<section id="example-2008-crisis-4" class="slide level2 smaller">
-<h2>Example: 2008 crisis</h2>
-<h3 id="analysis-of-output">Analysis of Output</h3>
-<p><br></p>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>    One Sample t-test</code></pre>
-</div>
-</div>
-<p><br></p>
-<ul>
-<li>Description of the test that we have asked for</li>
-<li>Note: <code>t.test</code> has automatically assumed that a one-sample test is desired</li>
-</ul>
-</section>
-<section id="example-2008-crisis-5" class="slide level2 smaller">
-<h2>Example: 2008 crisis</h2>
-<h3 id="analysis-of-output-1">Analysis of Output</h3>
-<p><br></p>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>data:  difference</code></pre>
-</div>
-</div>
-<p><br></p>
-<ul>
-<li>This says which data are being tested</li>
-<li>In our case we test the data in <code>difference</code></li>
-</ul>
-</section>
-<section id="example-2008-crisis-6" class="slide level2 smaller">
-<h2>Example: 2008 crisis</h2>
-<h3 id="analysis-of-output-2">Analysis of Output</h3>
-<p><br></p>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>t = 38.144, df = 11, p-value = 4.861e-13</code></pre>
-</div>
-</div>
-<p><br></p>
-<div class="column" style="width:48%;">
-<p><strong>This is the best part:</strong></p>
-<ul>
-<li><span class="math inline">\texttt{t} = \,</span> t-statistic from data</li>
-<li><span class="math inline">\texttt{df} = \,</span> degrees of freedom</li>
-<li><span class="math inline">\texttt{p-value} = \,</span> the exact p-value</li>
-</ul>
-</div><div class="column" style="width:48%;">
-<p><strong>Note:</strong></p>
-<ul>
-<li>You do not need Statistical Tables!</li>
-<li>You see that <span class="math inline">p &lt; 0.05</span></li>
-<li>Therefore we reject null hypothesis that the mean difference is <span class="math inline">0</span></li>
-</ul>
-</div></section>
-<section id="example-2008-crisis-7" class="slide level2 smaller">
-<h2>Example: 2008 crisis</h2>
-<h3 id="analysis-of-output-3">Analysis of Output</h3>
-<p><br></p>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>alternative hypothesis: true mean is not equal to 0</code></pre>
-</div>
-</div>
-<p><br></p>
-<ul>
-<li><p>R tells us the alternative hypothesis is <span class="math inline">\mu \neq 0</span></p></li>
-<li><p>Hence the Null hypothesis tested is <span class="math inline">H_0 \colon \mu = 0</span></p></li>
-<li><p><strong>Warning</strong>:</p>
-<ul>
-<li>This message is <strong>not</strong> telling you to accept to alternative hypothesis</li>
-<li>This message is only stating the alternative hypothesis</li>
-</ul></li>
-</ul>
-</section>
-<section id="example-2008-crisis-8" class="slide level2 smaller">
-<h2>Example: 2008 crisis</h2>
-<h3 id="analysis-of-output-4">Analysis of Output</h3>
-<p><br></p>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>95 percent confidence interval:</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code> 68.15960 76.50706</code></pre>
-</div>
-</div>
-<p><br></p>
-<p>This is a <span class="math inline">95 \%</span> conﬁdence interval for the true mean:</p>
-<ul>
-<li>Confidence interval: is the set of (hypothetical) mean values from which the data do not deviate signiﬁcantly</li>
-<li>It is based on inverting the t-test by solving for the values of <span class="math inline">\mu</span> that cause <span class="math inline">t</span> to lie within its acceptance region</li>
-</ul>
-</section>
-<section id="example-2008-crisis-9" class="slide level2 smaller">
-<h2>Example: 2008 crisis</h2>
-<h3 id="analysis-of-output-5">Analysis of Output</h3>
-<p><br></p>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>95 percent confidence interval:</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code> 68.15960 76.50706</code></pre>
-</div>
-</div>
-<p><br></p>
-<ul>
-<li>For <span class="math inline">95 \%</span> conﬁdence interval this means solving <span class="math display">
-P( |t_{n-1}| &lt; t) = 0.95 \,, \qquad
-t = \frac{\overline{x}-\mu}{\mathop{\mathrm{e.s.e.}}}
-</span></li>
-<li>Solving wrt <span class="math inline">\mu</span> yields <span class="math display">
-\overline{x} - t_{n-1}(0.025) \times \mathop{\mathrm{e.s.e.}}&lt; \mu &lt;
-\overline{x} + t_{n-1}(0.025) \times \mathop{\mathrm{e.s.e.}}
-</span></li>
-</ul>
-</section>
-<section id="example-2008-crisis-10" class="slide level2 smaller">
-<h2>Example: 2008 crisis</h2>
-<h3 id="analysis-of-output-6">Analysis of Output</h3>
-<p><br></p>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>95 percent confidence interval:</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code> 68.15960 76.50706</code></pre>
-</div>
-</div>
-<p><br></p>
-<ul>
-<li><p>R calculated the quantities <span class="math display">
-\overline{x} \pm t_{n-1}(0.025) \times \mathop{\mathrm{e.s.e.}}
-</span></p></li>
-<li><p>Based on the data, we conclude that the set of (hypothetical) mean values is <span class="math display">
-\mu \in [68.15960, 76.50706]
-</span></p></li>
-</ul>
-</section>
-<section id="example-2008-crisis-11" class="slide level2 smaller">
-<h2>Example: 2008 crisis</h2>
-<h3 id="analysis-of-output-7">Analysis of Output</h3>
-<p><br></p>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>sample estimates:</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>mean of x </code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code> 72.33333 </code></pre>
-</div>
-</div>
-<p><br></p>
-<ul>
-<li>This is the sample mean</li>
-<li>You could have easily computed this with the code
-<ul>
-<li><code>mean(difference)</code></li>
-</ul></li>
-</ul>
-</section>
-<section id="example-2008-crisis-12" class="slide level2 smaller">
-<h2>Example: 2008 crisis</h2>
-<h3 id="conclusion">Conclusion</h3>
-<p>The key information is:</p>
-<ul>
-<li>We conducted a two-sided t-test for the mean difference <span class="math inline">\mu \neq 0</span></li>
-<li>Results give significant evidence <span class="math inline">p&lt;0.05</span> that <span class="math inline">\mu \neq 0</span></li>
-<li>The sample mean difference <span class="math inline">\overline{x} = 72.33333 \gg 0</span></li>
-<li>This suggest CCI mean difference <span class="math inline">\mu \gg 0</span></li>
-<li>Hence consumer confidence is higher in 2007 than in 2009</li>
-</ul>
-</section></section>
-<section>
-<section id="part-6-graphics" class="title-slide slide level1 center" data-background-color="#cc0164" data-visibility="uncounted">
-<h1>Part 6: <br>Graphics</h1>
-<div class="footer">
-<div color="#cc0164">
-
-</div>
-</div>
-</section>
-<section id="graphics" class="slide level2 smaller">
-<h2>Graphics</h2>
-<p>R has extensive built in graphing functions:</p>
-<ul>
-<li><p>Fancier graphing functions are contained in the library <code>ggplot2</code> (see <a href="https://ggplot2.tidyverse.org">link</a>)</p></li>
-<li><p>However we will be using the basic built in R graphing functions</p></li>
-</ul>
-</section>
-<section id="graphics-1" class="slide level2 smaller">
-<h2>Graphics</h2>
-<h3 id="scatter-plot">Scatter plot</h3>
-<ul>
-<li>Suppose given 2 vectors <code>x</code> and <code>y</code> of same length</li>
-<li>The scatter plot of pairs <span class="math inline">(x_i,y_i)</span> can be generated with <code>plot(x, y)</code></li>
-</ul>
-<p><strong>Example</strong>: Suppose to have data of <strong>weights</strong> and <strong>heights</strong> of 6 people</p>
-<ul>
-<li>To plot <strong>weight</strong> against <strong>height</strong> code is as follows</li>
-<li>When you run <code>plot()</code> in R Console the plot will appear in a pop-up window</li>
-</ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Store weight and height data in 2 vectors</span></span>
-<span id="cb16-2"><a aria-hidden="true" tabindex="-1"></a>weight <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">60</span>, <span class="dv">72</span>, <span class="dv">57</span>, <span class="dv">90</span>, <span class="dv">95</span>, <span class="dv">72</span>)</span>
-<span id="cb16-3"><a aria-hidden="true" tabindex="-1"></a>height <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">1.75</span>, <span class="fl">1.80</span>, <span class="fl">1.65</span>, <span class="fl">1.90</span>, <span class="fl">1.74</span>, <span class="fl">1.91</span>)</span>
-<span id="cb16-4"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-5"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Plot weight against height</span></span>
-<span id="cb16-6"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(weight, height)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-
-</section>
-<section id="graphics-1-output" class="slide level2 smaller output-location-slide"><h2>Graphics</h2><div class="cell output-location-slide">
-<div class="cell-output-display">
-<div>
-<figure>
-<p><img data-src="lecture_4_files/figure-revealjs/unnamed-chunk-10-1.png" width="960"></p>
-</figure>
-</div>
-</div>
-</div></section><section id="graphics-2" class="slide level2 smaller">
-<h2>Graphics</h2>
-<h3 id="scatter-plot-options">Scatter plot – Options</h3>
-<ul>
-<li>You can customize your plot in many ways</li>
-<li>Example: you can represent points <span class="math inline">(x_i,y_i)</span> with triangles instead of circles</li>
-<li>This can be done by including the command
-<ul>
-<li><code>pch = 2</code></li>
-</ul></li>
-<li><code>pch</code> stands for <strong>plotting character</strong></li>
-</ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Store weight and height data in 2 vectors</span></span>
-<span id="cb17-2"><a aria-hidden="true" tabindex="-1"></a>weight <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">60</span>, <span class="dv">72</span>, <span class="dv">57</span>, <span class="dv">90</span>, <span class="dv">95</span>, <span class="dv">72</span>)</span>
-<span id="cb17-3"><a aria-hidden="true" tabindex="-1"></a>height <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">1.75</span>, <span class="fl">1.80</span>, <span class="fl">1.65</span>, <span class="fl">1.90</span>, <span class="fl">1.74</span>, <span class="fl">1.91</span>)</span>
-<span id="cb17-4"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-5"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Plot weight against height using little triangles</span></span>
-<span id="cb17-6"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(weight, height, <span class="at">pch =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-
-</section>
-<section id="graphics-2-output" class="slide level2 smaller output-location-slide"><h2>Graphics</h2><div class="cell output-location-slide">
-<div class="cell-output-display">
-<div>
-<figure>
-<p><img data-src="lecture_4_files/figure-revealjs/unnamed-chunk-11-1.png" width="960"></p>
-</figure>
-</div>
-</div>
-</div></section><section id="graphics-3" class="slide level2 smaller">
-<h2>Graphics</h2>
-<h3 id="plotting-1d-function-fx">Plotting 1D function f(x)</h3>
-<ul>
-<li>Create a grid of <span class="math inline">x</span> values <span class="math display">
-x = (x_1, \ldots, x_n)
-</span></li>
-<li>Evaluate <span class="math inline">f</span> on such grid. This yields a vector <span class="math display">
-y = (f(x_1), \ldots, f(x_n))
-</span></li>
-<li>Generate a scatter plot with
-<ul>
-<li><code>plot(x, y)</code></li>
-</ul></li>
-<li>Use the function <code>lines</code> to linearly interpolate the scatter plot:
-<ul>
-<li><code>lines(x, y)</code></li>
-</ul></li>
-</ul>
-</section>
-<section id="graphics-4" class="slide level2 smaller">
-<h2>Graphics</h2>
-<h3 id="plotting-functions---example">Plotting functions - Example</h3>
-<p>Let us plot the parabola <span class="math display">
-y = x^2 \,, \qquad x \in [-1,1]
-</span></p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Input vector for grid of x coordinates</span></span>
-<span id="cb18-2"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="sc">-</span><span class="fl">0.5</span>, <span class="dv">0</span>, <span class="fl">0.5</span>, <span class="dv">1</span>)</span>
-<span id="cb18-3"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Compute the function y=x^2 on the grid</span></span>
-<span id="cb18-5"><a aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> x<span class="sc">^</span><span class="dv">2</span></span>
-<span id="cb18-6"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-7"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Generate scatter plot of (x,y)</span></span>
-<span id="cb18-8"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y)</span>
-<span id="cb18-9"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-10"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Add linear interpolation</span></span>
-<span id="cb18-11"><a aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(x, y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-
-</section>
-<section id="graphics-4-output" class="slide level2 smaller output-location-slide"><h2>Graphics</h2><div class="cell output-location-slide">
-<div class="cell-output-display">
-<div>
-<figure>
-<p><img data-src="lecture_4_files/figure-revealjs/unnamed-chunk-12-1.png" width="960"></p>
-</figure>
-</div>
-</div>
-</div></section><section id="graphics-5" class="slide level2 smaller">
-<h2>Graphics</h2>
-<h3 id="plotting-functions---example-1">Plotting functions - Example</h3>
-<ul>
-<li><p>The previous plot was quite rough</p></li>
-<li><p>This is because we only computed <span class="math inline">y=x^2</span> on the grid <span class="math display">
-x = (-1, -0.5, 0, 0.5, 1)
-</span></p></li>
-<li><p>We could refine the grid by hand, but this is not practical</p></li>
-<li><p>To generate a finer grid we can use the built in R function</p>
-<ul>
-<li><code>seq()</code></li>
-</ul></li>
-</ul>
-</section>
-<section id="seq-function" class="slide level2 smaller">
-<h2>Seq function</h2>
-<p><code>seq(from, to, by, length.out)</code> generates a vector containing a sequence:</p>
-<ul>
-<li><code>from</code> – The beginning number of the sequence</li>
-<li><code>to</code> – The ending number of the sequence</li>
-<li><code>by</code> – The step-size of the sequence (the increment)</li>
-<li><code>length.out</code> – The total length of the sequence</li>
-</ul>
-<p><strong>Example</strong>: Generate the vector of even numbers from 2 to 20</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">2</span>, <span class="at">to =</span> <span class="dv">20</span>, <span class="at">by =</span> <span class="dv">2</span>)</span>
-<span id="cb19-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code> [1]  2  4  6  8 10 12 14 16 18 20</code></pre>
-</div>
-</div>
-</section>
-<section id="seq-function-1" class="slide level2 smaller">
-<h2>Seq function</h2>
-<p><strong>Note</strong>: The following commands are equivalent:</p>
-<ul>
-<li><code>seq(from = x1, to = x2, by = s)</code></li>
-<li><code>seq(x1, x2, s)</code></li>
-</ul>
-<p><strong>Example</strong>: Generate the vector of odd numbers from 1 to 11</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">1</span>, <span class="at">to =</span> <span class="dv">11</span>, <span class="at">by =</span> <span class="dv">2</span>)</span>
-<span id="cb21-2"><a aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">11</span>, <span class="dv">2</span>)</span>
-<span id="cb21-3"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-4"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Vector x is: ("</span>, x, <span class="st">")"</span>)</span>
-<span id="cb21-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Vector y is: ("</span>, y, <span class="st">")"</span>)</span>
-<span id="cb21-6"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"They are the same!"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>Vector x is: ( 1 3 5 7 9 11 )</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Vector y is: ( 1 3 5 7 9 11 )</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>They are the same!</code></pre>
-</div>
-</div>
-</section>
-<section id="graphics-6" class="slide level2 smaller">
-<h2>Graphics</h2>
-<h3 id="plotting-functions---example-2">Plotting functions - Example</h3>
-<ul>
-<li>We go back to plotting <span class="math display">
-y = x^2 \,, \qquad x \in [-1, 1]
-</span></li>
-<li>We want to generate a grid, or sequece:
-<ul>
-<li>Starting at <span class="math inline">0</span></li>
-<li>Ending at <span class="math inline">1</span></li>
-<li>With increments of <span class="math inline">0.2</span></li>
-</ul></li>
-</ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="sc">-</span><span class="dv">1</span>, <span class="at">to =</span> <span class="dv">1</span>, <span class="at">by =</span> <span class="fl">0.2</span>)</span>
-<span id="cb25-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code> [1] -1.0 -0.8 -0.6 -0.4 -0.2  0.0  0.2  0.4  0.6  0.8  1.0</code></pre>
-</div>
-</div>
-</section>
-<section id="graphics-7" class="slide level2 smaller">
-<h2>Graphics</h2>
-<h3 id="plotting-functions---example-3">Plotting functions - Example</h3>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Use seq() to generate x grid</span></span>
-<span id="cb27-2"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="sc">-</span><span class="dv">1</span>, <span class="at">to =</span> <span class="dv">1</span>, <span class="at">by =</span> <span class="fl">0.2</span>)</span>
-<span id="cb27-3"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the function y=x^2</span></span>
-<span id="cb27-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, x<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb27-6"><a aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(x, x<span class="sc">^</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-
-</div>
-<img data-src="lecture_4_files/figure-revealjs/unnamed-chunk-16-1.png" width="960" class="r-stretch"></section>
-<section id="graphics-8" class="slide level2 smaller">
-<h2>Graphics</h2>
-<h3 id="scatter-plot---example">Scatter plot - Example</h3>
-<p>Let us go back to the example of plotting random normal values</p>
-<ul>
-<li>First we generate a vector <code>x</code> with 1000 random normal values</li>
-<li>Then we plot <code>x</code> via <code>plot(x)</code></li>
-<li>The command <code>plot(x)</code> implicitly assumes that:
-<ul>
-<li><code>x</code> is the second argument: Values to plot on <span class="math inline">y</span>-axis</li>
-<li>The first argument is the vector <code>seq(1, 1000)</code></li>
-<li>Note that <code>seq(1, 1000)</code> is the vector of <strong>components numbers</strong> of <code>x</code></li>
-</ul></li>
-</ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>)</span>
-<span id="cb28-2"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-
-</section>
-<section id="graphics-8-output" class="slide level2 smaller output-location-slide"><h2>Graphics</h2><div class="cell output-location-slide">
-<div class="cell-output-display">
-<div>
-<figure>
-<p><img data-src="lecture_4_files/figure-revealjs/unnamed-chunk-17-1.png" width="960"></p>
-</figure>
-</div>
-</div>
-</div></section><section id="references" class="slide level2">
+<section id="references" class="slide level2">
 <h2>References</h2>
 
 <div class="quarto-auto-generated-content">
@@ -1387,44 +636,6 @@ y = x^2 \,, \qquad x \in [-1, 1]
         ]
       });
     </script>
-    
-    <script>
-      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
-      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
-      // slide changes (different for each slide format).
-      (function () {
-        // dispatch for htmlwidgets
-        function fireSlideEnter() {
-          const event = window.document.createEvent("Event");
-          event.initEvent("slideenter", true, true);
-          window.document.dispatchEvent(event);
-        }
-
-        function fireSlideChanged(previousSlide, currentSlide) {
-          fireSlideEnter();
-
-          // dispatch for shiny
-          if (window.jQuery) {
-            if (previousSlide) {
-              window.jQuery(previousSlide).trigger("hidden");
-            }
-            if (currentSlide) {
-              window.jQuery(currentSlide).trigger("shown");
-            }
-          }
-        }
-
-        // hookup for slidy
-        if (window.w3c_slidy) {
-          window.w3c_slidy.add_observer(function (slide_num) {
-            // slide_num starts at position 1
-            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
-          });
-        }
-
-      })();
-    </script>
-
     <script id="quarto-html-after-body" type="application/javascript">
     window.document.addEventListener("DOMContentLoaded", function (event) {
       const toggleBodyColorMode = (bsSheetEl) => {

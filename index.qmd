@@ -68,7 +68,7 @@ There are 11 lectures in this module. Links to the slides and lecture titles are
 |:------      |:------     |
 | <a href="slides/lecture_1.qmd">Lecture 1</a>   | An introduction to Statistics                 |
 | <a href="slides/lecture_2.qmd">Lecture 2</a>   | Random samples                                |
-| <a href="slides/lecture_3.qmd">Lecture 3</a>   | Hypothesis tests in R -- Part 1               |
+| <a href="slides/lecture_3.qmd">Lecture 3</a>   | The t-test and an introduction to R           |
 | <a href="slides/lecture_4.qmd">Lecture 4</a>   | Hypothesis tests in R -- Part 2               |
 | <a href="slides/lecture_5.qmd">Lecture 5</a>   | Two-sample hypothesis tests                   |
 | <a href="slides/lecture_6.qmd">Lecture 6</a>   | The chi-squared test                          |

@@ -19,7 +19,7 @@ $
 :::
 
 
-# Lecture 3: <br>Hypothesis tests in R <br> Part 1 {background-color="#cc0164" visibility="uncounted"}
+# Lecture 3: <br>An introduction to R {background-color="#cc0164" visibility="uncounted"}
 
 ::: footer
 
@@ -1487,7 +1487,11 @@ s2 = sum( (x - barx)^2 ) / (n - 1)
 
 - In Lecture 2, we have computed $\overline{x}$ and $s^2$ by hand
 
-- **Question:** Compute $\overline{x}$ and $s^2$ using R
+
+**Question:** 
+
+1. Enter the data into R
+2. Compute $\overline{x}$ and $s^2$ using R
 
 
 
@@ -1561,6 +1565,44 @@ s2_check = var(x)
 cat("Sample variance computed with formula is", s2)
 cat("Sample variance computed with R function is", s2_check)
 cat("They coincide!")
+```
+
+
+
+
+## Exercise {.smaller}
+
+- R contains some data sets by default, e.g. the data set ``rivers``
+    * This data set gives the lengths (in miles) of 141 *major* rivers in North America
+
+
+
+- For a vector $x = (x_1,\ldots,x_n) \in \R^n$, the *average distance from the center* is
+$$
+\frac{|x_1 - \bar{x}| + \ldots + |x_n - \bar{x}|}{n}\,,
+$$
+where $\bar{x} = \frac{1}{n} \, \sum_{i=1}^n x_i$ is the mean of the vector $x$
+
+
+**Question:** Compute the average distance from the center for the ``rivers`` data set
+
+*Hint:* The absolute value of $y \in \R$ is computed with ``abs(y)``
+
+
+## Solution {.smaller}
+
+To compute the average distance from the center for the ``rivers`` data set, we use the following R functions
+
+- ``mean``
+- ``sum``
+- ``abs``
+- ``length``
+
+```{r}
+#| echo: true
+
+# Compute the average distance from the center for rivers
+sum(abs(rivers - mean(rivers))) / length(rivers)	
 ```
 
 
@@ -3008,6 +3050,9 @@ range_x <- x[ (x > 0) & (x < 100) ]
 cat("Vector x is:", x)
 cat("Components of x between 0 and 100 are:", range_x)
 ```
+
+
+
 
 
 

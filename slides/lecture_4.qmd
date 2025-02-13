@@ -21,7 +21,7 @@ $
 
 
 
-# Lecture 4: <br>Hypothesis tests in R <br> Part 1 {background-color="#cc0164" visibility="uncounted"}
+# Lecture 4: <br>The variance ratio test <br> and... {background-color="#cc0164" visibility="uncounted"}
 
 ::: footer
 
@@ -36,14 +36,15 @@ $
 ## Outline of Lecture 4
 
 1. One-sample variance ratio test
-2. F-distribution
+2. Worked example
+3. The F-distribution
 
 
 
 
 
 
-# Part 1: <br>One-sample variance test {background-color="#cc0164" visibility="uncounted"}
+# Part 1: <br>One-sample variance <br> ratio test {background-color="#cc0164" visibility="uncounted"}
 
 ::: footer
 
@@ -53,9 +54,9 @@ $
 
 
 
-## Estimating mean and variance {.smaller}
+## Task: Estimating mean and variance {.smaller}
 
-- Suppose to have a population with normal distribution $N(\mu,\sigma^2)$
+- Assume the population has normal distribution $N(\mu,\sigma^2)$
     * Mean $\mu$ and variance $\sigma^2$ are **unknown**
 
 
@@ -65,14 +66,14 @@ $
 
 
 - **Answers:**
-    * The one-sample **t-test** answers questions about $\mu$
+    * The one-sample **t-test** answers questions about $\mu$ (seen in Lecture 3)
     * The one-sample **variance ratio test** answers questions about $\sigma^2$
 
 
 
 
 
-## Chi-squared distribution {.smaller}
+## Reminder {.smaller}
 
 - The-one sample variance test uses **chi-squared distribution**
 
@@ -105,8 +106,7 @@ $$
 
 
 
-## One-sample one-sided variance ratio test {.smaller}
-### What to do?
+## What to do? {.smaller}
 
 - Consider the sample variance
 $$
@@ -127,9 +127,7 @@ $$
 
 
 
-## One-sample one-sided variance ratio test {.smaller}
-### What to do?
-
+## What to do? {.smaller}
 
 - If we observe $S^2 \gg \sigma_0^2$ then our guess $\sigma_0$ is probably wrong
 
@@ -137,7 +135,6 @@ $$
 $$
 S^2 \gg \sigma_0^2
 $$
-
 
 
 - The **rejection** condition $S^2 \gg \sigma_0^2$ is equivalent to 
@@ -148,13 +145,11 @@ where $n$ is the sample size
 
 
 
-## One-sample one-sided variance ratio test {.smaller}
-### What to do?
-
+## What to do? {.smaller}
 
 - We define our **test statistic** as
 $$
-\chi^2 := \frac{(n-1)s^2}{\sigma_0^2}
+\chi^2 := \frac{(n-1)S^2}{\sigma_0^2}
 $$
 
 
@@ -165,11 +160,9 @@ $$
 
 
 
+## What to do? {.smaller}
 
-## One-sample one-sided variance ratio test {.smaller}
-### What to do?
-
-- Recall that 
+- In Lecture 2, we have proven that
 $$
 \frac{(n-1)S^2}{\sigma^2} \sim \chi_{n-1}^2
 $$
@@ -182,15 +175,14 @@ $$
 
 
 
-## One-sample one-sided variance ratio test {.smaller}
-### Summary
-
-
+## Summary: Rejection condition {.smaller}
 
 - We **reject** $H_0$ if 
 $$
 \chi^2 = \frac{(n-1)S^2}{\sigma_0^2} \gg 1 
 $$
+
+- This means we do not want $\chi^2$ to be too extreme to the right
 
 - As $\chi^2 \sim \chi_{n-1}^2$, we decide to rejct $H_0$ if
 $$
@@ -198,7 +190,7 @@ $$
 $$
 
 
-- By definition the **critical value** $\chi_{n-1}^2(0.05)$ is such that
+- By definition, the **critical value** $\chi_{n-1}^2(0.05)$ is such that
 $$
 P(\chi_{n-1}^2 > \chi_{n-1}^2(0.05) ) = 0.05
 $$
@@ -209,6 +201,8 @@ $$
 ## Critical values of chi-squared {.smaller}
 
 - $x^* := \chi_{n-1}^2(0.05)$ is point on $x$-axis such that $P(\chi_{n-1}^2 > x^* ) = 0.05$
+
+- Therefore, the semi-open interval $(x^*,+\infty)$ is the *rejection region*
 
 - In the picture we have $n = 12$ and $\chi_{11}^2(0.05) = 19.68$
 
@@ -239,7 +233,7 @@ points(x_star, dchisq(x_star, df), col = "red", pch = 19, cex = 1.3)
 text(x_star * 1.05, dchisq(x_star, df) * 1.35, paste("x* =", round(x_star, 2)), pos = 3, col = "red", cex = 1.3)
 
 # Add legend
-legend("topright", legend = c("area = 0.05"), fill = "gray", cex = 1.3)
+legend("topright", legend = c("area of rejection region = 0.05"), fill = "gray", cex = 1.3)
 
 ```
 
@@ -256,11 +250,9 @@ legend("topright", legend = c("area = 0.05"), fill = "gray", cex = 1.3)
 
 
 
-## One-sample one-sided variance ratio test {.smaller}
-### p-value
+## The p-value {.smaller}
 
-
-- Given the test statistic $\chi^2$ the **p-value** is defined as
+- Given the test statistic $\chi^2$, the **p-value** is defined as
 $$
 p := P( \chi_{n-1}^2 > \chi^2 )
 $$
@@ -282,7 +274,7 @@ $$
 
 
 ## One-sample one-sided variance ratio test {.smaller}
-### Procedure
+### The procedure
 
 Suppose given
 
@@ -298,7 +290,7 @@ The **variance ratio test** consists of 3 steps
 
 
 ## One-sample one-sided variance ratio test {.smaller}
-### Procedure
+### The procedure
 
 1. **Calculation**: Compute the chi-squared statistic
 $$
@@ -313,7 +305,7 @@ $$
 
 
 ## One-sample one-sided variance ratio test {.smaller}
-### Procedure
+### The procedure
 
 2. **Statistical Tables or R**: Find either
     * Critical value in [Table 13.5](files/Statistics_Tables.pdf)
@@ -324,12 +316,13 @@ $$
     $$
     p := P( \chi_{n-1}^2 > \chi^2 )
     $$
+    (more on this later)
 
 
 
 
 ## One-sample one-sided variance ratio test {.smaller}
-### Procedure
+### The procedure
 
 3. **Interpretation**:
     * Reject $H_0$ if 
@@ -346,7 +339,8 @@ $$
 
 
 
-# Part 2: <br>One-sample variance test: Example {background-color="#cc0164" visibility="uncounted"}
+
+# Part 2: <br>Worked example {background-color="#cc0164" visibility="uncounted"}
 
 ::: footer
 
@@ -368,7 +362,7 @@ $$
 
 <br>
 
-- **Data:** *Consumer Expectation* (CE) and *Consumer Spending* (CS) in 2011
+- **Data:** *Consumer Expectation* (CE) and *Consumer Spending* (CS) in 2011 (again!)
 - **Assumption:** CE and CS are normally distributed
 
 
@@ -417,14 +411,14 @@ $$
 $$
 \sigma=1
 \quad \implies \quad 
-\text{CS index is within } \pm{2\sigma} \text{ of CE index with probability } 0.95  
+\text{CS index is within } \pm{2} \text{ of CE index with probability } 0.95  
 $$
 
 
 
 
 
-## The variance ratio test {.smaller}
+## Performing the variance ratio test {.smaller}
 
 
 | Month                    | J | F | M | A | M | J | J | A | S | O | N | D |
@@ -433,7 +427,7 @@ $$
 
 <br>
 
-1. **Calculations**: With data on Difference compute 
+1. **Calculations**: Using the above data, compute 
 
 - Sample mean:
 $$
@@ -443,7 +437,7 @@ $$
 
 
 
-## The variance ratio test {.smaller}
+## Performing the variance ratio test {.smaller}
 
 | Month                    | J | F | M | A | M | J | J | A | S | O | N | D |
 |:------------------------ |:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
@@ -451,7 +445,7 @@ $$
 
 <br>
 
-1. **Calculations**: With data on Difference compute 
+1. **Calculations**: Using the above data, compute 
 
 - Sample variance:
 \begin{align*}
@@ -464,7 +458,7 @@ s^2 & = \frac{\sum_{i=1}^n x^2_i- n \bar{x}^2}{n-1}
 
 
 
-## The variance ratio test {.smaller}
+## Performing the variance ratio test {.smaller}
 
 | Month                    | J | F | M | A | M | J | J | A | S | O | N | D |
 |:------------------------ |:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
@@ -472,7 +466,7 @@ s^2 & = \frac{\sum_{i=1}^n x^2_i- n \bar{x}^2}{n-1}
 
 <br>
 
-1. **Calculations**: With data on Difference compute 
+1. **Calculations**: Using the above data, compute 
 
 - Chi-squared statistic:
 $$
@@ -485,7 +479,7 @@ $$
 
 
 
-## The variance ratio test {.smaller}
+## Performing the variance ratio test {.smaller}
 
 2. **Statistical Tables**:
     * Sample size is $n = 12$
@@ -503,7 +497,7 @@ $$
 
 
 
-## The variance ratio test {.smaller}
+## Performing the variance ratio test {.smaller}
 
 4. **Conclusion**:
     * We accept $H_1$: The standard deviation satisfies $\sigma > 1$
@@ -524,7 +518,7 @@ $$
 
 **Goal**: Perform chi-squared variance ratio test in R
 
-- For this we need to compute p-value
+- For this, we need to compute p-value
 $$
 p = P(\chi_{n-1}^2 > \chi^2)
 $$
@@ -540,11 +534,11 @@ $$
 - R can natively do calculations with known probability distrubutions
 - Example: Let $X$ be r.v. with $N(\mu,\sigma^2)$ distribution
 
-| **R command**         |   **Meaning**                                |
+| **R command**         |   **Computes**                                |
 |:--------------------  |:------------------------------               |
 | ``pnorm(x, mean = mu, sd = sig)`` |   $P(X \leq x)$                              |
-| ``qnorm(p, mean = mu, sd = sig)`` |   $P(X \leq q) = p$                          |
-| ``dnorm(x, mean = mu, sd = sig)`` |   $f(x)$ where $f$ is distr. of $X$    |
+| ``qnorm(p, mean = mu, sd = sig)`` |   $q$ such that $P(X \leq q) = p$                          |
+| ``dnorm(x, mean = mu, sd = sig)`` |   $f(x)$, where $f$ is density of $X$    |
 | ``rnorm(n, mean = mu, sd = sig)`` |   $n$ random samples from distr. of $X$|
 : {tbl-colwidths="[50,50]"}
 
@@ -553,7 +547,7 @@ $$
 
 **norm** $=$ normal $\qquad$ **p** $=$ probability $\qquad$ **q** $=$ quantile 
 
-**d** $=$ distribution $\qquad$  **r** $=$ random
+**d** $=$ density $\qquad \quad \,\,\,\,$  **r** $=$ random
   
 
 
@@ -636,10 +630,10 @@ rnorm(5, mean = 163, sd = 8)
 - Commands for chi-squared distrubution are similar
 - ``df = n`` denotes $n$ degrees of feedom
 
-| **R command**         |   **Meaning**                                |
+| **R command**         |   **Computes**                                |
 |:--------------------  |:------------------------------               |
 | ``pchisq(x, df = n)`` |   $P(X \leq x)$                              |
-| ``qchisq(p, df = n)`` |   $P(X \leq q) = p$                          |
+| ``qchisq(p, df = n)`` |   $q$ such that $P(X \leq q) = p$                          |
 | ``dchisq(x, df = n)``  |   $f(x)$ where $f$ is distr. of $X$    |
 | ``rchisq(m, df = n)``  |   $m$ random samples from distr. of $X$|
 : {tbl-colwidths="[40,60]"}

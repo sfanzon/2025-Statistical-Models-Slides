@@ -34,7 +34,7 @@ $
 ## Outline of Lecture 3
 
 1. Hypothesis testing
-2. The t-test
+2. The t-test by hand
 3. The basics of R
 4. Vectors
 5. The t-test in R
@@ -206,7 +206,7 @@ H_1 \colon \theta > 0$
 
 
 
-# Part 2: <br>The t-test {background-color="#cc0164" visibility="uncounted"}
+# Part 2: <br>The t-test <br> by hand {background-color="#cc0164" visibility="uncounted"}
 
 ::: footer
 
@@ -434,6 +434,9 @@ We have two possibilities:
 - $|t| \leq t^*$
   * In this case $p>0.05$
   * The observed statistic $t$ is not unlikely under $H_0 \,\, \implies \,\,$ **do not reject** $H_0$
+
+
+
 
 
 

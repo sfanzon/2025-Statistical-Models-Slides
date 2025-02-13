@@ -31,8 +31,89 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto.css">
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
   <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -324,45 +405,41 @@
   </style>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
   <style>
-  .TODO {
-    --color1: #e7b1b4;
-    --color2: #8c3236;
+  .Warning {
+    --color1: #f4cce0;
+    --color2: #db4d92;
   }
-  .Proof {
-    --color1: #f1f1f2;
-    --color2: #c0c0c1;
+  .Notation {
+    --color1: #c6e6ed;
+    --color2: #1995ad;
   }
   .Remark {
     --color1: #bce5de;
     --color2: #21aa93;
   }
-  .Lemma {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
   .Corollary {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
-  .Problem {
+  .Lemma {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
-  .Warning {
+  .Important {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
-  .Conjecture {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Idea {
+  .Theorem {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
   .Question {
     --color1: #f4cce0;
     --color2: #db4d92;
+  }
+  .TODO {
+    --color1: #e7b1b4;
+    --color2: #8c3236;
   }
   .DONE {
     --color1: #cce7b1;
@@ -372,11 +449,7 @@
     --color1: #c6e6ed;
     --color2: #1995ad;
   }
-  .Theorem {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Important {
+  .Proposition {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
@@ -384,17 +457,25 @@
     --color1: #f4cce0;
     --color2: #db4d92;
   }
-  .Notation {
-    --color1: #c6e6ed;
-    --color2: #1995ad;
-  }
-  .Proposition {
+  .Problem {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
   .Example {
     --color1: #bce5de;
     --color2: #21aa93;
+  }
+  .Idea {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Conjecture {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Proof {
+    --color1: #f1f1f2;
+    --color2: #c0c0c1;
   }
   </style>
 </head>
@@ -433,8 +514,1277 @@
 <section id="outline-of-lecture-4" class="slide level2">
 <h2>Outline of Lecture 4</h2>
 <ol type="1">
-<li></li>
+<li>One-sample variance ratio test</li>
+<li>F-distribution</li>
 </ol>
+</section></section>
+<section>
+<section id="part-1-one-sample-variance-test" class="title-slide slide level1 center" data-background-color="#cc0164" data-visibility="uncounted">
+<h1>Part 1: <br>One-sample variance test</h1>
+<div class="footer">
+<div color="#cc0164">
+
+</div>
+</div>
+</section>
+<section id="estimating-mean-and-variance" class="slide level2 smaller">
+<h2>Estimating mean and variance</h2>
+<ul>
+<li>Suppose to have a population with normal distribution <span class="math inline">N(\mu,\sigma^2)</span>
+<ul>
+<li>Mean <span class="math inline">\mu</span> and variance <span class="math inline">\sigma^2</span> are <strong>unknown</strong></li>
+</ul></li>
+<li><strong>Questions</strong> about <span class="math inline">\mu</span> and <span class="math inline">\sigma^2</span>
+<ol type="1">
+<li>What is my best guess of the value?</li>
+<li>How far away from the true value am I likely to be?</li>
+</ol></li>
+<li><strong>Answers:</strong>
+<ul>
+<li>The one-sample <strong>t-test</strong> answers questions about <span class="math inline">\mu</span></li>
+<li>The one-sample <strong>variance ratio test</strong> answers questions about <span class="math inline">\sigma^2</span></li>
+</ul></li>
+</ul>
+</section>
+<section id="chi-squared-distribution" class="slide level2 smaller">
+<h2>Chi-squared distribution</h2>
+<ul>
+<li><p>The-one sample variance test uses <strong>chi-squared distribution</strong></p></li>
+<li><p><strong>Recall:</strong> Chi-squared distribution with <span class="math inline">p</span> degrees of freedom is <span class="math display">
+\chi_p^2 = Z_1^2 + \ldots + Z_p^2
+</span> where <span class="math inline">Z_1, \ldots, Z_p</span> are iid <span class="math inline">N(0, 1)</span></p></li>
+</ul>
+</section>
+<section id="one-sample-one-sided-variance-ratio-test" class="slide level2 smaller">
+<h2>One-sample one-sided variance ratio test</h2>
+<p><strong>Assumption:</strong> Suppose given sample <span class="math inline">X_1,\ldots, X_n</span> iid from <span class="math inline">N(\mu,\sigma^2)</span></p>
+<p><strong>Goal:</strong> Estimate variance <span class="math inline">\sigma^2</span> of population</p>
+<p><strong>Test:</strong></p>
+<ul>
+<li><p>Suppose <span class="math inline">\sigma_0</span> is guess for <span class="math inline">\sigma</span></p></li>
+<li><p>The one-sided hypothesis test for <span class="math inline">\sigma</span> is <span class="math display">
+H_0 \colon \sigma = \sigma_0 \qquad H_1 \colon \sigma &gt; \sigma_0
+</span></p></li>
+</ul>
+</section>
+<section id="one-sample-one-sided-variance-ratio-test-1" class="slide level2 smaller">
+<h2>One-sample one-sided variance ratio test</h2>
+<h3 id="what-to-do">What to do?</h3>
+<ul>
+<li><p>Consider the sample variance <span class="math display">
+S^2 = \frac{ \sum_{i=1}^n  X_i^2 - n \overline{X}^2 }{n-1}
+</span></p></li>
+<li><p>Since we believe <span class="math inline">H_0</span>, the variance is <span class="math display">
+\sigma = \sigma_0
+</span></p></li>
+<li><p><span class="math inline">S^2</span> cannot be too far from the true variance <span class="math inline">\sigma</span></p></li>
+<li><p>Therefore we <strong>cannot</strong> have that <span class="math display">
+S^2 \gg \sigma^2 = \sigma_0^2
+</span></p></li>
+</ul>
+</section>
+<section id="one-sample-one-sided-variance-ratio-test-2" class="slide level2 smaller">
+<h2>One-sample one-sided variance ratio test</h2>
+<h3 id="what-to-do-1">What to do?</h3>
+<ul>
+<li><p>If we observe <span class="math inline">S^2 \gg \sigma_0^2</span> then our guess <span class="math inline">\sigma_0</span> is probably wrong</p></li>
+<li><p>Therefore we <strong>reject</strong> <span class="math inline">H_0</span> if <span class="math display">
+S^2 \gg \sigma_0^2
+</span></p></li>
+<li><p>The <strong>rejection</strong> condition <span class="math inline">S^2 \gg \sigma_0^2</span> is equivalent to <span class="math display">
+\frac{(n-1)S^2}{\sigma_0^2}  \gg 1
+</span> where <span class="math inline">n</span> is the sample size</p></li>
+</ul>
+</section>
+<section id="one-sample-one-sided-variance-ratio-test-3" class="slide level2 smaller">
+<h2>One-sample one-sided variance ratio test</h2>
+<h3 id="what-to-do-2">What to do?</h3>
+<ul>
+<li><p>We define our <strong>test statistic</strong> as <span class="math display">
+\chi^2 := \frac{(n-1)s^2}{\sigma_0^2}
+</span></p></li>
+<li><p>The <strong>rejection</strong> condition is hence <span class="math display">
+\chi^2 \gg 1
+</span></p></li>
+</ul>
+</section>
+<section id="one-sample-one-sided-variance-ratio-test-4" class="slide level2 smaller">
+<h2>One-sample one-sided variance ratio test</h2>
+<h3 id="what-to-do-3">What to do?</h3>
+<ul>
+<li><p>Recall that <span class="math display">
+\frac{(n-1)S^2}{\sigma^2} \sim \chi_{n-1}^2
+</span></p></li>
+<li><p>Assuming <span class="math inline">\sigma=\sigma_0</span>, we therefore have <span class="math display">
+\chi^2 = \frac{(n-1)S^2}{\sigma_0^2} = \frac{(n-1)S^2}{\sigma^2} \sim \chi_{n-1}^2
+</span></p></li>
+</ul>
+</section>
+<section id="one-sample-one-sided-variance-ratio-test-5" class="slide level2 smaller">
+<h2>One-sample one-sided variance ratio test</h2>
+<h3 id="summary">Summary</h3>
+<ul>
+<li><p>We <strong>reject</strong> <span class="math inline">H_0</span> if <span class="math display">
+\chi^2 = \frac{(n-1)S^2}{\sigma_0^2} \gg 1
+</span></p></li>
+<li><p>As <span class="math inline">\chi^2 \sim \chi_{n-1}^2</span>, we decide to rejct <span class="math inline">H_0</span> if <span class="math display">
+\chi^2 &gt; \chi_{n-1}^2(0.05)   
+</span></p></li>
+<li><p>By definition the <strong>critical value</strong> <span class="math inline">\chi_{n-1}^2(0.05)</span> is such that <span class="math display">
+P(\chi_{n-1}^2 &gt; \chi_{n-1}^2(0.05) ) = 0.05
+</span></p></li>
+</ul>
+</section>
+<section id="critical-values-of-chi-squared" class="slide level2 smaller">
+<h2>Critical values of chi-squared</h2>
+<ul>
+<li><p><span class="math inline">x^* := \chi_{n-1}^2(0.05)</span> is point on <span class="math inline">x</span>-axis such that <span class="math inline">P(\chi_{n-1}^2 &gt; x^* ) = 0.05</span></p></li>
+<li><p>In the picture we have <span class="math inline">n = 12</span> and <span class="math inline">\chi_{11}^2(0.05) = 19.68</span></p></li>
+</ul>
+
+<img data-src="lecture_4_files/figure-revealjs/unnamed-chunk-1-1.png" width="960" class="r-stretch"></section>
+<section id="critical-values-of-chi-squared-tables" class="slide level2 smaller">
+<h2>Critical values of chi-squared – Tables</h2>
+<ul>
+<li>Find Table 13.5 in this <a href="files/Statistics_Tables.pdf">file</a></li>
+<li>Look at the row with Degree of Freedom <span class="math inline">n-1</span> (or its closest value)</li>
+<li>Find <strong>critical value</strong> <span class="math inline">\chi^2_{n-1}(0.05)</span> in column <span class="math inline">\alpha = 0.05</span></li>
+<li><strong>Example</strong>: <span class="math inline">n=12</span>, DF <span class="math inline">=11</span>, <span class="math inline">\chi^2_{11}(0.05) = 19.68</span></li>
+</ul>
+
+<img data-src="images/chi_squared_test_statistic_table.png" style="width:82.0%" class="r-stretch"></section>
+<section id="one-sample-one-sided-variance-ratio-test-6" class="slide level2 smaller">
+<h2>One-sample one-sided variance ratio test</h2>
+<h3 id="p-value">p-value</h3>
+<ul>
+<li><p>Given the test statistic <span class="math inline">\chi^2</span> the <strong>p-value</strong> is defined as <span class="math display">
+p := P( \chi_{n-1}^2 &gt; \chi^2 )
+</span></p></li>
+<li><p>Notice that <span class="math display">
+p &lt; 0.05 \qquad \iff \qquad  \chi^2 &gt; \chi_{n-1}^2(0.05)
+</span></p></li>
+</ul>
+<blockquote>
+<p>This is because <span class="math inline">\chi^2 &gt; \chi_{n-1}^2(0.05)</span> iff <span class="math display">
+p = P(\chi_{n-1}^2 &gt; \chi^2)
+&lt; P(\chi_{n-1}^2 &gt; \chi_{n-1}^2(0.05) )
+= 0.05
+</span></p>
+</blockquote>
+</section>
+<section id="one-sample-one-sided-variance-ratio-test-7" class="slide level2 smaller">
+<h2>One-sample one-sided variance ratio test</h2>
+<h3 id="procedure">Procedure</h3>
+<p>Suppose given</p>
+<ul>
+<li>Sample <span class="math inline">x_1, \ldots, x_n</span> of size <span class="math inline">n</span> from <span class="math inline">N(\mu,\sigma^2)</span></li>
+<li>Guess <span class="math inline">\sigma_0</span> for <span class="math inline">\sigma</span></li>
+</ul>
+<p>The one-sided hypothesis test is <span class="math display">
+H_0 \colon \sigma = \sigma_0 \qquad H_1 \colon \sigma &gt; \sigma_0
+</span> The <strong>variance ratio test</strong> consists of 3 steps</p>
+</section>
+<section id="one-sample-one-sided-variance-ratio-test-8" class="slide level2 smaller">
+<h2>One-sample one-sided variance ratio test</h2>
+<h3 id="procedure-1">Procedure</h3>
+<ol type="1">
+<li><strong>Calculation</strong>: Compute the chi-squared statistic <span class="math display">
+\chi^2 = \frac{(n-1) s^2}{\sigma_0^2}
+</span> where sample mean and variance are <span class="math display">
+\overline{x} = \frac{1}{n} \sum_{i=1}^n x_i \,, \qquad
+s^2 = \frac{\sum_{i=1}^n x_i^2 - n \overline{x}^2}{n-1}
+</span></li>
+</ol>
+</section>
+<section id="one-sample-one-sided-variance-ratio-test-9" class="slide level2 smaller">
+<h2>One-sample one-sided variance ratio test</h2>
+<h3 id="procedure-2">Procedure</h3>
+<ol start="2" type="1">
+<li><strong>Statistical Tables or R</strong>: Find either
+<ul>
+<li>Critical value in <a href="files/Statistics_Tables.pdf">Table 13.5</a> <span class="math display">
+\chi_{n-1}^2(0.05)
+</span></li>
+<li>p-value in R <span class="math display">
+p := P( \chi_{n-1}^2 &gt; \chi^2 )
+</span></li>
+</ul></li>
+</ol>
+</section>
+<section id="one-sample-one-sided-variance-ratio-test-10" class="slide level2 smaller">
+<h2>One-sample one-sided variance ratio test</h2>
+<h3 id="procedure-3">Procedure</h3>
+<ol start="3" type="1">
+<li><strong>Interpretation</strong>:
+<ul>
+<li>Reject <span class="math inline">H_0</span> if <span class="math display">
+\chi^2 &gt; \chi_{n-1}^2(0.05)  \qquad \text{ or } \qquad p &lt; 0.05
+</span></li>
+<li>Do not reject <span class="math inline">H_0</span> if <span class="math display">
+\chi^2 \leq \chi_{n-1}^2(0.05) \qquad \text{ or } \qquad
+p \geq 0.05
+</span></li>
+</ul></li>
+</ol>
+</section></section>
+<section>
+<section id="part-2-one-sample-variance-test-example" class="title-slide slide level1 center" data-background-color="#cc0164" data-visibility="uncounted">
+<h1>Part 2: <br>One-sample variance test: Example</h1>
+<div class="footer">
+<div color="#cc0164">
+
+</div>
+</div>
+</section>
+<section id="one-sample-variance-ratio-test-example" class="slide level2 smaller">
+<h2>One-sample variance ratio test: Example</h2>
+<table class="caption-top" style="width:100%;">
+<colgroup>
+<col style="width: 40%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Month</th>
+<th style="text-align: center;">J</th>
+<th style="text-align: center;">F</th>
+<th style="text-align: center;">M</th>
+<th style="text-align: center;">A</th>
+<th style="text-align: center;">M</th>
+<th style="text-align: center;">J</th>
+<th style="text-align: center;">J</th>
+<th style="text-align: center;">A</th>
+<th style="text-align: center;">S</th>
+<th style="text-align: center;">O</th>
+<th style="text-align: center;">N</th>
+<th style="text-align: center;">D</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Cons. Expectation</td>
+<td style="text-align: center;">66</td>
+<td style="text-align: center;">53</td>
+<td style="text-align: center;">62</td>
+<td style="text-align: center;">61</td>
+<td style="text-align: center;">78</td>
+<td style="text-align: center;">72</td>
+<td style="text-align: center;">65</td>
+<td style="text-align: center;">64</td>
+<td style="text-align: center;">61</td>
+<td style="text-align: center;">50</td>
+<td style="text-align: center;">55</td>
+<td style="text-align: center;">51</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Cons. Spending</td>
+<td style="text-align: center;">72</td>
+<td style="text-align: center;">55</td>
+<td style="text-align: center;">69</td>
+<td style="text-align: center;">65</td>
+<td style="text-align: center;">82</td>
+<td style="text-align: center;">77</td>
+<td style="text-align: center;">72</td>
+<td style="text-align: center;">78</td>
+<td style="text-align: center;">77</td>
+<td style="text-align: center;">75</td>
+<td style="text-align: center;">77</td>
+<td style="text-align: center;">77</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Difference</td>
+<td style="text-align: center;">-6</td>
+<td style="text-align: center;">-2</td>
+<td style="text-align: center;">-7</td>
+<td style="text-align: center;">-4</td>
+<td style="text-align: center;">-4</td>
+<td style="text-align: center;">-5</td>
+<td style="text-align: center;">-7</td>
+<td style="text-align: center;">-14</td>
+<td style="text-align: center;">-16</td>
+<td style="text-align: center;">-25</td>
+<td style="text-align: center;">-22</td>
+<td style="text-align: center;">-26</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<ul>
+<li><strong>Data:</strong> <em>Consumer Expectation</em> (CE) and <em>Consumer Spending</em> (CS) in 2011</li>
+<li><strong>Assumption:</strong> CE and CS are normally distributed</li>
+</ul>
+</section>
+<section id="one-sample-variance-ratio-test-example-1" class="slide level2 smaller">
+<h2>One-sample variance ratio test: Example</h2>
+<table class="caption-top" style="width:100%;">
+<colgroup>
+<col style="width: 40%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Month</th>
+<th style="text-align: center;">J</th>
+<th style="text-align: center;">F</th>
+<th style="text-align: center;">M</th>
+<th style="text-align: center;">A</th>
+<th style="text-align: center;">M</th>
+<th style="text-align: center;">J</th>
+<th style="text-align: center;">J</th>
+<th style="text-align: center;">A</th>
+<th style="text-align: center;">S</th>
+<th style="text-align: center;">O</th>
+<th style="text-align: center;">N</th>
+<th style="text-align: center;">D</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Cons. Expectation</td>
+<td style="text-align: center;">66</td>
+<td style="text-align: center;">53</td>
+<td style="text-align: center;">62</td>
+<td style="text-align: center;">61</td>
+<td style="text-align: center;">78</td>
+<td style="text-align: center;">72</td>
+<td style="text-align: center;">65</td>
+<td style="text-align: center;">64</td>
+<td style="text-align: center;">61</td>
+<td style="text-align: center;">50</td>
+<td style="text-align: center;">55</td>
+<td style="text-align: center;">51</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Cons. Spending</td>
+<td style="text-align: center;">72</td>
+<td style="text-align: center;">55</td>
+<td style="text-align: center;">69</td>
+<td style="text-align: center;">65</td>
+<td style="text-align: center;">82</td>
+<td style="text-align: center;">77</td>
+<td style="text-align: center;">72</td>
+<td style="text-align: center;">78</td>
+<td style="text-align: center;">77</td>
+<td style="text-align: center;">75</td>
+<td style="text-align: center;">77</td>
+<td style="text-align: center;">77</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Difference</td>
+<td style="text-align: center;">-6</td>
+<td style="text-align: center;">-2</td>
+<td style="text-align: center;">-7</td>
+<td style="text-align: center;">-4</td>
+<td style="text-align: center;">-4</td>
+<td style="text-align: center;">-5</td>
+<td style="text-align: center;">-7</td>
+<td style="text-align: center;">-14</td>
+<td style="text-align: center;">-16</td>
+<td style="text-align: center;">-25</td>
+<td style="text-align: center;">-22</td>
+<td style="text-align: center;">-26</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<ul>
+<li><strong>Remark</strong>: Monthly data on CE and CS can be matched
+<ul>
+<li>Hence consider: <span class="math inline">\quad</span> Difference <span class="math inline">=</span> CE <span class="math inline">-</span> CS</li>
+<li>CE and CS normal <span class="math inline">\quad \implies \quad</span> Difference <span class="math inline">\sim N(\mu,\sigma^2)</span></li>
+</ul></li>
+<li><strong>Question:</strong> Test the following hypothesis: <span class="math display">
+H_0 \colon \sigma = 1 \qquad
+H_1 \colon \sigma &gt; 1
+</span></li>
+</ul>
+</section>
+<section id="motivation-of-test" class="slide level2 smaller">
+<h2>Motivation of test</h2>
+<ul>
+<li><p>If <span class="math inline">X \sim N(\mu,\sigma^2)</span> then <span class="math display">
+P( \mu - 2 \sigma \leq X \leq \mu + 2\sigma ) \approx 0.95
+</span></p></li>
+<li><p>Recall: <span class="math inline">\quad</span> Difference <span class="math inline">=</span> (CE <span class="math inline">-</span> CS) <span class="math inline">\sim N(\mu,\sigma^2)</span></p></li>
+<li><p>Hence if <span class="math inline">\sigma = 1</span> <span class="math display">
+P( \mu - 2 \leq {\rm CE} - {\rm CS} \leq \mu + 2 ) \approx 0.95
+</span></p></li>
+<li><p><strong>Meaning of variance ratio test:</strong> <span class="math display">
+\sigma=1
+\quad \implies \quad
+\text{CS index is within } \pm{2\sigma} \text{ of CE index with probability } 0.95  
+</span></p></li>
+</ul>
+</section>
+<section id="the-variance-ratio-test" class="slide level2 smaller">
+<h2>The variance ratio test</h2>
+<table class="caption-top" style="width:100%;">
+<colgroup>
+<col style="width: 40%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Month</th>
+<th style="text-align: center;">J</th>
+<th style="text-align: center;">F</th>
+<th style="text-align: center;">M</th>
+<th style="text-align: center;">A</th>
+<th style="text-align: center;">M</th>
+<th style="text-align: center;">J</th>
+<th style="text-align: center;">J</th>
+<th style="text-align: center;">A</th>
+<th style="text-align: center;">S</th>
+<th style="text-align: center;">O</th>
+<th style="text-align: center;">N</th>
+<th style="text-align: center;">D</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Difference</td>
+<td style="text-align: center;">-6</td>
+<td style="text-align: center;">-2</td>
+<td style="text-align: center;">-7</td>
+<td style="text-align: center;">-4</td>
+<td style="text-align: center;">-4</td>
+<td style="text-align: center;">-5</td>
+<td style="text-align: center;">-7</td>
+<td style="text-align: center;">-14</td>
+<td style="text-align: center;">-16</td>
+<td style="text-align: center;">-25</td>
+<td style="text-align: center;">-22</td>
+<td style="text-align: center;">-26</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<ol type="1">
+<li><strong>Calculations</strong>: With data on Difference compute</li>
+</ol>
+<ul>
+<li>Sample mean: <span class="math display">
+\bar{x} = \frac{\sum_{i=1}^{n} x_i}{n} =  \frac{-6-2-7-4- \ldots -22-26}{12} = -\frac{138}{12} = -11.5
+</span></li>
+</ul>
+</section>
+<section id="the-variance-ratio-test-1" class="slide level2 smaller">
+<h2>The variance ratio test</h2>
+<table class="caption-top" style="width:100%;">
+<colgroup>
+<col style="width: 40%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Month</th>
+<th style="text-align: center;">J</th>
+<th style="text-align: center;">F</th>
+<th style="text-align: center;">M</th>
+<th style="text-align: center;">A</th>
+<th style="text-align: center;">M</th>
+<th style="text-align: center;">J</th>
+<th style="text-align: center;">J</th>
+<th style="text-align: center;">A</th>
+<th style="text-align: center;">S</th>
+<th style="text-align: center;">O</th>
+<th style="text-align: center;">N</th>
+<th style="text-align: center;">D</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Difference</td>
+<td style="text-align: center;">-6</td>
+<td style="text-align: center;">-2</td>
+<td style="text-align: center;">-7</td>
+<td style="text-align: center;">-4</td>
+<td style="text-align: center;">-4</td>
+<td style="text-align: center;">-5</td>
+<td style="text-align: center;">-7</td>
+<td style="text-align: center;">-14</td>
+<td style="text-align: center;">-16</td>
+<td style="text-align: center;">-25</td>
+<td style="text-align: center;">-22</td>
+<td style="text-align: center;">-26</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<ol type="1">
+<li><strong>Calculations</strong>: With data on Difference compute</li>
+</ol>
+<ul>
+<li>Sample variance: <span class="math display">\begin{align*}
+\sum_{i=1}^{n} x_i^2 &amp; = (-6)^2 + (-2)^2 + (-7)^2 + \ldots + (-22)^2 + (-26)^2 = 2432 \\
+s^2 &amp; = \frac{\sum_{i=1}^n x^2_i- n \bar{x}^2}{n-1}
+    = \frac{2432-12(-11.5)^2}{11} = \frac{845}{11} = 76.8182
+\end{align*}</span></li>
+</ul>
+</section>
+<section id="the-variance-ratio-test-2" class="slide level2 smaller">
+<h2>The variance ratio test</h2>
+<table class="caption-top" style="width:100%;">
+<colgroup>
+<col style="width: 40%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Month</th>
+<th style="text-align: center;">J</th>
+<th style="text-align: center;">F</th>
+<th style="text-align: center;">M</th>
+<th style="text-align: center;">A</th>
+<th style="text-align: center;">M</th>
+<th style="text-align: center;">J</th>
+<th style="text-align: center;">J</th>
+<th style="text-align: center;">A</th>
+<th style="text-align: center;">S</th>
+<th style="text-align: center;">O</th>
+<th style="text-align: center;">N</th>
+<th style="text-align: center;">D</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Difference</td>
+<td style="text-align: center;">-6</td>
+<td style="text-align: center;">-2</td>
+<td style="text-align: center;">-7</td>
+<td style="text-align: center;">-4</td>
+<td style="text-align: center;">-4</td>
+<td style="text-align: center;">-5</td>
+<td style="text-align: center;">-7</td>
+<td style="text-align: center;">-14</td>
+<td style="text-align: center;">-16</td>
+<td style="text-align: center;">-25</td>
+<td style="text-align: center;">-22</td>
+<td style="text-align: center;">-26</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<ol type="1">
+<li><strong>Calculations</strong>: With data on Difference compute</li>
+</ol>
+<ul>
+<li>Chi-squared statistic: <span class="math display">
+\chi^2 = \frac{(n-1)s^2}{\sigma_0^2}
+     = \frac{11 \left(\frac{845}{11}\right) }{1}
+     = 845
+</span></li>
+</ul>
+</section>
+<section id="the-variance-ratio-test-3" class="slide level2 smaller">
+<h2>The variance ratio test</h2>
+<ol start="2" type="1">
+<li><strong>Statistical Tables</strong>:
+<ul>
+<li>Sample size is <span class="math inline">n = 12</span></li>
+<li>In <a href="files/Statistics_Tables.pdf">Table 13.5</a> find <span class="math display">
+\chi_{11}^2(0.05) = 19.68
+</span></li>
+</ul></li>
+<li><strong>Interpretation</strong>:
+<ul>
+<li>Test statistic is <span class="math inline">\chi^2 = 845</span></li>
+<li>We <strong>reject</strong> <span class="math inline">H_0</span> because <span class="math display">
+\chi^2 = 845 &gt; 19.68 = \chi_{n-1}^2(0.05)
+</span></li>
+</ul></li>
+</ol>
+</section>
+<section id="the-variance-ratio-test-4" class="slide level2 smaller">
+<h2>The variance ratio test</h2>
+<ol start="4" type="1">
+<li><strong>Conclusion</strong>:
+<ul>
+<li>We accept <span class="math inline">H_1</span>: The standard deviation satisfies <span class="math inline">\sigma &gt; 1</span></li>
+<li>A better estimate for <span class="math inline">\sigma</span> could be sample standard deviation <span class="math display">
+s=\sqrt{\frac{845}{11}}=8.765
+</span></li>
+<li>This suggests: With probability <span class="math inline">0.95</span> <span class="math display">
+\text{CS index is within } \pm{2 \times 8.765 = \pm 17.53 } \text{ of CE index}  
+</span></li>
+</ul></li>
+</ol>
+</section>
+<section id="the-variance-ratio-test-in-r" class="slide level2 smaller">
+<h2>The variance ratio test in R</h2>
+<p><strong>Goal</strong>: Perform chi-squared variance ratio test in R</p>
+<ul>
+<li><p>For this we need to compute p-value <span class="math display">
+p = P(\chi_{n-1}^2 &gt; \chi^2)
+</span></p></li>
+<li><p>Thus, we need to compute probabilities for chi-squared distribution in R</p></li>
+</ul>
+</section>
+<section id="probability-distributions-in-r" class="slide level2 smaller">
+<h2>Probability Distributions in R</h2>
+<ul>
+<li>R can natively do calculations with known probability distrubutions</li>
+<li>Example: Let <span class="math inline">X</span> be r.v. with <span class="math inline">N(\mu,\sigma^2)</span> distribution</li>
+</ul>
+<table class="caption-top">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"><strong>R command</strong></th>
+<th style="text-align: left;"><strong>Meaning</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>pnorm(x, mean = mu, sd = sig)</code></td>
+<td style="text-align: left;"><span class="math inline">P(X \leq x)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>qnorm(p, mean = mu, sd = sig)</code></td>
+<td style="text-align: left;"><span class="math inline">P(X \leq q) = p</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>dnorm(x, mean = mu, sd = sig)</code></td>
+<td style="text-align: left;"><span class="math inline">f(x)</span> where <span class="math inline">f</span> is distr. of <span class="math inline">X</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>rnorm(n, mean = mu, sd = sig)</code></td>
+<td style="text-align: left;"><span class="math inline">n</span> random samples from distr. of <span class="math inline">X</span></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Note</strong>: Syntax of commands</p>
+<p><strong>norm</strong> <span class="math inline">=</span> normal <span class="math inline">\qquad</span> <strong>p</strong> <span class="math inline">=</span> probability <span class="math inline">\qquad</span> <strong>q</strong> <span class="math inline">=</span> quantile</p>
+<p><strong>d</strong> <span class="math inline">=</span> distribution <span class="math inline">\qquad</span> <strong>r</strong> <span class="math inline">=</span> random</p>
+</section>
+<section id="probability-distributions-in-r-1" class="slide level2 smaller">
+<h2>Probability Distributions in R</h2>
+<h3 id="example">Example</h3>
+<ul>
+<li>Suppose average height of women is normally distributed <span class="math inline">N(\mu,\sigma^2)</span></li>
+<li>Assume mean <span class="math inline">\mu = 163</span> cm and standard deviation <span class="math inline">\sigma = 8</span> cm</li>
+</ul>
+<p><br></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Probability woman exceeds 180cm in height</span></span>
+<span id="cb1-2"><a aria-hidden="true" tabindex="-1"></a><span class="co"># P(X &gt; 180) = 1 - P(X &lt;= 180)</span></span>
+<span id="cb1-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="dv">180</span>, <span class="at">mean =</span> <span class="dv">163</span>, <span class="at">sd =</span> <span class="dv">8</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.01679331</code></pre>
+</div>
+</div>
+</section>
+<section id="probability-distributions-in-r-2" class="slide level2 smaller">
+<h2>Probability Distributions in R</h2>
+<h3 id="example-1">Example</h3>
+<ul>
+<li>Suppose average height of women is normally distributed <span class="math inline">N(\mu,\sigma^2)</span></li>
+<li>Assume mean <span class="math inline">\mu = 163</span> cm and standard deviation <span class="math inline">\sigma = 8</span> cm</li>
+</ul>
+<p><br></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># The upper 10th percentile for women height, that is,</span></span>
+<span id="cb3-2"><a aria-hidden="true" tabindex="-1"></a><span class="co"># height q such that P(X &lt;= q) = 0.9</span></span>
+<span id="cb3-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a aria-hidden="true" tabindex="-1"></a><span class="fu">qnorm</span>(<span class="fl">0.90</span>, <span class="at">mean =</span> <span class="dv">163</span>, <span class="at">sd =</span> <span class="dv">8</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 173.2524</code></pre>
+</div>
+</div>
+</section>
+<section id="probability-distributions-in-r-3" class="slide level2 smaller">
+<h2>Probability Distributions in R</h2>
+<h3 id="example-2">Example</h3>
+<ul>
+<li>Suppose average height of women is normally distributed <span class="math inline">N(\mu,\sigma^2)</span></li>
+<li>Assume mean <span class="math inline">\mu = 163</span> cm and standard deviation <span class="math inline">\sigma = 8</span> cm</li>
+</ul>
+<p><br></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Value of density at 163</span></span>
+<span id="cb5-2"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">dnorm</span>(<span class="dv">163</span>, <span class="at">mean =</span> <span class="dv">163</span>, <span class="at">sd =</span> <span class="dv">8</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.04986779</code></pre>
+</div>
+</div>
+</section>
+<section id="probability-distributions-in-r-4" class="slide level2 smaller">
+<h2>Probability Distributions in R</h2>
+<h3 id="example-3">Example</h3>
+<ul>
+<li>Suppose average height of women is normally distributed <span class="math inline">N(\mu,\sigma^2)</span></li>
+<li>Assume mean <span class="math inline">\mu = 163</span> cm and standard deviation <span class="math inline">\sigma = 8</span> cm</li>
+</ul>
+<p><br></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Generate random sample of size 5</span></span>
+<span id="cb7-2"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="dv">5</span>, <span class="at">mean =</span> <span class="dv">163</span>, <span class="at">sd =</span> <span class="dv">8</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 160.1675 150.9471 177.6389 162.3680 153.1660</code></pre>
+</div>
+</div>
+</section>
+<section id="probability-distributions-in-r-5" class="slide level2 smaller">
+<h2>Probability Distributions in R</h2>
+<h3 id="chi-squared-distribution-1">Chi-squared distribution</h3>
+<ul>
+<li>Commands for chi-squared distrubution are similar</li>
+<li><code>df = n</code> denotes <span class="math inline">n</span> degrees of feedom</li>
+</ul>
+<table class="caption-top">
+<colgroup>
+<col style="width: 40%">
+<col style="width: 60%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"><strong>R command</strong></th>
+<th style="text-align: left;"><strong>Meaning</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>pchisq(x, df = n)</code></td>
+<td style="text-align: left;"><span class="math inline">P(X \leq x)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>qchisq(p, df = n)</code></td>
+<td style="text-align: left;"><span class="math inline">P(X \leq q) = p</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>dchisq(x, df = n)</code></td>
+<td style="text-align: left;"><span class="math inline">f(x)</span> where <span class="math inline">f</span> is distr. of <span class="math inline">X</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>rchisq(m, df = n)</code></td>
+<td style="text-align: left;"><span class="math inline">m</span> random samples from distr. of <span class="math inline">X</span></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="probability-distributions-in-r-6" class="slide level2 smaller">
+<h2>Probability Distributions in R</h2>
+<h3 id="example-1-1">Example 1</h3>
+<ul>
+<li>From Tables we found quantile <span class="math inline">\chi_{11}^2 (0.05) = 19.68</span></li>
+<li><strong>Question:</strong> Compute such quantile in R</li>
+</ul>
+</section>
+<section id="probability-distributions-in-r-7" class="slide level2 smaller">
+<h2>Probability Distributions in R</h2>
+<h3 id="example-1-solution">Example 1 – Solution</h3>
+<ul>
+<li>From Tables we found quantile <span class="math inline">\chi_{11}^2 (0.05) = 19.68</span></li>
+<li><strong>Question:</strong> Compute such quantile in R</li>
+</ul>
+<p><br></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Compute 0.95 quantile for chi-squared with 11 degrees of freedom</span></span>
+<span id="cb9-2"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a aria-hidden="true" tabindex="-1"></a>quantile <span class="ot">&lt;-</span> <span class="fu">qchisq</span>(<span class="fl">0.95</span>, <span class="at">df =</span> <span class="dv">11</span>)</span>
+<span id="cb9-4"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"The 0.95 quantile for chi-squared with df = 11 is"</span>, quantile)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>The 0.95 quantile for chi-squared with df = 11 is 19.67514</code></pre>
+</div>
+</div>
+</section>
+<section id="probability-distributions-in-r-8" class="slide level2 smaller">
+<h2>Probability Distributions in R</h2>
+<h3 id="example-2-1">Example 2</h3>
+<ul>
+<li><p>The <span class="math inline">\chi^2</span> statistic for variance ratio test has distribution <span class="math inline">\chi_{n-1}^2</span></p></li>
+<li><p><strong>Question:</strong> Compute the p-value <span class="math display">
+p := P(\chi_{n-1}^2 &gt; \chi^2)
+</span></p></li>
+</ul>
+</section>
+<section id="probability-distributions-in-r-9" class="slide level2 smaller">
+<h2>Probability Distributions in R</h2>
+<h3 id="example-2-solution">Example 2 – Solution</h3>
+<ul>
+<li><p>The <span class="math inline">\chi^2</span> statistic for variance ratio test has distribution <span class="math inline">\chi_{n-1}^2</span></p></li>
+<li><p><strong>Question:</strong> Compute the p-value <span class="math display">
+p := P(\chi_{n-1}^2 &gt; \chi^2)
+</span></p></li>
+<li><p>Observe that <span class="math inline">p := P(\chi_{n-1}^2 &gt; \chi^2) = 1 - P(\chi_{n-1}^2  \leq  \chi^2)</span></p></li>
+<li><p>The code is therefore</p></li>
+</ul>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Compute p-value for chi^2 = chi_squared and df = n</span></span>
+<span id="cb11-2"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a aria-hidden="true" tabindex="-1"></a>p_value <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pchisq</span>(chi_squared, <span class="at">df =</span> n)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="the-variance-ratio-test-in-r-1" class="slide level2 smaller">
+<h2>The variance ratio test in R</h2>
+<table class="caption-top" style="width:100%;">
+<colgroup>
+<col style="width: 40%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Month</th>
+<th style="text-align: center;">J</th>
+<th style="text-align: center;">F</th>
+<th style="text-align: center;">M</th>
+<th style="text-align: center;">A</th>
+<th style="text-align: center;">M</th>
+<th style="text-align: center;">J</th>
+<th style="text-align: center;">J</th>
+<th style="text-align: center;">A</th>
+<th style="text-align: center;">S</th>
+<th style="text-align: center;">O</th>
+<th style="text-align: center;">N</th>
+<th style="text-align: center;">D</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Cons. Expectation</td>
+<td style="text-align: center;">66</td>
+<td style="text-align: center;">53</td>
+<td style="text-align: center;">62</td>
+<td style="text-align: center;">61</td>
+<td style="text-align: center;">78</td>
+<td style="text-align: center;">72</td>
+<td style="text-align: center;">65</td>
+<td style="text-align: center;">64</td>
+<td style="text-align: center;">61</td>
+<td style="text-align: center;">50</td>
+<td style="text-align: center;">55</td>
+<td style="text-align: center;">51</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Cons. Spending</td>
+<td style="text-align: center;">72</td>
+<td style="text-align: center;">55</td>
+<td style="text-align: center;">69</td>
+<td style="text-align: center;">65</td>
+<td style="text-align: center;">82</td>
+<td style="text-align: center;">77</td>
+<td style="text-align: center;">72</td>
+<td style="text-align: center;">78</td>
+<td style="text-align: center;">77</td>
+<td style="text-align: center;">75</td>
+<td style="text-align: center;">77</td>
+<td style="text-align: center;">77</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Difference</td>
+<td style="text-align: center;">-6</td>
+<td style="text-align: center;">-2</td>
+<td style="text-align: center;">-7</td>
+<td style="text-align: center;">-4</td>
+<td style="text-align: center;">-4</td>
+<td style="text-align: center;">-5</td>
+<td style="text-align: center;">-7</td>
+<td style="text-align: center;">-14</td>
+<td style="text-align: center;">-16</td>
+<td style="text-align: center;">-25</td>
+<td style="text-align: center;">-22</td>
+<td style="text-align: center;">-26</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<ul>
+<li><p><strong>Back to Example:</strong> Monthly data on CE and CS</p></li>
+<li><p><strong>Question:</strong> Test the following hypothesis: <span class="math display">
+H_0 \colon \sigma = 1 \qquad
+H_1 \colon \sigma &gt; 1
+</span></p></li>
+</ul>
+</section>
+<section id="the-variance-ratio-test-in-r-2" class="slide level2 smaller">
+<h2>The variance ratio test in R</h2>
+<table class="caption-top" style="width:100%;">
+<colgroup>
+<col style="width: 40%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Month</th>
+<th style="text-align: center;">J</th>
+<th style="text-align: center;">F</th>
+<th style="text-align: center;">M</th>
+<th style="text-align: center;">A</th>
+<th style="text-align: center;">M</th>
+<th style="text-align: center;">J</th>
+<th style="text-align: center;">J</th>
+<th style="text-align: center;">A</th>
+<th style="text-align: center;">S</th>
+<th style="text-align: center;">O</th>
+<th style="text-align: center;">N</th>
+<th style="text-align: center;">D</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Cons. Expectation</td>
+<td style="text-align: center;">66</td>
+<td style="text-align: center;">53</td>
+<td style="text-align: center;">62</td>
+<td style="text-align: center;">61</td>
+<td style="text-align: center;">78</td>
+<td style="text-align: center;">72</td>
+<td style="text-align: center;">65</td>
+<td style="text-align: center;">64</td>
+<td style="text-align: center;">61</td>
+<td style="text-align: center;">50</td>
+<td style="text-align: center;">55</td>
+<td style="text-align: center;">51</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Cons. Spending</td>
+<td style="text-align: center;">72</td>
+<td style="text-align: center;">55</td>
+<td style="text-align: center;">69</td>
+<td style="text-align: center;">65</td>
+<td style="text-align: center;">82</td>
+<td style="text-align: center;">77</td>
+<td style="text-align: center;">72</td>
+<td style="text-align: center;">78</td>
+<td style="text-align: center;">77</td>
+<td style="text-align: center;">75</td>
+<td style="text-align: center;">77</td>
+<td style="text-align: center;">77</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Difference</td>
+<td style="text-align: center;">-6</td>
+<td style="text-align: center;">-2</td>
+<td style="text-align: center;">-7</td>
+<td style="text-align: center;">-4</td>
+<td style="text-align: center;">-4</td>
+<td style="text-align: center;">-5</td>
+<td style="text-align: center;">-7</td>
+<td style="text-align: center;">-14</td>
+<td style="text-align: center;">-16</td>
+<td style="text-align: center;">-25</td>
+<td style="text-align: center;">-22</td>
+<td style="text-align: center;">-26</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<ul>
+<li>Start by entering data into R</li>
+</ul>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Enter Consumer Expectation and Consumer Spending data</span></span>
+<span id="cb12-2"><a aria-hidden="true" tabindex="-1"></a>CE <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">66</span>, <span class="dv">53</span>, <span class="dv">62</span>, <span class="dv">61</span>, <span class="dv">78</span>, <span class="dv">72</span>, <span class="dv">65</span>, <span class="dv">64</span>, <span class="dv">61</span>, <span class="dv">50</span>, <span class="dv">55</span>, <span class="dv">51</span>)</span>
+<span id="cb12-3"><a aria-hidden="true" tabindex="-1"></a>CS <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">72</span>, <span class="dv">55</span>, <span class="dv">69</span>, <span class="dv">65</span>, <span class="dv">82</span>, <span class="dv">77</span>, <span class="dv">72</span>, <span class="dv">78</span>, <span class="dv">77</span>, <span class="dv">75</span>, <span class="dv">77</span>, <span class="dv">77</span>)</span>
+<span id="cb12-4"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Compute difference</span></span>
+<span id="cb12-6"><a aria-hidden="true" tabindex="-1"></a>difference <span class="ot">&lt;-</span> CE <span class="sc">-</span> CS</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="the-variance-ratio-test-in-r-3" class="slide level2 smaller">
+<h2>The variance ratio test in R</h2>
+<ul>
+<li>Compute chi-squared statistic <span class="math display">
+\chi^2 = \frac{(n-1) s^2}{\sigma^2_0}
+</span></li>
+</ul>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Compute sample size</span></span>
+<span id="cb13-2"><a aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(difference)</span>
+<span id="cb13-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Enter null hypothesis</span></span>
+<span id="cb13-5"><a aria-hidden="true" tabindex="-1"></a>sigma_0 <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb13-6"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Compute sample variance</span></span>
+<span id="cb13-8"><a aria-hidden="true" tabindex="-1"></a>variance <span class="ot">&lt;-</span> <span class="fu">var</span>(difference)</span>
+<span id="cb13-9"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-10"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Compute chi-squared statistic</span></span>
+<span id="cb13-11"><a aria-hidden="true" tabindex="-1"></a>chi_squared <span class="ot">&lt;-</span> (n <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> variance <span class="sc">/</span> sigma_0 <span class="sc">^</span> <span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="the-variance-ratio-test-in-r-4" class="slide level2 smaller">
+<h2>The variance ratio test in R</h2>
+<ul>
+<li>Compute the p-value <span class="math display">
+p = P(\chi_{n-1}^2 &gt; \chi^2) = 1 - P(\chi_{n-1}^2 \leq \chi^2)
+</span></li>
+</ul>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Compute p-value</span></span>
+<span id="cb14-2"><a aria-hidden="true" tabindex="-1"></a>p_value <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pchisq</span>(chi_squared, <span class="at">df =</span> n <span class="sc">-</span> <span class="dv">1</span>)</span>
+<span id="cb14-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Print p-value</span></span>
+<span id="cb14-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"The p-value for one-sided variance test is"</span>, p_value)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><br></p>
+<ul>
+<li>The full code can be downloaded here <a href="codes/variance_ratio_test.R">variance_ratio_test.R</a></li>
+</ul>
+</section>
+<section id="running-the-code" class="slide level2 smaller">
+<h2>Running the code</h2>
+<ul>
+<li>Running <a href="codes/variance_ratio_test.R">variance_ratio_test.R</a> gives the following output:</li>
+</ul>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>The p-value for one-sided variance test is 0</code></pre>
+</div>
+</div>
+<p><br></p>
+<ul>
+<li>Since <span class="math inline">p &lt; 0.05</span> we <strong>reject</strong> <span class="math inline">H_0</span></li>
+<li>Therefore the true variance seems to be <span class="math inline">\sigma^2 &gt; 1</span></li>
+</ul>
+</section></section>
+<section>
+<section id="part-3-f-distribution" class="title-slide slide level1 center" data-background-color="#cc0164" data-visibility="uncounted">
+<h1>Part 3: <br>F-distribution</h1>
+<div class="footer">
+<div color="#cc0164">
+
+</div>
+</div>
+</section>
+<section id="overview" class="slide level2 smaller">
+<h2>Overview</h2>
+<h3 id="chi-squared-distribution-2">Chi-squared distribution</h3>
+<p><strong>Recall</strong>: Chi-squared distribution with <span class="math inline">p</span> degrees of freedom is <span class="math display">
+\chi_p^2 = Z_1^2 + \ldots + Z_p^2
+</span> where <span class="math inline">Z_1, \ldots, Z_n</span> are iid <span class="math inline">N(0, 1)</span></p>
+</section>
+<section id="overview-1" class="slide level2 smaller">
+<h2>Overview</h2>
+<h3 id="chi-squared-distribution-3">Chi-squared distribution</h3>
+<p>Chi-squared distribution was used to:</p>
+<ul>
+<li><p>Describe distribution of sample variance <span class="math inline">S^2</span>: <span class="math display">
+\frac{(n-1)S^2}{\sigma^2} \sim \chi_{n-1}^2
+</span></p></li>
+<li><p>Define t-distribution: <span class="math display">
+t_p \sim \frac{U}{\sqrt{V/p}}
+</span> where <span class="math inline">U \sim N(0,1)</span> and <span class="math inline">V \sim \chi_p^2</span></p></li>
+</ul>
+</section>
+<section id="f-distribution" class="slide level2 smaller">
+<h2>F-distribution</h2>
+<p>F-distribution is:</p>
+<ul>
+<li>Defined in terms of ratio of <span class="math inline">\chi_p^2</span></li>
+<li>Describes <strong>variance estimators</strong> for independent samples</li>
+</ul>
+</section>
+<section id="f-distribution-1" class="slide level2 smaller">
+<h2>F-distribution</h2>
+<div id="Definition*-4.1" class="Definition">
+<p></p><details class="Definition fbx-simplebox fbx-default" open=""><summary><strong>Definition</strong></summary><div>The r.v. <span class="math inline">F</span> has F-distribution with <span class="math inline">p</span> and <span class="math inline">q</span> degrees of freedom if the pdf is <span class="math display">
+f_F(x) = \frac{ \Gamma \left(\frac{p+q}{2} \right) }{ \Gamma \left( \frac{p}{2} \right) \Gamma \left( \frac{q}{2} \right) }
+\left( \frac{p}{q} \right)^{p/2} \,
+\frac{ x^{ (p/2) - 1 } }{ [ 1 + (p/q) x ]^{(p+q)/2} } \,, \quad x &gt; 0
+</span><p></p>
+</div></details>
+</div>
+<p><strong>Notation</strong>: F-distribution with <span class="math inline">p</span> and <span class="math inline">q</span> degrees of freedom is denoted by <span class="math inline">F_{p,q}</span></p>
+</section>
+<section id="f-distribution-2" class="slide level2 smaller">
+<h2>F-distribution</h2>
+<p>The F-distribution is obtained as ratio of 2 independent chi-squared distributions</p>
+<div id="Theorem*-4.2" class="Theorem">
+<p></p><details class="Theorem fbx-simplebox fbx-default" open=""><summary><strong>Theorem</strong></summary><div>Suppose that <span class="math inline">U \sim \chi_p^2</span> and <span class="math inline">V \sim \chi_q^2</span> are independent. Then <span class="math display">
+X := \frac{U/p}{V/q} \sim F_{p,q}
+</span><p></p>
+</div></details>
+</div>
+</section>
+<section id="f-distribution-3" class="slide level2 smaller">
+<h2>F-distribution</h2>
+<h3 id="idea-of-proof">Idea of Proof</h3>
+<ul>
+<li><p>Similar to the proof (seen in Homework 3) that <span class="math display">
+\frac{U}{\sqrt{V/p}} \sim t_p
+</span> where <span class="math inline">U \sim N(0,1)</span> and <span class="math inline">V \sim \chi_p^2</span> are independent</p></li>
+<li><p>In our case we need to prove <span class="math display">
+X := \frac{U/p}{V/q} \sim F_{p,q}
+</span> where <span class="math inline">U \sim \chi_p^2</span> and <span class="math inline">V \sim \chi_q^2</span> are independent</p></li>
+</ul>
+</section>
+<section id="f-distribution-4" class="slide level2 smaller">
+<h2>F-distribution</h2>
+<h3 id="idea-of-proof-1">Idea of Proof</h3>
+<ul>
+<li><p><span class="math inline">U \sim \chi_{p}^2</span> and <span class="math inline">V \sim \chi_q^2</span> are independent. Therefore <span class="math display">\begin{align*}
+f_{U,V} (u,v) &amp; = f_U(u) f_V(v) \\
+            &amp; =
+\frac{ 1 }{ \Gamma \left( \frac{p}{2} \right) \Gamma \left( \frac{q}{2} \right) 2^{(p+q)/2} }  u^{\frac{p}{2} - 1}
+v^{\frac{q}{2} - 1} e^{-(u+v)/2}
+\end{align*}</span></p></li>
+<li><p>Consider the change of variables <span class="math display">
+x(u,v) := \frac{u/p}{v/q} \,, \quad y(u,v) := u + v
+</span></p></li>
+</ul>
+</section>
+<section id="f-distribution-5" class="slide level2 smaller">
+<h2>F-distribution</h2>
+<h3 id="idea-of-proof-2">Idea of Proof</h3>
+<ul>
+<li><p>This way we have <span class="math display">
+X = \frac{U/p}{V/q}  \,, \qquad Y = U + V
+</span></p></li>
+<li><p>We can compute <span class="math inline">f_X</span> via <span class="math display">
+f_{X}(x) = \int_{0}^\infty f_{X,Y}(x,y) \, dy
+</span></p></li>
+</ul>
+</section>
+<section id="f-distribution-6" class="slide level2 smaller">
+<h2>F-distribution</h2>
+<h3 id="idea-of-proof-3">Idea of Proof</h3>
+<ul>
+<li>The joint pdf <span class="math inline">f_{X,Y}</span> can be computed by inverting the change of variables <span class="math display">
+x(u,v) := \frac{u/p}{v/q} \,, \quad y(u,v) := u + v
+</span> and using the formula <span class="math display">
+f_{X,Y}(x,y) = f_{U,V}(u(x,y),v(x,y)) \, |\det J|
+</span> where <span class="math inline">J</span> is the Jacobian of the inverse transformation <span class="math display">
+(x,y) \mapsto (u(x,y),v(x,y))
+</span></li>
+</ul>
+</section>
+<section id="f-distribution-7" class="slide level2 smaller">
+<h2>F-distribution</h2>
+<h3 id="idea-of-proof-4">Idea of Proof</h3>
+<ul>
+<li><p>Since <span class="math inline">f_{U,V}</span> is known, then also <span class="math inline">f_{X,Y}</span> is known</p></li>
+<li><p>Moreover the integral <span class="math display">
+f_{X}(x) = \int_{0}^\infty f_{X,Y}(x,y) \, dy
+</span> can be explicitly computed, yielding the thesis <span class="math display">
+f_{X}(x) = \frac{ \Gamma \left(\frac{p+q}{2} \right) }{ \Gamma \left( \frac{p}{2} \right) \Gamma \left( \frac{q}{2} \right) }
+\left( \frac{p}{q} \right)^{p/2} \,
+\frac{ x^{ (p/2) - 1 } }{ [ 1 + (p/q) x ]^{(p+q)/2} }
+</span></p></li>
+</ul>
+</section>
+<section id="properties-of-f-distribution" class="slide level2 smaller">
+<h2>Properties of F-distribution</h2>
+<div id="Theorem*-4.3" class="Theorem">
+<details class="Theorem fbx-simplebox fbx-default" open=""><summary><strong>Theorem</strong></summary><div>
+<ol type="1">
+<li><p>Suppose <span class="math inline">X \sim F_{p,q}</span> with <span class="math inline">q&gt;2</span>. Then <span class="math display">
+{\rm I\kern-.3em E}[X] = \frac{q}{q-2}
+</span></p></li>
+<li><p>If <span class="math inline">X \sim F_{p,q}</span> then <span class="math inline">1/X \sim F_{q,p}</span></p></li>
+<li><p>If <span class="math inline">X \sim t_q</span> then <span class="math inline">X^2 \sim F_{1,q}</span></p></li>
+</ol>
+</div></details>
+</div>
+</section>
+<section id="properties-of-f-distribution-1" class="slide level2 smaller">
+<h2>Properties of F-distribution</h2>
+<h3 id="proof-of-theorem">Proof of Theorem</h3>
+<ol type="1">
+<li><p>Requires a bit of work. It will be left as Homework assignment</p></li>
+<li><p>By the Theorem in Slide 43 we have <span class="math display">
+X \sim F_{p,q} \quad \implies \quad X = \frac{U/p}{V/q}
+</span> with <span class="math inline">U \sim \chi_p^2</span> and <span class="math inline">V \sim \chi_q^2</span> independent. Therefore <span class="math display">
+\frac{1}{X} = \frac{V/q}{U/p} \sim F_{q,p}
+</span></p></li>
+</ol>
+</section>
+<section id="properties-of-f-distribution-2" class="slide level2 smaller">
+<h2>Properties of F-distribution</h2>
+<h3 id="proof-of-theorem-1">Proof of Theorem</h3>
+<ol start="3" type="1">
+<li>Suppose <span class="math inline">X \sim t_q</span>. The Theorem in Slide 66 of Lecture 3 guarantees that <span class="math display">
+X = \frac{U}{\sqrt{V/q}}
+</span> where <span class="math inline">U \sim N(0,1)</span> and <span class="math inline">V \sim \chi_q^2</span> are independent. Therefore <span class="math display">
+X^2 = \frac{U^2}{V/q}
+</span></li>
+</ol>
+</section>
+<section id="properties-of-f-distribution-3" class="slide level2 smaller">
+<h2>Properties of F-distribution</h2>
+<h3 id="proof-of-theorem-2">Proof of Theorem</h3>
+<ul>
+<li>Since <span class="math inline">U \sim N(0,1)</span>, by definition <span class="math inline">U^2 \sim \chi_1^2</span>.</li>
+<li>Moreover <span class="math inline">U^2</span> and <span class="math inline">V</span> are independet, since <span class="math inline">U</span> and <span class="math inline">V</span> are independent</li>
+<li>Theorem in Slide 43 implies <span class="math display">
+X^2 = \frac{U^2}{V/q} \sim \frac{\chi_1^2/1}{\chi_q^2/q} \sim F_{1,q}
+</span></li>
+</ul>
 </section>
 <section id="references" class="slide level2">
 <h2>References</h2>
@@ -636,6 +1986,44 @@
         ]
       });
     </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
     <script id="quarto-html-after-body" type="application/javascript">
     window.document.addEventListener("DOMContentLoaded", function (event) {
       const toggleBodyColorMode = (bsSheetEl) => {

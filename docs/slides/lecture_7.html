@@ -405,9 +405,49 @@
   </style>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
   <style>
+  .Definition {
+    --color1: #c6e6ed;
+    --color2: #1995ad;
+  }
+  .Corollary {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Remark {
+    --color1: #bce5de;
+    --color2: #21aa93;
+  }
+  .Important {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
   .TODO {
     --color1: #e7b1b4;
     --color2: #8c3236;
+  }
+  .Conjecture {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Problem {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Question {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Theorem {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Notation {
+    --color1: #c6e6ed;
+    --color2: #1995ad;
+  }
+  .Idea {
+    --color1: #f4cce0;
+    --color2: #db4d92;
   }
   .Warning {
     --color1: #f4cce0;
@@ -417,31 +457,15 @@
     --color1: #f1f1f2;
     --color2: #c0c0c1;
   }
-  .Idea {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Important {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
   .Example {
     --color1: #bce5de;
     --color2: #21aa93;
   }
-  .Proposition {
+  .Lemma {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
-  .Definition {
-    --color1: #c6e6ed;
-    --color2: #1995ad;
-  }
-  .Notation {
-    --color1: #c6e6ed;
-    --color2: #1995ad;
-  }
-  .Theorem {
+  .Proposition {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
@@ -449,33 +473,9 @@
     --color1: #f4cce0;
     --color2: #db4d92;
   }
-  .Remark {
-    --color1: #bce5de;
-    --color2: #21aa93;
-  }
-  .Problem {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Conjecture {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Lemma {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Question {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
   .DONE {
     --color1: #cce7b1;
     --color2: #86b754;
-  }
-  .Corollary {
-    --color1: #f4cce0;
-    --color2: #db4d92;
   }
   </style>
 </head>
@@ -1655,16 +1655,16 @@ x_i^2 + y_i^2 \leq 1
 <h3 id="implementation-in-r-output">Implementation in R: Output</h3>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>After    10000 iterations pi is 3.13200000, error is 0.00959265
-After    20000 iterations pi is 3.12380000, error is 0.01779265
-After    30000 iterations pi is 3.13040000, error is 0.01119265
-After    40000 iterations pi is 3.12850000, error is 0.01309265
-After    50000 iterations pi is 3.12568000, error is 0.01591265
-After    60000 iterations pi is 3.12773333, error is 0.01385932
-After    70000 iterations pi is 3.13394286, error is 0.00764980
-After    80000 iterations pi is 3.13900000, error is 0.00259265
-After    90000 iterations pi is 3.13671111, error is 0.00488154
-After   100000 iterations pi is 3.13656000, error is 0.00503265</code></pre>
+<pre><code>After    10000 iterations pi is 3.16600000, error is 0.02440735
+After    20000 iterations pi is 3.13360000, error is 0.00799265
+After    30000 iterations pi is 3.14026667, error is 0.00132599
+After    40000 iterations pi is 3.13850000, error is 0.00309265
+After    50000 iterations pi is 3.13696000, error is 0.00463265
+After    60000 iterations pi is 3.13673333, error is 0.00485932
+After    70000 iterations pi is 3.13560000, error is 0.00599265
+After    80000 iterations pi is 3.13765000, error is 0.00394265
+After    90000 iterations pi is 3.14275556, error is 0.00116290
+After   100000 iterations pi is 3.14372000, error is 0.00212735</code></pre>
 </div>
 </div>
 </section>
@@ -1945,11 +1945,11 @@ p \ = \ \frac{ \# \text{ of extreme simulated statistics} }{ \text{Total number 
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>
-Custom Monte Carlo p-value: 0.82075</code></pre>
+Custom Monte Carlo p-value: 0.82058</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
-R Monte Carlo p-value: 0.8270865</code></pre>
+R Monte Carlo p-value: 0.8195902</code></pre>
 </div>
 </div>
 <ul>

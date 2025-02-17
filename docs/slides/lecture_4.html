@@ -405,47 +405,11 @@
   </style>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
   <style>
-  .TODO {
-    --color1: #e7b1b4;
-    --color2: #8c3236;
-  }
-  .Proof {
-    --color1: #f1f1f2;
-    --color2: #c0c0c1;
-  }
-  .Question {
+  .Axiom {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
-  .DONE {
-    --color1: #cce7b1;
-    --color2: #86b754;
-  }
-  .Example {
-    --color1: #bce5de;
-    --color2: #21aa93;
-  }
-  .Conjecture {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Notation {
-    --color1: #c6e6ed;
-    --color2: #1995ad;
-  }
-  .Proposition {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Lemma {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Corollary {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Problem {
+  .Warning {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
@@ -453,7 +417,19 @@
     --color1: #f4cce0;
     --color2: #db4d92;
   }
-  .Theorem {
+  .Definition {
+    --color1: #c6e6ed;
+    --color2: #1995ad;
+  }
+  .Remark {
+    --color1: #bce5de;
+    --color2: #21aa93;
+  }
+  .Conjecture {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Corollary {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
@@ -461,21 +437,45 @@
     --color1: #f4cce0;
     --color2: #db4d92;
   }
-  .Remark {
-    --color1: #bce5de;
-    --color2: #21aa93;
+  .Problem {
+    --color1: #f4cce0;
+    --color2: #db4d92;
   }
-  .Definition {
+  .Lemma {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Notation {
     --color1: #c6e6ed;
     --color2: #1995ad;
   }
-  .Warning {
+  .Theorem {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
-  .Axiom {
+  .DONE {
+    --color1: #cce7b1;
+    --color2: #86b754;
+  }
+  .TODO {
+    --color1: #e7b1b4;
+    --color2: #8c3236;
+  }
+  .Proposition {
     --color1: #f4cce0;
     --color2: #db4d92;
+  }
+  .Question {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Proof {
+    --color1: #f1f1f2;
+    --color2: #c0c0c1;
+  }
+  .Example {
+    --color1: #bce5de;
+    --color2: #21aa93;
   }
   </style>
 </head>
@@ -1200,7 +1200,7 @@ p = P(\chi_{n-1}^2 &gt; \chi^2)
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><code>dnorm(x, mean = mu, sd = sig)</code></td>
-<td style="text-align: left;"><span class="math inline">f(x)</span>, where <span class="math inline">f</span> is density of <span class="math inline">X</span></td>
+<td style="text-align: left;"><span class="math inline">f(x)</span>, where <span class="math inline">f</span> is pdf of <span class="math inline">X</span></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><code>rnorm(n, mean = mu, sd = sig)</code></td>
@@ -1212,9 +1212,8 @@ p = P(\chi_{n-1}^2 &gt; \chi^2)
 <p><strong>norm</strong> <span class="math inline">=</span> normal <span class="math inline">\qquad</span> <strong>p</strong> <span class="math inline">=</span> probability <span class="math inline">\qquad</span> <strong>q</strong> <span class="math inline">=</span> quantile</p>
 <p><strong>d</strong> <span class="math inline">=</span> density <span class="math inline">\qquad \quad \,\,\,\,</span> <strong>r</strong> <span class="math inline">=</span> random</p>
 </section>
-<section id="probability-distributions-in-r-1" class="slide level2 smaller">
-<h2>Probability Distributions in R</h2>
-<h3 id="example">Example</h3>
+<section id="example" class="slide level2 smaller">
+<h2>Example</h2>
 <ul>
 <li>Suppose average height of women is normally distributed <span class="math inline">N(\mu,\sigma^2)</span></li>
 <li>Assume mean <span class="math inline">\mu = 163</span> cm and standard deviation <span class="math inline">\sigma = 8</span> cm</li>
@@ -1230,14 +1229,8 @@ p = P(\chi_{n-1}^2 &gt; \chi^2)
 </div>
 </div>
 </section>
-<section id="probability-distributions-in-r-2" class="slide level2 smaller">
-<h2>Probability Distributions in R</h2>
-<h3 id="example-1">Example</h3>
-<ul>
-<li>Suppose average height of women is normally distributed <span class="math inline">N(\mu,\sigma^2)</span></li>
-<li>Assume mean <span class="math inline">\mu = 163</span> cm and standard deviation <span class="math inline">\sigma = 8</span> cm</li>
-</ul>
-<p><br></p>
+<section id="section" class="slide level2 smaller">
+<h2></h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># The upper 10th percentile for women height, that is,</span></span>
 <span id="cb3-2"><a aria-hidden="true" tabindex="-1"></a><span class="co"># height q such that P(X &lt;= q) = 0.9</span></span>
@@ -1247,42 +1240,47 @@ p = P(\chi_{n-1}^2 &gt; \chi^2)
 <pre><code>[1] 173.2524</code></pre>
 </div>
 </div>
-</section>
-<section id="probability-distributions-in-r-3" class="slide level2 smaller">
-<h2>Probability Distributions in R</h2>
-<h3 id="example-2">Example</h3>
-<ul>
-<li>Suppose average height of women is normally distributed <span class="math inline">N(\mu,\sigma^2)</span></li>
-<li>Assume mean <span class="math inline">\mu = 163</span> cm and standard deviation <span class="math inline">\sigma = 8</span> cm</li>
-</ul>
 <p><br></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Value of density at 163</span></span>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Value of pdf at 163</span></span>
 <span id="cb5-2"><a aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">dnorm</span>(<span class="dv">163</span>, <span class="at">mean =</span> <span class="dv">163</span>, <span class="at">sd =</span> <span class="dv">8</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.04986779</code></pre>
 </div>
 </div>
-</section>
-<section id="probability-distributions-in-r-4" class="slide level2 smaller">
-<h2>Probability Distributions in R</h2>
-<h3 id="example-3">Example</h3>
-<ul>
-<li>Suppose average height of women is normally distributed <span class="math inline">N(\mu,\sigma^2)</span></li>
-<li>Assume mean <span class="math inline">\mu = 163</span> cm and standard deviation <span class="math inline">\sigma = 8</span> cm</li>
-</ul>
 <p><br></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Generate random sample of size 5</span></span>
 <span id="cb7-2"><a aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="dv">5</span>, <span class="at">mean =</span> <span class="dv">163</span>, <span class="at">sd =</span> <span class="dv">8</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 164.1783 170.3037 159.3312 153.6248 153.1595</code></pre>
+<pre><code>[1] 166.3110 162.1066 152.5123 157.5505 176.8696</code></pre>
 </div>
 </div>
 </section>
-<section id="probability-distributions-in-r-5" class="slide level2 smaller">
+<section id="section-1" class="slide level2 smaller">
+<h2></h2>
+<p><strong>Question:</strong> What is the height of the tallest woman, according to the model?</p>
+<ul>
+<li>The tallest woman could be found using quantiles</li>
+<li>There are roughly 3.5 billion women</li>
+<li>The tallest would be in the top 1/(3.5 billion) quantile</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Find the top 1/(3.5 billion) quantile</span></span>
+<span id="cb9-2"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a aria-hidden="true" tabindex="-1"></a>p <span class="ot">=</span> <span class="dv">1</span> <span class="sc">-</span> <span class="dv">1</span> <span class="sc">/</span> (<span class="fl">3.5e9</span>)</span>
+<span id="cb9-4"><a aria-hidden="true" tabindex="-1"></a><span class="fu">qnorm</span>(p, <span class="at">mean =</span> <span class="dv">163</span>, <span class="at">sd =</span> <span class="dv">8</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 212.5849</code></pre>
+</div>
+</div>
+<ul>
+<li>The current (living) tallest woman is Rumeysa Gelci at <span class="math inline">215</span> cm (<a href="https://en.m.wikipedia.org/wiki/Rumeysa_Gelgi">Wikipedia Page</a>)</li>
+</ul>
+</section>
+<section id="probability-distributions-in-r-1" class="slide level2 smaller">
 <h2>Probability Distributions in R</h2>
 <h3 id="chi-squared-distribution">Chi-squared distribution</h3>
 <ul>
@@ -1311,7 +1309,7 @@ p = P(\chi_{n-1}^2 &gt; \chi^2)
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><code>dchisq(x, df = n)</code></td>
-<td style="text-align: left;"><span class="math inline">f(x)</span> where <span class="math inline">f</span> is distr. of <span class="math inline">X</span></td>
+<td style="text-align: left;"><span class="math inline">f(x)</span>, where <span class="math inline">f</span> is pdf of <span class="math inline">X</span></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><code>rchisq(m, df = n)</code></td>
@@ -1320,36 +1318,33 @@ p = P(\chi_{n-1}^2 &gt; \chi^2)
 </tbody>
 </table>
 </section>
-<section id="probability-distributions-in-r-6" class="slide level2 smaller">
-<h2>Probability Distributions in R</h2>
-<h3 id="example-1-1">Example 1</h3>
+<section id="example-1" class="slide level2 smaller">
+<h2>Example 1</h2>
 <ul>
 <li>From Tables we found quantile <span class="math inline">\chi_{11}^2 (0.05) = 19.68</span></li>
 <li><strong>Question:</strong> Compute such quantile in R</li>
 </ul>
 </section>
-<section id="probability-distributions-in-r-7" class="slide level2 smaller">
-<h2>Probability Distributions in R</h2>
-<h3 id="example-1-solution">Example 1 – Solution</h3>
+<section id="example-1-solution" class="slide level2 smaller">
+<h2>Example 1 – Solution</h2>
 <ul>
 <li>From Tables we found quantile <span class="math inline">\chi_{11}^2 (0.05) = 19.68</span></li>
 <li><strong>Question:</strong> Compute such quantile in R</li>
 </ul>
 <p><br></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Compute 0.95 quantile for chi-squared with 11 degrees of freedom</span></span>
-<span id="cb9-2"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-3"><a aria-hidden="true" tabindex="-1"></a>quantile <span class="ot">&lt;-</span> <span class="fu">qchisq</span>(<span class="fl">0.95</span>, <span class="at">df =</span> <span class="dv">11</span>)</span>
-<span id="cb9-4"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"The 0.95 quantile for chi-squared with df = 11 is"</span>, quantile)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Compute 0.95 quantile for chi-squared with 11 degrees of freedom</span></span>
+<span id="cb11-2"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a aria-hidden="true" tabindex="-1"></a>quantile <span class="ot">&lt;-</span> <span class="fu">qchisq</span>(<span class="fl">0.95</span>, <span class="at">df =</span> <span class="dv">11</span>)</span>
+<span id="cb11-4"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"The 0.95 quantile for chi-squared with df = 11 is"</span>, quantile)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>The 0.95 quantile for chi-squared with df = 11 is 19.67514</code></pre>
 </div>
 </div>
 </section>
-<section id="probability-distributions-in-r-8" class="slide level2 smaller">
-<h2>Probability Distributions in R</h2>
-<h3 id="example-2-1">Example 2</h3>
+<section id="example-2" class="slide level2 smaller">
+<h2>Example 2</h2>
 <ul>
 <li><p>The <span class="math inline">\chi^2</span> statistic for variance ratio test has distribution <span class="math inline">\chi_{n-1}^2</span></p></li>
 <li><p><strong>Question:</strong> Compute the p-value <span class="math display">
@@ -1357,20 +1352,21 @@ p := P(\chi_{n-1}^2 &gt; \chi^2)
 </span></p></li>
 </ul>
 </section>
-<section id="probability-distributions-in-r-9" class="slide level2 smaller">
-<h2>Probability Distributions in R</h2>
-<h3 id="example-2-solution">Example 2 – Solution</h3>
+<section id="example-2-solution" class="slide level2 smaller">
+<h2>Example 2 – Solution</h2>
 <ul>
 <li><p>The <span class="math inline">\chi^2</span> statistic for variance ratio test has distribution <span class="math inline">\chi_{n-1}^2</span></p></li>
 <li><p><strong>Question:</strong> Compute the p-value <span class="math display">
 p := P(\chi_{n-1}^2 &gt; \chi^2)
 </span></p></li>
-<li><p>Observe that <span class="math inline">p := P(\chi_{n-1}^2 &gt; \chi^2) = 1 - P(\chi_{n-1}^2  \leq  \chi^2)</span></p></li>
+<li><p>Observe that <span class="math display">
+p := P(\chi_{n-1}^2 &gt; \chi^2) = 1 - P(\chi_{n-1}^2  \leq  \chi^2)
+</span></p></li>
 <li><p>The code is therefore</p></li>
 </ul>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Compute p-value for chi^2 = chi_squared and df = n</span></span>
-<span id="cb11-2"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-3"><a aria-hidden="true" tabindex="-1"></a>p_value <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pchisq</span>(chi_squared, <span class="at">df =</span> n)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Compute p-value for chi^2 = chi_squared and df = n</span></span>
+<span id="cb13-2"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a aria-hidden="true" tabindex="-1"></a>p_value <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pchisq</span>(chi_squared, <span class="at">df =</span> n)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="the-variance-ratio-test-in-r-1" class="slide level2 smaller">
 <h2>The variance ratio test in R</h2>
@@ -1551,12 +1547,12 @@ H_1 \colon \sigma &gt; 1
 <ul>
 <li>Start by entering data into R</li>
 </ul>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Enter Consumer Expectation and Consumer Spending data</span></span>
-<span id="cb12-2"><a aria-hidden="true" tabindex="-1"></a>CE <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">66</span>, <span class="dv">53</span>, <span class="dv">62</span>, <span class="dv">61</span>, <span class="dv">78</span>, <span class="dv">72</span>, <span class="dv">65</span>, <span class="dv">64</span>, <span class="dv">61</span>, <span class="dv">50</span>, <span class="dv">55</span>, <span class="dv">51</span>)</span>
-<span id="cb12-3"><a aria-hidden="true" tabindex="-1"></a>CS <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">72</span>, <span class="dv">55</span>, <span class="dv">69</span>, <span class="dv">65</span>, <span class="dv">82</span>, <span class="dv">77</span>, <span class="dv">72</span>, <span class="dv">78</span>, <span class="dv">77</span>, <span class="dv">75</span>, <span class="dv">77</span>, <span class="dv">77</span>)</span>
-<span id="cb12-4"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-5"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Compute difference</span></span>
-<span id="cb12-6"><a aria-hidden="true" tabindex="-1"></a>difference <span class="ot">&lt;-</span> CE <span class="sc">-</span> CS</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Enter Consumer Expectation and Consumer Spending data</span></span>
+<span id="cb14-2"><a aria-hidden="true" tabindex="-1"></a>CE <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">66</span>, <span class="dv">53</span>, <span class="dv">62</span>, <span class="dv">61</span>, <span class="dv">78</span>, <span class="dv">72</span>, <span class="dv">65</span>, <span class="dv">64</span>, <span class="dv">61</span>, <span class="dv">50</span>, <span class="dv">55</span>, <span class="dv">51</span>)</span>
+<span id="cb14-3"><a aria-hidden="true" tabindex="-1"></a>CS <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">72</span>, <span class="dv">55</span>, <span class="dv">69</span>, <span class="dv">65</span>, <span class="dv">82</span>, <span class="dv">77</span>, <span class="dv">72</span>, <span class="dv">78</span>, <span class="dv">77</span>, <span class="dv">75</span>, <span class="dv">77</span>, <span class="dv">77</span>)</span>
+<span id="cb14-4"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-5"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Compute difference</span></span>
+<span id="cb14-6"><a aria-hidden="true" tabindex="-1"></a>difference <span class="ot">&lt;-</span> CE <span class="sc">-</span> CS</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="the-variance-ratio-test-in-r-3" class="slide level2 smaller">
 <h2>The variance ratio test in R</h2>
@@ -1565,30 +1561,30 @@ H_1 \colon \sigma &gt; 1
 \chi^2 = \frac{(n-1) s^2}{\sigma^2_0}
 </span></li>
 </ul>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Compute sample size</span></span>
-<span id="cb13-2"><a aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(difference)</span>
-<span id="cb13-3"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Enter null hypothesis</span></span>
-<span id="cb13-5"><a aria-hidden="true" tabindex="-1"></a>sigma_0 <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb13-6"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-7"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Compute sample variance</span></span>
-<span id="cb13-8"><a aria-hidden="true" tabindex="-1"></a>variance <span class="ot">&lt;-</span> <span class="fu">var</span>(difference)</span>
-<span id="cb13-9"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-10"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Compute chi-squared statistic</span></span>
-<span id="cb13-11"><a aria-hidden="true" tabindex="-1"></a>chi_squared <span class="ot">&lt;-</span> (n <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> variance <span class="sc">/</span> sigma_0 <span class="sc">^</span> <span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Compute sample size</span></span>
+<span id="cb15-2"><a aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(difference)</span>
+<span id="cb15-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Enter null hypothesis</span></span>
+<span id="cb15-5"><a aria-hidden="true" tabindex="-1"></a>sigma_0 <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb15-6"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-7"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Compute sample variance</span></span>
+<span id="cb15-8"><a aria-hidden="true" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="fu">var</span>(difference)</span>
+<span id="cb15-9"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-10"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Compute chi-squared statistic</span></span>
+<span id="cb15-11"><a aria-hidden="true" tabindex="-1"></a>chi_squared <span class="ot">&lt;-</span> (n <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> s <span class="sc">/</span> sigma_0 <span class="sc">^</span> <span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="the-variance-ratio-test-in-r-4" class="slide level2 smaller">
 <h2>The variance ratio test in R</h2>
 <ul>
-<li>Compute the p-value <span class="math display">
+<li>Compute the p-value, and print to screen <span class="math display">
 p = P(\chi_{n-1}^2 &gt; \chi^2) = 1 - P(\chi_{n-1}^2 \leq \chi^2)
 </span></li>
 </ul>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Compute p-value</span></span>
-<span id="cb14-2"><a aria-hidden="true" tabindex="-1"></a>p_value <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pchisq</span>(chi_squared, <span class="at">df =</span> n <span class="sc">-</span> <span class="dv">1</span>)</span>
-<span id="cb14-3"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Print p-value</span></span>
-<span id="cb14-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"The p-value for one-sided variance test is"</span>, p_value)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Compute p-value</span></span>
+<span id="cb16-2"><a aria-hidden="true" tabindex="-1"></a>p_value <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pchisq</span>(chi_squared, <span class="at">df =</span> n <span class="sc">-</span> <span class="dv">1</span>)</span>
+<span id="cb16-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Print p-value</span></span>
+<span id="cb16-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"The p-value for one-sided variance test is"</span>, p_value)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><br></p>
 <ul>
 <li>The full code can be downloaded here <a href="codes/variance_ratio_test.R">variance_ratio_test.R</a></li>
@@ -1606,13 +1602,13 @@ p = P(\chi_{n-1}^2 &gt; \chi^2) = 1 - P(\chi_{n-1}^2 \leq \chi^2)
 </div>
 <p><br></p>
 <ul>
-<li>Since <span class="math inline">p &lt; 0.05</span> we <strong>reject</strong> <span class="math inline">H_0</span></li>
+<li>Since <span class="math inline">p = 0 &lt; 0.05</span> we <strong>reject</strong> <span class="math inline">H_0</span></li>
 <li>Therefore the true variance seems to be <span class="math inline">\sigma^2 &gt; 1</span></li>
 </ul>
 </section></section>
 <section>
-<section id="part-3-f-distribution" class="title-slide slide level1 center" data-background-color="#cc0164" data-visibility="uncounted">
-<h1>Part 3: <br>F-distribution</h1>
+<section id="part-3-the-f-distribution" class="title-slide slide level1 center" data-background-color="#cc0164" data-visibility="uncounted">
+<h1>Part 3: <br>The F-distribution</h1>
 <div class="footer">
 <div color="#cc0164">
 
@@ -1622,7 +1618,7 @@ p = P(\chi_{n-1}^2 &gt; \chi^2) = 1 - P(\chi_{n-1}^2 \leq \chi^2)
 <section id="overview" class="slide level2 smaller">
 <h2>Overview</h2>
 <h3 id="chi-squared-distribution-1">Chi-squared distribution</h3>
-<p><strong>Recall</strong>: Chi-squared distribution with <span class="math inline">p</span> degrees of freedom is <span class="math display">
+<p><strong>Recall</strong>: The chi-squared distribution with <span class="math inline">p</span> degrees of freedom is <span class="math display">
 \chi_p^2 = Z_1^2 + \ldots + Z_p^2
 </span> where <span class="math inline">Z_1, \ldots, Z_n</span> are iid <span class="math inline">N(0, 1)</span></p>
 </section>
@@ -1636,19 +1632,16 @@ p = P(\chi_{n-1}^2 &gt; \chi^2) = 1 - P(\chi_{n-1}^2 \leq \chi^2)
 </span></p></li>
 <li><p>Define t-distribution: <span class="math display">
 t_p \sim \frac{U}{\sqrt{V/p}}
-</span> where <span class="math inline">U \sim N(0,1)</span> and <span class="math inline">V \sim \chi_p^2</span></p></li>
+</span> where <span class="math inline">U \sim N(0,1)</span> and <span class="math inline">V \sim \chi_p^2</span> independent</p></li>
 </ul>
 </section>
-<section id="f-distribution" class="slide level2 smaller">
-<h2>F-distribution</h2>
+<section id="the-f-distribution" class="slide level2 smaller">
+<h2>The F-distribution</h2>
 <p>F-distribution is:</p>
 <ul>
 <li>Defined in terms of ratio of <span class="math inline">\chi_p^2</span></li>
 <li>Describes <strong>variance estimators</strong> for independent samples</li>
 </ul>
-</section>
-<section id="f-distribution-1" class="slide level2 smaller">
-<h2>F-distribution</h2>
 <div id="Definition*-4.1" class="Definition">
 <p></p><details class="Definition fbx-simplebox fbx-default" open=""><summary><strong>Definition</strong></summary><div>The r.v. <span class="math inline">F</span> has F-distribution with <span class="math inline">p</span> and <span class="math inline">q</span> degrees of freedom if the pdf is <span class="math display">
 f_F(x) = \frac{ \Gamma \left(\frac{p+q}{2} \right) }{ \Gamma \left( \frac{p}{2} \right) \Gamma \left( \frac{q}{2} \right) }
@@ -1659,8 +1652,8 @@ f_F(x) = \frac{ \Gamma \left(\frac{p+q}{2} \right) }{ \Gamma \left( \frac{p}{2} 
 </div>
 <p><strong>Notation</strong>: F-distribution with <span class="math inline">p</span> and <span class="math inline">q</span> degrees of freedom is denoted by <span class="math inline">F_{p,q}</span></p>
 </section>
-<section id="f-distribution-2" class="slide level2 smaller">
-<h2>F-distribution</h2>
+<section id="characterization-of-f-distribution" class="slide level2 smaller">
+<h2>Characterization of F-distribution</h2>
 <p>The F-distribution is obtained as ratio of 2 independent chi-squared distributions</p>
 <div id="Theorem*-4.2" class="Theorem">
 <p></p><details class="Theorem fbx-simplebox fbx-default" open=""><summary><strong>Theorem</strong></summary><div>Suppose that <span class="math inline">U \sim \chi_p^2</span> and <span class="math inline">V \sim \chi_q^2</span> are independent. Then <span class="math display">
@@ -1669,11 +1662,10 @@ X := \frac{U/p}{V/q} \sim F_{p,q}
 </div></details>
 </div>
 </section>
-<section id="f-distribution-3" class="slide level2 smaller">
-<h2>F-distribution</h2>
-<h3 id="idea-of-proof">Idea of Proof</h3>
+<section id="idea-of-proof" class="slide level2 smaller">
+<h2>Idea of Proof</h2>
 <ul>
-<li><p>Similar to the proof (seen in Homework 3) that <span class="math display">
+<li><p>This is similar to the proof (seen in Homework 2) that <span class="math display">
 \frac{U}{\sqrt{V/p}} \sim t_p
 </span> where <span class="math inline">U \sim N(0,1)</span> and <span class="math inline">V \sim \chi_p^2</span> are independent</p></li>
 <li><p>In our case we need to prove <span class="math display">
@@ -1681,9 +1673,8 @@ X := \frac{U/p}{V/q} \sim F_{p,q}
 </span> where <span class="math inline">U \sim \chi_p^2</span> and <span class="math inline">V \sim \chi_q^2</span> are independent</p></li>
 </ul>
 </section>
-<section id="f-distribution-4" class="slide level2 smaller">
-<h2>F-distribution</h2>
-<h3 id="idea-of-proof-1">Idea of Proof</h3>
+<section id="idea-of-proof-1" class="slide level2 smaller">
+<h2>Idea of Proof</h2>
 <ul>
 <li><p><span class="math inline">U \sim \chi_{p}^2</span> and <span class="math inline">V \sim \chi_q^2</span> are independent. Therefore <span class="math display">\begin{align*}
 f_{U,V} (u,v) &amp; = f_U(u) f_V(v) \\
@@ -1696,21 +1687,20 @@ x(u,v) := \frac{u/p}{v/q} \,, \quad y(u,v) := u + v
 </span></p></li>
 </ul>
 </section>
-<section id="f-distribution-5" class="slide level2 smaller">
-<h2>F-distribution</h2>
-<h3 id="idea-of-proof-2">Idea of Proof</h3>
+<section id="idea-of-proof-2" class="slide level2 smaller">
+<h2>Idea of Proof</h2>
 <ul>
 <li><p>This way we have <span class="math display">
 X = \frac{U/p}{V/q}  \,, \qquad Y = U + V
 </span></p></li>
-<li><p>We can compute <span class="math inline">f_X</span> via <span class="math display">
+<li><p>To conclude the proof, we need to compute the pdf of <span class="math inline">X</span>, that is <span class="math inline">f_X</span></p></li>
+<li><p>This can be computed as the <span class="math inline">X</span> marginal of <span class="math inline">f_{X,Y}</span> <span class="math display">
 f_{X}(x) = \int_{0}^\infty f_{X,Y}(x,y) \, dy
 </span></p></li>
 </ul>
 </section>
-<section id="f-distribution-6" class="slide level2 smaller">
-<h2>F-distribution</h2>
-<h3 id="idea-of-proof-3">Idea of Proof</h3>
+<section id="idea-of-proof-3" class="slide level2 smaller">
+<h2>Idea of Proof</h2>
 <ul>
 <li>The joint pdf <span class="math inline">f_{X,Y}</span> can be computed by inverting the change of variables <span class="math display">
 x(u,v) := \frac{u/p}{v/q} \,, \quad y(u,v) := u + v
@@ -1721,9 +1711,8 @@ f_{X,Y}(x,y) = f_{U,V}(u(x,y),v(x,y)) \, |\det J|
 </span></li>
 </ul>
 </section>
-<section id="f-distribution-7" class="slide level2 smaller">
-<h2>F-distribution</h2>
-<h3 id="idea-of-proof-4">Idea of Proof</h3>
+<section id="idea-of-proof-4" class="slide level2 smaller">
+<h2>Idea of Proof</h2>
 <ul>
 <li><p>Since <span class="math inline">f_{U,V}</span> is known, then also <span class="math inline">f_{X,Y}</span> is known</p></li>
 <li><p>Moreover the integral <span class="math display">
@@ -1754,10 +1743,10 @@ f_{X}(x) = \frac{ \Gamma \left(\frac{p+q}{2} \right) }{ \Gamma \left( \frac{p}{2
 <h3 id="proof-of-theorem">Proof of Theorem</h3>
 <ol type="1">
 <li><p>Requires a bit of work. It will be left as Homework assignment</p></li>
-<li><p>By the Theorem in Slide 43 we have <span class="math display">
+<li><p>By the Theorem in Slide 44, we have <span class="math display">
 X \sim F_{p,q} \quad \implies \quad X = \frac{U/p}{V/q}
 </span> with <span class="math inline">U \sim \chi_p^2</span> and <span class="math inline">V \sim \chi_q^2</span> independent. Therefore <span class="math display">
-\frac{1}{X} = \frac{V/q}{U/p} \sim F_{q,p}
+\frac{1}{X} = \frac{V/q}{U/p} \sim  \frac{\chi^2_q/q}{\chi^2_p/p} \sim F_{q,p}
 </span></p></li>
 </ol>
 </section>
@@ -1765,7 +1754,7 @@ X \sim F_{p,q} \quad \implies \quad X = \frac{U/p}{V/q}
 <h2>Properties of F-distribution</h2>
 <h3 id="proof-of-theorem-1">Proof of Theorem</h3>
 <ol start="3" type="1">
-<li>Suppose <span class="math inline">X \sim t_q</span>. The Theorem in Slide 66 of Lecture 3 guarantees that <span class="math display">
+<li>Suppose <span class="math inline">X \sim t_q</span>. The Theorem in Slide 118 of Lecture 2, guarantees that <span class="math display">
 X = \frac{U}{\sqrt{V/q}}
 </span> where <span class="math inline">U \sim N(0,1)</span> and <span class="math inline">V \sim \chi_q^2</span> are independent. Therefore <span class="math display">
 X^2 = \frac{U^2}{V/q}
@@ -1778,7 +1767,7 @@ X^2 = \frac{U^2}{V/q}
 <ul>
 <li>Since <span class="math inline">U \sim N(0,1)</span>, by definition <span class="math inline">U^2 \sim \chi_1^2</span>.</li>
 <li>Moreover <span class="math inline">U^2</span> and <span class="math inline">V</span> are independet, since <span class="math inline">U</span> and <span class="math inline">V</span> are independent</li>
-<li>Theorem in Slide 43 implies <span class="math display">
+<li>Finally, the Theorem in Slide 44 implies <span class="math display">
 X^2 = \frac{U^2}{V/q} \sim \frac{\chi_1^2/1}{\chi_q^2/q} \sim F_{1,q}
 </span></li>
 </ul>

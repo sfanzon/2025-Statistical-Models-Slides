@@ -1817,8 +1817,7 @@ t.test(difference, mu = 0)
 
 
 
-## Example: 2008 crisis {.smaller}
-### Analysis of Output
+## Analysis of Output {.smaller}
 
 <br>
 
@@ -1836,49 +1835,21 @@ output <- capture.output(print(t_test_result))
 
 # Print only one line of the output
 cat(output[2])
-```
-
-<br>
-
-
-- Description of the test that we have asked for
-- Note: ``t.test`` has automatically assumed that a one-sample test is desired
-
-
-
-
-## Example: 2008 crisis {.smaller}
-### Analysis of Output
-
-
-<br>
-
-```{r}
-# Enter CCI data using c()
-score_2007 <- c(86, 86, 88, 90, 99, 97, 97, 96, 99, 97, 90, 90)
-score_2009 <- c(24, 22, 21, 21, 19, 18, 17, 18, 21, 23, 22, 21)
-difference <- score_2007 - score_2009
-
-# Store output of t-test
-t_test_result <- t.test(difference, mu = 0)
-
-# Capture output from print
-output <- capture.output(print(t_test_result))
-
-# Print only one line of the output
+cat(output[3])
 cat(output[4])
 ```
 
 <br>
 
-- This says which data are being tested 
-- In our case we test the data in ``difference``
+- Description of the test that we have asked for
+    * Note: ``t.test`` has automatically assumed that a one-sample test is desired
+- This also says which data are being tested 
+    * In our case we test the data in ``difference``
 
 
 
 
-## Example: 2008 crisis {.smaller}
-### Analysis of Output
+## Analysis of Output {.smaller}
 
 <br> 
 
@@ -1898,7 +1869,7 @@ output <- capture.output(print(t_test_result))
 cat(output[5])
 ```
 
-<br> 
+<br>
 
 ::: {.column width="48%"}
 
@@ -1922,8 +1893,7 @@ cat(output[5])
 
 
 
-## Example: 2008 crisis {.smaller}
-### Analysis of Output
+## Analysis of Output {.smaller}
 
 <br> 
 
@@ -1943,7 +1913,8 @@ output <- capture.output(print(t_test_result))
 cat(output[6])
 ```
 
-<br> 
+
+<br>
 
 
 - R tells us the alternative hypothesis is $\qquad H_1 \colon \mu \neq 0$
@@ -1957,8 +1928,7 @@ cat(output[6])
 
 
 
-## Example: 2008 crisis {.smaller}
-### Analysis of Output
+## Analysis of Output {.smaller}
 
 <br> 
 
@@ -1979,95 +1949,74 @@ cat(output[7])
 cat(output[8])
 ```
 
-<br> 
 
+<br>
 
-
-This is a $95 \%$ conﬁdence interval for the true mean:
-
-- Confidence interval: is the set of (hypothetical) mean values from which the data do not deviate signiﬁcantly
-- It is based on inverting the t-test by solving for the values of $\mu$ that cause $t$ to lie within its acceptance region 
-
-
-
-## Example: 2008 crisis {.smaller}
-### Analysis of Output
-
-<br> 
-
-```{r}
-# Enter CCI data using c()
-score_2007 <- c(86, 86, 88, 90, 99, 97, 97, 96, 99, 97, 90, 90)
-score_2009 <- c(24, 22, 21, 21, 19, 18, 17, 18, 21, 23, 22, 21)
-difference <- score_2007 - score_2009
-
-# Store output of t-test
-t_test_result <- t.test(difference, mu = 0)
-
-# Capture output from print
-output <- capture.output(print(t_test_result))
-
-# Print only one line of the output
-cat(output[7])
-cat(output[8])
-```
-
-<br> 
-
-
-- For $95 \%$ conﬁdence interval this means solving
+$95 \%$ conﬁdence interval for the true mean $\mu$ -- an interval $[a,b]$ s.t.
 $$
-P( |t_{n-1}| < t) = 0.95 \,, \qquad 
-t = \frac{\overline{x}-\mu}{\ese}
+P(\mu \in [a,b]) \geq 1 - \alpha = 0.95
 $$
 
-- Solving wrt $\mu$ yields
+**Interpretation:** If you repeat the experiment (on new data) over and over, the interval $[a,b]$ will contain $\mu$ about $95\%$ of the times
+
+- Confidence interval is **not** probability statement about $\mu$ -- note $\mu$ is a constant!
+- It is probability statement about $[a,b]$ -- these are rv depending on the sample 
+
+
+
+## Analysis of Output {.smaller}
+
+**Constructing the confidence interval for t-test:**
+
+- Recall the t-statistic has t-distribution
 $$
-\mu \in \left[ \overline{x} - t_{n-1}(0.025) \times \ese , 
-\overline{x} + t_{n-1}(0.025) \times \ese \right]
+t = \frac{\overline{x}-\mu}{\ese} \, \sim  \, t_{n-1}
+$$
+
+- We impose that $t$ is observed with probability $1-\alpha$ 
+$$
+P(- t^* \leq t \leq t^*) = 1-\alpha \,, \qquad 
+t^* = t_{n-1}(\alpha/2)
+$$
+
+
+- The $1-\alpha$ confidence interval is obtained by solving for $\mu$ 
+$$
+P(\mu \in [a,b] ) = 1 - \alpha \,, \qquad 
+a = \overline{x} - t^* \times \ese , \qquad  
+b = \overline{x} + t^* \times \ese
 $$
 
 
 
-## Example: 2008 crisis {.smaller}
-### Analysis of Output
-
-<br> 
-
-```{r}
-# Enter CCI data using c()
-score_2007 <- c(86, 86, 88, 90, 99, 97, 97, 96, 99, 97, 90, 90)
-score_2009 <- c(24, 22, 21, 21, 19, 18, 17, 18, 21, 23, 22, 21)
-difference <- score_2007 - score_2009
-
-# Store output of t-test
-t_test_result <- t.test(difference, mu = 0)
-
-# Capture output from print
-output <- capture.output(print(t_test_result))
-
-# Print only one line of the output
-cat(output[7])
-cat(output[8])
-```
-
-<br> 
+## Analysis of Output {.smaller}
 
 
-- R calculated the quantities 
+- To obtain $95\%$ confidence, we need $\alpha = 0.05$, so that
 $$
-\overline{x} \pm t_{n-1}(0.025) \times \ese
+1-\alpha = 0.95
 $$
 
-- Based on the data, we conclude that the set of (hypothetical) mean values is
+- In this case the confidence interval is
+$$
+\left[ \overline{x} - t^* \times \ese , 
+\overline{x} + t^* \times \ese \right] \,, \qquad
+t^* = t_{n-1}(0.025)
+$$
+
+
+- R calculated the above for us, giving the confidence interval
 $$
 \mu \in [68.15960, 76.50706] 
 $$
 
 
+**Interpretation:** If you repeat the experiment (on new data) over and over, the interval $[a,b]$ will contain $\mu$ about $95\%$ of the times
 
-## Example: 2008 crisis {.smaller}
-### Analysis of Output
+
+
+
+## Analysis of Output {.smaller}
 
 <br> 
 
@@ -2100,8 +2049,7 @@ cat(output[11])
 
 
 
-## Example: 2008 crisis {.smaller}
-### Conclusion
+## Conclusion {.smaller}
 
 
 The key information is:

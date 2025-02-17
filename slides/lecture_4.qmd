@@ -538,7 +538,7 @@ $$
 |:--------------------  |:------------------------------               |
 | ``pnorm(x, mean = mu, sd = sig)`` |   $P(X \leq x)$                              |
 | ``qnorm(p, mean = mu, sd = sig)`` |   $q$ such that $P(X \leq q) = p$                          |
-| ``dnorm(x, mean = mu, sd = sig)`` |   $f(x)$, where $f$ is density of $X$    |
+| ``dnorm(x, mean = mu, sd = sig)`` |   $f(x)$, where $f$ is pdf of $X$    |
 | ``rnorm(n, mean = mu, sd = sig)`` |   $n$ random samples from distr. of $X$|
 : {tbl-colwidths="[50,50]"}
 
@@ -551,8 +551,7 @@ $$
   
 
 
-## Probability Distributions in R {.smaller}
-### Example
+## Example {.smaller}
 
 - Suppose average height of women is normally distributed $N(\mu,\sigma^2)$
 - Assume mean $\mu = 163$ cm and standard deviation $\sigma = 8$ cm
@@ -569,14 +568,7 @@ $$
 ```
 
 
-## Probability Distributions in R {.smaller}
-### Example
-
-- Suppose average height of women is normally distributed $N(\mu,\sigma^2)$
-- Assume mean $\mu = 163$ cm and standard deviation $\sigma = 8$ cm
-
-<br>
-
+## {.smaller}
 
 ```{r}
 #| echo: true
@@ -587,30 +579,18 @@ $$
 qnorm(0.90, mean = 163, sd = 8)
 ```
 
-
-
-## Probability Distributions in R {.smaller}
-### Example
-
-- Suppose average height of women is normally distributed $N(\mu,\sigma^2)$
-- Assume mean $\mu = 163$ cm and standard deviation $\sigma = 8$ cm
-
 <br>
+
+
 
 ```{r}
 #| echo: true
 
-# Value of density at 163
+# Value of pdf at 163
 
 dnorm(163, mean = 163, sd = 8)
 ```
 
-
-## Probability Distributions in R {.smaller}
-### Example
-
-- Suppose average height of women is normally distributed $N(\mu,\sigma^2)$
-- Assume mean $\mu = 163$ cm and standard deviation $\sigma = 8$ cm
 
 <br>
 
@@ -621,6 +601,29 @@ dnorm(163, mean = 163, sd = 8)
 
 rnorm(5, mean = 163, sd = 8)
 ```
+
+
+## {.smaller}
+
+**Question:** What is the height of the tallest woman, according to the model?
+
+
+- The tallest woman could be found using quantiles
+- There are roughly 3.5 billion women
+- The tallest would be in the top 1/(3.5 billion) quantile
+
+```{r}
+#| echo: true
+
+# Find the top 1/(3.5 billion) quantile
+
+p = 1 - 1 / (3.5e9)
+qnorm(p, mean = 163, sd = 8)
+```
+
+
+- The current (living) tallest woman is Rumeysa Gelci at $215$ cm ([Wikipedia Page](https://en.m.wikipedia.org/wiki/Rumeysa_Gelgi))
+
 
 
 
@@ -634,14 +637,13 @@ rnorm(5, mean = 163, sd = 8)
 |:--------------------  |:------------------------------               |
 | ``pchisq(x, df = n)`` |   $P(X \leq x)$                              |
 | ``qchisq(p, df = n)`` |   $q$ such that $P(X \leq q) = p$                          |
-| ``dchisq(x, df = n)``  |   $f(x)$ where $f$ is distr. of $X$    |
+| ``dchisq(x, df = n)``  |   $f(x)$, where $f$ is pdf of $X$    |
 | ``rchisq(m, df = n)``  |   $m$ random samples from distr. of $X$|
 : {tbl-colwidths="[40,60]"}
 
 
 
-## Probability Distributions in R {.smaller}
-### Example 1
+## Example 1 {.smaller}
 
 - From Tables we found quantile $\chi_{11}^2 (0.05) = 19.68$
 - **Question:** Compute such quantile in R
@@ -650,8 +652,7 @@ rnorm(5, mean = 163, sd = 8)
 
 
 
-## Probability Distributions in R {.smaller}
-### Example 1 -- Solution
+## Example 1 -- Solution {.smaller}
 
 - From Tables we found quantile $\chi_{11}^2 (0.05) = 19.68$
 - **Question:** Compute such quantile in R
@@ -669,8 +670,7 @@ cat("The 0.95 quantile for chi-squared with df = 11 is", quantile)
 ```
 
 
-## Probability Distributions in R {.smaller}
-### Example 2
+## Example 2 {.smaller}
 
 - The $\chi^2$ statistic for variance ratio test has distribution $\chi_{n-1}^2$
 
@@ -681,8 +681,7 @@ $$
 
 
 
-## Probability Distributions in R {.smaller}
-### Example 2 -- Solution
+## Example 2 -- Solution {.smaller}
 
 - The $\chi^2$ statistic for variance ratio test has distribution $\chi_{n-1}^2$
 
@@ -693,7 +692,9 @@ $$
 
 
 - Observe that
-$p := P(\chi_{n-1}^2 > \chi^2) = 1 - P(\chi_{n-1}^2  \leq  \chi^2)$
+$$
+p := P(\chi_{n-1}^2 > \chi^2) = 1 - P(\chi_{n-1}^2  \leq  \chi^2)
+$$
 
 - The code is therefore
 
@@ -767,17 +768,17 @@ n <- length(difference)
 sigma_0 <- 1
 
 # Compute sample variance
-variance <- var(difference)
+s <- var(difference)
 
 # Compute chi-squared statistic
-chi_squared <- (n - 1) * variance / sigma_0 ^ 2
+chi_squared <- (n - 1) * s / sigma_0 ^ 2
 ```
 
 
 
 ## The variance ratio test in R {.smaller}
 
-- Compute the p-value
+- Compute the p-value, and print to screen
 $$
 p = P(\chi_{n-1}^2 > \chi^2) = 1 - P(\chi_{n-1}^2 \leq \chi^2)
 $$
@@ -815,10 +816,10 @@ n <- length(difference)
 sigma_0 <- 1
 
 # Compute sample variance
-variance <- var(difference)
+s <- var(difference)
 
 # Compute chi-squared statistic
-chi_squared <- (n - 1) * variance / sigma_0 ^ 2
+chi_squared <- (n - 1) * s / sigma_0 ^ 2
 
 # Compute p-value
 p_value <- 1 - pchisq(chi_squared, df = n - 1)
@@ -829,7 +830,7 @@ cat("The p-value for one-sided variance test is", p_value)
 
 <br>
 
-- Since $p < 0.05$ we **reject** $H_0$
+- Since $p = 0 < 0.05$ we **reject** $H_0$
 - Therefore the true variance seems to be $\sigma^2 > 1$
 
 
@@ -837,7 +838,7 @@ cat("The p-value for one-sided variance test is", p_value)
 
 
 
-# Part 3: <br>F-distribution {background-color="#cc0164" visibility="uncounted"}
+# Part 3: <br>The F-distribution {background-color="#cc0164" visibility="uncounted"}
 
 ::: footer
 
@@ -850,7 +851,7 @@ cat("The p-value for one-sided variance test is", p_value)
 ## Overview {.smaller}
 ### Chi-squared distribution
 
-**Recall**: Chi-squared distribution with $p$ degrees of freedom is
+**Recall**: The chi-squared distribution with $p$ degrees of freedom is
 $$
 \chi_p^2 = Z_1^2 + \ldots + Z_p^2
 $$
@@ -873,13 +874,13 @@ $$
 $$
 t_p \sim \frac{U}{\sqrt{V/p}}
 $$
-where $U \sim N(0,1)$ and $V \sim \chi_p^2$ 
+where $U \sim N(0,1)$ and $V \sim \chi_p^2$ independent
 
 
 
 
 
-## F-distribution {.smaller}
+## The F-distribution {.smaller}
 
 F-distribution is:
 
@@ -887,12 +888,7 @@ F-distribution is:
 - Describes **variance estimators** for independent samples
 
 
-
-
-## F-distribution {.smaller}
-
 ::: Definition
-
 
 The r.v. $F$ has F-distribution with $p$ and $q$ degrees of freedom
 if the pdf is
@@ -913,7 +909,7 @@ $$
 
 
 
-## F-distribution {.smaller}
+## Characterization of F-distribution {.smaller}
 
 The F-distribution is obtained as ratio of 2 independent chi-squared distributions
 
@@ -928,10 +924,9 @@ $$
 
 
 
-## F-distribution {.smaller}
-### Idea of Proof
+## Idea of Proof {.smaller}
 
-- Similar to the proof (seen in Homework 3) that 
+- This is similar to the proof (seen in Homework 2) that 
 $$
 \frac{U}{\sqrt{V/p}} \sim t_p
 $$
@@ -946,8 +941,7 @@ where $U \sim \chi_p^2$ and $V \sim \chi_q^2$ are independent
 
 
 
-## F-distribution {.smaller}
-### Idea of Proof
+## Idea of Proof {.smaller}
 
 - $U \sim \chi_{p}^2$ and $V \sim \chi_q^2$ are independent. Therefore
 \begin{align*}
@@ -966,9 +960,7 @@ $$
 
 
 
-## F-distribution {.smaller}
-### Idea of Proof
-
+## Idea of Proof {.smaller}
 
 - This way we have
 $$
@@ -976,16 +968,16 @@ X = \frac{U/p}{V/q}  \,, \qquad Y = U + V
 $$
 
 
-- We can compute $f_X$ via
+- To conclude the proof, we need to compute the pdf of $X$, that is $f_X$
+
+- This can be computed as the $X$ marginal of $f_{X,Y}$
 $$
 f_{X}(x) = \int_{0}^\infty f_{X,Y}(x,y) \, dy
 $$
 
 
 
-## F-distribution {.smaller}
-### Idea of Proof
-
+## Idea of Proof {.smaller}
 
 - The joint pdf $f_{X,Y}$ can be computed by inverting the change of variables
 $$
@@ -1002,9 +994,7 @@ $$
 
 
 
-## F-distribution {.smaller}
-### Idea of Proof
-
+## Idea of Proof {.smaller}
 
 - Since $f_{U,V}$ is known, then also $f_{X,Y}$ is known
 
@@ -1018,7 +1008,6 @@ f_{X}(x) = \frac{ \Gamma \left(\frac{p+q}{2} \right) }{ \Gamma \left( \frac{p}{2
 \left( \frac{p}{q} \right)^{p/2} \, 
 \frac{ x^{ (p/2) - 1 } }{ [ 1 + (p/q) x ]^{(p+q)/2} }
 $$
-
 
 
 
@@ -1046,13 +1035,13 @@ $$
 
 1. Requires a bit of work. It will be left as Homework assignment
 
-2. By the Theorem in Slide 43 we have
+2. By the Theorem in Slide 44, we have
 $$
 X \sim F_{p,q} \quad \implies \quad X = \frac{U/p}{V/q}
 $$
 with $U \sim \chi_p^2$ and $V \sim \chi_q^2$ independent. Therefore
 $$
-\frac{1}{X} = \frac{V/q}{U/p} \sim F_{q,p}
+\frac{1}{X} = \frac{V/q}{U/p} \sim  \frac{\chi^2_q/q}{\chi^2_p/p} \sim F_{q,p}
 $$
 
 
@@ -1060,7 +1049,7 @@ $$
 ## Properties of F-distribution {.smaller}
 ### Proof of Theorem
 
-3. Suppose $X \sim t_q$. The Theorem in Slide 66 of Lecture 3 guarantees that
+3. Suppose $X \sim t_q$. The Theorem in Slide 118 of Lecture 2, guarantees that
 $$
 X = \frac{U}{\sqrt{V/q}}
 $$
@@ -1076,7 +1065,7 @@ $$
 
 - Since $U \sim N(0,1)$, by definition $U^2 \sim \chi_1^2$. 
 - Moreover $U^2$ and $V$ are independet, since $U$ and $V$ are independent
-- Theorem in Slide 43 implies
+- Finally, the Theorem in Slide 44 implies
 $$
 X^2 = \frac{U^2}{V/q} \sim \frac{\chi_1^2/1}{\chi_q^2/q} \sim F_{1,q} 
 $$

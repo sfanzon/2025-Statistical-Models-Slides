@@ -206,7 +206,7 @@ H_1 \colon \theta > 0$
 
 
 
-# Part 2: <br>The t-test <br> by hand {background-color="#cc0164" visibility="uncounted"}
+# Part 2: <br>The t-test by hand {background-color="#cc0164" visibility="uncounted"}
 
 ::: footer
 
@@ -271,7 +271,7 @@ $$
 \ese = \frac{s}{\sqrt{n}}
 $$
 
-- Compute the **t-statistic**
+- Compute the sample **t-statistic**
 $$
 t = \frac{\text{estimate } - \text{ hypothesised value}}{\ese}
 = \frac{\overline x - \mu_0}{s/\sqrt{n}}
@@ -288,7 +288,7 @@ $$
 
 - After computing **t-statistic**, we need to compute the **p-value**
 
-- **p-value** is a measure of how strange the data is in relation to the null hypothesis
+- **p-value** is a measure of likely we are to observe the data if we assume the null hypothesis is true
 
 
 - We have 2 options:
@@ -306,17 +306,26 @@ $$
 ## One-sample Two-sided t-test {.smaller}
 ### p-value
 
-- For two-sided t-test the p-value is defined as
+- For the two-sided t-test, the p-value is defined as
 $$
-p := 2P(t_{n-1}> |t|)
+p := 2P(t_{n-1} > |t| \, | \, H_0)
 $$
-where $t_{n-1}$ is the t-distribution with $n-1$ degrees of freedom
+where $t_{n-1}$ follows the t-distribution with $n-1$ degrees of freedom
 
 - In other words, the p-value is
 $$
-p = 2P(\text{Observing values more extreme than t }| \, \mu=\mu_0)
+p = 2P(\text{Observing values more extreme than |t| }| \, \mu=\mu_0)
 $$
 
+
+- **Note:** For the one-sided t-test, the p-value is
+$$
+p = 
+\begin{cases}
+P(t_{n-1} < t | \mu = \mu_0)  & \quad \text{ if alternative hypothesis is } \, H_1 \colon \mu < \mu_0 \\
+P(t_{n-1} > t | \mu = \mu_0)  & \quad \text{ if alternative hypothesis is } \, H_1 \colon \mu > \mu_0 \\
+\end{cases}
+$$
 
 
 
@@ -324,7 +333,7 @@ $$
 ## One-sample Two-sided t-test {.smaller}
 ### p-value
 
-- $p<0.05$ means that the test statistic $t$ is **extreme**: $\,\, P(t_{n-1}> |t|)<0.025$
+- $p<0.05$ means that the test statistic $t$ is **extreme**: $\,\, P(t_{n-1} > |t|)<0.025$
 
 - $t$ falls in the **grey areas** in the $t_{n-1}$ plot below: Each grey area measures $0.025$
 
@@ -1647,7 +1656,7 @@ $$
 
 
 
-## Reminder: The t-test by hand {.smaller}
+## Reminder: The two-sided t-test by hand {.smaller}
 
 
 1. Given the data $x_1,\ldots,x_n$, compute the **t-statistic**
@@ -1721,14 +1730,14 @@ $$
 
 3. ``alternative = "greater" `` tells R to perform one-sided t-test
 $$
-H_0 \colon \mu < \mu_0 \,, \qquad 
-H_1 \colon \mu \geq \mu_0
+H_0 \colon \mu \leq \mu_0 \,, \qquad 
+H_1 \colon \mu > \mu_0
 $$
 
-4. ``alternative = "smaller" `` tells R to perform one-sided t-test
+4. ``alternative = "less" `` tells R to perform one-sided t-test
 $$
-H_0 \colon \mu > \mu_0 \,, \qquad 
-H_1 \colon \mu \leq \mu_0
+H_0 \colon \mu \geq \mu_0 \,, \qquad 
+H_1 \colon \mu < \mu_0
 $$
 
 5. ``conf.level = n `` changes the confidence interval level to ``n`` (default is $0.95$)
@@ -2061,6 +2070,78 @@ The key information is:
 - Hence consumer confidence is higher in 2007 than in 2009
 
 
+
+
+
+
+## Exercise {.smaller}
+### SUV gas mileage
+
+- A consumer group wishes to see whether the actual mileage of a new SUV matches the advertised 17 miles per gallon
+
+- The group suspects it is lower
+
+- To test the claim, the group fills the SUV’s tank and records the mileage
+
+- This is repeated ten times. The results are below
+
+
+| 11.4 | 13.1 | 14.7 | 14.7 | 15.0 | 15.5 | 15.6 | 15.9 | 16.0 | 16.8 |
+|------|------|------|------|------|------|------|------|------|------|
+
+
+**Question:** The data is assumed to be normal. Use R to test the claim
+$$
+H_0 \colon \mu = 17 \,, \qquad 
+H_1 \colon \mu < 17
+$$
+
+
+
+## Solution {.smaller}
+### SUV gas mileage
+
+
+This is a one-sided t-test. The p-value is computed as
+$$
+p = P( t_{n-1} < t  \, | \, \mu = 17 )  
+$$
+
+```r
+# Enter the mileage data
+mpg <- c(11.4, 13.1, 14.7, 14.7, 15.0, 15.5, 15.6, 15.9, 16.0, 16.8)
+
+# Perform one-sided t-test with null hypothesis mu = 17 
+# Store answer in "answer"
+answer <- t.test(mpg, mu = 17, alternative = "less")
+
+# Print the answer
+print(answer)
+```
+
+
+
+## Solution {.smaller}
+### SUV gas mileage
+
+
+```{r}
+# Enter the mileage data
+mpg <- c(11.4, 13.1, 14.7, 14.7, 15.0, 15.5, 15.6, 15.9, 16.0, 16.8)
+
+# Perform one-sided t-test with null hypothesis mu = 17 
+# Store answer in "answer"
+answer <- t.test(mpg, mu = 17, alternative = "less")
+
+# Print the answer
+print(answer)
+```
+
+
+**Conclusion:** The p-value is very small $\quad p < 0.05 \quad \implies \quad$ reject $H_0$ 
+
+- The test discredits the claim of 17 miles per gallon
+- The SUV is less efficient than advertised
 
 
 

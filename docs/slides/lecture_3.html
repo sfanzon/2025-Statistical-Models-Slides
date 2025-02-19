@@ -425,7 +425,23 @@
   </style>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
   <style>
-  .Lemma {
+  .Question {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Remark {
+    --color1: #bce5de;
+    --color2: #21aa93;
+  }
+  .Problem {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .DONE {
+    --color1: #cce7b1;
+    --color2: #86b754;
+  }
+  .Important {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
@@ -433,45 +449,21 @@
     --color1: #f4cce0;
     --color2: #db4d92;
   }
-  .Notation {
-    --color1: #c6e6ed;
-    --color2: #1995ad;
-  }
-  .Example {
-    --color1: #bce5de;
-    --color2: #21aa93;
-  }
-  .TODO {
-    --color1: #e7b1b4;
-    --color2: #8c3236;
-  }
   .Corollary {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
-  .Question {
+  .Warning {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Idea {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
   .Definition {
     --color1: #c6e6ed;
     --color2: #1995ad;
-  }
-  .Remark {
-    --color1: #bce5de;
-    --color2: #21aa93;
-  }
-  .Proof {
-    --color1: #f1f1f2;
-    --color2: #c0c0c1;
-  }
-  .DONE {
-    --color1: #cce7b1;
-    --color2: #86b754;
-  }
-  .Problem {
-    --color1: #f4cce0;
-    --color2: #db4d92;
   }
   .Proposition {
     --color1: #f4cce0;
@@ -481,21 +473,29 @@
     --color1: #f4cce0;
     --color2: #db4d92;
   }
-  .Idea {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Warning {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
   .Theorem {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
-  .Important {
+  .Example {
+    --color1: #bce5de;
+    --color2: #21aa93;
+  }
+  .Notation {
+    --color1: #c6e6ed;
+    --color2: #1995ad;
+  }
+  .TODO {
+    --color1: #e7b1b4;
+    --color2: #8c3236;
+  }
+  .Lemma {
     --color1: #f4cce0;
     --color2: #db4d92;
+  }
+  .Proof {
+    --color1: #f1f1f2;
+    --color2: #c0c0c1;
   }
   </style>
 </head>
@@ -668,7 +668,7 @@ H_1 \colon \theta &gt; 0</span></p>
 </section></section>
 <section>
 <section id="part-2-the-t-test-by-hand" class="title-slide slide level1 center" data-background-color="#cc0164" data-visibility="uncounted">
-<h1>Part 2: <br>The t-test <br> by hand</h1>
+<h1>Part 2: <br>The t-test by hand</h1>
 <div class="footer">
 <div color="#cc0164">
 
@@ -718,7 +718,7 @@ s = \sqrt{\frac{\sum_{i=1}^n x_i^2 - n \overline{x}^2}{n-1}}
 <li><p>Compute the <strong>estimated standard error</strong> <span class="math display">
 \mathop{\mathrm{e.s.e.}}= \frac{s}{\sqrt{n}}
 </span></p></li>
-<li><p>Compute the <strong>t-statistic</strong> <span class="math display">
+<li><p>Compute the sample <strong>t-statistic</strong> <span class="math display">
 t = \frac{\text{estimate } - \text{ hypothesised value}}{\mathop{\mathrm{e.s.e.}}}
 = \frac{\overline x - \mu_0}{s/\sqrt{n}}
 </span></p></li>
@@ -730,7 +730,7 @@ t = \frac{\text{estimate } - \text{ hypothesised value}}{\mathop{\mathrm{e.s.e.}
 <h3 id="p-value">p-value</h3>
 <ul>
 <li><p>After computing <strong>t-statistic</strong>, we need to compute the <strong>p-value</strong></p></li>
-<li><p><strong>p-value</strong> is a measure of how strange the data is in relation to the null hypothesis</p></li>
+<li><p><strong>p-value</strong> is a measure of likely we are to observe the data if we assume the null hypothesis is true</p></li>
 <li><p>We have 2 options:</p>
 <ul>
 <li><strong>LOW</strong> p-value <span class="math inline">\quad \implies \quad</span> <strong>reject</strong> <span class="math inline">H_0</span></li>
@@ -745,11 +745,18 @@ p&lt;0.05
 <h2>One-sample Two-sided t-test</h2>
 <h3 id="p-value-1">p-value</h3>
 <ul>
-<li><p>For two-sided t-test the p-value is defined as <span class="math display">
-p := 2P(t_{n-1}&gt; |t|)
-</span> where <span class="math inline">t_{n-1}</span> is the t-distribution with <span class="math inline">n-1</span> degrees of freedom</p></li>
+<li><p>For the two-sided t-test, the p-value is defined as <span class="math display">
+p := 2P(t_{n-1} &gt; |t| \, | \, H_0)
+</span> where <span class="math inline">t_{n-1}</span> follows the t-distribution with <span class="math inline">n-1</span> degrees of freedom</p></li>
 <li><p>In other words, the p-value is <span class="math display">
-p = 2P(\text{Observing values more extreme than t }| \, \mu=\mu_0)
+p = 2P(\text{Observing values more extreme than |t| }| \, \mu=\mu_0)
+</span></p></li>
+<li><p><strong>Note:</strong> For the one-sided t-test, the p-value is <span class="math display">
+p =
+\begin{cases}
+P(t_{n-1} &lt; t | \mu = \mu_0)  &amp; \quad \text{ if alternative hypothesis is } \, H_1 \colon \mu &lt; \mu_0 \\
+P(t_{n-1} &gt; t | \mu = \mu_0)  &amp; \quad \text{ if alternative hypothesis is } \, H_1 \colon \mu &gt; \mu_0 \\
+\end{cases}
 </span></p></li>
 </ul>
 </section>
@@ -757,7 +764,7 @@ p = 2P(\text{Observing values more extreme than t }| \, \mu=\mu_0)
 <h2>One-sample Two-sided t-test</h2>
 <h3 id="p-value-2">p-value</h3>
 <ul>
-<li><p><span class="math inline">p&lt;0.05</span> means that the test statistic <span class="math inline">t</span> is <strong>extreme</strong>: <span class="math inline">\,\, P(t_{n-1}&gt; |t|)&lt;0.025</span></p></li>
+<li><p><span class="math inline">p&lt;0.05</span> means that the test statistic <span class="math inline">t</span> is <strong>extreme</strong>: <span class="math inline">\,\, P(t_{n-1} &gt; |t|)&lt;0.025</span></p></li>
 <li><p><span class="math inline">t</span> falls in the <strong>grey areas</strong> in the <span class="math inline">t_{n-1}</span> plot below: Each grey area measures <span class="math inline">0.025</span></p></li>
 </ul>
 
@@ -1421,7 +1428,7 @@ H_0 \colon \mu = 0
 <div class="cell">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] -1.3781788  0.3598919 -0.4012915  0.9699602  0.6171842</code></pre>
+<pre><code>[1]  0.1479604  1.1080402  1.1937100  0.9837080 -0.8706484</code></pre>
 </div>
 </div>
 <p>The above values can be plotted by concatenating the <code>plot</code> command</p>
@@ -2061,8 +2068,8 @@ H_0 \colon \mu = \mu_0 \qquad H_1 \colon \mu \neq \mu_0
 T = \frac{\overline{X}-\mu_0}{S/\sqrt{n}} \sim t_{n-1}
 </span></p>
 </section>
-<section id="reminder-the-t-test-by-hand" class="slide level2 smaller">
-<h2>Reminder: The t-test by hand</h2>
+<section id="reminder-the-two-sided-t-test-by-hand" class="slide level2 smaller">
+<h2>Reminder: The two-sided t-test by hand</h2>
 <ol type="1">
 <li><p>Given the data <span class="math inline">x_1,\ldots,x_n</span>, compute the <strong>t-statistic</strong> <span class="math display">
 t = \frac{\text{estimate } - \text{ hypothesised value}}{\mathop{\mathrm{e.s.e.}}}
@@ -2125,12 +2132,12 @@ H_0 \colon \mu = \mu_0 \,, \qquad H_1 \colon \mu \neq \mu_0
 </span></p></li>
 <li><p>If <code>mu = mu0</code> is not specified, R assumes <span class="math inline">\mu_0 = 0</span></p></li>
 <li><p><code>alternative = "greater"</code> tells R to perform one-sided t-test <span class="math display">
-H_0 \colon \mu &lt; \mu_0 \,, \qquad
-H_1 \colon \mu \geq \mu_0
+H_0 \colon \mu \leq \mu_0 \,, \qquad
+H_1 \colon \mu &gt; \mu_0
 </span></p></li>
-<li><p><code>alternative = "smaller"</code> tells R to perform one-sided t-test <span class="math display">
-H_0 \colon \mu &gt; \mu_0 \,, \qquad
-H_1 \colon \mu \leq \mu_0
+<li><p><code>alternative = "less"</code> tells R to perform one-sided t-test <span class="math display">
+H_0 \colon \mu \geq \mu_0 \,, \qquad
+H_1 \colon \mu &lt; \mu_0
 </span></p></li>
 <li><p><code>conf.level = n</code> changes the confidence interval level to <code>n</code> (default is <span class="math inline">0.95</span>)</p></li>
 </ol>
@@ -2434,6 +2441,78 @@ t^* = t_{n-1}(0.025)
 <li>This suggest CCI mean difference <span class="math inline">\mu \gg 0</span></li>
 <li>Hence consumer confidence is higher in 2007 than in 2009</li>
 </ul>
+</section>
+<section id="exercise-2" class="slide level2 smaller">
+<h2>Exercise</h2>
+<h3 id="suv-gas-mileage">SUV gas mileage</h3>
+<ul>
+<li><p>A consumer group wishes to see whether the actual mileage of a new SUV matches the advertised 17 miles per gallon</p></li>
+<li><p>The group suspects it is lower</p></li>
+<li><p>To test the claim, the group fills the SUV’s tank and records the mileage</p></li>
+<li><p>This is repeated ten times. The results are below</p></li>
+</ul>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>11.4</th>
+<th>13.1</th>
+<th>14.7</th>
+<th>14.7</th>
+<th>15.0</th>
+<th>15.5</th>
+<th>15.6</th>
+<th>15.9</th>
+<th>16.0</th>
+<th>16.8</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<p><strong>Question:</strong> The data is assumed to be normal. Use R to test the claim <span class="math display">
+H_0 \colon \mu = 17 \,, \qquad
+H_1 \colon \mu &lt; 17
+</span></p>
+</section>
+<section id="solution-3" class="slide level2 smaller">
+<h2>Solution</h2>
+<h3 id="suv-gas-mileage-1">SUV gas mileage</h3>
+<p>This is a one-sided t-test. The p-value is computed as <span class="math display">
+p = P( t_{n-1} &lt; t  \, | \, \mu = 17 )  
+</span></p>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Enter the mileage data</span></span>
+<span id="cb85-2"><a aria-hidden="true" tabindex="-1"></a>mpg <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">11.4</span>, <span class="fl">13.1</span>, <span class="fl">14.7</span>, <span class="fl">14.7</span>, <span class="fl">15.0</span>, <span class="fl">15.5</span>, <span class="fl">15.6</span>, <span class="fl">15.9</span>, <span class="fl">16.0</span>, <span class="fl">16.8</span>)</span>
+<span id="cb85-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Perform one-sided t-test with null hypothesis mu = 17 </span></span>
+<span id="cb85-5"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Store answer in "answer"</span></span>
+<span id="cb85-6"><a aria-hidden="true" tabindex="-1"></a>answer <span class="ot">&lt;-</span> <span class="fu">t.test</span>(mpg, <span class="at">mu =</span> <span class="dv">17</span>, <span class="at">alternative =</span> <span class="st">"less"</span>)</span>
+<span id="cb85-7"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-8"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Print the answer</span></span>
+<span id="cb85-9"><a aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(answer)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="solution-4" class="slide level2 smaller">
+<h2>Solution</h2>
+<h3 id="suv-gas-mileage-2">SUV gas mileage</h3>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    One Sample t-test
+
+data:  mpg
+t = -4.2847, df = 9, p-value = 0.001018
+alternative hypothesis: true mean is less than 17
+95 percent confidence interval:
+     -Inf 15.78127
+sample estimates:
+mean of x 
+    14.87 </code></pre>
+</div>
+</div>
+<p><strong>Conclusion:</strong> The p-value is very small <span class="math inline">\quad p &lt; 0.05 \quad \implies \quad</span> reject <span class="math inline">H_0</span></p>
+<ul>
+<li>The test discredits the claim of 17 miles per gallon</li>
+<li>The SUV is less efficient than advertised</li>
+</ul>
 </section></section>
 <section>
 <section id="part-6-graphics" class="title-slide slide level1 center" data-background-color="#cc0164" data-visibility="uncounted">
@@ -2465,12 +2544,12 @@ t^* = t_{n-1}(0.025)
 <li>When you run <code>plot()</code> in R Console the plot will appear in a pop-up window</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb85"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Store weight and height data in 2 vectors</span></span>
-<span id="cb85-2"><a aria-hidden="true" tabindex="-1"></a>weight <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">60</span>, <span class="dv">72</span>, <span class="dv">57</span>, <span class="dv">90</span>, <span class="dv">95</span>, <span class="dv">72</span>)</span>
-<span id="cb85-3"><a aria-hidden="true" tabindex="-1"></a>height <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">1.75</span>, <span class="fl">1.80</span>, <span class="fl">1.65</span>, <span class="fl">1.90</span>, <span class="fl">1.74</span>, <span class="fl">1.91</span>)</span>
-<span id="cb85-4"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb85-5"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Plot weight against height</span></span>
-<span id="cb85-6"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(weight, height)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb87"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb87-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Store weight and height data in 2 vectors</span></span>
+<span id="cb87-2"><a aria-hidden="true" tabindex="-1"></a>weight <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">60</span>, <span class="dv">72</span>, <span class="dv">57</span>, <span class="dv">90</span>, <span class="dv">95</span>, <span class="dv">72</span>)</span>
+<span id="cb87-3"><a aria-hidden="true" tabindex="-1"></a>height <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">1.75</span>, <span class="fl">1.80</span>, <span class="fl">1.65</span>, <span class="fl">1.90</span>, <span class="fl">1.74</span>, <span class="fl">1.91</span>)</span>
+<span id="cb87-4"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb87-5"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Plot weight against height</span></span>
+<span id="cb87-6"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(weight, height)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 </section>
@@ -2478,7 +2557,7 @@ t^* = t_{n-1}(0.025)
 <div class="cell-output-display">
 <div>
 <figure>
-<p><img data-src="lecture_3_files/figure-revealjs/unnamed-chunk-33-1.png" width="960"></p>
+<p><img data-src="lecture_3_files/figure-revealjs/unnamed-chunk-34-1.png" width="960"></p>
 </figure>
 </div>
 </div>
@@ -2495,12 +2574,12 @@ t^* = t_{n-1}(0.025)
 <li><code>pch</code> stands for <strong>plotting character</strong></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb86"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb86-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Store weight and height data in 2 vectors</span></span>
-<span id="cb86-2"><a aria-hidden="true" tabindex="-1"></a>weight <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">60</span>, <span class="dv">72</span>, <span class="dv">57</span>, <span class="dv">90</span>, <span class="dv">95</span>, <span class="dv">72</span>)</span>
-<span id="cb86-3"><a aria-hidden="true" tabindex="-1"></a>height <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">1.75</span>, <span class="fl">1.80</span>, <span class="fl">1.65</span>, <span class="fl">1.90</span>, <span class="fl">1.74</span>, <span class="fl">1.91</span>)</span>
-<span id="cb86-4"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb86-5"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Plot weight against height using little triangles</span></span>
-<span id="cb86-6"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(weight, height, <span class="at">pch =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb88"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb88-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Store weight and height data in 2 vectors</span></span>
+<span id="cb88-2"><a aria-hidden="true" tabindex="-1"></a>weight <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">60</span>, <span class="dv">72</span>, <span class="dv">57</span>, <span class="dv">90</span>, <span class="dv">95</span>, <span class="dv">72</span>)</span>
+<span id="cb88-3"><a aria-hidden="true" tabindex="-1"></a>height <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">1.75</span>, <span class="fl">1.80</span>, <span class="fl">1.65</span>, <span class="fl">1.90</span>, <span class="fl">1.74</span>, <span class="fl">1.91</span>)</span>
+<span id="cb88-4"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-5"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Plot weight against height using little triangles</span></span>
+<span id="cb88-6"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(weight, height, <span class="at">pch =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 </section>
@@ -2508,7 +2587,7 @@ t^* = t_{n-1}(0.025)
 <div class="cell-output-display">
 <div>
 <figure>
-<p><img data-src="lecture_3_files/figure-revealjs/unnamed-chunk-34-1.png" width="960"></p>
+<p><img data-src="lecture_3_files/figure-revealjs/unnamed-chunk-35-1.png" width="960"></p>
 </figure>
 </div>
 </div>
@@ -2539,17 +2618,17 @@ y = (f(x_1), \ldots, f(x_n))
 y = x^2 \,, \qquad x \in [-1,1]
 </span></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb87"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb87-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Input vector for grid of x coordinates</span></span>
-<span id="cb87-2"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="sc">-</span><span class="fl">0.5</span>, <span class="dv">0</span>, <span class="fl">0.5</span>, <span class="dv">1</span>)</span>
-<span id="cb87-3"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb87-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Compute the function y=x^2 on the grid</span></span>
-<span id="cb87-5"><a aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> x<span class="sc">^</span><span class="dv">2</span></span>
-<span id="cb87-6"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb87-7"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Generate scatter plot of (x,y)</span></span>
-<span id="cb87-8"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y)</span>
-<span id="cb87-9"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb87-10"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Add linear interpolation</span></span>
-<span id="cb87-11"><a aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(x, y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb89"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Input vector for grid of x coordinates</span></span>
+<span id="cb89-2"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="sc">-</span><span class="fl">0.5</span>, <span class="dv">0</span>, <span class="fl">0.5</span>, <span class="dv">1</span>)</span>
+<span id="cb89-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb89-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Compute the function y=x^2 on the grid</span></span>
+<span id="cb89-5"><a aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> x<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb89-6"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb89-7"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Generate scatter plot of (x,y)</span></span>
+<span id="cb89-8"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y)</span>
+<span id="cb89-9"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb89-10"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Add linear interpolation</span></span>
+<span id="cb89-11"><a aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(x, y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 </section>
@@ -2557,7 +2636,7 @@ y = x^2 \,, \qquad x \in [-1,1]
 <div class="cell-output-display">
 <div>
 <figure>
-<p><img data-src="lecture_3_files/figure-revealjs/unnamed-chunk-35-1.png" width="960"></p>
+<p><img data-src="lecture_3_files/figure-revealjs/unnamed-chunk-36-1.png" width="960"></p>
 </figure>
 </div>
 </div>
@@ -2587,8 +2666,8 @@ x = (-1, -0.5, 0, 0.5, 1)
 </ul>
 <p><strong>Example</strong>: Generate the vector of even numbers from 2 to 20</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb88"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb88-1"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">2</span>, <span class="at">to =</span> <span class="dv">20</span>, <span class="at">by =</span> <span class="dv">2</span>)</span>
-<span id="cb88-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb90"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb90-1"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">2</span>, <span class="at">to =</span> <span class="dv">20</span>, <span class="at">by =</span> <span class="dv">2</span>)</span>
+<span id="cb90-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1]  2  4  6  8 10 12 14 16 18 20</code></pre>
 </div>
@@ -2602,12 +2681,12 @@ x = (-1, -0.5, 0, 0.5, 1)
 <li><code>seq(x1, x2, s)</code></li>
 </ul>
 <p><strong>Example</strong>: Generate the vector of odd numbers from 1 to 11</p>
-<div class="sourceCode" id="cb90"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb90-1"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">1</span>, <span class="at">to =</span> <span class="dv">11</span>, <span class="at">by =</span> <span class="dv">2</span>)</span>
-<span id="cb90-2"><a aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">11</span>, <span class="dv">2</span>)</span>
-<span id="cb90-3"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb90-4"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Vector x is: ("</span>, x, <span class="st">")"</span>)</span>
-<span id="cb90-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Vector y is: ("</span>, y, <span class="st">")"</span>)</span>
-<span id="cb90-6"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"They are the same!"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb92-1"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">1</span>, <span class="at">to =</span> <span class="dv">11</span>, <span class="at">by =</span> <span class="dv">2</span>)</span>
+<span id="cb92-2"><a aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">11</span>, <span class="dv">2</span>)</span>
+<span id="cb92-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb92-4"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Vector x is: ("</span>, x, <span class="st">")"</span>)</span>
+<span id="cb92-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Vector y is: ("</span>, y, <span class="st">")"</span>)</span>
+<span id="cb92-6"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"They are the same!"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>Vector x is: ( 1 3 5 7 9 11 )</code></pre>
@@ -2635,8 +2714,8 @@ y = x^2 \,, \qquad x \in [-1, 1]
 </ul></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb94"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb94-1"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="sc">-</span><span class="dv">1</span>, <span class="at">to =</span> <span class="dv">1</span>, <span class="at">by =</span> <span class="fl">0.2</span>)</span>
-<span id="cb94-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb96"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb96-1"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="sc">-</span><span class="dv">1</span>, <span class="at">to =</span> <span class="dv">1</span>, <span class="at">by =</span> <span class="fl">0.2</span>)</span>
+<span id="cb96-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] -1.0 -0.8 -0.6 -0.4 -0.2  0.0  0.2  0.4  0.6  0.8  1.0</code></pre>
 </div>
@@ -2646,15 +2725,15 @@ y = x^2 \,, \qquad x \in [-1, 1]
 <h2>Graphics</h2>
 <h3 id="plotting-functions---example-3">Plotting functions - Example</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb96"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb96-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Use seq() to generate x grid</span></span>
-<span id="cb96-2"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="sc">-</span><span class="dv">1</span>, <span class="at">to =</span> <span class="dv">1</span>, <span class="at">by =</span> <span class="fl">0.2</span>)</span>
-<span id="cb96-3"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb96-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the function y=x^2</span></span>
-<span id="cb96-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, x<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb96-6"><a aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(x, x<span class="sc">^</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb98"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb98-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Use seq() to generate x grid</span></span>
+<span id="cb98-2"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="sc">-</span><span class="dv">1</span>, <span class="at">to =</span> <span class="dv">1</span>, <span class="at">by =</span> <span class="fl">0.2</span>)</span>
+<span id="cb98-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb98-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the function y=x^2</span></span>
+<span id="cb98-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, x<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb98-6"><a aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(x, x<span class="sc">^</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
-<img data-src="lecture_3_files/figure-revealjs/unnamed-chunk-39-1.png" width="960" class="r-stretch"></section>
+<img data-src="lecture_3_files/figure-revealjs/unnamed-chunk-40-1.png" width="960" class="r-stretch"></section>
 <section id="graphics-8" class="slide level2 smaller">
 <h2>Graphics</h2>
 <h3 id="scatter-plot---example">Scatter plot - Example</h3>
@@ -2670,16 +2749,16 @@ y = x^2 \,, \qquad x \in [-1, 1]
 </ul></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb97"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb97-1"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>)</span>
-<span id="cb97-2"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb97-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb99"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb99-1"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>)</span>
+<span id="cb99-2"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb99-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 </section><section id="graphics-8-output" class="slide level2 smaller output-location-slide"><h2>Graphics</h2><div class="cell output-location-slide">
 <div class="cell-output-display">
 <div>
 <figure>
-<p><img data-src="lecture_3_files/figure-revealjs/unnamed-chunk-40-1.png" width="960"></p>
+<p><img data-src="lecture_3_files/figure-revealjs/unnamed-chunk-41-1.png" width="960"></p>
 </figure>
 </div>
 </div>
@@ -2858,7 +2937,7 @@ y = x^2 \,, \qquad x \in [-1, 1]
 <li>Have to use <code>seq(1, 11, length.out = 6)</code></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb98"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb98-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">11</span>, <span class="at">length.out =</span> <span class="dv">6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb100"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb100-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">11</span>, <span class="at">length.out =</span> <span class="dv">6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1]  1  3  5  7  9 11</code></pre>
 </div>
@@ -2867,7 +2946,7 @@ y = x^2 \,, \qquad x \in [-1, 1]
 <li>The above is different from <code>seq(1, 11, 6)</code></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb100"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb100-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">11</span>, <span class="dv">6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb102"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb102-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">11</span>, <span class="dv">6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1 7</code></pre>
 </div>
@@ -2903,14 +2982,14 @@ y = x^2 \,, \qquad x \in [-1, 1]
 <li><code>my_function(arguments)</code></li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb102"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb102-1"><a aria-hidden="true" tabindex="-1"></a>my_function <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">first =</span> <span class="st">"1st argument"</span>, </span>
-<span id="cb102-2"><a aria-hidden="true" tabindex="-1"></a>                        ... ,</span>
-<span id="cb102-3"><a aria-hidden="true" tabindex="-1"></a>                        <span class="at">nth =</span> <span class="st">"n-th argument"</span>) {</span>
-<span id="cb102-4"><a aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb102-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="co"># Code here: This is where you tell the function what to do</span></span>
-<span id="cb102-6"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb102-7"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(object)      <span class="co"># Object to be returned  </span></span>
-<span id="cb102-8"><a aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb104-1"><a aria-hidden="true" tabindex="-1"></a>my_function <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">first =</span> <span class="st">"1st argument"</span>, </span>
+<span id="cb104-2"><a aria-hidden="true" tabindex="-1"></a>                        ... ,</span>
+<span id="cb104-3"><a aria-hidden="true" tabindex="-1"></a>                        <span class="at">nth =</span> <span class="st">"n-th argument"</span>) {</span>
+<span id="cb104-4"><a aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb104-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="co"># Code here: This is where you tell the function what to do</span></span>
+<span id="cb104-6"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb104-7"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(object)      <span class="co"># Object to be returned  </span></span>
+<span id="cb104-8"><a aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="custom-functions-example" class="slide level2 smaller">
 <h2>Custom functions – Example</h2>
@@ -2927,37 +3006,37 @@ y = x^2 \,, \qquad x \in [-1, 1]
 <li><code>my_mean</code> returns a scalar – the mean of <code>x</code></li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb103"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb103-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Definition of custom function my_mean(x)</span></span>
-<span id="cb103-2"><a aria-hidden="true" tabindex="-1"></a>my_mean <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">vector =</span> x) {</span>
-<span id="cb103-3"><a aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb103-4"><a aria-hidden="true" tabindex="-1"></a>  mean_of_x <span class="ot">&lt;-</span> <span class="fu">sum</span>(x) <span class="sc">/</span> <span class="fu">length</span>(x)</span>
-<span id="cb103-5"><a aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb103-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(mean_of_x)  </span>
-<span id="cb103-7"><a aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb105-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Definition of custom function my_mean(x)</span></span>
+<span id="cb105-2"><a aria-hidden="true" tabindex="-1"></a>my_mean <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">vector =</span> x) {</span>
+<span id="cb105-3"><a aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb105-4"><a aria-hidden="true" tabindex="-1"></a>  mean_of_x <span class="ot">&lt;-</span> <span class="fu">sum</span>(x) <span class="sc">/</span> <span class="fu">length</span>(x)</span>
+<span id="cb105-5"><a aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb105-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(mean_of_x)  </span>
+<span id="cb105-7"><a aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="custom-functions-example-1" class="slide level2 smaller">
 <h2>Custom functions – Example</h2>
 <ul>
 <li>Let us use our function <code>my_mean</code> on an example</li>
 </ul>
-<div class="sourceCode" id="cb104"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb104-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Generate a random vector of 1000 entries from N(0,1)</span></span>
-<span id="cb104-2"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>)</span>
-<span id="cb104-3"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb104-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Compute mean of x with my_mean</span></span>
-<span id="cb104-5"><a aria-hidden="true" tabindex="-1"></a>xbar <span class="ot">&lt;-</span> <span class="fu">my_mean</span>(x)</span>
-<span id="cb104-6"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb104-7"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Compute mean of x with built in function mean</span></span>
-<span id="cb104-8"><a aria-hidden="true" tabindex="-1"></a>xbar_check <span class="ot">&lt;-</span> <span class="fu">mean</span>(x)</span>
-<span id="cb104-9"><a aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb104-10"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Mean of x computed with my_mean is:"</span>, xbar)</span>
-<span id="cb104-11"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Mean of x computed with R mean is:"</span>, xbar_check)</span>
-<span id="cb104-12"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"They coincide!"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb106-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Generate a random vector of 1000 entries from N(0,1)</span></span>
+<span id="cb106-2"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>)</span>
+<span id="cb106-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb106-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Compute mean of x with my_mean</span></span>
+<span id="cb106-5"><a aria-hidden="true" tabindex="-1"></a>xbar <span class="ot">&lt;-</span> <span class="fu">my_mean</span>(x)</span>
+<span id="cb106-6"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb106-7"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Compute mean of x with built in function mean</span></span>
+<span id="cb106-8"><a aria-hidden="true" tabindex="-1"></a>xbar_check <span class="ot">&lt;-</span> <span class="fu">mean</span>(x)</span>
+<span id="cb106-9"><a aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb106-10"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Mean of x computed with my_mean is:"</span>, xbar)</span>
+<span id="cb106-11"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Mean of x computed with R mean is:"</span>, xbar_check)</span>
+<span id="cb106-12"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"They coincide!"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>Mean of x computed with my_mean is: -0.04802013</code></pre>
+<pre><code>Mean of x computed with my_mean is: 0.07183745</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Mean of x computed with R mean is: -0.04802013</code></pre>
+<pre><code>Mean of x computed with R mean is: 0.07183745</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>They coincide!</code></pre>
@@ -2991,8 +3070,8 @@ y = x^2 \,, \qquad x \in [-1, 1]
 <li>Elements are specified and printed in quotes</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb108"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb108-1"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Red"</span>, <span class="st">"Green"</span>, <span class="st">"Blue"</span>)</span>
-<span id="cb108-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb110"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb110-1"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Red"</span>, <span class="st">"Green"</span>, <span class="st">"Blue"</span>)</span>
+<span id="cb110-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Red"   "Green" "Blue" </code></pre>
 </div>
@@ -3002,8 +3081,8 @@ y = x^2 \,, \qquad x \in [-1, 1]
 <li>This is as long as the left quote is the same as the right quote</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb110"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb110-1"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'Red'</span>, <span class="st">'Green'</span>, <span class="st">'Blue'</span>)</span>
-<span id="cb110-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb112"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb112-1"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'Red'</span>, <span class="st">'Green'</span>, <span class="st">'Blue'</span>)</span>
+<span id="cb112-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Red"   "Green" "Blue" </code></pre>
 </div>
@@ -3017,9 +3096,9 @@ y = x^2 \,, \qquad x \in [-1, 1]
 <li><code>cat(x)</code> concatenates strings. There is no way to tell how many were there</li>
 </ul>
 <div class="column" style="width:45%;">
-<div class="sourceCode" id="cb112"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb112-1"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Red"</span>, <span class="st">"Green"</span>, <span class="st">"Blue"</span>)</span>
-<span id="cb112-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(x)</span>
-<span id="cb112-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb114-1"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Red"</span>, <span class="st">"Green"</span>, <span class="st">"Blue"</span>)</span>
+<span id="cb114-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(x)</span>
+<span id="cb114-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Red"   "Green" "Blue" </code></pre>
@@ -3029,9 +3108,9 @@ y = x^2 \,, \qquad x \in [-1, 1]
 </div>
 </div>
 </div><div class="column" style="width:45%;">
-<div class="sourceCode" id="cb115"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb115-1"><a aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Red Green"</span>, <span class="st">"Blue"</span>)</span>
-<span id="cb115-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(y)</span>
-<span id="cb115-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb117-1"><a aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Red Green"</span>, <span class="st">"Blue"</span>)</span>
+<span id="cb117-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(y)</span>
+<span id="cb117-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Red Green" "Blue"     </code></pre>
@@ -3049,11 +3128,11 @@ y = x^2 \,, \qquad x \in [-1, 1]
 <li><code>NA</code> stands for <strong>not available</strong></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb118"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb118-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Create logical vector</span></span>
-<span id="cb118-2"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(T, T, F, T, <span class="cn">NA</span>)</span>
-<span id="cb118-3"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Print the logical vector</span></span>
-<span id="cb118-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb120"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb120-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Create logical vector</span></span>
+<span id="cb120-2"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(T, T, F, T, <span class="cn">NA</span>)</span>
+<span id="cb120-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Print the logical vector</span></span>
+<span id="cb120-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1]  TRUE  TRUE FALSE  TRUE    NA</code></pre>
 </div>
@@ -3069,14 +3148,14 @@ y = x^2 \,, \qquad x \in [-1, 1]
 <li>we want to count how many entries are above a value <code>t</code></li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb120"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb120-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Generate a vector containing sequence 1 to 8</span></span>
-<span id="cb120-2"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">1</span> , <span class="at">to =</span> <span class="dv">8</span>, <span class="at">by =</span> <span class="dv">1</span>)</span>
-<span id="cb120-3"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb120-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Generate vector of flags for entries strictly above 5</span></span>
-<span id="cb120-5"><a aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> ( x <span class="sc">&gt;</span> <span class="dv">5</span> )</span>
-<span id="cb120-6"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb120-7"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Vector x is: ("</span>, x, <span class="st">")"</span>)</span>
-<span id="cb120-8"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Entries above 5 are: ("</span>, y, <span class="st">")"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb122"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb122-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Generate a vector containing sequence 1 to 8</span></span>
+<span id="cb122-2"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">1</span> , <span class="at">to =</span> <span class="dv">8</span>, <span class="at">by =</span> <span class="dv">1</span>)</span>
+<span id="cb122-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb122-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Generate vector of flags for entries strictly above 5</span></span>
+<span id="cb122-5"><a aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> ( x <span class="sc">&gt;</span> <span class="dv">5</span> )</span>
+<span id="cb122-6"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb122-7"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Vector x is: ("</span>, x, <span class="st">")"</span>)</span>
+<span id="cb122-8"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Entries above 5 are: ("</span>, y, <span class="st">")"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>Vector x is: ( 1 2 3 4 5 6 7 8 )</code></pre>
@@ -3100,22 +3179,22 @@ y = x^2 \,, \qquad x \in [-1, 1]
 <p><strong>Hint</strong>: <code>T/F</code> are interpreted as <code>1/0</code> in arithmetic operations</p>
 <div class="column" style="width:45%;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb123"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb123-1"><a aria-hidden="true" tabindex="-1"></a>T <span class="sc">+</span> T</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb125"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb125-1"><a aria-hidden="true" tabindex="-1"></a>T <span class="sc">+</span> T</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 2</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb125"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb125-1"><a aria-hidden="true" tabindex="-1"></a>T <span class="sc">+</span> F</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb127"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb127-1"><a aria-hidden="true" tabindex="-1"></a>T <span class="sc">+</span> F</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1</code></pre>
 </div>
 </div>
 </div><div class="column" style="width:45%;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb127"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb127-1"><a aria-hidden="true" tabindex="-1"></a>F <span class="sc">+</span> F</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb129"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb129-1"><a aria-hidden="true" tabindex="-1"></a>F <span class="sc">+</span> F</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb129"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb129-1"><a aria-hidden="true" tabindex="-1"></a>F <span class="sc">+</span> T <span class="sc">+</span> <span class="dv">3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb131"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb131-1"><a aria-hidden="true" tabindex="-1"></a>F <span class="sc">+</span> T <span class="sc">+</span> <span class="dv">3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 4</code></pre>
 </div>
@@ -3127,17 +3206,17 @@ y = x^2 \,, \qquad x \in [-1, 1]
 <li>The function <code>sum(x)</code> sums the entries of a vector <code>x</code></li>
 <li>We can use <code>sum(x)</code> to count the number of <code>T</code> entries in a logical vector <code>x</code></li>
 </ul>
-<div class="sourceCode" id="cb131"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb131-1"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>)       <span class="co"># Generates vector with 1000 normal entries</span></span>
-<span id="cb131-2"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb131-3"><a aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> (x <span class="sc">&gt;</span> <span class="dv">0</span>)           <span class="co"># Generates logical vector of entries above 0</span></span>
-<span id="cb131-4"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb131-5"><a aria-hidden="true" tabindex="-1"></a>above_zero <span class="ot">&lt;-</span> <span class="fu">sum</span>(y)   <span class="co"># Counts entries above zero</span></span>
-<span id="cb131-6"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb131-7"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Number of entries which are above the average 0 is"</span>, above_zero)</span>
-<span id="cb131-8"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"This is pretty close to 500!"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb133"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb133-1"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>)       <span class="co"># Generates vector with 1000 normal entries</span></span>
+<span id="cb133-2"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb133-3"><a aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> (x <span class="sc">&gt;</span> <span class="dv">0</span>)           <span class="co"># Generates logical vector of entries above 0</span></span>
+<span id="cb133-4"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb133-5"><a aria-hidden="true" tabindex="-1"></a>above_zero <span class="ot">&lt;-</span> <span class="fu">sum</span>(y)   <span class="co"># Counts entries above zero</span></span>
+<span id="cb133-6"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb133-7"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Number of entries which are above the average 0 is"</span>, above_zero)</span>
+<span id="cb133-8"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"This is pretty close to 500!"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>Number of entries which are above the average 0 is 533</code></pre>
+<pre><code>Number of entries which are above the average 0 is 507</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>This is pretty close to 500!</code></pre>
@@ -3153,15 +3232,15 @@ y = x^2 \,, \qquad x \in [-1, 1]
 <li><code>NA</code> is carried through in computations: operations on <code>NA</code> yield <code>NA</code> as the result</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb134"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb134-1"><a aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">*</span> <span class="cn">NA</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb136"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb136-1"><a aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">*</span> <span class="cn">NA</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] NA</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb136"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb136-1"><a aria-hidden="true" tabindex="-1"></a><span class="cn">NA</span> <span class="sc">+</span> <span class="cn">NA</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb138"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb138-1"><a aria-hidden="true" tabindex="-1"></a><span class="cn">NA</span> <span class="sc">+</span> <span class="cn">NA</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] NA</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb138"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb138-1"><a aria-hidden="true" tabindex="-1"></a>T <span class="sc">+</span> <span class="cn">NA</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb140"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb140-1"><a aria-hidden="true" tabindex="-1"></a>T <span class="sc">+</span> <span class="cn">NA</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] NA</code></pre>
 </div>
@@ -3175,11 +3254,11 @@ y = x^2 \,, \qquad x \in [-1, 1]
 </ul>
 <p><br></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb140"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb140-1"><a aria-hidden="true" tabindex="-1"></a>vector <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Cat"</span>, <span class="st">"Dog"</span>, <span class="st">"Mouse"</span>)</span>
-<span id="cb140-2"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb140-3"><a aria-hidden="true" tabindex="-1"></a>second_element <span class="ot">&lt;-</span> vector[<span class="dv">2</span>]           <span class="co"># Access 2nd entry of vector</span></span>
-<span id="cb140-4"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb140-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(second_element)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb142"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb142-1"><a aria-hidden="true" tabindex="-1"></a>vector <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Cat"</span>, <span class="st">"Dog"</span>, <span class="st">"Mouse"</span>)</span>
+<span id="cb142-2"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb142-3"><a aria-hidden="true" tabindex="-1"></a>second_element <span class="ot">&lt;-</span> vector[<span class="dv">2</span>]           <span class="co"># Access 2nd entry of vector</span></span>
+<span id="cb142-4"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb142-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(second_element)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Dog"</code></pre>
 </div>
@@ -3193,12 +3272,12 @@ y = x^2 \,, \qquad x \in [-1, 1]
 </ul>
 <p><br></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb142"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb142-1"><a aria-hidden="true" tabindex="-1"></a>vector <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Cat"</span>, <span class="st">"Dog"</span>, <span class="st">"Mouse"</span>)</span>
-<span id="cb142-2"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb142-3"><a aria-hidden="true" tabindex="-1"></a><span class="co"># We replace 2nd entry of vector with string "Horse"</span></span>
-<span id="cb142-4"><a aria-hidden="true" tabindex="-1"></a>vector[<span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="st">"Horse"</span></span>
-<span id="cb142-5"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb142-6"><a aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(vector)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb144"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb144-1"><a aria-hidden="true" tabindex="-1"></a>vector <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Cat"</span>, <span class="st">"Dog"</span>, <span class="st">"Mouse"</span>)</span>
+<span id="cb144-2"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb144-3"><a aria-hidden="true" tabindex="-1"></a><span class="co"># We replace 2nd entry of vector with string "Horse"</span></span>
+<span id="cb144-4"><a aria-hidden="true" tabindex="-1"></a>vector[<span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="st">"Horse"</span></span>
+<span id="cb144-5"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb144-6"><a aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(vector)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Cat"   "Horse" "Mouse"</code></pre>
 </div>
@@ -3212,12 +3291,12 @@ y = x^2 \,, \qquad x \in [-1, 1]
 <li><code>vector[k1:k2]</code> returns components <code>k1</code> to <code>k2</code></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb144"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb144-1"><a aria-hidden="true" tabindex="-1"></a>vector <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">11</span>, <span class="dv">22</span>, <span class="dv">33</span>, <span class="dv">44</span>, <span class="dv">55</span>, <span class="dv">66</span>, <span class="dv">77</span>, <span class="dv">88</span>, <span class="dv">99</span>, <span class="dv">100</span>)</span>
-<span id="cb144-2"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb144-3"><a aria-hidden="true" tabindex="-1"></a><span class="co"># We store 1st, 3rd, 5th entries of vector in slice</span></span>
-<span id="cb144-4"><a aria-hidden="true" tabindex="-1"></a>slice <span class="ot">&lt;-</span> vector[<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>)]   </span>
-<span id="cb144-5"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb144-6"><a aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(slice)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb146"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb146-1"><a aria-hidden="true" tabindex="-1"></a>vector <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">11</span>, <span class="dv">22</span>, <span class="dv">33</span>, <span class="dv">44</span>, <span class="dv">55</span>, <span class="dv">66</span>, <span class="dv">77</span>, <span class="dv">88</span>, <span class="dv">99</span>, <span class="dv">100</span>)</span>
+<span id="cb146-2"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb146-3"><a aria-hidden="true" tabindex="-1"></a><span class="co"># We store 1st, 3rd, 5th entries of vector in slice</span></span>
+<span id="cb146-4"><a aria-hidden="true" tabindex="-1"></a>slice <span class="ot">&lt;-</span> vector[<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>)]   </span>
+<span id="cb146-5"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb146-6"><a aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(slice)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 11 33 55</code></pre>
 </div>
@@ -3226,12 +3305,12 @@ y = x^2 \,, \qquad x \in [-1, 1]
 <section id="vector-slicing-1" class="slide level2 smaller">
 <h2>Vector slicing</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb146"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb146-1"><a aria-hidden="true" tabindex="-1"></a>vector <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">11</span>, <span class="dv">22</span>, <span class="dv">33</span>, <span class="dv">44</span>, <span class="dv">55</span>, <span class="dv">66</span>, <span class="dv">77</span>, <span class="dv">88</span>, <span class="dv">99</span>, <span class="dv">100</span>)</span>
-<span id="cb146-2"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb146-3"><a aria-hidden="true" tabindex="-1"></a><span class="co"># We store 2nd to 7th entries of vector in slice</span></span>
-<span id="cb146-4"><a aria-hidden="true" tabindex="-1"></a>slice <span class="ot">&lt;-</span> vector[<span class="dv">2</span><span class="sc">:</span><span class="dv">7</span>]</span>
-<span id="cb146-5"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb146-6"><a aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(slice)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb148"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb148-1"><a aria-hidden="true" tabindex="-1"></a>vector <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">11</span>, <span class="dv">22</span>, <span class="dv">33</span>, <span class="dv">44</span>, <span class="dv">55</span>, <span class="dv">66</span>, <span class="dv">77</span>, <span class="dv">88</span>, <span class="dv">99</span>, <span class="dv">100</span>)</span>
+<span id="cb148-2"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb148-3"><a aria-hidden="true" tabindex="-1"></a><span class="co"># We store 2nd to 7th entries of vector in slice</span></span>
+<span id="cb148-4"><a aria-hidden="true" tabindex="-1"></a>slice <span class="ot">&lt;-</span> vector[<span class="dv">2</span><span class="sc">:</span><span class="dv">7</span>]</span>
+<span id="cb148-5"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb148-6"><a aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(slice)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 22 33 44 55 66 77</code></pre>
 </div>
@@ -3245,17 +3324,17 @@ y = x^2 \,, \qquad x \in [-1, 1]
 <li><code>x[ -c(k1, ..., kn) ]</code> which deletes entries <code>k1, ..., kn</code></li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb148"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb148-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Create a vector x</span></span>
-<span id="cb148-2"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">11</span>, <span class="dv">22</span>, <span class="dv">33</span>, <span class="dv">44</span>, <span class="dv">55</span>, <span class="dv">66</span>, <span class="dv">77</span>, <span class="dv">88</span>, <span class="dv">99</span>, <span class="dv">100</span>)</span>
-<span id="cb148-3"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb148-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Print vector x</span></span>
-<span id="cb148-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Vector x is:"</span>, x)</span>
-<span id="cb148-6"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb148-7"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Delete 2nd, 3rd and 7th entries of x</span></span>
-<span id="cb148-8"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> x[ <span class="sc">-</span><span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">7</span>) ]</span>
-<span id="cb148-9"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb148-10"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Print x again</span></span>
-<span id="cb148-11"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Vector x with 2nd, 3rd and 7th entries removed:"</span>, x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb150"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb150-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Create a vector x</span></span>
+<span id="cb150-2"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">11</span>, <span class="dv">22</span>, <span class="dv">33</span>, <span class="dv">44</span>, <span class="dv">55</span>, <span class="dv">66</span>, <span class="dv">77</span>, <span class="dv">88</span>, <span class="dv">99</span>, <span class="dv">100</span>)</span>
+<span id="cb150-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb150-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Print vector x</span></span>
+<span id="cb150-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Vector x is:"</span>, x)</span>
+<span id="cb150-6"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb150-7"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Delete 2nd, 3rd and 7th entries of x</span></span>
+<span id="cb150-8"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> x[ <span class="sc">-</span><span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">7</span>) ]</span>
+<span id="cb150-9"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb150-10"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Print x again</span></span>
+<span id="cb150-11"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Vector x with 2nd, 3rd and 7th entries removed:"</span>, x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>Vector x is: 11 22 33 44 55 66 77 88 99 100</code></pre>
@@ -3298,14 +3377,14 @@ y = x^2 \,, \qquad x \in [-1, 1]
 <li><code>x[ x &lt; 0 ]</code></li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb151"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb151-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Create numeric vector x</span></span>
-<span id="cb151-2"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="sc">-</span><span class="fl">2.3</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">10</span>, <span class="dv">40221</span>, <span class="sc">-</span><span class="dv">8</span>)</span>
-<span id="cb151-3"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb151-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Get negative components from x and store them in neg_x</span></span>
-<span id="cb151-5"><a aria-hidden="true" tabindex="-1"></a>neg_x <span class="ot">&lt;-</span> x[ x <span class="sc">&lt;</span> <span class="dv">0</span> ]</span>
-<span id="cb151-6"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb151-7"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Vector x is:"</span>, x)</span>
-<span id="cb151-8"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Negative components of x are:"</span>, neg_x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb153"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb153-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Create numeric vector x</span></span>
+<span id="cb153-2"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="sc">-</span><span class="fl">2.3</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">10</span>, <span class="dv">40221</span>, <span class="sc">-</span><span class="dv">8</span>)</span>
+<span id="cb153-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb153-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Get negative components from x and store them in neg_x</span></span>
+<span id="cb153-5"><a aria-hidden="true" tabindex="-1"></a>neg_x <span class="ot">&lt;-</span> x[ x <span class="sc">&lt;</span> <span class="dv">0</span> ]</span>
+<span id="cb153-6"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb153-7"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Vector x is:"</span>, x)</span>
+<span id="cb153-8"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Negative components of x are:"</span>, neg_x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>Vector x is: 5 -2.3 4 4 4 6 8 10 40221 -8</code></pre>
@@ -3325,14 +3404,14 @@ y = x^2 \,, \qquad x \in [-1, 1]
 <li><code>x[ (x &gt; a) &amp; (x &lt; b) ]</code></li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb154"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb154-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Create numeric vector</span></span>
-<span id="cb154-2"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="sc">-</span><span class="fl">2.3</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">10</span>, <span class="dv">40221</span>, <span class="sc">-</span><span class="dv">8</span>)</span>
-<span id="cb154-3"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb154-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Get components between 0 and 100</span></span>
-<span id="cb154-5"><a aria-hidden="true" tabindex="-1"></a>range_x <span class="ot">&lt;-</span> x[ (x <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="sc">&amp;</span> (x <span class="sc">&lt;</span> <span class="dv">100</span>) ]</span>
-<span id="cb154-6"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb154-7"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Vector x is:"</span>, x)</span>
-<span id="cb154-8"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Components of x between 0 and 100 are:"</span>, range_x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb156"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb156-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Create numeric vector</span></span>
+<span id="cb156-2"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="sc">-</span><span class="fl">2.3</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">10</span>, <span class="dv">40221</span>, <span class="sc">-</span><span class="dv">8</span>)</span>
+<span id="cb156-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb156-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Get components between 0 and 100</span></span>
+<span id="cb156-5"><a aria-hidden="true" tabindex="-1"></a>range_x <span class="ot">&lt;-</span> x[ (x <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="sc">&amp;</span> (x <span class="sc">&lt;</span> <span class="dv">100</span>) ]</span>
+<span id="cb156-6"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb156-7"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Vector x is:"</span>, x)</span>
+<span id="cb156-8"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Components of x between 0 and 100 are:"</span>, range_x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>Vector x is: 5 -2.3 4 4 4 6 8 10 40221 -8</code></pre>
@@ -3350,14 +3429,14 @@ y = x^2 \,, \qquad x \in [-1, 1]
 <li><code>which(flag)</code> is vector of indices of <code>flag</code> which correspond to <code>TRUE</code></li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb157"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb157-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Create a logical flag vector</span></span>
-<span id="cb157-2"><a aria-hidden="true" tabindex="-1"></a>flag <span class="ot">&lt;-</span> <span class="fu">c</span>(T, F, F, T, F)</span>
-<span id="cb157-3"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb157-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Indices for  flag which</span></span>
-<span id="cb157-5"><a aria-hidden="true" tabindex="-1"></a>true_flag <span class="ot">&lt;-</span> <span class="fu">which</span>(flag)</span>
-<span id="cb157-6"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb157-7"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Flag vector is:"</span>, flag)</span>
-<span id="cb157-8"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Positions for which Flag is TRUE are:"</span>, true_flag)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb159"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb159-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Create a logical flag vector</span></span>
+<span id="cb159-2"><a aria-hidden="true" tabindex="-1"></a>flag <span class="ot">&lt;-</span> <span class="fu">c</span>(T, F, F, T, F)</span>
+<span id="cb159-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb159-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Indices for  flag which</span></span>
+<span id="cb159-5"><a aria-hidden="true" tabindex="-1"></a>true_flag <span class="ot">&lt;-</span> <span class="fu">which</span>(flag)</span>
+<span id="cb159-6"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb159-7"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Flag vector is:"</span>, flag)</span>
+<span id="cb159-8"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Positions for which Flag is TRUE are:"</span>, true_flag)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>Flag vector is: TRUE FALSE FALSE TRUE FALSE</code></pre>
@@ -3385,20 +3464,20 @@ y = x^2 \,, \qquad x \in [-1, 1]
 <section id="the-function-which-application-1" class="slide level2 smaller">
 <h2>The function Which – Application</h2>
 <h3 id="example-2">Example</h3>
-<div class="sourceCode" id="cb160"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb160-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Create numeric vector x</span></span>
-<span id="cb160-2"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="sc">-</span><span class="fl">2.3</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">10</span>, <span class="dv">40221</span>, <span class="sc">-</span><span class="dv">8</span>)</span>
-<span id="cb160-3"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb160-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Print x</span></span>
-<span id="cb160-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Vector x is:"</span>, x)</span>
-<span id="cb160-6"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb160-7"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Flag positive components of x</span></span>
-<span id="cb160-8"><a aria-hidden="true" tabindex="-1"></a>flag_pos_x <span class="ot">&lt;-</span> (x <span class="sc">&gt;</span> <span class="dv">0</span>)</span>
-<span id="cb160-9"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb160-10"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Remove positive components from x</span></span>
-<span id="cb160-11"><a aria-hidden="true" tabindex="-1"></a> x <span class="ot">&lt;-</span> x[ <span class="sc">-</span><span class="fu">which</span>(flag_pos_x) ]</span>
-<span id="cb160-12"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb160-13"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Print x again</span></span>
-<span id="cb160-14"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Vector x with positive components removed:"</span>, x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb162"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb162-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Create numeric vector x</span></span>
+<span id="cb162-2"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="sc">-</span><span class="fl">2.3</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">10</span>, <span class="dv">40221</span>, <span class="sc">-</span><span class="dv">8</span>)</span>
+<span id="cb162-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb162-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Print x</span></span>
+<span id="cb162-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Vector x is:"</span>, x)</span>
+<span id="cb162-6"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb162-7"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Flag positive components of x</span></span>
+<span id="cb162-8"><a aria-hidden="true" tabindex="-1"></a>flag_pos_x <span class="ot">&lt;-</span> (x <span class="sc">&gt;</span> <span class="dv">0</span>)</span>
+<span id="cb162-9"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb162-10"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Remove positive components from x</span></span>
+<span id="cb162-11"><a aria-hidden="true" tabindex="-1"></a> x <span class="ot">&lt;-</span> x[ <span class="sc">-</span><span class="fu">which</span>(flag_pos_x) ]</span>
+<span id="cb162-12"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb162-13"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Print x again</span></span>
+<span id="cb162-14"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Vector x with positive components removed:"</span>, x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>Vector x is: 5 -2.3 4 4 4 6 8 10 40221 -8</code></pre>
@@ -3422,11 +3501,11 @@ y = x^2 \,, \qquad x \in [-1, 1]
 <h2>Concatenate</h2>
 <p><strong>Recall:</strong> <code>c()</code> generates a vector containing the input values</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb163"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb163-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Generate a vector of values 1, 2, 3, 4, 5</span></span>
-<span id="cb163-2"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>)</span>
-<span id="cb163-3"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb163-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Print the vector</span></span>
-<span id="cb163-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb165"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb165-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Generate a vector of values 1, 2, 3, 4, 5</span></span>
+<span id="cb165-2"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>)</span>
+<span id="cb165-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb165-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Print the vector</span></span>
+<span id="cb165-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1 2 3 4 5</code></pre>
 </div>
@@ -3439,15 +3518,15 @@ y = x^2 \,, \qquad x \in [-1, 1]
 <li>This was you can <strong>add</strong> entries to an <strong>existing vector</strong></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb165"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb165-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Create 2 vectors</span></span>
-<span id="cb165-2"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>)</span>
-<span id="cb165-3"><a aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>)</span>
-<span id="cb165-4"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb165-5"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Concatenate vectors x and y, and also add element 9</span></span>
-<span id="cb165-6"><a aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">c</span>(x, y, <span class="dv">9</span>)</span>
-<span id="cb165-7"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb165-8"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Print the resulting vector</span></span>
-<span id="cb165-9"><a aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(z)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb167"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb167-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Create 2 vectors</span></span>
+<span id="cb167-2"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>)</span>
+<span id="cb167-3"><a aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>)</span>
+<span id="cb167-4"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb167-5"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Concatenate vectors x and y, and also add element 9</span></span>
+<span id="cb167-6"><a aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">c</span>(x, y, <span class="dv">9</span>)</span>
+<span id="cb167-7"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb167-8"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Print the resulting vector</span></span>
+<span id="cb167-9"><a aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(z)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1 2 3 4 5 6 7 8 9</code></pre>
 </div>
@@ -3460,11 +3539,11 @@ y = x^2 \,, \qquad x \in [-1, 1]
 <li><p>This modiﬁes the way the vector is printed</p></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb167"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb167-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># We specify a vector with 3 named entries</span></span>
-<span id="cb167-2"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">first =</span> <span class="st">"Red"</span>, <span class="at">second =</span> <span class="st">"Green"</span>, <span class="at">third =</span> <span class="st">"Blue"</span>)</span>
-<span id="cb167-3"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb167-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Print the named vector</span></span>
-<span id="cb167-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb169"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb169-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># We specify a vector with 3 named entries</span></span>
+<span id="cb169-2"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">first =</span> <span class="st">"Red"</span>, <span class="at">second =</span> <span class="st">"Green"</span>, <span class="at">third =</span> <span class="st">"Blue"</span>)</span>
+<span id="cb169-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb169-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Print the named vector</span></span>
+<span id="cb169-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  first  second   third 
   "Red" "Green"  "Blue" </code></pre>
@@ -3478,17 +3557,17 @@ y = x^2 \,, \qquad x \in [-1, 1]
 <li>Names can be extracted with <code>names(x)</code></li>
 <li>Values can be extracted with <code>unname(x)</code></li>
 </ul>
-<div class="sourceCode" id="cb169"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb169-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Create named vector</span></span>
-<span id="cb169-2"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">first =</span> <span class="st">"Red"</span>, <span class="at">second =</span> <span class="st">"Green"</span>, <span class="at">third =</span> <span class="st">"Blue"</span>)</span>
-<span id="cb169-3"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb169-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Access names of x via names(x)</span></span>
-<span id="cb169-5"><a aria-hidden="true" tabindex="-1"></a>names_x <span class="ot">&lt;-</span> <span class="fu">names</span>(x)</span>
-<span id="cb169-6"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb169-7"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Access values of x via unname(x)</span></span>
-<span id="cb169-8"><a aria-hidden="true" tabindex="-1"></a>values_x <span class="ot">&lt;-</span> <span class="fu">unname</span>(x)</span>
-<span id="cb169-9"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb169-10"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Names of x are:"</span>, <span class="fu">names</span>(x))</span>
-<span id="cb169-11"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Values of x are:"</span>, <span class="fu">unname</span>(x))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb171"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb171-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Create named vector</span></span>
+<span id="cb171-2"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">first =</span> <span class="st">"Red"</span>, <span class="at">second =</span> <span class="st">"Green"</span>, <span class="at">third =</span> <span class="st">"Blue"</span>)</span>
+<span id="cb171-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb171-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Access names of x via names(x)</span></span>
+<span id="cb171-5"><a aria-hidden="true" tabindex="-1"></a>names_x <span class="ot">&lt;-</span> <span class="fu">names</span>(x)</span>
+<span id="cb171-6"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb171-7"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Access values of x via unname(x)</span></span>
+<span id="cb171-8"><a aria-hidden="true" tabindex="-1"></a>values_x <span class="ot">&lt;-</span> <span class="fu">unname</span>(x)</span>
+<span id="cb171-9"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb171-10"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Names of x are:"</span>, <span class="fu">names</span>(x))</span>
+<span id="cb171-11"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Values of x are:"</span>, <span class="fu">unname</span>(x))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>Names of x are: first second third</code></pre>
@@ -3505,21 +3584,21 @@ y = x^2 \,, \qquad x \in [-1, 1]
 <li>Concatenating vectors of different types leads to conversion</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb172"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb172-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="cn">FALSE</span>, <span class="dv">2</span>)        <span class="co"># Converts FALSE to 0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb174"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb174-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="cn">FALSE</span>, <span class="dv">2</span>)        <span class="co"># Converts FALSE to 0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0 2</code></pre>
 </div>
 </div>
 <p><br></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb174"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb174-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(pi, <span class="st">"stats"</span>)     <span class="co"># Converts pi to string </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb176"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb176-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(pi, <span class="st">"stats"</span>)     <span class="co"># Converts pi to string </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "3.14159265358979" "stats"           </code></pre>
 </div>
 </div>
 <p><br></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb176"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb176-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="st">"stats"</span>)   <span class="co"># Converts TRUE to string</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb178"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb178-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="st">"stats"</span>)   <span class="co"># Converts TRUE to string</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "TRUE"  "stats"</code></pre>
 </div>
@@ -3535,10 +3614,10 @@ y = x^2 \,, \qquad x \in [-1, 1]
 <li>Omitting the third argument assumes that <code>by = 1</code></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb178"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb178-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># The following generates a vector of integers from 1 to 6</span></span>
-<span id="cb178-2"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">6</span>)</span>
-<span id="cb178-3"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb178-4"><a aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb180"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb180-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># The following generates a vector of integers from 1 to 6</span></span>
+<span id="cb180-2"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">6</span>)</span>
+<span id="cb180-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb180-4"><a aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1 2 3 4 5 6</code></pre>
 </div>
@@ -3550,13 +3629,13 @@ y = x^2 \,, \qquad x \in [-1, 1]
 <li><code>seq(x1, x2)</code> is equivalent to <code>x1:x2</code></li>
 <li>Syntax <code>x1:x2</code> is <strong>preferred</strong> to <code>seq(x1, x2)</code></li>
 </ul>
-<div class="sourceCode" id="cb180"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb180-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Generate two vectors of integers from 1 to 6</span></span>
-<span id="cb180-2"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">6</span>)</span>
-<span id="cb180-3"><a aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span></span>
-<span id="cb180-4"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb180-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Vector x is:"</span>, x)</span>
-<span id="cb180-6"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Vector y is:"</span>, y)</span>
-<span id="cb180-7"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"They are the same!"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb182"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb182-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Generate two vectors of integers from 1 to 6</span></span>
+<span id="cb182-2"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">6</span>)</span>
+<span id="cb182-3"><a aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span></span>
+<span id="cb182-4"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb182-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Vector x is:"</span>, x)</span>
+<span id="cb182-6"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Vector y is:"</span>, y)</span>
+<span id="cb182-7"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"They are the same!"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>Vector x is: 1 2 3 4 5 6</code></pre>
@@ -3577,14 +3656,14 @@ y = x^2 \,, \qquad x \in [-1, 1]
 <li><code>n</code> integer</li>
 <li><code>rep(x, n)</code> repeats <code>n</code> times the vector <code>x</code></li>
 </ul>
-<div class="sourceCode" id="cb184"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb184-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Create a vector with 3 components</span></span>
-<span id="cb184-2"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">3</span>)</span>
-<span id="cb184-3"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb184-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Repeats 4 times the vector x</span></span>
-<span id="cb184-5"><a aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">rep</span>(x, <span class="dv">4</span>)</span>
-<span id="cb184-6"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb184-7"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Original vector is:"</span>, x)</span>
-<span id="cb184-8"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Original vector repeated 4 times:"</span>, y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb186"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb186-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Create a vector with 3 components</span></span>
+<span id="cb186-2"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">3</span>)</span>
+<span id="cb186-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb186-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Repeats 4 times the vector x</span></span>
+<span id="cb186-5"><a aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">rep</span>(x, <span class="dv">4</span>)</span>
+<span id="cb186-6"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb186-7"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Original vector is:"</span>, x)</span>
+<span id="cb186-8"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Original vector repeated 4 times:"</span>, y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>Original vector is: 2 1 3</code></pre>
@@ -3601,15 +3680,15 @@ y = x^2 \,, \qquad x \in [-1, 1]
 <li>Given <code>x</code> and <code>y</code> vectors</li>
 <li><code>rep(x, y)</code> repeats entries of <code>x</code> as many times as corresponding entries of <code>y</code></li>
 </ul>
-<div class="sourceCode" id="cb187"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb187-1"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">3</span>)         <span class="co"># Vector to replicate</span></span>
-<span id="cb187-2"><a aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)         <span class="co"># Vector saying how to replicate </span></span>
-<span id="cb187-3"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb187-4"><a aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">rep</span>(x, y)          <span class="co"># 1st entry of x is replicated 1 time</span></span>
-<span id="cb187-5"><a aria-hidden="true" tabindex="-1"></a>                        <span class="co"># 2nd entry of x is replicated 2 times</span></span>
-<span id="cb187-6"><a aria-hidden="true" tabindex="-1"></a>                        <span class="co"># 3rd entry of x is replicated 3 times</span></span>
-<span id="cb187-7"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb187-8"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Original vector is:"</span>, x)</span>
-<span id="cb187-9"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Original vector repeated is:"</span>, z)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb189"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb189-1"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">3</span>)         <span class="co"># Vector to replicate</span></span>
+<span id="cb189-2"><a aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)         <span class="co"># Vector saying how to replicate </span></span>
+<span id="cb189-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb189-4"><a aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">rep</span>(x, y)          <span class="co"># 1st entry of x is replicated 1 time</span></span>
+<span id="cb189-5"><a aria-hidden="true" tabindex="-1"></a>                        <span class="co"># 2nd entry of x is replicated 2 times</span></span>
+<span id="cb189-6"><a aria-hidden="true" tabindex="-1"></a>                        <span class="co"># 3rd entry of x is replicated 3 times</span></span>
+<span id="cb189-7"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb189-8"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Original vector is:"</span>, x)</span>
+<span id="cb189-9"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Original vector repeated is:"</span>, z)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>Original vector is: 2 1 3</code></pre>
@@ -3626,12 +3705,12 @@ y = x^2 \,, \qquad x \in [-1, 1]
 <li><strong>Example</strong>: Suppose we want to collect some numeric data on 3 Cats and 4 Dogs</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb190"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb190-1"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Cat"</span>, <span class="st">"Dog"</span>)     <span class="co"># Vector to replicate</span></span>
-<span id="cb190-2"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb190-3"><a aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">rep</span>(x, <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">4</span>))     <span class="co"># 1st entry of x is replicated 3 times</span></span>
-<span id="cb190-4"><a aria-hidden="true" tabindex="-1"></a>                         <span class="co"># 2nd entry of x is replicated 4 times</span></span>
-<span id="cb190-5"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb190-6"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Vector of labels is:"</span>, y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb192"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb192-1"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Cat"</span>, <span class="st">"Dog"</span>)     <span class="co"># Vector to replicate</span></span>
+<span id="cb192-2"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb192-3"><a aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">rep</span>(x, <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">4</span>))     <span class="co"># 1st entry of x is replicated 3 times</span></span>
+<span id="cb192-4"><a aria-hidden="true" tabindex="-1"></a>                         <span class="co"># 2nd entry of x is replicated 4 times</span></span>
+<span id="cb192-5"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb192-6"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Vector of labels is:"</span>, y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Vector of labels is: Cat Cat Cat Dog Dog Dog Dog</code></pre>
 </div>

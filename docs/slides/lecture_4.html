@@ -405,59 +405,19 @@
   </style>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
   <style>
-  .Definition {
-    --color1: #c6e6ed;
-    --color2: #1995ad;
-  }
-  .Notation {
-    --color1: #c6e6ed;
-    --color2: #1995ad;
-  }
-  .Question {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Example {
-    --color1: #bce5de;
-    --color2: #21aa93;
-  }
-  .Idea {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Corollary {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
   .Conjecture {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
-  .TODO {
-    --color1: #e7b1b4;
-    --color2: #8c3236;
+  .Important {
+    --color1: #f4cce0;
+    --color2: #db4d92;
   }
   .Lemma {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
-  .Proof {
-    --color1: #f1f1f2;
-    --color2: #c0c0c1;
-  }
   .Warning {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Problem {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .DONE {
-    --color1: #cce7b1;
-    --color2: #86b754;
-  }
-  .Axiom {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
@@ -465,7 +425,7 @@
     --color1: #bce5de;
     --color2: #21aa93;
   }
-  .Proposition {
+  .Corollary {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
@@ -473,9 +433,49 @@
     --color1: #f4cce0;
     --color2: #db4d92;
   }
-  .Important {
+  .Definition {
+    --color1: #c6e6ed;
+    --color2: #1995ad;
+  }
+  .TODO {
+    --color1: #e7b1b4;
+    --color2: #8c3236;
+  }
+  .Proposition {
     --color1: #f4cce0;
     --color2: #db4d92;
+  }
+  .Question {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .DONE {
+    --color1: #cce7b1;
+    --color2: #86b754;
+  }
+  .Idea {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Problem {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Axiom {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Example {
+    --color1: #bce5de;
+    --color2: #21aa93;
+  }
+  .Proof {
+    --color1: #f1f1f2;
+    --color2: #c0c0c1;
+  }
+  .Notation {
+    --color1: #c6e6ed;
+    --color2: #1995ad;
   }
   </style>
 </head>
@@ -520,6 +520,8 @@
 <li>Two-sample hypothesis tests</li>
 <li>Two-sample t-test</li>
 <li>Two-sample t-test: Example</li>
+<li>The Welch t-test</li>
+<li>The t-test for paired samples</li>
 </ol>
 </section></section>
 <section>
@@ -1137,6 +1139,7 @@ s^2 &amp; = \frac{\sum_{i=1}^n x^2_i- n \bar{x}^2}{n-1}
 <li><strong>Statistical Tables</strong>:
 <ul>
 <li>Sample size is <span class="math inline">n = 12</span></li>
+<li>Degrees of freedom are <span class="math inline">{\rm df} = n-1 = 11</span></li>
 <li>In <a href="files/Statistics_Tables.pdf">Table 13.5</a> find <span class="math display">
 \chi_{11}^2(0.05) = 19.68
 </span></li>
@@ -1145,7 +1148,7 @@ s^2 &amp; = \frac{\sum_{i=1}^n x^2_i- n \bar{x}^2}{n-1}
 <ul>
 <li>Test statistic is <span class="math inline">\chi^2 = 845</span></li>
 <li>We <strong>reject</strong> <span class="math inline">H_0</span> because <span class="math display">
-\chi^2 = 845 &gt; 19.68 = \chi_{n-1}^2(0.05)
+\chi^2 = 845 &gt; 19.68 = \chi_{11}^2(0.05)
 </span></li>
 </ul></li>
 </ol>
@@ -1267,7 +1270,7 @@ p = P(\chi_{n-1}^2 &gt; \chi^2)
 <span id="cb7-2"><a aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="dv">5</span>, <span class="at">mean =</span> <span class="dv">163</span>, <span class="at">sd =</span> <span class="dv">8</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 163.6017 175.7594 156.1397 158.8595 162.5271</code></pre>
+<pre><code>[1] 162.2253 159.6532 166.1697 172.0912 158.1269</code></pre>
 </div>
 </div>
 </section>
@@ -1579,11 +1582,11 @@ H_1 \colon \sigma &gt; 1
 <span id="cb15-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Enter null hypothesis</span></span>
 <span id="cb15-5"><a aria-hidden="true" tabindex="-1"></a>sigma_0 <span class="ot">&lt;-</span> <span class="dv">1</span></span>
 <span id="cb15-6"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-7"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Compute sample variance</span></span>
-<span id="cb15-8"><a aria-hidden="true" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="fu">var</span>(difference)</span>
+<span id="cb15-7"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Compute sample standard deviation</span></span>
+<span id="cb15-8"><a aria-hidden="true" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="fu">sd</span>(difference)</span>
 <span id="cb15-9"><a aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-10"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Compute chi-squared statistic</span></span>
-<span id="cb15-11"><a aria-hidden="true" tabindex="-1"></a>chi_squared <span class="ot">&lt;-</span> (n <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> s <span class="sc">/</span> sigma_0 <span class="sc">^</span> <span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb15-11"><a aria-hidden="true" tabindex="-1"></a>chi_squared <span class="ot">&lt;-</span> (n <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> s <span class="sc">^</span> <span class="dv">2</span> <span class="sc">/</span> sigma_0 <span class="sc">^</span> <span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="the-variance-ratio-test-in-r-4" class="slide level2 smaller">
 <h2>The variance ratio test in R</h2>
@@ -2034,21 +2037,22 @@ T \sim t_{n+m-2}
 </section>
 <section id="the-two-sample-t-test-2" class="slide level2 smaller">
 <h2>The two-sample t-test</h2>
-<h3 id="procedure">Procedure</h3>
 <p>Suppose given two independent samples</p>
 <ul>
 <li>Sample <span class="math inline">x_1, \ldots, x_n</span> from <span class="math inline">N(\mu_X,\sigma^2)</span> of size <span class="math inline">n</span></li>
 <li>Sample <span class="math inline">y_1, \ldots, y_m</span> from <span class="math inline">N(\mu_Y,\sigma^2)</span> of size <span class="math inline">m</span></li>
 </ul>
-<p>The two-sided hypothesis test for <strong>difference in means</strong> is <span class="math display">
-H_0 \colon \mu_X = \mu_Y \quad \qquad
+<p>The two-sided hypothesis for <strong>difference in means</strong> is <span class="math display">
+H_0 \colon \mu_X = \mu_Y \,, \quad \qquad
 H_1 \colon \mu_X \neq \mu_Y
 </span></p>
-<p>The two-sample t-test consists of 3 steps</p>
+<p>The one-sided alternative hypotheses are <span class="math display">
+H_1 \colon \mu_X &lt; \mu_Y \quad  \text{ or } \quad
+H_1 \colon \mu_X &gt; \mu_Y
+</span></p>
 </section>
-<section id="the-two-sample-t-test-3" class="slide level2 smaller">
-<h2>The two-sample t-test</h2>
-<h3 id="procedure-1">Procedure</h3>
+<section id="procedure-3-steps" class="slide level2 smaller">
+<h2>Procedure: 3 Steps</h2>
 <ol type="1">
 <li><strong>Calculation</strong>: Compute the two-sample t-statistic <span class="math display">
 t = \frac{ \overline{x} - \overline{y}}{ s_p \ \sqrt{ \dfrac{1}{n} + \dfrac{1}{m} }}
@@ -2063,33 +2067,43 @@ s_Y^2 = \frac{\sum_{i=1}^m y_i^2 - m \overline{y}^2}{m-1}
 </span></li>
 </ol>
 </section>
-<section id="the-two-sample-t-test-4" class="slide level2 smaller">
-<h2>The two-sample t-test</h2>
-<h3 id="procedure-2">Procedure</h3>
+<section id="procedure-3-steps-1" class="slide level2 smaller">
+<h2>Procedure: 3 Steps</h2>
 <ol start="2" type="1">
 <li><strong>Statistical Tables or R</strong>: Find either
 <ul>
 <li>Critical value in <a href="files/Statistics_Tables.pdf">Table 13.1</a> <span class="math display">
-t_{n + m - 2} (0.025)
+t^* =
+\begin{cases}
+t_{n + m - 2} (0.025) &amp; \quad \text{ if two-sided test}\\
+t_{n + m - 2} (0.05) &amp; \quad \text{ if one-sided test}
+\end{cases}
 </span></li>
 <li>p-value in R <span class="math display">
-p := 2 P( t_{n + m -2} &gt; |t| )
+p =
+\begin{cases}
+2 P( t_{n + m -2} &gt; |t| ) &amp; \quad \text{ if } \,\, H_1 \colon \mu_X \neq \mu_Y \\
+P( t_{n + m -2} &lt; t ) &amp; \quad \text{ if } \,\, H_1 \colon \mu_X &lt; \mu_Y \\
+P( t_{n + m -2} &gt; t ) &amp; \quad \text{ if } \,\, H_1 \colon \mu_X &gt; \mu_Y
+\end{cases}
 </span></li>
 </ul></li>
 </ol>
 </section>
-<section id="the-two-sample-t-test-5" class="slide level2 smaller">
-<h2>The two-sample t-test</h2>
-<h3 id="procedure-3">Procedure</h3>
+<section id="procedure-3-steps-2" class="slide level2 smaller">
+<h2>Procedure: 3 Steps</h2>
 <ol start="3" type="1">
 <li><strong>Interpretation</strong>:
 <ul>
-<li>Reject <span class="math inline">H_0</span> if <span class="math display">
-|t| &gt; t_{n + m - 2} (0.025)  \qquad \text{ or } \qquad p &lt; 0.05
+<li>For two-sided t-test we reject <span class="math inline">H_0</span> if <span class="math display">
+|t| &gt; t_{n + m - 2} (0.025)  \quad \text{ or } \quad p &lt; 0.05
 </span></li>
-<li>Do not reject <span class="math inline">H_0</span> if <span class="math display">
-|t| \leq t_{n + m - 2} (0.025)  \qquad \text{ or } \qquad
-p \geq 0.05
+<li>For one-sided t-test we reject <span class="math inline">H_0</span> if <span class="math display">
+t &lt; t_{n + m - 2} (0.05)  \quad \text{ or } \quad
+p &lt; 0.05    \quad \text{when } \, H_1 \colon \mu_X &lt; \mu_Y
+</span> <span class="math display">
+t &gt; t_{n + m - 2} (0.05)  \quad \text{ or } \quad
+p &lt; 0.05    \quad \text{when } \,\, H_1 \colon \mu_X &gt; \mu_Y
 </span></li>
 </ul></li>
 </ol>
@@ -2134,7 +2148,7 @@ H_0 \colon \mu_X - \mu_Y = \mu_0
 <li><code>alternative = "greater"</code> which tests <span class="math display">
 H_1 \colon \mu_X - \mu_Y &gt; \mu_0
 </span></li>
-<li><code>alternative = "smaller"</code> which tests <span class="math display">
+<li><code>alternative = "less"</code> which tests <span class="math display">
 H_1 \colon \mu_X - \mu_Y &lt; \mu_0
 </span></li>
 </ul></li>
@@ -2159,24 +2173,8 @@ t = \frac{ \overline{x} - \overline{y} }{s_p \sqrt{ \dfrac{1}{n} + \dfrac{1}{m} 
 <li><p>In this case the t-statistic <span class="math display">
   t = \frac{ \overline{x} - \overline{y} }{s_p \sqrt{ \dfrac{1}{n} + \dfrac{1}{m} }}
 </span> is <strong>NOT</strong> t-distributed</p></li>
-<li><p>R performs the <strong>Welch t-test</strong> instead of the <strong>classic t-test</strong></p></li>
-</ul>
-</section>
-<section id="comments-on-command-t.testx-y-4" class="slide level2 smaller">
-<h2>Comments on command <code>t.test(x, y)</code></h2>
-<ul>
-<li><strong>Welch t-test</strong> consists in computing the <strong>Welch statistic</strong> <span class="math display">
-w = \frac{\overline{x} - \overline{y}}{ \sqrt{ \dfrac{s_X^2}{n} + \dfrac{s_Y^2}{m} } }
-</span></li>
-<li>If sample sizes <span class="math inline">m,n &gt; 5</span>, then <span class="math inline">w</span> is <strong>approximately t-distributed</strong>
-<ul>
-<li>Degrees of freedom are not integer, and depend on <span class="math inline">S_X, S_Y, n, m</span></li>
-</ul></li>
-</ul>
-<p><strong>Bottom line:</strong></p>
-<ul>
-<li>p-value from Welch t-test is <strong>similar</strong> to p-value from two-sample t-test</li>
-<li>Since p-values are similar, most times the 2 tests yield <strong>same decision</strong></li>
+<li><p>R performs the <strong>Welch t-test</strong> instead of the <strong>classic t-test</strong><br>
+(more on this later)</p></li>
 </ul>
 </section></section>
 <section>
@@ -2188,17 +2186,8 @@ w = \frac{\overline{x} - \overline{y}}{ \sqrt{ \dfrac{s_X^2}{n} + \dfrac{s_Y^2}{
 </div>
 </div>
 </section>
-<section id="two-sample-t-test-1" class="slide level2 smaller">
-<h2>Two-sample t-test</h2>
-<h3 id="example-3">Example</h3>
-<ul>
-<li><p><strong>Samples:</strong> Wage data on 10 Mathematicians and 13 Accountants</p></li>
-<li><p><strong>Assumptions:</strong> Wages are independent and normally distributed</p></li>
-<li><p><strong>Goal</strong>: Compare mean wage for the 2 professions</p>
-<ul>
-<li>Is there evidence of differences in average pay?</li>
-</ul></li>
-</ul>
+<section id="section-2" class="slide level2 smaller">
+<h2></h2>
 <table class="caption-top" style="width:100%;">
 <colgroup>
 <col style="width: 18%">
@@ -2298,6 +2287,19 @@ w = \frac{\overline{x} - \overline{y}}{ \sqrt{ \dfrac{s_X^2}{n} + \dfrac{s_Y^2}{
 </tr>
 </tbody>
 </table>
+<p><br></p>
+<ul>
+<li><p><strong>Samples:</strong> Wage data on 10 Mathematicians and 13 Accountants</p>
+<ul>
+<li>Wages are independent and normally distributed</li>
+<li>Populations have equal variance</li>
+</ul></li>
+<li><p><strong>Quesion:</strong> Is there evidence of differences in average pay?</p></li>
+<li><p><strong>Answer:</strong> Two-sample two-sided t-test for the hypothesis <span class="math display">
+H_0 \colon \mu_X = \mu_Y \,,\qquad
+H_1 \colon \mu_X \neq \mu_Y
+</span></p></li>
+</ul>
 </section>
 <section id="calculations-first-sample" class="slide level2 smaller">
 <h2>Calculations: First sample</h2>
@@ -2402,7 +2404,7 @@ t_{21}(0.025) = 2.08
 <li>Code can be downloaded here <a href="codes/two_sample_t_test.R">two_sample_t_test.R</a></li>
 </ul>
 </section>
-<section id="section-2" class="slide level2 smaller">
+<section id="section-3" class="slide level2 smaller">
 <h2></h2>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
@@ -2425,7 +2427,7 @@ mean of x mean of y
 <li>Second line: Data for t-test is <code>mathematicians</code> and <code>accountants</code></li>
 </ol>
 </section>
-<section id="section-3" class="slide level2 smaller">
+<section id="section-4" class="slide level2 smaller">
 <h2></h2>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
@@ -2453,7 +2455,7 @@ mean of x mean of y
 </ul></li>
 </ol>
 </section>
-<section id="section-4" class="slide level2 smaller">
+<section id="section-5" class="slide level2 smaller">
 <h2></h2>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
@@ -2479,7 +2481,7 @@ mean of x mean of y
 </ul></li>
 </ol>
 </section>
-<section id="section-5" class="slide level2 smaller">
+<section id="section-6" class="slide level2 smaller">
 <h2></h2>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
@@ -2506,7 +2508,7 @@ mean of x mean of y
 </ul></li>
 </ol>
 </section>
-<section id="section-6" class="slide level2 smaller">
+<section id="section-7" class="slide level2 smaller">
 <h2></h2>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
@@ -2532,7 +2534,7 @@ mean of x mean of y
 </ul></li>
 </ol>
 </section>
-<section id="section-7" class="slide level2 smaller">
+<section id="section-8" class="slide level2 smaller">
 <h2></h2>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
@@ -2556,59 +2558,204 @@ mean of x mean of y
 <li>Average pay levels seem to be the same for both professions</li>
 </ul>
 </section>
-<section id="t-test-without-assuming-same-variance" class="slide level2 smaller">
-<h2>t-test without assuming same variance</h2>
+<section id="comment-on-assumptions" class="slide level2 smaller">
+<h2>Comment on Assumptions</h2>
+<p>The previous two-sample t-test was conducted under the following assumptions:</p>
+<ol type="1">
+<li>Wages data is normally distributed</li>
+<li>The two populations have equal variance</li>
+</ol>
+<p>Using R, we can plot the data to see if these are reasonable (<em>graphical exploration</em>)</p>
+<p><strong>Warnings:</strong> Even if the assumptions hold</p>
 <ul>
-<li><p>In the previous t-tests we assumed the populations have same variance <span class="math display">
+<li>we cannot expect the samples to be exactly normal (bell-shaped)
+<ul>
+<li>rather, look for approximate normality</li>
+</ul></li>
+<li>we cannot expect the sample variances to match
+<ul>
+<li>rather, look for a similar spread in the data</li>
+</ul></li>
+</ul>
+</section>
+<section id="estimating-the-sample-distribution-in-r" class="slide level2 smaller">
+<h2>Estimating the sample distribution in R</h2>
+<p>Suppose given a data sample stored in a vector <code>z</code></p>
+<ul>
+<li><p>If the sample is <strong>large</strong>, we can check normality by plotting the histogram of <code>z</code></p></li>
+<li><p>Example: <code>z</code> sample of size 1000 form <span class="math inline">N(0,1)</span> – Its histogram resembles <span class="math inline">N(0,1)</span></p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>)                <span class="co"># Sample 1000 times from N(0,1) </span></span>
+<span id="cb25-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(z, <span class="at">probability =</span> <span class="cn">TRUE</span>)     <span class="co"># Plot histogram, with area scaled to 1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="lecture_4_files/figure-revealjs/unnamed-chunk-15-1.png" width="960" class="r-stretch"></section>
+<section id="section-9" class="slide level2 smaller">
+<h2></h2>
+<p><strong>Drawback:</strong> Small samples <span class="math inline">\implies</span> hard to check normality from histogram</p>
+<ul>
+<li>This is true even if the data is normal</li>
+<li>Example: <code>z</code> below is sample of size 9 from <span class="math inline">N(0,1)</span> – But histogram not normal</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.78</span>, <span class="sc">-</span><span class="fl">1.67</span>, <span class="sc">-</span><span class="fl">0.38</span>,  <span class="fl">0.92</span>, <span class="sc">-</span><span class="fl">0.58</span>,  </span>
+<span id="cb26-2"><a aria-hidden="true" tabindex="-1"></a>       <span class="fl">0.61</span>, <span class="sc">-</span><span class="fl">1.62</span>, <span class="sc">-</span><span class="fl">0.06</span>, <span class="fl">0.52</span>)           <span class="co"># Random from N(0,1)</span></span>
+<span id="cb26-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(z, <span class="at">probability =</span> <span class="cn">TRUE</span>)                <span class="co"># Histogram not normal</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="lecture_4_files/figure-revealjs/unnamed-chunk-16-1.png" width="960" class="r-stretch"></section>
+<section id="section-10" class="slide level2 smaller">
+<h2></h2>
+<p><strong>Solution:</strong> Suppose given iid sample <code>z</code> from a distribution <span class="math inline">f</span></p>
+<ul>
+<li><p>The command <code>density(z)</code> estimates the population distribution <span class="math inline">f</span><br>
+(Estimate based on the <em>sampling distribution</em> of <code>z</code> and smoothing - Not easy task)</p></li>
+<li><p>Example: <code>z</code> as in previous slide. The plot of <code>density(z)</code> shows normal behavior</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.78</span>, <span class="sc">-</span><span class="fl">1.67</span>, <span class="sc">-</span><span class="fl">0.38</span>,  <span class="fl">0.92</span>, <span class="sc">-</span><span class="fl">0.58</span>,  </span>
+<span id="cb27-2"><a aria-hidden="true" tabindex="-1"></a>       <span class="fl">0.61</span>, <span class="sc">-</span><span class="fl">1.62</span>, <span class="sc">-</span><span class="fl">0.06</span>, <span class="fl">0.52</span>)           <span class="co"># Random from N(0,1)</span></span>
+<span id="cb27-3"><a aria-hidden="true" tabindex="-1"></a>dz <span class="ot">&lt;-</span> <span class="fu">density</span>(z)                           <span class="co"># Estimate the density of z</span></span>
+<span id="cb27-4"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(dz)                                   <span class="co"># Plot the estimated density</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="lecture_4_files/figure-revealjs/unnamed-chunk-17-1.png" width="960" class="r-stretch"></section>
+<section id="section-11" class="slide level2 smaller">
+<h2></h2>
+<p>The R object <code>density(z)</code> models a 1D function (the estimated distribution of <code>z</code>)</p>
+<ul>
+<li>As such, it contains a grid of x values, with associated y values
+<ul>
+<li>x values are stored in vector <code>density(z)$x</code></li>
+<li>y values are stored in vector <code>density(z)$y</code></li>
+</ul></li>
+<li>These values are useful to set the axis range in a plot</li>
+</ul>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a aria-hidden="true" tabindex="-1"></a>dz <span class="ot">&lt;-</span> <span class="fu">density</span>(z)</span>
+<span id="cb28-2"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(dz,                        <span class="co"># Plot dz</span></span>
+<span id="cb28-4"><a aria-hidden="true" tabindex="-1"></a>     <span class="at">xlim =</span> <span class="fu">range</span>(dz<span class="sc">$</span>x),        <span class="co"># Set x-axis range</span></span>
+<span id="cb28-5"><a aria-hidden="true" tabindex="-1"></a>     <span class="at">ylim =</span> <span class="fu">range</span>(dz<span class="sc">$</span>y))        <span class="co"># Set y-axis range</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Axes range set as the <strong>min</strong> and <strong>max</strong> values of components of <code>dz</code></p>
+</section>
+<section id="checking-the-assumptions-on-our-example" class="slide level2 smaller">
+<h2>Checking the Assumptions on our Example</h2>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Compute the estimated distributions</span></span>
+<span id="cb29-2"><a aria-hidden="true" tabindex="-1"></a>d.math <span class="ot">&lt;-</span> <span class="fu">density</span>(mathematicians)</span>
+<span id="cb29-3"><a aria-hidden="true" tabindex="-1"></a>d.acc <span class="ot">&lt;-</span> <span class="fu">density</span>(accountants)</span>
+<span id="cb29-4"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-5"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the estimated distributions</span></span>
+<span id="cb29-6"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-7"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(d.math,                                    <span class="co"># Plot d.math</span></span>
+<span id="cb29-8"><a aria-hidden="true" tabindex="-1"></a>     <span class="at">xlim =</span> <span class="fu">range</span>(<span class="fu">c</span>(d.math<span class="sc">$</span>x, d.acc<span class="sc">$</span>x)),        <span class="co"># Set x-axis range</span></span>
+<span id="cb29-9"><a aria-hidden="true" tabindex="-1"></a>     <span class="at">ylim =</span> <span class="fu">range</span>(<span class="fu">c</span>(d.math<span class="sc">$</span>y, d.acc<span class="sc">$</span>y)),        <span class="co"># Set y-axis range</span></span>
+<span id="cb29-10"><a aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Estimated Distributions of Wages"</span>) <span class="co"># Add title to plot</span></span>
+<span id="cb29-11"><a aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(d.acc,                                    <span class="co"># Layer plot of d.acc</span></span>
+<span id="cb29-12"><a aria-hidden="true" tabindex="-1"></a>      <span class="at">lty =</span> <span class="dv">2</span>)                                  <span class="co"># Use different line style</span></span>
+<span id="cb29-13"><a aria-hidden="true" tabindex="-1"></a>         </span>
+<span id="cb29-14"><a aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">"topleft"</span>,                               <span class="co"># Add legend at top-left</span></span>
+<span id="cb29-15"><a aria-hidden="true" tabindex="-1"></a>       <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">"Mathematicians"</span>,             <span class="co"># Labels for legend</span></span>
+<span id="cb29-16"><a aria-hidden="true" tabindex="-1"></a>                  <span class="st">"Accountants"</span>), </span>
+<span id="cb29-17"><a aria-hidden="true" tabindex="-1"></a>       <span class="at">lty =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))                           <span class="co"># Assign curves to legend</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Axes range set as the <strong>min</strong> and <strong>max</strong> values of components of <code>d.math</code> and <code>d.acc</code></p>
+</section>
+<section id="section-12" class="slide level2 smaller">
+<h2></h2>
+
+<img data-src="lecture_4_files/figure-revealjs/unnamed-chunk-18-1.png" width="960" class="r-stretch"><ol type="1">
+<li><p>Wages data looks approximately normally distributed (roughly bell-shaped)</p></li>
+<li><p>The two populations have similar variance (spreads look similar)</p></li>
+</ol>
+<p><strong>Conclusion:</strong> Two-sample t-test with equal variance is appropriate <span class="math inline">\implies</span> accept <span class="math inline">H_0</span></p>
+</section></section>
+<section>
+<section id="part-7-the-welch-t-test" class="title-slide slide level1 center" data-background-color="#cc0164" data-visibility="uncounted">
+<h1>Part 7: <br>The Welch t-test</h1>
+<div class="footer">
+<div color="#cc0164">
+
+</div>
+</div>
+</section>
+<section id="samples-with-different-variance" class="slide level2 smaller">
+<h2>Samples with different variance</h2>
+<ul>
+<li><p>We just examined the two-sample t-tests</p></li>
+<li><p>This assumes independent normal populations with equal variance</p></li>
+</ul>
+<p><span class="math display">
 \sigma_X^2 = \sigma_Y^2
-</span></p></li>
-<li><p>R can also perform t-test without assuming <span class="math inline">\sigma_X^2 = \sigma_Y^2</span></p>
+</span></p>
 <ul>
-<li>This is called <strong>Welch Two-sample t-test</strong></li>
-<li>It can be performed with <code>t.test(x, y)</code></li>
-<li>Note that we are omitting the option <code>var.equal = TRUE</code></li>
+<li><p><strong>Question:</strong> What happens if variances are different?</p></li>
+<li><p><strong>Answer:</strong> Use the <strong>Welch Two-sample t-test</strong></p>
+<ul>
+<li>This is a generalization of the two-sample t-test to the case <span class="math inline">\sigma_X^2 \neq \sigma_Y^2</span></li>
+<li>In R it is performed with <code>t.test(x, y)</code></li>
+<li>Note that we are just omitting the option <code>var.equal = TRUE</code></li>
 <li>Equivalently, you may specify <code>var.equal = FALSE</code></li>
 </ul></li>
 </ul>
 </section>
-<section id="t-test-without-assuming-same-variance-1" class="slide level2 smaller">
-<h2>t-test without assuming same variance</h2>
-<h3 id="warnings">Warnings</h3>
+<section id="the-welch-two-sample-t-test" class="slide level2 smaller">
+<h2>The Welch two-sample t-test</h2>
 <ul>
-<li><p>The <strong>Welch t-statistic</strong> and <strong>classic t-statistic</strong> are different: <span class="math display">
-w = \frac{\overline{x} - \overline{y}}{ \sqrt{ \dfrac{s_X^2}{n} + \dfrac{s_Y^2}{m} } }  \qquad \qquad
-t = \frac{ \overline{x} - \overline{y} }{s_p \sqrt{ \dfrac{1}{n} + \dfrac{1}{m} }}
+<li><p><strong>Welch t-test</strong> consists in computing the <strong>Welch statistic</strong> <span class="math display">
+w = \frac{\overline{x} - \overline{y}}{ \sqrt{ \dfrac{s_X^2}{n} + \dfrac{s_Y^2}{m} } }
 </span></p></li>
-<li><p>The <strong>Welch t-statistic</strong> does <strong>not</strong> follow a t-distribution</p></li>
-<li><p>However, the p-value obtained with <strong>Welch t-test</strong> is often comparable to the one obtained with <strong>classic t-test</strong></p></li>
-<li><p>This means the two tests will often give the same decision</p></li>
+<li><p>If sample sizes <span class="math inline">m,n &gt; 5</span>, then <span class="math inline">w</span> is <strong>approximately t-distributed</strong></p>
+<ul>
+<li>Degrees of freedom are not integer, and depend on <span class="math inline">S_X, S_Y, n, m</span></li>
+</ul></li>
+<li><p>If variances are similar, the welch statistic is comparable to the t-statistic</p></li>
+</ul>
+<p><span class="math display">
+w \approx t : = \frac{ \overline{x} - \overline{y} }{s_p \sqrt{ \dfrac{1}{n} + \dfrac{1}{m} }}
+</span></p>
+</section>
+<section id="welch-t-test-vs-two-sample-t-test" class="slide level2 smaller">
+<h2>Welch t-test Vs two-sample t-test</h2>
+<p>If variances are similar:</p>
+<ul>
+<li>Welch statistic and t-statistic are similar</li>
+<li>p-value from Welch t-test is <strong>similar</strong> to p-value from two-sample t-test</li>
+<li>Since p-values are similar, most times the 2 tests yield <strong>same decision</strong></li>
+<li><strong>The tests can be used interchangeably</strong></li>
+</ul>
+<p>If variances are very different:</p>
+<ul>
+<li>Welch statistic and t-statistic are different</li>
+<li>p-values from the two tests can differ a lot</li>
+<li>The two tests might give <strong>different decision</strong></li>
+<li><strong>Wrong to apply two-sample t-test, as variances are different</strong></li>
 </ul>
 </section>
-<section id="welch-two-sample-t-test-code" class="slide level2 smaller">
-<h2>Welch two-sample t-test: Code</h2>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Enter Wages data in 2 vectors using function c()</span></span>
-<span id="cb25-2"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-3"><a aria-hidden="true" tabindex="-1"></a>mathematicians <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">36</span>, <span class="dv">40</span>, <span class="dv">46</span>, <span class="dv">54</span>, <span class="dv">57</span>, <span class="dv">58</span>, <span class="dv">59</span>, <span class="dv">60</span>, <span class="dv">62</span>, <span class="dv">63</span>)</span>
-<span id="cb25-4"><a aria-hidden="true" tabindex="-1"></a>accountants <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">37</span>, <span class="dv">37</span>, <span class="dv">42</span>, <span class="dv">44</span>, <span class="dv">46</span>, <span class="dv">48</span>, <span class="dv">54</span>, <span class="dv">56</span>, <span class="dv">59</span>, <span class="dv">60</span>, <span class="dv">60</span>, <span class="dv">64</span>, <span class="dv">64</span>)</span>
-<span id="cb25-5"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-6"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-7"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Perform Welch two-sample t-test with null hypothesis mu_X = mu_Y</span></span>
-<span id="cb25-8"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Store result of t.test in answer</span></span>
-<span id="cb25-9"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-10"><a aria-hidden="true" tabindex="-1"></a>answer <span class="ot">&lt;-</span> <span class="fu">t.test</span>(mathematicians, accountants)</span>
-<span id="cb25-11"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-12"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-13"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Print answer</span></span>
-<span id="cb25-14"><a aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(answer)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="the-welch-two-sample-t-test-in-r" class="slide level2 smaller">
+<h2>The Welch two-sample t-test in R</h2>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Enter Wages data</span></span>
+<span id="cb30-2"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-3"><a aria-hidden="true" tabindex="-1"></a>mathematicians <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">36</span>, <span class="dv">40</span>, <span class="dv">46</span>, <span class="dv">54</span>, <span class="dv">57</span>, <span class="dv">58</span>, <span class="dv">59</span>, <span class="dv">60</span>, <span class="dv">62</span>, <span class="dv">63</span>)</span>
+<span id="cb30-4"><a aria-hidden="true" tabindex="-1"></a>accountants <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">37</span>, <span class="dv">37</span>, <span class="dv">42</span>, <span class="dv">44</span>, <span class="dv">46</span>, <span class="dv">48</span>, <span class="dv">54</span>, <span class="dv">56</span>, <span class="dv">59</span>, <span class="dv">60</span>, <span class="dv">60</span>, <span class="dv">64</span>, <span class="dv">64</span>)</span>
+<span id="cb30-5"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-6"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-7"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Perform Welch two-sample t-test with null hypothesis mu_X = mu_Y</span></span>
+<span id="cb30-8"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Store result of t.test in answer</span></span>
+<span id="cb30-9"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-10"><a aria-hidden="true" tabindex="-1"></a>answer <span class="ot">&lt;-</span> <span class="fu">t.test</span>(mathematicians, accountants)</span>
+<span id="cb30-11"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-12"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-13"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Print answer</span></span>
+<span id="cb30-14"><a aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(answer)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
 <li><strong>Note</strong>:
 <ul>
-<li>This is almost the same code as in Slide 87</li>
+<li>This is almost the same code as in Slide 86</li>
 <li>Only difference: we are omitting the option <code>var.equal = TRUE</code> in <code>t.test</code></li>
 </ul></li>
 </ul>
 </section>
-<section id="section-8" class="slide level2 smaller">
+<section id="section-13" class="slide level2 smaller">
 <h2></h2>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
@@ -2634,7 +2781,7 @@ mean of x mean of y
 </ul></li>
 </ol>
 </section>
-<section id="section-9" class="slide level2 smaller">
+<section id="section-14" class="slide level2 smaller">
 <h2></h2>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
@@ -2662,7 +2809,7 @@ mean of x mean of y
 <li>Fifth line: The confidence interval for <span class="math inline">\mu_X - \mu_Y</span> is also different</li>
 </ol>
 </section>
-<section id="section-10" class="slide level2 smaller">
+<section id="section-15" class="slide level2 smaller">
 <h2></h2>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
@@ -2681,17 +2828,213 @@ mean of x mean of y
 </div>
 <p><strong>Conclusion</strong>: The p-values obtained with the 2 tests are almost the same</p>
 <ul>
-<li>Welch t-test: p-value <span class="math inline">= 0.6467</span></li>
-<li>Classic t-test: p-value <span class="math inline">= 0.6477</span></li>
-<li>Both test: <span class="math inline">p &gt; 0.05</span>, and therefore do not reject <span class="math inline">H_0</span></li>
+<li><p>Welch t-test: p-value <span class="math inline">= 0.6467 \qquad</span> Classic t-test: p-value <span class="math inline">= 0.6477</span></p></li>
+<li><p>Both test: <span class="math inline">p &gt; 0.05</span>, and therefore do not reject <span class="math inline">H_0</span></p></li>
+<li><p><strong>Note:</strong> This was expected</p>
+<ul>
+<li>The spread of the two populations is similar <span class="math inline">\implies \, \sigma_X^2 \approx \sigma_Y^2</span></li>
+<li>Hence, Welch t-statistic approximates t-statistic <span class="math inline">\implies</span> p-values are similar</li>
+</ul></li>
 </ul>
+</section>
+<section id="exercise" class="slide level2 smaller">
+<h2>Exercise</h2>
+<ul>
+<li><p>We compare the Effect of Two Treatments on Blood Pressure Change</p></li>
+<li><p>Both treatments are given to a group of patients</p></li>
+<li><p>Measurements of changes in blood pressure are taken after 4 weeks of treatment</p></li>
+<li><p>Note that changes represent both positive and negative shifts in blood pressure</p></li>
+</ul>
+<p><br></p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 18%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Treat. A</strong></td>
+<td>-1.5</td>
+<td>-2.7</td>
+<td>-2.7</td>
+<td>-1</td>
+<td>-2.3</td>
+<td>-3.2</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>Treat. B</strong></td>
+<td>-1</td>
+<td>-2.1</td>
+<td>-2.5</td>
+<td>-1.7</td>
+<td>-2.6</td>
+<td>0.4</td>
+<td>-2.2</td>
+<td>-1.5</td>
+<td>1.8</td>
+<td>-1.8</td>
+<td>-2.5</td>
+<td>1.9</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="section-16" class="slide level2 smaller">
+<h2></h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Enter changes in Blood pressure data</span></span>
+<span id="cb34-2"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-3"><a aria-hidden="true" tabindex="-1"></a>trA <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">1.5</span>, <span class="sc">-</span><span class="fl">2.7</span>, <span class="sc">-</span><span class="fl">2.7</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="sc">-</span><span class="fl">2.3</span>, <span class="sc">-</span><span class="fl">3.2</span>)</span>
+<span id="cb34-4"><a aria-hidden="true" tabindex="-1"></a>trB <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="sc">-</span><span class="fl">2.1</span>, <span class="sc">-</span><span class="fl">2.5</span>, <span class="sc">-</span><span class="fl">1.7</span>, <span class="sc">-</span><span class="fl">2.6</span>, <span class="fl">0.4</span>, </span>
+<span id="cb34-5"><a aria-hidden="true" tabindex="-1"></a>          <span class="sc">-</span><span class="fl">2.2</span>, <span class="sc">-</span><span class="fl">1.5</span>, <span class="fl">1.8</span>, <span class="sc">-</span><span class="fl">1.8</span>, <span class="sc">-</span><span class="fl">2.5</span>, <span class="fl">1.9</span>)</span>
+<span id="cb34-6"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-7"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Mean of Treatment A:"</span>, <span class="fu">mean</span>(trA), <span class="st">"Mean of Treatment B:"</span>, <span class="fu">mean</span>(trB))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Mean of Treatment A: -2.233333 Mean of Treatment B: -1.15</code></pre>
+</div>
+</div>
+<p><br></p>
+<ul>
+<li><p>Sample means show both Treatments are effective in decreasing blood pressure</p></li>
+<li><p>However Treatment A seems slightly better</p></li>
+</ul>
+<p><strong>Question:</strong> Perform a t-test to see if Treatment A is better <span class="math display">
+H_0 \colon \mu_A = \mu_B \, , \qquad
+H_1 \colon \mu_A &lt; \mu_B
+</span></p>
+</section>
+<section id="solution-estimated-density-of-treatment-a" class="slide level2 smaller">
+<h2>Solution: Estimated density of Treatment A</h2>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">density</span>(trA))    </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+<img data-src="lecture_4_files/figure-revealjs/unnamed-chunk-23-1.png" width="960" class="r-stretch"><ul>
+<li>Estimated density looks bell-shaped <span class="math inline">\implies</span> First population is normal</li>
+<li>Sample seems concentrated between <span class="math inline">-4</span> and <span class="math inline">0</span></li>
+</ul>
+</section>
+<section id="estimated-density-of-treatment-b" class="slide level2 smaller">
+<h2>Estimated density of Treatment B</h2>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">density</span>(trB))    </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+<img data-src="lecture_4_files/figure-revealjs/unnamed-chunk-24-1.png" width="960" class="r-stretch"><ul>
+<li>Estimated density looks bell-shaped <span class="math inline">\implies</span> Second population is normal</li>
+<li>Sample seems concentrated between <span class="math inline">-4</span> and <span class="math inline">3</span></li>
+</ul>
+</section>
+<section id="findings" class="slide level2 smaller">
+<h2>Findings</h2>
+<ul>
+<li>Both populations are normal <span class="math inline">\implies</span> t-test is appropriate</li>
+<li>First sample seems concentrated between <span class="math inline">-4</span> and <span class="math inline">0</span></li>
+<li>Second sample seems concentrated between <span class="math inline">-4</span> and <span class="math inline">3</span></li>
+<li>Treatment B has larger spread</li>
+<li>Therefore we suspect that populations have different variance</li>
+</ul>
+<p><span class="math display">
+\sigma_A^2 \neq \sigma_B^2
+</span></p>
+<p><strong>Conclusion:</strong></p>
+<ul>
+<li>The Welch t-test is appropriate</li>
+<li>Two sample t-test would not be appropriate (as it assumes equal variance)</li>
+</ul>
+</section>
+<section id="apply-the-welch-t-test" class="slide level2 smaller">
+<h2>Apply the Welch t-test</h2>
+<p>We are testing the one-sided hypothesis</p>
+<p><span class="math display">
+H_0 \colon \mu_A = \mu_B \, , \qquad
+H_1 \colon \mu_A &lt; \mu_B
+</span></p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Perform Welch t-test and retrieve p-value</span></span>
+<span id="cb38-2"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-3"><a aria-hidden="true" tabindex="-1"></a>ans <span class="ot">&lt;-</span> <span class="fu">t.test</span>(trA, trB, <span class="at">alternative =</span> <span class="st">"less"</span>, <span class="at">var.equal =</span> F) </span>
+<span id="cb38-4"><a aria-hidden="true" tabindex="-1"></a>ans<span class="sc">$</span>p.value</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.03973129</code></pre>
+</div>
+</div>
+<p><br></p>
+<ul>
+<li><p>The p-value is <span class="math inline">p &lt; 0.05</span></p></li>
+<li><p>We reject <span class="math inline">H_0 \implies</span> Treatment A is more effective</p></li>
+</ul>
+</section>
+<section id="two-sample-t-test-gives-different-decision" class="slide level2 smaller">
+<h2>Two-sample t-test gives different decision</h2>
+<p>We are testing the one-sided hypothesis</p>
+<p><span class="math display">
+H_0 \colon \mu_A = \mu_B \, , \qquad
+H_1 \colon \mu_A &lt; \mu_B
+</span></p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Perform two-sample t-test and retrieve p-value</span></span>
+<span id="cb40-2"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-3"><a aria-hidden="true" tabindex="-1"></a>ans <span class="ot">&lt;-</span> <span class="fu">t.test</span>(trA, trB, <span class="at">alternative =</span> <span class="st">"less"</span>, <span class="at">var.equal =</span> T) </span>
+<span id="cb40-4"><a aria-hidden="true" tabindex="-1"></a>ans<span class="sc">$</span>p.value</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.07387617</code></pre>
+</div>
+</div>
+<p><br></p>
+<ul>
+<li><p>The p-value is <span class="math inline">p &gt; 0.05</span></p></li>
+<li><p><span class="math inline">H_0</span> cannot be rejected <span class="math inline">\implies</span> There is no evidence that Treatment A is better</p></li>
+<li><p><strong>This would be the wrong conclusion, because two-sample t-test does not apply</strong></p></li>
+</ul>
+</section>
+<section id="disclaimer" class="slide level2 smaller">
+<h2>Disclaimer</h2>
+<ul>
+<li><p>The previous data was synthetic, and the background story made up!</p></li>
+<li><p>Nonetheless, the example is still valid</p></li>
+<li><p>To construct the data, I sampled as follows</p>
+<ul>
+<li>Treatment A: Sample of size 6 from N(-2,)</li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>Data successfully generated!!!
+Welch t-test p-value: 0.01866013 
+Two-sample t-test p-value: 0.05836482 
+Fake Data Treatm. A: -1.9 -2.5 -2.1 -2.4 -2.6 -1.9 
+Fake Data Treatm. B: -1.1 -0.9 -1.4 0.2 0.3 0.6 -5 -2.4 -1.5 2.3 -2.8 2.1 </code></pre>
+</div>
+</div>
+</section></section>
+<section id="part-8-the-t-test-for-paired-samples" class="title-slide slide level1 center" data-background-color="#cc0164" data-visibility="uncounted">
+<h1>Part 8: <br> The t-test for <br> paired samples</h1>
+<div class="footer">
+<div color="#cc0164">
+
+</div>
+</div>
 
 <div class="quarto-auto-generated-content">
 <div class="footer footer-default">
 <p><a href="../index.html">Homepage</a> &nbsp;&nbsp;&nbsp;&nbsp; <a href="../license.html">License</a> &nbsp;&nbsp;&nbsp;&nbsp; <a href="https://www.silviofanzon.com/contact">Contact</a></p>
 </div>
 </div>
-</section></section>
+</section>
     </div>
   </div>
 

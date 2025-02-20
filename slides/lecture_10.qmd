@@ -3558,7 +3558,7 @@ $$
 ```{r}
 #| echo: true
 #| code-fold: true
-#| code-summary: "Click here for full code"
+#| code-summary: "Click here to show the full code"
 #| fig-asp: 1
 
 # Enter the data
@@ -3710,7 +3710,7 @@ Model 2: distance ~ height + I(height^2) + I(height^3) + I(height^4)
 ```{r}
 #| echo: true
 #| code-fold: true
-#| code-summary: "Click here for full code"
+#| code-summary: "Click here to show the full code"
 #| fig-asp: 1
 
 # Divorces data
@@ -3845,7 +3845,7 @@ Model 2: percent ~ year + I(year^2)
 ```{r} 
 #| echo: true
 #| code-fold: true
-#| code-summary: "Click here for full code"
+#| code-summary: "Click here to show the full code"
 #| fig-asp: 1
 
 # Divorces data
@@ -3950,7 +3950,7 @@ $$
 ```{r} 
 #| echo: true
 #| code-fold: true
-#| code-summary: "Click here for full code"
+#| code-summary: "Click here to show the full code"
 #| fig-asp: 1
 
 # Divorces data

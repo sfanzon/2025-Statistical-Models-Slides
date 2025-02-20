@@ -42,6 +42,8 @@ $
 4. Two-sample hypothesis tests
 5. Two-sample t-test
 6. Two-sample t-test: Example
+7. The Welch t-test
+8. The t-test for paired samples
 
 
 
@@ -487,6 +489,7 @@ $$
 
 2. **Statistical Tables**:
     * Sample size is $n = 12$
+    * Degrees of freedom are ${\rm df} = n-1 = 11$
     * In [Table 13.5](files/Statistics_Tables.pdf) find
     $$
     \chi_{11}^2(0.05) = 19.68
@@ -496,7 +499,7 @@ $$
     * Test statistic is $\chi^2 = 845$
     * We **reject** $H_0$ because
     $$
-    \chi^2 = 845 > 19.68 = \chi_{n-1}^2(0.05)
+    \chi^2 = 845 > 19.68 = \chi_{11}^2(0.05)
     $$
 
 
@@ -780,11 +783,11 @@ n <- length(difference)
 # Enter null hypothesis
 sigma_0 <- 1
 
-# Compute sample variance
-s <- var(difference)
+# Compute sample standard deviation
+s <- sd(difference)
 
 # Compute chi-squared statistic
-chi_squared <- (n - 1) * s / sigma_0 ^ 2
+chi_squared <- (n - 1) * s ^ 2 / sigma_0 ^ 2
 ```
 
 
@@ -828,11 +831,11 @@ n <- length(difference)
 # Enter null hypothesis
 sigma_0 <- 1
 
-# Compute sample variance
-s <- var(difference)
+# Compute sample standard deviation
+s <- sd(difference)
 
 # Compute chi-squared statistic
-chi_squared <- (n - 1) * s / sigma_0 ^ 2
+chi_squared <- (n - 1) * s ^ 2 / sigma_0 ^ 2
 
 # Compute p-value
 p_value <- 1 - pchisq(chi_squared, df = n - 1)
@@ -1395,7 +1398,6 @@ $$
 
 
 ## The two-sample t-test {.smaller}
-### Procedure
 
 
 Suppose given two independent samples
@@ -1404,19 +1406,23 @@ Suppose given two independent samples
 - Sample $y_1, \ldots, y_m$ from $N(\mu_Y,\sigma^2)$ of size $m$
 
 
-The two-sided hypothesis test for **difference in means** is
+The two-sided hypothesis for **difference in means** is
 $$
-H_0 \colon \mu_X = \mu_Y \quad \qquad 
+H_0 \colon \mu_X = \mu_Y \,, \quad \qquad 
 H_1 \colon \mu_X \neq \mu_Y
 $$
 
-The two-sample t-test consists of 3 steps
+The one-sided alternative hypotheses are
+$$
+H_1 \colon \mu_X < \mu_Y \quad  \text{ or } \quad 
+H_1 \colon \mu_X > \mu_Y
+$$
 
 
 
 
-## The two-sample t-test {.smaller}
-### Procedure
+
+## Procedure: 3 Steps {.smaller}
 
 1. **Calculation**: Compute the two-sample t-statistic
 $$
@@ -1436,34 +1442,45 @@ $$
 
 
 
-## The two-sample t-test {.smaller}
-### Procedure
+## Procedure: 3 Steps {.smaller}
 
 2. **Statistical Tables or R**: Find either
     * Critical value in [Table 13.1](files/Statistics_Tables.pdf)
     $$
-    t_{n + m - 2} (0.025)
+    t^* = 
+    \begin{cases}
+    t_{n + m - 2} (0.025) & \quad \text{ if two-sided test}\\
+    t_{n + m - 2} (0.05) & \quad \text{ if one-sided test}
+    \end{cases}
     $$
     * p-value in R
     $$
-    p := 2 P( t_{n + m -2} > |t| )
+    p = 
+    \begin{cases}
+    2 P( t_{n + m -2} > |t| ) & \quad \text{ if } \,\, H_1 \colon \mu_X \neq \mu_Y \\
+    P( t_{n + m -2} < t ) & \quad \text{ if } \,\, H_1 \colon \mu_X < \mu_Y \\
+    P( t_{n + m -2} > t ) & \quad \text{ if } \,\, H_1 \colon \mu_X > \mu_Y
+    \end{cases}
     $$
 
 
 
 
-## The two-sample t-test {.smaller}
-### Procedure
+## Procedure: 3 Steps {.smaller}
 
 3. **Interpretation**:
-    * Reject $H_0$ if 
+    * For two-sided t-test we reject $H_0$ if 
     $$
-    |t| > t_{n + m - 2} (0.025)  \qquad \text{ or } \qquad p < 0.05
+    |t| > t_{n + m - 2} (0.025)  \quad \text{ or } \quad p < 0.05
     $$
-    * Do not reject $H_0$ if 
+    * For one-sided t-test we reject $H_0$ if 
     $$
-    |t| \leq t_{n + m - 2} (0.025)  \qquad \text{ or } \qquad 
-    p \geq 0.05
+    t < t_{n + m - 2} (0.05)  \quad \text{ or } \quad 
+    p < 0.05    \quad \text{when } \, H_1 \colon \mu_X < \mu_Y
+    $$
+    $$
+    t > t_{n + m - 2} (0.05)  \quad \text{ or } \quad 
+    p < 0.05    \quad \text{when } \,\, H_1 \colon \mu_X > \mu_Y
     $$
 
 
@@ -1508,7 +1525,7 @@ $$
     $$
     H_1 \colon \mu_X - \mu_Y > \mu_0
     $$ 
-    * ``alternative = "smaller"`` which tests 
+    * ``alternative = "less"`` which tests 
     $$
     H_1 \colon \mu_X - \mu_Y < \mu_0
     $$ 
@@ -1543,24 +1560,8 @@ $$
   $$
 is **NOT** t-distributed
 
-- R performs the **Welch t-test** instead of the **classic t-test** 
-
-
-
-## Comments on command ``t.test(x, y)`` {.smaller}
-
-- **Welch t-test** consists in computing the **Welch statistic**
-$$
-w = \frac{\overline{x} - \overline{y}}{ \sqrt{ \dfrac{s_X^2}{n} + \dfrac{s_Y^2}{m} } } 
-$$
-- If sample sizes $m,n > 5$, then $w$ is **approximately t-distributed**
-    * Degrees of freedom are not integer, and depend on $S_X, S_Y, n, m$
-
-
-**Bottom line:** 
-
-- p-value from Welch t-test is **similar** to p-value from two-sample t-test
-- Since p-values are similar, most times the 2 tests yield **same decision**
+- R performs the **Welch t-test** instead of the **classic t-test**  
+(more on this later) 
 
 
 
@@ -1578,16 +1579,8 @@ $$
 
 
 
-## Two-sample t-test {.smaller}
-### Example
+## {.smaller}
 
-
-- **Samples:** Wage data on 10 Mathematicians and 13 Accountants
-
-- **Assumptions:** Wages are independent and normally distributed
-
-- **Goal**: Compare mean wage for the 2 professions
-    * Is there evidence of differences in average pay?
 
 
 | Mathematicians |$x_1$|$x_2$|$x_3$|$x_4$|$x_5$|$x_6$|$x_7$|$x_8$|$x_9$|$x_{10}$|
@@ -1598,6 +1591,24 @@ $$
 | Accountants |$y_1$|$y_2$|$y_3$|$y_4$|$y_5$|$y_6$|$y_7$|$y_8$|$y_9$|$y_{10}$|$y_{11}$|$y_{12}$|$y_{13}$|
 |:----------- |:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:------:|:------:|:------:|:------:|
 |  Wages      | 37  | 37  | 42  |  44 |  46 |  48 |  54 |  56 |  59 | 60     |     60 |   64   |    64  |
+
+
+<br>
+
+
+- **Samples:** Wage data on 10 Mathematicians and 13 Accountants
+    * Wages are independent and normally distributed
+    * Populations have equal variance
+
+- **Quesion:** Is there evidence of differences in average pay?
+
+
+- **Answer:** Two-sample two-sided t-test for the hypothesis
+$$
+H_0 \colon \mu_X = \mu_Y \,,\qquad 
+H_1 \colon \mu_X \neq \mu_Y
+$$
+
 
 
 
@@ -1915,44 +1926,238 @@ print(answer)
 
 
 
+## Comment on Assumptions {.smaller}
 
-## t-test without assuming same variance {.smaller}
+The previous two-sample t-test was conducted under the following assumptions:
 
-- In the previous t-tests we assumed the populations have same variance
+1. Wages data is normally distributed
+2. The two populations have equal variance
+
+Using R, we can plot the data to see if these are reasonable (*graphical exploration*)
+
+**Warnings:**  Even if the assumptions hold
+
+- we cannot expect the samples to be exactly normal (bell-shaped)
+    * rather, look for approximate normality
+- we cannot expect the sample variances to match
+    * rather, look for a similar spread in the data
+
+
+
+
+
+## Estimating the sample distribution in R {.smaller}
+
+Suppose given a data sample stored in a vector ``z``
+
+- If the sample is **large**, we can check normality by plotting the histogram of ``z``
+
+- Example: ``z`` sample of size 1000 form $N(0,1)$ -- Its histogram resembles $N(0,1)$
+
+```{r}
+#| echo: true
+z <- rnorm(1000)                # Sample 1000 times from N(0,1) 
+hist(z, probability = TRUE)     # Plot histogram, with area scaled to 1
+```
+
+
+##  {.smaller}
+
+**Drawback:** Small samples $\implies$ hard to check normality from histogram
+
+- This is true even if the data is normal
+- Example: ``z`` below is sample of size 9 from $N(0,1)$ -- But histogram not normal
+
+```{r}
+#| echo: true
+z <- c(-0.78, -1.67, -0.38,  0.92, -0.58,  
+       0.61, -1.62, -0.06, 0.52)           # Random from N(0,1)
+hist(z, probability = TRUE)                # Histogram not normal
+```
+
+
+## {.smaller}
+
+**Solution:** Suppose given iid sample ``z`` from a distribution $f$
+ 
+- The command ``density(z)`` estimates the population distribution $f$  
+(Estimate based on the *sampling distribution* of ``z`` and smoothing - Not easy task)
+
+- Example: ``z`` as in previous slide. The plot of ``density(z)`` shows normal behavior
+
+```{r}
+#| echo: true
+z <- c(-0.78, -1.67, -0.38,  0.92, -0.58,  
+       0.61, -1.62, -0.06, 0.52)           # Random from N(0,1)
+dz <- density(z)                           # Estimate the density of z
+plot(dz)                                   # Plot the estimated density
+```
+
+
+
+## {.smaller}
+
+The R object ``density(z)`` models a 1D function (the estimated distribution of ``z``)
+
+- As such, it contains a grid of x values, with associated y values
+    * x values are stored in vector ``density(z)$x``
+    * y values are stored in vector ``density(z)$y``
+
+- These values are useful to set the axis range in a plot
+
+```r
+dz <- density(z)
+
+plot(dz,                        # Plot dz
+     xlim = range(dz$x),        # Set x-axis range
+     ylim = range(dz$y))        # Set y-axis range
+```
+
+Axes range set as the **min** and **max** values of components of ``dz``
+
+
+
+## Checking the Assumptions on our Example {.smaller}
+
+```r
+# Compute the estimated distributions
+d.math <- density(mathematicians)
+d.acc <- density(accountants)
+
+# Plot the estimated distributions
+
+plot(d.math,                                    # Plot d.math
+     xlim = range(c(d.math$x, d.acc$x)),        # Set x-axis range
+     ylim = range(c(d.math$y, d.acc$y)),        # Set y-axis range
+     main = "Estimated Distributions of Wages") # Add title to plot
+lines(d.acc,                                    # Layer plot of d.acc
+      lty = 2)                                  # Use different line style
+         
+legend("topleft",                               # Add legend at top-left
+       legend = c("Mathematicians",             # Labels for legend
+                  "Accountants"), 
+       lty = c(1, 2))                           # Assign curves to legend
+```
+
+Axes range set as the **min** and **max** values of components of ``d.math`` and ``d.acc``
+
+
+
+
+
+## {.smaller}
+
+```{r}
+# Enter the Wages data
+mathematicians <- c(36, 40, 46, 54, 57, 58, 59, 60, 62, 63)
+accountants <- c(37, 37, 42, 44, 46, 48, 54, 56, 59, 60, 60, 64, 64)
+
+# Compute the estimated distributions
+d.math <- density(mathematicians)
+d.acc <- density(accountants)
+
+# Plot the estimated distributions
+
+plot(d.math,                                    # Plot d.math
+     xlim = range(c(d.math$x, d.acc$x)),        # Set x-axis range
+     ylim = range(c(d.math$y, d.acc$y)),        # Set y-axis range
+     main = "Estimated Distributions of Wages") # Add title to plot
+lines(d.acc,                                    # Layer plot of d.acc
+      lty = 2)                                  # Use different line style
+         
+legend("topleft",                               # Add legend at top-left
+       legend = c("Mathematicians",             # Labels for legend
+                  "Accountants"), 
+       lty = c(1, 2))                           # Assign curves to legend          
+```
+
+
+1. Wages data looks approximately normally distributed (roughly bell-shaped)
+
+2. The two populations have similar variance (spreads look similar)  
+
+**Conclusion:** Two-sample t-test with equal variance is appropriate $\implies$ accept $H_0$
+
+
+
+
+
+
+# Part 7: <br>The Welch t-test {background-color="#cc0164" visibility="uncounted"}
+
+::: footer
+
+<div color="#cc0164">  </div>
+
+:::
+
+
+
+
+
+## Samples with different variance {.smaller}
+
+- We just examined the two-sample t-tests
+
+- This assumes independent normal populations with equal variance
+
 $$
 \sigma_X^2 = \sigma_Y^2
 $$
 
-- R can also perform t-test without assuming $\sigma_X^2 = \sigma_Y^2$
-    * This is called **Welch Two-sample t-test**
-    * It can be performed with ``t.test(x, y)``
-    * Note that we are omitting the option ``var.equal = TRUE``
+- **Question:** What happens if variances are different?
+
+- **Answer:** Use the **Welch Two-sample t-test**
+    * This is a generalization of the two-sample t-test to the case $\sigma_X^2 \neq \sigma_Y^2$
+    * In R it is performed with ``t.test(x, y)``
+    * Note that we are just omitting the option ``var.equal = TRUE``
     * Equivalently, you may specify ``var.equal = FALSE``
 
 
-## t-test without assuming same variance {.smaller}
-### Warnings 
 
-- The **Welch t-statistic** and **classic t-statistic** are different:
+
+## The Welch two-sample t-test {.smaller}
+
+- **Welch t-test** consists in computing the **Welch statistic**
 $$
-w = \frac{\overline{x} - \overline{y}}{ \sqrt{ \dfrac{s_X^2}{n} + \dfrac{s_Y^2}{m} } }  \qquad \qquad 
-t = \frac{ \overline{x} - \overline{y} }{s_p \sqrt{ \dfrac{1}{n} + \dfrac{1}{m} }}
+w = \frac{\overline{x} - \overline{y}}{ \sqrt{ \dfrac{s_X^2}{n} + \dfrac{s_Y^2}{m} } } 
 $$
 
-- The **Welch t-statistic** does **not** follow a t-distribution
+- If sample sizes $m,n > 5$, then $w$ is **approximately t-distributed**
+    * Degrees of freedom are not integer, and depend on $S_X, S_Y, n, m$
 
-- However, the p-value obtained with **Welch t-test** is often comparable to the one obtained with **classic t-test**
+- If variances are similar, the welch statistic is comparable to the t-statistic
 
-- This means the two tests will often give the same decision
+$$
+w \approx t : = \frac{ \overline{x} - \overline{y} }{s_p \sqrt{ \dfrac{1}{n} + \dfrac{1}{m} }}
+$$
+
+
+
+## Welch t-test Vs two-sample t-test {.smaller}
+
+If variances are similar:
+
+- Welch statistic and t-statistic are similar
+- p-value from Welch t-test is **similar** to p-value from two-sample t-test
+- Since p-values are similar, most times the 2 tests yield **same decision**
+- **The tests can be used interchangeably**
+
+
+If variances are very different:
+
+- Welch statistic and t-statistic are different
+- p-values from the two tests can differ a lot
+- The two tests might give **different decision**
+- **Wrong to apply two-sample t-test, as variances are different**
 
 
 
 
-
-## Welch two-sample t-test: Code {.smaller}
+## The Welch two-sample t-test in R {.smaller}
 
 ```r
-# Enter Wages data in 2 vectors using function c()
+# Enter Wages data
 
 mathematicians <- c(36, 40, 46, 54, 57, 58, 59, 60, 62, 63)
 accountants <- c(37, 37, 42, 44, 46, 48, 54, 56, 59, 60, 60, 64, 64)
@@ -1969,7 +2174,7 @@ print(answer)
 ```
 
 - **Note**: 
-    * This is almost the same code as in Slide 87
+    * This is almost the same code as in Slide 86
     * Only difference: we are omitting the option ``var.equal = TRUE`` in ``t.test``
 
 
@@ -2056,10 +2261,250 @@ print(answer)
 
 **Conclusion**: The p-values obtained with the 2 tests are almost the same
 
-- Welch t-test: p-value $= 0.6467$
-- Classic t-test: p-value $= 0.6477$
+- Welch t-test: p-value $= 0.6467 \qquad$ Classic t-test: p-value $= 0.6477$
 - Both test: $p > 0.05$, and therefore do not reject $H_0$
 
+- **Note:** This was expected
+    * The spread of the two populations is similar $\implies \, \sigma_X^2 \approx \sigma_Y^2$ 
+    * Hence, Welch t-statistic approximates t-statistic $\implies$ p-values are similar
 
+
+
+## Exercise {.smaller}
+
+
+
+- We compare the Effect of Two Treatments on Blood Pressure Change
+
+- Both treatments are given to a group of patients
+
+- Measurements of changes in blood pressure are taken after 4 weeks of treatment
+
+- Note that changes represent both positive and negative shifts in blood pressure
+
+
+<br>
+
+|            |       |       |       |       |       |       |       |       |       |       |       |       |
+|------------|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|
+| **Treat. A** | -1.5  | -2.7  | -2.7  | -1   | -2.3  | -3.2  |       |       |       |       |       |       |
+| **Treat. B** | -1   | -2.1   | -2.5   | -1.7   | -2.6  | 0.4   | -2.2  | -1.5   | 1.8   | -1.8   | -2.5  | 1.9   |
+: {tbl-colwidths="[20,7.5,7.5,7.5,7.5,7.5,7.5,7.5,7.5,7.5,7.5,7.5,7.5]"}
+
+
+
+##  {.smaller}
+
+```{r}
+#| echo: true
+# Enter changes in Blood pressure data
+
+trA <- c(-1.5, -2.7, -2.7, -1, -2.3, -3.2)
+trB <- c(-1, -2.1, -2.5, -1.7, -2.6, 0.4, 
+          -2.2, -1.5, 1.8, -1.8, -2.5, 1.9)
+
+cat("Mean of Treatment A:", mean(trA), "Mean of Treatment B:", mean(trB))
+```
+
+<br>
+
+- Sample means show both Treatments are effective in decreasing blood pressure
+
+- However Treatment A seems slightly better
+
+**Question:** Perform a t-test to see if Treatment A is better
+$$
+H_0 \colon \mu_A = \mu_B \, , \qquad 
+H_1 \colon \mu_A < \mu_B
+$$
+
+
+
+
+## Solution: Estimated density of Treatment A {.smaller}
+
+```r
+plot(density(trA))    
+```
+
+```{r}
+# Enter changes in Blood pressure data
+trA <- c(-1.5, -2.7, -2.7, -1, -2.3, -3.2)
+
+# Plot the estimated distribution
+plot(density(trA))    
+```
+
+
+- Estimated density looks bell-shaped $\implies$ First population is normal
+- Sample seems concentrated between $-4$ and $0$
+
+
+
+## Estimated density of Treatment B {.smaller}
+
+```r
+plot(density(trB))    
+```
+
+```{r}
+# Enter changes in Blood pressure data
+trB <- c(-1, -2.1, -2.5, -1.7, -2.6, 0.4, 
+          -2.2, -1.5, 1.8, -1.8, -2.5, 1.9)
+
+# Plot the estimated distribution
+plot(density(trB))
+       
+```
+
+
+- Estimated density looks bell-shaped $\implies$ Second population is normal
+- Sample seems concentrated between $-4$ and $3$ 
+
+
+## Findings {.smaller}
+
+- Both populations are normal $\implies$ t-test is appropriate
+- First sample seems concentrated between $-4$ and $0$
+- Second sample seems concentrated between $-4$ and $3$ 
+- Treatment B has larger spread
+- Therefore we suspect that populations have different variance
+
+$$
+\sigma_A^2 \neq \sigma_B^2
+$$
+
+**Conclusion:**
+
+- The Welch t-test is appropriate
+- Two sample t-test would not be appropriate (as it assumes equal variance)
+
+
+
+## Apply the Welch t-test {.smaller}
+
+We are testing the one-sided hypothesis 
+
+$$
+H_0 \colon \mu_A = \mu_B \, , \qquad 
+H_1 \colon \mu_A < \mu_B
+$$
+
+```r
+# Perform Welch t-test and retrieve p-value
+
+ans <- t.test(trA, trB, alternative = "less", var.equal = F) 
+ans$p.value
+```
+
+```{r}
+# Enter changes in Blood pressure data
+trA <- c(-1.5, -2.7, -2.7, -1, -2.3, -3.2)
+trB <- c(-1, -2.1, -2.5, -1.7, -2.6, 0.4, 
+          -2.2, -1.5, 1.8, -1.8, -2.5, 1.9)
+
+# Perform Welch t-test and retrieve p-value
+
+ans <- t.test(trA, trB, alternative = "less", var.equal = F) 
+ans$p.value
+```
+
+<br>
+
+- The p-value is $p < 0.05$
+
+
+- We reject $H_0 \implies$ Treatment A is more effective 
+
+
+
+
+
+## Two-sample t-test gives different decision {.smaller}
+
+We are testing the one-sided hypothesis 
+
+$$
+H_0 \colon \mu_A = \mu_B \, , \qquad 
+H_1 \colon \mu_A < \mu_B
+$$
+
+```r
+# Perform two-sample t-test and retrieve p-value
+
+ans <- t.test(trA, trB, alternative = "less", var.equal = T) 
+ans$p.value
+```
+
+```{r}
+# Enter changes in Blood pressure data
+trA <- c(-1.5, -2.7, -2.7, -1, -2.3, -3.2)
+trB <- c(-1, -2.1, -2.5, -1.7, -2.6, 0.4, 
+          -2.2, -1.5, 1.8, -1.8, -2.5, 1.9)
+
+# Perform two-sample t-test and retrieve p-value
+
+ans <- t.test(trA, trB, alternative = "less", var.equal = T) 
+ans$p.value
+```
+
+<br>
+
+- The p-value is $p > 0.05$
+
+- $H_0$ cannot be rejected $\implies$ There is no evidence that Treatment A is better
+
+- **This would be the wrong conclusion, because two-sample t-test does not apply**
+
+
+
+## Disclaimer {.smaller}
+
+- The previous data was synthetic, and the background story made up!
+
+- Nonetheless, the example is still valid
+
+- To construct the data, I sampled as follows
+    * Treatment A: Sample of size 6 from N(-2,)
+
+
+```{r}
+# Set seed for random generation
+# This way you always get the same random numbers when
+# you run this code
+set.seed(21) 
+
+repeat {
+  # Generate random samples
+  x <- rnorm(6, mean = -2, sd = 1)
+  y <- rnorm(12, mean = -1.5, sd = 3)
+
+  # Round x and y to 1 decimal point
+  x <- round(x, 1)
+  y <- round(y, 1)
+  
+  # Perform one-sided t-tests for alternative hypothesis mu_x < mu_y 
+  ans_welch <- t.test(x, y, alternative = "less", var.equal = F)
+  ans_t_test <- t.test(x, y, alternative = "less", var.equal = T)
+   
+  # Check that Welch test succeeds and two-sample test fails
+  if (ans_welch$p.value < 0.05 && ans_t_test$p.value > 0.05) {
+    cat("Data successfully generated!!!\n")
+    cat("Welch t-test p-value:", ans_welch$p.value, "\n")
+    cat("Two-sample t-test p-value:", ans_t_test$p.value, "\n")
+    cat("Fake Data Treatm. A:", x, "\n")
+    cat("Fake Data Treatm. B:", y, "\n")
+    break
+    }
+}
+```
+
+# Part 8: <br> The t-test for <br> paired samples{background-color="#cc0164" visibility="uncounted"}
+
+::: footer
+
+<div color="#cc0164">  </div>
+
+:::
 
 

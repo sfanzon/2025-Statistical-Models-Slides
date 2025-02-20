@@ -2614,7 +2614,7 @@ cat("The estimator is", beta)
 ```{r}
 #| echo: true
 #| code-fold: true
-#| code-summary: "Click here for full code"
+#| code-summary: "Click here to show the full code"
 
 # Load the plotly library
 library(plotly)

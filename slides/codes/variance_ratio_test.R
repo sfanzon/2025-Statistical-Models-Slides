@@ -11,11 +11,11 @@ n <- length(difference)
 # Enter null hypothesis
 sigma_0 <- 1
 
-# Compute sample variance
-s <- var(difference)
+# Compute sample standard deviation
+s <- sd(difference)
 
 # Compute chi-squared statistic
-chi_squared <- (n - 1) * s / sigma_0 ^ 2
+chi_squared <- (n - 1) * s ^ 2 / sigma_0 ^ 2
 
 # Compute p-value
 p_value <- 1 - pchisq(chi_squared, df = n - 1)

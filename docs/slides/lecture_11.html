@@ -425,23 +425,27 @@
   </style>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
   <style>
-  .Warning {
+  .DONE {
+    --color1: #cce7b1;
+    --color2: #86b754;
+  }
+  .Proof {
+    --color1: #f1f1f2;
+    --color2: #c0c0c1;
+  }
+  .TODO {
+    --color1: #e7b1b4;
+    --color2: #8c3236;
+  }
+  .Idea {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
-  .Proposition {
+  .Axiom {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
-  .Definition {
-    --color1: #c6e6ed;
-    --color2: #1995ad;
-  }
-  .Lemma {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Important {
+  .Theorem {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
@@ -449,7 +453,23 @@
     --color1: #bce5de;
     --color2: #21aa93;
   }
+  .Notation {
+    --color1: #c6e6ed;
+    --color2: #1995ad;
+  }
+  .Question {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
   .Problem {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Warning {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Important {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
@@ -457,45 +477,25 @@
     --color1: #f4cce0;
     --color2: #db4d92;
   }
-  .Example {
-    --color1: #bce5de;
-    --color2: #21aa93;
-  }
-  .Axiom {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Question {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .DONE {
-    --color1: #cce7b1;
-    --color2: #86b754;
+  .Definition {
+    --color1: #c6e6ed;
+    --color2: #1995ad;
   }
   .Corollary {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
-  .Proof {
-    --color1: #f1f1f2;
-    --color2: #c0c0c1;
-  }
-  .Theorem {
+  .Lemma {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
-  .Idea {
+  .Proposition {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
-  .Notation {
-    --color1: #c6e6ed;
-    --color2: #1995ad;
-  }
-  .TODO {
-    --color1: #e7b1b4;
-    --color2: #8c3236;
+  .Example {
+    --color1: #bce5de;
+    --color2: #21aa93;
   }
   </style>
 </head>
@@ -3503,7 +3503,7 @@ y = \beta_1 + \beta_2 x + \varepsilon
 </div><div class="column" style="width:46%;">
 <div class="cell">
 <details class="code-fold">
-<summary>Click here for full code</summary>
+<summary>Click here to show the full code</summary>
 <div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Divorces data</span></span>
 <span id="cb55-2"><a aria-hidden="true" tabindex="-1"></a>year <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>,<span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">10</span>, <span class="dv">15</span>, <span class="dv">20</span>, <span class="dv">25</span>, <span class="dv">30</span>)</span>
 <span id="cb55-3"><a aria-hidden="true" tabindex="-1"></a>percent <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">3.51</span>, <span class="fl">9.5</span>, <span class="fl">8.91</span>, <span class="fl">9.35</span>, <span class="fl">8.18</span>, <span class="fl">6.43</span>, <span class="fl">5.31</span>, </span>
@@ -3558,7 +3558,7 @@ y = \beta_1 + \beta_2 x + \varepsilon
 </div><div class="column" style="width:46%;">
 <div class="cell">
 <details class="code-fold">
-<summary>Click here for full code</summary>
+<summary>Click here to show the full code</summary>
 <div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Divorces data</span></span>
 <span id="cb56-2"><a aria-hidden="true" tabindex="-1"></a>year <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>,<span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">10</span>, <span class="dv">15</span>, <span class="dv">20</span>, <span class="dv">25</span>, <span class="dv">30</span>)</span>
 <span id="cb56-3"><a aria-hidden="true" tabindex="-1"></a>percent <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">3.51</span>, <span class="fl">9.5</span>, <span class="fl">8.91</span>, <span class="fl">9.35</span>, <span class="fl">8.18</span>, <span class="fl">6.43</span>, <span class="fl">5.31</span>, </span>
@@ -3617,7 +3617,7 @@ y = \beta_1 + \beta_2 x + \varepsilon
 </div><div class="column" style="width:46%;">
 <div class="cell">
 <details class="code-fold">
-<summary>Click here for full code</summary>
+<summary>Click here to show the full code</summary>
 <div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Divorces data</span></span>
 <span id="cb57-2"><a aria-hidden="true" tabindex="-1"></a>year <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>,<span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">10</span>, <span class="dv">15</span>, <span class="dv">20</span>, <span class="dv">25</span>, <span class="dv">30</span>)</span>
 <span id="cb57-3"><a aria-hidden="true" tabindex="-1"></a>percent <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">3.51</span>, <span class="fl">9.5</span>, <span class="fl">8.91</span>, <span class="fl">9.35</span>, <span class="fl">8.18</span>, <span class="fl">6.43</span>, <span class="fl">5.31</span>, </span>

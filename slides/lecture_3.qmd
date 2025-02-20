@@ -318,14 +318,7 @@ p = 2P(\text{Observing values more extreme than |t| }| \, \mu=\mu_0)
 $$
 
 
-- **Note:** For the one-sided t-test, the p-value is
-$$
-p = 
-\begin{cases}
-P(t_{n-1} < t | \mu = \mu_0)  & \quad \text{ if alternative hypothesis is } \, H_1 \colon \mu < \mu_0 \\
-P(t_{n-1} > t | \mu = \mu_0)  & \quad \text{ if alternative hypothesis is } \, H_1 \colon \mu > \mu_0 \\
-\end{cases}
-$$
+
 
 
 
@@ -1636,9 +1629,7 @@ sum(abs(rivers - mean(rivers))) / length(rivers)
 ## The t-test in R {.smaller}
 
 - We are now ready to do some statistics in R
-- We start by looking at the **t-test**
-- Specifically, to the **One-sample Two-sided t-test**
-
+- We start by looking at the **one-sample t-test**
 
 
 **Goal of t-test**: Estimate the mean $\mu$ of normal population $N(\mu,\sigma^2)$

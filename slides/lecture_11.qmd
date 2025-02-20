@@ -3626,7 +3626,7 @@ $$
 ```{r} 
 #| echo: true
 #| code-fold: true
-#| code-summary: "Click here for full code"
+#| code-summary: "Click here to show the full code"
 #| fig-asp: 1
 
 # Divorces data
@@ -3684,7 +3684,7 @@ legend("topright", legend = c("Linear", "Order 6"),
 ```{r} 
 #| echo: true
 #| code-fold: true
-#| code-summary: "Click here for full code"
+#| code-summary: "Click here to show the full code"
 #| fig-asp: 1
 
 # Divorces data
@@ -3747,7 +3747,7 @@ legend("topright", legend = c("Linear", "Order 6"),
 ```{r} 
 #| echo: true
 #| code-fold: true
-#| code-summary: "Click here for full code"
+#| code-summary: "Click here to show the full code"
 #| fig-asp: 1
 
 # Divorces data

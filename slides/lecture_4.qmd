@@ -368,7 +368,7 @@ $$
 
 <br>
 
-- **Data:** *Consumer Expectation* (CE) and *Consumer Spending* (CS) in 2011 (again!)
+- **Data:** *Consumer Expectation* (CE) and *Consumer Spending* (CS) in 2011
 - **Assumption:** CE and CS are normally distributed
 
 
@@ -865,7 +865,7 @@ cat("The p-value for one-sided variance test is", p_value)
 
 ## Overview {.smaller}
 
-In this Lecture:
+In Lecture 3:
 
 - We looked at data on CCI before and after the 2008 crash
 - In this case data for each month is directly comparable
@@ -2542,43 +2542,47 @@ $$
 
 ## Paired samples {.smaller}
 
-Sometimes two samples depend on each other in some way
+- Assume to have two sample with same size
+
+- Sometimes the two samples depend on each other in some way
+
 
 1. **Twin studies:**
     * Twins are used as pairs (to control genetic or environmental factors)
     * Example: test effectiveness of a medical treatment against placebo
-    * The two samples are clearly dependent (think of twins as the same person)  
-    * As such, the usual two-sample t-test is not applicable
+    * The two samples are clearly dependent  
+    (think of twins as the same person)  
+    * As such, the usual two-sample t-test is not applicable  
+    (because it assumes independence)
 
 
 
 ## Paired samples {.smaller}
 
-Sometimes two samples depend on each other in some way
+- Assume to have two sample with same size
+
+- Sometimes the two samples depend on each other in some way
+
+
 
 2. **Pre-test and Post-test**
     * Measure the outcome of a certain action
     * Example: does this module work for teaching R?
     * We can assess the effectiveness of something with a pre-test and a post-test
-    * If scores are markedly better in post-test, then we may be able to attribute the change to the teaching
-    * The two samples are clearly dependent (each individual takes a test twice)
-    * As such, the usual two-sample t-test is not applicable
+    * The two samples are clearly dependent  
+    (each individual takes a test twice)
+    * As such, the usual two-sample t-test is not applicable  
+    (because it assumes independence)
 
 
 
 ## The paired t-test {.smaller}
 
-Suppose give two samples
+Suppose given two samples
 
 - Sample $x_1, \ldots, x_n$ from $N(\mu_X,\sigma^2_X)$
 
 - Sample $y_1, \ldots, y_n$ from $N(\mu_Y,\sigma^2_Y)$
-
-
-Assume the two samples are **paired**, that is,
-$$
-x_i - y_i \,\,\, \text{ are iid}
-$$
 
 
 The hypotheses for **difference in means** are
@@ -2590,9 +2594,10 @@ $$
 
 
 
-## Procedure {.smaller}
+## The paired t-test {.smaller}
 
-As the data is paired, the **differences**
+
+**Assumption:** The data is **paired**, meaning that the **differences**
 
 $$
 d_i = x_i - y_i \,\,  \text{ are iid} \,\, N(\mu,\sigma^2) \quad \text{where} \quad \mu := \mu_X - \mu_Y
@@ -2737,7 +2742,7 @@ ans$p.value
 
 <br>
 
-p-value is significant: $\,\, p < 0.05$ $\, \implies \,$ reject $H_0$ $\, \implies \,$ Tests perform differently
+p-value is significant: $\,\, p < 0.05$ $\, \implies \,$ reject $H_0$ $\, \implies \,$ Methods perform differently
 
 
 
@@ -2770,7 +2775,7 @@ In this Example, performing a two-sample t-test would lead to **wrong decision**
 
 ```r
 # Perform Welch t-test and print p-value
-ans <- t.test(method1, method2)
+ans <- t.test(method1, method2, paired = F)       # paired = F is default
 ans$p.val
 ```
 
@@ -2780,11 +2785,15 @@ method1 <- c(45.9, 57.6, 54.9, 38.7, 35.7, 39.2, 45.9, 43.2, 45.4, 54.8)
 method2 <- c(48.2, 64.2, 56.8, 47.2, 43.7, 45.7, 53.0, 52.0, 45.1, 57.5)
 
 # Perform Welch t-test and print p-value
-ans <- t.test(method1, method2)
+ans <- t.test(method1, method2, paired = F)       # paired = F is default
 ans$p.val
 ```
 
 <br>
 
-**Wrong conclusion:** $\,\, p > 0.05$ $\, \implies \,$ cannot reject $H_0$ $\, \implies \,$ Tests perform similarly
+**Wrong conclusion:** $\,\, p > 0.05$ $\, \implies \,$ cannot reject $H_0$ $\, \implies \,$ Methods perform similarly
 
+
+<br> 
+
+**Bottom line:** The data is paired, therefore a paired t-test **must** be used

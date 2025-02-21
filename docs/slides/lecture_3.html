@@ -425,55 +425,11 @@
   </style>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
   <style>
-  .Corollary {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Proposition {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Conjecture {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Lemma {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Warning {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Notation {
-    --color1: #c6e6ed;
-    --color2: #1995ad;
-  }
-  .Theorem {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Definition {
-    --color1: #c6e6ed;
-    --color2: #1995ad;
-  }
-  .Problem {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Remark {
-    --color1: #bce5de;
-    --color2: #21aa93;
-  }
   .DONE {
     --color1: #cce7b1;
     --color2: #86b754;
   }
-  .Important {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Example {
+  .Remark {
     --color1: #bce5de;
     --color2: #21aa93;
   }
@@ -481,11 +437,31 @@
     --color1: #e7b1b4;
     --color2: #8c3236;
   }
-  .Proof {
-    --color1: #f1f1f2;
-    --color2: #c0c0c1;
-  }
   .Question {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Conjecture {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Example {
+    --color1: #bce5de;
+    --color2: #21aa93;
+  }
+  .Idea {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Lemma {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Corollary {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Important {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
@@ -493,7 +469,31 @@
     --color1: #f4cce0;
     --color2: #db4d92;
   }
-  .Idea {
+  .Definition {
+    --color1: #c6e6ed;
+    --color2: #1995ad;
+  }
+  .Theorem {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Problem {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Proposition {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Notation {
+    --color1: #c6e6ed;
+    --color2: #1995ad;
+  }
+  .Proof {
+    --color1: #f1f1f2;
+    --color2: #c0c0c1;
+  }
+  .Warning {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
@@ -1421,7 +1421,7 @@ H_0 \colon \mu = 0
 <div class="cell">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] -0.74858605 -0.39204079 -0.32223246  1.23465584  0.09059498</code></pre>
+<pre><code>[1] 0.6898848 0.4744542 1.2180847 0.8334529 0.6650749</code></pre>
 </div>
 </div>
 <p>The above values can be plotted by concatenating the <code>plot</code> command</p>
@@ -3025,10 +3025,10 @@ y = x^2 \,, \qquad x \in [-1, 1]
 <span id="cb106-12"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"They coincide!"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>Mean of x computed with my_mean is: -0.0334041</code></pre>
+<pre><code>Mean of x computed with my_mean is: -0.01736574</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Mean of x computed with R mean is: -0.0334041</code></pre>
+<pre><code>Mean of x computed with R mean is: -0.01736574</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>They coincide!</code></pre>

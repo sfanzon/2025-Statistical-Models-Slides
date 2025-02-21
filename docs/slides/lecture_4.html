@@ -405,21 +405,21 @@
   </style>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
   <style>
-  .DONE {
-    --color1: #cce7b1;
-    --color2: #86b754;
+  .Remark {
+    --color1: #bce5de;
+    --color2: #21aa93;
   }
-  .Lemma {
+  .Definition {
+    --color1: #c6e6ed;
+    --color2: #1995ad;
+  }
+  .Problem {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
-  .Warning {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Theorem {
-    --color1: #f4cce0;
-    --color2: #db4d92;
+  .Proof {
+    --color1: #f1f1f2;
+    --color2: #c0c0c1;
   }
   .Important {
     --color1: #f4cce0;
@@ -429,27 +429,11 @@
     --color1: #f4cce0;
     --color2: #db4d92;
   }
-  .Proposition {
+  .Corollary {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
-  .Problem {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Example {
-    --color1: #bce5de;
-    --color2: #21aa93;
-  }
-  .Definition {
-    --color1: #c6e6ed;
-    --color2: #1995ad;
-  }
-  .Conjecture {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Idea {
+  .Warning {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
@@ -457,25 +441,41 @@
     --color1: #e7b1b4;
     --color2: #8c3236;
   }
-  .Remark {
-    --color1: #bce5de;
-    --color2: #21aa93;
+  .Theorem {
+    --color1: #f4cce0;
+    --color2: #db4d92;
   }
-  .Notation {
-    --color1: #c6e6ed;
-    --color2: #1995ad;
+  .Proposition {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Idea {
+    --color1: #f4cce0;
+    --color2: #db4d92;
   }
   .Question {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
-  .Proof {
-    --color1: #f1f1f2;
-    --color2: #c0c0c1;
-  }
-  .Corollary {
+  .Lemma {
     --color1: #f4cce0;
     --color2: #db4d92;
+  }
+  .Notation {
+    --color1: #c6e6ed;
+    --color2: #1995ad;
+  }
+  .Conjecture {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Example {
+    --color1: #bce5de;
+    --color2: #21aa93;
+  }
+  .DONE {
+    --color1: #cce7b1;
+    --color2: #86b754;
   }
   </style>
 </head>
@@ -823,7 +823,7 @@ p \geq 0.05
 </table>
 <p><br></p>
 <ul>
-<li><strong>Data:</strong> <em>Consumer Expectation</em> (CE) and <em>Consumer Spending</em> (CS) in 2011 (again!)</li>
+<li><strong>Data:</strong> <em>Consumer Expectation</em> (CE) and <em>Consumer Spending</em> (CS) in 2011</li>
 <li><strong>Assumption:</strong> CE and CS are normally distributed</li>
 </ul>
 </section>
@@ -1270,7 +1270,7 @@ p = P(\chi_{n-1}^2 &gt; \chi^2)
 <span id="cb7-2"><a aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="dv">5</span>, <span class="at">mean =</span> <span class="dv">163</span>, <span class="at">sd =</span> <span class="dv">8</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 172.1080 164.2354 146.2439 165.7384 184.5933</code></pre>
+<pre><code>[1] 158.4961 172.1274 165.9390 182.5685 154.1374</code></pre>
 </div>
 </div>
 </section>
@@ -1632,7 +1632,7 @@ p = P(\chi_{n-1}^2 &gt; \chi^2) = 1 - P(\chi_{n-1}^2 \leq \chi^2)
 </section>
 <section id="overview" class="slide level2 smaller">
 <h2>Overview</h2>
-<p>In this Lecture:</p>
+<p>In Lecture 3:</p>
 <ul>
 <li>We looked at data on CCI before and after the 2008 crash</li>
 <li>In this case data for each month is directly comparable</li>
@@ -3086,51 +3086,57 @@ Two-sample t-test p-value: 0.05836482</code></pre>
 </section>
 <section id="paired-samples" class="slide level2 smaller">
 <h2>Paired samples</h2>
-<p>Sometimes two samples depend on each other in some way</p>
+<ul>
+<li><p>Assume to have two sample with same size</p></li>
+<li><p>Sometimes the two samples depend on each other in some way</p></li>
+</ul>
 <ol type="1">
 <li><strong>Twin studies:</strong>
 <ul>
 <li>Twins are used as pairs (to control genetic or environmental factors)</li>
 <li>Example: test effectiveness of a medical treatment against placebo</li>
-<li>The two samples are clearly dependent (think of twins as the same person)<br>
+<li>The two samples are clearly dependent<br>
+(think of twins as the same person)<br>
 </li>
-<li>As such, the usual two-sample t-test is not applicable</li>
+<li>As such, the usual two-sample t-test is not applicable<br>
+(because it assumes independence)</li>
 </ul></li>
 </ol>
 </section>
 <section id="paired-samples-1" class="slide level2 smaller">
 <h2>Paired samples</h2>
-<p>Sometimes two samples depend on each other in some way</p>
+<ul>
+<li><p>Assume to have two sample with same size</p></li>
+<li><p>Sometimes the two samples depend on each other in some way</p></li>
+</ul>
 <ol start="2" type="1">
 <li><strong>Pre-test and Post-test</strong>
 <ul>
 <li>Measure the outcome of a certain action</li>
 <li>Example: does this module work for teaching R?</li>
 <li>We can assess the effectiveness of something with a pre-test and a post-test</li>
-<li>If scores are markedly better in post-test, then we may be able to attribute the change to the teaching</li>
-<li>The two samples are clearly dependent (each individual takes a test twice)</li>
-<li>As such, the usual two-sample t-test is not applicable</li>
+<li>The two samples are clearly dependent<br>
+(each individual takes a test twice)</li>
+<li>As such, the usual two-sample t-test is not applicable<br>
+(because it assumes independence)</li>
 </ul></li>
 </ol>
 </section>
 <section id="the-paired-t-test" class="slide level2 smaller">
 <h2>The paired t-test</h2>
-<p>Suppose give two samples</p>
+<p>Suppose given two samples</p>
 <ul>
 <li><p>Sample <span class="math inline">x_1, \ldots, x_n</span> from <span class="math inline">N(\mu_X,\sigma^2_X)</span></p></li>
 <li><p>Sample <span class="math inline">y_1, \ldots, y_n</span> from <span class="math inline">N(\mu_Y,\sigma^2_Y)</span></p></li>
 </ul>
-<p>Assume the two samples are <strong>paired</strong>, that is, <span class="math display">
-x_i - y_i \,\,\, \text{ are iid}
-</span></p>
 <p>The hypotheses for <strong>difference in means</strong> are <span class="math display">
 H_0 \colon \mu_X = \mu_Y \,, \quad \qquad
 H_1 \colon \mu_X \neq \mu_Y \,, \quad \mu_X &lt; \mu_Y \,, \quad \text{ or } \quad \mu_X &gt; \mu_Y
 </span></p>
 </section>
-<section id="procedure" class="slide level2 smaller">
-<h2>Procedure</h2>
-<p>As the data is paired, the <strong>differences</strong></p>
+<section id="the-paired-t-test-1" class="slide level2 smaller">
+<h2>The paired t-test</h2>
+<p><strong>Assumption:</strong> The data is <strong>paired</strong>, meaning that the <strong>differences</strong></p>
 <p><span class="math display">
 d_i = x_i - y_i \,\,  \text{ are iid} \,\, N(\mu,\sigma^2) \quad \text{where} \quad \mu := \mu_X - \mu_Y
 </span></p>
@@ -3338,7 +3344,7 @@ H_0 \colon \mu_1 = \mu_2  \,, \quad H_1 \colon \mu_1 \neq \mu_2
 </div>
 </div>
 <p><br></p>
-<p>p-value is significant: <span class="math inline">\,\, p &lt; 0.05</span> <span class="math inline">\, \implies \,</span> reject <span class="math inline">H_0</span> <span class="math inline">\, \implies \,</span> Tests perform differently</p>
+<p>p-value is significant: <span class="math inline">\,\, p &lt; 0.05</span> <span class="math inline">\, \implies \,</span> reject <span class="math inline">H_0</span> <span class="math inline">\, \implies \,</span> Methods perform differently</p>
 </section>
 <section id="warning-1" class="slide level2 smaller">
 <h2>Warning</h2>
@@ -3359,7 +3365,7 @@ H_0 \colon \mu_1 = \mu_2  \,, \quad H_1 \colon \mu_1 \neq \mu_2
 <p>In this Example, performing a two-sample t-test would lead to <strong>wrong decision</strong></p>
 <p><br></p>
 <div class="sourceCode" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Perform Welch t-test and print p-value</span></span>
-<span id="cb52-2"><a aria-hidden="true" tabindex="-1"></a>ans <span class="ot">&lt;-</span> <span class="fu">t.test</span>(method1, method2)</span>
+<span id="cb52-2"><a aria-hidden="true" tabindex="-1"></a>ans <span class="ot">&lt;-</span> <span class="fu">t.test</span>(method1, method2, <span class="at">paired =</span> F)       <span class="co"># paired = F is default</span></span>
 <span id="cb52-3"><a aria-hidden="true" tabindex="-1"></a>ans<span class="sc">$</span>p.val</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
@@ -3367,7 +3373,9 @@ H_0 \colon \mu_1 = \mu_2  \,, \quad H_1 \colon \mu_1 \neq \mu_2
 </div>
 </div>
 <p><br></p>
-<p><strong>Wrong conclusion:</strong> <span class="math inline">\,\, p &gt; 0.05</span> <span class="math inline">\, \implies \,</span> cannot reject <span class="math inline">H_0</span> <span class="math inline">\, \implies \,</span> Tests perform similarly</p>
+<p><strong>Wrong conclusion:</strong> <span class="math inline">\,\, p &gt; 0.05</span> <span class="math inline">\, \implies \,</span> cannot reject <span class="math inline">H_0</span> <span class="math inline">\, \implies \,</span> Methods perform similarly</p>
+<p><br></p>
+<p><strong>Bottom line:</strong> The data is paired, therefore a paired t-test <strong>must</strong> be used</p>
 
 <div class="quarto-auto-generated-content">
 <div class="footer footer-default">

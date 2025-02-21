@@ -2272,8 +2272,6 @@ print(answer)
 
 ## Exercise {.smaller}
 
-
-
 - We compare the Effect of Two Treatments on Blood Pressure Change
 
 - Both treatments are given to a group of patients
@@ -2287,8 +2285,8 @@ print(answer)
 
 |            |       |       |       |       |       |       |       |       |       |       |       |       |
 |------------|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|
-| **Treat. A** | -1.5  | -2.7  | -2.7  | -1   | -2.3  | -3.2  |       |       |       |       |       |       |
-| **Treat. B** | -1   | -2.1   | -2.5   | -1.7   | -2.6  | 0.4   | -2.2  | -1.5   | 1.8   | -1.8   | -2.5  | 1.9   |
+| **Treat. A** | -1.9  | -2.5  | -2.1  | -2.4   | -2.6  | -1.9  |       |       |       |       |       |       |
+| **Treat. B** | -1.1   | -0.9   | -1.4   | 0.2   | 0.3  | 0.6   | -5  | -2.4   | 1.5   | -2.3   | -2.8  | 2.1   |
 : {tbl-colwidths="[20,7.5,7.5,7.5,7.5,7.5,7.5,7.5,7.5,7.5,7.5,7.5,7.5]"}
 
 
@@ -2299,9 +2297,9 @@ print(answer)
 #| echo: true
 # Enter changes in Blood pressure data
 
-trA <- c(-1.5, -2.7, -2.7, -1, -2.3, -3.2)
-trB <- c(-1, -2.1, -2.5, -1.7, -2.6, 0.4, 
-          -2.2, -1.5, 1.8, -1.8, -2.5, 1.9)
+trA <- c(-1.9, -2.5, -2.1, -2.4, -2.6, -1.9)
+trB <- c(-1.1, -0.9, -1.4, 0.2, 0.3, 0.6, -5,
+         -2.4, -1.5, 2.3, -2.8, 2.1)
 
 cat("Mean of Treatment A:", mean(trA), "Mean of Treatment B:", mean(trB))
 ```
@@ -2329,7 +2327,7 @@ plot(density(trA))
 
 ```{r}
 # Enter changes in Blood pressure data
-trA <- c(-1.5, -2.7, -2.7, -1, -2.3, -3.2)
+trA <- c(-1.9, -2.5, -2.1, -2.4, -2.6, -1.9)
 
 # Plot the estimated distribution
 plot(density(trA))    
@@ -2337,7 +2335,7 @@ plot(density(trA))
 
 
 - Estimated density looks bell-shaped $\implies$ First population is normal
-- Sample seems concentrated between $-4$ and $0$
+- Sample seems concentrated between $-3$ and $-1.5$
 
 
 
@@ -2349,8 +2347,8 @@ plot(density(trB))
 
 ```{r}
 # Enter changes in Blood pressure data
-trB <- c(-1, -2.1, -2.5, -1.7, -2.6, 0.4, 
-          -2.2, -1.5, 1.8, -1.8, -2.5, 1.9)
+trB <- c(-1.1, -0.9, -1.4, 0.2, 0.3, 0.6, -5,
+         -2.4, -1.5, 2.3, -2.8, 2.1)
 
 # Plot the estimated distribution
 plot(density(trB))
@@ -2359,14 +2357,14 @@ plot(density(trB))
 
 
 - Estimated density looks bell-shaped $\implies$ Second population is normal
-- Sample seems concentrated between $-4$ and $3$ 
+- Sample seems concentrated between $-7$ and $4$ 
 
 
 ## Findings {.smaller}
 
 - Both populations are normal $\implies$ t-test is appropriate
-- First sample seems concentrated between $-4$ and $0$
-- Second sample seems concentrated between $-4$ and $3$ 
+- First sample seems concentrated between $-3$ and $-1.5$
+- Second sample seems concentrated between $-7$ and $4$ 
 - Treatment B has larger spread
 - Therefore we suspect that populations have different variance
 
@@ -2399,9 +2397,9 @@ ans$p.value
 
 ```{r}
 # Enter changes in Blood pressure data
-trA <- c(-1.5, -2.7, -2.7, -1, -2.3, -3.2)
-trB <- c(-1, -2.1, -2.5, -1.7, -2.6, 0.4, 
-          -2.2, -1.5, 1.8, -1.8, -2.5, 1.9)
+trA <- c(-1.9, -2.5, -2.1, -2.4, -2.6, -1.9)
+trB <- c(-1.1, -0.9, -1.4, 0.2, 0.3, 0.6, -5,
+         -2.4, -1.5, 2.3, -2.8, 2.1)
 
 # Perform Welch t-test and retrieve p-value
 
@@ -2438,9 +2436,9 @@ ans$p.value
 
 ```{r}
 # Enter changes in Blood pressure data
-trA <- c(-1.5, -2.7, -2.7, -1, -2.3, -3.2)
-trB <- c(-1, -2.1, -2.5, -1.7, -2.6, 0.4, 
-          -2.2, -1.5, 1.8, -1.8, -2.5, 1.9)
+trA <- c(-1.9, -2.5, -2.1, -2.4, -2.6, -1.9)
+trB <- c(-1.1, -0.9, -1.4, 0.2, 0.3, 0.6, -5,
+         -2.4, -1.5, 2.3, -2.8, 2.1)
 
 # Perform two-sample t-test and retrieve p-value
 
@@ -2454,21 +2452,39 @@ ans$p.value
 
 - $H_0$ cannot be rejected $\implies$ There is no evidence that Treatment A is better
 
-- **This would be the wrong conclusion, because two-sample t-test does not apply**
+- **Wrong conclusion, because two-sample t-test does not apply**
 
 
 
 ## Disclaimer {.smaller}
 
-- The previous data was synthetic, and the background story made up!
+- The previous data was synthetic, and the background story was made up!
 
 - Nonetheless, the example is still valid
 
 - To construct the data, I sampled as follows
-    * Treatment A: Sample of size 6 from N(-2,)
+    * Treatment A: Sample of size 6 from $N(-2,1)$
+    * Treatment B: Sample of size 12 from $N(-1.5,9)$
+
+- We see that 
+$$
+\mu_A < \mu_B \,, \qquad 
+\sigma_A^2 \neq \sigma_B^2
+$$
+
+- This tells us that:
+    * We can expect that some samples will support that $\mu_A < \mu_B$
+    * Two-sample t-test is inappropriate because $\sigma_A^2 \neq \sigma_B^2$
+
+
+## Generating the Data {.smaller} 
 
 
 ```{r}
+#| echo: true
+#| code-fold: true
+#| code-summary: "Click here to see the code I used"
+
 # Set seed for random generation
 # This way you always get the same random numbers when
 # you run this code
@@ -2489,15 +2505,30 @@ repeat {
    
   # Check that Welch test succeeds and two-sample test fails
   if (ans_welch$p.value < 0.05 && ans_t_test$p.value > 0.05) {
-    cat("Data successfully generated!!!\n")
+    cat("Data successfully generated!!!\n\n")
+    cat("Synthetic Data TrA:", x, "\n")
+    cat("Synthetic Data TrB:", y, "\n\n")
     cat("Welch t-test p-value:", ans_welch$p.value, "\n")
-    cat("Two-sample t-test p-value:", ans_t_test$p.value, "\n")
-    cat("Fake Data Treatm. A:", x, "\n")
-    cat("Fake Data Treatm. B:", y, "\n")
+    cat("Two-sample t-test p-value:", ans_t_test$p.value)
     break
     }
 }
 ```
+
+
+**Method:**
+
+- Sample the data as in previous slide (round to 1 d.p. for cleaner looking data)
+
+
+- **Repeat until Welch test succeeds, and two-sample t-test fails**
+$$
+\text{p-value of Welch test } \, < 0.05 < \, 
+\text{p-value of Two-sample t-test} 
+$$
+
+
+
 
 # Part 8: <br> The t-test for <br> paired samples{background-color="#cc0164" visibility="uncounted"}
 
@@ -2507,4 +2538,253 @@ repeat {
 
 :::
 
+
+
+## Paired samples {.smaller}
+
+Sometimes two samples depend on each other in some way
+
+1. **Twin studies:**
+    * Twins are used as pairs (to control genetic or environmental factors)
+    * Example: test effectiveness of a medical treatment against placebo
+    * The two samples are clearly dependent (think of twins as the same person)  
+    * As such, the usual two-sample t-test is not applicable
+
+
+
+## Paired samples {.smaller}
+
+Sometimes two samples depend on each other in some way
+
+2. **Pre-test and Post-test**
+    * Measure the outcome of a certain action
+    * Example: does this module work for teaching R?
+    * We can assess the effectiveness of something with a pre-test and a post-test
+    * If scores are markedly better in post-test, then we may be able to attribute the change to the teaching
+    * The two samples are clearly dependent (each individual takes a test twice)
+    * As such, the usual two-sample t-test is not applicable
+
+
+
+## The paired t-test {.smaller}
+
+Suppose give two samples
+
+- Sample $x_1, \ldots, x_n$ from $N(\mu_X,\sigma^2_X)$
+
+- Sample $y_1, \ldots, y_n$ from $N(\mu_Y,\sigma^2_Y)$
+
+
+Assume the two samples are **paired**, that is,
+$$
+x_i - y_i \,\,\, \text{ are iid}
+$$
+
+
+The hypotheses for **difference in means** are
+$$
+H_0 \colon \mu_X = \mu_Y \,, \quad \qquad 
+H_1 \colon \mu_X \neq \mu_Y \,, \quad \mu_X < \mu_Y \,, \quad \text{ or } \quad \mu_X > \mu_Y
+$$
+
+
+
+
+## Procedure {.smaller}
+
+As the data is paired, the **differences**
+
+$$
+d_i = x_i - y_i \,\,  \text{ are iid} \,\, N(\mu,\sigma^2) \quad \text{where} \quad \mu := \mu_X - \mu_Y
+$$
+
+The hypotheses for the difference in means are **equivalent** to
+
+$$
+H_0 \colon \mu = 0 \,, \quad \qquad 
+H_1 \colon \mu \neq 0 \,, \quad \mu < 0 \,, \quad \text{ or } \quad \mu > 0
+$$
+
+**These can be tested with a one-sample t-test**
+
+
+<br>
+
+**R commands:** The paired t-test can be called with the equivalent commands
+
+- ``t.test(x, y, paired = TRUE)`` $\qquad \quad H_0 \colon  \mu_X = \mu_Y$
+
+- ``t.test(x - y)`` $\qquad \qquad \qquad \qquad\qquad H_0 \colon \mu = 0$
+
+
+
+
+## Example 1: The 2008 crisis (again!) {.smaller}
+
+
+| Month                    | J | F | M | A | M | J | J | A | S | O | N | D |
+|:------------------------:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+| CCI 2007                 |86 | 86| 88| 90| 99| 97| 97| 96| 99| 97| 90| 90|
+| CCI 2009                 |24 | 22| 21| 21| 19| 18| 17| 18| 21| 23| 22| 21|
+
+
+- **Data:** Monthly Consumer Confidence Index (CCI) in 2007 and 2009
+
+- **Question:** Did the crash of 2008 have lasting impact upon CCI?
+
+- **Observations**: 
+    * Data shows a massive drop in CCI between 2007 and 2009 
+    * Data is clearly paired *(Pre-test and Post-test situation)*
+
+- **Method:** Use paired $t$-test to investigate drop in mean CCI
+
+$$ 
+H_0 \colon \mu_{2007} = \mu_{2009} \,, \quad H_1 \colon \mu_{2007} > \mu_{2009} 
+$$
+
+
+
+
+## Perform paired t-test {.smaller}
+
+<br>
+
+```{r}
+#| echo: true
+
+# Enter CCI data
+score_2007 <- c(86, 86, 88, 90, 99, 97, 97, 96, 99, 97, 90, 90)
+score_2009 <- c(24, 22, 21, 21, 19, 18, 17, 18, 21, 23, 22, 21)
+
+# Perform paired t-test and print p-value
+ans <- t.test(score_2007, score_2009, paired = T, alternative = "greater")
+ans$p.value
+```
+ 
+<br>
+
+The p-value is significant: $\,\, p < 0.05$ $\, \implies \,$ reject $H_0$ $\, \implies \,$ Drop in CCI
+
+
+
+## Warning {.smaller}
+
+It would be **wrong** to use a two-sample t-test
+
+- This is because the samples are paired, and hence **dependent**
+
+- This is further supported by computing the correlation
+
+- High correlation implies **dependence**
+
+<br>
+
+```r
+cor(score_2007, score_2009)                # Correlation is high
+```
+
+```{r}
+score_2007 <- c(86, 86, 88, 90, 99, 97, 97, 96, 99, 97, 90, 90)
+score_2009 <- c(24, 22, 21, 21, 19, 18, 17, 18, 21, 23, 22, 21)
+cor(score_2007, score_2009)
+```
+
+
+
+
+## Example 2: Water quality samples {.smaller}
+
+- Researchers wish to measure water quality
+
+- There are two possible tests, one less expensive than the other
+
+- 10 water samples were taken, and each was measured both ways
+
+|          |      |      |      |      |      |      |      |      |      |      |
+|----------|------|------|------|------|------|------|------|------|------|------|
+| method1  | 45.9 | 57.6 | 54.9 | 38.7 | 35.7 | 39.2 | 45.9 | 43.2 | 45.4 | 54.8 |
+| method2  | 48.2 | 64.2 | 56.8 | 47.2 | 43.7 | 45.7 | 53.0 | 52.0 | 45.1 | 57.5 |
+
+
+**Question:** Do the tests give the same results?
+
+- **Observation**: The data is paired *(twin study situation)*
+
+- **Method:** Use paired $t$-test to investigate equality of results
+
+$$ 
+H_0 \colon \mu_1 = \mu_2  \,, \quad H_1 \colon \mu_1 \neq \mu_2  
+$$
+
+
+
+## Perform paired t-test {.smaller}
+
+<br>
+
+```{r}
+#| echo: true
+
+# Enter tests data
+method1 <- c(45.9, 57.6, 54.9, 38.7, 35.7, 39.2, 45.9, 43.2, 45.4, 54.8)
+method2 <- c(48.2, 64.2, 56.8, 47.2, 43.7, 45.7, 53.0, 52.0, 45.1, 57.5)
+
+# Perform paired t-test and print p-value
+ans <- t.test(method1, method2, paired = T)
+ans$p.value
+```
+ 
+
+<br>
+
+p-value is significant: $\,\, p < 0.05$ $\, \implies \,$ reject $H_0$ $\, \implies \,$ Tests perform differently
+
+
+
+
+## Warning {.smaller}
+
+It would be **wrong** to use a two-sample t-test
+
+- This is because the samples are paired, and hence **dependent**
+
+- This is also supported by high samples correlation
+
+```r
+cor(method1, method2)                # Correlation is very high
+```
+
+```{r}
+method1 <- c(45.9, 57.6, 54.9, 38.7, 35.7, 39.2, 45.9, 43.2, 45.4, 54.8)
+method2 <- c(48.2, 64.2, 56.8, 47.2, 43.7, 45.7, 53.0, 52.0, 45.1, 57.5)
+cor(method1, method2) 
+```
+
+
+
+## Warning {.smaller}
+
+In this Example, performing a two-sample t-test would lead to **wrong decision**
+
+<br>
+
+```r
+# Perform Welch t-test and print p-value
+ans <- t.test(method1, method2)
+ans$p.val
+```
+
+```{r}
+# Enter tests data
+method1 <- c(45.9, 57.6, 54.9, 38.7, 35.7, 39.2, 45.9, 43.2, 45.4, 54.8)
+method2 <- c(48.2, 64.2, 56.8, 47.2, 43.7, 45.7, 53.0, 52.0, 45.1, 57.5)
+
+# Perform Welch t-test and print p-value
+ans <- t.test(method1, method2)
+ans$p.val
+```
+
+<br>
+
+**Wrong conclusion:** $\,\, p > 0.05$ $\, \implies \,$ cannot reject $H_0$ $\, \implies \,$ Tests perform similarly
 

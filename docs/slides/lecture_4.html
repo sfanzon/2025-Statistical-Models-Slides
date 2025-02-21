@@ -405,13 +405,9 @@
   </style>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
   <style>
-  .Conjecture {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Important {
-    --color1: #f4cce0;
-    --color2: #db4d92;
+  .DONE {
+    --color1: #cce7b1;
+    --color2: #86b754;
   }
   .Lemma {
     --color1: #f4cce0;
@@ -421,43 +417,11 @@
     --color1: #f4cce0;
     --color2: #db4d92;
   }
-  .Remark {
-    --color1: #bce5de;
-    --color2: #21aa93;
-  }
-  .Corollary {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
   .Theorem {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
-  .Definition {
-    --color1: #c6e6ed;
-    --color2: #1995ad;
-  }
-  .TODO {
-    --color1: #e7b1b4;
-    --color2: #8c3236;
-  }
-  .Proposition {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Question {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .DONE {
-    --color1: #cce7b1;
-    --color2: #86b754;
-  }
-  .Idea {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Problem {
+  .Important {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
@@ -465,17 +429,53 @@
     --color1: #f4cce0;
     --color2: #db4d92;
   }
+  .Proposition {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Problem {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
   .Example {
     --color1: #bce5de;
     --color2: #21aa93;
+  }
+  .Definition {
+    --color1: #c6e6ed;
+    --color2: #1995ad;
+  }
+  .Conjecture {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Idea {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .TODO {
+    --color1: #e7b1b4;
+    --color2: #8c3236;
+  }
+  .Remark {
+    --color1: #bce5de;
+    --color2: #21aa93;
+  }
+  .Notation {
+    --color1: #c6e6ed;
+    --color2: #1995ad;
+  }
+  .Question {
+    --color1: #f4cce0;
+    --color2: #db4d92;
   }
   .Proof {
     --color1: #f1f1f2;
     --color2: #c0c0c1;
   }
-  .Notation {
-    --color1: #c6e6ed;
-    --color2: #1995ad;
+  .Corollary {
+    --color1: #f4cce0;
+    --color2: #db4d92;
   }
   </style>
 </head>
@@ -1270,7 +1270,7 @@ p = P(\chi_{n-1}^2 &gt; \chi^2)
 <span id="cb7-2"><a aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="dv">5</span>, <span class="at">mean =</span> <span class="dv">163</span>, <span class="at">sd =</span> <span class="dv">8</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 162.2253 159.6532 166.1697 172.0912 158.1269</code></pre>
+<pre><code>[1] 172.1080 164.2354 146.2439 165.7384 184.5933</code></pre>
 </div>
 </div>
 </section>
@@ -2865,12 +2865,12 @@ mean of x mean of y
 <tbody>
 <tr class="odd">
 <td><strong>Treat. A</strong></td>
-<td>-1.5</td>
-<td>-2.7</td>
-<td>-2.7</td>
-<td>-1</td>
-<td>-2.3</td>
-<td>-3.2</td>
+<td>-1.9</td>
+<td>-2.5</td>
+<td>-2.1</td>
+<td>-2.4</td>
+<td>-2.6</td>
+<td>-1.9</td>
 <td></td>
 <td></td>
 <td></td>
@@ -2880,18 +2880,18 @@ mean of x mean of y
 </tr>
 <tr class="even">
 <td><strong>Treat. B</strong></td>
-<td>-1</td>
-<td>-2.1</td>
-<td>-2.5</td>
-<td>-1.7</td>
-<td>-2.6</td>
-<td>0.4</td>
-<td>-2.2</td>
-<td>-1.5</td>
-<td>1.8</td>
-<td>-1.8</td>
-<td>-2.5</td>
-<td>1.9</td>
+<td>-1.1</td>
+<td>-0.9</td>
+<td>-1.4</td>
+<td>0.2</td>
+<td>0.3</td>
+<td>0.6</td>
+<td>-5</td>
+<td>-2.4</td>
+<td>1.5</td>
+<td>-2.3</td>
+<td>-2.8</td>
+<td>2.1</td>
 </tr>
 </tbody>
 </table>
@@ -2901,13 +2901,13 @@ mean of x mean of y
 <div class="cell">
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Enter changes in Blood pressure data</span></span>
 <span id="cb34-2"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-3"><a aria-hidden="true" tabindex="-1"></a>trA <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">1.5</span>, <span class="sc">-</span><span class="fl">2.7</span>, <span class="sc">-</span><span class="fl">2.7</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="sc">-</span><span class="fl">2.3</span>, <span class="sc">-</span><span class="fl">3.2</span>)</span>
-<span id="cb34-4"><a aria-hidden="true" tabindex="-1"></a>trB <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="sc">-</span><span class="fl">2.1</span>, <span class="sc">-</span><span class="fl">2.5</span>, <span class="sc">-</span><span class="fl">1.7</span>, <span class="sc">-</span><span class="fl">2.6</span>, <span class="fl">0.4</span>, </span>
-<span id="cb34-5"><a aria-hidden="true" tabindex="-1"></a>          <span class="sc">-</span><span class="fl">2.2</span>, <span class="sc">-</span><span class="fl">1.5</span>, <span class="fl">1.8</span>, <span class="sc">-</span><span class="fl">1.8</span>, <span class="sc">-</span><span class="fl">2.5</span>, <span class="fl">1.9</span>)</span>
+<span id="cb34-3"><a aria-hidden="true" tabindex="-1"></a>trA <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">1.9</span>, <span class="sc">-</span><span class="fl">2.5</span>, <span class="sc">-</span><span class="fl">2.1</span>, <span class="sc">-</span><span class="fl">2.4</span>, <span class="sc">-</span><span class="fl">2.6</span>, <span class="sc">-</span><span class="fl">1.9</span>)</span>
+<span id="cb34-4"><a aria-hidden="true" tabindex="-1"></a>trB <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">1.1</span>, <span class="sc">-</span><span class="fl">0.9</span>, <span class="sc">-</span><span class="fl">1.4</span>, <span class="fl">0.2</span>, <span class="fl">0.3</span>, <span class="fl">0.6</span>, <span class="sc">-</span><span class="dv">5</span>,</span>
+<span id="cb34-5"><a aria-hidden="true" tabindex="-1"></a>         <span class="sc">-</span><span class="fl">2.4</span>, <span class="sc">-</span><span class="fl">1.5</span>, <span class="fl">2.3</span>, <span class="sc">-</span><span class="fl">2.8</span>, <span class="fl">2.1</span>)</span>
 <span id="cb34-6"><a aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb34-7"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Mean of Treatment A:"</span>, <span class="fu">mean</span>(trA), <span class="st">"Mean of Treatment B:"</span>, <span class="fu">mean</span>(trB))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Mean of Treatment A: -2.233333 Mean of Treatment B: -1.15</code></pre>
+<pre><code>Mean of Treatment A: -2.233333 Mean of Treatment B: -0.8</code></pre>
 </div>
 </div>
 <p><br></p>
@@ -2926,7 +2926,7 @@ H_1 \colon \mu_A &lt; \mu_B
 
 <img data-src="lecture_4_files/figure-revealjs/unnamed-chunk-23-1.png" width="960" class="r-stretch"><ul>
 <li>Estimated density looks bell-shaped <span class="math inline">\implies</span> First population is normal</li>
-<li>Sample seems concentrated between <span class="math inline">-4</span> and <span class="math inline">0</span></li>
+<li>Sample seems concentrated between <span class="math inline">-3</span> and <span class="math inline">-1.5</span></li>
 </ul>
 </section>
 <section id="estimated-density-of-treatment-b" class="slide level2 smaller">
@@ -2935,15 +2935,15 @@ H_1 \colon \mu_A &lt; \mu_B
 
 <img data-src="lecture_4_files/figure-revealjs/unnamed-chunk-24-1.png" width="960" class="r-stretch"><ul>
 <li>Estimated density looks bell-shaped <span class="math inline">\implies</span> Second population is normal</li>
-<li>Sample seems concentrated between <span class="math inline">-4</span> and <span class="math inline">3</span></li>
+<li>Sample seems concentrated between <span class="math inline">-7</span> and <span class="math inline">4</span></li>
 </ul>
 </section>
 <section id="findings" class="slide level2 smaller">
 <h2>Findings</h2>
 <ul>
 <li>Both populations are normal <span class="math inline">\implies</span> t-test is appropriate</li>
-<li>First sample seems concentrated between <span class="math inline">-4</span> and <span class="math inline">0</span></li>
-<li>Second sample seems concentrated between <span class="math inline">-4</span> and <span class="math inline">3</span></li>
+<li>First sample seems concentrated between <span class="math inline">-3</span> and <span class="math inline">-1.5</span></li>
+<li>Second sample seems concentrated between <span class="math inline">-7</span> and <span class="math inline">4</span></li>
 <li>Treatment B has larger spread</li>
 <li>Therefore we suspect that populations have different variance</li>
 </ul>
@@ -2969,7 +2969,7 @@ H_1 \colon \mu_A &lt; \mu_B
 <span id="cb38-4"><a aria-hidden="true" tabindex="-1"></a>ans<span class="sc">$</span>p.value</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.03973129</code></pre>
+<pre><code>[1] 0.01866013</code></pre>
 </div>
 </div>
 <p><br></p>
@@ -2991,36 +2991,91 @@ H_1 \colon \mu_A &lt; \mu_B
 <span id="cb40-4"><a aria-hidden="true" tabindex="-1"></a>ans<span class="sc">$</span>p.value</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.07387617</code></pre>
+<pre><code>[1] 0.05836482</code></pre>
 </div>
 </div>
 <p><br></p>
 <ul>
 <li><p>The p-value is <span class="math inline">p &gt; 0.05</span></p></li>
 <li><p><span class="math inline">H_0</span> cannot be rejected <span class="math inline">\implies</span> There is no evidence that Treatment A is better</p></li>
-<li><p><strong>This would be the wrong conclusion, because two-sample t-test does not apply</strong></p></li>
+<li><p><strong>Wrong conclusion, because two-sample t-test does not apply</strong></p></li>
 </ul>
 </section>
 <section id="disclaimer" class="slide level2 smaller">
 <h2>Disclaimer</h2>
 <ul>
-<li><p>The previous data was synthetic, and the background story made up!</p></li>
+<li><p>The previous data was synthetic, and the background story was made up!</p></li>
 <li><p>Nonetheless, the example is still valid</p></li>
 <li><p>To construct the data, I sampled as follows</p>
 <ul>
-<li>Treatment A: Sample of size 6 from N(-2,)</li>
+<li>Treatment A: Sample of size 6 from <span class="math inline">N(-2,1)</span></li>
+<li>Treatment B: Sample of size 12 from <span class="math inline">N(-1.5,9)</span></li>
+</ul></li>
+<li><p>We see that <span class="math display">
+\mu_A &lt; \mu_B \,, \qquad
+\sigma_A^2 \neq \sigma_B^2
+</span></p></li>
+<li><p>This tells us that:</p>
+<ul>
+<li>We can expect that some samples will support that <span class="math inline">\mu_A &lt; \mu_B</span></li>
+<li>Two-sample t-test is inappropriate because <span class="math inline">\sigma_A^2 \neq \sigma_B^2</span></li>
 </ul></li>
 </ul>
+</section>
+<section id="generating-the-data" class="slide level2 smaller">
+<h2>Generating the Data</h2>
 <div class="cell">
+<details class="code-fold">
+<summary>Click here to see the code I used</summary>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Set seed for random generation</span></span>
+<span id="cb42-2"><a aria-hidden="true" tabindex="-1"></a><span class="co"># This way you always get the same random numbers when</span></span>
+<span id="cb42-3"><a aria-hidden="true" tabindex="-1"></a><span class="co"># you run this code</span></span>
+<span id="cb42-4"><a aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">21</span>) </span>
+<span id="cb42-5"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-6"><a aria-hidden="true" tabindex="-1"></a><span class="cf">repeat</span> {</span>
+<span id="cb42-7"><a aria-hidden="true" tabindex="-1"></a>  <span class="co"># Generate random samples</span></span>
+<span id="cb42-8"><a aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">6</span>, <span class="at">mean =</span> <span class="sc">-</span><span class="dv">2</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span>
+<span id="cb42-9"><a aria-hidden="true" tabindex="-1"></a>  y <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">12</span>, <span class="at">mean =</span> <span class="sc">-</span><span class="fl">1.5</span>, <span class="at">sd =</span> <span class="dv">3</span>)</span>
+<span id="cb42-10"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-11"><a aria-hidden="true" tabindex="-1"></a>  <span class="co"># Round x and y to 1 decimal point</span></span>
+<span id="cb42-12"><a aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">round</span>(x, <span class="dv">1</span>)</span>
+<span id="cb42-13"><a aria-hidden="true" tabindex="-1"></a>  y <span class="ot">&lt;-</span> <span class="fu">round</span>(y, <span class="dv">1</span>)</span>
+<span id="cb42-14"><a aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb42-15"><a aria-hidden="true" tabindex="-1"></a>  <span class="co"># Perform one-sided t-tests for alternative hypothesis mu_x &lt; mu_y </span></span>
+<span id="cb42-16"><a aria-hidden="true" tabindex="-1"></a>  ans_welch <span class="ot">&lt;-</span> <span class="fu">t.test</span>(x, y, <span class="at">alternative =</span> <span class="st">"less"</span>, <span class="at">var.equal =</span> F)</span>
+<span id="cb42-17"><a aria-hidden="true" tabindex="-1"></a>  ans_t_test <span class="ot">&lt;-</span> <span class="fu">t.test</span>(x, y, <span class="at">alternative =</span> <span class="st">"less"</span>, <span class="at">var.equal =</span> T)</span>
+<span id="cb42-18"><a aria-hidden="true" tabindex="-1"></a>   </span>
+<span id="cb42-19"><a aria-hidden="true" tabindex="-1"></a>  <span class="co"># Check that Welch test succeeds and two-sample test fails</span></span>
+<span id="cb42-20"><a aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (ans_welch<span class="sc">$</span>p.value <span class="sc">&lt;</span> <span class="fl">0.05</span> <span class="sc">&amp;&amp;</span> ans_t_test<span class="sc">$</span>p.value <span class="sc">&gt;</span> <span class="fl">0.05</span>) {</span>
+<span id="cb42-21"><a aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span>(<span class="st">"Data successfully generated!!!</span><span class="sc">\n\n</span><span class="st">"</span>)</span>
+<span id="cb42-22"><a aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span>(<span class="st">"Synthetic Data TrA:"</span>, x, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb42-23"><a aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span>(<span class="st">"Synthetic Data TrB:"</span>, y, <span class="st">"</span><span class="sc">\n\n</span><span class="st">"</span>)</span>
+<span id="cb42-24"><a aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span>(<span class="st">"Welch t-test p-value:"</span>, ans_welch<span class="sc">$</span>p.value, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb42-25"><a aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span>(<span class="st">"Two-sample t-test p-value:"</span>, ans_t_test<span class="sc">$</span>p.value)</span>
+<span id="cb42-26"><a aria-hidden="true" tabindex="-1"></a>    <span class="cf">break</span></span>
+<span id="cb42-27"><a aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb42-28"><a aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Data successfully generated!!!
+
+Synthetic Data TrA: -1.9 -2.5 -2.1 -2.4 -2.6 -1.9 
+Synthetic Data TrB: -1.1 -0.9 -1.4 0.2 0.3 0.6 -5 -2.4 -1.5 2.3 -2.8 2.1 
+
 Welch t-test p-value: 0.01866013 
-Two-sample t-test p-value: 0.05836482 
-Fake Data Treatm. A: -1.9 -2.5 -2.1 -2.4 -2.6 -1.9 
-Fake Data Treatm. B: -1.1 -0.9 -1.4 0.2 0.3 0.6 -5 -2.4 -1.5 2.3 -2.8 2.1 </code></pre>
+Two-sample t-test p-value: 0.05836482</code></pre>
 </div>
 </div>
+<p><strong>Method:</strong></p>
+<ul>
+<li><p>Sample the data as in previous slide (round to 1 d.p. for cleaner looking data)</p></li>
+<li><p><strong>Repeat until Welch test succeeds, and two-sample t-test fails</strong> <span class="math display">
+\text{p-value of Welch test } \, &lt; 0.05 &lt; \,
+\text{p-value of Two-sample t-test}
+</span></p></li>
+</ul>
 </section></section>
+<section>
 <section id="part-8-the-t-test-for-paired-samples" class="title-slide slide level1 center" data-background-color="#cc0164" data-visibility="uncounted">
 <h1>Part 8: <br> The t-test for <br> paired samples</h1>
 <div class="footer">
@@ -3028,13 +3083,298 @@ Fake Data Treatm. B: -1.1 -0.9 -1.4 0.2 0.3 0.6 -5 -2.4 -1.5 2.3 -2.8 2.1 </code
 
 </div>
 </div>
+</section>
+<section id="paired-samples" class="slide level2 smaller">
+<h2>Paired samples</h2>
+<p>Sometimes two samples depend on each other in some way</p>
+<ol type="1">
+<li><strong>Twin studies:</strong>
+<ul>
+<li>Twins are used as pairs (to control genetic or environmental factors)</li>
+<li>Example: test effectiveness of a medical treatment against placebo</li>
+<li>The two samples are clearly dependent (think of twins as the same person)<br>
+</li>
+<li>As such, the usual two-sample t-test is not applicable</li>
+</ul></li>
+</ol>
+</section>
+<section id="paired-samples-1" class="slide level2 smaller">
+<h2>Paired samples</h2>
+<p>Sometimes two samples depend on each other in some way</p>
+<ol start="2" type="1">
+<li><strong>Pre-test and Post-test</strong>
+<ul>
+<li>Measure the outcome of a certain action</li>
+<li>Example: does this module work for teaching R?</li>
+<li>We can assess the effectiveness of something with a pre-test and a post-test</li>
+<li>If scores are markedly better in post-test, then we may be able to attribute the change to the teaching</li>
+<li>The two samples are clearly dependent (each individual takes a test twice)</li>
+<li>As such, the usual two-sample t-test is not applicable</li>
+</ul></li>
+</ol>
+</section>
+<section id="the-paired-t-test" class="slide level2 smaller">
+<h2>The paired t-test</h2>
+<p>Suppose give two samples</p>
+<ul>
+<li><p>Sample <span class="math inline">x_1, \ldots, x_n</span> from <span class="math inline">N(\mu_X,\sigma^2_X)</span></p></li>
+<li><p>Sample <span class="math inline">y_1, \ldots, y_n</span> from <span class="math inline">N(\mu_Y,\sigma^2_Y)</span></p></li>
+</ul>
+<p>Assume the two samples are <strong>paired</strong>, that is, <span class="math display">
+x_i - y_i \,\,\, \text{ are iid}
+</span></p>
+<p>The hypotheses for <strong>difference in means</strong> are <span class="math display">
+H_0 \colon \mu_X = \mu_Y \,, \quad \qquad
+H_1 \colon \mu_X \neq \mu_Y \,, \quad \mu_X &lt; \mu_Y \,, \quad \text{ or } \quad \mu_X &gt; \mu_Y
+</span></p>
+</section>
+<section id="procedure" class="slide level2 smaller">
+<h2>Procedure</h2>
+<p>As the data is paired, the <strong>differences</strong></p>
+<p><span class="math display">
+d_i = x_i - y_i \,\,  \text{ are iid} \,\, N(\mu,\sigma^2) \quad \text{where} \quad \mu := \mu_X - \mu_Y
+</span></p>
+<p>The hypotheses for the difference in means are <strong>equivalent</strong> to</p>
+<p><span class="math display">
+H_0 \colon \mu = 0 \,, \quad \qquad
+H_1 \colon \mu \neq 0 \,, \quad \mu &lt; 0 \,, \quad \text{ or } \quad \mu &gt; 0
+</span></p>
+<p><strong>These can be tested with a one-sample t-test</strong></p>
+<p><br></p>
+<p><strong>R commands:</strong> The paired t-test can be called with the equivalent commands</p>
+<ul>
+<li><p><code>t.test(x, y, paired = TRUE)</code> <span class="math inline">\qquad \quad H_0 \colon  \mu_X = \mu_Y</span></p></li>
+<li><p><code>t.test(x - y)</code> <span class="math inline">\qquad \qquad \qquad \qquad\qquad H_0 \colon \mu = 0</span></p></li>
+</ul>
+</section>
+<section id="example-1-the-2008-crisis-again" class="slide level2 smaller">
+<h2>Example 1: The 2008 crisis (again!)</h2>
+<table class="caption-top" style="width:100%;">
+<colgroup>
+<col style="width: 41%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Month</th>
+<th style="text-align: center;">J</th>
+<th style="text-align: center;">F</th>
+<th style="text-align: center;">M</th>
+<th style="text-align: center;">A</th>
+<th style="text-align: center;">M</th>
+<th style="text-align: center;">J</th>
+<th style="text-align: center;">J</th>
+<th style="text-align: center;">A</th>
+<th style="text-align: center;">S</th>
+<th style="text-align: center;">O</th>
+<th style="text-align: center;">N</th>
+<th style="text-align: center;">D</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">CCI 2007</td>
+<td style="text-align: center;">86</td>
+<td style="text-align: center;">86</td>
+<td style="text-align: center;">88</td>
+<td style="text-align: center;">90</td>
+<td style="text-align: center;">99</td>
+<td style="text-align: center;">97</td>
+<td style="text-align: center;">97</td>
+<td style="text-align: center;">96</td>
+<td style="text-align: center;">99</td>
+<td style="text-align: center;">97</td>
+<td style="text-align: center;">90</td>
+<td style="text-align: center;">90</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">CCI 2009</td>
+<td style="text-align: center;">24</td>
+<td style="text-align: center;">22</td>
+<td style="text-align: center;">21</td>
+<td style="text-align: center;">21</td>
+<td style="text-align: center;">19</td>
+<td style="text-align: center;">18</td>
+<td style="text-align: center;">17</td>
+<td style="text-align: center;">18</td>
+<td style="text-align: center;">21</td>
+<td style="text-align: center;">23</td>
+<td style="text-align: center;">22</td>
+<td style="text-align: center;">21</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p><strong>Data:</strong> Monthly Consumer Confidence Index (CCI) in 2007 and 2009</p></li>
+<li><p><strong>Question:</strong> Did the crash of 2008 have lasting impact upon CCI?</p></li>
+<li><p><strong>Observations</strong>:</p>
+<ul>
+<li>Data shows a massive drop in CCI between 2007 and 2009</li>
+<li>Data is clearly paired <em>(Pre-test and Post-test situation)</em></li>
+</ul></li>
+<li><p><strong>Method:</strong> Use paired <span class="math inline">t</span>-test to investigate drop in mean CCI</p></li>
+</ul>
+<p><span class="math display">
+H_0 \colon \mu_{2007} = \mu_{2009} \,, \quad H_1 \colon \mu_{2007} &gt; \mu_{2009}
+</span></p>
+</section>
+<section id="perform-paired-t-test" class="slide level2 smaller">
+<h2>Perform paired t-test</h2>
+<p><br></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Enter CCI data</span></span>
+<span id="cb44-2"><a aria-hidden="true" tabindex="-1"></a>score_2007 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">86</span>, <span class="dv">86</span>, <span class="dv">88</span>, <span class="dv">90</span>, <span class="dv">99</span>, <span class="dv">97</span>, <span class="dv">97</span>, <span class="dv">96</span>, <span class="dv">99</span>, <span class="dv">97</span>, <span class="dv">90</span>, <span class="dv">90</span>)</span>
+<span id="cb44-3"><a aria-hidden="true" tabindex="-1"></a>score_2009 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">24</span>, <span class="dv">22</span>, <span class="dv">21</span>, <span class="dv">21</span>, <span class="dv">19</span>, <span class="dv">18</span>, <span class="dv">17</span>, <span class="dv">18</span>, <span class="dv">21</span>, <span class="dv">23</span>, <span class="dv">22</span>, <span class="dv">21</span>)</span>
+<span id="cb44-4"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-5"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Perform paired t-test and print p-value</span></span>
+<span id="cb44-6"><a aria-hidden="true" tabindex="-1"></a>ans <span class="ot">&lt;-</span> <span class="fu">t.test</span>(score_2007, score_2009, <span class="at">paired =</span> T, <span class="at">alternative =</span> <span class="st">"greater"</span>)</span>
+<span id="cb44-7"><a aria-hidden="true" tabindex="-1"></a>ans<span class="sc">$</span>p.value</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2.430343e-13</code></pre>
+</div>
+</div>
+<p><br></p>
+<p>The p-value is significant: <span class="math inline">\,\, p &lt; 0.05</span> <span class="math inline">\, \implies \,</span> reject <span class="math inline">H_0</span> <span class="math inline">\, \implies \,</span> Drop in CCI</p>
+</section>
+<section id="warning" class="slide level2 smaller">
+<h2>Warning</h2>
+<p>It would be <strong>wrong</strong> to use a two-sample t-test</p>
+<ul>
+<li><p>This is because the samples are paired, and hence <strong>dependent</strong></p></li>
+<li><p>This is further supported by computing the correlation</p></li>
+<li><p>High correlation implies <strong>dependence</strong></p></li>
+</ul>
+<p><br></p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(score_2007, score_2009)                <span class="co"># Correlation is high</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -0.6076749</code></pre>
+</div>
+</div>
+</section>
+<section id="example-2-water-quality-samples" class="slide level2 smaller">
+<h2>Example 2: Water quality samples</h2>
+<ul>
+<li><p>Researchers wish to measure water quality</p></li>
+<li><p>There are two possible tests, one less expensive than the other</p></li>
+<li><p>10 water samples were taken, and each was measured both ways</p></li>
+</ul>
+<table class="caption-top">
+<colgroup>
+<col style="width: 14%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>method1</td>
+<td>45.9</td>
+<td>57.6</td>
+<td>54.9</td>
+<td>38.7</td>
+<td>35.7</td>
+<td>39.2</td>
+<td>45.9</td>
+<td>43.2</td>
+<td>45.4</td>
+<td>54.8</td>
+</tr>
+<tr class="even">
+<td>method2</td>
+<td>48.2</td>
+<td>64.2</td>
+<td>56.8</td>
+<td>47.2</td>
+<td>43.7</td>
+<td>45.7</td>
+<td>53.0</td>
+<td>52.0</td>
+<td>45.1</td>
+<td>57.5</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Question:</strong> Do the tests give the same results?</p>
+<ul>
+<li><p><strong>Observation</strong>: The data is paired <em>(twin study situation)</em></p></li>
+<li><p><strong>Method:</strong> Use paired <span class="math inline">t</span>-test to investigate equality of results</p></li>
+</ul>
+<p><span class="math display">
+H_0 \colon \mu_1 = \mu_2  \,, \quad H_1 \colon \mu_1 \neq \mu_2  
+</span></p>
+</section>
+<section id="perform-paired-t-test-1" class="slide level2 smaller">
+<h2>Perform paired t-test</h2>
+<p><br></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Enter tests data</span></span>
+<span id="cb48-2"><a aria-hidden="true" tabindex="-1"></a>method1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">45.9</span>, <span class="fl">57.6</span>, <span class="fl">54.9</span>, <span class="fl">38.7</span>, <span class="fl">35.7</span>, <span class="fl">39.2</span>, <span class="fl">45.9</span>, <span class="fl">43.2</span>, <span class="fl">45.4</span>, <span class="fl">54.8</span>)</span>
+<span id="cb48-3"><a aria-hidden="true" tabindex="-1"></a>method2 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">48.2</span>, <span class="fl">64.2</span>, <span class="fl">56.8</span>, <span class="fl">47.2</span>, <span class="fl">43.7</span>, <span class="fl">45.7</span>, <span class="fl">53.0</span>, <span class="fl">52.0</span>, <span class="fl">45.1</span>, <span class="fl">57.5</span>)</span>
+<span id="cb48-4"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-5"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Perform paired t-test and print p-value</span></span>
+<span id="cb48-6"><a aria-hidden="true" tabindex="-1"></a>ans <span class="ot">&lt;-</span> <span class="fu">t.test</span>(method1, method2, <span class="at">paired =</span> T)</span>
+<span id="cb48-7"><a aria-hidden="true" tabindex="-1"></a>ans<span class="sc">$</span>p.value</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.0006648526</code></pre>
+</div>
+</div>
+<p><br></p>
+<p>p-value is significant: <span class="math inline">\,\, p &lt; 0.05</span> <span class="math inline">\, \implies \,</span> reject <span class="math inline">H_0</span> <span class="math inline">\, \implies \,</span> Tests perform differently</p>
+</section>
+<section id="warning-1" class="slide level2 smaller">
+<h2>Warning</h2>
+<p>It would be <strong>wrong</strong> to use a two-sample t-test</p>
+<ul>
+<li><p>This is because the samples are paired, and hence <strong>dependent</strong></p></li>
+<li><p>This is also supported by high samples correlation</p></li>
+</ul>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(method1, method2)                <span class="co"># Correlation is very high</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.9015147</code></pre>
+</div>
+</div>
+</section>
+<section id="warning-2" class="slide level2 smaller">
+<h2>Warning</h2>
+<p>In this Example, performing a two-sample t-test would lead to <strong>wrong decision</strong></p>
+<p><br></p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Perform Welch t-test and print p-value</span></span>
+<span id="cb52-2"><a aria-hidden="true" tabindex="-1"></a>ans <span class="ot">&lt;-</span> <span class="fu">t.test</span>(method1, method2)</span>
+<span id="cb52-3"><a aria-hidden="true" tabindex="-1"></a>ans<span class="sc">$</span>p.val</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.1165538</code></pre>
+</div>
+</div>
+<p><br></p>
+<p><strong>Wrong conclusion:</strong> <span class="math inline">\,\, p &gt; 0.05</span> <span class="math inline">\, \implies \,</span> cannot reject <span class="math inline">H_0</span> <span class="math inline">\, \implies \,</span> Tests perform similarly</p>
 
 <div class="quarto-auto-generated-content">
 <div class="footer footer-default">
 <p><a href="../index.html">Homepage</a> &nbsp;&nbsp;&nbsp;&nbsp; <a href="../license.html">License</a> &nbsp;&nbsp;&nbsp;&nbsp; <a href="https://www.silviofanzon.com/contact">Contact</a></p>
 </div>
 </div>
-</section>
+</section></section>
     </div>
   </div>
 

@@ -12,10 +12,10 @@ m <- length(accountants)
 
 # Compute F-statistics
 # Numerator is population with largest variance
-F <- var(accountants) / var(mathematicians)
+F <- var(accountants)/var(mathematicians)
 
 # Compute p-value
-p_value <- 1 - pf(F, df1 = m - 1, df2 = n - 1)
+p_value <- 2 - 2 * pf(F, df1 = m - 1, df2 = n - 1)
 
 # Print p-value
-cat("\n The p-value for one-sided F-test is", p_value)
+cat("\n The p-value for two-sided F-test is", p_value)

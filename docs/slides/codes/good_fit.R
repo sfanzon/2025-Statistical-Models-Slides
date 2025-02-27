@@ -1,9 +1,9 @@
 # Enter counts and null hypothesis probabilities
-counts <- c(13, 17, 9, 17, 18, 26)
-null_probs <- rep(1/6, 6)
+counts <- c(2162, 738, 228, 2876)
+null.p <- c(1/3, 1/8, 1/24, 1/2)
 
 # Perform goodness-of-fit test
-ans <- chisq.test(counts, p = null_probs)
+# Store the output and print
 
-# Print answer
+ans <- chisq.test(counts, p = null.p)
 print(ans)

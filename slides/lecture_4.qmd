@@ -246,7 +246,7 @@ legend("topright", legend = c("area of rejection region = 0.05"), fill = "gray",
 
 ## Critical values of chi-squared -- Tables {.smaller}
 
-- Find Table 13.5 in this [file](files/Statistics_Tables.pdf)
+- Find Table 2 in this [file](files/Statistics_Tables.pdf)
 - Look at the row with Degree of Freedom $n-1$ (or its closest value)
 - Find **critical value** $\chi^2_{n-1}(0.05)$ in column $\alpha = 0.05$
 - **Example**: $n=12$, DF $=11$, $\chi^2_{11}(0.05) = 19.68$
@@ -280,7 +280,6 @@ $$
 
 
 ## One-sample one-sided variance ratio test {.smaller}
-### The procedure
 
 Suppose given
 
@@ -291,12 +290,10 @@ The one-sided hypothesis test is
 $$
 H_0 \colon \sigma = \sigma_0 \qquad H_1 \colon \sigma > \sigma_0
 $$
-The **variance ratio test** consists of 3 steps
 
 
 
-## One-sample one-sided variance ratio test {.smaller}
-### The procedure
+## Procedure: 3 steps {.smaller}
 
 1. **Calculation**: Compute the chi-squared statistic
 $$
@@ -310,11 +307,10 @@ $$
 
 
 
-## One-sample one-sided variance ratio test {.smaller}
-### The procedure
+##  {.smaller}
 
 2. **Statistical Tables or R**: Find either
-    * Critical value in [Table 13.5](files/Statistics_Tables.pdf)
+    * Critical value in [Table 2](files/Statistics_Tables.pdf)
     $$
     \chi_{n-1}^2(0.05)
     $$
@@ -324,22 +320,12 @@ $$
     $$
     (more on this later)
 
+<br>
 
-
-
-## One-sample one-sided variance ratio test {.smaller}
-### The procedure
-
-3. **Interpretation**:
-    * Reject $H_0$ if 
-    $$
-    \chi^2 > \chi_{n-1}^2(0.05)  \qquad \text{ or } \qquad p < 0.05
-    $$
-    * Do not reject $H_0$ if 
-    $$
-    \chi^2 \leq \chi_{n-1}^2(0.05) \qquad \text{ or } \qquad 
-    p \geq 0.05
-    $$
+3. **Interpretation**: Reject $H_0$ if either
+$$
+\chi^2 > \chi_{n-1}^2(0.05)  \qquad \text{ or } \qquad p < 0.05
+$$
 
 
 
@@ -490,24 +476,25 @@ $$
 2. **Statistical Tables**:
     * Sample size is $n = 12$
     * Degrees of freedom are ${\rm df} = n-1 = 11$
-    * In [Table 13.5](files/Statistics_Tables.pdf) find
+    * In [Table 2](files/Statistics_Tables.pdf) find
     $$
     \chi_{11}^2(0.05) = 19.68
     $$
 
 3. **Interpretation**:
     * Test statistic is $\chi^2 = 845$
-    * We **reject** $H_0$ because
+    * This falls in the *rejection region*
     $$
     \chi^2 = 845 > 19.68 = \chi_{11}^2(0.05)
     $$
+    * We **reject** $H_0$
 
 
 
 ## The variance ratio test by hand {.smaller}
 
 4. **Conclusion**:
-    * We accept $H_1$: The standard deviation satisfies $\sigma > 1$
+    * We reject $H_0$: The standard deviation satisfies $\sigma > 1$
     * A better estimate for $\sigma$ could be sample standard deviation
     $$
     s=\sqrt{\frac{845}{11}}=8.765
@@ -972,7 +959,7 @@ $$
 
 ## The two-sample t-test {.smaller}
 
-**Assumptions**: Suppose given samples from 2 normal populations
+**Assumptions**: Suppose given samples from 2 **independent** normal populations
 
 - $X_1, \ldots ,X_n$ iid with distribution $N(\mu_X,\sigma_X^2)$
 - $Y_1, \ldots ,Y_m$ iid with distribution $N(\mu_Y,\sigma_Y^2)$
@@ -1399,8 +1386,7 @@ $$
 
 ## The two-sample t-test {.smaller}
 
-
-Suppose given two independent samples
+Suppose given two **independent** samples
 
 - Sample $x_1, \ldots, x_n$ from $N(\mu_X,\sigma^2)$ of size $n$
 - Sample $y_1, \ldots, y_m$ from $N(\mu_Y,\sigma^2)$ of size $m$
@@ -1442,63 +1428,104 @@ $$
 
 
 
-## Procedure: 3 Steps {.smaller}
+## {.smaller}
 
 2. **Statistical Tables or R**: Find either
-    * Critical value in [Table 13.1](files/Statistics_Tables.pdf)
-    $$
-    t^* = 
-    \begin{cases}
-    t_{n + m - 2} (0.025) & \quad \text{ if two-sided test}\\
-    t_{n + m - 2} (0.05) & \quad \text{ if one-sided test}
-    \end{cases}
-    $$
+    * Critical value $t^*$ in [Table 1](files/Statistics_Tables.pdf)
     * p-value in R
-    $$
-    p = 
-    \begin{cases}
-    2 P( t_{n + m -2} > |t| ) & \quad \text{ if } \,\, H_1 \colon \mu_X \neq \mu_Y \\
-    P( t_{n + m -2} < t ) & \quad \text{ if } \,\, H_1 \colon \mu_X < \mu_Y \\
-    P( t_{n + m -2} > t ) & \quad \text{ if } \,\, H_1 \colon \mu_X > \mu_Y
-    \end{cases}
-    $$
+
+<br>
+
+3. **Interpretation**: Reject $H_0$ when either
+$$
+p < 0.05 \qquad \text{ or } \qquad t \in \,\,\text{Rejection Region} 
+\qquad \qquad \qquad \qquad
+(T \, \sim \, t_{n+m-1})
+$$
 
 
 
 
-## Procedure: 3 Steps {.smaller}
-
-3. **Interpretation**:
-    * For two-sided t-test we reject $H_0$ if 
-    $$
-    |t| > t_{n + m - 2} (0.025)  \quad \text{ or } \quad p < 0.05
-    $$
-    * For one-sided t-test we reject $H_0$ if 
-    $$
-    t < t_{n + m - 2} (0.05)  \quad \text{ or } \quad 
-    p < 0.05    \quad \text{when } \, H_1 \colon \mu_X < \mu_Y
-    $$
-    $$
-    t > t_{n + m - 2} (0.05)  \quad \text{ or } \quad 
-    p < 0.05    \quad \text{when } \,\, H_1 \colon \mu_X > \mu_Y
-    $$
+| Alternative                      | Rejection Region  | $t^*$             | p-value         |
+|----------------------------------|-------------------|-------------------|-----------------|
+| $\mu_X \neq \mu_Y$               | $|t| > t^*$       | $t_{n+m-1}(0.025)$| $2P(T > |t|)$   |
+| $\mu_X < \mu_Y$                  | $t < - t^*$       | $t_{n+m-1}(0.05)$ | $P(T < t)$      |
+| $\mu_X > \mu_Y$                  | $t > t^*$       | $t_{n+m-1}(0.05)$ | $P(T > t)$      |
+: {tbl-colwidths="[25,25,25,25]"}
 
 
 
+
+## {.smaller}
+
+```{r}
+# Degrees of freedom
+df <- 11
+
+# Values for x-axis
+x <- seq(-4, 4, length.out = 1000)
+
+# Calculate PDF of t-distribution
+pdf <- dt(x, df)
+
+# Set layout for 3 plots side by side
+par(mfrow = c(1, 3))
+
+# Left-tailed test
+plot(x, pdf, type = "l", col = "blue", lwd = 2, xlab = "", ylab = "", main = expression("Left-Tailed Test: " ~ mu[X] < mu[Y]))
+x_fill_left <- x[x <= qt(0.05, df)]
+y_fill_left <- pdf[x <= qt(0.05, df)]
+polygon(c(x_fill_left, rev(x_fill_left)), c(y_fill_left, rep(0, length(y_fill_left))), col = "gray", border = NA)
+text(qt(0.05, df) - 1.3, dt(qt(0.05, df), df) - 0.01, expression(-t(0.05)), pos = 3, col = "red", cex = 1.1)
+legend("topright", legend = c("Rej. Region area = 0.05"), fill = "gray", cex = 1)
+
+# Two-tailed test
+plot(x, pdf, type = "l", col = "blue", lwd = 2, xlab = "", ylab = "", main = expression("Two-Tailed Test: " ~ mu[X] != mu[Y]))
+x_fill_left <- x[x <= qt(0.025, df)]
+y_fill_left <- pdf[x <= qt(0.025, df)]
+polygon(c(x_fill_left, rev(x_fill_left)), c(y_fill_left, rep(0, length(y_fill_left))), col = "gray", border = NA)
+
+x_fill_right <- x[x >= qt(0.975, df)]
+y_fill_right <- pdf[x >= qt(0.975, df)]
+polygon(c(x_fill_right, rev(x_fill_right)), c(y_fill_right, rep(0, length(y_fill_right))), col = "gray", border = NA)
+
+text(qt(0.025, df) - 1.0, dt(qt(0.025, df), df) + 0.0, expression(-t(0.025)), pos = 3, col = "red", cex = 1.1)
+text(qt(0.975, df) + 1.0, dt(qt(0.975, df), df) + 0.0, expression(t(0.025)), pos = 3, col = "red", cex = 1.1)
+legend("topright", legend = c("Rej. Region area = 0.025 x 2"), fill = "gray", cex = 1)
+
+# Right-tailed test
+plot(x, pdf, type = "l", col = "blue", lwd = 2, xlab = "", ylab = "", main = expression("Right-Tailed Test: " ~ mu[X] > mu[Y]))
+x_fill_right <- x[x >= qt(0.95, df)]
+y_fill_right <- pdf[x >= qt(0.95, df)]
+polygon(c(x_fill_right, rev(x_fill_right)), c(y_fill_right, rep(0, length(y_fill_right))), col = "gray", border = NA)
+text(qt(0.95, df) + 1.3, dt(qt(0.95, df), df) - 0.01, expression(t(0.05)), pos = 3, col = "red", cex = 1.1)
+legend("topright", legend = c("Rej. Region area = 0.05"), fill = "gray", cex = 1)
+
+# Reset layout
+par(mfrow = c(1, 1))
+```
+
+
+Reject $H_0$ if t-statistic $t$ falls in the *Rejection Region* (in gray). Here $t \sim t_{n+m-1}$
 
 
 ## The two-sample t-test in R {.smaller}
 ### General commands
 
 1. Store the samples $x_1,\ldots,x_n$ and $y_1,\ldots,y_m$ in two R vectors
-    * ``x_sample <- c(x1, ..., xn)``
-    * ``y_sample <- c(y1, ..., ym)``
+    * ``x <- c(x1, ..., xn)`` $\qquad$ ``y <- c(y1, ..., ym)``
 
-2. Perform a two-sided two-sample t-test on ``x_sample`` and ``y_sample``
-    * ``t.test(x_sample, y_sample, var.equal = TRUE)``
-
-3. Read output
-    * Output is similar to one-sample t-test
+2. Perform a two-sample t-test on ``x`` and ``y``
+    
+|Alternative                  |    R command                               |
+|-----------------------------|--------------------------------------------|
+|$\mu_X \neq \mu_Y$ | ``t.test(x, y, var.equal = T)``                         |
+|$\mu_X < \mu_Y$    |``t.test(x, y, var.equal = T, alt = "less")`` |
+|$\mu_X > \mu_Y$    |``t.test(x, y, var.equal = T, alt = "greater")`` |
+: {tbl-colwidths="[25,75]"}
+    
+    
+3. Read output: similar to one-sample t-test
     * The main quantity of interest is p-value
 
 
@@ -1506,40 +1533,19 @@ $$
 
 ## Comments on command ``t.test(x, y)`` {.smaller}
 
-1. R will perform a two-sample t-test on populations ``x`` and ``y``
-2. R implicitly assumes the null hypothesis is 
-$$
-H_0 \colon \mu_X - \mu_Y = 0
-$$
 
-3. ``mu = mu0`` tells R to test null hypothesis:
+1. ``mu = mu0`` tells R to test null hypothesis:
     $$
-    H_0 \colon \mu_X - \mu_Y = \mu_0
+    H_0 \colon \mu_X - \mu_Y = \mu_0  \qquad \quad (\text{default is } \, \mu_0 = 0)
     $$ 
 
 
-## Comments on command ``t.test(x, y)`` {.smaller}
-
-4. One-sided two sample t-test can be performed by specifying
-    * ``alternative = "greater"`` which tests 
-    $$
-    H_1 \colon \mu_X - \mu_Y > \mu_0
-    $$ 
-    * ``alternative = "less"`` which tests 
-    $$
-    H_1 \colon \mu_X - \mu_Y < \mu_0
-    $$ 
-
-
-
-## Comments on command ``t.test(x, y)`` {.smaller}
-
-5. ``var.equal = TRUE`` tells R to assume that populations have same variance
+2. ``var.equal = T`` tells R to assume that populations have same variance
 $$
 \sigma_X^2 = \sigma^2_Y
 $$
 
-6. In this case R computes the t-statistic with formula discussed earlier
+3. In this case R computes the t-statistic with formula discussed earlier
     $$
     t = \frac{ \overline{x} - \overline{y} }{s_p \sqrt{ \dfrac{1}{n} + \dfrac{1}{m} }}
     $$
@@ -1550,7 +1556,7 @@ $$
 
 ## Comments on command ``t.test(x, y)`` {.smaller}
 
-**Warning**: If ``var.equal = TRUE`` is **not** specified then
+**Warning**: If ``var.equal = T`` is **not** specified then
 
 - R assumes that populations have different variance
     $\sigma_X^2 \neq \sigma^2_Y$
@@ -1688,10 +1694,11 @@ t & = \frac{\bar{x} - \bar{y} }{s_p \ \sqrt{\dfrac{1}{n}+\dfrac{1}{m}}} \\
 2. **Referencing Tables**:
     * Degrees of freedom are
     $${\rm df} = n + m - 2 = 10 + 13 - 2 = 21$$
-    * Find corresponding critical value in [Table 13.1](files/Statistics_Tables.pdf)
+    * Find corresponding critical value in [Table 1](files/Statistics_Tables.pdf)
 $$
 t_{21}(0.025) = 2.08
 $$
+(Note the value $0.025$, since this is two-sided test)
 
 
 
@@ -1703,7 +1710,7 @@ $$
       $$
       | t | = 0.464 < 2.08 = t_{21}(0.025) 
       $$
-
+    * t falls in the *acceptance region*
     * Therefore the p-value satisfies $p>0.05$
     * There is no evidence ($p>0.05$) in favor of $H_1$
     * Hence we accept that $\mu_X = \mu_Y$
@@ -1714,24 +1721,27 @@ $$
 
 
 
-## The two-sample t-test in R: Code {.smaller}
+## The two-sample t-test in R {.smaller}
+
+
+This is a two-sided t-test with assumption of equal variance. The p-value is
+
+$$
+p = 2 P(t_{n-1} > |t|) \,, \qquad t  = \frac{\bar{x} - \bar{y} }{s_p \ \sqrt{1/n + 1/m}}
+$$
 
 
 ```r
 # Enter Wages data in 2 vectors using function c()
-
 mathematicians <- c(36, 40, 46, 54, 57, 58, 59, 60, 62, 63)
 accountants <- c(37, 37, 42, 44, 46, 48, 54, 56, 59, 60, 60, 64, 64)
 
 
-# Perform two-sample t-test with null hypothesis mu_X = mu_Y
-# Specify that populations have same variance
-# Store result of t.test in answer
+# Two-sample t-test with null hypothesis mu_X = mu_Y
+# and equal variance assumption. Store result in answer and print.
 
 answer <- t.test(mathematicians, accountants, var.equal = TRUE)
 
-
-# Print answer
 print(answer)
 ```
 
@@ -2391,7 +2401,7 @@ $$
 ```r
 # Perform Welch t-test and retrieve p-value
 
-ans <- t.test(trA, trB, alternative = "less", var.equal = F) 
+ans <- t.test(trA, trB, alt = "less", var.equal = F) 
 ans$p.value
 ```
 
@@ -2403,7 +2413,7 @@ trB <- c(-1.1, -0.9, -1.4, 0.2, 0.3, 0.6, -5,
 
 # Perform Welch t-test and retrieve p-value
 
-ans <- t.test(trA, trB, alternative = "less", var.equal = F) 
+ans <- t.test(trA, trB, alt = "less", var.equal = F) 
 ans$p.value
 ```
 
@@ -2430,7 +2440,7 @@ $$
 ```r
 # Perform two-sample t-test and retrieve p-value
 
-ans <- t.test(trA, trB, alternative = "less", var.equal = T) 
+ans <- t.test(trA, trB, alt = "less", var.equal = T) 
 ans$p.value
 ```
 
@@ -2442,7 +2452,7 @@ trB <- c(-1.1, -0.9, -1.4, 0.2, 0.3, 0.6, -5,
 
 # Perform two-sample t-test and retrieve p-value
 
-ans <- t.test(trA, trB, alternative = "less", var.equal = T) 
+ans <- t.test(trA, trB, alt = "less", var.equal = T) 
 ans$p.value
 ```
 
@@ -2500,8 +2510,8 @@ repeat {
   y <- round(y, 1)
   
   # Perform one-sided t-tests for alternative hypothesis mu_x < mu_y 
-  ans_welch <- t.test(x, y, alternative = "less", var.equal = F)
-  ans_t_test <- t.test(x, y, alternative = "less", var.equal = T)
+  ans_welch <- t.test(x, y, alt = "less", var.equal = F)
+  ans_t_test <- t.test(x, y, alt = "less", var.equal = T)
    
   # Check that Welch test succeeds and two-sample test fails
   if (ans_welch$p.value < 0.05 && ans_t_test$p.value > 0.05) {
@@ -2662,7 +2672,7 @@ score_2007 <- c(86, 86, 88, 90, 99, 97, 97, 96, 99, 97, 90, 90)
 score_2009 <- c(24, 22, 21, 21, 19, 18, 17, 18, 21, 23, 22, 21)
 
 # Perform paired t-test and print p-value
-ans <- t.test(score_2007, score_2009, paired = T, alternative = "greater")
+ans <- t.test(score_2007, score_2009, paired = T, alt = "greater")
 ans$p.value
 ```
  
@@ -2742,7 +2752,7 @@ ans$p.value
 
 <br>
 
-p-value is significant: $\,\, p < 0.05$ $\, \implies \,$ reject $H_0$ $\, \implies \,$ Methods perform differently
+p-value is significant: $\,\, p < 0.05$ $\implies$ reject $H_0$ $\implies$ Methods perform differently
 
 
 
@@ -2791,9 +2801,8 @@ ans$p.val
 
 <br>
 
-**Wrong conclusion:** $\,\, p > 0.05$ $\, \implies \,$ cannot reject $H_0$ $\, \implies \,$ Methods perform similarly
+**Wrong conclusion:** $\,\, p > 0.05$ $\implies$ can't reject $H_0$ $\implies$ Methods perform similarly
 
 
-<br> 
 
 **Bottom line:** The data is paired, therefore a paired t-test **must** be used

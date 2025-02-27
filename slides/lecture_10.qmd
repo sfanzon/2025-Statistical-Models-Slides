@@ -1385,7 +1385,7 @@ $$
   
 - The p-value cannot be computed by hand
 
-- However we can find critical value on [Tables](files/Statistics_Tables.pdf)
+- However we can find critical value in [Table 1](files/Statistics_Tables.pdf)
 
 $$
 n = \text{No. of data points} = 33 \,, \qquad  \text{df} = n - 2 = 31
@@ -2235,7 +2235,7 @@ $$
   
 - The p-value cannot be computed by hand
 
-- However we can find critical values close to $F_{1,31} (0.05)$ on [Tables](files/Statistics_Tables.pdf)
+- However we can find critical values close to $F_{1,31} (0.05)$ in [Table 3](files/Statistics_Tables.pdf)
 
 $$
 F_{1, 30} (0.05) = 4.17 \,, \qquad \quad  F_{1, 40} (0.05) = 4.08

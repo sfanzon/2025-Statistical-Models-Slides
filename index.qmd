@@ -93,7 +93,7 @@ There are 11 lectures in this module. Links to the slides and lecture titles are
 | Lecture 3   | [One-Sample t-test](slides/codes/one_sample_t_test.R)                                                                     | 
 | Lecture 4   | [Variance ratio test](slides/codes/variance_ratio_test.R) <br> [Two-Sample t-test](slides/codes/two_sample_t_test.R)      |
 | Lecture 5   | [F-test](slides/codes/F_test.R) <br> [F-test First Principles](slides/codes/F_test_first_principles.R) <br> [Goodness-of-fit](slides/codes/good_fit.R) <br> [Goodness-of-fit First Principles](slides/codes/good_fit_first_principles.R)  |
-| Lecture 6   | [Goodness-of-fit Contingency](slides/codes/good_fit_contingency.R) <br> [Independence Test](slides/codes/independence_test.R) <br> [Monte Carlo $\pi$](slides/codes/monte_carlo_pi.R) |
+| Lecture 6   | [Goodness-of-fit Contingency](slides/codes/good_fit_contingency.R) <br> [Independence Test](slides/codes/independence_test.R) <br> [Monte Carlo $\pi$](slides/codes/monte_carlo_pi.R) <br> [Bootstrap CI](slides/codes/bootstrap_CI.R) |
 | Lecture 7   | [Least-squares Solution 1](slides/codes/least_squares_1.R) <br>  [Least-squares Solution 2](slides/codes/least_squares_2.R)        |
 | Lecture 8   | [Multiple Regression](slides/codes/multiple_regression.R) <br> [R2 multiple regression](slides/codes/R2_multiple_regression.R) |
 | Lecture 9  | [Simple Regression](slides/codes/simple_regression.R)  <br> [Longley regression](slides/codes/longley_regression.R) <br> [Longley selection](slides/codes/longley_selection.R) <br> [Galileo](slides/codes/galileo.R) <br> [Divorces](slides/codes/divorces.R) |

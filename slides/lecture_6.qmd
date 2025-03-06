@@ -3010,6 +3010,8 @@ cat("\nt-test Confidence Interval (95%):", t.test.CI)
     * In such case, the percentile bootstrap CI is asymptotically valid (i.e. approximates t-test CI)
 
 
+- The code can be downloaded here [bootstrap_CI.R](codes/bootstrap_CI.R)
+
 
 
 ## References

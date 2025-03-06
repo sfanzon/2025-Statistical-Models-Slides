@@ -7,14 +7,15 @@ counts <- c(27, 9, 15,
             61, 12, 28)
 
 # Store matrix of null probabilities into single R vector
-# We use repeat to avoid copy pasting 
-rows_null_probs <- c(51/1788, 103/1788, 144/1788, 
-                      168/1788, 29/1788, 101/1788)
+# To avoid copy pasting, first store probabilities of each Manager
+manager.null.p <- c(51/1788, 103/1788, 144/1788, 
+                    168/1788, 29/1788, 101/1788)
 
-null_probs <- rep(rows_null_probs, c(3, 3, 3, 3, 3, 3))
+# Repeat each entry 3 times 
+null.p <- rep(manager.null.p, c(3, 3, 3, 3, 3, 3))
 
 # Perform goodness-of-fit test
-ans <- chisq.test(counts, p = null_probs)
+ans <- chisq.test(counts, p = null.p)
 
 # Print answer
 print(ans)

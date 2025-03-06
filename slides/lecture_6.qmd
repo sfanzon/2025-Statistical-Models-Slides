@@ -2047,7 +2047,7 @@ $$
 
 ::: {style="font-size: 0.92em"}
 
-**Simulating the confidence interval in R:**
+**Simulating one confidence interval in R:**
 
 - Sample $n = 100$ times from $N(0,1)$
     * Running a t-test on the sample gives a confidence interval for the unknown mean $\mu$
@@ -2539,31 +2539,115 @@ cat("\nR simulated p-value is:", R.p.value)
 :::
 
 
+
+
 ## Motivation {.smaller}
 
 - So far, our simulations used knowledge of the population distribution, e.g.
     * To simulate $\pi$, we sampled points from ${\rm Uniform}([-1,1] \times [-1,1])$
-    * To simulate confidence intervals, we used that the population is $N(\mu,\sigma^2)$
     * To simulate the $\chi^2$ statistic, we sampled *Multinomial* counts
-
-
-- **Problem:** If the population is unknown, where do we sample from?
-
-- **Answer:** Sample from the sample itself!
-
-The rub is we need to know μ to actually simulate the sampling distribution. For this particular question and others we will encounter in the upcoming chapters we will know the sampling distribution from theoretical means. So this issue will not be an impediment.
-This section briefly touches on a computer-intensive means to work around the absence of a known sampling distribution, the bootstrap method [18], [16]. In its most basic application, we will see how the bootstrap method can be used to estimate the sampling distribution.
-How? A basic assumption in simulation is that if we have enough ran- dom samples from a population, that the random samples can describe that population very well. This is the starting point for the bootstrap.
-First a random sample x1, x2, . . . , xn is used to produce an empirical cumula- tive distribution function Fˆ(a) = #{i : xi ≤ a}/n. The assumption is that this ap- proximates well the actual cumulative distribution function F(a) = P(X ≤ a). As such, we assume we know a reasonable proxy for the population and use that as our model.
-
-- **Problem:** What if the population distribution is unknown?
-
-- **Solution:**
-    * Suppose we have a sample available
-    * The Bootstrap regards the sample as the **whole population**
-    * The population distribution is estimated by **resampling**
-    * This means samp(often with replacement) 
+    * To simulate confidence intervals, we sampled from a normal population
    
+
+
+- **Problem:** Sometimes the population distribution $f$ is **unknown**
+
+- **Bootstrap:** Replace the unknown distribution $f$ with a known distribution $\hat{f}$
+
+
+
+
+
+## The Sample Distribution {.smaller}
+
+::: {style="font-size: 0.94em"}
+
+- Assume given a sample $x_1,\ldots,x_n$ from a population $f$
+
+- The **Sample Distribution** is the discrete distribution which puts mass $\frac1n$ at each sample point
+$$
+\hat{f}(x) = 
+\begin{cases}
+\frac1n  & \quad \text{ if } \, x \in \{x_1, \ldots, x_n\} \\
+0        & \quad \text{ otherwise }
+\end{cases}
+$$
+
+::: Theorem 
+### Glivenko-Cantelli
+
+As the sample size increases
+$$
+\lim_{n \to \infty} \hat{f} = f 
+$$
+
+:::
+
+
+(more precisely, the relative cdfs converge uniformly almost everywhere)
+
+:::
+
+
+
+
+## Main Bootstrap idea {.smaller}
+
+**Setting:** Assume given the **original** sample $x_1,\ldots,x_n$ from unknown population $f$
+
+
+
+**Bootstrap:** Regard the sample as the **whole population** 
+
+- Replace the unknown distribution $f$ with the sample distribution
+$$
+\hat{f}(x) = 
+\begin{cases}
+\frac1n  & \quad \text{ if } \, x \in \{x_1, \ldots, x_n\} \\
+0        & \quad \text{ otherwise }
+\end{cases}
+$$
+
+- Any sampling will be done from $\hat{f}$ $\qquad \quad$ (motivated by Glivenko-Cantelli Thm)
+
+**Note:** $\hat{f}$ puts mass $\frac1n$ at each sample point
+
+
+**Drawing an observation from $\hat f$ is equivalent to drawing one point at random from the original sample $\{x_1,\ldots,x_n\}$**
+
+
+
+
+
+
+
+## The Bootstrap Algorithm {.smaller}
+
+::: {style="font-size: 0.94em"}
+
+**Setting:** Given the **original** sample $x_1,\ldots,x_n$ from unknown population $f$
+
+**Bootstrap Algorithm:** to estimate the distribution of a statistic of interest $T$
+
+
+1. Draw sample $x_1^*,\ldots,x_n^*$ from $\{x_1, \ldots, x_n\}$ with **replacement**
+
+2. Compute the statistic $T$ on the bootstrap sample
+$$
+T^* = T(x_1^*,\ldots,x_n^*)
+$$
+
+3. Repeat Steps 1 and 2, $B$ times, to get $B$ bootstrap simulations of $T$
+$$
+T^*_1, \ldots , T^*_B
+$$
+These values represent the **bootstrap distribution** of $T$
+
+
+**Note**: If population distribution $f$ is known, we would just sample from $f$
+
+:::
+
 
 
 
@@ -2579,16 +2663,15 @@ First a random sample x1, x2, . . . , xn is used to produce an empirical cumula-
 
 <br>
 
-- A sample is drawn from a population $\qquad\qquad\qquad\qquad \qquad$ (Image from [Wikipedia](https://en.wikipedia.org/wiki/Bootstrapping_(statistics)#/media/File:Illustration_bootstrap.svg))
+- Original sample $\{x_1,\ldots,x_n\}$ is drawn from the population $\qquad$ (Image from [Wikipedia](https://en.wikipedia.org/wiki/Bootstrapping_(statistics)#/media/File:Illustration_bootstrap.svg))
 
-- From this sample, resamples are generated by drawing with replacement (orange)  
+- Resamples $\{x_1^*,\ldots,x_n^*\}$ are generated by drawing from $\{x_1,\ldots,x_n\}$ with **replacement**
 
-- Data points that were drawn more than once are shown in red and sligthly offsetted  
-(approx. 26.4% of data points in the picture)  
+- Note: Data points $x_i$ can be drawn more than once (in red and sligthly offsetted)
 
-- For each resample, the statistic $T$ is calculated 
+- For each resample, the statistic $T^*$ is calculated 
 
-- Therefore, a histogram can be calculated to estimate the distribution of $T$
+- Therefore, a histogram can be calculated to estimate the bootstrap distribution of $T$
 
 
 
@@ -2597,16 +2680,82 @@ First a random sample x1, x2, . . . , xn is used to produce an empirical cumula-
 
 
 
-## Why does the Bootstrap work? {.smaller}
+## Q \& A {.smaller}
 
-- We said that we consider 
+::: {style="font-size: 0.93em"}
+
+**References?** 
+
+- Simulation and bootstrap are huge topics
+
+- Good introduction: the book by Efron (inventor of bootstrap) and Tibshirani @efron
+
+
+**Why is the Bootstrap useful?**
+
+- Because a lot of the times population distribution is unknown
+
+- Bootstrap allows to do inference on statistic $T$
+
+**Why does the Bootstrap work?** We are just resampling from the original sample!
+
+- It (often) works because the original sample encodes population variability
+
+- By resampling the original sample, we are simulating this variability
+
+:::
 
 
 
 
 
+## Q \& A {.smaller}
 
-## Example: Bootstrap Variance Estimation {.smaller}
+::: {style="font-size: 0.93em"}
+
+
+**How good is the bootstrap distribution of $T$?**
+
+- It can be a good approximation of the true distribution of $T$ when the  
+**original sample is sufficiently variable**
+    * Things tend to go well for large samples ($n \geq 50$)
+
+- Bootstrap works well when the statistic $T$ is a mean (or something like a mean)
+    * for example median, regression coefficient, or standard deviation. 
+
+- The bootstrap has difficulties when the statistic $T$ is influenced by outliers
+    * for example if $T$ is the range, that is, $T =$ max value $-$ min value
+
+:::
+
+
+## Q \& A {.smaller}
+
+::: {style="font-size: 0.93em"}
+
+**What are the limitations of bootstrap?**
+
+- Computationally expensive
+    * For decent simulation of bootstrap distribution of $T$, need at least  
+    $B = 10,000$ resamples ($100,000$ would be better!)
+
+- Relies on a sufficiently variable original sample
+    * If the original sample is not good, the bootstrap cannot recover from this problem
+    * In this case the bootstrap population will not look like the true population
+    * The bootstrap resampling will not be useful
+
+- No way to determine if the original sample is good enough
+
+
+**However, problems are usually mitigated by large enough original sample ($n \geq 50$)**
+
+
+:::
+
+
+
+
+## Example: Bootstrapping the mean {.smaller}
 
 ::: {style="font-size: 0.91em"}
 
@@ -2614,6 +2763,8 @@ First a random sample x1, x2, . . . , xn is used to produce an empirical cumula-
 
 - We want to estimate the variance of $T$ using bootstrap
 
+
+- In R, use ``sample(x, length(x), replace = TRUE)``
 
 **Example:** Consider the sample mean
 $$
@@ -2633,47 +2784,6 @@ $$
 
 :::
 
-
-
-
-## Algorithm: Bootstrap Variance Estimation {.smaller}
-
-Suppose given a sample $x_1, \ldots, x_n$
-
-1. Draw sample $x_1^*,\ldots,x_n^*$ from $x_1, \ldots, x_n$ with replacement
-    * In R, use ``sample(x, length(x), replace = TRUE)``
-
-2. Compute the statistic $T$ on the bootstrap sample
-$$
-T^* = T(x_1^*,\ldots,x_n^*)
-$$
-
-3. Repeat Steps 1 and 2, $B$ times, to get $B$ bootstrap simulations of $T$
-$$
-T^*_1, \ldots , T^*_B
-$$
-(These values are actually simulations from $T$)
-
-
-## {.smaller}
-
-4. The bootstrap estimate for the variance of $T$ is the sample variance of $T^*$
-$$
-\Var[T]_{\rm Boot} = \frac{1}{B-1} \sum_{i=1}^B  
-\left(  T^*_i - \frac{1}{B}\sum_{j=1}^B T^*_j   \right)^2
-$$
-
-
-::: Theorem
-
-For large samples, we have
-
-$$
-\lim_{n \to \infty} \Var[T]_{\rm Boot} = 
-\Var[T]
-$$
-
-:::
 
 
 
@@ -2926,3 +3036,6 @@ cat("The error is", abs(var.boot - var.true))
 
 
 **The estimate obtained with just 10 samples is remarkable**
+
+
+## References

@@ -96,7 +96,27 @@
     code span.va { color: #111111; } /* Variable */
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
-  </style>
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+      margin-bottom: 0em;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
   <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto.css">
   <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
@@ -405,39 +425,19 @@
   </style>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
   <style>
-  .Problem {
+  .Axiom {
     --color1: #f4cce0;
     --color2: #db4d92;
-  }
-  .TODO {
-    --color1: #e7b1b4;
-    --color2: #8c3236;
-  }
-  .Lemma {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Notation {
-    --color1: #c6e6ed;
-    --color2: #1995ad;
   }
   .Proposition {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
-  .Definition {
-    --color1: #c6e6ed;
-    --color2: #1995ad;
-  }
   .DONE {
     --color1: #cce7b1;
     --color2: #86b754;
   }
-  .Conjecture {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Theorem {
+  .Important {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
@@ -445,7 +445,39 @@
     --color1: #f1f1f2;
     --color2: #c0c0c1;
   }
-  .Axiom {
+  .Example {
+    --color1: #bce5de;
+    --color2: #21aa93;
+  }
+  .TODO {
+    --color1: #e7b1b4;
+    --color2: #8c3236;
+  }
+  .Theorem {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Definition {
+    --color1: #c6e6ed;
+    --color2: #1995ad;
+  }
+  .Corollary {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Conjecture {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Remark {
+    --color1: #bce5de;
+    --color2: #21aa93;
+  }
+  .Problem {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Lemma {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
@@ -453,27 +485,15 @@
     --color1: #f4cce0;
     --color2: #db4d92;
   }
-  .Important {
+  .Question {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
-  .Corollary {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Example {
-    --color1: #bce5de;
-    --color2: #21aa93;
-  }
-  .Remark {
-    --color1: #bce5de;
-    --color2: #21aa93;
+  .Notation {
+    --color1: #c6e6ed;
+    --color2: #1995ad;
   }
   .Warning {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Question {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
@@ -3129,16 +3149,16 @@ x_i^2 + y_i^2 \leq 1
 <h2>Approximation of <span class="math inline">\pi</span> in R: Output</h2>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>After    10000 iterations pi is 3.12240000, error is 0.01919265
-After    20000 iterations pi is 3.12780000, error is 0.01379265
-After    30000 iterations pi is 3.13533333, error is 0.00625932
-After    40000 iterations pi is 3.13280000, error is 0.00879265
-After    50000 iterations pi is 3.13512000, error is 0.00647265
-After    60000 iterations pi is 3.13800000, error is 0.00359265
-After    70000 iterations pi is 3.13714286, error is 0.00444980
-After    80000 iterations pi is 3.13760000, error is 0.00399265
-After    90000 iterations pi is 3.13857778, error is 0.00301488
-After   100000 iterations pi is 3.13804000, error is 0.00355265</code></pre>
+<pre><code>After    10000 iterations pi is 3.15520000, error is 0.01360735
+After    20000 iterations pi is 3.15260000, error is 0.01100735
+After    30000 iterations pi is 3.15053333, error is 0.00894068
+After    40000 iterations pi is 3.15300000, error is 0.01140735
+After    50000 iterations pi is 3.15312000, error is 0.01152735
+After    60000 iterations pi is 3.14960000, error is 0.00800735
+After    70000 iterations pi is 3.14874286, error is 0.00715020
+After    80000 iterations pi is 3.14940000, error is 0.00780735
+After    90000 iterations pi is 3.15155556, error is 0.00996290
+After   100000 iterations pi is 3.14956000, error is 0.00796735</code></pre>
 </div>
 </div>
 <p><strong>Note:</strong></p>
@@ -3407,7 +3427,7 @@ b = \overline{x} + t^* \times \mathop{\mathrm{e.s.e.}}
 <section id="section-20" class="slide level2 smaller">
 <h2></h2>
 <div style="font-size: 0.92em">
-<p><strong>Simulating the confidence interval in R:</strong></p>
+<p><strong>Simulating one confidence interval in R:</strong></p>
 <ul>
 <li>Sample <span class="math inline">n = 100</span> times from <span class="math inline">N(0,1)</span>
 <ul>
@@ -3811,23 +3831,68 @@ R simulated p-value is: 0.8195902</code></pre>
 <li><p>So far, our simulations used knowledge of the population distribution, e.g.</p>
 <ul>
 <li>To simulate <span class="math inline">\pi</span>, we sampled points from <span class="math inline">{\rm Uniform}([-1,1] \times [-1,1])</span></li>
-<li>To simulate confidence intervals, we used that the population is <span class="math inline">N(\mu,\sigma^2)</span></li>
 <li>To simulate the <span class="math inline">\chi^2</span> statistic, we sampled <em>Multinomial</em> counts</li>
+<li>To simulate confidence intervals, we sampled from a normal population</li>
 </ul></li>
-<li><p><strong>Problem:</strong> If the population is unknown, where do we sample from?</p></li>
-<li><p><strong>Answer:</strong> Sample from the sample itself!</p></li>
+<li><p><strong>Problem:</strong> Sometimes the population distribution <span class="math inline">f</span> is <strong>unknown</strong></p></li>
+<li><p><strong>Bootstrap:</strong> Replace the unknown distribution <span class="math inline">f</span> with a known distribution <span class="math inline">\hat{f}</span></p></li>
 </ul>
-<p>The rub is we need to know μ to actually simulate the sampling distribution. For this particular question and others we will encounter in the upcoming chapters we will know the sampling distribution from theoretical means. So this issue will not be an impediment. This section briefly touches on a computer-intensive means to work around the absence of a known sampling distribution, the bootstrap method [18], [16]. In its most basic application, we will see how the bootstrap method can be used to estimate the sampling distribution. How? A basic assumption in simulation is that if we have enough ran- dom samples from a population, that the random samples can describe that population very well. This is the starting point for the bootstrap. First a random sample x1, x2, . . . , xn is used to produce an empirical cumula- tive distribution function Fˆ(a) = #{i : xi ≤ a}/n.&nbsp;The assumption is that this ap- proximates well the actual cumulative distribution function F(a) = P(X ≤ a). As such, we assume we know a reasonable proxy for the population and use that as our model.</p>
+</section>
+<section id="the-sample-distribution" class="slide level2 smaller">
+<h2>The Sample Distribution</h2>
+<div style="font-size: 0.94em">
 <ul>
-<li><p><strong>Problem:</strong> What if the population distribution is unknown?</p></li>
-<li><p><strong>Solution:</strong></p>
-<ul>
-<li>Suppose we have a sample available</li>
-<li>The Bootstrap regards the sample as the <strong>whole population</strong></li>
-<li>The population distribution is estimated by <strong>resampling</strong></li>
-<li>This means samp(often with replacement)</li>
-</ul></li>
+<li><p>Assume given a sample <span class="math inline">x_1,\ldots,x_n</span> from a population <span class="math inline">f</span></p></li>
+<li><p>The <strong>Sample Distribution</strong> is the discrete distribution which puts mass <span class="math inline">\frac1n</span> at each sample point <span class="math display">
+\hat{f}(x) =
+\begin{cases}
+\frac1n  &amp; \quad \text{ if } \, x \in \{x_1, \ldots, x_n\} \\
+0        &amp; \quad \text{ otherwise }
+\end{cases}
+</span></p></li>
 </ul>
+<div id="glivenko-cantelli" class="Theorem" title="Glivenko-Cantelli">
+<p></p><details class="Theorem fbx-simplebox fbx-default" open=""><summary><strong>Theorem: </strong>Glivenko-Cantelli</summary><div>As the sample size increases <span class="math display">
+\lim_{n \to \infty} \hat{f} = f
+</span><p></p>
+</div></details>
+</div>
+<p>(more precisely, the relative cdfs converge uniformly almost everywhere)</p>
+</div>
+</section>
+<section id="main-bootstrap-idea" class="slide level2 smaller">
+<h2>Main Bootstrap idea</h2>
+<p><strong>Setting:</strong> Assume given the <strong>original</strong> sample <span class="math inline">x_1,\ldots,x_n</span> from unknown population <span class="math inline">f</span></p>
+<p><strong>Bootstrap:</strong> Regard the sample as the <strong>whole population</strong></p>
+<ul>
+<li><p>Replace the unknown distribution <span class="math inline">f</span> with the sample distribution <span class="math display">
+\hat{f}(x) =
+\begin{cases}
+\frac1n  &amp; \quad \text{ if } \, x \in \{x_1, \ldots, x_n\} \\
+0        &amp; \quad \text{ otherwise }
+\end{cases}
+</span></p></li>
+<li><p>Any sampling will be done from <span class="math inline">\hat{f}</span> <span class="math inline">\qquad \quad</span> (motivated by Glivenko-Cantelli Thm)</p></li>
+</ul>
+<p><strong>Note:</strong> <span class="math inline">\hat{f}</span> puts mass <span class="math inline">\frac1n</span> at each sample point</p>
+<p><strong>Drawing an observation from <span class="math inline">\hat f</span> is equivalent to drawing one point at random from the original sample <span class="math inline">\{x_1,\ldots,x_n\}</span></strong></p>
+</section>
+<section id="the-bootstrap-algorithm" class="slide level2 smaller">
+<h2>The Bootstrap Algorithm</h2>
+<div style="font-size: 0.94em">
+<p><strong>Setting:</strong> Given the <strong>original</strong> sample <span class="math inline">x_1,\ldots,x_n</span> from unknown population <span class="math inline">f</span></p>
+<p><strong>Bootstrap Algorithm:</strong> to estimate the distribution of a statistic of interest <span class="math inline">T</span></p>
+<ol type="1">
+<li><p>Draw sample <span class="math inline">x_1^*,\ldots,x_n^*</span> from <span class="math inline">\{x_1, \ldots, x_n\}</span> with <strong>replacement</strong></p></li>
+<li><p>Compute the statistic <span class="math inline">T</span> on the bootstrap sample <span class="math display">
+T^* = T(x_1^*,\ldots,x_n^*)
+</span></p></li>
+<li><p>Repeat Steps 1 and 2, <span class="math inline">B</span> times, to get <span class="math inline">B</span> bootstrap simulations of <span class="math inline">T</span> <span class="math display">
+T^*_1, \ldots , T^*_B
+</span> These values represent the <strong>bootstrap distribution</strong> of <span class="math inline">T</span></p></li>
+</ol>
+<p><strong>Note</strong>: If population distribution <span class="math inline">f</span> is known, we would just sample from <span class="math inline">f</span></p>
+</div>
 </section>
 <section id="section-27" class="slide level2 smaller">
 <h2></h2>
@@ -3835,27 +3900,83 @@ R simulated p-value is: 0.8195902</code></pre>
 <img data-src="images/bootstrap.png" style="width:100.0%" class="r-stretch"><div style="font-size: 0.89em">
 <p><br></p>
 <ul>
-<li><p>A sample is drawn from a population <span class="math inline">\qquad\qquad\qquad\qquad \qquad</span> (Image from <a href="https://en.wikipedia.org/wiki/Bootstrapping_(statistics)#/media/File:Illustration_bootstrap.svg">Wikipedia</a>)</p></li>
-<li><p>From this sample, resamples are generated by drawing with replacement (orange)</p></li>
-<li><p>Data points that were drawn more than once are shown in red and sligthly offsetted<br>
-(approx. 26.4% of data points in the picture)</p></li>
-<li><p>For each resample, the statistic <span class="math inline">T</span> is calculated</p></li>
-<li><p>Therefore, a histogram can be calculated to estimate the distribution of <span class="math inline">T</span></p></li>
+<li><p>Original sample <span class="math inline">\{x_1,\ldots,x_n\}</span> is drawn from the population <span class="math inline">\qquad</span> (Image from <a href="https://en.wikipedia.org/wiki/Bootstrapping_(statistics)#/media/File:Illustration_bootstrap.svg">Wikipedia</a>)</p></li>
+<li><p>Resamples <span class="math inline">\{x_1^*,\ldots,x_n^*\}</span> are generated by drawing from <span class="math inline">\{x_1,\ldots,x_n\}</span> with <strong>replacement</strong></p></li>
+<li><p>Note: Data points <span class="math inline">x_i</span> can be drawn more than once (in red and sligthly offsetted)</p></li>
+<li><p>For each resample, the statistic <span class="math inline">T^*</span> is calculated</p></li>
+<li><p>Therefore, a histogram can be calculated to estimate the bootstrap distribution of <span class="math inline">T</span></p></li>
 </ul>
 </div>
 </section>
-<section id="why-does-the-bootstrap-work" class="slide level2 smaller">
-<h2>Why does the Bootstrap work?</h2>
+<section id="q-a" class="slide level2 smaller">
+<h2>Q &amp; A</h2>
+<div style="font-size: 0.93em">
+<p><strong>References?</strong></p>
 <ul>
-<li>We said that we consider</li>
+<li><p>Simulation and bootstrap are huge topics</p></li>
+<li><p>Good introduction: the book by Efron (inventor of bootstrap) and Tibshirani <span class="citation" data-cites="efron">[<a href="#/references" role="doc-biblioref" onclick="">1</a>]</span></p></li>
 </ul>
+<p><strong>Why is the Bootstrap useful?</strong></p>
+<ul>
+<li><p>Because a lot of the times population distribution is unknown</p></li>
+<li><p>Bootstrap allows to do inference on statistic <span class="math inline">T</span></p></li>
+</ul>
+<p><strong>Why does the Bootstrap work?</strong> We are just resampling from the original sample!</p>
+<ul>
+<li><p>It (often) works because the original sample encodes population variability</p></li>
+<li><p>By resampling the original sample, we are simulating this variability</p></li>
+</ul>
+</div>
 </section>
-<section id="example-bootstrap-variance-estimation" class="slide level2 smaller">
-<h2>Example: Bootstrap Variance Estimation</h2>
+<section id="q-a-1" class="slide level2 smaller">
+<h2>Q &amp; A</h2>
+<div style="font-size: 0.93em">
+<p><strong>How good is the bootstrap distribution of <span class="math inline">T</span>?</strong></p>
+<ul>
+<li>It can be a good approximation of the true distribution of <span class="math inline">T</span> when the<br>
+<strong>original sample is sufficiently variable</strong>
+<ul>
+<li>Things tend to go well for large samples (<span class="math inline">n \geq 50</span>)</li>
+</ul></li>
+<li>Bootstrap works well when the statistic <span class="math inline">T</span> is a mean (or something like a mean)
+<ul>
+<li>for example median, regression coefficient, or standard deviation.</li>
+</ul></li>
+<li>The bootstrap has difficulties when the statistic <span class="math inline">T</span> is influenced by outliers
+<ul>
+<li>for example if <span class="math inline">T</span> is the range, that is, <span class="math inline">T =</span> max value <span class="math inline">-</span> min value</li>
+</ul></li>
+</ul>
+</div>
+</section>
+<section id="q-a-2" class="slide level2 smaller">
+<h2>Q &amp; A</h2>
+<div style="font-size: 0.93em">
+<p><strong>What are the limitations of bootstrap?</strong></p>
+<ul>
+<li>Computationally expensive
+<ul>
+<li>For decent simulation of bootstrap distribution of <span class="math inline">T</span>, need at least<br>
+<span class="math inline">B = 10,000</span> resamples (<span class="math inline">100,000</span> would be better!)</li>
+</ul></li>
+<li>Relies on a sufficiently variable original sample
+<ul>
+<li>If the original sample is not good, the bootstrap cannot recover from this problem</li>
+<li>In this case the bootstrap population will not look like the true population</li>
+<li>The bootstrap resampling will not be useful</li>
+</ul></li>
+<li>No way to determine if the original sample is good enough</li>
+</ul>
+<p><strong>However, problems are usually mitigated by large enough original sample (<span class="math inline">n \geq 50</span>)</strong></p>
+</div>
+</section>
+<section id="example-bootstrapping-the-mean" class="slide level2 smaller">
+<h2>Example: Bootstrapping the mean</h2>
 <div style="font-size: 0.91em">
 <p><strong>Problem:</strong> Suppose given a statistic <span class="math inline">T</span></p>
 <ul>
-<li>We want to estimate the variance of <span class="math inline">T</span> using bootstrap</li>
+<li><p>We want to estimate the variance of <span class="math inline">T</span> using bootstrap</p></li>
+<li><p>In R, use <code>sample(x, length(x), replace = TRUE)</code></p></li>
 </ul>
 <p><strong>Example:</strong> Consider the sample mean <span class="math display">
 \overline{X} = \frac{1}{n} \sum_{i=1}^n X_i
@@ -3869,39 +3990,6 @@ R simulated p-value is: 0.8195902</code></pre>
 \text{Estimate } \, {\rm Var}[\overline{X}] \, \text{ via bootstrap}
 </span></p></li>
 </ul>
-</div>
-</section>
-<section id="algorithm-bootstrap-variance-estimation" class="slide level2 smaller">
-<h2>Algorithm: Bootstrap Variance Estimation</h2>
-<p>Suppose given a sample <span class="math inline">x_1, \ldots, x_n</span></p>
-<ol type="1">
-<li><p>Draw sample <span class="math inline">x_1^*,\ldots,x_n^*</span> from <span class="math inline">x_1, \ldots, x_n</span> with replacement</p>
-<ul>
-<li>In R, use <code>sample(x, length(x), replace = TRUE)</code></li>
-</ul></li>
-<li><p>Compute the statistic <span class="math inline">T</span> on the bootstrap sample <span class="math display">
-T^* = T(x_1^*,\ldots,x_n^*)
-</span></p></li>
-<li><p>Repeat Steps 1 and 2, <span class="math inline">B</span> times, to get <span class="math inline">B</span> bootstrap simulations of <span class="math inline">T</span> <span class="math display">
-T^*_1, \ldots , T^*_B
-</span> (These values are actually simulations from <span class="math inline">T</span>)</p></li>
-</ol>
-</section>
-<section id="section-28" class="slide level2 smaller">
-<h2></h2>
-<ol start="4" type="1">
-<li>The bootstrap estimate for the variance of <span class="math inline">T</span> is the sample variance of <span class="math inline">T^*</span> <span class="math display">
-{\rm Var}[T]_{\rm Boot} = \frac{1}{B-1} \sum_{i=1}^B  
-\left(  T^*_i - \frac{1}{B}\sum_{j=1}^B T^*_j   \right)^2
-</span></li>
-</ol>
-<div id="Theorem*-8.1" class="Theorem">
-<p></p><details class="Theorem fbx-simplebox fbx-default" open=""><summary><strong>Theorem</strong></summary><div>For large samples, we have<p></p>
-<p><span class="math display">
-\lim_{n \to \infty} {\rm Var}[T]_{\rm Boot} =
-{\rm Var}[T]
-</span></p>
-</div></details>
 </div>
 </section>
 <section id="example-bootstrap-for-the-mean" class="slide level2 smaller">
@@ -3921,7 +4009,7 @@ T^*_1, \ldots , T^*_B
 <li><p>We want to estimate <span class="math inline">{\rm Var}[\overline{X}]</span> using bootstrap</p></li>
 </ul>
 </section>
-<section id="section-29" class="slide level2 smaller">
+<section id="section-28" class="slide level2 smaller">
 <h2></h2>
 <ul>
 <li>One bootstrap simulation of <span class="math inline">\overline{X}</span> can be done as follows:
@@ -3944,7 +4032,7 @@ T^*_1, \ldots , T^*_B
 <span id="cb39-6"><a aria-hidden="true" tabindex="-1"></a>                  xbar.star <span class="ot">&lt;-</span> <span class="fu">mean</span>(x.star)</span>
 <span id="cb39-7"><a aria-hidden="true" tabindex="-1"></a>                  })</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="section-30" class="slide level2 smaller">
+<section id="section-29" class="slide level2 smaller">
 <h2></h2>
 <div style="font-size: 0.95em">
 <ul>
@@ -3969,7 +4057,7 @@ T^*_1, \ldots , T^*_B
 <span id="cb41-6"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"The error is"</span>, <span class="fu">abs</span>(var.boot <span class="sc">-</span> var.true))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="section-31" class="slide level2 smaller">
+<section id="section-30" class="slide level2 smaller">
 <h2></h2>
 <ul>
 <li><p>Let us estimate the variance with a sample size of <span class="math inline">n = 10</span></p></li>
@@ -4004,7 +4092,7 @@ T^*_1, \ldots , T^*_B
 </div>
 <p><strong>The estimate obtained with just 10 samples is remarkable!</strong></p>
 </section>
-<section id="section-32" class="slide level2 smaller">
+<section id="section-31" class="slide level2 smaller">
 <h2></h2>
 <p><strong>Is this a miracle? Sort of</strong></p>
 <ul>
@@ -4048,7 +4136,7 @@ T^*_1, \ldots , T^*_B
 </table>
 <p><strong>The bootstrap variance estimates improves on the emprical estimate!</strong></p>
 </section>
-<section id="section-33" class="slide level2 smaller">
+<section id="section-32" class="slide level2 smaller">
 <h2></h2>
 <ul>
 <li>As the sample size increases, we have that</li>
@@ -4086,10 +4174,18 @@ T^*_1, \ldots , T^*_B
 </div>
 </div>
 <p><strong>The estimate obtained with just 10 samples is remarkable</strong></p>
+</section>
+<section id="references" class="slide level2 smaller scrollable">
+<h2>References</h2>
 
 <div class="quarto-auto-generated-content">
 <div class="footer footer-default">
 <p><a href="../index.html">Homepage</a> &nbsp;&nbsp;&nbsp;&nbsp; <a href="../license.html">License</a> &nbsp;&nbsp;&nbsp;&nbsp; <a href="https://www.silviofanzon.com/contact">Contact</a></p>
+</div>
+</div>
+<div id="refs" class="references csl-bib-body" data-entry-spacing="0" role="list">
+<div id="ref-efron" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[1] </div><div class="csl-right-inline">Efron, Bradley, Tibshirani, Robert J., An introduction to the <span>B</span>ootstrap, Chapman &amp; Hall / CRC, 1994.</div>
 </div>
 </div>
 </section></section>

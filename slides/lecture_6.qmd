@@ -2584,7 +2584,7 @@ $$
 :::
 
 
-(more precisely, the relative cdfs converge uniformly almost everywhere)
+(more precisely, the convergence is uniform almost everywhere wrt the cdfs: $\hat{F} \to F$)
 
 :::
 
@@ -2695,7 +2695,7 @@ These values represent the **bootstrap distribution** of $T$
 
 - Because a lot of the times population distribution is unknown
 
-- Bootstrap allows to do inference on statistic $T$
+- Despite this, bootstrap allows to do inference on statistic $T$
 
 **Why does the Bootstrap work?** We are just resampling from the original sample!
 
@@ -2759,28 +2759,24 @@ These values represent the **bootstrap distribution** of $T$
 
 ::: {style="font-size: 0.91em"}
 
-**Problem:** Suppose given a statistic $T$
+**Setting:** Given the **original** sample $x_1,\ldots,x_n$ from unknown population $f$
 
-- We want to estimate the variance of $T$ using bootstrap
+**Bootstrap Algorithm:** to estimate the distribution of the sample mean $\overline{X}$
 
 
-- In R, use ``sample(x, length(x), replace = TRUE)``
+1. Draw sample $x_1^*,\ldots,x_n^*$ from $\{x_1, \ldots, x_n\}$ with **replacement**
 
-**Example:** Consider the sample mean
+2. Compute the sample mean $\overline{X}$ on the bootstrap sample
 $$
-\overline{X} = \frac{1}{n} \sum_{i=1}^n X_i
-$$
-
-- If the population is $N(\mu,\sigma^2)$, we know that
-$$
-\Var[\overline{X}] = \frac{\sigma^2}{n}
+\overline{X}^* = \frac{1}{n} \sum_{i=1}^n x_i^*
 $$
 
-- If the population distribution is unknown, then 
+3. Repeat Steps 1 and 2, $B$ times, to get $B$ bootstrap simulations of $\overline{X}^*$
 $$
-\Var[\overline{X}]  =  \text{ ???} \quad \implies \quad 
-\text{Estimate } \, \Var[\overline{X}] \, \text{ via bootstrap}
+\overline{X}^*_1, \ldots , \overline{X}^*_B
 $$
+These values represent the **bootstrap distribution** of $\overline{X}$
+
 
 :::
 
@@ -2788,254 +2784,232 @@ $$
 
 
 
+## Implementation in R  {.smaller}
 
-## Example: Bootstrap for the mean {.smaller}
-
-- For illustration purposes, suppose given a sample of size $n$ from $N(0,1)$
-
-```r 
-n <- # Enter sample size
-
-# Generate illustrative random sample from N(0,1)
-x <- rnorm(n)
-```
-
-- Since the population is $N(0,1)$, we know that
-$$
-\Var[\overline{X}] = \frac{\sigma^2}{n} = \frac{1}{n}
-$$
-
-- Now, we forget the sample came from $N(0,1)$
-
-- We want to estimate $\Var[\overline{X}]$ using bootstrap
-
-
-
-
-## {.smaller}
-
-- One bootstrap simulation of $\overline{X}$ can be done as follows:
-    1. Generate sample $x_1^*,\ldots,x_n^*$ from $x_1,\ldots,x_n$
-    2. Compute the sample mean of $x_1^*,\ldots,x_n^*$
+- Store the original sample into a vector and compute length
 
 ```r
-x.star <- sample(x, n, replace = TRUE)
+# Store original sample and compute length
+
+x <- c(x_1, ..., x_n)
+n <- length(x)
+```
+
+- To generate one bootstrap simulation of $\overline{X}$:
+    1. Sample n times from $\{x_1,\ldots,x_n\}$ with replacement
+    2. This gives the bootstrap sample $\{x_1^*,\ldots,x_n^*\}$
+    3. Compute sample mean of the bootstrap sample
+
+```r
+# Bootstrap sample mean one time
+x.star <- sample(x, n, replace = TRUE)     # Sample n times with replacement
 xbar.star <- mean(x.star)
 ```
 
-<br>
 
-- To simulate $B = 10000$ bootstrap values from $\overline{X}$, use **replicate**
+
+
+##  {.smaller}
+
+- To generate $B = 10,000$ bootstrap simulations of $\overline{X}$, use **replicate**
+
 
 ```r
-# Generate B = 10000 bootstrap samples for xbar
-B <- 10000;
+# Bootstrap sample mean B = 10,000 times
+B <- 10000
 
-xbar.star.vect <- replicate(B, {
-                  x.star <- sample(x, n, replace = TRUE)
-                  xbar.star <- mean(x.star)
-                  })
+xbar.star <- replicate(B, {
+                       x.star <- sample(x, n, replace = TRUE)
+                       xbar.star <- mean(x.star)
+                      })
 ```
+   
+- The vector ``xbar.star`` contains $B = 10,000$ bootstrap samples of $\overline{X}$
+
+
+**Why is this useful?:** When the population is normal $N(\mu,\sigma^2)$, we know that
+$$
+\overline{X} \sim N(\mu, \sigma^2/n)
+$$
+However: population distribution unknown $\implies$ distribution of $\overline{X}$ unknown 
+
+**Bootstrap gives a way to estimate distribution of $\overline{X}$**
+
+
+## Application: Bootstrap Confidence Intervals {.smaller}
+
+- When the population is normally distributed $N(\mu,\sigma^2)$, we used the t-statistic
+$$
+t = \frac{\overline{x} - \mu}{\ese}
+$$
+to form a confidence interval $[a,b]$ for the population mean $\mu$
+$$
+P(\mu \in [a,b]) = 0.95 \,, \quad 
+a = \overline{x} - t^* \times \ese , \quad  
+b = \overline{x} + t^* \times \ese
+$$
+where $t^* = t_{n-1}(0.025)$
+
+
+- If the population is not normal, the interval $[a,b]$ is not accurate, meaning that
+$$
+P(\mu \in [a,b]) \ll 0.95
+$$
+
+- In this case, the bootstrap sample mean can be used to form a CI
+
+- Moreover, bootstrap CI easily generalize to any estimator $T$
 
 
 
-## {.smaller}
+## Algorithm: Bootstrap Confidence Intervals {.smaller}
+
+::: {style="font-size: 0.87em"}
+
+**Setting:** Given the **original** sample $x_1,\ldots,x_n$ from unknown population $f$, and
+
+- $\theta$ a population parameter $\,\,$ (e.g. $\, \theta =$ mean), $\,\, T$ an estimator for $\theta \,\,$ (e.g. $\, T =$ sample mean)
+
+
+**Bootstrap CI Algorithm:** to simulate $(1-\alpha)100\%$ CI for parameter $\theta$
+
+1. Bootstrap $B$ times the statistic $T$, obtaining the bootstrap simulations $T^*_1, \ldots , T^*_B$
+
+2. Order the values $T^*_1, \ldots , T^*_B$ to obtain
+$$
+T^*_{(1)} \leq  \ldots  \leq T^*_{(B)}
+$$
+
+3. Let $\, m = [(\alpha/2)B]$, where $[\cdot]$ is the ceiling function. The **percentile bootstrap** CI for $\theta$ is
+$$
+\left[  T^*_{(m)}  ,  T^*_{(B + 1- m)}  \right]
+$$
+These are the $\frac{\alpha}{2}100\%$ and $(1 − \frac{\alpha}{2})100\%$ percentiles of the sample distribution of $T^*_1, \ldots , T^*_B$
+
+:::
+
+
+
+
+
+
+## Worked Example {.smaller}
 
 ::: {style="font-size: 0.95em"}
 
-- The vector ``xbar.star.vect`` contains $B = 10000$ bootstrap samples from $\overline{X}$
+**Original sample:** wages data on 10 mathematicians
 
-- Therefore, we think of ``xbar.star.vect`` as an approximation of $\overline{X}$
+|                  |     |     |     |     |     |     |     |     |     |      |
+|:-----------      |:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:----:|
+|**Mathematicians**| 36  |  40 | 46  | 54  |  57 | 58  | 59  | 60  |  62 |  63  |
 
-- The bootstrap variance is the sample variance of ``xbar.star.vect`` 
 
-```r
-# compute bootstrap variance of xbar
-var.boot <- var(xbar.star.vect)
+**We want to simulate $95\%$ bootstrap CI for the population mean $\mu$**
 
-cat("The bootstrap estimate for the variance is", var.boot)
-```
 
-- We compare the bootstrap variance estimate to the *actual* variance 
-$$
-\Var[\overline{X}] = \frac{1}{n}
-$$
+- First, we generate $B = 10,000$ bootstrap simulations of sample mean $\overline{X}$
+
 
 ```r
-# compute the actual variance of xbar
-var.true <- 1/n
+# Enter original sample and compute size
+x <- c(36, 40, 46, 54, 57, 58, 59, 60, 62, 63)
+n <- length(x)
 
-cat("The bootstrap estimate for the variance is", var.boot)
-cat("The theoretical value for the variance is", var.true)
-cat("The error is", abs(var.boot - var.true))
+# Bootstrap sample mean B = 10,000 times
+B <- 10000
+
+xbar.star <- replicate(B, {
+                       x.star <- sample(x, n, replace = TRUE)
+                       xbar.star <- mean(x.star)
+                      })
 ```
 
 :::
 
 
 
+## {.smaller}
+
+- The vector ``xbar.star`` contains $B = 10000$ bootstrap samples from $\overline{X}$
+
+- The $(1-\alpha)\%$ bootstrap CI for the population mean $\mu$ is
+$$
+\left[  \overline{X}^*_{(m)}  ,  \overline{X}^*_{(B + 1- m)}  \right]\,, \qquad m = [(\alpha/2)B]
+$$
+
+- We have $B = 10,000$ and $\alpha = 0.05 \quad \implies \quad m = 250$
+
+- Therefore, the $95\%$ bootstrap CI for the population mean $\mu$ is
+$$
+\left[  \overline{X}^*_{(250)}  ,  \overline{X}^*_{(9751)}  \right]
+$$ 
+
+- These percentiles can be automatically computed using the ``quantile`` function
+
+```r 
+# Compute 95% CI from bootstrap samples
+alpha <- 0.05
+boot.CI <- quantile(xbar.star, probs = c(alpha/2, 1-alpha/2))
+```
+
 
 ## {.smaller}
 
+- We compare the bootstrap CI to the usual t-test CI
 
-- Let us estimate the variance with a sample size of $n = 10$
+```r
+# Compute 95% t-test CI
+t.test.CI <- t.test(x)$conf.int
 
-- The random sample ``x`` from which we bootstrap is
-
-```{r}
-#| echo: true
-
-set.seed(23)    # Set seed to always get same randomization
-
-x <- rnorm(10)
-print(x)
+# Print results
+cat("Bootstrap Confidence Interval (95%):", boot.CI, "\n")
+cat("t-test Confidence Interval (95%):", t.test.CI, "\n")
 ```
 
-::: {style="font-size: 0.51em"}
+::: {style="font-size: 0.15em"}
 
 <br>
 
 :::
 
-- Running the algorithm on the sample ``x`` gives:
-
-```{r} 
-set.seed(21) 
-
-n <- 10
-
-# Generate illustrative random sample from N(0,1)
-x <- rnorm(n)
-
-# Generate B = 10000 bootstrap samples for xbar
-B <- 10000
-
-xbar.star.vect <- replicate(B, {
-                  x.star <- sample(x, n, replace = TRUE)
-                  xbar.star <- mean(x.star)
-                  })
-
-# compute bootstrap variance of xbar
-var.boot <- var(xbar.star.vect)
-
-# compute the actual variance of xbar
-var.true <- 1/n
-
-cat("The bootstrap estimate for the variance is", var.boot)
-cat("The theoretical value for the variance is", var.true)
-cat("The error is", abs(var.boot - var.true))
-```
-
-**The estimate obtained with just 10 samples is remarkable!**
-
-
-
-## {.smaller}
-
-**Is this a miracle? Sort of**
-
-- The variance of the random sample ``x`` is
-
-```r
-var(x)
-```
 ```{r}
-set.seed(21)    # Set seed to always get same randomization
+# Enter original sample and compute size
+x <- c(36, 40, 46, 54, 57, 58, 59, 60, 62, 63)
+n <- length(x)
 
-# Generate illustrative random sample from N(0,1)
-x <- rnorm(10)
-var(x)
-```
-
-- Take ``var(x)`` as *empirical estimate* of the population variance $\sigma^2$, we get
-$$
-\Var[\overline{X}] = \frac{\sigma^2}{n} \approx 
-\frac{1.504024}{10} \approx 0.15
-$$
-
-
-| Quantity             | True value  | Empirical est. | Bootstrap est. |
-|:------------         | :-----------|:------------       |:------------       |
-| $\Var[\overline{X}]$ | 0.1         | 0.15               | 0.134              |
-
-
-**The bootstrap variance estimates improves on the emprical estimate!**
-
-
-
-
-## {.smaller}
-
-- As the sample size increases, we have that
-
-$$
-\lim_{n \to \infty} \Var[\overline{X}]_{\rm Boot} = 
-\Var[\overline{X}]
-$$
-
-- Running the algorithm with a sample size of $n = 10$ gives
-
-
-```{r} 
-set.seed(21) 
-
-n <- 10
-
-# Generate illustrative random sample from N(0,1)
-x <- rnorm(n)
-
-# Generate B = 10000 bootstrap samples for xbar
+# Bootstrap sample mean B = 10,000 times
 B <- 10000
 
-xbar.star.vect <- replicate(B, {
-                  x.star <- sample(x, n, replace = TRUE)
-                  xbar.star <- mean(x.star)
-                  })
+xbar.star <- replicate(B, {
+                       x.star <- sample(x, n, replace = TRUE)
+                       xbar.star <- mean(x.star)
+                      })
 
-# compute bootstrap variance of xbar
-var.boot <- var(xbar.star.vect)
+# Compute 95% CI from bootstrap samples
+alpha <- 0.05
+boot.CI <- quantile(xbar.star, probs = c(alpha/2, 1-alpha/2))
 
-# compute the actual variance of xbar
-var.true <- 1/n
+# Compute 95% t-test CI
+t.test.CI <- t.test(x)$conf.int
 
-cat("The bootstrap estimate for the variance is", var.boot)
-cat("The theoretical value for the variance is", var.true)
-cat("The error is", abs(var.boot - var.true))
+# Print results
+cat("Bootstrap Confidence Interval (95%):", boot.CI)
+cat("\nt-test Confidence Interval (95%):", t.test.CI)
 ```
 
+::: {style="font-size: 0.15em"}
 
-- Running the algorithm with a sample size of $n = 200$ gives
+<br>
 
-
-```{r} 
-set.seed(2) 
-
-n <- 200
-
-# Generate illustrative random sample from N(0,1)
-x <- rnorm(n)
-
-# Generate B = 10000 bootstrap samples for xbar
-B <- 10000
-
-xbar.star.vect <- replicate(B, {
-                  x.star <- sample(x, n, replace = TRUE)
-                  xbar.star <- mean(x.star)
-                  })
-
-# compute bootstrap variance of xbar
-var.boot <- var(xbar.star.vect)
-
-# compute the actual variance of xbar
-var.true <- 1/n
-
-cat("The bootstrap estimate for the variance is", var.boot)
-cat("The theoretical value for the variance is", var.true)
-cat("The error is", abs(var.boot - var.true))
-```
+:::
 
 
-**The estimate obtained with just 10 samples is remarkable**
+- The CI are almost overlapping 
+
+- This is a very strong indication that the original population is indeed normal
+    * In such case, the percentile bootstrap CI is asymptotically valid (i.e. approximates t-test CI)
+
+
 
 
 ## References

@@ -425,55 +425,19 @@
   </style>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
   <style>
-  .Axiom {
+  .Warning {
     --color1: #f4cce0;
     --color2: #db4d92;
-  }
-  .Proposition {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .DONE {
-    --color1: #cce7b1;
-    --color2: #86b754;
-  }
-  .Important {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Proof {
-    --color1: #f1f1f2;
-    --color2: #c0c0c1;
-  }
-  .Example {
-    --color1: #bce5de;
-    --color2: #21aa93;
   }
   .TODO {
     --color1: #e7b1b4;
     --color2: #8c3236;
   }
+  .Question {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
   .Theorem {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Definition {
-    --color1: #c6e6ed;
-    --color2: #1995ad;
-  }
-  .Corollary {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Conjecture {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Remark {
-    --color1: #bce5de;
-    --color2: #21aa93;
-  }
-  .Problem {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
@@ -481,21 +445,57 @@
     --color1: #f4cce0;
     --color2: #db4d92;
   }
-  .Idea {
+  .Definition {
+    --color1: #c6e6ed;
+    --color2: #1995ad;
+  }
+  .Proposition {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
-  .Question {
+  .Corollary {
     --color1: #f4cce0;
     --color2: #db4d92;
+  }
+  .Important {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Axiom {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Problem {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Conjecture {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .DONE {
+    --color1: #cce7b1;
+    --color2: #86b754;
+  }
+  .Example {
+    --color1: #bce5de;
+    --color2: #21aa93;
   }
   .Notation {
     --color1: #c6e6ed;
     --color2: #1995ad;
   }
-  .Warning {
+  .Idea {
     --color1: #f4cce0;
     --color2: #db4d92;
+  }
+  .Remark {
+    --color1: #bce5de;
+    --color2: #21aa93;
+  }
+  .Proof {
+    --color1: #f1f1f2;
+    --color2: #c0c0c1;
   }
   </style>
 </head>
@@ -3149,16 +3149,16 @@ x_i^2 + y_i^2 \leq 1
 <h2>Approximation of <span class="math inline">\pi</span> in R: Output</h2>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>After    10000 iterations pi is 3.15520000, error is 0.01360735
-After    20000 iterations pi is 3.15260000, error is 0.01100735
-After    30000 iterations pi is 3.15053333, error is 0.00894068
-After    40000 iterations pi is 3.15300000, error is 0.01140735
-After    50000 iterations pi is 3.15312000, error is 0.01152735
-After    60000 iterations pi is 3.14960000, error is 0.00800735
-After    70000 iterations pi is 3.14874286, error is 0.00715020
-After    80000 iterations pi is 3.14940000, error is 0.00780735
-After    90000 iterations pi is 3.15155556, error is 0.00996290
-After   100000 iterations pi is 3.14956000, error is 0.00796735</code></pre>
+<pre><code>After    10000 iterations pi is 3.14320000, error is 0.00160735
+After    20000 iterations pi is 3.13800000, error is 0.00359265
+After    30000 iterations pi is 3.13853333, error is 0.00305932
+After    40000 iterations pi is 3.13760000, error is 0.00399265
+After    50000 iterations pi is 3.14024000, error is 0.00135265
+After    60000 iterations pi is 3.13960000, error is 0.00199265
+After    70000 iterations pi is 3.13697143, error is 0.00462123
+After    80000 iterations pi is 3.14190000, error is 0.00030735
+After    90000 iterations pi is 3.13955556, error is 0.00203710
+After   100000 iterations pi is 3.14160000, error is 0.00000735</code></pre>
 </div>
 </div>
 <p><strong>Note:</strong></p>
@@ -3857,7 +3857,7 @@ R simulated p-value is: 0.8195902</code></pre>
 </span><p></p>
 </div></details>
 </div>
-<p>(more precisely, the relative cdfs converge uniformly almost everywhere)</p>
+<p>(more precisely, the convergence is uniform almost everywhere wrt the cdfs: <span class="math inline">\hat{F} \to F</span>)</p>
 </div>
 </section>
 <section id="main-bootstrap-idea" class="slide level2 smaller">
@@ -3919,7 +3919,7 @@ T^*_1, \ldots , T^*_B
 <p><strong>Why is the Bootstrap useful?</strong></p>
 <ul>
 <li><p>Because a lot of the times population distribution is unknown</p></li>
-<li><p>Bootstrap allows to do inference on statistic <span class="math inline">T</span></p></li>
+<li><p>Despite this, bootstrap allows to do inference on statistic <span class="math inline">T</span></p></li>
 </ul>
 <p><strong>Why does the Bootstrap work?</strong> We are just resampling from the original sample!</p>
 <ul>
@@ -3973,207 +3973,197 @@ T^*_1, \ldots , T^*_B
 <section id="example-bootstrapping-the-mean" class="slide level2 smaller">
 <h2>Example: Bootstrapping the mean</h2>
 <div style="font-size: 0.91em">
-<p><strong>Problem:</strong> Suppose given a statistic <span class="math inline">T</span></p>
-<ul>
-<li><p>We want to estimate the variance of <span class="math inline">T</span> using bootstrap</p></li>
-<li><p>In R, use <code>sample(x, length(x), replace = TRUE)</code></p></li>
-</ul>
-<p><strong>Example:</strong> Consider the sample mean <span class="math display">
-\overline{X} = \frac{1}{n} \sum_{i=1}^n X_i
-</span></p>
-<ul>
-<li><p>If the population is <span class="math inline">N(\mu,\sigma^2)</span>, we know that <span class="math display">
-{\rm Var}[\overline{X}] = \frac{\sigma^2}{n}
+<p><strong>Setting:</strong> Given the <strong>original</strong> sample <span class="math inline">x_1,\ldots,x_n</span> from unknown population <span class="math inline">f</span></p>
+<p><strong>Bootstrap Algorithm:</strong> to estimate the distribution of the sample mean <span class="math inline">\overline{X}</span></p>
+<ol type="1">
+<li><p>Draw sample <span class="math inline">x_1^*,\ldots,x_n^*</span> from <span class="math inline">\{x_1, \ldots, x_n\}</span> with <strong>replacement</strong></p></li>
+<li><p>Compute the sample mean <span class="math inline">\overline{X}</span> on the bootstrap sample <span class="math display">
+\overline{X}^* = \frac{1}{n} \sum_{i=1}^n x_i^*
 </span></p></li>
-<li><p>If the population distribution is unknown, then <span class="math display">
-{\rm Var}[\overline{X}]  =  \text{ ???} \quad \implies \quad
-\text{Estimate } \, {\rm Var}[\overline{X}] \, \text{ via bootstrap}
-</span></p></li>
-</ul>
+<li><p>Repeat Steps 1 and 2, <span class="math inline">B</span> times, to get <span class="math inline">B</span> bootstrap simulations of <span class="math inline">\overline{X}^*</span> <span class="math display">
+\overline{X}^*_1, \ldots , \overline{X}^*_B
+</span> These values represent the <strong>bootstrap distribution</strong> of <span class="math inline">\overline{X}</span></p></li>
+</ol>
 </div>
 </section>
-<section id="example-bootstrap-for-the-mean" class="slide level2 smaller">
-<h2>Example: Bootstrap for the mean</h2>
+<section id="implementation-in-r-1" class="slide level2 smaller">
+<h2>Implementation in R</h2>
 <ul>
-<li>For illustration purposes, suppose given a sample of size <span class="math inline">n</span> from <span class="math inline">N(0,1)</span></li>
+<li>Store the original sample into a vector and compute length</li>
 </ul>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="co"># Enter sample size</span></span>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Store original sample and compute length</span></span>
 <span id="cb37-2"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-3"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Generate illustrative random sample from N(0,1)</span></span>
-<span id="cb37-4"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb37-3"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(x_1, ..., x_n)</span>
+<span id="cb37-4"><a aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
-<li><p>Since the population is <span class="math inline">N(0,1)</span>, we know that <span class="math display">
-{\rm Var}[\overline{X}] = \frac{\sigma^2}{n} = \frac{1}{n}
-</span></p></li>
-<li><p>Now, we forget the sample came from <span class="math inline">N(0,1)</span></p></li>
-<li><p>We want to estimate <span class="math inline">{\rm Var}[\overline{X}]</span> using bootstrap</p></li>
+<li>To generate one bootstrap simulation of <span class="math inline">\overline{X}</span>:
+<ol type="1">
+<li>Sample n times from <span class="math inline">\{x_1,\ldots,x_n\}</span> with replacement</li>
+<li>This gives the bootstrap sample <span class="math inline">\{x_1^*,\ldots,x_n^*\}</span></li>
+<li>Compute sample mean of the bootstrap sample</li>
+</ol></li>
 </ul>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Bootstrap sample mean one time</span></span>
+<span id="cb38-2"><a aria-hidden="true" tabindex="-1"></a>x.star <span class="ot">&lt;-</span> <span class="fu">sample</span>(x, n, <span class="at">replace =</span> <span class="cn">TRUE</span>)     <span class="co"># Sample n times with replacement</span></span>
+<span id="cb38-3"><a aria-hidden="true" tabindex="-1"></a>xbar.star <span class="ot">&lt;-</span> <span class="fu">mean</span>(x.star)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="section-28" class="slide level2 smaller">
 <h2></h2>
 <ul>
-<li>One bootstrap simulation of <span class="math inline">\overline{X}</span> can be done as follows:
-<ol type="1">
-<li>Generate sample <span class="math inline">x_1^*,\ldots,x_n^*</span> from <span class="math inline">x_1,\ldots,x_n</span></li>
-<li>Compute the sample mean of <span class="math inline">x_1^*,\ldots,x_n^*</span></li>
-</ol></li>
+<li>To generate <span class="math inline">B = 10,000</span> bootstrap simulations of <span class="math inline">\overline{X}</span>, use <strong>replicate</strong></li>
 </ul>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a aria-hidden="true" tabindex="-1"></a>x.star <span class="ot">&lt;-</span> <span class="fu">sample</span>(x, n, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb38-2"><a aria-hidden="true" tabindex="-1"></a>xbar.star <span class="ot">&lt;-</span> <span class="fu">mean</span>(x.star)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><br></p>
-<ul>
-<li>To simulate <span class="math inline">B = 10000</span> bootstrap values from <span class="math inline">\overline{X}</span>, use <strong>replicate</strong></li>
-</ul>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Generate B = 10000 bootstrap samples for xbar</span></span>
-<span id="cb39-2"><a aria-hidden="true" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="dv">10000</span>;</span>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Bootstrap sample mean B = 10,000 times</span></span>
+<span id="cb39-2"><a aria-hidden="true" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
 <span id="cb39-3"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-4"><a aria-hidden="true" tabindex="-1"></a>xbar.star.vect <span class="ot">&lt;-</span> <span class="fu">replicate</span>(B, {</span>
-<span id="cb39-5"><a aria-hidden="true" tabindex="-1"></a>                  x.star <span class="ot">&lt;-</span> <span class="fu">sample</span>(x, n, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb39-6"><a aria-hidden="true" tabindex="-1"></a>                  xbar.star <span class="ot">&lt;-</span> <span class="fu">mean</span>(x.star)</span>
-<span id="cb39-7"><a aria-hidden="true" tabindex="-1"></a>                  })</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb39-4"><a aria-hidden="true" tabindex="-1"></a>xbar.star <span class="ot">&lt;-</span> <span class="fu">replicate</span>(B, {</span>
+<span id="cb39-5"><a aria-hidden="true" tabindex="-1"></a>                       x.star <span class="ot">&lt;-</span> <span class="fu">sample</span>(x, n, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb39-6"><a aria-hidden="true" tabindex="-1"></a>                       xbar.star <span class="ot">&lt;-</span> <span class="fu">mean</span>(x.star)</span>
+<span id="cb39-7"><a aria-hidden="true" tabindex="-1"></a>                      })</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li>The vector <code>xbar.star</code> contains <span class="math inline">B = 10,000</span> bootstrap samples of <span class="math inline">\overline{X}</span></li>
+</ul>
+<p><strong>Why is this useful?:</strong> When the population is normal <span class="math inline">N(\mu,\sigma^2)</span>, we know that <span class="math display">
+\overline{X} \sim N(\mu, \sigma^2/n)
+</span> However: population distribution unknown <span class="math inline">\implies</span> distribution of <span class="math inline">\overline{X}</span> unknown</p>
+<p><strong>Bootstrap gives a way to estimate distribution of <span class="math inline">\overline{X}</span></strong></p>
+</section>
+<section id="application-bootstrap-confidence-intervals" class="slide level2 smaller">
+<h2>Application: Bootstrap Confidence Intervals</h2>
+<ul>
+<li><p>When the population is normally distributed <span class="math inline">N(\mu,\sigma^2)</span>, we used the t-statistic <span class="math display">
+t = \frac{\overline{x} - \mu}{\mathop{\mathrm{e.s.e.}}}
+</span> to form a confidence interval <span class="math inline">[a,b]</span> for the population mean <span class="math inline">\mu</span> <span class="math display">
+P(\mu \in [a,b]) = 0.95 \,, \quad
+a = \overline{x} - t^* \times \mathop{\mathrm{e.s.e.}}, \quad  
+b = \overline{x} + t^* \times \mathop{\mathrm{e.s.e.}}
+</span> where <span class="math inline">t^* = t_{n-1}(0.025)</span></p></li>
+<li><p>If the population is not normal, the interval <span class="math inline">[a,b]</span> is not accurate, meaning that <span class="math display">
+P(\mu \in [a,b]) \ll 0.95
+</span></p></li>
+<li><p>In this case, the bootstrap sample mean can be used to form a CI</p></li>
+<li><p>Moreover, bootstrap CI easily generalize to any estimator <span class="math inline">T</span></p></li>
+</ul>
+</section>
+<section id="algorithm-bootstrap-confidence-intervals" class="slide level2 smaller">
+<h2>Algorithm: Bootstrap Confidence Intervals</h2>
+<div style="font-size: 0.87em">
+<p><strong>Setting:</strong> Given the <strong>original</strong> sample <span class="math inline">x_1,\ldots,x_n</span> from unknown population <span class="math inline">f</span>, and</p>
+<ul>
+<li><span class="math inline">\theta</span> a population parameter <span class="math inline">\,\,</span> (e.g.&nbsp;<span class="math inline">\, \theta =</span> mean), <span class="math inline">\,\, T</span> an estimator for <span class="math inline">\theta \,\,</span> (e.g.&nbsp;<span class="math inline">\, T =</span> sample mean)</li>
+</ul>
+<p><strong>Bootstrap CI Algorithm:</strong> to simulate <span class="math inline">(1-\alpha)100\%</span> CI for parameter <span class="math inline">\theta</span></p>
+<ol type="1">
+<li><p>Bootstrap <span class="math inline">B</span> times the statistic <span class="math inline">T</span>, obtaining the bootstrap simulations <span class="math inline">T^*_1, \ldots , T^*_B</span></p></li>
+<li><p>Order the values <span class="math inline">T^*_1, \ldots , T^*_B</span> to obtain <span class="math display">
+T^*_{(1)} \leq  \ldots  \leq T^*_{(B)}
+</span></p></li>
+<li><p>Let <span class="math inline">\, m = [(\alpha/2)B]</span>, where <span class="math inline">[\cdot]</span> is the ceiling function. The <strong>percentile bootstrap</strong> CI for <span class="math inline">\theta</span> is <span class="math display">
+\left[  T^*_{(m)}  ,  T^*_{(B + 1- m)}  \right]
+</span> These are the <span class="math inline">\frac{\alpha}{2}100\%</span> and <span class="math inline">(1 − \frac{\alpha}{2})100\%</span> percentiles of the sample distribution of <span class="math inline">T^*_1, \ldots , T^*_B</span></p></li>
+</ol>
+</div>
+</section>
+<section id="worked-example" class="slide level2 smaller">
+<h2>Worked Example</h2>
+<div style="font-size: 0.95em">
+<p><strong>Original sample:</strong> wages data on 10 mathematicians</p>
+<table class="caption-top" style="width:100%;">
+<colgroup>
+<col style="width: 19%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 9%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Mathematicians</strong></td>
+<td style="text-align: center;">36</td>
+<td style="text-align: center;">40</td>
+<td style="text-align: center;">46</td>
+<td style="text-align: center;">54</td>
+<td style="text-align: center;">57</td>
+<td style="text-align: center;">58</td>
+<td style="text-align: center;">59</td>
+<td style="text-align: center;">60</td>
+<td style="text-align: center;">62</td>
+<td style="text-align: center;">63</td>
+</tr>
+</tbody>
+</table>
+<p><strong>We want to simulate <span class="math inline">95\%</span> bootstrap CI for the population mean <span class="math inline">\mu</span></strong></p>
+<ul>
+<li>First, we generate <span class="math inline">B = 10,000</span> bootstrap simulations of sample mean <span class="math inline">\overline{X}</span></li>
+</ul>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Enter original sample and compute size</span></span>
+<span id="cb40-2"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">36</span>, <span class="dv">40</span>, <span class="dv">46</span>, <span class="dv">54</span>, <span class="dv">57</span>, <span class="dv">58</span>, <span class="dv">59</span>, <span class="dv">60</span>, <span class="dv">62</span>, <span class="dv">63</span>)</span>
+<span id="cb40-3"><a aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(x)</span>
+<span id="cb40-4"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-5"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Bootstrap sample mean B = 10,000 times</span></span>
+<span id="cb40-6"><a aria-hidden="true" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
+<span id="cb40-7"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-8"><a aria-hidden="true" tabindex="-1"></a>xbar.star <span class="ot">&lt;-</span> <span class="fu">replicate</span>(B, {</span>
+<span id="cb40-9"><a aria-hidden="true" tabindex="-1"></a>                       x.star <span class="ot">&lt;-</span> <span class="fu">sample</span>(x, n, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb40-10"><a aria-hidden="true" tabindex="-1"></a>                       xbar.star <span class="ot">&lt;-</span> <span class="fu">mean</span>(x.star)</span>
+<span id="cb40-11"><a aria-hidden="true" tabindex="-1"></a>                      })</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
 <section id="section-29" class="slide level2 smaller">
 <h2></h2>
-<div style="font-size: 0.95em">
 <ul>
-<li><p>The vector <code>xbar.star.vect</code> contains <span class="math inline">B = 10000</span> bootstrap samples from <span class="math inline">\overline{X}</span></p></li>
-<li><p>Therefore, we think of <code>xbar.star.vect</code> as an approximation of <span class="math inline">\overline{X}</span></p></li>
-<li><p>The bootstrap variance is the sample variance of <code>xbar.star.vect</code></p></li>
+<li><p>The vector <code>xbar.star</code> contains <span class="math inline">B = 10000</span> bootstrap samples from <span class="math inline">\overline{X}</span></p></li>
+<li><p>The <span class="math inline">(1-\alpha)\%</span> bootstrap CI for the population mean <span class="math inline">\mu</span> is <span class="math display">
+\left[  \overline{X}^*_{(m)}  ,  \overline{X}^*_{(B + 1- m)}  \right]\,, \qquad m = [(\alpha/2)B]
+</span></p></li>
+<li><p>We have <span class="math inline">B = 10,000</span> and <span class="math inline">\alpha = 0.05 \quad \implies \quad m = 250</span></p></li>
+<li><p>Therefore, the <span class="math inline">95\%</span> bootstrap CI for the population mean <span class="math inline">\mu</span> is <span class="math display">
+\left[  \overline{X}^*_{(250)}  ,  \overline{X}^*_{(9751)}  \right]
+</span></p></li>
+<li><p>These percentiles can be automatically computed using the <code>quantile</code> function</p></li>
 </ul>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># compute bootstrap variance of xbar</span></span>
-<span id="cb40-2"><a aria-hidden="true" tabindex="-1"></a>var.boot <span class="ot">&lt;-</span> <span class="fu">var</span>(xbar.star.vect)</span>
-<span id="cb40-3"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-4"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"The bootstrap estimate for the variance is"</span>, var.boot)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<ul>
-<li>We compare the bootstrap variance estimate to the <em>actual</em> variance <span class="math display">
-{\rm Var}[\overline{X}] = \frac{1}{n}
-</span></li>
-</ul>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># compute the actual variance of xbar</span></span>
-<span id="cb41-2"><a aria-hidden="true" tabindex="-1"></a>var.true <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">/</span>n</span>
-<span id="cb41-3"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-4"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"The bootstrap estimate for the variance is"</span>, var.boot)</span>
-<span id="cb41-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"The theoretical value for the variance is"</span>, var.true)</span>
-<span id="cb41-6"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"The error is"</span>, <span class="fu">abs</span>(var.boot <span class="sc">-</span> var.true))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Compute 95% CI from bootstrap samples</span></span>
+<span id="cb41-2"><a aria-hidden="true" tabindex="-1"></a>alpha <span class="ot">&lt;-</span> <span class="fl">0.05</span></span>
+<span id="cb41-3"><a aria-hidden="true" tabindex="-1"></a>boot.CI <span class="ot">&lt;-</span> <span class="fu">quantile</span>(xbar.star, <span class="at">probs =</span> <span class="fu">c</span>(alpha<span class="sc">/</span><span class="dv">2</span>, <span class="dv">1</span><span class="sc">-</span>alpha<span class="sc">/</span><span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="section-30" class="slide level2 smaller">
 <h2></h2>
 <ul>
-<li><p>Let us estimate the variance with a sample size of <span class="math inline">n = 10</span></p></li>
-<li><p>The random sample <code>x</code> from which we bootstrap is</p></li>
+<li>We compare the bootstrap CI to the usual t-test CI</li>
 </ul>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Compute 95% t-test CI</span></span>
+<span id="cb42-2"><a aria-hidden="true" tabindex="-1"></a>t.test.CI <span class="ot">&lt;-</span> <span class="fu">t.test</span>(x)<span class="sc">$</span>conf.int</span>
+<span id="cb42-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Print results</span></span>
+<span id="cb42-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Bootstrap Confidence Interval (95%):"</span>, boot.CI, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb42-6"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"t-test Confidence Interval (95%):"</span>, t.test.CI, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div style="font-size: 0.15em">
+<p><br></p>
+</div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">23</span>)    <span class="co"># Set seed to always get same randomization</span></span>
-<span id="cb42-2"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-3"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">10</span>)</span>
-<span id="cb42-4"><a aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1]  0.19321233 -0.43468211  0.91326710  1.79338809  0.99660511  1.10749049
- [7] -0.27808628  1.01920549  0.04543718  1.57577959</code></pre>
+<pre><code>Bootstrap Confidence Interval (95%): 47.7 58.6</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+t-test Confidence Interval (95%): 46.70306 60.29694</code></pre>
 </div>
 </div>
-<div style="font-size: 0.51em">
+<div style="font-size: 0.15em">
 <p><br></p>
 </div>
 <ul>
-<li>Running the algorithm on the sample <code>x</code> gives:</li>
-</ul>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>The bootstrap estimate for the variance is 0.134012</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>The theoretical value for the variance is 0.1</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>The error is 0.034012</code></pre>
-</div>
-</div>
-<p><strong>The estimate obtained with just 10 samples is remarkable!</strong></p>
-</section>
-<section id="section-31" class="slide level2 smaller">
-<h2></h2>
-<p><strong>Is this a miracle? Sort of</strong></p>
+<li><p>The CI are almost overlapping</p></li>
+<li><p>This is a very strong indication that the original population is indeed normal</p>
 <ul>
-<li>The variance of the random sample <code>x</code> is</li>
+<li>In such case, the percentile bootstrap CI is asymptotically valid (i.e.&nbsp;approximates t-test CI)</li>
+</ul></li>
 </ul>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 1.504024</code></pre>
-</div>
-</div>
-<ul>
-<li>Take <code>var(x)</code> as <em>empirical estimate</em> of the population variance <span class="math inline">\sigma^2</span>, we get <span class="math display">
-{\rm Var}[\overline{X}] = \frac{\sigma^2}{n} \approx
-\frac{1.504024}{10} \approx 0.15
-</span></li>
-</ul>
-<table class="caption-top">
-<colgroup>
-<col style="width: 25%">
-<col style="width: 23%">
-<col style="width: 25%">
-<col style="width: 25%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">Quantity</th>
-<th style="text-align: left;">True value</th>
-<th style="text-align: left;">Empirical est.</th>
-<th style="text-align: left;">Bootstrap est.</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;"><span class="math inline">{\rm Var}[\overline{X}]</span></td>
-<td style="text-align: left;">0.1</td>
-<td style="text-align: left;">0.15</td>
-<td style="text-align: left;">0.134</td>
-</tr>
-</tbody>
-</table>
-<p><strong>The bootstrap variance estimates improves on the emprical estimate!</strong></p>
-</section>
-<section id="section-32" class="slide level2 smaller">
-<h2></h2>
-<ul>
-<li>As the sample size increases, we have that</li>
-</ul>
-<p><span class="math display">
-\lim_{n \to \infty} {\rm Var}[\overline{X}]_{\rm Boot} =
-{\rm Var}[\overline{X}]
-</span></p>
-<ul>
-<li>Running the algorithm with a sample size of <span class="math inline">n = 10</span> gives</li>
-</ul>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>The bootstrap estimate for the variance is 0.134012</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>The theoretical value for the variance is 0.1</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>The error is 0.034012</code></pre>
-</div>
-</div>
-<ul>
-<li>Running the algorithm with a sample size of <span class="math inline">n = 200</span> gives</li>
-</ul>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>The bootstrap estimate for the variance is 0.005750239</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>The theoretical value for the variance is 0.005</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>The error is 0.0007502394</code></pre>
-</div>
-</div>
-<p><strong>The estimate obtained with just 10 samples is remarkable</strong></p>
 </section>
 <section id="references" class="slide level2 smaller scrollable">
 <h2>References</h2>

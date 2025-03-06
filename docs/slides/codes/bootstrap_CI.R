@@ -1,5 +1,5 @@
 # Enter original sample and compute size
-x <- c(36, 40, 46, 54, 57, 58, 59, 60, 62, 63)
+x <- c(11.4, 13.1, 14.7, 14.7, 15.0, 15.5, 15.6, 15.9, 16.0, 16.8)
 n <- length(x)
 
 # Bootstrap sample mean B = 10,000 times

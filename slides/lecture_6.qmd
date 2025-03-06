@@ -2836,61 +2836,6 @@ However: population distribution unknown $\implies$ distribution of $\overline{X
 **Bootstrap gives a way to estimate distribution of $\overline{X}$**
 
 
-## Application: Bootstrap Confidence Intervals {.smaller}
-
-- When the population is normally distributed $N(\mu,\sigma^2)$, we used the t-statistic
-$$
-t = \frac{\overline{x} - \mu}{\ese}
-$$
-to form a confidence interval $[a,b]$ for the population mean $\mu$
-$$
-P(\mu \in [a,b]) = 0.95 \,, \quad 
-a = \overline{x} - t^* \times \ese , \quad  
-b = \overline{x} + t^* \times \ese
-$$
-where $t^* = t_{n-1}(0.025)$
-
-
-- If the population is not normal, the interval $[a,b]$ is not accurate, meaning that
-$$
-P(\mu \in [a,b]) \ll 0.95
-$$
-
-- In this case, the bootstrap sample mean can be used to form a CI
-
-- Moreover, bootstrap CI easily generalize to any estimator $T$
-
-
-
-## Algorithm: Bootstrap Confidence Intervals {.smaller}
-
-::: {style="font-size: 0.87em"}
-
-**Setting:** Given the **original** sample $x_1,\ldots,x_n$ from unknown population $f$, and
-
-- $\theta$ a population parameter $\,\,$ (e.g. $\, \theta =$ mean), $\,\, T$ an estimator for $\theta \,\,$ (e.g. $\, T =$ sample mean)
-
-
-**Bootstrap CI Algorithm:** to simulate $(1-\alpha)100\%$ CI for parameter $\theta$
-
-1. Bootstrap $B$ times the statistic $T$, obtaining the bootstrap simulations $T^*_1, \ldots , T^*_B$
-
-2. Order the values $T^*_1, \ldots , T^*_B$ to obtain
-$$
-T^*_{(1)} \leq  \ldots  \leq T^*_{(B)}
-$$
-
-3. Let $\, m = [(\alpha/2)B]$, where $[\cdot]$ is the ceiling function. The **percentile bootstrap** CI for $\theta$ is
-$$
-\left[  T^*_{(m)}  ,  T^*_{(B + 1- m)}  \right]
-$$
-These are the $\frac{\alpha}{2}100\%$ and $(1 − \frac{\alpha}{2})100\%$ percentiles of the sample distribution of $T^*_1, \ldots , T^*_B$
-
-:::
-
-
-
-
 
 
 ## Worked Example {.smaller}
@@ -2903,11 +2848,10 @@ These are the $\frac{\alpha}{2}100\%$ and $(1 − \frac{\alpha}{2})100\%$ percen
 |:-----------      |:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:----:|
 |**Mathematicians**| 36  |  40 | 46  | 54  |  57 | 58  | 59  | 60  |  62 |  63  |
 
+**We want to simulate the bootstrap distribution of the sample mean $\overline{X}$**
 
-**We want to simulate $95\%$ bootstrap CI for the population mean $\mu$**
 
-
-- First, we generate $B = 10,000$ bootstrap simulations of sample mean $\overline{X}$
+- To do so, we generate $B = 10,000$ bootstrap simulations of sample mean $\overline{X}$
 
 
 ```r
@@ -2925,6 +2869,139 @@ xbar.star <- replicate(B, {
 ```
 
 :::
+
+
+
+## {.smaller}
+
+- The vector ``xbar.star`` contains $B = 10000$ bootstrap samples from $\overline{X}$
+
+- We can examine the bootstrap distribution of $\overline{X}$ with a histogram
+
+```r
+hist(xbar.star)
+```
+
+
+```{r}
+# Enter original sample and compute size
+x <- c(36, 40, 46, 54, 57, 58, 59, 60, 62, 63)
+n <- length(x)
+
+# Bootstrap sample mean B = 10,000 times
+B <- 10000
+
+xbar.star <- replicate(B, {
+                       x.star <- sample(x, n, replace = TRUE)
+                       xbar.star <- mean(x.star)
+                      })
+
+# Plot histogram
+hist(xbar.star)
+```
+
+
+
+
+## Bootstrap Confidence Intervals {.smaller}
+
+- When the population is normally distributed $N(\mu,\sigma^2)$, we used the t-statistic
+$$
+t = \frac{\overline{x} - \mu}{\ese}
+$$
+to form a $(1-\alpha)100\%$ confidence interval $[a,b]$ for the population mean $\mu$
+$$
+P(\mu \in [a,b]) = 1-\alpha \,, \quad 
+a, b = \overline{x} \mp t^* \times \ese , \quad  
+t^* = t_{n-1}\left(\frac{\alpha}{2}\right)
+$$
+
+
+- If the population is not normal, the interval $[a,b]$ is not accurate, meaning that
+$$
+P(\mu \in [a,b]) \ll 1 - \alpha
+$$
+
+- In this case, the bootstrap sample mean can be used to form a CI
+
+- Moreover, bootstrap CI easily generalize to any estimator $T$
+
+
+
+## Algorithm: Bootstrap Confidence Intervals {.smaller}
+
+::: {style="font-size: 0.89em"}
+
+**Setting:** Given the **original** sample $x_1,\ldots,x_n$ from unknown population $f$, and
+
+- $\theta$ population parameter $\,\,$ (e.g. $\, \theta =$ mean), $\,\, T$ estimator for $\theta \,\,$ (e.g. $\, T =$ sample mean)
+
+
+**Bootstrap CI Algorithm:** to simulate $(1-\alpha)100\%$ CI for parameter $\theta$
+
+1. Bootstrap $B$ times the statistic $T$, obtaining the bootstrap simulations $T^*_1, \ldots , T^*_B$
+
+2. Order the values $T^*_1, \ldots , T^*_B$ to obtain
+$$
+T^*_{(1)} \leq  \ldots  \leq T^*_{(B)}
+$$
+
+3. Let $\, m = [(\alpha/2)B]$, where $[\cdot]$ is the ceiling function. The **percentile bootstrap** CI for $\theta$ is
+$$
+\left[  T^*_{(m)}  ,  T^*_{(B + 1- m)}  \right]
+$$
+Endpoints are $\frac{\alpha}{2}100\%$ and $(1 − \frac{\alpha}{2})100\%$ percentiles of sample distribution of $T^*_1, \ldots , T^*_B$
+
+:::
+
+
+
+
+
+
+## Worked Example {.smaller}
+
+
+**Original sample:** 
+
+- A consumer group wishes to see whether the actual mileage of a new SUV matches the advertised 17 miles per gallon
+
+- To test the claim, the group fills the SUV’s tank and records the mileage
+
+- This is repeated 10 times. The results are below
+
+
+
+|       |      |      |      |      |      |      |      |      |      |      |
+|-------|------|------|------|------|------|------|------|------|------|------|
+|**mpg**| 11.4 | 13.1 | 14.7 | 14.7 | 15.0 | 15.5 | 15.6 | 15.9 | 16.0 | 16.8 |
+
+
+
+**We want to simulate $95\%$ bootstrap CI for the population mean $\mu$**
+
+
+
+
+## {.smaller}
+
+- First, we generate $B = 10,000$ bootstrap simulations of sample mean $\overline{X}$
+
+
+```r
+# Enter original sample and compute size
+x <- c(11.4, 13.1, 14.7, 14.7, 15.0, 15.5, 15.6, 15.9, 16.0, 16.8)
+n <- length(x)
+
+# Bootstrap sample mean B = 10,000 times
+B <- 10000
+
+xbar.star <- replicate(B, {
+                       x.star <- sample(x, n, replace = TRUE)
+                       xbar.star <- mean(x.star)
+                      })
+```
+
 
 
 
@@ -2955,6 +3032,8 @@ boot.CI <- quantile(xbar.star, probs = c(alpha/2, 1-alpha/2))
 
 ## {.smaller}
 
+::: {style="font-size: 0.95em"}
+
 - We compare the bootstrap CI to the usual t-test CI
 
 ```r
@@ -2962,8 +3041,8 @@ boot.CI <- quantile(xbar.star, probs = c(alpha/2, 1-alpha/2))
 t.test.CI <- t.test(x)$conf.int
 
 # Print results
-cat("Bootstrap Confidence Interval (95%):", boot.CI, "\n")
-cat("t-test Confidence Interval (95%):", t.test.CI, "\n")
+cat("Bootstrap Confidence Interval (95%):", boot.CI)
+cat("\nt-test Confidence Interval (95%):", t.test.CI)
 ```
 
 ::: {style="font-size: 0.15em"}
@@ -2974,7 +3053,7 @@ cat("t-test Confidence Interval (95%):", t.test.CI, "\n")
 
 ```{r}
 # Enter original sample and compute size
-x <- c(36, 40, 46, 54, 57, 58, 59, 60, 62, 63)
+x <- c(11.4, 13.1, 14.7, 14.7, 15.0, 15.5, 15.6, 15.9, 16.0, 16.8)
 n <- length(x)
 
 # Bootstrap sample mean B = 10,000 times
@@ -3009,8 +3088,11 @@ cat("\nt-test Confidence Interval (95%):", t.test.CI)
 - This is a very strong indication that the original population is indeed normal
     * In such case, the percentile bootstrap CI is asymptotically valid (i.e. approximates t-test CI)
 
+- The advertised 17 mpg do not fall in either CI. We have reason to doubt the claim
 
 - The code can be downloaded here [bootstrap_CI.R](codes/bootstrap_CI.R)
+
+:::
 
 
 

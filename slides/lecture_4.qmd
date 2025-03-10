@@ -21,7 +21,7 @@ $
 
 
 
-# Lecture 4: <br>The variance ratio and <br> two-sample t-tests {background-color="#cc0164" visibility="uncounted"}
+# Lecture 4: <br>The variance ratio & <br> Two-sample t-tests {background-color="#cc0164" visibility="uncounted"}
 
 ::: footer
 
@@ -1450,7 +1450,7 @@ $$
 |----------------------------------|-------------------|-------------------|-----------------|
 | $\mu_X \neq \mu_Y$               | $|t| > t^*$       | $t_{n+m-1}(0.025)$| $2P(T > |t|)$   |
 | $\mu_X < \mu_Y$                  | $t < - t^*$       | $t_{n+m-1}(0.05)$ | $P(T < t)$      |
-| $\mu_X > \mu_Y$                  | $t > t^*$       | $t_{n+m-1}(0.05)$ | $P(T > t)$      |
+| $\mu_X > \mu_Y$                  | $t > t^*$         | $t_{n+m-1}(0.05)$ | $P(T > t)$      |
 : {tbl-colwidths="[25,25,25,25]"}
 
 

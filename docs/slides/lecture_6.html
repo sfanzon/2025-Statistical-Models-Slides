@@ -96,27 +96,7 @@
     code span.va { color: #111111; } /* Variable */
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
-    /* CSS for citations */
-    div.csl-bib-body { }
-    div.csl-entry {
-      clear: both;
-      margin-bottom: 0em;
-    }
-    .hanging-indent div.csl-entry {
-      margin-left:2em;
-      text-indent:-2em;
-    }
-    div.csl-left-margin {
-      min-width:2em;
-      float:left;
-    }
-    div.csl-right-inline {
-      margin-left:2em;
-      padding-left:1em;
-    }
-    div.csl-indent {
-      margin-left: 2em;
-    }  </style>
+  </style>
   <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto.css">
   <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
@@ -425,57 +405,25 @@
   </style>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
   <style>
-  .Example {
-    --color1: #bce5de;
-    --color2: #21aa93;
-  }
-  .Definition {
-    --color1: #c6e6ed;
-    --color2: #1995ad;
-  }
-  .Corollary {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .TODO {
-    --color1: #e7b1b4;
-    --color2: #8c3236;
-  }
-  .Conjecture {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Remark {
-    --color1: #bce5de;
-    --color2: #21aa93;
-  }
-  .Idea {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Theorem {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Question {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Axiom {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Proof {
-    --color1: #f1f1f2;
-    --color2: #c0c0c1;
-  }
-  .Lemma {
+  .Proposition {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
   .Notation {
     --color1: #c6e6ed;
     --color2: #1995ad;
+  }
+  .TODO {
+    --color1: #e7b1b4;
+    --color2: #8c3236;
+  }
+  .Definition {
+    --color1: #c6e6ed;
+    --color2: #1995ad;
+  }
+  .Proof {
+    --color1: #f1f1f2;
+    --color2: #c0c0c1;
   }
   .DONE {
     --color1: #cce7b1;
@@ -485,11 +433,43 @@
     --color1: #f4cce0;
     --color2: #db4d92;
   }
+  .Question {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Remark {
+    --color1: #bce5de;
+    --color2: #21aa93;
+  }
   .Problem {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
-  .Proposition {
+  .Lemma {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Example {
+    --color1: #bce5de;
+    --color2: #21aa93;
+  }
+  .Conjecture {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Theorem {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Idea {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Axiom {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Corollary {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
@@ -523,8 +503,8 @@
 
 </section>
 <section>
-<section id="lecture-6-contingency-tables-and-simulation" class="title-slide slide level1 center" data-background-color="#cc0164" data-visibility="uncounted">
-<h1>Lecture 6: <br> Contingency tables and simulation</h1>
+<section id="lecture-6-contingency-tables-simulation" class="title-slide slide level1 center" data-background-color="#cc0164" data-visibility="uncounted">
+<h1>Lecture 6: <br> Contingency tables &amp; <br> Simulation</h1>
 <div class="footer">
 <div color="#cc0164">
 
@@ -3149,16 +3129,16 @@ x_i^2 + y_i^2 \leq 1
 <h2>Approximation of <span class="math inline">\pi</span> in R: Output</h2>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>After    10000 iterations pi is 3.15760000, error is 0.01600735
-After    20000 iterations pi is 3.14480000, error is 0.00320735
-After    30000 iterations pi is 3.14466667, error is 0.00307401
-After    40000 iterations pi is 3.13350000, error is 0.00809265
-After    50000 iterations pi is 3.13128000, error is 0.01031265
-After    60000 iterations pi is 3.13600000, error is 0.00559265
-After    70000 iterations pi is 3.14011429, error is 0.00147837
-After    80000 iterations pi is 3.14290000, error is 0.00130735
-After    90000 iterations pi is 3.14213333, error is 0.00054068
-After   100000 iterations pi is 3.14176000, error is 0.00016735</code></pre>
+<pre><code>After    10000 iterations pi is 3.15120000, error is 0.00960735
+After    20000 iterations pi is 3.14900000, error is 0.00740735
+After    30000 iterations pi is 3.13733333, error is 0.00425932
+After    40000 iterations pi is 3.13930000, error is 0.00229265
+After    50000 iterations pi is 3.13240000, error is 0.00919265
+After    60000 iterations pi is 3.13686667, error is 0.00472599
+After    70000 iterations pi is 3.13588571, error is 0.00570694
+After    80000 iterations pi is 3.13655000, error is 0.00504265
+After    90000 iterations pi is 3.13880000, error is 0.00279265
+After   100000 iterations pi is 3.13920000, error is 0.00239265</code></pre>
 </div>
 </div>
 <p><strong>Note:</strong></p>
@@ -3760,26 +3740,26 @@ p =  P( \chi^2 &gt; \chi^2_{\rm obs} ) \ \approx \ \frac{ \# \text{ of extreme s
 <div class="sourceCode" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Simulate M chi-squared statistics</span></span>
 <span id="cb32-2"><a aria-hidden="true" tabindex="-1"></a>M <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
 <span id="cb32-3"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-4"><a aria-hidden="true" tabindex="-1"></a>sim.chi.vect <span class="ot">&lt;-</span> <span class="fu">replicate</span>(M, {</span>
+<span id="cb32-4"><a aria-hidden="true" tabindex="-1"></a>sim.chi <span class="ot">&lt;-</span> <span class="fu">replicate</span>(M, {</span>
 <span id="cb32-5"><a aria-hidden="true" tabindex="-1"></a>                <span class="co"># Simulate multinomial counts under null hypothesis</span></span>
 <span id="cb32-6"><a aria-hidden="true" tabindex="-1"></a>                sim.counts <span class="ot">&lt;-</span> <span class="fu">rmultinom</span>(<span class="dv">1</span>, m, null.p)</span>
 <span id="cb32-7"><a aria-hidden="true" tabindex="-1"></a>                            </span>
-<span id="cb32-8"><a aria-hidden="true" tabindex="-1"></a>                <span class="co"># Compute chi-squared statistic from the simulated counts</span></span>
-<span id="cb32-9"><a aria-hidden="true" tabindex="-1"></a>                sim.chi <span class="ot">&lt;-</span> <span class="fu">sum</span>( (sim.counts <span class="sc">-</span> exp.counts )<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> exp.counts)</span>
+<span id="cb32-8"><a aria-hidden="true" tabindex="-1"></a>                <span class="co"># Reurn chi-squared statistic from the simulated counts</span></span>
+<span id="cb32-9"><a aria-hidden="true" tabindex="-1"></a>                <span class="fu">sum</span>( (sim.counts <span class="sc">-</span> exp.counts )<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> exp.counts)</span>
 <span id="cb32-10"><a aria-hidden="true" tabindex="-1"></a>                })</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="section-25" class="slide level2 smaller">
 <h2></h2>
 <ul>
-<li><p>The vector <code>sim.chi.vect</code> contains <span class="math inline">M = 10000</span> simulated chi-squared statistics</p></li>
+<li><p>The vector <code>sim.chi</code> contains <span class="math inline">M = 10000</span> simulated chi-squared statistics</p></li>
 <li><p>We approximate the p-value by <span class="math display">
 p = P(\chi^2 &gt; \chi_{\rm obs}^2) \approx
 \ \frac{ \# \text{ of extreme simulated statistics} }{ M }
 </span></p></li>
 </ul>
 <div class="sourceCode" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Check how many simulated statistics are extreme</span></span>
-<span id="cb33-2"><a aria-hidden="true" tabindex="-1"></a>num.extreme <span class="ot">&lt;-</span> <span class="fu">sum</span>( sim.chi.vect <span class="sc">&gt;</span> obs.chi )</span>
+<span id="cb33-2"><a aria-hidden="true" tabindex="-1"></a>num.extreme <span class="ot">&lt;-</span> <span class="fu">sum</span>( sim.chi <span class="sc">&gt;</span> obs.chi )</span>
 <span id="cb33-3"><a aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb33-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Estimate the p-value</span></span>
 <span id="cb33-5"><a aria-hidden="true" tabindex="-1"></a>sim.p.value <span class="ot">&lt;-</span> num.extreme <span class="sc">/</span> M</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -3815,437 +3795,10 @@ R simulated p-value is: 0.8195902</code></pre>
 <li><p><strong>Note</strong>: The simulated p-values are the same! (up to random fluctuations)</p></li>
 <li><p><strong>Conclusion:</strong> We see that <span class="math inline">p &gt; 0.05</span>. There is not enogh evidence to reject <span class="math inline">H_0</span></p></li>
 </ul>
-</section></section>
-<section>
-<section id="part-7-the-bootstrap" class="title-slide slide level1 center" data-background-color="#cc0164" data-visibility="uncounted">
-<h1>Part 7: <br>The Bootstrap</h1>
-<div class="footer">
-<div color="#cc0164">
-
-</div>
-</div>
-</section>
-<section id="motivation" class="slide level2 smaller">
-<h2>Motivation</h2>
-<ul>
-<li><p>So far, our simulations used knowledge of the population distribution, e.g.</p>
-<ul>
-<li>To simulate <span class="math inline">\pi</span>, we sampled points from <span class="math inline">{\rm Uniform}([-1,1] \times [-1,1])</span></li>
-<li>To simulate the <span class="math inline">\chi^2</span> statistic, we sampled <em>Multinomial</em> counts</li>
-<li>To simulate confidence intervals, we sampled from a normal population</li>
-</ul></li>
-<li><p><strong>Problem:</strong> Sometimes the population distribution <span class="math inline">f</span> is <strong>unknown</strong></p></li>
-<li><p><strong>Bootstrap:</strong> Replace the unknown distribution <span class="math inline">f</span> with a known distribution <span class="math inline">\hat{f}</span></p></li>
-</ul>
-</section>
-<section id="the-sample-distribution" class="slide level2 smaller">
-<h2>The Sample Distribution</h2>
-<div style="font-size: 0.94em">
-<ul>
-<li><p>Assume given a sample <span class="math inline">x_1,\ldots,x_n</span> from a population <span class="math inline">f</span></p></li>
-<li><p>The <strong>Sample Distribution</strong> is the discrete distribution which puts mass <span class="math inline">\frac1n</span> at each sample point <span class="math display">
-\hat{f}(x) =
-\begin{cases}
-\frac1n  &amp; \quad \text{ if } \, x \in \{x_1, \ldots, x_n\} \\
-0        &amp; \quad \text{ otherwise }
-\end{cases}
-</span></p></li>
-</ul>
-<div id="glivenko-cantelli" class="Theorem" title="Glivenko-Cantelli">
-<p></p><details class="Theorem fbx-simplebox fbx-default" open=""><summary><strong>Theorem: </strong>Glivenko-Cantelli</summary><div>As the sample size increases <span class="math display">
-\lim_{n \to \infty} \hat{f} = f
-</span><p></p>
-</div></details>
-</div>
-<p>(more precisely, the convergence is uniform almost everywhere wrt the cdfs: <span class="math inline">\hat{F} \to F</span>)</p>
-</div>
-</section>
-<section id="main-bootstrap-idea" class="slide level2 smaller">
-<h2>Main Bootstrap idea</h2>
-<p><strong>Setting:</strong> Assume given the <strong>original</strong> sample <span class="math inline">x_1,\ldots,x_n</span> from unknown population <span class="math inline">f</span></p>
-<p><strong>Bootstrap:</strong> Regard the sample as the <strong>whole population</strong></p>
-<ul>
-<li><p>Replace the unknown distribution <span class="math inline">f</span> with the sample distribution <span class="math display">
-\hat{f}(x) =
-\begin{cases}
-\frac1n  &amp; \quad \text{ if } \, x \in \{x_1, \ldots, x_n\} \\
-0        &amp; \quad \text{ otherwise }
-\end{cases}
-</span></p></li>
-<li><p>Any sampling will be done from <span class="math inline">\hat{f}</span> <span class="math inline">\qquad \quad</span> (motivated by Glivenko-Cantelli Thm)</p></li>
-</ul>
-<p><strong>Note:</strong> <span class="math inline">\hat{f}</span> puts mass <span class="math inline">\frac1n</span> at each sample point</p>
-<p><strong>Drawing an observation from <span class="math inline">\hat f</span> is equivalent to drawing one point at random from the original sample <span class="math inline">\{x_1,\ldots,x_n\}</span></strong></p>
-</section>
-<section id="the-bootstrap-algorithm" class="slide level2 smaller">
-<h2>The Bootstrap Algorithm</h2>
-<div style="font-size: 0.94em">
-<p><strong>Setting:</strong> Given the <strong>original</strong> sample <span class="math inline">x_1,\ldots,x_n</span> from unknown population <span class="math inline">f</span></p>
-<p><strong>Bootstrap Algorithm:</strong> to estimate the distribution of a statistic of interest <span class="math inline">T</span></p>
-<ol type="1">
-<li><p>Draw sample <span class="math inline">x_1^*,\ldots,x_n^*</span> from <span class="math inline">\{x_1, \ldots, x_n\}</span> with <strong>replacement</strong></p></li>
-<li><p>Compute the statistic <span class="math inline">T</span> on the bootstrap sample <span class="math display">
-T^* = T(x_1^*,\ldots,x_n^*)
-</span></p></li>
-<li><p>Repeat Steps 1 and 2, <span class="math inline">B</span> times, to get <span class="math inline">B</span> bootstrap simulations of <span class="math inline">T</span> <span class="math display">
-T^*_1, \ldots , T^*_B
-</span> These values represent the <strong>bootstrap distribution</strong> of <span class="math inline">T</span></p></li>
-</ol>
-<p><strong>Note</strong>: If population distribution <span class="math inline">f</span> is known, we would just sample from <span class="math inline">f</span></p>
-</div>
-</section>
-<section id="section-27" class="slide level2 smaller">
-<h2></h2>
-
-<img data-src="images/bootstrap.png" style="width:100.0%" class="r-stretch"><div style="font-size: 0.89em">
-<p><br></p>
-<ul>
-<li><p>Original sample <span class="math inline">\{x_1,\ldots,x_n\}</span> is drawn from the population <span class="math inline">\qquad</span> (Image from <a href="https://en.wikipedia.org/wiki/Bootstrapping_(statistics)#/media/File:Illustration_bootstrap.svg">Wikipedia</a>)</p></li>
-<li><p>Resamples <span class="math inline">\{x_1^*,\ldots,x_n^*\}</span> are generated by drawing from <span class="math inline">\{x_1,\ldots,x_n\}</span> with <strong>replacement</strong></p></li>
-<li><p>Note: Data points <span class="math inline">x_i</span> can be drawn more than once (in red and sligthly offsetted)</p></li>
-<li><p>For each resample, the statistic <span class="math inline">T^*</span> is calculated</p></li>
-<li><p>Therefore, a histogram can be calculated to estimate the bootstrap distribution of <span class="math inline">T</span></p></li>
-</ul>
-</div>
-</section>
-<section id="q-a" class="slide level2 smaller">
-<h2>Q &amp; A</h2>
-<div style="font-size: 0.93em">
-<p><strong>References?</strong></p>
-<ul>
-<li><p>Simulation and bootstrap are huge topics</p></li>
-<li><p>Good introduction: the book by Efron (inventor of bootstrap) and Tibshirani <span class="citation" data-cites="efron">[<a href="#/references" role="doc-biblioref" onclick="">1</a>]</span></p></li>
-</ul>
-<p><strong>Why is the Bootstrap useful?</strong></p>
-<ul>
-<li><p>Because a lot of the times population distribution is unknown</p></li>
-<li><p>Despite this, bootstrap allows to do inference on statistic <span class="math inline">T</span></p></li>
-</ul>
-<p><strong>Why does the Bootstrap work?</strong> We are just resampling from the original sample!</p>
-<ul>
-<li><p>It (often) works because the original sample encodes population variability</p></li>
-<li><p>By resampling the original sample, we are simulating this variability</p></li>
-</ul>
-</div>
-</section>
-<section id="q-a-1" class="slide level2 smaller">
-<h2>Q &amp; A</h2>
-<div style="font-size: 0.93em">
-<p><strong>How good is the bootstrap distribution of <span class="math inline">T</span>?</strong></p>
-<ul>
-<li>It can be a good approximation of the true distribution of <span class="math inline">T</span> when the<br>
-<strong>original sample is sufficiently variable</strong>
-<ul>
-<li>Things tend to go well for large samples (<span class="math inline">n \geq 50</span>)</li>
-</ul></li>
-<li>Bootstrap works well when the statistic <span class="math inline">T</span> is a mean (or something like a mean)
-<ul>
-<li>for example median, regression coefficient, or standard deviation.</li>
-</ul></li>
-<li>The bootstrap has difficulties when the statistic <span class="math inline">T</span> is influenced by outliers
-<ul>
-<li>for example if <span class="math inline">T</span> is the range, that is, <span class="math inline">T =</span> max value <span class="math inline">-</span> min value</li>
-</ul></li>
-</ul>
-</div>
-</section>
-<section id="q-a-2" class="slide level2 smaller">
-<h2>Q &amp; A</h2>
-<div style="font-size: 0.93em">
-<p><strong>What are the limitations of bootstrap?</strong></p>
-<ul>
-<li>Computationally expensive
-<ul>
-<li>For decent simulation of bootstrap distribution of <span class="math inline">T</span>, need at least<br>
-<span class="math inline">B = 10,000</span> resamples (<span class="math inline">100,000</span> would be better!)</li>
-</ul></li>
-<li>Relies on a sufficiently variable original sample
-<ul>
-<li>If the original sample is not good, the bootstrap cannot recover from this problem</li>
-<li>In this case the bootstrap population will not look like the true population</li>
-<li>The bootstrap resampling will not be useful</li>
-</ul></li>
-<li>No way to determine if the original sample is good enough</li>
-</ul>
-<p><strong>However, problems are usually mitigated by large enough original sample (<span class="math inline">n \geq 50</span>)</strong></p>
-</div>
-</section>
-<section id="example-bootstrapping-the-mean" class="slide level2 smaller">
-<h2>Example: Bootstrapping the mean</h2>
-<div style="font-size: 0.91em">
-<p><strong>Setting:</strong> Given the <strong>original</strong> sample <span class="math inline">x_1,\ldots,x_n</span> from unknown population <span class="math inline">f</span></p>
-<p><strong>Bootstrap Algorithm:</strong> to estimate the distribution of the sample mean <span class="math inline">\overline{X}</span></p>
-<ol type="1">
-<li><p>Draw sample <span class="math inline">x_1^*,\ldots,x_n^*</span> from <span class="math inline">\{x_1, \ldots, x_n\}</span> with <strong>replacement</strong></p></li>
-<li><p>Compute the sample mean <span class="math inline">\overline{X}</span> on the bootstrap sample <span class="math display">
-\overline{X}^* = \frac{1}{n} \sum_{i=1}^n x_i^*
-</span></p></li>
-<li><p>Repeat Steps 1 and 2, <span class="math inline">B</span> times, to get <span class="math inline">B</span> bootstrap simulations of <span class="math inline">\overline{X}^*</span> <span class="math display">
-\overline{X}^*_1, \ldots , \overline{X}^*_B
-</span> These values represent the <strong>bootstrap distribution</strong> of <span class="math inline">\overline{X}</span></p></li>
-</ol>
-</div>
-</section>
-<section id="implementation-in-r-1" class="slide level2 smaller">
-<h2>Implementation in R</h2>
-<ul>
-<li>Store the original sample into a vector and compute length</li>
-</ul>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Store original sample and compute length</span></span>
-<span id="cb37-2"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-3"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(x_1, ..., x_n)</span>
-<span id="cb37-4"><a aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<ul>
-<li>To generate one bootstrap simulation of <span class="math inline">\overline{X}</span>:
-<ol type="1">
-<li>Sample n times from <span class="math inline">\{x_1,\ldots,x_n\}</span> with replacement</li>
-<li>This gives the bootstrap sample <span class="math inline">\{x_1^*,\ldots,x_n^*\}</span></li>
-<li>Compute sample mean of the bootstrap sample</li>
-</ol></li>
-</ul>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Bootstrap sample mean one time</span></span>
-<span id="cb38-2"><a aria-hidden="true" tabindex="-1"></a>x.star <span class="ot">&lt;-</span> <span class="fu">sample</span>(x, n, <span class="at">replace =</span> <span class="cn">TRUE</span>)     <span class="co"># Sample n times with replacement</span></span>
-<span id="cb38-3"><a aria-hidden="true" tabindex="-1"></a>xbar.star <span class="ot">&lt;-</span> <span class="fu">mean</span>(x.star)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-<section id="section-28" class="slide level2 smaller">
-<h2></h2>
-<ul>
-<li>To generate <span class="math inline">B = 10,000</span> bootstrap simulations of <span class="math inline">\overline{X}</span>, use <strong>replicate</strong></li>
-</ul>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Bootstrap sample mean B = 10,000 times</span></span>
-<span id="cb39-2"><a aria-hidden="true" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
-<span id="cb39-3"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-4"><a aria-hidden="true" tabindex="-1"></a>xbar.star <span class="ot">&lt;-</span> <span class="fu">replicate</span>(B, {</span>
-<span id="cb39-5"><a aria-hidden="true" tabindex="-1"></a>                       x.star <span class="ot">&lt;-</span> <span class="fu">sample</span>(x, n, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb39-6"><a aria-hidden="true" tabindex="-1"></a>                       xbar.star <span class="ot">&lt;-</span> <span class="fu">mean</span>(x.star)</span>
-<span id="cb39-7"><a aria-hidden="true" tabindex="-1"></a>                      })</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<ul>
-<li>The vector <code>xbar.star</code> contains <span class="math inline">B = 10,000</span> bootstrap samples of <span class="math inline">\overline{X}</span></li>
-</ul>
-<p><strong>Why is this useful?:</strong> When the population is normal <span class="math inline">N(\mu,\sigma^2)</span>, we know that <span class="math display">
-\overline{X} \sim N(\mu, \sigma^2/n)
-</span> However: population distribution unknown <span class="math inline">\implies</span> distribution of <span class="math inline">\overline{X}</span> unknown</p>
-<p><strong>Bootstrap gives a way to estimate distribution of <span class="math inline">\overline{X}</span></strong></p>
-</section>
-<section id="worked-example" class="slide level2 smaller">
-<h2>Worked Example</h2>
-<div style="font-size: 0.95em">
-<p><strong>Original sample:</strong> wages data on 10 mathematicians</p>
-<table class="caption-top" style="width:100%;">
-<colgroup>
-<col style="width: 19%">
-<col style="width: 7%">
-<col style="width: 7%">
-<col style="width: 7%">
-<col style="width: 7%">
-<col style="width: 7%">
-<col style="width: 7%">
-<col style="width: 7%">
-<col style="width: 7%">
-<col style="width: 7%">
-<col style="width: 9%">
-</colgroup>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;"><strong>Mathematicians</strong></td>
-<td style="text-align: center;">36</td>
-<td style="text-align: center;">40</td>
-<td style="text-align: center;">46</td>
-<td style="text-align: center;">54</td>
-<td style="text-align: center;">57</td>
-<td style="text-align: center;">58</td>
-<td style="text-align: center;">59</td>
-<td style="text-align: center;">60</td>
-<td style="text-align: center;">62</td>
-<td style="text-align: center;">63</td>
-</tr>
-</tbody>
-</table>
-<p><strong>We want to simulate the bootstrap distribution of the sample mean <span class="math inline">\overline{X}</span></strong></p>
-<ul>
-<li>To do so, we generate <span class="math inline">B = 10,000</span> bootstrap simulations of sample mean <span class="math inline">\overline{X}</span></li>
-</ul>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Enter original sample and compute size</span></span>
-<span id="cb40-2"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">36</span>, <span class="dv">40</span>, <span class="dv">46</span>, <span class="dv">54</span>, <span class="dv">57</span>, <span class="dv">58</span>, <span class="dv">59</span>, <span class="dv">60</span>, <span class="dv">62</span>, <span class="dv">63</span>)</span>
-<span id="cb40-3"><a aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(x)</span>
-<span id="cb40-4"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-5"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Bootstrap sample mean B = 10,000 times</span></span>
-<span id="cb40-6"><a aria-hidden="true" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
-<span id="cb40-7"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-8"><a aria-hidden="true" tabindex="-1"></a>xbar.star <span class="ot">&lt;-</span> <span class="fu">replicate</span>(B, {</span>
-<span id="cb40-9"><a aria-hidden="true" tabindex="-1"></a>                       x.star <span class="ot">&lt;-</span> <span class="fu">sample</span>(x, n, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb40-10"><a aria-hidden="true" tabindex="-1"></a>                       xbar.star <span class="ot">&lt;-</span> <span class="fu">mean</span>(x.star)</span>
-<span id="cb40-11"><a aria-hidden="true" tabindex="-1"></a>                      })</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="section-29" class="slide level2 smaller">
-<h2></h2>
-<ul>
-<li><p>The vector <code>xbar.star</code> contains <span class="math inline">B = 10000</span> bootstrap samples from <span class="math inline">\overline{X}</span></p></li>
-<li><p>We can examine the bootstrap distribution of <span class="math inline">\overline{X}</span> with a histogram</p></li>
-</ul>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(xbar.star)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-
-<img data-src="lecture_6_files/figure-revealjs/unnamed-chunk-15-1.png" width="960" class="r-stretch"></section>
-<section id="bootstrap-confidence-intervals" class="slide level2 smaller">
-<h2>Bootstrap Confidence Intervals</h2>
-<ul>
-<li><p>When the population is normally distributed <span class="math inline">N(\mu,\sigma^2)</span>, we used the t-statistic <span class="math display">
-t = \frac{\overline{x} - \mu}{\mathop{\mathrm{e.s.e.}}}
-</span> to form a <span class="math inline">(1-\alpha)100\%</span> confidence interval <span class="math inline">[a,b]</span> for the population mean <span class="math inline">\mu</span> <span class="math display">
-P(\mu \in [a,b]) = 1-\alpha \,, \quad
-a, b = \overline{x} \mp t^* \times \mathop{\mathrm{e.s.e.}}, \quad  
-t^* = t_{n-1}\left(\frac{\alpha}{2}\right)
-</span></p></li>
-<li><p>If the population is not normal, the interval <span class="math inline">[a,b]</span> is not accurate, meaning that <span class="math display">
-P(\mu \in [a,b]) \ll 1 - \alpha
-</span></p></li>
-<li><p>In this case, the bootstrap sample mean can be used to form a CI</p></li>
-<li><p>Moreover, bootstrap CI easily generalize to any estimator <span class="math inline">T</span></p></li>
-</ul>
-</section>
-<section id="algorithm-bootstrap-confidence-intervals" class="slide level2 smaller">
-<h2>Algorithm: Bootstrap Confidence Intervals</h2>
-<div style="font-size: 0.89em">
-<p><strong>Setting:</strong> Given the <strong>original</strong> sample <span class="math inline">x_1,\ldots,x_n</span> from unknown population <span class="math inline">f</span>, and</p>
-<ul>
-<li><span class="math inline">\theta</span> population parameter <span class="math inline">\,\,</span> (e.g.&nbsp;<span class="math inline">\, \theta =</span> mean), <span class="math inline">\,\, T</span> estimator for <span class="math inline">\theta \,\,</span> (e.g.&nbsp;<span class="math inline">\, T =</span> sample mean)</li>
-</ul>
-<p><strong>Bootstrap CI Algorithm:</strong> to simulate <span class="math inline">(1-\alpha)100\%</span> CI for parameter <span class="math inline">\theta</span></p>
-<ol type="1">
-<li><p>Bootstrap <span class="math inline">B</span> times the statistic <span class="math inline">T</span>, obtaining the bootstrap simulations <span class="math inline">T^*_1, \ldots , T^*_B</span></p></li>
-<li><p>Order the values <span class="math inline">T^*_1, \ldots , T^*_B</span> to obtain <span class="math display">
-T^*_{(1)} \leq  \ldots  \leq T^*_{(B)}
-</span></p></li>
-<li><p>Let <span class="math inline">\, m = [(\alpha/2)B]</span>, where <span class="math inline">[\cdot]</span> is the ceiling function. The <strong>percentile bootstrap</strong> CI for <span class="math inline">\theta</span> is <span class="math display">
-\left[  T^*_{(m)}  ,  T^*_{(B + 1- m)}  \right]
-</span> Endpoints are <span class="math inline">\frac{\alpha}{2}100\%</span> and <span class="math inline">(1 − \frac{\alpha}{2})100\%</span> percentiles of sample distribution of <span class="math inline">T^*_1, \ldots , T^*_B</span></p></li>
-</ol>
-</div>
-</section>
-<section id="worked-example-1" class="slide level2 smaller">
-<h2>Worked Example</h2>
-<p><strong>Original sample:</strong></p>
-<ul>
-<li><p>A consumer group wishes to see whether the actual mileage of a new SUV matches the advertised 17 miles per gallon</p></li>
-<li><p>To test the claim, the group fills the SUV’s tank and records the mileage</p></li>
-<li><p>This is repeated 10 times. The results are below</p></li>
-</ul>
-<table class="caption-top">
-<colgroup>
-<col style="width: 10%">
-<col style="width: 8%">
-<col style="width: 8%">
-<col style="width: 8%">
-<col style="width: 8%">
-<col style="width: 8%">
-<col style="width: 8%">
-<col style="width: 8%">
-<col style="width: 8%">
-<col style="width: 8%">
-<col style="width: 8%">
-</colgroup>
-<tbody>
-<tr class="odd">
-<td><strong>mpg</strong></td>
-<td>11.4</td>
-<td>13.1</td>
-<td>14.7</td>
-<td>14.7</td>
-<td>15.0</td>
-<td>15.5</td>
-<td>15.6</td>
-<td>15.9</td>
-<td>16.0</td>
-<td>16.8</td>
-</tr>
-</tbody>
-</table>
-<p><strong>We want to simulate <span class="math inline">95\%</span> bootstrap CI for the population mean <span class="math inline">\mu</span></strong></p>
-</section>
-<section id="section-30" class="slide level2 smaller">
-<h2></h2>
-<ul>
-<li>First, we generate <span class="math inline">B = 10,000</span> bootstrap simulations of sample mean <span class="math inline">\overline{X}</span></li>
-</ul>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Enter original sample and compute size</span></span>
-<span id="cb42-2"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">11.4</span>, <span class="fl">13.1</span>, <span class="fl">14.7</span>, <span class="fl">14.7</span>, <span class="fl">15.0</span>, <span class="fl">15.5</span>, <span class="fl">15.6</span>, <span class="fl">15.9</span>, <span class="fl">16.0</span>, <span class="fl">16.8</span>)</span>
-<span id="cb42-3"><a aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(x)</span>
-<span id="cb42-4"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-5"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Bootstrap sample mean B = 10,000 times</span></span>
-<span id="cb42-6"><a aria-hidden="true" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
-<span id="cb42-7"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-8"><a aria-hidden="true" tabindex="-1"></a>xbar.star <span class="ot">&lt;-</span> <span class="fu">replicate</span>(B, {</span>
-<span id="cb42-9"><a aria-hidden="true" tabindex="-1"></a>                       x.star <span class="ot">&lt;-</span> <span class="fu">sample</span>(x, n, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb42-10"><a aria-hidden="true" tabindex="-1"></a>                       xbar.star <span class="ot">&lt;-</span> <span class="fu">mean</span>(x.star)</span>
-<span id="cb42-11"><a aria-hidden="true" tabindex="-1"></a>                      })</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-<section id="section-31" class="slide level2 smaller">
-<h2></h2>
-<ul>
-<li><p>The vector <code>xbar.star</code> contains <span class="math inline">B = 10000</span> bootstrap samples from <span class="math inline">\overline{X}</span></p></li>
-<li><p>The <span class="math inline">(1-\alpha)\%</span> bootstrap CI for the population mean <span class="math inline">\mu</span> is <span class="math display">
-\left[  \overline{X}^*_{(m)}  ,  \overline{X}^*_{(B + 1- m)}  \right]\,, \qquad m = [(\alpha/2)B]
-</span></p></li>
-<li><p>We have <span class="math inline">B = 10,000</span> and <span class="math inline">\alpha = 0.05 \quad \implies \quad m = 250</span></p></li>
-<li><p>Therefore, the <span class="math inline">95\%</span> bootstrap CI for the population mean <span class="math inline">\mu</span> is <span class="math display">
-\left[  \overline{X}^*_{(250)}  ,  \overline{X}^*_{(9751)}  \right]
-</span></p></li>
-<li><p>These percentiles can be automatically computed using the <code>quantile</code> function</p></li>
-</ul>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Compute 95% CI from bootstrap samples</span></span>
-<span id="cb43-2"><a aria-hidden="true" tabindex="-1"></a>alpha <span class="ot">&lt;-</span> <span class="fl">0.05</span></span>
-<span id="cb43-3"><a aria-hidden="true" tabindex="-1"></a>boot.CI <span class="ot">&lt;-</span> <span class="fu">quantile</span>(xbar.star, <span class="at">probs =</span> <span class="fu">c</span>(alpha<span class="sc">/</span><span class="dv">2</span>, <span class="dv">1</span><span class="sc">-</span>alpha<span class="sc">/</span><span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-<section id="section-32" class="slide level2 smaller">
-<h2></h2>
-<div style="font-size: 0.95em">
-<ul>
-<li>We compare the bootstrap CI to the usual t-test CI</li>
-</ul>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Compute 95% t-test CI</span></span>
-<span id="cb44-2"><a aria-hidden="true" tabindex="-1"></a>t.test.CI <span class="ot">&lt;-</span> <span class="fu">t.test</span>(x)<span class="sc">$</span>conf.int</span>
-<span id="cb44-3"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Print results</span></span>
-<span id="cb44-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Bootstrap Confidence Interval (95%):"</span>, boot.CI)</span>
-<span id="cb44-6"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n</span><span class="st">t-test Confidence Interval (95%):"</span>, t.test.CI)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div style="font-size: 0.15em">
-<p><br></p>
-</div>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>Bootstrap Confidence Interval (95%): 13.85 15.69</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-t-test Confidence Interval (95%): 13.74545 15.99455</code></pre>
-</div>
-</div>
-<div style="font-size: 0.15em">
-<p><br></p>
-</div>
-<ul>
-<li><p>The CI are almost overlapping</p></li>
-<li><p>This is a very strong indication that the original population is indeed normal</p>
-<ul>
-<li>In such case, the percentile bootstrap CI is asymptotically valid (i.e.&nbsp;approximates t-test CI)</li>
-</ul></li>
-<li><p>The advertised 17 mpg do not fall in either CI. We have reason to doubt the claim</p></li>
-<li><p>The code can be downloaded here <a href="codes/bootstrap_CI.R">bootstrap_CI.R</a></p></li>
-</ul>
-</div>
-</section>
-<section id="references" class="slide level2 smaller scrollable">
-<h2>References</h2>
 
 <div class="quarto-auto-generated-content">
 <div class="footer footer-default">
 <p><a href="../index.html">Homepage</a> &nbsp;&nbsp;&nbsp;&nbsp; <a href="../license.html">License</a> &nbsp;&nbsp;&nbsp;&nbsp; <a href="https://www.silviofanzon.com/contact">Contact</a></p>
-</div>
-</div>
-<div id="refs" class="references csl-bib-body" data-entry-spacing="0" role="list">
-<div id="ref-efron" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[1] </div><div class="csl-right-inline">Efron, Bradley, Tibshirani, Robert J., An introduction to the <span>B</span>ootstrap, Chapman &amp; Hall / CRC, 1994.</div>
 </div>
 </div>
 </section></section>

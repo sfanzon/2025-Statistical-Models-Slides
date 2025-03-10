@@ -5,10 +5,7 @@ n <- length(x)
 # Bootstrap sample mean B = 10,000 times
 B <- 10000
 
-xbar.star <- replicate(B, {
-                       x.star <- sample(x, n, replace = TRUE)
-                       xbar.star <- mean(x.star)
-                      })
+xbar.star <- replicate(B, mean( sample(x, n, replace = TRUE) ))
 
 # Compute 95% CI from bootstrap samples
 alpha <- 0.05

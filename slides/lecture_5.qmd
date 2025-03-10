@@ -21,7 +21,7 @@ $
 
 
 
-# Lecture 5: <br>Two-sample F-test and <br> goodness-of-fit test  {background-color="#cc0164" visibility="uncounted"}
+# Lecture 5: <br>Two-sample F-test & <br> Goodness-of-fit test  {background-color="#cc0164" visibility="uncounted"}
 
 ::: footer
 
@@ -658,11 +658,11 @@ par(mfrow = c(1, 1))
 
 ```
 
-
+::: {style="font-size: 0.92em"}
 - Reject $H_0$ if F-statistic falls in the *Rejection Region* (in gray)
 
-- Recall $F \geq 1 \implies$ for two-sided test only check if $F > F_{n-1,m-1}(0.025)$
-
+- Recall $F \geq 1 \implies$ for two-sided test we only need to check if $F > F_{n-1,m-1}(0.025)$
+:::
 
 
 ## Tables: Critical values of F distribution {.smaller}

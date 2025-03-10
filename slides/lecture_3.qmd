@@ -19,7 +19,7 @@ $
 :::
 
 
-# Lecture 3: <br>The t-test and <br>an introduction to R {background-color="#cc0164" visibility="uncounted"}
+# Lecture 3: <br>The t-test & <br>Introduction to R {background-color="#cc0164" visibility="uncounted"}
 
 ::: footer
 

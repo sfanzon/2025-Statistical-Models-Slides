@@ -36,10 +36,11 @@ $
 ## Outline of Lecture 7
 
 1. The Bootstrap
-2. Bootstrap t-test
-3. Bootstrap F-test
-4. Least squares
-5. Simple linear regression
+2. Bootstrap Confidence Intervals
+3. Bootstrap t-test
+4. Bootstrap F-test
+5. Least squares
+6. Simple linear regression
 
 
 
@@ -361,15 +362,17 @@ However: population distribution unknown $\implies$ distribution of $\overline{X
 :::
 
 
+
+
 ## Worked Example {.smaller}
 
 ::: {style="font-size: 0.90em"}
 
-**Original sample:** wages data on 10 mathematicians
+**Original sample:** CEOs compensation in 2012 (USA data - in million dollars)
 
-|                  |     |     |     |     |     |     |     |     |     |      |
-|:-----------      |:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:----:|
-|**Mathematicians**| 36  |  40 | 46  | 54  |  57 | 58  | 59  | 60  |  62 |  63  |
+|            |     |     |     |     |     |     |     |     |     |      |
+|:-----------|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:----:|
+|**CEO Pay 2012**| 23.5| 6.4 | 11.1| 3.8 | 8.9 | 4.8 | 23.8| 3.0 |2.9  | 3.2  |
 
 **We want to simulate the bootstrap distribution of the sample mean $\overline{X}$**
 
@@ -379,7 +382,7 @@ However: population distribution unknown $\implies$ distribution of $\overline{X
 
 ```r
 # Enter original sample and compute size
-x <- c(36, 40, 46, 54, 57, 58, 59, 60, 62, 63)
+x <- c(23.5, 6.4, 11.1, 3.8, 8.9, 4.8, 23.8, 3, 2.9, 3.2)
 n <- length(x)
 
 # Bootstrap sample mean B = 10,000 times
@@ -419,7 +422,7 @@ set.seed(21)
 
 
 # Enter original sample and compute size
-x <- c(36, 40, 46, 54, 57, 58, 59, 60, 62, 63)
+x <- c(23.5, 6.4, 11.1, 3.8, 8.9, 4.8, 23.8, 3, 2.9, 3.2)
 n <- length(x)
 
 # Bootstrap sample mean B = 10,000 times
@@ -437,6 +440,29 @@ hist(xbar.star)
 ```
 
 
+
+## {.smaller}
+
+- Plotting the density of ``x`` shows that the data is heavily skewed (not normal)
+
+```r
+plot(density(x))
+```
+
+```{r}
+x <- c(23.5, 6.4, 11.1, 3.8, 8.9, 4.8, 23.8, 3, 2.9, 3.2)
+plot(density(x))
+```
+
+
+
+# Part 2: <br>Bootstrap CI {background-color="#cc0164" visibility="uncounted"}
+
+::: footer
+
+<div color="#cc0164">  </div>
+
+:::
 
 
 ## Bootstrap Confidence Intervals {.smaller}
@@ -494,8 +520,7 @@ Endpoints are $\frac{\alpha}{2}100\%$ and $(1 − \frac{\alpha}{2})100\%$ percen
 
 
 
-
-## Worked Example {.smaller}
+## Worked Example 1 {.smaller}
 
 
 **Original sample:** 
@@ -565,17 +590,17 @@ boot.CI <- quantile(xbar.star, probs = c(alpha/2, 1-alpha/2))
 
 ## {.smaller}
 
-::: {style="font-size: 0.95em"}
+::: {style="font-size: 0.93em"}
 
-- We compare the bootstrap CI to the usual t-test CI
+- We compare the bootstrap CI to the usual t-statistic CI
 
 ```r
-# Compute 95% t-test CI
-t.test.CI <- t.test(x)$conf.int
+# Compute 95% t-statistic CI
+t.stat.CI <- t.test(x)$conf.int
 
 # Print results
 cat("Bootstrap Confidence Interval (95%):", boot.CI)
-cat("\nt-test Confidence Interval (95%):", t.test.CI)
+cat("\nt-statistic Confidence Interval (95%):", t.stat.CI)
 ```
 
 ::: {style="font-size: 0.15em"}
@@ -598,12 +623,12 @@ xbar.star <- replicate(B, mean( sample(x, n, replace = TRUE) ))
 alpha <- 0.05
 boot.CI <- quantile(xbar.star, probs = c(alpha/2, 1-alpha/2))
 
-# Compute 95% t-test CI
-t.test.CI <- t.test(x)$conf.int
+# Compute 95% t-statistic CI
+t.stat.CI <- t.test(x)$conf.int
 
 # Print results
 cat("Bootstrap Confidence Interval (95%):", boot.CI)
-cat("\nt-test Confidence Interval (95%):", t.test.CI)
+cat("\nt-statistic Confidence Interval (95%):", t.stat.CI)
 ```
 
 ::: {style="font-size: 0.15em"}
@@ -615,18 +640,104 @@ cat("\nt-test Confidence Interval (95%):", t.test.CI)
 
 - The CI are almost overlapping 
 
-- This is a very strong indication that the original population is indeed normal
-    * In such case, the percentile bootstrap CI is asymptotically valid (i.e. approximates t-test CI)
+- This is a very strong indication that the original population is normal 
+    * Indeed, this is the case: You can verify it by plotting the density of ``mpg``
 
 - The advertised 17 mpg do not fall in either CI. We have reason to doubt the claim
 
 - The code can be downloaded here [bootstrap_CI.R](codes/bootstrap_CI.R)
 
+
 :::
 
 
 
-# Part 2: <br> Bootstrap t-test {background-color="#cc0164" visibility="uncounted"}
+
+
+
+## Worked Example 2 {.smaller}
+
+**Original sample:** Compensation data for a sample of CEOs in 2012  
+(USA data, in million dollars)
+
+<br> 
+
+|            |     |     |     |     |     |     |     |     |     |      |
+|:-----------|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:----:|
+|**CEO Pay 2012**| 23.5| 6.4 | 11.1| 3.8 | 8.9 | 4.8 | 23.8| 3.0 |2.9  | 3.2  |
+
+<br>
+
+**We want to simulate $95\%$ bootstrap CI for the mean compensation $\mu$**
+
+
+##  {.smaller}
+
+```r
+ceo12 <- c(23.5, 6.4, 11.1, 3.8, 8.9, 4.8, 23.8, 3, 2.9, 3.2)
+plot(density(ceo12))
+```
+
+```{r}
+ceo12 <- c(23.5, 6.4, 11.1, 3.8, 8.9, 4.8, 23.8, 3, 2.9, 3.2)
+plot(density(ceo12))
+```
+
+- Plotting the density of ``ceo12``, we see that the data is not normal
+    * Therefore, CI based on t-statistic would **not be appropriate**
+    * Need to compute a Bootstrap CI for $\mu$
+
+
+
+
+##  {.smaller}
+
+
+
+- Running the code [bootstrap_CI.R](codes/bootstrap_CI.R) on the new data, we get
+
+::: {style="font-size: 0.15em"}
+
+<br>
+
+:::
+
+```{r}
+#| echo: true
+#| code-fold: true
+#| code-summary: "View the R Code"
+
+# Enter original sample and compute size
+x <- c(23.5, 6.4, 11.1, 3.8, 8.9, 4.8, 23.8, 3, 2.9, 3.2)
+n <- length(x)
+
+# Bootstrap sample mean B = 10,000 times
+B <- 10000
+
+xbar.star <- replicate(B, mean( sample(x, n, replace = TRUE) ))
+
+# Compute 95% CI from bootstrap samples
+alpha <- 0.05
+boot.CI <- quantile(xbar.star, probs = c(alpha/2, 1-alpha/2))
+
+# Compute 95% t-statistic CI
+t.stat.CI <- t.test(x)$conf.int
+
+# Print results
+cat("Bootstrap Confidence Interval (95%):", boot.CI, 
+"\nt-statistic Confidence Interval (95%):", t.stat.CI)
+```
+
+<br>
+
+- The bootstrap and t-statistic CI differ considerably, especially at low end
+
+- Bootstrap CI has to be preferred, due to non-normality of data
+
+
+
+
+# Part 3: <br> Bootstrap t-test {background-color="#cc0164" visibility="uncounted"}
 
 ::: footer
 
@@ -640,12 +751,14 @@ cat("\nt-test Confidence Interval (95%):", t.test.CI)
 
 ::: {style="font-size: 0.93em"}
 
-- Consider wage data for a sample of mathematicians and accountants
+- Compensation data for a sample of CEOs in 2012 and 2013  
+(USA data, in million dollars)
 
-|                  |     |     |     |     |     |     |     |     |     |      |     |    |    |
-|:-----------      |:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:----:|:---:|:--:|:--:|
-|**Mathematicians**| 36  |  40 | 46  | 54  |  57 | 58  | 59  | 60  |  62 |  63  |     |    |    |
-|**Accountants**   | 37  | 37  | 42  |  44 |  46 |  48 |  54 |  56 |  59 | 60   |  60 | 64 | 64 |
+|            |     |     |     |     |     |     |     |     |     |      |
+|:-----------|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:----:|
+|**CEO Pay 2013**| 3.2 | 3.8 | 2.6 | 3.5 | 7.0 | 20.4| 7.5 |  3.4| 5.0 |  6.0 |
+|**CEO Pay 2012**| 23.5| 6.4 | 11.1| 3.8 | 8.9 | 4.8 | 23.8| 3.0 |2.9  | 3.2  |
+
 
 
 - Want to test for a difference in means via the t-statistic
@@ -665,12 +778,14 @@ $$
 
 ::: {style="font-size: 0.93em"}
 
-- Consider wage data for a sample of mathematicians and accountants
+- Compensation data for a sample of CEOs in 2012 and 2013  
+(USA data, in million dollars)
 
-|                  |     |     |     |     |     |     |     |     |     |      |     |    |    |
-|:-----------      |:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:----:|:---:|:--:|:--:|
-|**Mathematicians**| 36  |  40 | 46  | 54  |  57 | 58  | 59  | 60  |  62 |  63  |     |    |    |
-|**Accountants**   | 37  | 37  | 42  |  44 |  46 |  48 |  54 |  56 |  59 | 60   |  60 | 64 | 64 |
+|            |     |     |     |     |     |     |     |     |     |      |
+|:-----------|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:----:|
+|**CEO Pay 2013**| 3.2 | 3.8 | 2.6 | 3.5 | 7.0 | 20.4| 7.5 |  3.4| 5.0 |  6.0 |
+|**CEO Pay 2012**| 23.5| 6.4 | 11.1| 3.8 | 8.9 | 4.8 | 23.8| 3.0 |2.9  | 3.2  |
+
 
 
 - Under assumptions of normality and independence of the populations, we have
@@ -744,7 +859,7 @@ $$
 ## {.smaller}
 
 
-- The bootsrap samples are generated as follows:
+- The bootstrap samples are generated as follows:
     * Sample $\{x_1^*, \ldots, x_n^*\}$ from $\mathcal{S}$ with replacement
     * Sample $\{y_1^*, \ldots, y_m^*\}$ from $\mathcal{S}$ with replacement 
 
@@ -839,13 +954,17 @@ $$
 
 ## Worked Example {.smaller}
 
-- Consider wage data for a sample of mathematicians and accountants
+- Compensation data for a sample of CEOs in 2012 and 2013  
+(USA data, in million dollars)
 
-|                  |     |     |     |     |     |     |     |     |     |      |     |    |    |
-|:-----------      |:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:----:|:---:|:--:|:--:|
-|**Mathematicians**| 36  |  40 | 46  | 54  |  57 | 58  | 59  | 60  |  62 |  63  |     |    |    |
-|**Accountants**   | 37  | 37  | 42  |  44 |  46 |  48 |  54 |  56 |  59 | 60   |  60 | 64 | 64 |
+|            |     |     |     |     |     |     |     |     |     |      |
+|:-----------|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:----:|
+|**CEO Pay 2013**| 3.2 | 3.8 | 2.6 | 3.5 | 7.0 | 20.4| 7.5 |  3.4| 5.0 |  6.0 |
+|**CEO Pay 2012**| 23.5| 6.4 | 11.1| 3.8 | 8.9 | 4.8 | 23.8| 3.0 |2.9  | 3.2  |
 
+
+
+<br>
 
 - We want to test for a difference in means
 
@@ -853,7 +972,45 @@ $$
 H_0 \colon \mu_X = \mu_Y \,, \qquad H_1 \colon \mu_X \neq \mu_Y
 $$
 
-- No assumptions made on the populations $\implies$ Bootstrap t-test is appropriate
+**Does average pay change from 2012 to 2013?**
+
+
+
+## Plotting the densities {.smaller}
+
+- We see that Pay is not normally distributed $\implies$ Bootstrap t-test is appropriate
+
+```{r}
+#| echo: true
+#| code-fold: true
+#| code-summary: "View the R Code"
+
+# Enter the Wages data
+ceo13 <- c(3.2, 3.8, 2.6, 3.5, 7.0, 20.4, 7.5, 3.4, 5.0, 6.0)
+ceo12 <- c(23.5, 6.4, 11.1, 3.8, 8.9, 4.8, 23.8, 3.0, 2.9, 3.2)
+
+
+# Compute the estimated distributions
+d.ceo13 <- density(ceo13)
+d.ceo12 <- density(ceo12)
+
+
+# Plot the estimated distributions
+
+plot(d.ceo13,                                    # Plot d.ceo13
+     xlim = range(c(d.ceo12$x, d.ceo13$x)),        # Set x-axis range
+     ylim = range(c(d.ceo12$y, d.ceo13$y)),        # Set y-axis range
+     main = "Estimated Distributions of CEOs Pay") # Add title to plot
+lines(d.ceo12,                                    # Layer plot of d.ceo12
+      lty = 2)                                  # Use different line style
+         
+legend("topleft",                               # Add legend at top-right
+       legend = c("CEOs Pay 2013",             # Labels for legend
+                  "CEOs Pay 2012"), 
+       lty = c(1, 2))                           # Assign curves to legend          
+```
+
+
 
 
 ## Enter the data and compute $t_{\rm obs}$ {.smaller}
@@ -861,8 +1018,8 @@ $$
 - Enter the data
 
 ```r
-math <- c(36, 40, 46, 54, 57, 58, 59, 60, 62, 63)
-acc <- c(37, 37, 42, 44, 46, 48, 54, 56, 59, 60, 60, 64, 64)
+ceo13 <- c(3.2, 3.8, 2.6, 3.5, 7.0, 20.4, 7.5, 3.4, 5.0, 6.0)
+ceo12 <- c(23.5, 6.4, 11.1, 3.8, 8.9, 4.8, 23.8, 3.0, 2.9, 3.2)
 ```
 
 - Calculate $t_{\rm obs}$
@@ -873,12 +1030,12 @@ acc <- c(37, 37, 42, 44, 46, 48, 54, 56, 59, 60, 60, 64, 64)
 
 ```r
 # Calculate observed t-statistic
-t.obs <- t.test(math, acc, var.equal = T)$statistic
+t.obs <- t.test(ceo13, ceo12, var.equal = T)$statistic
 ```
 ```{r}
-math <- c(36, 40, 46, 54, 57, 58, 59, 60, 62, 63)
-acc <- c(37, 37, 42, 44, 46, 48, 54, 56, 59, 60, 60, 64, 64)
-t.obs <- t.test(math, acc, var.equal = T)$statistic
+ceo13 <- c(3.2, 3.8, 2.6, 3.5, 7.0, 20.4, 7.5, 3.4, 5.0, 6.0)
+ceo12 <- c(23.5, 6.4, 11.1, 3.8, 8.9, 4.8, 23.8, 3.0, 2.9, 3.2)
+t.obs <- t.test(ceo13, ceo12, var.equal = T)$statistic
 t.obs
 ```
 
@@ -890,47 +1047,51 @@ t.obs
 
 ```r
 # Compute sample size
-n <- length(math)
-m <- length(acc)
+n <- length(ceo13)
+m <- length(ceo12)
 
 # Combine the samples
-wages <- c(math, acc)
+combined <- c(ceo13, ceo12)
 ```
 
 
 - Calculate one bootstrap sample from mathematicians and accountants
 
 ```r
-math.boot <-sample(wages, n, replace = T)
-acc.boot <- sample(wages, m, replace = T)
+ceo13.boot <-sample(combined, n, replace = T)
+ceo12.boot <- sample(combined, m, replace = T)
 ```
 
 - Calculate the simulated bootstrap $t$-statistic
 
 ```r
-t.boot <- t.test(math.boot, acc.boot, var.equal = T)$statistic
+t.boot <- t.test(ceo13.boot, ceo12.boot, var.equal = T)$statistic
 ```
 ```{r}
 set.seed(1)
 
-math <- c(36, 40, 46, 54, 57, 58, 59, 60, 62, 63)
-acc <- c(37, 37, 42, 44, 46, 48, 54, 56, 59, 60, 60, 64, 64)
+ceo13 <- c(3.2, 3.8, 2.6, 3.5, 7.0, 20.4, 7.5, 3.4, 5.0, 6.0)
+ceo12 <- c(23.5, 6.4, 11.1, 3.8, 8.9, 4.8, 23.8, 3.0, 2.9, 3.2)
 
-n <- length(math)
-m <- length(acc)
+n <- length(ceo13)
+m <- length(ceo12)
 
-wages <- c(math, acc)
+combined <- c(ceo13, ceo12)
 
-math.boot <-sample(wages, n, replace = T)
-acc.boot <- sample(wages, m, replace = T)
+ceo13.boot <-sample(combined, n, replace = T)
+ceo12.boot <- sample(combined, m, replace = T)
 
-t.boot <- t.test(math.boot, acc.boot, var.equal = T)$statistic
+t.boot <- t.test(ceo13.boot, ceo12.boot, var.equal = T)$statistic
 
 t.boot
 ```
 
 
+
+
 ## Bootstrapping the t-static {.smaller}
+
+::: {style="font-size: 0.92em"}
 
 - In the previous slide we generated one simulated value of the t-statistic
 
@@ -941,16 +1102,19 @@ t.boot
 B <- 10000
 
 t.boot <- replicate(B, {
-                    # Single bootsrap sample
-                    math.boot <-sample(wages, n, replace = T)
-                    acc.boot <- sample(wages, m, replace = T)
+                    # Single bootstrap sample
+                    ceo13.boot <- sample(combined, n, replace = T)
+                    ceo12.boot <- sample(combined, m, replace = T)
                     
-                    # Reuturn single bootsrap t-statistic
-                    t.test(math.boot, acc.boot, var.equal = T)$statistic
+                    # Return single bootstrap t-statistic
+                    t.test(ceo13.boot, ceo12.boot, var.equal = T)$statistic
                     })
 ```
 
 - The vector ``t.boot`` contains $B=10,000$ bootstrap simulations of the t-statistic
+
+:::
+
 
 
 
@@ -980,29 +1144,29 @@ cat("The bootstrap p-value is:", p)
 set.seed(21)
 
 # Enter the data
-math <- c(36, 40, 46, 54, 57, 58, 59, 60, 62, 63)
-acc <- c(37, 37, 42, 44, 46, 48, 54, 56, 59, 60, 60, 64, 64)
+ceo13 <- c(3.2, 3.8, 2.6, 3.5, 7.0, 20.4, 7.5, 3.4, 5.0, 6.0)
+ceo12 <- c(23.5, 6.4, 11.1, 3.8, 8.9, 4.8, 23.8, 3.0, 2.9, 3.2)
 
 # Calculate observed t-statistic
-t.obs <- t.test(math, acc, var.equal = T)$statistic
+t.obs <- t.test(ceo13, ceo12, var.equal = T)$statistic
 
 # Compute sample size
-n <- length(math)
-m <- length(acc)
+n <- length(ceo13)
+m <- length(ceo12)
 
 # Combine the samples
-wages <- c(math, acc)
+combined <- c(ceo13, ceo12)
 
 # Bootstrap the t-statistic B = 10,000 times
 B <- 10000
 
 t.boot <- replicate(B, {
-                    # Single bootsrap sample
-                    math.boot <-sample(wages, n, replace = T)
-                    acc.boot <- sample(wages, m, replace = T)
+                    # Single bootstrap sample
+                    ceo13.boot <- sample(combined, n, replace = T)
+                    ceo12.boot <- sample(combined, m, replace = T)
                     
-                    # Reuturn single bootsrap t-statistic
-                    t.test(math.boot, acc.boot, var.equal = T)$statistic
+                    # Return single bootstrap t-statistic
+                    t.test(ceo13.boot, ceo12.boot, var.equal = T)$statistic
                     })
 
 # Count number of extreme statistics for two-sided test
@@ -1015,7 +1179,7 @@ p <- extreme / B
 cat("The bootstrap p-value is:", p)
 ```
 
-- **Conclusion:** No evidence ($p > 0.05$) of a difference in means between populations
+- **Conclusion:** No evidence ($p > 0.05$) of a difference in pay between 2012 and 2013
 
 - The code can be downloaded here [bootstrap_t_test.R](codes/bootstrap_t_test.R)
 
@@ -1023,8 +1187,44 @@ cat("The bootstrap p-value is:", p)
 
 
 
+## Comparison with normal family test {.smaller}
 
-# Part 3: <br> Bootstrap F-test {background-color="#cc0164" visibility="uncounted"}
+- The bootstrap p-value just computed is $p = 0.3715$
+
+- We compare it to the two-sample t-test p-value
+
+```r
+p2 <- t.test(ceo13, ceo12, var.equal = T)$p.value
+
+cat("The t-test p-value is:", p2)
+```
+
+```{r}
+# Enter the data
+ceo13 <- c(3.2, 3.8, 2.6, 3.5, 7.0, 20.4, 7.5, 3.4, 5.0, 6.0)
+ceo12 <- c(23.5, 6.4, 11.1, 3.8, 8.9, 4.8, 23.8, 3.0, 2.9, 3.2)
+
+p2 <- t.test(ceo13, ceo12, var.equal = T)$p.value
+
+cat("The t-test p-value is:", p2)
+```
+
+<br>
+
+- The two p-values are quite similar, even though the data is non-normal
+
+- This indicates that the t-test is fairly robust to non-normality 
+
+**However, since data is non-normal, the bootstrap t-test is the preferred choice**
+
+
+
+
+
+
+
+
+# Part 4: <br> Bootstrap F-test {background-color="#cc0164" visibility="uncounted"}
 
 ::: footer
 
@@ -1103,7 +1303,7 @@ $$
 ## {.smaller}
 
 
-- The bootsrap samples are generated as follows:
+- The bootstrap samples are generated as follows:
     * Sample $\{x_1^*, \ldots, x_n^*\}$ from $\mathcal{S}$ with replacement
     * Sample $\{y_1^*, \ldots, y_m^*\}$ from $\mathcal{S}$ with replacement 
 
@@ -1122,7 +1322,7 @@ $$
 
 ## {.smaller}
 
-::: {style="font-size: 0.90em"}
+
 
 - We now compare the bootstrap F-statistic to the observed statistic
 $$
@@ -1143,8 +1343,6 @@ $$
 $$
 p = \frac{\# \text{ of extreme bootstrap simulations}}{B}
 $$
-
-:::
 
 
 
@@ -1194,21 +1392,24 @@ $$
 
 ## Worked Example {.smaller}
 
-- Consider wage data for a sample of mathematicians and accountants
+- Compensation data for a sample of CEOs in 2012 and 2013  
+(USA data, in million dollars)
 
-|                  |     |     |     |     |     |     |     |     |     |      |     |    |    |
-|:-----------      |:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:----:|:---:|:--:|:--:|
-|**Mathematicians**| 36  |  40 | 46  | 54  |  57 | 58  | 59  | 60  |  62 |  63  |     |    |    |
-|**Accountants**   | 37  | 37  | 42  |  44 |  46 |  48 |  54 |  56 |  59 | 60   |  60 | 64 | 64 |
+|            |     |     |     |     |     |     |     |     |     |      |
+|:-----------|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:----:|
+|**CEO Pay 2013**| 3.2 | 3.8 | 2.6 | 3.5 | 7.0 | 20.4| 7.5 |  3.4| 5.0 |  6.0 |
+|**CEO Pay 2012**| 23.5| 6.4 | 11.1| 3.8 | 8.9 | 4.8 | 23.8| 3.0 |2.9  | 3.2  |
 
+
+<br>
 
 - We want to test for a difference in variances
 $$
-H_0 \colon \sigma^2_X = \sigma^2_Y \,, \qquad H_1 \colon \mu_X \neq \mu_Y
+H_0 \colon \sigma^2_X = \sigma^2_Y \,, \qquad H_1 \colon \sigma^2_X \neq \sigma^2_Y
 $$
 
 
-- No assumptions made on the populations $\implies$ Bootstrap F-test is appropriate
+- We already know that data is non-normal $\implies$ Bootstrap F-test is appropriate
 
 
 
@@ -1221,35 +1422,40 @@ $$
 ```{r}
 #| echo: true
 # Enter the data
-math <- c(36, 40, 46, 54, 57, 58, 59, 60, 62, 63)
-acc <- c(37, 37, 42, 44, 46, 48, 54, 56, 59, 60, 60, 64, 64)
+ceo13 <- c(3.2, 3.8, 2.6, 3.5, 7.0, 20.4, 7.5, 3.4, 5.0, 6.0)
+ceo12 <- c(23.5, 6.4, 11.1, 3.8, 8.9, 4.8, 23.8, 3.0, 2.9, 3.2)
 
 # Compare variances
-if (var(acc) > var(math)) cat("Swap the samples!")
+if (var(ceo12) > var(ceo13)) cat("Swap the samples!")
 ```
 
 <br>
 
 - We need to swap the labels:
-    * $X = \,$ Accountants $\qquad \quad$ $Y = \,$ Mathematicians
+    * $X = \,$ CEO Pay in 2012 $\qquad \quad$ $Y = \,$ CEO Pay in 2013
 
 
 
 ## Compute $F_{\rm obs}$ {.smaller}
 
 - Calculate $F_{\rm obs}$
-    * This can be done by using ``var.test``
+
+$$
+F_{\rm obs} = \frac{s_X^2}{s_Y^2} = \frac{\rm Variance \,\,\, CEO \, Pay \, in  \, 2012}{\rm Variance \,\,\, CEO \, Pay \, in \, 2013}
+$$
 
 - Note that the samples are swapped (to ensure $s_X^2 \geq s_Y^2$)
 
+<br>
+
 ```r
 # Calculate observed F-statistic (samples are swapped)
-F.obs <- var.test(acc, math)$statistic
+F.obs <- var(ceo12) / var(ceo13)
 ```
 ```{r}
-math <- c(36, 40, 46, 54, 57, 58, 59, 60, 62, 63)
-acc <- c(37, 37, 42, 44, 46, 48, 54, 56, 59, 60, 60, 64, 64)
-F.obs <- var.test(acc, math)$statistic
+ceo13 <- c(3.2, 3.8, 2.6, 3.5, 7.0, 20.4, 7.5, 3.4, 5.0, 6.0)
+ceo12 <- c(23.5, 6.4, 11.1, 3.8, 8.9, 4.8, 23.8, 3.0, 2.9, 3.2)
+F.obs <- var(ceo12) / var(ceo13)
 F.obs
 ```
 
@@ -1261,47 +1467,49 @@ F.obs
 
 ```r
 # Compute sample size (samples are swapped)
-n <- length(acc)
-m <- length(math)
+n <- length(ceo12)
+m <- length(ceo13)
 
 # Combine the centered samples
-wages <- c(acc - mean(acc), math - mean(math))
+combined.centered <- c(ceo12 - mean(ceo12), ceo13 - mean(ceo13))
 ```
 
 
 - Calculate one bootstrap sample from accountants and mathematicians
 
 ```r
-acc.boot <-sample(wages, n, replace = T)
-math.boot <- sample(wages, m, replace = T)
+ceo12.boot <-sample(combined.centered, n, replace = T)
+ceo13.boot <- sample(combined.centered, m, replace = T)
 ```
 
 - Calculate the simulated bootstrap $F$-statistic
 
 ```r
-F.boot <- var.test(acc.boot, math.boot)$statistic
+F.boot <- var(ceo12.boot) / var(ceo13.boot)
 ```
 ```{r}
 set.seed(21)
 
-math <- c(36, 40, 46, 54, 57, 58, 59, 60, 62, 63)
-acc <- c(37, 37, 42, 44, 46, 48, 54, 56, 59, 60, 60, 64, 64)
+ceo13 <- c(3.2, 3.8, 2.6, 3.5, 7.0, 20.4, 7.5, 3.4, 5.0, 6.0)
+ceo12 <- c(23.5, 6.4, 11.1, 3.8, 8.9, 4.8, 23.8, 3.0, 2.9, 3.2)
 
-n <- length(acc)
-m <- length(math)
+n <- length(ceo12)
+m <- length(ceo13)
 
-wages <- c(acc - mean(acc), math - mean(math))
+combined.centered <- c(ceo12 - mean(ceo12), ceo13 - mean(ceo13))
 
-acc.boot <-sample(wages, n, replace = T)
-math.boot <- sample(wages, m, replace = T)
+ceo12.boot <-sample(combined.centered, n, replace = T)
+ceo13.boot <- sample(combined.centered, m, replace = T)
 
-F.boot <- var.test(acc.boot, math.boot)$statistic
+F.boot <- var(ceo12.boot) / var(ceo13.boot)
 
 F.boot
 ```
 
 
 ## Bootstrapping the F-static {.smaller}
+
+::: {style="font-size: 0.92em"}
 
 - In the previous slide we generated one simulated value of the F-statistic
 
@@ -1312,16 +1520,19 @@ F.boot
 B <- 10000
 
 F.boot <- replicate(B, {
-                    # Single bootsrap sample
-                    acc.boot <-sample(wages, n, replace = T)
-                    math.boot <- sample(wages, m, replace = T)
+                    # Single bootstrap sample
+                    ceo12.boot <-sample(combined.centered, n, replace = T)
+                    ceo13.boot <- sample(combined.centered, m, replace = T)
                     
-                    # Return single bootsrap F-statistic
-                    var(acc.boot) / var(math.boot)
+                    # Return single bootstrap F-statistic
+                    var(ceo12.boot) / var(ceo13.boot)
 })
 ```
 
 - The vector ``F.boot`` contains $B=10,000$ bootstrap simulations of the F-statistic
+
+:::
+
 
 
 
@@ -1351,32 +1562,32 @@ cat("The bootstrap p-value is:", p)
 set.seed(21)
 
 # Enter the data
-math <- c(36, 40, 46, 54, 57, 58, 59, 60, 62, 63)
-acc <- c(37, 37, 42, 44, 46, 48, 54, 56, 59, 60, 60, 64, 64)
+ceo13 <- c(3.2, 3.8, 2.6, 3.5, 7.0, 20.4, 7.5, 3.4, 5.0, 6.0)
+ceo12 <- c(23.5, 6.4, 11.1, 3.8, 8.9, 4.8, 23.8, 3.0, 2.9, 3.2)
 
-# Compare variances: in the example acc has larger variance
+# Compare variances: in the example ceo12 has larger variance
 # Larger variance has to be at numerator
 
 # Calculate observed F-statistic (samples are swapped)
-F.obs <- var.test(acc, math)$statistic
+F.obs <- var(ceo12) / var(ceo13)
 
 # Compute sample size (samples are swapped)
-n <- length(acc)
-m <- length(math)
+n <- length(ceo12)
+m <- length(ceo13)
 
 # Combine the centered samples
-wages <- c(acc - mean(acc), math - mean(math))
+combined.centered <- c(ceo12 - mean(ceo12), ceo13 - mean(ceo13))
 
 # Bootstrap the F-statistic B = 10,000 times
 B <- 10000
 
 F.boot <- replicate(B, {
-                    # Single bootsrap sample
-                    acc.boot <-sample(wages, n, replace = T)
-                    math.boot <- sample(wages, m, replace = T)
+                    # Single bootstrap sample
+                    ceo12.boot <-sample(combined.centered, n, replace = T)
+                    ceo13.boot <- sample(combined.centered, m, replace = T)
                     
-                    # Return single bootsrap F-statistic
-                    var(acc.boot) / var(math.boot)
+                    # Return single bootstrap F-statistic
+                    var(ceo12.boot) / var(ceo13.boot)
 })
 
 # Count number of extreme statistics for two-sided test
@@ -1397,12 +1608,44 @@ cat("The bootstrap p-value is:", p)
 
 
 
+## Comparison with normal family test {.smaller}
+
+- The bootstrap p-value just computed is $p = 0.3506$
+
+- We compare it to the F-test p-value
+
+```r
+p2 <- var.test(ceo12, ceo13)$p.value
+
+cat("The F-test p-value is:", p2)
+```
+
+```{r}
+# Enter the data
+ceo13 <- c(3.2, 3.8, 2.6, 3.5, 7.0, 20.4, 7.5, 3.4, 5.0, 6.0)
+ceo12 <- c(23.5, 6.4, 11.1, 3.8, 8.9, 4.8, 23.8, 3.0, 2.9, 3.2)
+
+
+p2 <- var.test(ceo12, ceo13)$p.value
+
+cat("The F-test p-value is:", p2)
+```
+
+
+<br>
+
+- The two p-values are quite different (although they give same decision)
+
+- This is due to the non-normality of data
+    * shows that the F-test is not very robust to non-normality
+
+**Since data is non-normal, the bootstrap F-test is the preferred choice**
 
 
 
 
 
-# Part 4: <br>Least squares {background-color="#cc0164" visibility="uncounted"}
+# Part 5: <br>Least squares {background-color="#cc0164" visibility="uncounted"}
 
 ::: footer
 

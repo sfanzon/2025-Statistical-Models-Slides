@@ -11,9 +11,9 @@ xbar.star <- replicate(B, mean( sample(x, n, replace = TRUE) ))
 alpha <- 0.05
 boot.CI <- quantile(xbar.star, probs = c(alpha/2, 1-alpha/2))
 
-# Compute 95% t-test CI
-t.test.CI <- t.test(x)$conf.int
+# Compute 95% t-statistic CI
+t.stat.CI <- t.test(x)$conf.int
 
 # Print results
 cat("Bootstrap Confidence Interval (95%):", boot.CI)
-cat("\nt-test Confidence Interval (95%):", t.test.CI)
+cat("\nt-statistic Confidence Interval (95%):", t.stat.CI)

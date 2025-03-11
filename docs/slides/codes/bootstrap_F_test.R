@@ -1,32 +1,32 @@
 set.seed(21)
 
 # Enter the data
-math <- c(36, 40, 46, 54, 57, 58, 59, 60, 62, 63)
-acc <- c(37, 37, 42, 44, 46, 48, 54, 56, 59, 60, 60, 64, 64)
+ceo13 <- c(3.2, 3.8, 2.6, 3.5, 7.0, 20.4, 7.5, 3.4, 5.0, 6.0)
+ceo12 <- c(23.5, 6.4, 11.1, 3.8, 8.9, 4.8, 23.8, 3.0, 2.9, 3.2)
 
-# Compare variances: in the example acc has larger variance
+# Compare variances: in the example ceo12 has larger variance
 # Larger variance has to be at numerator
 
 # Calculate observed F-statistic (samples are swapped)
-F.obs <- var.test(acc, math)$statistic
+F.obs <- var(ceo12) / var(ceo13)
 
 # Compute sample size (samples are swapped)
-n <- length(acc)
-m <- length(math)
+n <- length(ceo12)
+m <- length(ceo13)
 
 # Combine the centered samples
-wages <- c(acc - mean(acc), math - mean(math))
+combined.centered <- c(ceo12 - mean(ceo12), ceo13 - mean(ceo13))
 
 # Bootstrap the F-statistic B = 10,000 times
 B <- 10000
 
 F.boot <- replicate(B, {
-                    # Single bootsrap sample
-                    acc.boot <-sample(wages, n, replace = T)
-                    math.boot <- sample(wages, m, replace = T)
+                    # Single bootstrap sample
+                    ceo12.boot <-sample(combined.centered, n, replace = T)
+                    ceo13.boot <- sample(combined.centered, m, replace = T)
                     
-                    # Return single bootsrap F-statistic
-                    var(acc.boot) / var(math.boot)
+                    # Return single bootstrap F-statistic
+                    var(ceo12.boot) / var(ceo13.boot)
 })
 
 # Count number of extreme statistics for two-sided test

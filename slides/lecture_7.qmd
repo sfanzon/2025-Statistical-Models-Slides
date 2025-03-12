@@ -21,7 +21,7 @@ $
 
 
 
-# Lecture 7: <br>Bootstrap &  The maths <br> of Regression {background-color="#cc0164" visibility="uncounted"}
+# Lecture 7: <br>Bootstrap &  <br> Least Squares {background-color="#cc0164" visibility="uncounted"}
 
 ::: footer
 
@@ -35,12 +35,26 @@ $
 
 ## Outline of Lecture 7
 
+
+::: {.column width="45%"}
+
 1. The Bootstrap
 2. Bootstrap Confidence Intervals
 3. Bootstrap t-test
 4. Bootstrap F-test
-5. Least squares
-6. Simple linear regression
+
+:::
+
+
+::: {.column width="45%"}
+
+5. Lists
+6. Data Frames
+7. Data Entry
+8. Least squares
+9. Worked Example
+
+:::
 
 
 
@@ -1645,7 +1659,1074 @@ cat("The F-test p-value is:", p2)
 
 
 
-# Part 5: <br>Least squares {background-color="#cc0164" visibility="uncounted"}
+
+
+
+
+# Part 5: <br>Lists {background-color="#cc0164" visibility="uncounted"}
+
+::: footer
+
+<div color="#cc0164">  </div>
+
+:::
+
+
+
+## Lists {.smaller}
+
+
+- Vectors can contain only one data type (number, character, boolean)
+
+- Lists are data structures that can contain **any R object**
+
+- Lists can be created similarly to vectors, with the command ``list()``
+
+```{r}
+#| echo: true
+
+# List containing a number, a vector, and a string
+my_list <- list(2, c(T,F,T,T), "hello")
+
+# Print the list
+print(my_list)
+```
+
+
+
+
+## Retrieving elements {.smaller}
+
+Elements of a list can be retrieved by **indexing**
+
+- ``my_list[[k]]`` returns k-th element of ``my_list``
+
+<br>
+
+```{r}
+#| echo: true
+# Consider again the same list
+my_list <- list(2, c(T,F,T,T), "hello")
+
+# Access 2nd element of my_list and store it in variable
+second_element <- my_list[[2]]
+
+# In this case the variable second_element is a vector
+print(second_element)
+
+```
+
+
+
+## List slicing {.smaller}
+
+
+You can return multiple items of a list via **slicing**
+
+- ``my_list[c(k1, ..., kn)]`` returns elements in positions ``k1, ..., kn``
+- ``my_list[k1:k2]`` returns elements ``k1`` to ``k2``
+
+```{r}
+#| echo: true
+
+my_list <- list(2, c(T,F), "Cat", "Dog", pi, 42)
+
+# We store 1st, 3rd, 5th entries of my_list in slice
+slice <- my_list[c(1, 3, 5)]
+
+print(slice)
+
+```
+
+
+## List slicing {.smaller}
+
+
+```{r}
+#| echo: true
+
+my_list <- list(2, c(T,F), "Cat", "Dog", pi, 42)
+
+# We store 2nd to 4th entries of my_list in slice
+slice <- my_list[2:4]
+
+print(slice)
+
+```
+
+
+## Naming {.smaller}
+
+
+- Components of lists can be **named**
+    * ``names(my_list) <- c("name_1", ..., "name_k")``
+
+```{r}
+#| echo: true
+
+# Create list with 3 elements
+my_list <- list(2, c(T,F,T,T), "hello")
+
+# Name each of the 3 elements
+names(my_list) <- c("number", "TF_vector", "string")
+
+# Print the named list: the list is printed along with element names 
+print(my_list)
+
+```
+
+
+
+
+## Accessing named entries {.smaller}
+
+- A component of ``my_list`` named ``my_name`` can be accessed with dollar operator
+    * ``my_list$my_name``
+
+```{r}
+#| echo: true
+
+# Create list with 3 elements and name them
+my_list <- list(2, c(T,F,T,T), "hello")
+names(my_list) <- c("number", "TF_vector", "string")
+
+# Access 2nd element using dollar operator and store it in variable
+second_component <- my_list$TF_vector
+
+# Print 2nd element
+print(second_component)
+
+```
+
+
+
+
+## Naming vectors {.smaller}
+
+
+- Vectors can be **named**, using the same syntax
+    * ``names(my_vector) <- c("name_1", ..., "name_k")``
+
+
+<br>
+
+
+```{r}
+#| echo: true
+
+# Create vector storing RGB levels of purple color
+purple <- c(99, 3, 48)
+names(purple) <- c("Red", "Green", "Blue")
+
+# Print the vector
+print(purple)
+```
+
+
+
+## Accessing named entries {.smaller}
+
+- A named component is accessed via indexing
+    * ``my_vector["name_k"]``
+
+
+<br>
+
+```r
+# Print 2nd element
+print(purple["Green"])
+```
+
+```{r}
+# Create vector storing RGB levels of purple color
+purple <- c(99, 3, 48)
+names(purple) <- c("Red", "Green", "Blue")
+
+# Print 2nd element
+print(purple["Green"])
+```
+
+<br>
+
+```r
+# Print only the value stored in "Green"
+print(as.numeric(purple["Green"]))
+```
+
+```{r}
+# Create vector storing RGB levels of purple color
+purple <- c(99, 3, 48)
+names(purple) <- c("Red", "Green", "Blue")
+
+# Print only the value stored in "Green"
+print(as.numeric(purple["Green"]))
+```
+
+
+
+# Part 6: <br>Data Frames {background-color="#cc0164" visibility="uncounted"}
+
+::: footer
+
+<div color="#cc0164">  </div>
+
+:::
+
+
+
+## Data Frames {.smaller}
+
+- Data Frames are the preferred way of presenting a data set in R:
+    * Each variable has assigned a collection of recorded observations
+
+- Data frames can contain any R object
+
+- Data Frames are similar to Lists, with the difference that:
+    * Members of a Data Frame must all be vectors of equal length
+
+- In simpler terms:
+    * Data Frame is a rectangular table of entries
+
+
+
+
+
+## Constructing a Data Frame {.smaller}
+
+- Data frames are constructed similarly to lists, using 
+    * ``data.frame()``
+
+- **Important**: Elements of data frame must be vectors of the same length
+
+- **Example**: We construct the **Family Guy** data frame. Variables are
+    * ``person`` -- Name of character
+    * ``age`` -- Age of character
+    * ``sex`` -- Sex of character
+
+```r
+family <- data.frame(
+  person = c("Peter", "Lois", "Meg", "Chris", "Stewie"),
+  age = c(42, 40, 17, 14, 1),
+  sex = c("M", "F" , "F", "M", "M")
+)
+```
+
+
+
+## Printing a Data Frame {.smaller}
+
+::: {.column width="44%"}
+
+- R prints data frames like matrices
+- First row contains vector names
+
+:::
+
+::: {.column width="54%"}
+
+- First column contains row names
+- Data are paired: e.g. Peter is 42 and Male
+
+:::
+
+```{r}
+#| echo: true
+
+family <- data.frame(
+  person = c("Peter", "Lois", "Meg", "Chris", "Stewie"),
+  age = c(42, 40, 17, 14, 1),
+  sex = c("M", "F" , "F", "M", "M")
+)
+
+print(family)
+
+```
+
+
+## Accessing single entry {.smaller}
+
+- Think of a data frame as a *matrix*
+
+- You can access element in position ``(m,n)`` by using
+    * ``my_data[m, n]``
+
+- **Example**
+    * Peter is in 1st row
+    * Names are in 1st column 
+    * Therefore, Peter's name is in position ``(1,1)``
+
+
+```r
+data <- family[1, 1]
+
+print(data)
+```
+
+```{r}
+family <- data.frame(
+  person = c("Peter", "Lois", "Meg", "Chris", "Stewie"),
+  age = c(42, 40, 17, 14, 1),
+  sex = c("M", "F" , "F", "M", "M")
+)
+
+data <- family[1, 1]
+
+print(data)
+```
+
+
+
+
+## Accessing multiple entries {.smaller}
+
+To access multiple elements on the same row or column, type
+
+- ``my_data[c(k1,...,kn), m] `` $\quad$ or $\quad$ `` my_data[k1:k2, m]``
+- ``my_data[n, c(k1,...,km)] `` $\quad$ or $\quad$ `` my_data[n, k1:k2]``
+
+**Example:** We want to access Stewie's Sex and Age:
+
+- Stewie is listed in 5th row
+- Age and Sex are in 2nd and 3rd column
+
+```r
+stewie_data <- family[5, 2:3]
+
+print(stewie_data)
+```
+
+```{r}
+family <- data.frame(
+  person = c("Peter", "Lois", "Meg", "Chris", "Stewie"),
+  age = c(42, 40, 17, 14, 1),
+  sex = c("M", "F" , "F", "M", "M")
+)
+
+stewie_data <- family[5, 2:3]
+
+print(stewie_data)
+```
+
+
+
+## Accessing rows {.smaller}
+
+
+- To access rows ``k1,...,kn``
+    * ``my_data[c(k1,...,kn), ]`` 
+    
+- To access rows ``k1`` to ``kn`` 
+    * ``my_data[k1:k2, ]``
+
+
+<br>
+
+```r
+data <- family[c(1,3), ]      # Access 1st and 3rd row - Peter & Meg
+
+print(data)
+```
+
+```{r}
+
+family <- data.frame(
+  person = c("Peter", "Lois", "Meg", "Chris", "Stewie"),
+  age = c(42, 40, 17, 14, 1),
+  sex = c("M", "F" , "F", "M", "M")
+)
+
+data <- family[c(1,3), ]      # Access 1st and 3rd row - Peter & Meg
+
+print(data)
+
+```
+
+
+
+## Accessing columns {.smaller}
+
+- To access columns ``k1,...,kn``
+    * ``my_data[ , c(k1,...,kn)]`` 
+    
+- To access columns ``k1`` to ``kn`` 
+    * ``my_data[ ,k1:k2]``
+
+
+<br>
+
+
+```r
+age.name <- family[, c(2,1)]    # Access 2nd and 1st columns: Age and Name
+
+print(age.name)
+```
+
+```{r}
+
+family <- data.frame(
+  person = c("Peter", "Lois", "Meg", "Chris", "Stewie"),
+  age = c(42, 40, 17, 14, 1),
+  sex = c("M", "F" , "F", "M", "M")
+)
+
+age.name <- family[, c(2,1)]
+
+
+print(age.name)
+
+```
+
+
+
+
+## The dollar operator {.smaller}
+
+Use dollar operator to access data frame columns
+
+- Suppose data frame ``my_data`` contains a variable called ``my_variable``
+    * ``my_data$my_variable`` accesses column ``my_variable``
+    * ``my_data$my_variable`` is a vector
+
+**Example**: To access ``age`` in the ``family`` data frame type
+
+```r
+ages <- family$age        # Stores ages in a vector
+
+cat("Ages of the Family Guy characters are:", ages)
+```
+
+```{r}
+family <- data.frame(
+  person = c("Peter", "Lois", "Meg", "Chris", "Stewie"),
+  age = c(42, 40, 17, 14, 1),
+  sex = c("M", "F" , "F", "M", "M")
+)
+
+ages <- family$age
+
+cat("Ages of the Family Guy characters are:", ages)
+```
+
+```r
+cat("Meg's age is", ages[3])
+```
+
+
+```{r}
+family <- data.frame(
+  person = c("Peter", "Lois", "Meg", "Chris", "Stewie"),
+  age = c(42, 40, 17, 14, 1),
+  sex = c("M", "F" , "F", "M", "M")
+)
+
+ages <- family$age
+
+cat("Meg's age is", ages[3])
+```
+
+
+## Size of a data frame {.smaller}
+
+
+
+|  Command            |    Output         |
+|:------------        |:-------------     |
+|``nrow(my_data)``    | # of rows         |
+|``ncol(my_data)``    | # of columns      |
+|``dim(my_data)``     | vector containing #  of rows and columns |
+: {tbl-colwidths="[30,60]"}
+
+
+<br>
+
+
+```r
+family_dim <- dim(family)    # Stores dimensions of family in a vector
+
+cat("The Family Guy data frame has", 
+    family_dim[1], 
+    "rows and", 
+    family_dim[2], 
+    "columns")
+```
+
+```{r}
+family <- data.frame(
+  person = c("Peter", "Lois", "Meg", "Chris", "Stewie"),
+  age = c(42, 40, 17, 14, 1),
+  sex = c("M", "F" , "F", "M", "M")
+)
+
+family_dim <- dim(family)
+
+cat("The Family Guy data frame has", family_dim[1], 
+    "rows and", family_dim[2], "columns")
+
+```
+
+
+
+
+## Adding Data {.smaller}
+
+
+Assume given a data frame ``my_data``
+
+- To add more records (adding to rows ``rbind``) 
+    * Create single row data frame ``new_record``
+    * ``new_record`` must match the structure of ``my_data``
+    * Add to ``my_data`` with ``my_data <- rbind(my_data, new_record)``
+
+- To add a set of observations for a new variable (adding to columns ``cbind``)
+    * Create a vector ``new_variable``
+    * ``new_variable`` must have as many components as rows in ``my_data``
+    * Add to ``my_data`` with ``my_data <- cbind(my_data, new_variable)``
+
+    
+
+## Example: Add new record {.smaller}
+
+- Consider the usual **Family Guy** data frame ``family``
+- Suppose we want to add data for **Brian**
+- Create a new record: a single row data frame with columns   
+    * *person*, *age*, *sex*
+
+```{r}
+#| echo: true
+
+new_record <- data.frame(
+  person = "Brian",
+  age = 7,
+  sex = "M"
+)
+
+print(new_record)
+```
+
+**Important:** Names have to match existing data frame
+
+
+
+## Example: Add new record {.smaller}
+
+
+- Now, we add ``new_record`` to ``family``
+- This is done by *appending* one row to the existing data frame
+
+<br>
+
+```r
+family <- rbind(family, new_record)
+
+print(family)
+```
+
+```{r}
+family <- data.frame(
+  person = c("Peter", "Lois", "Meg", "Chris", "Stewie"),
+  age = c(42, 40, 17, 14, 1),
+  sex = c("M", "F" , "F", "M", "M")
+)
+
+new_record <- data.frame(
+  person = "Brian",
+  age = 7,
+  sex = "M"
+)
+
+family <- rbind(family, new_record)
+print(family)
+```
+
+
+
+## Example: Add new variable {.smaller}
+
+- We want to add a new variable to the **Family Guy** data frame ``family``
+- This variable is called ``funny``
+- It records how funny each character is, with levels
+    * *Low*, *Med*, *High*
+- Create a vector ``funny`` with entries matching each character (including **Brian**)
+
+
+```{r}
+#| echo: true
+
+funny <- c("High", "High", "Low", "Med", "High", "Med")
+
+print(funny)
+
+```
+
+
+## Example: Add new variable {.smaller}
+
+- Add ``funny`` to the **Family Guy** data frame ``family``
+- This is done by *appending* one column to the existing data frame
+
+
+```r
+family <- cbind(family, funny)
+
+print(family)
+```
+
+
+```{r}
+family <- data.frame(
+  person = c("Peter", "Lois", "Meg", "Chris", "Stewie"),
+  age = c(42, 40, 17, 14, 1),
+  sex = c("M", "F" , "F", "M", "M")
+)
+
+new_record <- data.frame(
+  person = "Brian",
+  age = 7,
+  sex = "M"
+)
+
+family <- rbind(family, new_record)
+
+funny <- c("High", "High", "Low", "Med", "High", "Med")
+
+family <- cbind(family, funny)
+print(family)
+```
+
+
+
+## Adding a new variable {.smaller}
+### Alternative way
+
+Instead of using ``cbind`` we can use dollar operator:
+
+- Want to add variable called ``new_variable``
+- Create a vector ``v`` containing values for the new variable
+- ``v`` must have as many components as rows in ``my_data``
+- Add to ``my_data`` with 
+    * ``my_data$new_variable <- v``
+    
+
+
+
+## Example  {.smaller}
+
+- We add age expressed in months to the **Family Guy** data frame ``family``
+- Age in months can be computed by multiplying vector ``family$age`` by $12$
+
+
+```r
+v <- family$age * 12       # Computes vector of ages in months
+
+family$age.months <- v     # Stores vector as new column in family
+
+print(family)
+```
+
+
+```{r}
+family <- data.frame(
+  person = c("Peter", "Lois", "Meg", "Chris", "Stewie"),
+  age = c(42, 40, 17, 14, 1),
+  sex = c("M", "F" , "F", "M", "M")
+)
+
+new_record <- data.frame(
+  person = "Brian",
+  age = 7,
+  sex = "M"
+)
+
+family <- rbind(family, new_record)
+
+funny <- c("High", "High", "Low", "Med", "High", "Med")
+
+family <- cbind(family, funny)
+
+v <- family$age * 12
+family$age.months <- v
+print(family)
+```
+
+
+
+
+## Logical Record Subsets {.smaller}
+
+- We saw how to use **logical flag vectors** to subset vectors
+
+- We can use logical flag vectors to subset data frames as well
+
+- Suppose to have data frame ``my_data`` containing a variable ``my_variable``
+
+- Want to subset records in ``my_data`` for which  ``my_variable`` satisfies a condition
+
+- Use commands
+    * ``flag <- condition(my_data$my_variable)``
+    * ``my_data[flag, ]``
+ 
+
+
+
+## Example {.smaller}
+
+- Consider again the **Family Guy** data frame ``family``
+- We subset Female characters using flag 
+    * ``family$sex == "F"``
+
+
+
+```r
+# Create flag vector for female Family Guy characters
+flag <- (family$sex == "F")
+print(flag)
+```
+
+```{r}
+family <- data.frame(
+  person = c("Peter", "Lois", "Meg", "Chris", "Stewie"),
+  age = c(42, 40, 17, 14, 1),
+  sex = c("M", "F" , "F", "M", "M")
+)
+
+new_record <- data.frame(
+  person = "Brian",
+  age = 7,
+  sex = "M"
+)
+
+family <- rbind(family, new_record)
+
+funny <- c("High", "High", "Low", "Med", "High", "Med")
+
+family <- cbind(family, funny)
+
+family$age.months <- family$age * 12
+
+flag <- (family$sex == "F")
+print(flag)
+```
+
+<br>
+
+```r
+# Subset data frame "family" and store in data frame "subset"
+subset <- family[flag, ]
+print(subset)
+```
+
+
+```{r}
+family <- data.frame(
+  person = c("Peter", "Lois", "Meg", "Chris", "Stewie"),
+  age = c(42, 40, 17, 14, 1),
+  sex = c("M", "F" , "F", "M", "M")
+)
+
+new_record <- data.frame(
+  person = "Brian",
+  age = 7,
+  sex = "M"
+)
+
+family <- rbind(family, new_record)
+
+funny <- c("High", "High", "Low", "Med", "High", "Med")
+
+family <- cbind(family, funny)
+
+family$age.months <- family$age * 12
+
+flag <- (family$sex == "F")
+
+subset <- family[flag, ]
+print(subset)
+```
+
+
+
+
+# Part 7: <br>Data Entry {background-color="#cc0164" visibility="uncounted"}
+
+::: footer
+
+<div color="#cc0164">  </div>
+
+:::
+
+
+
+## Reading data from files {.smaller}
+
+- R has a many functions for reading **characters** from stored **files** 
+
+- We will see how to read **Table-Format** files
+
+- **Table-Formats** are just tables stored in plain-text files
+
+- Typical file estensions are:
+    * ``.txt`` for plain-text files
+    * ``.csv`` for comma-separated values
+
+
+- **Table-Formats** can be read into R with the command
+    * ``read.table()``
+
+
+
+
+## Table-Formats {.smaller}
+### 4 key features
+    
+1. **Header**: 
+    * If present, header should be the first line of the file
+    * Header is used to provide names for each column of data
+    * If a header is present, you need to tell this to R when importing
+    * If not, R cannot tell if first line is a header or observed data values
+
+
+
+
+## Table-Formats {.smaller}
+### 4 key features
+
+2. **Delimiter**: 
+    * A character used to separate the entries in each line
+    * Delimiter character cannot be used for anything else in the file
+    * Delimiter tells R when a specific entry begins and ends
+    * Default delimiter is **whitespace**
+
+
+
+## Table-Formats {.smaller}
+### 4 key features
+
+3. **Missing value**: 
+    * Character string used exclusively to denote a missing value
+    * When reading the file, R will turn these entries into ``NA``
+
+
+
+## Table-Formats {.smaller}
+### 4 key features
+
+4. **Comments**:
+    * Table files can include comments
+    * Comment lines start with $\quad$ ``#``
+    * R ignores such comments
+
+
+
+
+## Table-Formats {.smaller}
+### Example
+
+- Table-Format for **Family Guy** characters can be downloaded here [family_guy.txt](datasets/family_guy.txt)
+
+
+::: {.column width="54%"}
+
+- The text file looks like this
+
+![](images/family_guy.png){width=78%}
+
+:::
+
+::: {.column width="44%"}
+
+- Remarks:
+    * Header is present
+    * Delimiter is **whitespace**
+    * Missing values denoted by ``*``
+
+:::
+
+
+
+## read.table command {.smaller}
+
+- Table-Formats can be read via ``read.table()``
+    * This reads a ``.txt`` or ``.csv`` file and outputs a data frame
+- Options of ``read.table()``
+    * ``header = T/F`` -- Tells R if a header is present
+    * ``na.strings = "string"`` -- Tells R that ``"string"`` means ``NA``
+
+
+
+## Reading our first Table-Format file {.smaller}
+
+To read ``family_guy.txt`` into R proceed as follows:
+
+1. Download [family_guy.txt](datasets/family_guy.txt) and move file to Desktop
+
+2. Open the R Console and change working directory to **Desktop**
+
+```r
+# In MacOS type
+setwd("~/Desktop")
+
+# In Windows type
+setwd("C:/Users/YourUsername/Desktop")
+```
+
+
+## Reading our first Table-Format file {.smaller}
+
+
+3. Read ``family_guy.txt`` into R and store it in data frame ``family`` with code
+
+```r
+family = read.table(file = "family_guy.txt",
+                    header = TRUE,
+                    na.strings = "*"
+                    )
+```
+
+4. Note that we are telling ``read.table()`` that
+    * ``family_guy.txt`` has a header
+    * Missing values are denoted by ``*``
+
+
+
+## Reading our first Table-Format file {.smaller}
+
+
+::: {.column width="48%"}
+5. Print data frame ``family`` to screen
+
+```r
+print(family)
+```
+
+```{r}
+family = read.table(file = "datasets/family_guy.txt",
+                    header = TRUE,
+                    na.strings = "*"
+                    )
+print(family)
+```
+
+:::
+
+::: {.column width="48%"}
+
+- For comparison this is the ``.txt`` file
+
+![](images/family_guy.png){width=85%}
+
+:::
+
+
+
+
+
+## Application: t-test {.smaller}
+
+**Example**: Analysis of Consumer Confidence Index for 2008 crisis from Lecture 4
+
+- We imported data into R using ``c()``
+- This is ok for small datasets
+- Suppose the CCI data is stored in a ``.txt`` file instead
+
+
+**Goal**: Perform t-test on CCI difference for mean difference $\mu = 0$
+
+- By reading CCI data into R using ``read.table()``
+- By manipulating CCI data using **data frames**
+
+
+
+
+## Application: t-test {.smaller}
+
+- The CCI dataset can be downloaded here [2008_crisis.txt](datasets/2008_crisis.txt)
+
+- The text file looks like this
+
+![](images/2008_crisis.png){width=78%}
+
+
+
+## Application: t-test {.smaller}
+
+To perform the t-test on data ``2008_crisis.txt`` we proceed as follows:
+
+1. Download dataset [2008_crisis.txt](datasets/2008_crisis.txt) and move file to Desktop
+
+2. Open the R Console and change working directory to **Desktop**
+
+```r
+# In MacOS type
+setwd("~/Desktop")
+
+# In Windows type
+setwd("C:/Users/YourUsername/Desktop")
+```
+
+3. Read ``2008_crisis.txt`` into R and store it in data frame ``scores`` with code
+
+```r
+scores = read.table(file = "2008_crisis",
+                    header = TRUE
+                    )
+```
+
+
+## Application: t-test {.smaller}
+
+4. Store 2nd and 3rd columns of ``scores`` into 2 vectors
+
+```r
+# CCI from 2007 is stored in 2nd column
+score_2007 <- scores[, 2]
+
+# CCI from 2009 is stored in 3nd column
+score_2009 <- scores[, 3]
+```
+
+
+5. Now the t-test can be performed as done in Lecture 4
+
+```r
+# Compute vector of differences
+difference <- score_2007 - score_2009
+
+# Perform t-test on difference with null hypothesis mu = 0
+t.test(difference, mu = 0)
+```
+
+
+
+## Application: t-test {.smaller}
+
+6. We obtain the same result of Lecture 4
+    * p-value is $p < 0.05$
+    * Reject $H_0$: The mean difference is not $0$
+    * In details, the output of ``t.test`` is below
+
+- For convenience you can download the full code [2008_crisis_code.R](codes/2008_crisis_code.R)
+
+```{r}
+# Read ``2008_crisis.txt`` into R and store in "scores"
+scores = read.table(file = "datasets/2008_crisis.txt",
+                    header = TRUE
+                    )
+
+# Access scores of 2007 and 2009 in 2 vectors
+score_2007 <- scores[, 2]
+score_2009 <- scores[, 3]
+
+# Compute difference
+difference <- score_2007 - score_2009
+
+# Perform t-test on difference with null hypothesis mu = 0
+t.test(difference, mu = 0)
+```
+
+
+
+
+# Part 8: <br>Least squares {background-color="#cc0164" visibility="uncounted"}
 
 ::: footer
 
@@ -2502,7 +3583,7 @@ The previous Theorem motivates the following definition
 
 ::: Definition
 
-Given $(x_1,y_1), \ldots, (x_n, y_n)$, the **least-squares line** is the line 
+Given $(x_1,y_1), \ldots, (x_n, y_n)$, the **least-squares line** is 
 $$
 y = \hat\beta x + \hat \alpha
 $$
@@ -2516,25 +3597,33 @@ $$
 
 
 
+# Part 9: Worked Example {background-color="#cc0164" visibility="uncounted"}
+
+::: footer
+
+<div color="#cc0164">  </div>
+
+:::
 
 
-## Exercise: Blood Pressure {.smaller}
+
+## Worked Example: Blood Pressure {.smaller}
 ### Computing the least-squares line in R
 
 ::: {.column width="58%"}
 
-In R do the following:
+In R, we want to do the following:
 
-- Input the data into a data-frame
-
-- Plot the data points $(x_i,y_i)$
+- Input the data into vectors $x$ and $y$
 
 - Compute the least-square line coefficients
 $$
 \hat{\alpha} = \overline{y} - \hat{\beta} \ \overline{x} \qquad \qquad \hat{\beta} = \frac{S_{xy}}{S_{xx}}
 $$
 
-- Plot the least squares line
+- Plot the data points $(x_i,y_i)$
+
+- Overlay the least squares line
 
 :::
 
@@ -2563,8 +3652,16 @@ $$
 
 
 
-## Exercise: Blood Pressure {.smaller}
-### First Solution
+::: {.content-hidden}
+
+## First Solution {.smaller}
+
+
+:::
+
+
+
+## First Solution {.smaller}
 
 - We give a first solution using elementary R functions
 
@@ -2590,13 +3687,9 @@ y <- changes$drug_B
 ```
 
 
+## {.smaller}
 
-## Exercise: Blood Pressure {.smaller}
-### First Solution
-
-
-- We compute averages $\overline{x}, \overline{y}$ and covariances $S_{xx}, S_{xy}$
-
+- Compute averages $\overline{x}, \overline{y}$ and covariances $S_{xx}, S_{xy}$
 
 ```r
 # Compute averages xbar and ybar
@@ -2609,25 +3702,31 @@ S_xy <- cov(x,y)
 ```
 
 
-## Exercise: Blood Pressure {.smaller}
-### First Solution
+
+
+##  {.smaller}
 
 - Compute the least-square line coefficients
 $$
-\hat{\alpha} = \overline{y} - \hat{\beta} \ \overline{x} \qquad \qquad \hat{\beta} = \frac{S_{xy}}{S_{xx}}
+\hat{\beta} = \frac{S_{xy}}{S_{xx}} \,, \qquad \qquad  \hat{\alpha} = \overline{y} - \hat{\beta} \ \overline{x} 
 $$
 
 ```r
 # Compute least-square line coefficients
 beta <- S_xy / S_xx
 alpha <- ybar - beta * xbar
+
+# Print coefficients
+cat("\nCoefficient alpha =", alpha)
+cat("\nCoefficient beta =", beta)
 ```
 
+<br>
 
-- The coefficients computed by the above code are
 
 ```{r}
 # Input blood pressure changes data into data-frame
+
 changes <- data.frame(drug_A = c(1.9, 0.8, 1.1, 0.1, -0.1, 
                                  4.4, 4.6, 1.6, 5.5, 3.4),
                       drug_B = c(0.7, -1.0, -0.2, -1.2, -0.1, 
@@ -2657,8 +3756,7 @@ cat("\nCoefficient beta =", beta)
 
 
 
-## Exercise: Blood Pressure {.smaller}
-### First Solution
+##  {.smaller}
 
 - Plot the data pairs $(x_i,y_i)$
 
@@ -2671,51 +3769,30 @@ mtext("Drug A reaction x_i", side = 1, line = 3, cex = 2.1)
 mtext("Drug B reaction y_i", side = 2, line = 2.5, cex = 2.1)
 ```
 
-- **Note:** We have added a few cosmetic options
-  * ``pch = 16`` plots points with black circles
-  * ``cex = 2`` stands for *character expansion* -- Specifies width of points
-  * ``xlab = ""`` and ``ylab = ""`` add empty axis labels
+**Note:** We have added a few cosmetic options
 
-
-
-## Exercise: Blood Pressure {.smaller}
-### First Solution
-
-- Plot the data pairs $(x_i,y_i)$
-
-```r
-# Plot the data
-plot(x, y, xlab = "", ylab = "", pch = 16, cex = 2)
-
-# Add labels
-mtext("Drug A reaction x_i", side = 1, line = 3, cex = 2.1)
-mtext("Drug B reaction y_i", side = 2, line = 2.5, cex = 2.1)
-```
-
-
-- **Note:** We have added a few cosmetic options
-  * ``mtext`` is used to fine-tune the axis labels
+- ``pch = 16`` plots points with black circles
+- ``cex = 2`` stands for *character expansion* -- Specifies width of points
+- ``mtext`` is used to fine-tune the axis labels
   * ``side = 1`` stands for x-axis
   * ``side = 2`` stands for y-axis
   * ``line`` specifies distance of label from axis
 
 
 
-## Exercise: Blood Pressure {.smaller}
-### First Solution
+## {.smaller}
 
+::: {style="font-size: 0.93em"}
 
-- To plot the least-squares line we need to
-  * Create grid of $x$ coordinates and compute $y = \hat \beta x + \hat \alpha$ over such grid
-  * Plot the pairs $(x,y)$ and interpolate
+- To plot a line $y = bx + a$
+    * ``abline(a, b)`` 
+
+- Overlay the least squares line $y = \hat{\beta}x + \hat{\alpha}$
+
 
 ```r
-# Compute least-squares line on grid
-x_grid <- seq(from = -1, to = 6, by = 0.1)
-y_grid <- beta * x_grid + alpha
-
-# Plot the least-squares line
-lines(x_grid, y_grid, col = "red", lwd = 3)
+# Overlay least-squares line
+abline(a = alpha, b = beta, col = "red", lwd = 3)
 ```
 
 - **Note:** Cosmetic options
@@ -2723,19 +3800,28 @@ lines(x_grid, y_grid, col = "red", lwd = 3)
   * ``lwd`` specifies line width
 
 
-
-## Exercise: Blood Pressure {.smaller}
-### First Solution
-
-::: {.column width="50%"}
-
-- Previous code can be downloaded here [least_squares_1.R](codes/least_squares_1.R)
-
-- Running the code we obtain the plot on the right
+- For clarity, we can add legend to plot
+```r
+# Add legend
+legend("topleft", 
+       legend = c("Data", "Least-Squares Line"), 
+       col = c("black", "red"), 
+       pch = c(16, NA), 
+       lty = c(NA, 1), 
+       lwd = c(NA, 3))
+```
 
 :::
 
-::: {.column width="48%"}
+
+
+##  {.smaller}
+
+
+- The code can be downloaded here [least_squares_1.R](codes/least_squares_1.R)
+
+- Running the code we obtain the plot below
+
 
 ```{r}
 #| echo: false
@@ -2771,22 +3857,23 @@ plot(x, y, xlab = "", ylab = "", pch = 16, cex = 2)
 mtext("Drug A reaction x_i", side = 1, line = 3, cex = 2.1)
 mtext("Drug B reaction y_i", side = 2, line = 2.5, cex = 2.1)
 
-# Compute least-squares line on grid
-x_grid <- seq(from = -1, to = 6, by = 0.1)
-y_grid <- beta * x_grid + alpha
+# Overlay least-squares line
+abline(a = alpha, b = beta, col = "red", lwd = 3)
 
-# Plot the least-squares line
-lines(x_grid, y_grid, col = "red", lwd = 3)
+# Add legend
+legend("topleft", 
+       legend = c("Data", "Least-Squares Line"), 
+       col = c("black", "red"), 
+       pch = c(16, NA), 
+       lty = c(NA, 1), 
+       lwd = c(NA, 3))
 ```
 
-:::
 
 
 
 
-
-## Exercise: Blood Pressure {.smaller}
-### Second Solution
+## Second Solution {.smaller}
 
 
 - The second solution uses the R function ``lm``
@@ -2805,49 +3892,42 @@ changes <- data.frame(drug_A = c(1.9, 0.8, 1.1, 0.1, -0.1,
 
 
 
-## Exercise: Blood Pressure {.smaller}
-### Second Solution
+## {.smaller}
 
-- We now use ``lm`` to fit the least-squares line
 
-- The basic syntax of ``lm`` is
+- Use ``lm`` to fit the least-squares line
   * ``lm(formula, data)``
   * ``data`` expects a data-frame in input
   * ``formula`` stands for the relation to fit
 
-- In case of least-squares the formula is
+- In the case of least-squares:
   * ``formula = y ~ x``
-
-- The symbol `y ~ x` can be read as
-  * *$y$ modelled as function of $x$*
-
-- ``x`` and ``y`` are the names of two variables in the data-frame
-
-
-
-## Exercise: Blood Pressure {.smaller}
-### Second Solution
-
-- Storing data in data-frame is optional
-  * We can instead use vectors ``x`` and ``y``
-
-- We can fit the least-squares line with command
-  * ``lm(y ~ x)``
+  * ``x`` and ``y`` are names of two variables in the data-frame
+  * Symbol `y ~ x` can be read as: *$y$ modelled as function of $x$*
 
 
 
 
-## Exercise: Blood Pressure {.smaller}
-### Second Solution
+*Note:* Storing data in data-frame is optional
+
+- We can just store data in vectors ``x`` and ``y``
+
+- Then fit the least-squares line with ``lm(y ~ x)``
+
+
+
+
+##  {.smaller}
 
 - The command to fit the least-squares line on ``changes`` is
 
 ```r
+# Fit least squares line
 least_squares <- lm(formula = drug_B ~ drug_A, data = changes) 
+
+# Print output
+print(least_squares)
 ```
-
-
-- This is what R plots when calling ``print(least_squares)``
 
 
 ```{r}
@@ -2863,6 +3943,7 @@ least_squares <- lm(formula = drug_B ~ drug_A, data = changes)
 print(least_squares)
 ```
 
+<br>
 - The above tells us that the estimators are 
 
 $$
@@ -2873,9 +3954,7 @@ $$
 
 
 
-## Exercise: Blood Pressure {.smaller}
-### Second Solution
-
+##  {.smaller}
 
 - We can now plot the data with the following command
   * 1st coordinate is the vector ``changes$drug_A``
@@ -2887,9 +3966,12 @@ plot(changes$drug_A, changes$drug_B, pch = 16, cex = 2)
 ```
 
 
+<br>
+
+
 - The least-squares line is currently stored in ``least_squares``
 
-- To add such line to the current plot use ``abline``
+- To add the line to the current plot use ``abline``
 
 ```r    
 # Plot least-squares line
@@ -2898,18 +3980,12 @@ abline(least_squares, col = "red", lwd = 3)
 
 
 
-## Exercise: Blood Pressure {.smaller}
-### Second Solution
+##  {.smaller}
 
-::: {.column width="50%"}
 
-- Previous code can be downloaded here [least_squares_2.R](codes/least_squares_2.R)
+- The code can be downloaded here [least_squares_2.R](codes/least_squares_2.R)
 
-- Running the code we obtain the plot on the right
-
-:::
-
-::: {.column width="48%"}
+- Running the code we obtain the plot below
 
 ```{r}
 #| echo: false
@@ -2931,828 +4007,6 @@ plot(changes$drug_A, changes$drug_B, pch = 16, cex = 2)
 # Plot least-squares line
 abline(least_squares, col = "red", lwd = 3)
 ```
-
-:::
-
-
-
-
-
-
-
-# Part 5: <br>Simple linear<br>regression {background-color="#cc0164" visibility="uncounted"}
-
-::: footer
-
-<div color="#cc0164">  </div>
-
-:::
-
-
-
-
-
-
-
-
-## Simple linear regression {.smaller}
-### Motivation
-
-- **Model:** Suppose to have two random variables $X$ and $Y$
-  * $X$ models *observed values*
-  * $Y$ models a *response*
-  
-- **Goal of Regression:** Learn the distribution of 
-  $$
-  Y | X
-  $$
-  * $Y | X$ allows to predict values of $Y$ from values of $X$
-
-
-
-
-## Simple linear regression {.smaller}
-### Motivation
-
-- **Note:** To learn $Y|X$ one would need **joint distribution** of $(X,Y)$
-
-- **Problem:** The joint distribution of $(X,Y)$ is **unknown**
-
-- **Data**: We have partial knowledge on $(X,Y)$ in the form of 
-  * paired observations
-  $$(x_1,y_1) , \ldots, (x_n,y_n)$$
-  * $(x_i,y_i)$ is observed from $(X,Y)$
-  
-- **Goal:**Use the data to learn $Y|X$
-
-
-
-
-
-## Simple linear regression {.smaller}
-### Motivation
-
-
-::: {.column width="50%"}
-
-**Least-Squares:** 
-
-- Naive solution to regression problem 
-
-- Find a line of best fit
-$$
-y = \hat \alpha + \hat \beta x
-$$
-
-- Such line explains the data, i.e.,
-$$
-y_i  \ \approx \ \hat \alpha + \hat \beta x_i
-$$
-
-:::
-
-
-::: {.column width="48%"}
-
-```{r}
-#| echo: false
-#| fig-asp: 1
-
-# Read the data
-x <- c(1.9, 0.8, 1.1, 0.1, -0.1, 4.4, 4.6, 1.6, 5.5, 3.4)
-y <- c(0.7, -1.0, -0.2, -1.2, -0.1, 3.4, 0.0, 0.8, 3.7, 2.0)
-
-# Create the plot
-plot(x, y, xlab = "", ylab = "", pch = 16, cex = 2)
-
-# Add labels
-mtext("X", side = 1, line = 3, cex = 2.1)
-mtext("Y", side = 2, line = 2.5, cex = 2.1)
-
-# Fit linear regression
-fit <- lm(y ~ x)
-
-# Plot regression line in red
-abline(fit, col = "red", lwd = 5)
-```
-
-:::
-
-
-
-## Simple linear regression {.smaller}
-### Motivation
-
-
-::: {.column width="50%"}
-
-**Drawbacks of least squares:** 
-
-- Only predicts values of $y$ such that
-$$
-(x,y)  \, \in \, \text{ Line}
-$$
-
-
-- Ignores that $(x_i,y_i)$ comes from joint distribution $(X,Y)$
-
-
-:::
-
-
-::: {.column width="48%"}
-
-```{r}
-#| echo: false
-#| fig-asp: 1
-
-# Read the data
-x <- c(1.9, 0.8, 1.1, 0.1, -0.1, 4.4, 4.6, 1.6, 5.5, 3.4)
-y <- c(0.7, -1.0, -0.2, -1.2, -0.1, 3.4, 0.0, 0.8, 3.7, 2.0)
-
-# Create the plot
-plot(x, y, xlab = "", ylab = "", pch = 16, cex = 2)
-
-# Add labels
-mtext("X", side = 1, line = 3, cex = 2.1)
-mtext("Y", side = 2, line = 2.5, cex = 2.1)
-
-# Fit linear regression
-fit <- lm(y ~ x)
-
-# Plot regression line in red
-abline(fit, col = "red", lwd = 5)
-```
-
-:::
-
-
-
-## Simple linear regression {.smaller}
-### Motivation
-
-
-::: {.column width="50%"}
-
-**Linear Regression:** 
-
-- Find a **regression line** 
-$$
-R(x) = \alpha + \beta x
-$$
-
-- $R(x)$ predicts **most likely** value of $Y$ when $X = x$
-
-:::
-
-
-::: {.column width="48%"}
-
-```{r}
-#| echo: false
-#| fig-asp: 1
-
-# Read the data
-x <- c(1.9, 0.8, 1.1, 0.1, -0.1, 4.4, 4.6, 1.6, 5.5, 3.4)
-y <- c(0.7, -1.0, -0.2, -1.2, -0.1, 3.4, 0.0, 0.8, 3.7, 2.0)
-
-# Create the plot
-plot(x, y, xlab = "", ylab = "", pch = 16, cex = 2)
-
-# Add labels
-mtext("X", side = 1, line = 3, cex = 2.1)
-mtext("Y", side = 2, line = 2.5, cex = 2.1)
-
-# Fit linear regression
-fit <- lm(y ~ x)
-
-# Plot regression line in red
-abline(fit, col = "red", lwd = 5)
-```
-
-:::
-
-
-
-## Simple linear regression {.smaller}
-### Motivation
-
-
-::: {.column width="50%"}
-
-**Linear Regression:** 
-
-- We will see that regression line coincides with line of best fit
-$$
-  R(x) = \hat \alpha + \hat \beta x
-$$
-
-- Hence regression gives statistical meaning to the line of best fit
-
-:::
-
-
-::: {.column width="48%"}
-
-```{r}
-#| echo: false
-#| fig-asp: 1
-
-# Read the data
-x <- c(1.9, 0.8, 1.1, 0.1, -0.1, 4.4, 4.6, 1.6, 5.5, 3.4)
-y <- c(0.7, -1.0, -0.2, -1.2, -0.1, 3.4, 0.0, 0.8, 3.7, 2.0)
-
-# Create the plot
-plot(x, y, xlab = "", ylab = "", pch = 16, cex = 2)
-
-# Add labels
-mtext("X", side = 1, line = 3, cex = 2.1)
-mtext("Y", side = 2, line = 2.5, cex = 2.1)
-
-# Fit linear regression
-fit <- lm(y ~ x)
-
-# Plot regression line in red
-abline(fit, col = "red", lwd = 5)
-```
-
-:::
-
-
-
-## Regression function {.smaller}
-### Definition
-
-Suppose given two random variables $X$ and $Y$
-
-::: {.column width="30%"}
-
-- $X$ is the **predictor**
-
-:::
-
-::: {.column width="49%"}
-
-- $Y$ is the **response**
-
-:::
-
-::: Definition
-
-The **regression function** of $Y$ on $X$ is the conditional expectation
-
-$$
-R \colon \R \to \R \,, \qquad \quad R(x) :=  \Expect[Y | X = x]
-$$
-
-:::
-
-
-
-## Regression function {.smaller}
-### Interpretation
-
-::: Idea
-
-The regression function
-$$
-R(x) = \Expect[Y | X = x]
-$$ 
-predicts the most likely value of $Y$ when we observe 
-$$
-X = x
-$$
-
-:::
-
-**Notation:** We use the shorthand
-$$
-\Expect[Y|x] := \Expect[Y | X = x]
-$$
-
-
-
-
-## The regression problem {.smaller}
-
-**Assumption:** Suppose to have $n$ observations $(x_1,y_1) \,, \ldots , (x_n, y_n)$
-
-::: {.column width="30%"}
-
-- $x_i$ observed from $X$
-
-:::
-
-::: {.column width="30%"}
-
-- $y_i$ observed from $Y$
-
-:::
-
-
-::: Problem
-From $(x_1,y_1) \,, \ldots , (x_n, y_n)$ learn a regression function
-$$
-\Expect[Y | x]
-$$
-which explains the observations, that is,
-$$
-\Expect[Y | x_i] \ \approx \ y_i \,, \qquad \forall \, i = 1 , \ldots, n
-$$
-
-:::
-
-
-
-
-## Simple linear regression {.smaller}
-
-- Regression problem is difficult without prior knowledge on  $\Expect[Y | x]$
-
-- A popular model is to assume that  $\Expect[Y | x]$ is linear
-
-
-::: Definition
-
-The regression function of $Y$ on $X$ is **linear** if there exist  $\alpha$ and $\beta$ s.t.
-$$
-\Expect[Y | x] = \alpha +  \beta x  \,, \qquad \forall \, x \in \R
-$$
-
-:::
-
--  $\alpha$ and $\beta$ are called **regression coefficients**
-
-- The above regression is called **simple** because only 2 variables are involved
-
-
-
-
-## What do we mean by linear? {.smaller}
-
-**Note:** We said that the regression is **linear** if
-$$
-\Expect[Y | x ] = \alpha + \beta x
-$$
-In the above we mean linearity wrt the parameters $\alpha$ and $\beta$
-
-
-**Examples:**
-
-- Linear regression of $Y$ on $X^2$ is
-$$
-\Expect[Y | x^2 ] = \alpha + \beta x^2
-$$
-
-- Linear regression of $\log Y$ on $1/X$ is
-$$
-\Expect[ \log Y | x ] = \alpha + \beta \frac{1}{ x }
-$$
-
-
-
-
-
-## Simple linear regression {.smaller}
-### Model Assumptions
-
-
-Suppose to have $n$ observations $(x_1,y_1) \,, \ldots , (x_n, y_n)$
-
-::: {.column width="30%"}
-
-- $x_i$ observed from $X$
-
-:::
-
-::: {.column width="30%"}
-
-- $y_i$ observed from $Y$
-
-:::
-
-
-
-::: Definition
-
-For each $i = 1 , \ldots, n$ we denote by $Y_i$ a random variable with distribution 
-$$
-Y | X = x_i
-$$
-
-:::
-
-
-
-**Assumptions:**
-
-1. **Predictor is known:** The values $x_1, \ldots, x_n$ are known
-
-
-
-## Simple linear regression {.smaller}
-### Model Assumptions
-
-
-2. **Normality:** The distribution of $Y_i$ is normal
-
-3. **Linear mean:** There are parameters $\alpha$ and $\beta$ such that
-$$
-\Expect[Y_i] = \alpha + \beta x_i  
-$$
-
-4. **Common variance (Homoscedasticity):** There is a parameter $\sigma^2$ such that
-$$
-\Var[Y_i] = \sigma^2
-$$
-
-5. **Independence:** The random variables 
-$$
-Y_1   \,, \ldots \,, Y_n 
-$$
-are independent
-
-
-
-
-## Characterization of the Model {.smaller}
-
-- Assumptions 1--5 look quite abstract
-- The following Proposition gives a handy characterization
-
-
-::: Proposition 
-
-Assumptions 1-5 are satisfied if and only if
-$$
-Y_i = \alpha + \beta x_i + \e_i
-$$
-for some random variables
-$$
-\e_1 , \ldots, \e_n  \,\, \text{ iid } \,\, N(0,\sigma^2)
-$$
-
-:::
-
-- The terms $\e_i$ are called **errors**
-
-
-
-
-## Characterization of the Model {.smaller}
-### Proof
-
-- By Assumption 2 we have that $Y_i$ is normal
-
-- By Assumption 3 and 4 we have
-
-$$
-\Expect[Y_i] = \alpha + \beta x_i \,, \qquad \quad
-\Var[Y_i] = \sigma^2
-$$
-
-- Therefore
-
-$$
-Y_i  \sim  N(\alpha + \beta x_i, \sigma^2)
-$$
-
-
-
-
-## Characterization of the Model {.smaller}
-### Proof
-
-- Define the random variables 
-
-$$
-\e_i := Y_i   -  (\alpha + \beta x_i)
-$$
-
-- By Assumption 5 we have that $Y_1,\ldots,Y_n$ are independent
-
-- Therefore $\e_1,\ldots,\e_n$ are independent
-
-- Since $Y_i  \sim  N(\alpha + \beta x_i, \sigma^2)$ we conclude that 
-
-$$
-\e_i \sim N(0,\sigma^2)
-$$
-
-
-
-
-
-## Likelihood function {.smaller}
-
-
-::: Definition
-
-Let $X_1, \ldots, X_n$ be continuous rv with joint pdf 
-$$
-f = f(x_1, \ldots, x_n | \theta)
-$$ 
-depending on a parameter $\theta \in \Theta$. The likelihood function of the random vector
-$(X_1, \ldots, X_n)$ for a given sample $(x_1, \ldots, x_n)$ is
-$$
-L \colon \Theta \to \R \,, \qquad \quad L(\theta | x_1,\ldots, x_n ) := f(x_1, \ldots, x_n | \theta)
-$$
-
-:::
-
-
-
-
-## Likelihood function {.smaller}
-
-::: Proposition
-
-Suppose Assumptions 1--5 hold. The likelihood function of linear regression is
-$$
-L(\alpha,\beta, \sigma^2 | y_1, \ldots, y_n ) = \frac{1}{(2\pi \sigma^2)^{n/2}} \, \exp   \left(   -\frac{\sum_{i=1}^n(y_i-\alpha - \beta x_i)^2}{2\sigma^2}      \right)
-$$
-
-:::
-
-
-
-
-## Likelihood function {.smaller}
-### Proof
-
-
-- Recall that
-
-$$
-Y_i \sim N( \alpha + \beta x_i , \sigma^2 )
-$$
-
-- Therefore the pdf of $Y_i$ is 
-
-$$
-f_{Y_i} (y_i) =  \frac{1}{\sqrt{2\pi \sigma^2}} \exp \left( -\frac{(y_i-\alpha-\beta{x_i})^2}{2\sigma^2} \right)
-$$
-
-
-
-## Likelihood function {.smaller}
-### Proof
-
-- Since $Y_1,\ldots, Y_n$ are independent we obtain
-\begin{align*}
-L(\alpha,\beta, \sigma^2 | y_1, \ldots,y_n) & = f(y_1,\ldots,y_n) \\
-                                  & = \prod_{i=1}^n f_{Y_i}(y_i)  \\
-                                  & = \prod_{i=1}^n 
-                                  \frac{1}{\sqrt{2\pi \sigma^2}} \exp \left( -\frac{(y_i-\alpha-\beta{x_i})^2}{2\sigma^2} \right) \\
-                                  & = \frac{1}{(2\pi \sigma^2)^{n/2}} \, \exp   \left(   -\frac{\sum_{i=1}^n(y_i- \alpha - \beta x_i)^2}{2\sigma^2}      \right)
-\end{align*}
-
-
-
-
-
-## Model Summary  {.smaller}
-
-- Simple linear regression of $Y$ on $X$ is the function
-
-$$
-\Expect[Y | x] = \alpha + \beta x
-$$
-
-- Suppose given the observations from $(X,Y)$
-
-$$
-(x_1,y_1) , \ldots , (x_n, y_n)
-$$
-
-
-
-
-## Model Summary  {.smaller}
-
-
-- Denote by $Y_i$ the random variable 
-
-$$
-Y | X = x_i
-$$
-
-- We suppose that $Y_i$ has the form
-
-$$
-Y_i = \alpha + \beta x_i + \e_i
-$$
-
-- The **errors** $\e_1,\ldots, \e_n$ are iid $N(0,\sigma^2)$
-
-
-
-## The linear regression problem {.smaller}
-
-::: Problem
-From $(x_1,y_1) \,, \ldots , (x_n, y_n)$ learn a linear regression function
-$$
-\Expect[Y | x] = \alpha + \beta x
-$$
-which explains the observations, that is,
-\begin{equation} \tag{3}
-\Expect[Y | x_i] \ \approx \ y_i \,, \qquad \forall \, i = 1 , \ldots, n
-\end{equation}
-
-:::
-
-
-::: Question
-
-How do we enforce (3)?
-
-:::
-
-
-
-
-## Answer {.smaller}
-
-- Recall that $Y_i$ is distributed like 
-
-$$
-Y | x_i
-$$
-
-- Therefore 
-
-$$
-\Expect[Y | x_i] = \Expect[Y_i]
-$$
-
-
-- Hence (3) holds iff 
-
-\begin{equation} \tag{4}
-\Expect[Y_i] \ \approx \ y_i \,, \qquad \forall \, i = 1 , \ldots, n
-\end{equation}
-
-
-
-
-## Answer {.smaller}
-
-- If we want (4) to hold, we need to maximize the joint probability
-
-$$
-P(Y_1 \approx y_1, \ldots, Y_n \approx y_n) 
-$$
-
-
-
-- This means choosing parameters $\hat \alpha, \hat \beta, \hat \sigma$ which maximize the likelihood function
-
-$$
-\max_{\alpha,\beta,\sigma} \ L(\alpha,\beta, \sigma^2 | y_1, \ldots, y_n )
-$$
-
-
-
-
-
-## Maximizing the likelihood {.smaller}
-
-::: Theorem 
-
-Suppose Assumptions 1--5 hold and assume given $n$ observations
-$(x_1,y_1), \ldots, (x_n,y_n)$. 
-The maximization problem
-$$
-\max_{\alpha,\beta,\sigma}  \ L(\alpha,\beta, \sigma^2 | y_1, \ldots, y_n ) 
-$$
-admits the unique solution
-$$
-\hat \alpha = \overline{y} - \hat  \beta \, \overline{x} \,, \qquad 
-\hat \beta = \frac{S_{xy}}{S_{xy}} \,, \qquad 
-\hat{\sigma}^2  = \frac{1}{n} \sum_{i=1}^n \left(  y_i - \hat \alpha - \hat \beta x_i  \right)^2
-$$
-:::
-
-
-**Note:** The coefficients $\hat \alpha$ and $\hat \beta$ are the same of least-squares line!
-
-
-
-## Maximizing the likelihood {.smaller}
-### Proof of Theorem
-
-- The $\log$ function is strictly increasing 
-
-- Therefore the problem
-$$
-\max_{\alpha,\beta,\sigma} \ L(\alpha,\beta, \sigma^2 | y_1, \ldots, y_n )
-$$
-is equivalent to
-$$
-\max_{\alpha,\beta,\sigma} \ \log L( \alpha,\beta, \sigma^2 | y_1, \ldots, y_n )
-$$
-
-
-
-## Maximizing the likelihood {.smaller}
-### Proof of Theorem
-
-- Recall that the likelihood is
-$$
-L(\alpha,\beta, \sigma^2 | y_1, \ldots, y_n ) =  \frac{1}{(2\pi \sigma^2)^{n/2}} \, \exp   \left(   - \frac{\sum_{i=1}^n(y_i-\alpha - \beta x_i)^2}{2\sigma^2}      \right)
-$$
-
-
-- Hence the log--likelihood is
-$$
-\log L(\alpha,\beta, \sigma^2 | y_1, \ldots, y_n ) 
-= - \frac{n}{2} \log (2 \pi) - \frac{n}{2} \log \sigma^2 -
-\frac{ \sum_{i=1}^n(y_i-\alpha - \beta x_i)^2 }{2 \sigma^2}
-$$
-
-
-
-## Maximizing the likelihood {.smaller}
-### Proof of Theorem
-
-Suppose $\sigma$ is fixed. In this case the problem
-$$
-\max_{\alpha,\beta} \ \left\{ \frac{n}{2} \log (2 \pi) - \frac{n}{2} \log \sigma^2 -
-\frac{ \sum_{i=1}^n(y_i-\alpha - \beta x_i)^2 }{2 \sigma^2} \right\}
-$$
-is equivalent to 
-$$
-\min_{\alpha, \beta} \ \sum_{i=1}^n(y_i-\alpha - \beta x_i)^2
-$$
-
-This is the least-squares problem! Hence the solution is
-$$
-\hat \alpha = \overline{y} - \hat  \beta \, \overline{x} \,, \qquad 
-\hat \beta = \frac{S_{xy}}{S_{xy}}
-$$
-
-
-
-## Maximizing the likelihood {.smaller}
-### Proof of Theorem
-
-
-- Substituting $\hat \alpha$ and $\hat \beta$ we obtain
-\begin{align*}
-\max_{\alpha,\beta,\sigma} \ & \log L(\alpha,\beta, \sigma^2 | y_1, \ldots, y_n ) 
-= \max_{\sigma} \ \log L(\hat \alpha, \hat \beta, \sigma^2 | y_1, \ldots, y_n ) \\[10pt]
-& = \max_{\sigma} \ \left\{ - \frac{n}{2} \log (2 \pi) - \frac{n}{2} \log \sigma^2 -
-\frac{ \sum_{i=1}^n(y_i-\hat\alpha - \hat\beta x_i)^2 }{2 \sigma^2}  \right\}
-\end{align*}
-
-
-- It can be shown that the unique solution to the above problem is
-$$
-\hat{\sigma}^2  = \frac{1}{n} \sum_{i=1}^n \left(  y_i - \hat \alpha - \hat \beta x_i  \right)^2
-$$
-
-- This concludes the proof
-
-
-
-
-## Least-squares vs Linear regression {.smaller}
-
-Linear regression and least-squares give seemingly the same answer
-
-::: {.column width="73%"}
-
-| **Least-squares line**     |  $y = \hat \alpha + \hat \beta x$               |
-|:-------------------------- |:----------------------------------------------- | 
-| **Linear regression line** | $\Expect[Y | x ] =  \hat \alpha + \hat \beta x$ |
-: {tbl-colwidths="[60,40]"}
-
-:::
-
-::: {.column width="25%"}
-
-:::
-
-**Question:** Why did we define regression if it gives same answer as least-squares?
-
-
-
-
-## Least-squares vs Linear regression {.smaller}
-
-**Answer:** There is actually a big difference
-
-- Least-squares line $y = \hat \alpha + \hat \beta x$
-  * Just a geometric object
-  * Can only predict pairs $(x,y)$ which lie on the line
-  * Ignores statistical nature of the problem
-
-- Regression line $\Expect[Y | x ] =  \hat \alpha + \hat \beta x$
-  * Statistical model for $Y|X$ via the estimation of $\Expect[Y | x]$
-  * Can predict **most likely** values of $Y$ given the observation $X = x$
-  * Can test how well the linear model fits the data
-
-
 
 
 

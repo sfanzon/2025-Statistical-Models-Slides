@@ -28,9 +28,13 @@ plot(x, y, xlab = "", ylab = "", pch = 16, cex = 2)
 mtext("Drug A reaction x_i", side = 1, line = 3, cex = 2.1)
 mtext("Drug B reaction y_i", side = 2, line = 2.5, cex = 2.1)
 
-# Compute least-squares line on grid
-x_grid <- seq(from = -1, to = 6, by = 0.1)
-y_grid <- beta * x_grid + alpha
+# Overlay least-squares line
+abline(a = alpha, b = beta, col = "red", lwd = 3)
 
-# Plot the least-squares line
-lines(x_grid, y_grid, col = "red", lwd = 3)
+# Add legend
+legend("topleft", 
+       legend = c("Data", "Least-Squares Line"), 
+       col = c("black", "red"), 
+       pch = c(16, NA), 
+       lty = c(NA, 1), 
+       lwd = c(NA, 3))

@@ -21,7 +21,7 @@ $
 
 
 
-# Lecture 8: <br>The maths of <br>regression {background-color="#cc0164" visibility="uncounted"}
+# Lecture 8: <br>The Maths of <br>Regression {background-color="#cc0164" visibility="uncounted"}
 
 ::: footer
 
@@ -35,5 +35,826 @@ $
 
 ## Outline of Lecture 8
 
+
+
+8. Simple linear regression
+
+
+
+
+
+
+
+# Part 5: <br>Simple linear<br>regression {background-color="#cc0164" visibility="uncounted"}
+
+::: footer
+
+<div color="#cc0164">  </div>
+
+:::
+
+
+
+
+
+
+
+
+## Simple linear regression {.smaller}
+### Motivation
+
+- **Model:** Suppose to have two random variables $X$ and $Y$
+  * $X$ models *observed values*
+  * $Y$ models a *response*
+  
+- **Goal of Regression:** Learn the distribution of 
+  $$
+  Y | X
+  $$
+  * $Y | X$ allows to predict values of $Y$ from values of $X$
+
+
+
+
+## Simple linear regression {.smaller}
+### Motivation
+
+- **Note:** To learn $Y|X$ one would need **joint distribution** of $(X,Y)$
+
+- **Problem:** The joint distribution of $(X,Y)$ is **unknown**
+
+- **Data**: We have partial knowledge on $(X,Y)$ in the form of 
+  * paired observations
+  $$(x_1,y_1) , \ldots, (x_n,y_n)$$
+  * $(x_i,y_i)$ is observed from $(X,Y)$
+  
+- **Goal:**Use the data to learn $Y|X$
+
+
+
+
+
+## Simple linear regression {.smaller}
+### Motivation
+
+
+::: {.column width="50%"}
+
+**Least-Squares:** 
+
+- Naive solution to regression problem 
+
+- Find a line of best fit
+$$
+y = \hat \alpha + \hat \beta x
+$$
+
+- Such line explains the data, i.e.,
+$$
+y_i  \ \approx \ \hat \alpha + \hat \beta x_i
+$$
+
+:::
+
+
+::: {.column width="48%"}
+
+```{r}
+#| echo: false
+#| fig-asp: 1
+
+# Read the data
+x <- c(1.9, 0.8, 1.1, 0.1, -0.1, 4.4, 4.6, 1.6, 5.5, 3.4)
+y <- c(0.7, -1.0, -0.2, -1.2, -0.1, 3.4, 0.0, 0.8, 3.7, 2.0)
+
+# Create the plot
+plot(x, y, xlab = "", ylab = "", pch = 16, cex = 2)
+
+# Add labels
+mtext("X", side = 1, line = 3, cex = 2.1)
+mtext("Y", side = 2, line = 2.5, cex = 2.1)
+
+# Fit linear regression
+fit <- lm(y ~ x)
+
+# Plot regression line in red
+abline(fit, col = "red", lwd = 5)
+```
+
+:::
+
+
+
+## Simple linear regression {.smaller}
+### Motivation
+
+
+::: {.column width="50%"}
+
+**Drawbacks of least squares:** 
+
+- Only predicts values of $y$ such that
+$$
+(x,y)  \, \in \, \text{ Line}
+$$
+
+
+- Ignores that $(x_i,y_i)$ comes from joint distribution $(X,Y)$
+
+
+:::
+
+
+::: {.column width="48%"}
+
+```{r}
+#| echo: false
+#| fig-asp: 1
+
+# Read the data
+x <- c(1.9, 0.8, 1.1, 0.1, -0.1, 4.4, 4.6, 1.6, 5.5, 3.4)
+y <- c(0.7, -1.0, -0.2, -1.2, -0.1, 3.4, 0.0, 0.8, 3.7, 2.0)
+
+# Create the plot
+plot(x, y, xlab = "", ylab = "", pch = 16, cex = 2)
+
+# Add labels
+mtext("X", side = 1, line = 3, cex = 2.1)
+mtext("Y", side = 2, line = 2.5, cex = 2.1)
+
+# Fit linear regression
+fit <- lm(y ~ x)
+
+# Plot regression line in red
+abline(fit, col = "red", lwd = 5)
+```
+
+:::
+
+
+
+## Simple linear regression {.smaller}
+### Motivation
+
+
+::: {.column width="50%"}
+
+**Linear Regression:** 
+
+- Find a **regression line** 
+$$
+R(x) = \alpha + \beta x
+$$
+
+- $R(x)$ predicts **most likely** value of $Y$ when $X = x$
+
+:::
+
+
+::: {.column width="48%"}
+
+```{r}
+#| echo: false
+#| fig-asp: 1
+
+# Read the data
+x <- c(1.9, 0.8, 1.1, 0.1, -0.1, 4.4, 4.6, 1.6, 5.5, 3.4)
+y <- c(0.7, -1.0, -0.2, -1.2, -0.1, 3.4, 0.0, 0.8, 3.7, 2.0)
+
+# Create the plot
+plot(x, y, xlab = "", ylab = "", pch = 16, cex = 2)
+
+# Add labels
+mtext("X", side = 1, line = 3, cex = 2.1)
+mtext("Y", side = 2, line = 2.5, cex = 2.1)
+
+# Fit linear regression
+fit <- lm(y ~ x)
+
+# Plot regression line in red
+abline(fit, col = "red", lwd = 5)
+```
+
+:::
+
+
+
+## Simple linear regression {.smaller}
+### Motivation
+
+
+::: {.column width="50%"}
+
+**Linear Regression:** 
+
+- We will see that regression line coincides with line of best fit
+$$
+  R(x) = \hat \alpha + \hat \beta x
+$$
+
+- Hence regression gives statistical meaning to the line of best fit
+
+:::
+
+
+::: {.column width="48%"}
+
+```{r}
+#| echo: false
+#| fig-asp: 1
+
+# Read the data
+x <- c(1.9, 0.8, 1.1, 0.1, -0.1, 4.4, 4.6, 1.6, 5.5, 3.4)
+y <- c(0.7, -1.0, -0.2, -1.2, -0.1, 3.4, 0.0, 0.8, 3.7, 2.0)
+
+# Create the plot
+plot(x, y, xlab = "", ylab = "", pch = 16, cex = 2)
+
+# Add labels
+mtext("X", side = 1, line = 3, cex = 2.1)
+mtext("Y", side = 2, line = 2.5, cex = 2.1)
+
+# Fit linear regression
+fit <- lm(y ~ x)
+
+# Plot regression line in red
+abline(fit, col = "red", lwd = 5)
+```
+
+:::
+
+
+
+## Regression function {.smaller}
+### Definition
+
+Suppose given two random variables $X$ and $Y$
+
+::: {.column width="30%"}
+
+- $X$ is the **predictor**
+
+:::
+
+::: {.column width="49%"}
+
+- $Y$ is the **response**
+
+:::
+
+::: Definition
+
+The **regression function** of $Y$ on $X$ is the conditional expectation
+
+$$
+R \colon \R \to \R \,, \qquad \quad R(x) :=  \Expect[Y | X = x]
+$$
+
+:::
+
+
+
+## Regression function {.smaller}
+### Interpretation
+
+::: Idea
+
+The regression function
+$$
+R(x) = \Expect[Y | X = x]
+$$ 
+predicts the most likely value of $Y$ when we observe 
+$$
+X = x
+$$
+
+:::
+
+**Notation:** We use the shorthand
+$$
+\Expect[Y|x] := \Expect[Y | X = x]
+$$
+
+
+
+
+## The regression problem {.smaller}
+
+**Assumption:** Suppose to have $n$ observations $(x_1,y_1) \,, \ldots , (x_n, y_n)$
+
+::: {.column width="30%"}
+
+- $x_i$ observed from $X$
+
+:::
+
+::: {.column width="30%"}
+
+- $y_i$ observed from $Y$
+
+:::
+
+
+::: Problem
+From $(x_1,y_1) \,, \ldots , (x_n, y_n)$ learn a regression function
+$$
+\Expect[Y | x]
+$$
+which explains the observations, that is,
+$$
+\Expect[Y | x_i] \ \approx \ y_i \,, \qquad \forall \, i = 1 , \ldots, n
+$$
+
+:::
+
+
+
+
+## Simple linear regression {.smaller}
+
+- Regression problem is difficult without prior knowledge on  $\Expect[Y | x]$
+
+- A popular model is to assume that  $\Expect[Y | x]$ is linear
+
+
+::: Definition
+
+The regression function of $Y$ on $X$ is **linear** if there exist  $\alpha$ and $\beta$ s.t.
+$$
+\Expect[Y | x] = \alpha +  \beta x  \,, \qquad \forall \, x \in \R
+$$
+
+:::
+
+-  $\alpha$ and $\beta$ are called **regression coefficients**
+
+- The above regression is called **simple** because only 2 variables are involved
+
+
+
+
+## What do we mean by linear? {.smaller}
+
+**Note:** We said that the regression is **linear** if
+$$
+\Expect[Y | x ] = \alpha + \beta x
+$$
+In the above we mean linearity wrt the parameters $\alpha$ and $\beta$
+
+
+**Examples:**
+
+- Linear regression of $Y$ on $X^2$ is
+$$
+\Expect[Y | x^2 ] = \alpha + \beta x^2
+$$
+
+- Linear regression of $\log Y$ on $1/X$ is
+$$
+\Expect[ \log Y | x ] = \alpha + \beta \frac{1}{ x }
+$$
+
+
+
+
+
+## Simple linear regression {.smaller}
+### Model Assumptions
+
+
+Suppose to have $n$ observations $(x_1,y_1) \,, \ldots , (x_n, y_n)$
+
+::: {.column width="30%"}
+
+- $x_i$ observed from $X$
+
+:::
+
+::: {.column width="30%"}
+
+- $y_i$ observed from $Y$
+
+:::
+
+
+
+::: Definition
+
+For each $i = 1 , \ldots, n$ we denote by $Y_i$ a random variable with distribution 
+$$
+Y | X = x_i
+$$
+
+:::
+
+
+
+**Assumptions:**
+
+1. **Predictor is known:** The values $x_1, \ldots, x_n$ are known
+
+
+
+## Simple linear regression {.smaller}
+### Model Assumptions
+
+
+2. **Normality:** The distribution of $Y_i$ is normal
+
+3. **Linear mean:** There are parameters $\alpha$ and $\beta$ such that
+$$
+\Expect[Y_i] = \alpha + \beta x_i  
+$$
+
+4. **Common variance (Homoscedasticity):** There is a parameter $\sigma^2$ such that
+$$
+\Var[Y_i] = \sigma^2
+$$
+
+5. **Independence:** The random variables 
+$$
+Y_1   \,, \ldots \,, Y_n 
+$$
+are independent
+
+
+
+
+## Characterization of the Model {.smaller}
+
+- Assumptions 1--5 look quite abstract
+- The following Proposition gives a handy characterization
+
+
+::: Proposition 
+
+Assumptions 1-5 are satisfied if and only if
+$$
+Y_i = \alpha + \beta x_i + \e_i
+$$
+for some random variables
+$$
+\e_1 , \ldots, \e_n  \,\, \text{ iid } \,\, N(0,\sigma^2)
+$$
+
+:::
+
+- The terms $\e_i$ are called **errors**
+
+
+
+
+## Characterization of the Model {.smaller}
+### Proof
+
+- By Assumption 2 we have that $Y_i$ is normal
+
+- By Assumption 3 and 4 we have
+
+$$
+\Expect[Y_i] = \alpha + \beta x_i \,, \qquad \quad
+\Var[Y_i] = \sigma^2
+$$
+
+- Therefore
+
+$$
+Y_i  \sim  N(\alpha + \beta x_i, \sigma^2)
+$$
+
+
+
+
+## Characterization of the Model {.smaller}
+### Proof
+
+- Define the random variables 
+
+$$
+\e_i := Y_i   -  (\alpha + \beta x_i)
+$$
+
+- By Assumption 5 we have that $Y_1,\ldots,Y_n$ are independent
+
+- Therefore $\e_1,\ldots,\e_n$ are independent
+
+- Since $Y_i  \sim  N(\alpha + \beta x_i, \sigma^2)$ we conclude that 
+
+$$
+\e_i \sim N(0,\sigma^2)
+$$
+
+
+
+
+
+## Likelihood function {.smaller}
+
+
+::: Definition
+
+Let $X_1, \ldots, X_n$ be continuous rv with joint pdf 
+$$
+f = f(x_1, \ldots, x_n | \theta)
+$$ 
+depending on a parameter $\theta \in \Theta$. The likelihood function of the random vector
+$(X_1, \ldots, X_n)$ for a given sample $(x_1, \ldots, x_n)$ is
+$$
+L \colon \Theta \to \R \,, \qquad \quad L(\theta | x_1,\ldots, x_n ) := f(x_1, \ldots, x_n | \theta)
+$$
+
+:::
+
+
+
+
+## Likelihood function {.smaller}
+
+::: Proposition
+
+Suppose Assumptions 1--5 hold. The likelihood function of linear regression is
+$$
+L(\alpha,\beta, \sigma^2 | y_1, \ldots, y_n ) = \frac{1}{(2\pi \sigma^2)^{n/2}} \, \exp   \left(   -\frac{\sum_{i=1}^n(y_i-\alpha - \beta x_i)^2}{2\sigma^2}      \right)
+$$
+
+:::
+
+
+
+
+## Likelihood function {.smaller}
+### Proof
+
+
+- Recall that
+
+$$
+Y_i \sim N( \alpha + \beta x_i , \sigma^2 )
+$$
+
+- Therefore the pdf of $Y_i$ is 
+
+$$
+f_{Y_i} (y_i) =  \frac{1}{\sqrt{2\pi \sigma^2}} \exp \left( -\frac{(y_i-\alpha-\beta{x_i})^2}{2\sigma^2} \right)
+$$
+
+
+
+## Likelihood function {.smaller}
+### Proof
+
+- Since $Y_1,\ldots, Y_n$ are independent we obtain
+\begin{align*}
+L(\alpha,\beta, \sigma^2 | y_1, \ldots,y_n) & = f(y_1,\ldots,y_n) \\
+                                  & = \prod_{i=1}^n f_{Y_i}(y_i)  \\
+                                  & = \prod_{i=1}^n 
+                                  \frac{1}{\sqrt{2\pi \sigma^2}} \exp \left( -\frac{(y_i-\alpha-\beta{x_i})^2}{2\sigma^2} \right) \\
+                                  & = \frac{1}{(2\pi \sigma^2)^{n/2}} \, \exp   \left(   -\frac{\sum_{i=1}^n(y_i- \alpha - \beta x_i)^2}{2\sigma^2}      \right)
+\end{align*}
+
+
+
+
+
+## Model Summary  {.smaller}
+
+- Simple linear regression of $Y$ on $X$ is the function
+
+$$
+\Expect[Y | x] = \alpha + \beta x
+$$
+
+- Suppose given the observations from $(X,Y)$
+
+$$
+(x_1,y_1) , \ldots , (x_n, y_n)
+$$
+
+
+
+
+## Model Summary  {.smaller}
+
+
+- Denote by $Y_i$ the random variable 
+
+$$
+Y | X = x_i
+$$
+
+- We suppose that $Y_i$ has the form
+
+$$
+Y_i = \alpha + \beta x_i + \e_i
+$$
+
+- The **errors** $\e_1,\ldots, \e_n$ are iid $N(0,\sigma^2)$
+
+
+
+## The linear regression problem {.smaller}
+
+::: Problem
+From $(x_1,y_1) \,, \ldots , (x_n, y_n)$ learn a linear regression function
+$$
+\Expect[Y | x] = \alpha + \beta x
+$$
+which explains the observations, that is,
+\begin{equation} \tag{3}
+\Expect[Y | x_i] \ \approx \ y_i \,, \qquad \forall \, i = 1 , \ldots, n
+\end{equation}
+
+:::
+
+
+::: Question
+
+How do we enforce (3)?
+
+:::
+
+
+
+
+## Answer {.smaller}
+
+- Recall that $Y_i$ is distributed like 
+
+$$
+Y | x_i
+$$
+
+- Therefore 
+
+$$
+\Expect[Y | x_i] = \Expect[Y_i]
+$$
+
+
+- Hence (3) holds iff 
+
+\begin{equation} \tag{4}
+\Expect[Y_i] \ \approx \ y_i \,, \qquad \forall \, i = 1 , \ldots, n
+\end{equation}
+
+
+
+
+## Answer {.smaller}
+
+- If we want (4) to hold, we need to maximize the joint probability
+
+$$
+P(Y_1 \approx y_1, \ldots, Y_n \approx y_n) 
+$$
+
+
+
+- This means choosing parameters $\hat \alpha, \hat \beta, \hat \sigma$ which maximize the likelihood function
+
+$$
+\max_{\alpha,\beta,\sigma} \ L(\alpha,\beta, \sigma^2 | y_1, \ldots, y_n )
+$$
+
+
+
+
+
+## Maximizing the likelihood {.smaller}
+
+::: Theorem 
+
+Suppose Assumptions 1--5 hold and assume given $n$ observations
+$(x_1,y_1), \ldots, (x_n,y_n)$. 
+The maximization problem
+$$
+\max_{\alpha,\beta,\sigma}  \ L(\alpha,\beta, \sigma^2 | y_1, \ldots, y_n ) 
+$$
+admits the unique solution
+$$
+\hat \alpha = \overline{y} - \hat  \beta \, \overline{x} \,, \qquad 
+\hat \beta = \frac{S_{xy}}{S_{xy}} \,, \qquad 
+\hat{\sigma}^2  = \frac{1}{n} \sum_{i=1}^n \left(  y_i - \hat \alpha - \hat \beta x_i  \right)^2
+$$
+:::
+
+
+**Note:** The coefficients $\hat \alpha$ and $\hat \beta$ are the same of least-squares line!
+
+
+
+## Maximizing the likelihood {.smaller}
+### Proof of Theorem
+
+- The $\log$ function is strictly increasing 
+
+- Therefore the problem
+$$
+\max_{\alpha,\beta,\sigma} \ L(\alpha,\beta, \sigma^2 | y_1, \ldots, y_n )
+$$
+is equivalent to
+$$
+\max_{\alpha,\beta,\sigma} \ \log L( \alpha,\beta, \sigma^2 | y_1, \ldots, y_n )
+$$
+
+
+
+## Maximizing the likelihood {.smaller}
+### Proof of Theorem
+
+- Recall that the likelihood is
+$$
+L(\alpha,\beta, \sigma^2 | y_1, \ldots, y_n ) =  \frac{1}{(2\pi \sigma^2)^{n/2}} \, \exp   \left(   - \frac{\sum_{i=1}^n(y_i-\alpha - \beta x_i)^2}{2\sigma^2}      \right)
+$$
+
+
+- Hence the log--likelihood is
+$$
+\log L(\alpha,\beta, \sigma^2 | y_1, \ldots, y_n ) 
+= - \frac{n}{2} \log (2 \pi) - \frac{n}{2} \log \sigma^2 -
+\frac{ \sum_{i=1}^n(y_i-\alpha - \beta x_i)^2 }{2 \sigma^2}
+$$
+
+
+
+## Maximizing the likelihood {.smaller}
+### Proof of Theorem
+
+Suppose $\sigma$ is fixed. In this case the problem
+$$
+\max_{\alpha,\beta} \ \left\{ \frac{n}{2} \log (2 \pi) - \frac{n}{2} \log \sigma^2 -
+\frac{ \sum_{i=1}^n(y_i-\alpha - \beta x_i)^2 }{2 \sigma^2} \right\}
+$$
+is equivalent to 
+$$
+\min_{\alpha, \beta} \ \sum_{i=1}^n(y_i-\alpha - \beta x_i)^2
+$$
+
+This is the least-squares problem! Hence the solution is
+$$
+\hat \alpha = \overline{y} - \hat  \beta \, \overline{x} \,, \qquad 
+\hat \beta = \frac{S_{xy}}{S_{xy}}
+$$
+
+
+
+## Maximizing the likelihood {.smaller}
+### Proof of Theorem
+
+
+- Substituting $\hat \alpha$ and $\hat \beta$ we obtain
+\begin{align*}
+\max_{\alpha,\beta,\sigma} \ & \log L(\alpha,\beta, \sigma^2 | y_1, \ldots, y_n ) 
+= \max_{\sigma} \ \log L(\hat \alpha, \hat \beta, \sigma^2 | y_1, \ldots, y_n ) \\[10pt]
+& = \max_{\sigma} \ \left\{ - \frac{n}{2} \log (2 \pi) - \frac{n}{2} \log \sigma^2 -
+\frac{ \sum_{i=1}^n(y_i-\hat\alpha - \hat\beta x_i)^2 }{2 \sigma^2}  \right\}
+\end{align*}
+
+
+- It can be shown that the unique solution to the above problem is
+$$
+\hat{\sigma}^2  = \frac{1}{n} \sum_{i=1}^n \left(  y_i - \hat \alpha - \hat \beta x_i  \right)^2
+$$
+
+- This concludes the proof
+
+
+
+
+## Least-squares vs Linear regression {.smaller}
+
+Linear regression and least-squares give seemingly the same answer
+
+::: {.column width="73%"}
+
+| **Least-squares line**     |  $y = \hat \alpha + \hat \beta x$               |
+|:-------------------------- |:----------------------------------------------- | 
+| **Linear regression line** | $\Expect[Y | x ] =  \hat \alpha + \hat \beta x$ |
+: {tbl-colwidths="[60,40]"}
+
+:::
+
+::: {.column width="25%"}
+
+:::
+
+**Question:** Why did we define regression if it gives same answer as least-squares?
+
+
+
+
+## Least-squares vs Linear regression {.smaller}
+
+**Answer:** There is actually a big difference
+
+- Least-squares line $y = \hat \alpha + \hat \beta x$
+  * Just a geometric object
+  * Can only predict pairs $(x,y)$ which lie on the line
+  * Ignores statistical nature of the problem
+
+- Regression line $\Expect[Y | x ] =  \hat \alpha + \hat \beta x$
+  * Statistical model for $Y|X$ via the estimation of $\Expect[Y | x]$
+  * Can predict **most likely** values of $Y$ given the observation $X = x$
+  * Can test how well the linear model fits the data
 
 

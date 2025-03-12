@@ -98,22 +98,6 @@
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto.css">
-  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
-  <script>document.addEventListener("DOMContentLoaded", function () {
- var mathElements = document.getElementsByClassName("math");
- var macros = [];
- for (var i = 0; i < mathElements.length; i++) {
-  var texText = mathElements[i].firstChild;
-  if (mathElements[i].tagName == "SPAN") {
-   katex.render(texText.data, mathElements[i], {
-    displayMode: mathElements[i].classList.contains('display'),
-    throwOnError: false,
-    macros: macros,
-    fleqn: false
-   });
-}}});
-  </script>
-  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
   <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -405,43 +389,11 @@
   </style>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
   <style>
-  .Notation {
-    --color1: #c6e6ed;
-    --color2: #1995ad;
-  }
-  .Lemma {
+  .Conjecture {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
-  .Definition {
-    --color1: #c6e6ed;
-    --color2: #1995ad;
-  }
-  .Corollary {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .TODO {
-    --color1: #e7b1b4;
-    --color2: #8c3236;
-  }
-  .Proof {
-    --color1: #f1f1f2;
-    --color2: #c0c0c1;
-  }
-  .Idea {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Example {
-    --color1: #bce5de;
-    --color2: #21aa93;
-  }
-  .Warning {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Problem {
+  .Proposition {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
@@ -449,19 +401,23 @@
     --color1: #bce5de;
     --color2: #21aa93;
   }
-  .Proposition {
+  .Idea {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
-  .DONE {
-    --color1: #cce7b1;
-    --color2: #86b754;
+  .TODO {
+    --color1: #e7b1b4;
+    --color2: #8c3236;
   }
-  .Conjecture {
+  .Definition {
+    --color1: #c6e6ed;
+    --color2: #1995ad;
+  }
+  .Lemma {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
-  .Question {
+  .Warning {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
@@ -469,9 +425,37 @@
     --color1: #f4cce0;
     --color2: #db4d92;
   }
+  .Problem {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
   .Important {
     --color1: #f4cce0;
     --color2: #db4d92;
+  }
+  .Notation {
+    --color1: #c6e6ed;
+    --color2: #1995ad;
+  }
+  .Corollary {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Proof {
+    --color1: #f1f1f2;
+    --color2: #c0c0c1;
+  }
+  .DONE {
+    --color1: #cce7b1;
+    --color2: #86b754;
+  }
+  .Question {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Example {
+    --color1: #bce5de;
+    --color2: #21aa93;
   }
   .Axiom {
     --color1: #f4cce0;
@@ -503,784 +487,8 @@
 
 </section>
 <section>
-<section id="appendix-b-more-on-r" class="title-slide slide level1 center" data-background-color="#cc0164" data-visibility="uncounted">
-<h1>Appendix B: <br>More on R</h1>
-<div class="footer">
-<div color="#cc0164">
-
-</div>
-</div>
-</section>
-<section id="outline-of-appendix-b" class="slide level2">
-<h2>Outline of Appendix B</h2>
-<ol type="1">
-<li>Lists</li>
-<li>Data Frames</li>
-<li>Data Entry</li>
-<li>R Style Guide</li>
-</ol>
-</section></section>
-<section>
-<section id="part-1-lists" class="title-slide slide level1 center" data-background-color="#cc0164" data-visibility="uncounted">
-<h1>Part 1: <br>Lists</h1>
-<div class="footer">
-<div color="#cc0164">
-
-</div>
-</div>
-</section>
-<section id="lists" class="slide level2 smaller">
-<h2>Lists</h2>
-<ul>
-<li><p>Vectors can contain only one data type (number, character, boolean)</p></li>
-<li><p>Lists are data structures that can contain <strong>any R object</strong></p></li>
-<li><p>Lists can be created similarly to vectors, with the command <code>list()</code></p></li>
-</ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># List containing a number, a vector, and a string</span></span>
-<span id="cb1-2"><a aria-hidden="true" tabindex="-1"></a>my_list <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="dv">2</span>, <span class="fu">c</span>(T,F,T,T), <span class="st">"hello"</span>)</span>
-<span id="cb1-3"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Print the list</span></span>
-<span id="cb1-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(my_list)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[[1]]
-[1] 2
-
-[[2]]
-[1]  TRUE FALSE  TRUE  TRUE
-
-[[3]]
-[1] "hello"</code></pre>
-</div>
-</div>
-</section>
-<section id="retrieving-elements" class="slide level2 smaller">
-<h2>Retrieving elements</h2>
-<p>Elements of a list can be retrieved by <strong>indexing</strong></p>
-<ul>
-<li><code>my_list[[k]]</code> returns k-th element of <code>my_list</code></li>
-</ul>
-<p><br></p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Consider again the same list</span></span>
-<span id="cb3-2"><a aria-hidden="true" tabindex="-1"></a>my_list <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="dv">2</span>, <span class="fu">c</span>(T,F,T,T), <span class="st">"hello"</span>)</span>
-<span id="cb3-3"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Access 2nd element of my_list and store it in variable</span></span>
-<span id="cb3-5"><a aria-hidden="true" tabindex="-1"></a>second_element <span class="ot">&lt;-</span> my_list[[<span class="dv">2</span>]]</span>
-<span id="cb3-6"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-7"><a aria-hidden="true" tabindex="-1"></a><span class="co"># In this case the variable second_element is a vector</span></span>
-<span id="cb3-8"><a aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(second_element)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1]  TRUE FALSE  TRUE  TRUE</code></pre>
-</div>
-</div>
-</section>
-<section id="list-slicing" class="slide level2 smaller">
-<h2>List slicing</h2>
-<p>You can return multiple items of a list via <strong>slicing</strong></p>
-<ul>
-<li><code>my_list[c(k1, ..., kn)]</code> returns elements in positions <code>k1, ..., kn</code></li>
-<li><code>my_list[k1:k2]</code> returns elements <code>k1</code> to <code>k2</code></li>
-</ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a aria-hidden="true" tabindex="-1"></a>my_list <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="dv">2</span>, <span class="fu">c</span>(T,F), <span class="st">"Cat"</span>, <span class="st">"Dog"</span>, pi, <span class="dv">42</span>)</span>
-<span id="cb5-2"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a aria-hidden="true" tabindex="-1"></a><span class="co"># We store 1st, 3rd, 5th entries of my_list in slice</span></span>
-<span id="cb5-4"><a aria-hidden="true" tabindex="-1"></a>slice <span class="ot">&lt;-</span> my_list[<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>)]</span>
-<span id="cb5-5"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-6"><a aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(slice)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[[1]]
-[1] 2
-
-[[2]]
-[1] "Cat"
-
-[[3]]
-[1] 3.141593</code></pre>
-</div>
-</div>
-</section>
-<section id="list-slicing-1" class="slide level2 smaller">
-<h2>List slicing</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a aria-hidden="true" tabindex="-1"></a>my_list <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="dv">2</span>, <span class="fu">c</span>(T,F), <span class="st">"Cat"</span>, <span class="st">"Dog"</span>, pi, <span class="dv">42</span>)</span>
-<span id="cb7-2"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-3"><a aria-hidden="true" tabindex="-1"></a><span class="co"># We store 2nd to 4th entries of my_list in slice</span></span>
-<span id="cb7-4"><a aria-hidden="true" tabindex="-1"></a>slice <span class="ot">&lt;-</span> my_list[<span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>]</span>
-<span id="cb7-5"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-6"><a aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(slice)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[[1]]
-[1]  TRUE FALSE
-
-[[2]]
-[1] "Cat"
-
-[[3]]
-[1] "Dog"</code></pre>
-</div>
-</div>
-</section>
-<section id="naming" class="slide level2 smaller">
-<h2>Naming</h2>
-<ul>
-<li>Components of a list can be <strong>named</strong>. Names can be assigned with
-<ul>
-<li><code>names(my_list) &lt;- c("name_1", ..., "name_k")</code></li>
-</ul></li>
-</ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Create list with 3 elements</span></span>
-<span id="cb9-2"><a aria-hidden="true" tabindex="-1"></a>my_list <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="dv">2</span>, <span class="fu">c</span>(T,F,T,T), <span class="st">"hello"</span>)</span>
-<span id="cb9-3"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Name each of the 3 elements</span></span>
-<span id="cb9-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(my_list) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"number"</span>, <span class="st">"TF_vector"</span>, <span class="st">"string"</span>)</span>
-<span id="cb9-6"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-7"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Print the named list: the list is printed along with element names </span></span>
-<span id="cb9-8"><a aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(my_list)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>$number
-[1] 2
-
-$TF_vector
-[1]  TRUE FALSE  TRUE  TRUE
-
-$string
-[1] "hello"</code></pre>
-</div>
-</div>
-</section>
-<section id="accessing-a-name" class="slide level2 smaller">
-<h2>Accessing a name</h2>
-<ul>
-<li>A component of <code>my_list</code> named <code>my_name</code> can be accessed with dollar operator
-<ul>
-<li><code>my_list$my_name</code></li>
-</ul></li>
-</ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Create list with 3 elements and name them</span></span>
-<span id="cb11-2"><a aria-hidden="true" tabindex="-1"></a>my_list <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="dv">2</span>, <span class="fu">c</span>(T,F,T,T), <span class="st">"hello"</span>)</span>
-<span id="cb11-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(my_list) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"number"</span>, <span class="st">"TF_vector"</span>, <span class="st">"string"</span>)</span>
-<span id="cb11-4"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-5"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Access 2nd element using dollar operator and store it in variable</span></span>
-<span id="cb11-6"><a aria-hidden="true" tabindex="-1"></a>second_component <span class="ot">&lt;-</span> my_list<span class="sc">$</span>TF_vector</span>
-<span id="cb11-7"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-8"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Print 2nd element</span></span>
-<span id="cb11-9"><a aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(second_component)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1]  TRUE FALSE  TRUE  TRUE</code></pre>
-</div>
-</div>
-</section></section>
-<section>
-<section id="part-2-data-frames" class="title-slide slide level1 center" data-background-color="#cc0164" data-visibility="uncounted">
-<h1>Part 2: <br>Data Frames</h1>
-<div class="footer">
-<div color="#cc0164">
-
-</div>
-</div>
-</section>
-<section id="data-frames" class="slide level2 smaller">
-<h2>Data Frames</h2>
-<ul>
-<li><p>Data Frames are the best way of presenting a data set in R:</p>
-<ul>
-<li>Each variable has assigned a collection of recorded observations</li>
-</ul></li>
-<li><p>Data frames can contain any R object</p></li>
-<li><p>Data Frames are similar to Lists, with the difference that:</p>
-<ul>
-<li>Members of a Data Frame must all be vectors of equal length</li>
-</ul></li>
-</ul>
-</section>
-<section id="constructing-a-data-frame" class="slide level2 smaller">
-<h2>Constructing a Data Frame</h2>
-<ul>
-<li><p>Data frames are constructed similarly to lists, using <code>data.frame()</code></p></li>
-<li><p><strong>Important</strong>: Elements of data frame must be vectors of the same length</p></li>
-<li><p><strong>Example</strong>: We construct the <strong>Family Guy</strong> data frame. Variables are</p>
-<ul>
-<li><code>person</code> – Name of character</li>
-<li><code>age</code> – Age of character</li>
-<li><code>sex</code> – Sex of character</li>
-</ul></li>
-</ul>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a aria-hidden="true" tabindex="-1"></a>family <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb13-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">person =</span> <span class="fu">c</span>(<span class="st">"Peter"</span>, <span class="st">"Lois"</span>, <span class="st">"Meg"</span>, <span class="st">"Chris"</span>, <span class="st">"Stewie"</span>),</span>
-<span id="cb13-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">age =</span> <span class="fu">c</span>(<span class="dv">42</span>, <span class="dv">40</span>, <span class="dv">17</span>, <span class="dv">14</span>, <span class="dv">1</span>),</span>
-<span id="cb13-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">sex =</span> <span class="fu">c</span>(<span class="st">"M"</span>, <span class="st">"F"</span> , <span class="st">"F"</span>, <span class="st">"M"</span>, <span class="st">"M"</span>)</span>
-<span id="cb13-5"><a aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-<section id="printing-a-data-frame" class="slide level2 smaller">
-<h2>Printing a Data Frame</h2>
-<div class="column" style="width:44%;">
-<ul>
-<li>R prints data frames like matrices</li>
-<li>First row contains vector names</li>
-</ul>
-</div><div class="column" style="width:54%;">
-<ul>
-<li>First column contains row names</li>
-<li>Data are paired: e.g.&nbsp;Peter is 42 and Male</li>
-</ul>
-</div><div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a aria-hidden="true" tabindex="-1"></a>family <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb14-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">person =</span> <span class="fu">c</span>(<span class="st">"Peter"</span>, <span class="st">"Lois"</span>, <span class="st">"Meg"</span>, <span class="st">"Chris"</span>, <span class="st">"Stewie"</span>),</span>
-<span id="cb14-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">age =</span> <span class="fu">c</span>(<span class="dv">42</span>, <span class="dv">40</span>, <span class="dv">17</span>, <span class="dv">14</span>, <span class="dv">1</span>),</span>
-<span id="cb14-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">sex =</span> <span class="fu">c</span>(<span class="st">"M"</span>, <span class="st">"F"</span> , <span class="st">"F"</span>, <span class="st">"M"</span>, <span class="st">"M"</span>)</span>
-<span id="cb14-5"><a aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb14-6"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-7"><a aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(family)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>  person age sex
-1  Peter  42   M
-2   Lois  40   F
-3    Meg  17   F
-4  Chris  14   M
-5 Stewie   1   M</code></pre>
-</div>
-</div>
-</section>
-<section id="extracting-data" class="slide level2 smaller">
-<h2>Extracting data</h2>
-<ul>
-<li><p>Think of a data frame as a <em>matrix</em></p></li>
-<li><p>You can extract element in position <code>(m,n)</code> by using</p>
-<ul>
-<li><code>my_data[m, n]</code></li>
-</ul></li>
-<li><p><strong>Example</strong>: Peter is in 1st row. We can extract Peter’s name as follows</p></li>
-</ul>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a aria-hidden="true" tabindex="-1"></a>extracted <span class="ot">&lt;-</span> family[<span class="dv">1</span>, <span class="dv">1</span>]</span>
-<span id="cb16-2"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(extracted)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "Peter"</code></pre>
-</div>
-</div>
-</section>
-<section id="extracting-data-1" class="slide level2 smaller">
-<h2>Extracting data</h2>
-<p>To extract multiple elements on the same row or column type</p>
-<ul>
-<li><code>my_data[c(k1,...,kn), m]</code> <span class="math inline">\quad</span> or <span class="math inline">\quad</span> <code>my_data[k1:k2, m]</code></li>
-<li><code>my_data[n, c(k1,...,km)]</code> <span class="math inline">\quad</span> or <span class="math inline">\quad</span> <code>my_data[n, k1:k2]</code></li>
-</ul>
-<p><strong>Example</strong>: Meg is listed in 3rd row. We extract her <em>age</em> and <em>sex</em></p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a aria-hidden="true" tabindex="-1"></a>meg_data <span class="ot">&lt;-</span> family[<span class="dv">3</span>, <span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>]</span>
-<span id="cb18-2"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(meg_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>  age sex
-3  17   F</code></pre>
-</div>
-</div>
-</section>
-<section id="extracting-data-2" class="slide level2 smaller">
-<h2>Extracting data</h2>
-<p>To extract entire rows or columns type</p>
-<ul>
-<li><code>my_data[c(k1,...,kn), ]</code> <span class="math inline">\quad</span> or <span class="math inline">\quad</span> <code>my_data[k1:k2, ]</code></li>
-<li><code>my_data[, c(k1,...,km)]</code> <span class="math inline">\quad</span> or <span class="math inline">\quad</span> <code>my_data[, k1:k2]</code></li>
-</ul>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a aria-hidden="true" tabindex="-1"></a>peter_data <span class="ot">&lt;-</span> family[<span class="dv">1</span>, ]      <span class="co"># Extracts first row - Peter</span></span>
-<span id="cb20-2"><a aria-hidden="true" tabindex="-1"></a>sex_age <span class="ot">&lt;-</span> family[, <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">2</span>)]    <span class="co"># Extracts third and second columns:</span></span>
-<span id="cb20-3"><a aria-hidden="true" tabindex="-1"></a>                               <span class="co"># sex and age</span></span>
-<span id="cb20-4"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(peter_data)</span>
-<span id="cb20-6"><a aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(sex_age)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>  person age sex
-1  Peter  42   M</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>  sex age
-1   M  42
-2   F  40
-3   F  17
-4   M  14
-5   M   1</code></pre>
-</div>
-</div>
-</section>
-<section id="extracting-data-3" class="slide level2 smaller">
-<h2>Extracting data</h2>
-<p>Use dollar operator to access data frame columns</p>
-<ul>
-<li>Suppose data set <code>my_data</code> contains a variable called <code>my_variable</code></li>
-<li><code>my_data$my_variable</code> accesses column <code>my_variable</code></li>
-<li><code>my_data$my_variable</code> is a vector</li>
-</ul>
-<p><strong>Example</strong>: To access <em>age</em> in the <code>family</code> data frame type</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a aria-hidden="true" tabindex="-1"></a>ages <span class="ot">&lt;-</span> family<span class="sc">$</span>age        <span class="co"># Stores ages in a vector</span></span>
-<span id="cb23-2"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Ages of the Family Guy characters are"</span>, ages)</span>
-<span id="cb23-4"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Meg's age is"</span>, ages[<span class="dv">3</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>Ages of the Family Guy characters are 42 40 17 14 1</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Meg's age is 17</code></pre>
-</div>
-</div>
-</section>
-<section id="size-of-a-data-frame" class="slide level2 smaller">
-<h2>Size of a data frame</h2>
-<p>The size of a data frame can be discovered using:</p>
-<ul>
-<li><code>nrow(my_data)</code> <span class="math inline">\quad</span> number of rows</li>
-<li><code>ncol(my_data)</code> <span class="math inline">\quad</span> number of columns</li>
-<li><code>dim(my_data)</code> <span class="math inline">\quad \quad</span> vector containing number of rows and columns</li>
-</ul>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a aria-hidden="true" tabindex="-1"></a>family_dim <span class="ot">&lt;-</span> <span class="fu">dim</span>(family)    <span class="co"># Stores dimensions of family in a vector</span></span>
-<span id="cb26-2"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"The Family Guy data frame has"</span>, family_dim[<span class="dv">1</span>], </span>
-<span id="cb26-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="st">"rows and"</span>, family_dim[<span class="dv">2</span>], <span class="st">"columns"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>The Family Guy data frame has 5 rows and 3 columns</code></pre>
-</div>
-</div>
-</section>
-<section id="adding-data" class="slide level2 smaller">
-<h2>Adding Data</h2>
-<p>Adding data to an existing data frame <code>my_data</code></p>
-<ul>
-<li>Add more records (adding to rows)
-<ul>
-<li>Create single row data frame <code>new_record</code></li>
-<li><code>new_record</code> must match the structure of <code>my_data</code></li>
-<li>Add to <code>my_data</code> with <code>my_data &lt;- rbind(my_data, new_record)</code></li>
-</ul></li>
-<li>Add a set of observations for a new variable (adding to columns)
-<ul>
-<li>Create a vector <code>new_variable</code></li>
-<li><code>new_variable</code> must have as many components as rows in <code>my_data</code></li>
-<li>Add to <code>my_data</code> with <code>my_data &lt;- cbind(my_data, new_variable)</code></li>
-</ul></li>
-</ul>
-</section>
-<section id="example-add-new-record" class="slide level2 smaller">
-<h2>Example: Add new record</h2>
-<ul>
-<li>Consider the usual <strong>Family Guy</strong> data frame <code>family</code></li>
-<li>Suppose we want to add data for <strong>Brian</strong></li>
-<li>Create a new record: a single row data frame with columns
-<ul>
-<li><em>person</em>, <em>age</em>, <em>sex</em></li>
-</ul></li>
-</ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a aria-hidden="true" tabindex="-1"></a>new_record <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb28-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">person =</span> <span class="st">"Brian"</span>,</span>
-<span id="cb28-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">age =</span> <span class="dv">7</span>,</span>
-<span id="cb28-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">sex =</span> <span class="st">"M"</span></span>
-<span id="cb28-5"><a aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb28-6"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-7"><a aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(new_record)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>  person age sex
-1  Brian   7   M</code></pre>
-</div>
-</div>
-</section>
-<section id="example-add-new-record-1" class="slide level2 smaller">
-<h2>Example: Add new record</h2>
-<ul>
-<li>Now we add <code>new_record</code> to <code>family</code></li>
-</ul>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a aria-hidden="true" tabindex="-1"></a>family <span class="ot">&lt;-</span> <span class="fu">rbind</span>(family, new_record)</span>
-<span id="cb30-2"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(family)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>  person age sex
-1  Peter  42   M
-2   Lois  40   F
-3    Meg  17   F
-4  Chris  14   M
-5 Stewie   1   M
-6  Brian   7   M</code></pre>
-</div>
-</div>
-</section>
-<section id="example-add-new-variable" class="slide level2 smaller">
-<h2>Example: Add new variable</h2>
-<ul>
-<li>We want to add a new variable to the <strong>Family Guy</strong> data frame <code>family</code></li>
-<li>This variable is called <code>funny</code></li>
-<li>It records how funny each character is, with levels
-<ul>
-<li><em>Low</em>, <em>Med</em>, <em>High</em></li>
-</ul></li>
-<li>Create a vector <code>funny</code> with entries matching each character (including <strong>Brian</strong>)</li>
-</ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a aria-hidden="true" tabindex="-1"></a>funny <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"High"</span>, <span class="st">"High"</span>, <span class="st">"Low"</span>, <span class="st">"Med"</span>, <span class="st">"High"</span>, <span class="st">"Med"</span>)</span>
-<span id="cb32-2"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(funny)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "High" "High" "Low"  "Med"  "High" "Med" </code></pre>
-</div>
-</div>
-</section>
-<section id="example-add-new-variable-1" class="slide level2 smaller">
-<h2>Example: Add new variable</h2>
-<ul>
-<li>Add <code>funny</code> to the <strong>Family Guy</strong> data frame <code>family</code></li>
-</ul>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a aria-hidden="true" tabindex="-1"></a>family <span class="ot">&lt;-</span> <span class="fu">cbind</span>(family, funny)</span>
-<span id="cb34-2"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(family)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>  person age sex funny
-1  Peter  42   M  High
-2   Lois  40   F  High
-3    Meg  17   F   Low
-4  Chris  14   M   Med
-5 Stewie   1   M  High
-6  Brian   7   M   Med</code></pre>
-</div>
-</div>
-</section>
-<section id="adding-a-new-variable-alternative-way" class="slide level2 smaller">
-<h2>Adding a new variable: alternative way</h2>
-<p>Instead of using <code>cbind</code> we can add a new varibale using dollar operator:</p>
-<ul>
-<li>We want to add a variable called <code>new_variable</code></li>
-<li>Create a vector <code>v</code> containing values for the new variable</li>
-<li><code>v</code> must have as many components as rows in <code>my_data</code></li>
-<li>Add to <code>my_data</code> with <code>my_data$new_variable &lt;- v</code></li>
-</ul>
-</section>
-<section id="adding-a-new-variable-alternative-way-1" class="slide level2 smaller">
-<h2>Adding a new variable: alternative way</h2>
-<p><strong>Example</strong>:</p>
-<ul>
-<li>We add age expressed in months to the <strong>Family Guy</strong> data frame <code>family</code></li>
-<li>Age in months can be computed by multiplying vector <code>family$age</code> by <span class="math inline">12</span></li>
-</ul>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a aria-hidden="true" tabindex="-1"></a>v <span class="ot">&lt;-</span> family<span class="sc">$</span>age <span class="sc">*</span> <span class="dv">12</span>       <span class="co"># Computes vector of ages in months</span></span>
-<span id="cb36-2"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-3"><a aria-hidden="true" tabindex="-1"></a>family<span class="sc">$</span>age.months <span class="ot">&lt;-</span> v     <span class="co"># Stores vector as new column in family</span></span>
-<span id="cb36-4"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(family)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>  person age sex funny age.months
-1  Peter  42   M  High        504
-2   Lois  40   F  High        480
-3    Meg  17   F   Low        204
-4  Chris  14   M   Med        168
-5 Stewie   1   M  High         12
-6  Brian   7   M   Med         84</code></pre>
-</div>
-</div>
-</section>
-<section id="logical-record-subsets" class="slide level2 smaller">
-<h2>Logical Record Subsets</h2>
-<ul>
-<li><p>We saw how to use <strong>logical flag vectors</strong> to subset vectors</p></li>
-<li><p>We can use logical flag vectors to subset data frames as well</p></li>
-<li><p>Suppose to have data frame <code>my_data</code> containing a variable <code>my_variable</code></p></li>
-<li><p>Want to subset records in <code>my_data</code> for which <code>my_variable</code> satisfies a condition</p></li>
-<li><p>Use commands</p>
-<ul>
-<li><code>flag &lt;- condition(my_data$my_variable)</code></li>
-<li><code>my_data[flag, ]</code></li>
-</ul></li>
-</ul>
-</section>
-<section id="logical-record-subsets-1" class="slide level2 smaller">
-<h2>Logical Record Subsets</h2>
-<p><strong>Example</strong>:</p>
-<ul>
-<li>Consider again the <strong>Family Guy</strong> data frame <code>family</code></li>
-<li>We subset Male characters using flag <code>family$sex == "M"</code></li>
-</ul>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Create flag vector for male Family Guy characters</span></span>
-<span id="cb38-2"><a aria-hidden="true" tabindex="-1"></a>flag <span class="ot">&lt;-</span> (family<span class="sc">$</span>sex <span class="sc">==</span> <span class="st">"M"</span>)</span>
-<span id="cb38-3"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Subset data frame "family" and store in data frame "subset"</span></span>
-<span id="cb38-5"><a aria-hidden="true" tabindex="-1"></a>subset <span class="ot">&lt;-</span> family[flag, ]</span>
-<span id="cb38-6"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-7"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Print subset</span></span>
-<span id="cb38-8"><a aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(subset)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>  person age sex funny age.months
-1  Peter  42   M  High        504
-4  Chris  14   M   Med        168
-5 Stewie   1   M  High         12
-6  Brian   7   M   Med         84</code></pre>
-</div>
-</div>
-</section></section>
-<section>
-<section id="part-3-data-entry" class="title-slide slide level1 center" data-background-color="#cc0164" data-visibility="uncounted">
-<h1>Part 3: <br>Data Entry</h1>
-<div class="footer">
-<div color="#cc0164">
-
-</div>
-</div>
-</section>
-<section id="reading-data-from-files" class="slide level2 smaller">
-<h2>Reading data from files</h2>
-<ul>
-<li><p>R has a many functions for reading <strong>characters</strong> from stored <strong>files</strong></p></li>
-<li><p>We will see how to read <strong>Table-Format</strong> files</p></li>
-<li><p><strong>Table-Formats</strong> are just tables stored in plain-text files</p></li>
-<li><p>Typical file estensions are:</p>
-<ul>
-<li><code>.txt</code> for plain-text files</li>
-<li><code>.csv</code> for comma-separated values</li>
-</ul></li>
-<li><p><strong>Table-Formats</strong> can be read into R with the command</p>
-<ul>
-<li><code>read.table()</code></li>
-</ul></li>
-</ul>
-</section>
-<section id="table-formats" class="slide level2 smaller">
-<h2>Table-Formats</h2>
-<h3 id="key-features">4 key features</h3>
-<ol type="1">
-<li><strong>Header</strong>:
-<ul>
-<li>If present, header should be the first line of the file</li>
-<li>Header is used to provide names for each column of data</li>
-<li>If a header is present, you need to tell this to R when importing</li>
-<li>If not, R cannot tell if first line is a header or observed data values</li>
-</ul></li>
-</ol>
-</section>
-<section id="table-formats-1" class="slide level2 smaller">
-<h2>Table-Formats</h2>
-<h3 id="key-features-1">4 key features</h3>
-<ol start="2" type="1">
-<li><strong>Delimiter</strong>:
-<ul>
-<li>A character used to separate the entries in each line</li>
-<li>Delimiter character cannot be used for anything else in the file</li>
-<li>Delimiter tells R when a specific entry begins and ends</li>
-<li>Default delimiter is <strong>whitespace</strong></li>
-</ul></li>
-</ol>
-</section>
-<section id="table-formats-2" class="slide level2 smaller">
-<h2>Table-Formats</h2>
-<h3 id="key-features-2">4 key features</h3>
-<ol start="3" type="1">
-<li><strong>Missing value</strong>:
-<ul>
-<li>Character string used exclusively to denote a missing value</li>
-<li>When reading the file, R will turn these entries into <code>NA</code></li>
-</ul></li>
-</ol>
-</section>
-<section id="table-formats-3" class="slide level2 smaller">
-<h2>Table-Formats</h2>
-<h3 id="key-features-3">4 key features</h3>
-<ol start="4" type="1">
-<li><strong>Comments</strong>:
-<ul>
-<li>Table files can include comments</li>
-<li>Comment lines start with <span class="math inline">\quad</span> <code>#</code></li>
-<li>R ignores such comments</li>
-</ul></li>
-</ol>
-</section>
-<section id="table-formats-4" class="slide level2 smaller">
-<h2>Table-Formats</h2>
-<h3 id="example">Example</h3>
-<ul>
-<li>Table-Format for <strong>Family Guy</strong> characters can be downloaded here <a href="datasets/family_guy.txt">family_guy.txt</a></li>
-</ul>
-<div class="column" style="width:54%;">
-<ul>
-<li>The text file looks like this</li>
-</ul>
-<p><img data-src="images/family_guy.png" style="width:78.0%"></p>
-</div><div class="column" style="width:44%;">
-<ul>
-<li>Remarks:
-<ul>
-<li>Header is present</li>
-<li>Delimiter is <strong>whitespace</strong></li>
-<li>Missing values denoted by <code>*</code></li>
-</ul></li>
-</ul>
-</div></section>
-<section id="read.table-command" class="slide level2 smaller">
-<h2>read.table command</h2>
-<ul>
-<li>Table-Formats can be read via <code>read.table()</code>
-<ul>
-<li>This reads a <code>.txt</code> or <code>.csv</code> file and outputs a data frame</li>
-</ul></li>
-<li>Options of <code>read.table()</code>
-<ul>
-<li><code>header = T/F</code> – Tells R if a header is present</li>
-<li><code>na.strings = "string"</code> – Tells R that <code>"string"</code> means <code>NA</code></li>
-</ul></li>
-</ul>
-</section>
-<section id="reading-our-first-table-format-file" class="slide level2 smaller">
-<h2>Reading our first Table-Format file</h2>
-<p>To read <code>family_guy.txt</code> into R proceed as follows:</p>
-<ol type="1">
-<li><p>Download <a href="datasets/family_guy.txt">family_guy.txt</a> and move file to Desktop</p></li>
-<li><p>Open the R Console and change working directory to <strong>Desktop</strong></p></li>
-</ol>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># In MacOS type</span></span>
-<span id="cb40-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">"~/Desktop"</span>)</span>
-<span id="cb40-3"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># In Windows type</span></span>
-<span id="cb40-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">"C:/Users/YourUsername/Desktop"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-<section id="reading-our-first-table-format-file-1" class="slide level2 smaller">
-<h2>Reading our first Table-Format file</h2>
-<ol start="3" type="1">
-<li>Read <code>family_guy.txt</code> into R and store it in data frame <code>family</code> with code</li>
-</ol>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a aria-hidden="true" tabindex="-1"></a>family <span class="ot">=</span> <span class="fu">read.table</span>(<span class="at">file =</span> <span class="st">"family_guy.txt"</span>,</span>
-<span id="cb41-2"><a aria-hidden="true" tabindex="-1"></a>                    <span class="at">header =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb41-3"><a aria-hidden="true" tabindex="-1"></a>                    <span class="at">na.strings =</span> <span class="st">"*"</span></span>
-<span id="cb41-4"><a aria-hidden="true" tabindex="-1"></a>                    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<ol start="4" type="1">
-<li>Note that we are telling <code>read.table()</code> that
-<ul>
-<li><code>family_guy.txt</code> has a header</li>
-<li>Missing values are denoted by <code>*</code></li>
-</ul></li>
-</ol>
-</section>
-<section id="reading-our-first-table-format-file-2" class="slide level2 smaller">
-<h2>Reading our first Table-Format file</h2>
-<div class="column" style="width:48%;">
-<ol start="5" type="1">
-<li>Print data frame <code>family</code> to screen</li>
-</ol>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(family)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>  person age sex funny age.mon
-1  Peter  NA   M  High     504
-2   Lois  40   F  &lt;NA&gt;     480
-3    Meg  17   F   Low     204
-4  Chris  14   M   Med     168
-5 Stewie   1   M  High      NA
-6  Brian  NA   M   Med      NA</code></pre>
-</div>
-</div>
-</div><div class="column" style="width:48%;">
-<ul>
-<li>For comparison this is the <code>.txt</code> file</li>
-</ul>
-<p><img data-src="images/family_guy.png" style="width:85.0%"></p>
-</div></section>
-<section id="application-t-test" class="slide level2 smaller">
-<h2>Application: t-test</h2>
-<p><strong>Example</strong>: Analysis of Consumer Confidence Index for 2008 crisis from Lecture 4</p>
-<ul>
-<li>We imported data into R using <code>c()</code></li>
-<li>This is ok for small datasets</li>
-<li>Suppose the CCI data is stored in a <code>.txt</code> file instead</li>
-</ul>
-<p><strong>Goal</strong>: Perform t-test on CCI difference for mean difference <span class="math inline">\mu = 0</span></p>
-<ul>
-<li>By reading CCI data into R using <code>read.table()</code></li>
-<li>By manipulating CCI data using <strong>data frames</strong></li>
-</ul>
-</section>
-<section id="application-t-test-1" class="slide level2 smaller">
-<h2>Application: t-test</h2>
-<ul>
-<li><p>The CCI dataset can be downloaded here <a href="datasets/2008_crisis.txt">2008_crisis.txt</a></p></li>
-<li><p>The text file looks like this</p></li>
-</ul>
-
-<img data-src="images/2008_crisis.png" style="width:78.0%" class="r-stretch"></section>
-<section id="application-t-test-2" class="slide level2 smaller">
-<h2>Application: t-test</h2>
-<p>To perform the t-test on data <code>2008_crisis.txt</code> we proceed as follows:</p>
-<ol type="1">
-<li><p>Download dataset <a href="datasets/2008_crisis.txt">2008_crisis.txt</a> and move file to Desktop</p></li>
-<li><p>Open the R Console and change working directory to <strong>Desktop</strong></p></li>
-</ol>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># In MacOS type</span></span>
-<span id="cb44-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">"~/Desktop"</span>)</span>
-<span id="cb44-3"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># In Windows type</span></span>
-<span id="cb44-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">"C:/Users/YourUsername/Desktop"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<ol start="3" type="1">
-<li>Read <code>2008_crisis.txt</code> into R and store it in data frame <code>scores</code> with code</li>
-</ol>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a aria-hidden="true" tabindex="-1"></a>scores <span class="ot">=</span> <span class="fu">read.table</span>(<span class="at">file =</span> <span class="st">"2008_crisis"</span>,</span>
-<span id="cb45-2"><a aria-hidden="true" tabindex="-1"></a>                    <span class="at">header =</span> <span class="cn">TRUE</span></span>
-<span id="cb45-3"><a aria-hidden="true" tabindex="-1"></a>                    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-<section id="application-t-test-3" class="slide level2 smaller">
-<h2>Application: t-test</h2>
-<ol start="4" type="1">
-<li>Store 2nd and 3rd columns of <code>scores</code> into 2 vectors</li>
-</ol>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># CCI from 2007 is stored in 2nd column</span></span>
-<span id="cb46-2"><a aria-hidden="true" tabindex="-1"></a>score_2007 <span class="ot">&lt;-</span> scores[, <span class="dv">2</span>]</span>
-<span id="cb46-3"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb46-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># CCI from 2009 is stored in 3nd column</span></span>
-<span id="cb46-5"><a aria-hidden="true" tabindex="-1"></a>score_2009 <span class="ot">&lt;-</span> scores[, <span class="dv">3</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<ol start="5" type="1">
-<li>Now the t-test can be performed as done in Lecture 4</li>
-</ol>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Compute vector of differences</span></span>
-<span id="cb47-2"><a aria-hidden="true" tabindex="-1"></a>difference <span class="ot">&lt;-</span> score_2007 <span class="sc">-</span> score_2009</span>
-<span id="cb47-3"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Perform t-test on difference with null hypothesis mu = 0</span></span>
-<span id="cb47-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(difference, <span class="at">mu =</span> <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-<section id="application-t-test-4" class="slide level2 smaller">
-<h2>Application: t-test</h2>
-<ol start="6" type="1">
-<li>We obtain the same result of Lecture 4
-<ul>
-<li>p-value is <span class="math inline">p &lt; 0.05</span></li>
-<li>Reject <span class="math inline">H_0</span>: The mean difference is not <span class="math inline">0</span></li>
-<li>In details, the output of <code>t.test</code> is below</li>
-</ul></li>
-</ol>
-<ul>
-<li>For convenience you can download the full code <a href="codes/2008_crisis_code.R">2008_crisis_code.R</a></li>
-</ul>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>
-    One Sample t-test
-
-data:  difference
-t = 38.144, df = 11, p-value = 4.861e-13
-alternative hypothesis: true mean is not equal to 0
-95 percent confidence interval:
- 68.15960 76.50706
-sample estimates:
-mean of x 
- 72.33333 </code></pre>
-</div>
-</div>
-</section></section>
-<section>
-<section id="part-4-r-style-guide" class="title-slide slide level1 center" data-background-color="#cc0164" data-visibility="uncounted">
-<h1>Part 4: <br>R Style Guide</h1>
+<section id="appendix-b-r-style-guide" class="title-slide slide level1 center" data-background-color="#cc0164" data-visibility="uncounted">
+<h1>Appendix B: <br>R Style Guide</h1>
 <div class="footer">
 <div color="#cc0164">
 
@@ -1304,16 +512,16 @@ mean of x
 <section id="file-names" class="slide level2 smaller">
 <h2>File names</h2>
 <p>They should be meaningful and end in .R</p>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Good</span></span>
-<span id="cb49-2"><a aria-hidden="true" tabindex="-1"></a>football<span class="sc">-</span>models.R  </span>
-<span id="cb49-3"><a aria-hidden="true" tabindex="-1"></a>utility<span class="sc">-</span>functions.R</span>
-<span id="cb49-4"><a aria-hidden="true" tabindex="-1"></a>homework_1.R</span>
-<span id="cb49-5"><a aria-hidden="true" tabindex="-1"></a>homework1.R</span>
-<span id="cb49-6"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-7"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Bad</span></span>
-<span id="cb49-8"><a aria-hidden="true" tabindex="-1"></a>footballmodels.r <span class="co"># Hard to read</span></span>
-<span id="cb49-9"><a aria-hidden="true" tabindex="-1"></a>stuff.r          <span class="co"># What is inside this file?</span></span>
-<span id="cb49-10"><a aria-hidden="true" tabindex="-1"></a>code.r           <span class="co"># Same as above</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Good</span></span>
+<span id="cb1-2"><a aria-hidden="true" tabindex="-1"></a>football<span class="sc">-</span>models.R  </span>
+<span id="cb1-3"><a aria-hidden="true" tabindex="-1"></a>utility<span class="sc">-</span>functions.R</span>
+<span id="cb1-4"><a aria-hidden="true" tabindex="-1"></a>homework_1.R</span>
+<span id="cb1-5"><a aria-hidden="true" tabindex="-1"></a>homework1.R</span>
+<span id="cb1-6"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Bad</span></span>
+<span id="cb1-8"><a aria-hidden="true" tabindex="-1"></a>footballmodels.r <span class="co"># Hard to read</span></span>
+<span id="cb1-9"><a aria-hidden="true" tabindex="-1"></a>stuff.r          <span class="co"># What is inside this file?</span></span>
+<span id="cb1-10"><a aria-hidden="true" tabindex="-1"></a>code.r           <span class="co"># Same as above</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="objects-names" class="slide level2 smaller">
 <h2>Objects names</h2>
@@ -1323,16 +531,16 @@ mean of x
 <li>Variable names should be nouns, not verbs</li>
 <li>Come up with names that are concise and meaningful</li>
 </ul>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Good</span></span>
-<span id="cb50-2"><a aria-hidden="true" tabindex="-1"></a>day_one  <span class="co"># This will clearly store the value of first day</span></span>
-<span id="cb50-3"><a aria-hidden="true" tabindex="-1"></a>day_1    <span class="co"># Still clear</span></span>
-<span id="cb50-4"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-5"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-6"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Bad</span></span>
-<span id="cb50-7"><a aria-hidden="true" tabindex="-1"></a>first_day_of_the_month  <span class="co"># Too long</span></span>
-<span id="cb50-8"><a aria-hidden="true" tabindex="-1"></a>dayone                  <span class="co"># Hard to read</span></span>
-<span id="cb50-9"><a aria-hidden="true" tabindex="-1"></a>DayOne                  <span class="co"># Mix of upper and lower case</span></span>
-<span id="cb50-10"><a aria-hidden="true" tabindex="-1"></a>fdm                     <span class="co"># Hard to guess what this means</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Good</span></span>
+<span id="cb2-2"><a aria-hidden="true" tabindex="-1"></a>day_one  <span class="co"># This will clearly store the value of first day</span></span>
+<span id="cb2-3"><a aria-hidden="true" tabindex="-1"></a>day_1    <span class="co"># Still clear</span></span>
+<span id="cb2-4"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Bad</span></span>
+<span id="cb2-7"><a aria-hidden="true" tabindex="-1"></a>first_day_of_the_month  <span class="co"># Too long</span></span>
+<span id="cb2-8"><a aria-hidden="true" tabindex="-1"></a>dayone                  <span class="co"># Hard to read</span></span>
+<span id="cb2-9"><a aria-hidden="true" tabindex="-1"></a>DayOne                  <span class="co"># Mix of upper and lower case</span></span>
+<span id="cb2-10"><a aria-hidden="true" tabindex="-1"></a>fdm                     <span class="co"># Hard to guess what this means</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="functions-names" class="slide level2 smaller">
 <h2>Functions names</h2>
@@ -1342,32 +550,32 @@ mean of x
 <li>Functions names should be verbs</li>
 <li>Come up with names that are concise and meaningful</li>
 </ul>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Good</span></span>
-<span id="cb51-2"><a aria-hidden="true" tabindex="-1"></a>DoNothing <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
-<span id="cb51-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">invisible</span>(<span class="cn">NULL</span>))</span>
-<span id="cb51-4"><a aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb51-5"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-6"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Bad</span></span>
-<span id="cb51-7"><a aria-hidden="true" tabindex="-1"></a>donothing <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
-<span id="cb51-8"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">invisible</span>(<span class="cn">NULL</span>))</span>
-<span id="cb51-9"><a aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Good</span></span>
+<span id="cb3-2"><a aria-hidden="true" tabindex="-1"></a>DoNothing <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
+<span id="cb3-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">invisible</span>(<span class="cn">NULL</span>))</span>
+<span id="cb3-4"><a aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-5"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Bad</span></span>
+<span id="cb3-7"><a aria-hidden="true" tabindex="-1"></a>donothing <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
+<span id="cb3-8"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">invisible</span>(<span class="cn">NULL</span>))</span>
+<span id="cb3-9"><a aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="object-and-functions-names" class="slide level2 smaller">
 <h2>Object and functions names</h2>
 <p>If possible avoid using names of existing functions and variables</p>
-<div class="sourceCode" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Bad</span></span>
-<span id="cb52-2"><a aria-hidden="true" tabindex="-1"></a>T <span class="ot">&lt;-</span> <span class="cn">FALSE</span>                  <span class="co"># T is reserved for the boolean TRUE</span></span>
-<span id="cb52-3"><a aria-hidden="true" tabindex="-1"></a>c <span class="ot">&lt;-</span> <span class="dv">10</span>                     <span class="co"># c denotes the concatenation operator</span></span>
-<span id="cb52-4"><a aria-hidden="true" tabindex="-1"></a>mean <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">sum</span>(x)  <span class="co"># mean already denotes a built in function</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Bad</span></span>
+<span id="cb4-2"><a aria-hidden="true" tabindex="-1"></a>T <span class="ot">&lt;-</span> <span class="cn">FALSE</span>                  <span class="co"># T is reserved for the boolean TRUE</span></span>
+<span id="cb4-3"><a aria-hidden="true" tabindex="-1"></a>c <span class="ot">&lt;-</span> <span class="dv">10</span>                     <span class="co"># c denotes the concatenation operator</span></span>
+<span id="cb4-4"><a aria-hidden="true" tabindex="-1"></a>mean <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">sum</span>(x)  <span class="co"># mean already denotes a built in function</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="assignment" class="slide level2 smaller">
 <h2>Assignment</h2>
 <p>Use <code>&lt;-</code> and not <code>=</code> for assignment</p>
-<div class="sourceCode" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Good</span></span>
-<span id="cb53-2"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">5</span></span>
-<span id="cb53-3"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Bad</span></span>
-<span id="cb53-5"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">=</span> <span class="dv">5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Good</span></span>
+<span id="cb5-2"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">5</span></span>
+<span id="cb5-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Bad</span></span>
+<span id="cb5-5"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">=</span> <span class="dv">5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="spacing" class="slide level2 smaller">
 <h2>Spacing</h2>
@@ -1377,11 +585,11 @@ mean of x
 <li>Place spaces around <code>=</code> when calling a function</li>
 <li>Always put a space after a comma, never before (like in regular English)</li>
 </ul>
-<div class="sourceCode" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Good</span></span>
-<span id="cb54-2"><a aria-hidden="true" tabindex="-1"></a>average <span class="ot">&lt;-</span> <span class="fu">mean</span>(feet <span class="sc">/</span> <span class="dv">12</span> <span class="sc">+</span> inches, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb54-3"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Bad</span></span>
-<span id="cb54-5"><a aria-hidden="true" tabindex="-1"></a>average<span class="ot">&lt;-</span><span class="fu">mean</span>(feet<span class="sc">/</span><span class="dv">12</span><span class="sc">+</span>inches,<span class="at">na.rm=</span><span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Good</span></span>
+<span id="cb6-2"><a aria-hidden="true" tabindex="-1"></a>average <span class="ot">&lt;-</span> <span class="fu">mean</span>(feet <span class="sc">/</span> <span class="dv">12</span> <span class="sc">+</span> inches, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb6-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Bad</span></span>
+<span id="cb6-5"><a aria-hidden="true" tabindex="-1"></a>average<span class="ot">&lt;-</span><span class="fu">mean</span>(feet<span class="sc">/</span><span class="dv">12</span><span class="sc">+</span>inches,<span class="at">na.rm=</span><span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="spacing-with-brackets" class="slide level2 smaller">
 <h2>Spacing with Brackets</h2>
@@ -1389,43 +597,43 @@ mean of x
 <li>Do not place spaces around code in parentheses or square brackets</li>
 <li>Unless there is a comma</li>
 </ul>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Good</span></span>
-<span id="cb55-2"><a aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (condition) <span class="fu">do</span>(x)</span>
-<span id="cb55-3"><a aria-hidden="true" tabindex="-1"></a>diamonds[<span class="dv">5</span>, ]</span>
-<span id="cb55-4"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-5"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Bad</span></span>
-<span id="cb55-6"><a aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> ( condition ) <span class="fu">do</span>(x)  <span class="co"># No spaces around condition</span></span>
-<span id="cb55-7"><a aria-hidden="true" tabindex="-1"></a>x[<span class="dv">1</span>,]                   <span class="co"># Needs a space after the comma</span></span>
-<span id="cb55-8"><a aria-hidden="true" tabindex="-1"></a>x[<span class="dv">1</span> ,]                  <span class="co"># Space goes after comma not before</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Good</span></span>
+<span id="cb7-2"><a aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (condition) <span class="fu">do</span>(x)</span>
+<span id="cb7-3"><a aria-hidden="true" tabindex="-1"></a>diamonds[<span class="dv">5</span>, ]</span>
+<span id="cb7-4"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Bad</span></span>
+<span id="cb7-6"><a aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> ( condition ) <span class="fu">do</span>(x)  <span class="co"># No spaces around condition</span></span>
+<span id="cb7-7"><a aria-hidden="true" tabindex="-1"></a>x[<span class="dv">1</span>,]                   <span class="co"># Needs a space after the comma</span></span>
+<span id="cb7-8"><a aria-hidden="true" tabindex="-1"></a>x[<span class="dv">1</span> ,]                  <span class="co"># Space goes after comma not before</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="spacing---exceptions" class="slide level2 smaller">
 <h2>Spacing - Exceptions</h2>
 <ul>
 <li>Symbols <code>:</code>, <code>::</code> and <code>:::</code> do not need spacing</li>
 </ul>
-<div class="sourceCode" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Good</span></span>
-<span id="cb56-2"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span></span>
-<span id="cb56-3"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Bad</span></span>
-<span id="cb56-5"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">:</span> <span class="dv">10</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Good</span></span>
+<span id="cb8-2"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span></span>
+<span id="cb8-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Bad</span></span>
+<span id="cb8-5"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">:</span> <span class="dv">10</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
 <li>Place a space before left parentheses, except in a function call</li>
 </ul>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a aria-hidden="true" tabindex="-1"></a><span class="co">#Good</span></span>
-<span id="cb57-2"><a aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (condition) <span class="fu">do</span>(x)</span>
-<span id="cb57-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y)</span>
-<span id="cb57-4"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb57-5"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Bad</span></span>
-<span id="cb57-6"><a aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(condition)<span class="fu">do</span>(x)    <span class="co"># (condition) needs spacing</span></span>
-<span id="cb57-7"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span> (x, y)           <span class="co"># This does not need spacing</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a aria-hidden="true" tabindex="-1"></a><span class="co">#Good</span></span>
+<span id="cb9-2"><a aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (condition) <span class="fu">do</span>(x)</span>
+<span id="cb9-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y)</span>
+<span id="cb9-4"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Bad</span></span>
+<span id="cb9-6"><a aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(condition)<span class="fu">do</span>(x)    <span class="co"># (condition) needs spacing</span></span>
+<span id="cb9-7"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span> (x, y)           <span class="co"># This does not need spacing</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="extra-spacing" class="slide level2 smaller">
 <h2>Extra Spacing</h2>
 <p>Extra spacing is ok if it improves alignment of <code>=</code> or <code>&lt;-</code></p>
-<div class="sourceCode" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">list</span>(</span>
-<span id="cb58-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">total =</span> a <span class="sc">+</span> b <span class="sc">+</span> c, </span>
-<span id="cb58-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">mean  =</span> (a <span class="sc">+</span> b <span class="sc">+</span> c) <span class="sc">/</span> n</span>
-<span id="cb58-4"><a aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">list</span>(</span>
+<span id="cb10-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">total =</span> a <span class="sc">+</span> b <span class="sc">+</span> c, </span>
+<span id="cb10-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">mean  =</span> (a <span class="sc">+</span> b <span class="sc">+</span> c) <span class="sc">/</span> n</span>
+<span id="cb10-4"><a aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="curly-braces" class="slide level2 smaller">
 <h2>Curly braces</h2>
@@ -1435,25 +643,25 @@ mean of x
 <li>Always <strong>indent</strong> the code inside curly braces</li>
 </ul>
 <div class="column" style="width:45%;">
-<div class="sourceCode" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Good</span></span>
-<span id="cb59-2"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb59-3"><a aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (y <span class="sc">&lt;</span> <span class="dv">0</span> <span class="sc">&amp;&amp;</span> debug) {</span>
-<span id="cb59-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">message</span>(<span class="st">"Y is negative"</span>)</span>
-<span id="cb59-5"><a aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb59-6"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb59-7"><a aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (y <span class="sc">==</span> <span class="dv">0</span>) {</span>
-<span id="cb59-8"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">log</span>(x)</span>
-<span id="cb59-9"><a aria-hidden="true" tabindex="-1"></a>} </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Good</span></span>
+<span id="cb11-2"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (y <span class="sc">&lt;</span> <span class="dv">0</span> <span class="sc">&amp;&amp;</span> debug) {</span>
+<span id="cb11-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">message</span>(<span class="st">"Y is negative"</span>)</span>
+<span id="cb11-5"><a aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb11-6"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-7"><a aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (y <span class="sc">==</span> <span class="dv">0</span>) {</span>
+<span id="cb11-8"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">log</span>(x)</span>
+<span id="cb11-9"><a aria-hidden="true" tabindex="-1"></a>} </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column" style="width:45%;">
-<div class="sourceCode" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Bad</span></span>
-<span id="cb60-2"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-3"><a aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (y <span class="sc">&lt;</span> <span class="dv">0</span> <span class="sc">&amp;&amp;</span> debug)</span>
-<span id="cb60-4"><a aria-hidden="true" tabindex="-1"></a><span class="fu">message</span>(<span class="st">"Y is negative"</span>)</span>
-<span id="cb60-5"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-6"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-7"><a aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (y <span class="sc">==</span> <span class="dv">0</span>) </span>
-<span id="cb60-8"><a aria-hidden="true" tabindex="-1"></a>{</span>
-<span id="cb60-9"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">log</span>(x)} </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Bad</span></span>
+<span id="cb12-2"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (y <span class="sc">&lt;</span> <span class="dv">0</span> <span class="sc">&amp;&amp;</span> debug)</span>
+<span id="cb12-4"><a aria-hidden="true" tabindex="-1"></a><span class="fu">message</span>(<span class="st">"Y is negative"</span>)</span>
+<span id="cb12-5"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-6"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-7"><a aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (y <span class="sc">==</span> <span class="dv">0</span>) </span>
+<span id="cb12-8"><a aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb12-9"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">log</span>(x)} </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></section>
 <section id="line-length" class="slide level2 smaller">
 <h2>Line length</h2>
@@ -1470,19 +678,19 @@ mean of x
 <li>Never use tabs or mix tabs and spaces</li>
 <li>Indentation should be used for <strong>functions</strong>, <strong>if</strong>, <strong>for</strong>, etc.</li>
 </ul>
-<div class="sourceCode" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a aria-hidden="true" tabindex="-1"></a>SumTwoNumbers <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) {</span>
-<span id="cb61-2"><a aria-hidden="true" tabindex="-1"></a>  s <span class="ot">=</span> x <span class="sc">+</span> y</span>
-<span id="cb61-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(s)</span>
-<span id="cb61-4"><a aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a aria-hidden="true" tabindex="-1"></a>SumTwoNumbers <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) {</span>
+<span id="cb13-2"><a aria-hidden="true" tabindex="-1"></a>  s <span class="ot">=</span> x <span class="sc">+</span> y</span>
+<span id="cb13-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(s)</span>
+<span id="cb13-4"><a aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="indentation---exception" class="slide level2 smaller">
 <h2>Indentation - Exception</h2>
 <p>If a function definition runs over multiple lines, indent the second line to where the definition starts</p>
-<div class="sourceCode" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a aria-hidden="true" tabindex="-1"></a>long_function_name <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">a =</span> <span class="st">"a long argument"</span>, </span>
-<span id="cb62-2"><a aria-hidden="true" tabindex="-1"></a>                               <span class="at">b =</span> <span class="st">"another argument"</span>,</span>
-<span id="cb62-3"><a aria-hidden="true" tabindex="-1"></a>                               <span class="at">c =</span> <span class="st">"another long argument"</span>) {</span>
-<span id="cb62-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="co"># As usual code is indented by two spaces.</span></span>
-<span id="cb62-5"><a aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a aria-hidden="true" tabindex="-1"></a>long_function_name <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">a =</span> <span class="st">"a long argument"</span>, </span>
+<span id="cb14-2"><a aria-hidden="true" tabindex="-1"></a>                               <span class="at">b =</span> <span class="st">"another argument"</span>,</span>
+<span id="cb14-3"><a aria-hidden="true" tabindex="-1"></a>                               <span class="at">c =</span> <span class="st">"another long argument"</span>) {</span>
+<span id="cb14-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="co"># As usual code is indented by two spaces.</span></span>
+<span id="cb14-5"><a aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="use-explicit-returns" class="slide level2 smaller">
 <h2>Use explicit returns</h2>
@@ -1491,15 +699,15 @@ mean of x
 <li>R has an implicit return feature</li>
 <li>Do not rely on this feature, but explicitly mention <code>return(object)</code></li>
 </ul>
-<div class="sourceCode" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Good</span></span>
-<span id="cb63-2"><a aria-hidden="true" tabindex="-1"></a>AddValues <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) {</span>
-<span id="cb63-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(x <span class="sc">+</span> y)                     <span class="co"># Function returns x+y</span></span>
-<span id="cb63-4"><a aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb63-5"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb63-6"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Bad</span></span>
-<span id="cb63-7"><a aria-hidden="true" tabindex="-1"></a>AddValues <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) {</span>
-<span id="cb63-8"><a aria-hidden="true" tabindex="-1"></a>  x <span class="sc">+</span> y                             <span class="co"># Function still returns x+y</span></span>
-<span id="cb63-9"><a aria-hidden="true" tabindex="-1"></a>}                                   <span class="co"># but it is not immediate to see it</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Good</span></span>
+<span id="cb15-2"><a aria-hidden="true" tabindex="-1"></a>AddValues <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) {</span>
+<span id="cb15-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(x <span class="sc">+</span> y)                     <span class="co"># Function returns x+y</span></span>
+<span id="cb15-4"><a aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb15-5"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-6"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Bad</span></span>
+<span id="cb15-7"><a aria-hidden="true" tabindex="-1"></a>AddValues <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) {</span>
+<span id="cb15-8"><a aria-hidden="true" tabindex="-1"></a>  x <span class="sc">+</span> y                             <span class="co"># Function still returns x+y</span></span>
+<span id="cb15-9"><a aria-hidden="true" tabindex="-1"></a>}                                   <span class="co"># but it is not immediate to see it</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="named-arguments" class="slide level2 smaller">
 <h2>Named arguments</h2>
@@ -1516,11 +724,11 @@ mean of x
 <li>It is therefore good practice to <strong>name arguments</strong></li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Good</span></span>
-<span id="cb64-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">1</span>, <span class="at">to =</span> <span class="dv">11</span>, <span class="at">by =</span> <span class="dv">1</span>)</span>
-<span id="cb64-3"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb64-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Bad</span></span>
-<span id="cb64-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">11</span>, <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Good</span></span>
+<span id="cb16-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">1</span>, <span class="at">to =</span> <span class="dv">11</span>, <span class="at">by =</span> <span class="dv">1</span>)</span>
+<span id="cb16-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Bad</span></span>
+<span id="cb16-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">11</span>, <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="comments" class="slide level2 smaller">
 <h2>Comments</h2>
@@ -1528,14 +736,14 @@ mean of x
 <li><strong>Most importantly</strong>: Comment your code</li>
 <li>Each line of a comment should begin with comment symbol <code>#</code> and a single space</li>
 </ul>
-<div class="sourceCode" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Here we sum two numbers  </span></span>
-<span id="cb65-2"><a aria-hidden="true" tabindex="-1"></a>x<span class="sc">+</span>y</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Here we sum two numbers  </span></span>
+<span id="cb17-2"><a aria-hidden="true" tabindex="-1"></a>x<span class="sc">+</span>y</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
 <li>Use commented lines of <code>-</code> and <code>=</code> to break up code into easily readable chunks</li>
 </ul>
-<div class="sourceCode" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Load data ---------------------------</span></span>
-<span id="cb66-2"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb66-3"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Plot data ---------------------------</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Load data ---------------------------</span></span>
+<span id="cb18-2"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Plot data ---------------------------</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 <div class="quarto-auto-generated-content">
 <div class="footer footer-default">
@@ -1734,44 +942,6 @@ mean of x
         ]
       });
     </script>
-    
-    <script>
-      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
-      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
-      // slide changes (different for each slide format).
-      (function () {
-        // dispatch for htmlwidgets
-        function fireSlideEnter() {
-          const event = window.document.createEvent("Event");
-          event.initEvent("slideenter", true, true);
-          window.document.dispatchEvent(event);
-        }
-
-        function fireSlideChanged(previousSlide, currentSlide) {
-          fireSlideEnter();
-
-          // dispatch for shiny
-          if (window.jQuery) {
-            if (previousSlide) {
-              window.jQuery(previousSlide).trigger("hidden");
-            }
-            if (currentSlide) {
-              window.jQuery(currentSlide).trigger("shown");
-            }
-          }
-        }
-
-        // hookup for slidy
-        if (window.w3c_slidy) {
-          window.w3c_slidy.add_observer(function (slide_num) {
-            // slide_num starts at position 1
-            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
-          });
-        }
-
-      })();
-    </script>
-
     <script id="quarto-html-after-body" type="application/javascript">
     window.document.addEventListener("DOMContentLoaded", function (event) {
       const toggleBodyColorMode = (bsSheetEl) => {

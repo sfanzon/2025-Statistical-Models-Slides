@@ -33,6 +33,22 @@
     }
   </style>
   <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto.css">
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
   <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -324,39 +340,15 @@
   </style>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
   <style>
-  .Axiom {
+  .Warning {
     --color1: #f4cce0;
     --color2: #db4d92;
-  }
-  .Theorem {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .TODO {
-    --color1: #e7b1b4;
-    --color2: #8c3236;
-  }
-  .Definition {
-    --color1: #c6e6ed;
-    --color2: #1995ad;
   }
   .Important {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
-  .Warning {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Proposition {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Idea {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Question {
+  .Problem {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
@@ -364,37 +356,61 @@
     --color1: #cce7b1;
     --color2: #86b754;
   }
-  .Remark {
-    --color1: #bce5de;
-    --color2: #21aa93;
-  }
-  .Notation {
-    --color1: #c6e6ed;
-    --color2: #1995ad;
-  }
-  .Proof {
-    --color1: #f1f1f2;
-    --color2: #c0c0c1;
+  .Conjecture {
+    --color1: #f4cce0;
+    --color2: #db4d92;
   }
   .Lemma {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
-  .Example {
+  .Idea {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Theorem {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Remark {
     --color1: #bce5de;
     --color2: #21aa93;
   }
-  .Problem {
-    --color1: #f4cce0;
-    --color2: #db4d92;
+  .Definition {
+    --color1: #c6e6ed;
+    --color2: #1995ad;
   }
   .Corollary {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
-  .Conjecture {
+  .Proposition {
     --color1: #f4cce0;
     --color2: #db4d92;
+  }
+  .Proof {
+    --color1: #f1f1f2;
+    --color2: #c0c0c1;
+  }
+  .Example {
+    --color1: #bce5de;
+    --color2: #21aa93;
+  }
+  .Axiom {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Notation {
+    --color1: #c6e6ed;
+    --color2: #1995ad;
+  }
+  .Question {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .TODO {
+    --color1: #e7b1b4;
+    --color2: #8c3236;
   }
   </style>
 </head>
@@ -449,6 +465,7 @@
 </div>
 </section>
 
+<section>
 <section id="part-7-ancova" class="title-slide slide level1 center" data-background-color="#cc0164" data-visibility="uncounted">
 <h1>Part 7: <br> ANCOVA</h1>
 <div class="footer">
@@ -461,13 +478,112 @@
 
 </div>
 </div>
+</section>
+<section id="section" class="slide level2 smaller">
+<h2></h2>
+<ul>
+<li><p>ANOVA is lesson 11 John</p></li>
+<li><p>John never really defines ANOVA as generalization of t-test to multiple populations</p></li>
+<li><p>That’s clever to be quicker. But I would do it the classic way and follow Verzani or DeGroot</p></li>
+<li><p>It would be good do classic ANOVA and then connect to regression</p></li>
+<li><p>Best way would be to do ANOVA classically + R (DeGroot and Verzani 12.1)</p></li>
+<li><p>Then do ANOVA and Linear regression interpretation</p></li>
+<li><p>Then move to dummy variable models and ANCOVA</p></li>
+</ul>
+</section>
+<section id="section-1" class="slide level2 smaller">
+<h2></h2>
+<ul>
+<li>We have already seen how regression can be used to perform t-test
+<ul>
+<li>With two dummy variables <span class="math inline">1_A</span> and <span class="math inline">1_B</span></li>
+<li>With one dummy variable <span class="math inline">1_A</span> (in this case it would be good to give exercise to compute t-statistic for <span class="math inline">\beta</span> explicitly and see it coincides with t-statistic for two-sample t-test with common variance (pooled estimator))</li>
+</ul></li>
+<li>Anova generalizes t-test. Therefore linear regression can be used for ANOVA in 2 ways:
+<ul>
+<li>1 dummy variable for each population</li>
+<li><span class="math inline">k-1</span> dummy variables</li>
+</ul></li>
+<li>For this see Verzani section 12.2</li>
+</ul>
+</section>
+<section id="section-2" class="slide level2 smaller">
+<h2></h2>
+<ul>
+<li>He does the examples of t-test as simple regression that I covered in exercises</li>
+</ul>
+<p><span class="math display">
+Y_i = \alpha + \beta 1_{A}(i)  + \varepsilon_i
+</span></p>
+<p>where <span class="math inline">1_{A}(i) = 1</span> if sample i is from population <span class="math inline">A</span> and <span class="math inline">0</span> if not. Turns out <span class="math inline">1_A</span> is just a factor</p>
+<ul>
+<li>It also does the case of t-test intepreted as multiple regression with two dummy variables without intercept</li>
+</ul>
+<p><span class="math display">
+Y_i = \beta_1 1_{A}(i) + \beta_2 1_B(i) + \varepsilon_i
+</span></p>
+<p>where <span class="math inline">1_{A}(i) = 1</span> if sample i is from population <span class="math inline">A</span> and <span class="math inline">0</span> if not. Same for <span class="math inline">1_B(i)</span></p>
+<p>Some slides I already made</p>
+</section>
+<section id="what-is-anova" class="slide level2 smaller">
+<h2>What is ANOVA?</h2>
+<ul>
+<li><p>ANOVA stands for Analysis of Variance</p></li>
+<li><p>ANOVA is a generalization of the t-test for two independent samples</p>
+<ul>
+<li>ANOVA allows to compare the means of several independent populations</li>
+</ul></li>
+<li><p>In the <em>Fridge Sales</em> example the populations are the 4 <em>Quarters</em></p>
+<ul>
+<li>For each quarter we have a list of <em>Fridge sales</em> values</li>
+<li>We want to compare average fridge sales for each Quarter</li>
+</ul></li>
+<li><p>ANOVA hypothesis test: is there a difference in average sales for each Quarter?</p>
+<ul>
+<li>If <span class="math inline">\mu_{i}</span> is average sales in Quarter <span class="math inline">i</span> then <span class="math display">\begin{align*}
+  H_0 &amp; \colon \mu_{1} =  \mu_{2} =  \mu_{3} =  \mu_{4}  \\
+  H_1 &amp; \colon  \mu_i \neq \mu_j \, \text{ for at least one pair i and j}
+  \end{align*}</span></li>
+</ul></li>
+</ul>
+</section>
+<section id="linear-regression-for-anova" class="slide level2 smaller">
+<h2>Linear Regression for ANOVA</h2>
+<ul>
+<li><p>Already seen that linear regression can be used to perform two-sample t-test</p></li>
+<li><p>There were 2 main ideas</p>
+<ul>
+<li>One shown in Lecture 8</li>
+<li>The other shown in Homework</li>
+</ul></li>
+<li><p>The same ideas apply to ANOVA with <span class="math inline">k</span> populations</p></li>
+<li><p>Let us recall these ideas</p></li>
+</ul>
+</section>
+<section id="recap-linear-regression-for-t-test" class="slide level2 smaller">
+<h2>Recap: Linear Regression for t-test</h2>
+<ul>
+<li><p>We have 2 populations <span class="math inline">A</span> and <span class="math inline">B</span> distributed like <span class="math inline">N(\mu_A, \sigma_A^2)</span> and <span class="math inline">N(\mu_B, \sigma_B^2)</span></p></li>
+<li><p>We have two samples</p>
+<ul>
+<li>Sample of size <span class="math inline">n_A</span> from population <span class="math inline">A</span> <span class="math display">
+a = (a_1, \ldots, a_{n_A})
+</span></li>
+<li>Sample of size <span class="math inline">n_B</span> from population <span class="math inline">B</span> <span class="math display">
+b = (b_1, \ldots, b_{n_B})
+</span></li>
+</ul></li>
+<li><p>Two-sample t-test compares means <span class="math inline">\mu_A</span> and <span class="math inline">\mu_B</span> by computing t-statistic <span class="math display">
+t = \frac{ \overline{a} - \overline{b} }{\mathop{\mathrm{e.s.e.}}}
+</span></p></li>
+</ul>
 
 <div class="quarto-auto-generated-content">
 <div class="footer footer-default">
 <p><a href="../index.html">Homepage</a> &nbsp;&nbsp;&nbsp;&nbsp; <a href="../license.html">License</a> &nbsp;&nbsp;&nbsp;&nbsp; <a href="https://www.silviofanzon.com/contact">Contact</a></p>
 </div>
 </div>
-</section>
+</section></section>
     </div>
   </div>
 

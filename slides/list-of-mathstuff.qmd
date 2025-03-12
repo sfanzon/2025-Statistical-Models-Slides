@@ -1,1 +1,22 @@
 \providecommand{\Pageref}[1]{\hfill p.\pageref{#1}}
+ [**Definition**](#Definition*-2.1)\Pageref{Definition*-2.1}
+
+ [**Idea**](#Idea*-2.2)\Pageref{Idea*-2.2}
+
+ [**Problem**](#Problem*-2.3)\Pageref{Problem*-2.3}
+
+ [**Definition**](#Definition*-2.4)\Pageref{Definition*-2.4}
+
+ [**Definition**](#Definition*-2.5)\Pageref{Definition*-2.5}
+
+ [**Proposition**](#Proposition*-2.6)\Pageref{Proposition*-2.6}
+
+ [**Definition**](#Definition*-2.7)\Pageref{Definition*-2.7}
+
+ [**Proposition**](#Proposition*-2.8)\Pageref{Proposition*-2.8}
+
+ [**Problem**](#Problem*-2.9)\Pageref{Problem*-2.9}
+
+ [**Question**](#Question*-2.10)\Pageref{Question*-2.10}
+
+ [**Theorem**](#Theorem*-2.11)\Pageref{Theorem*-2.11}

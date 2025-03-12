@@ -33,6 +33,22 @@
     }
   </style>
   <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto.css">
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
   <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -324,27 +340,7 @@
   </style>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
   <style>
-  .Important {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Lemma {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .TODO {
-    --color1: #e7b1b4;
-    --color2: #8c3236;
-  }
-  .Conjecture {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Theorem {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Idea {
+  .Proposition {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
@@ -352,35 +348,7 @@
     --color1: #bce5de;
     --color2: #21aa93;
   }
-  .Question {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Corollary {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Remark {
-    --color1: #bce5de;
-    --color2: #21aa93;
-  }
-  .Proposition {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Axiom {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Warning {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Definition {
-    --color1: #c6e6ed;
-    --color2: #1995ad;
-  }
-  .Problem {
+  .Conjecture {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
@@ -388,13 +356,61 @@
     --color1: #cce7b1;
     --color2: #86b754;
   }
-  .Notation {
-    --color1: #c6e6ed;
-    --color2: #1995ad;
+  .Problem {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Question {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Lemma {
+    --color1: #f4cce0;
+    --color2: #db4d92;
   }
   .Proof {
     --color1: #f1f1f2;
     --color2: #c0c0c1;
+  }
+  .Theorem {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Notation {
+    --color1: #c6e6ed;
+    --color2: #1995ad;
+  }
+  .TODO {
+    --color1: #e7b1b4;
+    --color2: #8c3236;
+  }
+  .Idea {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Warning {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Corollary {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Important {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Definition {
+    --color1: #c6e6ed;
+    --color2: #1995ad;
+  }
+  .Remark {
+    --color1: #bce5de;
+    --color2: #21aa93;
+  }
+  .Axiom {
+    --color1: #f4cce0;
+    --color2: #db4d92;
   }
   </style>
 </head>
@@ -423,7 +439,7 @@
 </section>
 <section>
 <section id="lecture-8-the-maths-of-regression" class="title-slide slide level1 center" data-background-color="#cc0164" data-visibility="uncounted">
-<h1>Lecture 8: <br>The maths of <br>regression</h1>
+<h1>Lecture 8: <br>The Maths of <br>Regression</h1>
 <div class="footer">
 <div color="#cc0164">
 
@@ -432,6 +448,567 @@
 </section>
 <section id="outline-of-lecture-8" class="slide level2">
 <h2>Outline of Lecture 8</h2>
+<ol start="8" type="1">
+<li>Simple linear regression</li>
+</ol>
+</section></section>
+<section>
+<section id="part-5-simple-linear-regression" class="title-slide slide level1 center" data-background-color="#cc0164" data-visibility="uncounted">
+<h1>Part 5: <br>Simple linear<br>regression</h1>
+<div class="footer">
+<div color="#cc0164">
+
+</div>
+</div>
+</section>
+<section id="simple-linear-regression" class="slide level2 smaller">
+<h2>Simple linear regression</h2>
+<h3 id="motivation">Motivation</h3>
+<ul>
+<li><strong>Model:</strong> Suppose to have two random variables <span class="math inline">X</span> and <span class="math inline">Y</span>
+<ul>
+<li><span class="math inline">X</span> models <em>observed values</em></li>
+<li><span class="math inline">Y</span> models a <em>response</em></li>
+</ul></li>
+<li><strong>Goal of Regression:</strong> Learn the distribution of <span class="math display">
+Y | X
+</span>
+<ul>
+<li><span class="math inline">Y | X</span> allows to predict values of <span class="math inline">Y</span> from values of <span class="math inline">X</span></li>
+</ul></li>
+</ul>
+</section>
+<section id="simple-linear-regression-1" class="slide level2 smaller">
+<h2>Simple linear regression</h2>
+<h3 id="motivation-1">Motivation</h3>
+<ul>
+<li><p><strong>Note:</strong> To learn <span class="math inline">Y|X</span> one would need <strong>joint distribution</strong> of <span class="math inline">(X,Y)</span></p></li>
+<li><p><strong>Problem:</strong> The joint distribution of <span class="math inline">(X,Y)</span> is <strong>unknown</strong></p></li>
+<li><p><strong>Data</strong>: We have partial knowledge on <span class="math inline">(X,Y)</span> in the form of</p>
+<ul>
+<li>paired observations <span class="math display">(x_1,y_1) , \ldots, (x_n,y_n)</span></li>
+<li><span class="math inline">(x_i,y_i)</span> is observed from <span class="math inline">(X,Y)</span></li>
+</ul></li>
+<li><p><strong>Goal:</strong>Use the data to learn <span class="math inline">Y|X</span></p></li>
+</ul>
+</section>
+<section id="simple-linear-regression-2" class="slide level2 smaller">
+<h2>Simple linear regression</h2>
+<h3 id="motivation-2">Motivation</h3>
+<div class="column" style="width:50%;">
+<p><strong>Least-Squares:</strong></p>
+<ul>
+<li><p>Naive solution to regression problem</p></li>
+<li><p>Find a line of best fit <span class="math display">
+y = \hat \alpha + \hat \beta x
+</span></p></li>
+<li><p>Such line explains the data, i.e., <span class="math display">
+y_i  \ \approx \ \hat \alpha + \hat \beta x_i
+</span></p></li>
+</ul>
+</div><div class="column" style="width:48%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="lecture_8_files/figure-revealjs/unnamed-chunk-1-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></section>
+<section id="simple-linear-regression-3" class="slide level2 smaller">
+<h2>Simple linear regression</h2>
+<h3 id="motivation-3">Motivation</h3>
+<div class="column" style="width:50%;">
+<p><strong>Drawbacks of least squares:</strong></p>
+<ul>
+<li><p>Only predicts values of <span class="math inline">y</span> such that <span class="math display">
+(x,y)  \, \in \, \text{ Line}
+</span></p></li>
+<li><p>Ignores that <span class="math inline">(x_i,y_i)</span> comes from joint distribution <span class="math inline">(X,Y)</span></p></li>
+</ul>
+</div><div class="column" style="width:48%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="lecture_8_files/figure-revealjs/unnamed-chunk-2-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></section>
+<section id="simple-linear-regression-4" class="slide level2 smaller">
+<h2>Simple linear regression</h2>
+<h3 id="motivation-4">Motivation</h3>
+<div class="column" style="width:50%;">
+<p><strong>Linear Regression:</strong></p>
+<ul>
+<li><p>Find a <strong>regression line</strong> <span class="math display">
+R(x) = \alpha + \beta x
+</span></p></li>
+<li><p><span class="math inline">R(x)</span> predicts <strong>most likely</strong> value of <span class="math inline">Y</span> when <span class="math inline">X = x</span></p></li>
+</ul>
+</div><div class="column" style="width:48%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="lecture_8_files/figure-revealjs/unnamed-chunk-3-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></section>
+<section id="simple-linear-regression-5" class="slide level2 smaller">
+<h2>Simple linear regression</h2>
+<h3 id="motivation-5">Motivation</h3>
+<div class="column" style="width:50%;">
+<p><strong>Linear Regression:</strong></p>
+<ul>
+<li><p>We will see that regression line coincides with line of best fit <span class="math display">
+R(x) = \hat \alpha + \hat \beta x
+</span></p></li>
+<li><p>Hence regression gives statistical meaning to the line of best fit</p></li>
+</ul>
+</div><div class="column" style="width:48%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="lecture_8_files/figure-revealjs/unnamed-chunk-4-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></section>
+<section id="regression-function" class="slide level2 smaller">
+<h2>Regression function</h2>
+<h3 id="definition">Definition</h3>
+<p>Suppose given two random variables <span class="math inline">X</span> and <span class="math inline">Y</span></p>
+<div class="column" style="width:30%;">
+<ul>
+<li><span class="math inline">X</span> is the <strong>predictor</strong></li>
+</ul>
+</div><div class="column" style="width:49%;">
+<ul>
+<li><span class="math inline">Y</span> is the <strong>response</strong></li>
+</ul>
+</div><div id="Definition*-2.1" class="Definition">
+<p></p><details class="Definition fbx-simplebox fbx-default" open=""><summary><strong>Definition</strong></summary><div>The <strong>regression function</strong> of <span class="math inline">Y</span> on <span class="math inline">X</span> is the conditional expectation<p></p>
+<p><span class="math display">
+R \colon \mathbb{R}\to \mathbb{R}\,, \qquad \quad R(x) :=  {\rm I\kern-.3em E}[Y | X = x]
+</span></p>
+</div></details>
+</div>
+</section>
+<section id="regression-function-1" class="slide level2 smaller">
+<h2>Regression function</h2>
+<h3 id="interpretation">Interpretation</h3>
+<div id="Idea*-2.2" class="Idea">
+<p></p><details class="Idea fbx-simplebox fbx-default" open=""><summary><strong>Idea</strong></summary><div>The regression function <span class="math display">
+R(x) = {\rm I\kern-.3em E}[Y | X = x]
+</span> predicts the most likely value of <span class="math inline">Y</span> when we observe <span class="math display">
+X = x
+</span><p></p>
+</div></details>
+</div>
+<p><strong>Notation:</strong> We use the shorthand <span class="math display">
+{\rm I\kern-.3em E}[Y|x] := {\rm I\kern-.3em E}[Y | X = x]
+</span></p>
+</section>
+<section id="the-regression-problem" class="slide level2 smaller">
+<h2>The regression problem</h2>
+<p><strong>Assumption:</strong> Suppose to have <span class="math inline">n</span> observations <span class="math inline">(x_1,y_1) \,, \ldots , (x_n, y_n)</span></p>
+<div class="column" style="width:30%;">
+<ul>
+<li><span class="math inline">x_i</span> observed from <span class="math inline">X</span></li>
+</ul>
+</div><div class="column" style="width:30%;">
+<ul>
+<li><span class="math inline">y_i</span> observed from <span class="math inline">Y</span></li>
+</ul>
+</div><div id="Problem*-2.3" class="Problem">
+<p></p><details class="Problem fbx-simplebox fbx-default" open=""><summary><strong>Problem</strong></summary><div>From <span class="math inline">(x_1,y_1) \,, \ldots , (x_n, y_n)</span> learn a regression function <span class="math display">
+{\rm I\kern-.3em E}[Y | x]
+</span> which explains the observations, that is, <span class="math display">
+{\rm I\kern-.3em E}[Y | x_i] \ \approx \ y_i \,, \qquad \forall \, i = 1 , \ldots, n
+</span><p></p>
+</div></details>
+</div>
+</section>
+<section id="simple-linear-regression-6" class="slide level2 smaller">
+<h2>Simple linear regression</h2>
+<ul>
+<li><p>Regression problem is difficult without prior knowledge on <span class="math inline">{\rm I\kern-.3em E}[Y | x]</span></p></li>
+<li><p>A popular model is to assume that <span class="math inline">{\rm I\kern-.3em E}[Y | x]</span> is linear</p></li>
+</ul>
+<div id="Definition*-2.4" class="Definition">
+<p></p><details class="Definition fbx-simplebox fbx-default" open=""><summary><strong>Definition</strong></summary><div>The regression function of <span class="math inline">Y</span> on <span class="math inline">X</span> is <strong>linear</strong> if there exist <span class="math inline">\alpha</span> and <span class="math inline">\beta</span> s.t. <span class="math display">
+{\rm I\kern-.3em E}[Y | x] = \alpha +  \beta x  \,, \qquad \forall \, x \in \mathbb{R}
+</span><p></p>
+</div></details>
+</div>
+<ul>
+<li><p><span class="math inline">\alpha</span> and <span class="math inline">\beta</span> are called <strong>regression coefficients</strong></p></li>
+<li><p>The above regression is called <strong>simple</strong> because only 2 variables are involved</p></li>
+</ul>
+</section>
+<section id="what-do-we-mean-by-linear" class="slide level2 smaller">
+<h2>What do we mean by linear?</h2>
+<p><strong>Note:</strong> We said that the regression is <strong>linear</strong> if <span class="math display">
+{\rm I\kern-.3em E}[Y | x ] = \alpha + \beta x
+</span> In the above we mean linearity wrt the parameters <span class="math inline">\alpha</span> and <span class="math inline">\beta</span></p>
+<p><strong>Examples:</strong></p>
+<ul>
+<li><p>Linear regression of <span class="math inline">Y</span> on <span class="math inline">X^2</span> is <span class="math display">
+{\rm I\kern-.3em E}[Y | x^2 ] = \alpha + \beta x^2
+</span></p></li>
+<li><p>Linear regression of <span class="math inline">\log Y</span> on <span class="math inline">1/X</span> is <span class="math display">
+{\rm I\kern-.3em E}[ \log Y | x ] = \alpha + \beta \frac{1}{ x }
+</span></p></li>
+</ul>
+</section>
+<section id="simple-linear-regression-7" class="slide level2 smaller">
+<h2>Simple linear regression</h2>
+<h3 id="model-assumptions">Model Assumptions</h3>
+<p>Suppose to have <span class="math inline">n</span> observations <span class="math inline">(x_1,y_1) \,, \ldots , (x_n, y_n)</span></p>
+<div class="column" style="width:30%;">
+<ul>
+<li><span class="math inline">x_i</span> observed from <span class="math inline">X</span></li>
+</ul>
+</div><div class="column" style="width:30%;">
+<ul>
+<li><span class="math inline">y_i</span> observed from <span class="math inline">Y</span></li>
+</ul>
+</div><div id="Definition*-2.5" class="Definition">
+<p></p><details class="Definition fbx-simplebox fbx-default" open=""><summary><strong>Definition</strong></summary><div>For each <span class="math inline">i = 1 , \ldots, n</span> we denote by <span class="math inline">Y_i</span> a random variable with distribution <span class="math display">
+Y | X = x_i
+</span><p></p>
+</div></details>
+</div>
+<p><strong>Assumptions:</strong></p>
+<ol type="1">
+<li><strong>Predictor is known:</strong> The values <span class="math inline">x_1, \ldots, x_n</span> are known</li>
+</ol>
+</section>
+<section id="simple-linear-regression-8" class="slide level2 smaller">
+<h2>Simple linear regression</h2>
+<h3 id="model-assumptions-1">Model Assumptions</h3>
+<ol start="2" type="1">
+<li><p><strong>Normality:</strong> The distribution of <span class="math inline">Y_i</span> is normal</p></li>
+<li><p><strong>Linear mean:</strong> There are parameters <span class="math inline">\alpha</span> and <span class="math inline">\beta</span> such that <span class="math display">
+{\rm I\kern-.3em E}[Y_i] = \alpha + \beta x_i  
+</span></p></li>
+<li><p><strong>Common variance (Homoscedasticity):</strong> There is a parameter <span class="math inline">\sigma^2</span> such that <span class="math display">
+{\rm Var}[Y_i] = \sigma^2
+</span></p></li>
+<li><p><strong>Independence:</strong> The random variables <span class="math display">
+Y_1   \,, \ldots \,, Y_n
+</span> are independent</p></li>
+</ol>
+</section>
+<section id="characterization-of-the-model" class="slide level2 smaller">
+<h2>Characterization of the Model</h2>
+<ul>
+<li>Assumptions 1–5 look quite abstract</li>
+<li>The following Proposition gives a handy characterization</li>
+</ul>
+<div id="Proposition*-2.6" class="Proposition">
+<p></p><details class="Proposition fbx-simplebox fbx-default" open=""><summary><strong>Proposition</strong></summary><div>Assumptions 1-5 are satisfied if and only if <span class="math display">
+Y_i = \alpha + \beta x_i + \varepsilon_i
+</span> for some random variables <span class="math display">
+\varepsilon_1 , \ldots, \varepsilon_n  \,\, \text{ iid } \,\, N(0,\sigma^2)
+</span><p></p>
+</div></details>
+</div>
+<ul>
+<li>The terms <span class="math inline">\varepsilon_i</span> are called <strong>errors</strong></li>
+</ul>
+</section>
+<section id="characterization-of-the-model-1" class="slide level2 smaller">
+<h2>Characterization of the Model</h2>
+<h3 id="proof">Proof</h3>
+<ul>
+<li><p>By Assumption 2 we have that <span class="math inline">Y_i</span> is normal</p></li>
+<li><p>By Assumption 3 and 4 we have</p></li>
+</ul>
+<p><span class="math display">
+{\rm I\kern-.3em E}[Y_i] = \alpha + \beta x_i \,, \qquad \quad
+{\rm Var}[Y_i] = \sigma^2
+</span></p>
+<ul>
+<li>Therefore</li>
+</ul>
+<p><span class="math display">
+Y_i  \sim  N(\alpha + \beta x_i, \sigma^2)
+</span></p>
+</section>
+<section id="characterization-of-the-model-2" class="slide level2 smaller">
+<h2>Characterization of the Model</h2>
+<h3 id="proof-1">Proof</h3>
+<ul>
+<li>Define the random variables</li>
+</ul>
+<p><span class="math display">
+\varepsilon_i := Y_i   -  (\alpha + \beta x_i)
+</span></p>
+<ul>
+<li><p>By Assumption 5 we have that <span class="math inline">Y_1,\ldots,Y_n</span> are independent</p></li>
+<li><p>Therefore <span class="math inline">\varepsilon_1,\ldots,\varepsilon_n</span> are independent</p></li>
+<li><p>Since <span class="math inline">Y_i  \sim  N(\alpha + \beta x_i, \sigma^2)</span> we conclude that</p></li>
+</ul>
+<p><span class="math display">
+\varepsilon_i \sim N(0,\sigma^2)
+</span></p>
+</section>
+<section id="likelihood-function" class="slide level2 smaller">
+<h2>Likelihood function</h2>
+<div id="Definition*-2.7" class="Definition">
+<p></p><details class="Definition fbx-simplebox fbx-default" open=""><summary><strong>Definition</strong></summary><div>Let <span class="math inline">X_1, \ldots, X_n</span> be continuous rv with joint pdf <span class="math display">
+f = f(x_1, \ldots, x_n | \theta)
+</span> depending on a parameter <span class="math inline">\theta \in \Theta</span>. The likelihood function of the random vector <span class="math inline">(X_1, \ldots, X_n)</span> for a given sample <span class="math inline">(x_1, \ldots, x_n)</span> is <span class="math display">
+L \colon \Theta \to \mathbb{R}\,, \qquad \quad L(\theta | x_1,\ldots, x_n ) := f(x_1, \ldots, x_n | \theta)
+</span><p></p>
+</div></details>
+</div>
+</section>
+<section id="likelihood-function-1" class="slide level2 smaller">
+<h2>Likelihood function</h2>
+<div id="Proposition*-2.8" class="Proposition">
+<p></p><details class="Proposition fbx-simplebox fbx-default" open=""><summary><strong>Proposition</strong></summary><div>Suppose Assumptions 1–5 hold. The likelihood function of linear regression is <span class="math display">
+L(\alpha,\beta, \sigma^2 | y_1, \ldots, y_n ) = \frac{1}{(2\pi \sigma^2)^{n/2}} \, \exp   \left(   -\frac{\sum_{i=1}^n(y_i-\alpha - \beta x_i)^2}{2\sigma^2}      \right)
+</span><p></p>
+</div></details>
+</div>
+</section>
+<section id="likelihood-function-2" class="slide level2 smaller">
+<h2>Likelihood function</h2>
+<h3 id="proof-2">Proof</h3>
+<ul>
+<li>Recall that</li>
+</ul>
+<p><span class="math display">
+Y_i \sim N( \alpha + \beta x_i , \sigma^2 )
+</span></p>
+<ul>
+<li>Therefore the pdf of <span class="math inline">Y_i</span> is</li>
+</ul>
+<p><span class="math display">
+f_{Y_i} (y_i) =  \frac{1}{\sqrt{2\pi \sigma^2}} \exp \left( -\frac{(y_i-\alpha-\beta{x_i})^2}{2\sigma^2} \right)
+</span></p>
+</section>
+<section id="likelihood-function-3" class="slide level2 smaller">
+<h2>Likelihood function</h2>
+<h3 id="proof-3">Proof</h3>
+<ul>
+<li>Since <span class="math inline">Y_1,\ldots, Y_n</span> are independent we obtain <span class="math display">\begin{align*}
+L(\alpha,\beta, \sigma^2 | y_1, \ldots,y_n) &amp; = f(y_1,\ldots,y_n) \\
+                                &amp; = \prod_{i=1}^n f_{Y_i}(y_i)  \\
+                                &amp; = \prod_{i=1}^n
+                                \frac{1}{\sqrt{2\pi \sigma^2}} \exp \left( -\frac{(y_i-\alpha-\beta{x_i})^2}{2\sigma^2} \right) \\
+                                &amp; = \frac{1}{(2\pi \sigma^2)^{n/2}} \, \exp   \left(   -\frac{\sum_{i=1}^n(y_i- \alpha - \beta x_i)^2}{2\sigma^2}      \right)
+\end{align*}</span></li>
+</ul>
+</section>
+<section id="model-summary" class="slide level2 smaller">
+<h2>Model Summary</h2>
+<ul>
+<li>Simple linear regression of <span class="math inline">Y</span> on <span class="math inline">X</span> is the function</li>
+</ul>
+<p><span class="math display">
+{\rm I\kern-.3em E}[Y | x] = \alpha + \beta x
+</span></p>
+<ul>
+<li>Suppose given the observations from <span class="math inline">(X,Y)</span></li>
+</ul>
+<p><span class="math display">
+(x_1,y_1) , \ldots , (x_n, y_n)
+</span></p>
+</section>
+<section id="model-summary-1" class="slide level2 smaller">
+<h2>Model Summary</h2>
+<ul>
+<li>Denote by <span class="math inline">Y_i</span> the random variable</li>
+</ul>
+<p><span class="math display">
+Y | X = x_i
+</span></p>
+<ul>
+<li>We suppose that <span class="math inline">Y_i</span> has the form</li>
+</ul>
+<p><span class="math display">
+Y_i = \alpha + \beta x_i + \varepsilon_i
+</span></p>
+<ul>
+<li>The <strong>errors</strong> <span class="math inline">\varepsilon_1,\ldots, \varepsilon_n</span> are iid <span class="math inline">N(0,\sigma^2)</span></li>
+</ul>
+</section>
+<section id="the-linear-regression-problem" class="slide level2 smaller">
+<h2>The linear regression problem</h2>
+<div id="Problem*-2.9" class="Problem">
+<p></p><details class="Problem fbx-simplebox fbx-default" open=""><summary><strong>Problem</strong></summary><div>From <span class="math inline">(x_1,y_1) \,, \ldots , (x_n, y_n)</span> learn a linear regression function <span class="math display">
+{\rm I\kern-.3em E}[Y | x] = \alpha + \beta x
+</span> which explains the observations, that is, <span class="math display">\begin{equation} \tag{3}
+{\rm I\kern-.3em E}[Y | x_i] \ \approx \ y_i \,, \qquad \forall \, i = 1 , \ldots, n
+\end{equation}</span><p></p>
+</div></details>
+</div>
+<div id="Question*-2.10" class="Question">
+<p></p><details class="Question fbx-simplebox fbx-default" open=""><summary><strong>Question</strong></summary><div>How do we enforce (3)?<p></p>
+</div></details>
+</div>
+</section>
+<section id="answer" class="slide level2 smaller">
+<h2>Answer</h2>
+<ul>
+<li>Recall that <span class="math inline">Y_i</span> is distributed like</li>
+</ul>
+<p><span class="math display">
+Y | x_i
+</span></p>
+<ul>
+<li>Therefore</li>
+</ul>
+<p><span class="math display">
+{\rm I\kern-.3em E}[Y | x_i] = {\rm I\kern-.3em E}[Y_i]
+</span></p>
+<ul>
+<li>Hence (3) holds iff</li>
+</ul>
+<p><span class="math display">\begin{equation} \tag{4}
+{\rm I\kern-.3em E}[Y_i] \ \approx \ y_i \,, \qquad \forall \, i = 1 , \ldots, n
+\end{equation}</span></p>
+</section>
+<section id="answer-1" class="slide level2 smaller">
+<h2>Answer</h2>
+<ul>
+<li>If we want (4) to hold, we need to maximize the joint probability</li>
+</ul>
+<p><span class="math display">
+P(Y_1 \approx y_1, \ldots, Y_n \approx y_n)
+</span></p>
+<ul>
+<li>This means choosing parameters <span class="math inline">\hat \alpha, \hat \beta, \hat \sigma</span> which maximize the likelihood function</li>
+</ul>
+<p><span class="math display">
+\max_{\alpha,\beta,\sigma} \ L(\alpha,\beta, \sigma^2 | y_1, \ldots, y_n )
+</span></p>
+</section>
+<section id="maximizing-the-likelihood" class="slide level2 smaller">
+<h2>Maximizing the likelihood</h2>
+<div id="Theorem*-2.11" class="Theorem">
+<p></p><details class="Theorem fbx-simplebox fbx-default" open=""><summary><strong>Theorem</strong></summary><div>Suppose Assumptions 1–5 hold and assume given <span class="math inline">n</span> observations <span class="math inline">(x_1,y_1), \ldots, (x_n,y_n)</span>. The maximization problem <span class="math display">
+\max_{\alpha,\beta,\sigma}  \ L(\alpha,\beta, \sigma^2 | y_1, \ldots, y_n )
+</span> admits the unique solution <span class="math display">
+\hat \alpha = \overline{y} - \hat  \beta \, \overline{x} \,, \qquad
+\hat \beta = \frac{S_{xy}}{S_{xy}} \,, \qquad
+\hat{\sigma}^2  = \frac{1}{n} \sum_{i=1}^n \left(  y_i - \hat \alpha - \hat \beta x_i  \right)^2
+</span><p></p>
+</div></details>
+</div>
+<p><strong>Note:</strong> The coefficients <span class="math inline">\hat \alpha</span> and <span class="math inline">\hat \beta</span> are the same of least-squares line!</p>
+</section>
+<section id="maximizing-the-likelihood-1" class="slide level2 smaller">
+<h2>Maximizing the likelihood</h2>
+<h3 id="proof-of-theorem">Proof of Theorem</h3>
+<ul>
+<li><p>The <span class="math inline">\log</span> function is strictly increasing</p></li>
+<li><p>Therefore the problem <span class="math display">
+\max_{\alpha,\beta,\sigma} \ L(\alpha,\beta, \sigma^2 | y_1, \ldots, y_n )
+</span> is equivalent to <span class="math display">
+\max_{\alpha,\beta,\sigma} \ \log L( \alpha,\beta, \sigma^2 | y_1, \ldots, y_n )
+</span></p></li>
+</ul>
+</section>
+<section id="maximizing-the-likelihood-2" class="slide level2 smaller">
+<h2>Maximizing the likelihood</h2>
+<h3 id="proof-of-theorem-1">Proof of Theorem</h3>
+<ul>
+<li><p>Recall that the likelihood is <span class="math display">
+L(\alpha,\beta, \sigma^2 | y_1, \ldots, y_n ) =  \frac{1}{(2\pi \sigma^2)^{n/2}} \, \exp   \left(   - \frac{\sum_{i=1}^n(y_i-\alpha - \beta x_i)^2}{2\sigma^2}      \right)
+</span></p></li>
+<li><p>Hence the log–likelihood is <span class="math display">
+\log L(\alpha,\beta, \sigma^2 | y_1, \ldots, y_n )
+= - \frac{n}{2} \log (2 \pi) - \frac{n}{2} \log \sigma^2 -
+\frac{ \sum_{i=1}^n(y_i-\alpha - \beta x_i)^2 }{2 \sigma^2}
+</span></p></li>
+</ul>
+</section>
+<section id="maximizing-the-likelihood-3" class="slide level2 smaller">
+<h2>Maximizing the likelihood</h2>
+<h3 id="proof-of-theorem-2">Proof of Theorem</h3>
+<p>Suppose <span class="math inline">\sigma</span> is fixed. In this case the problem <span class="math display">
+\max_{\alpha,\beta} \ \left\{ \frac{n}{2} \log (2 \pi) - \frac{n}{2} \log \sigma^2 -
+\frac{ \sum_{i=1}^n(y_i-\alpha - \beta x_i)^2 }{2 \sigma^2} \right\}
+</span> is equivalent to <span class="math display">
+\min_{\alpha, \beta} \ \sum_{i=1}^n(y_i-\alpha - \beta x_i)^2
+</span></p>
+<p>This is the least-squares problem! Hence the solution is <span class="math display">
+\hat \alpha = \overline{y} - \hat  \beta \, \overline{x} \,, \qquad
+\hat \beta = \frac{S_{xy}}{S_{xy}}
+</span></p>
+</section>
+<section id="maximizing-the-likelihood-4" class="slide level2 smaller">
+<h2>Maximizing the likelihood</h2>
+<h3 id="proof-of-theorem-3">Proof of Theorem</h3>
+<ul>
+<li><p>Substituting <span class="math inline">\hat \alpha</span> and <span class="math inline">\hat \beta</span> we obtain <span class="math display">\begin{align*}
+\max_{\alpha,\beta,\sigma} \ &amp; \log L(\alpha,\beta, \sigma^2 | y_1, \ldots, y_n )
+= \max_{\sigma} \ \log L(\hat \alpha, \hat \beta, \sigma^2 | y_1, \ldots, y_n ) \\[10pt]
+&amp; = \max_{\sigma} \ \left\{ - \frac{n}{2} \log (2 \pi) - \frac{n}{2} \log \sigma^2 -
+\frac{ \sum_{i=1}^n(y_i-\hat\alpha - \hat\beta x_i)^2 }{2 \sigma^2}  \right\}
+\end{align*}</span></p></li>
+<li><p>It can be shown that the unique solution to the above problem is <span class="math display">
+\hat{\sigma}^2  = \frac{1}{n} \sum_{i=1}^n \left(  y_i - \hat \alpha - \hat \beta x_i  \right)^2
+</span></p></li>
+<li><p>This concludes the proof</p></li>
+</ul>
+</section>
+<section id="least-squares-vs-linear-regression" class="slide level2 smaller">
+<h2>Least-squares vs Linear regression</h2>
+<p>Linear regression and least-squares give seemingly the same answer</p>
+<div class="column" style="width:73%;">
+<table class="caption-top">
+<colgroup>
+<col style="width: 60%">
+<col style="width: 40%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"><strong>Least-squares line</strong></th>
+<th style="text-align: left;"><span class="math inline">y = \hat \alpha + \hat \beta x</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Linear regression line</strong></td>
+<td style="text-align: left;"><span class="math inline">{\rm I\kern-.3em E}[Y | x ] =  \hat \alpha + \hat \beta x</span></td>
+</tr>
+</tbody>
+</table>
+</div><div class="column" style="width:25%;">
+
+</div><p><strong>Question:</strong> Why did we define regression if it gives same answer as least-squares?</p>
+</section>
+<section id="least-squares-vs-linear-regression-1" class="slide level2 smaller">
+<h2>Least-squares vs Linear regression</h2>
+<p><strong>Answer:</strong> There is actually a big difference</p>
+<ul>
+<li>Least-squares line <span class="math inline">y = \hat \alpha + \hat \beta x</span>
+<ul>
+<li>Just a geometric object</li>
+<li>Can only predict pairs <span class="math inline">(x,y)</span> which lie on the line</li>
+<li>Ignores statistical nature of the problem</li>
+</ul></li>
+<li>Regression line <span class="math inline">{\rm I\kern-.3em E}[Y | x ] =  \hat \alpha + \hat \beta x</span>
+<ul>
+<li>Statistical model for <span class="math inline">Y|X</span> via the estimation of <span class="math inline">{\rm I\kern-.3em E}[Y | x]</span></li>
+<li>Can predict <strong>most likely</strong> values of <span class="math inline">Y</span> given the observation <span class="math inline">X = x</span></li>
+<li>Can test how well the linear model fits the data</li>
+</ul></li>
+</ul>
 
 <div class="quarto-auto-generated-content">
 <div class="footer footer-default">
@@ -630,6 +1207,44 @@
         ]
       });
     </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
     <script id="quarto-html-after-body" type="application/javascript">
     window.document.addEventListener("DOMContentLoaded", function (event) {
       const toggleBodyColorMode = (bsSheetEl) => {

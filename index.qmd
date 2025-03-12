@@ -72,8 +72,8 @@ There are 11 lectures in this module. Links to the slides and lecture titles are
 | <a href="slides/lecture_4.qmd">Lecture 4</a>   | The variance ratio & Two-sample t-test        |
 | <a href="slides/lecture_5.qmd">Lecture 5</a>   | The two-sample F-test & Goodness-of-fit test  |
 | <a href="slides/lecture_6.qmd">Lecture 6</a>   | Contingency tables & Simulation               |
-| <a href="slides/lecture_7.qmd">Lecture 7</a>   | Bootstrap & The maths of Regression           |
-| <a href="slides/lecture_8.qmd">Lecture 8</a>   | General linear regression                     |
+| <a href="slides/lecture_7.qmd">Lecture 7</a>   | Bootstrap & Least Squares                     |
+| <a href="slides/lecture_8.qmd">Lecture 8</a>   | The maths of Regression                       |
 | <a href="slides/lecture_9.qmd">Lecture 9</a>   | Practical regression                          |
 | <a href="slides/lecture_10.qmd">Lecture 10</a> | Violation of regression assumptions           |
 | <a href="slides/lecture_11.qmd">Lecture 11</a> | ANOVA                                         |
@@ -94,12 +94,11 @@ There are 11 lectures in this module. Links to the slides and lecture titles are
 | Lecture 4   | [Variance ratio test](slides/codes/variance_ratio_test.R) <br> [Two-Sample t-test](slides/codes/two_sample_t_test.R)      |
 | Lecture 5   | [F-test](slides/codes/F_test.R) <br> [F-test First Principles](slides/codes/F_test_first_principles.R) <br> [Goodness-of-fit](slides/codes/good_fit.R) <br> [Goodness-of-fit First Principles](slides/codes/good_fit_first_principles.R)  |
 | Lecture 6   | [Goodness-of-fit Contingency](slides/codes/good_fit_contingency.R) <br> [Independence Test](slides/codes/independence_test.R) <br> [Monte Carlo $\pi$](slides/codes/monte_carlo_pi.R)  |
-| Lecture 7   | [Bootstrap CI](slides/codes/bootstrap_CI.R) <br> [Bootstrap t-test](slides/codes/bootstrap_t_test.R) <br> [Bootstrap F-test](slides/codes/bootstrap_F_test.R) <br> [Least-squares Solution 1](slides/codes/least_squares_1.R) <br>  [Least-squares Solution 2](slides/codes/least_squares_2.R)        |
+| Lecture 7   | [Bootstrap CI](slides/codes/bootstrap_CI.R) <br> [Bootstrap t-test](slides/codes/bootstrap_t_test.R) <br> [Bootstrap F-test](slides/codes/bootstrap_F_test.R) <br> [2008 Crisis](slides/codes/2008_crisis_code.R) <br> [Least-squares Solution 1](slides/codes/least_squares_1.R) <br>  [Least-squares Solution 2](slides/codes/least_squares_2.R)  |
 | Lecture 8   | [Multiple Regression](slides/codes/multiple_regression.R) <br> [R2 multiple regression](slides/codes/R2_multiple_regression.R) |
 | Lecture 9  | [Simple Regression](slides/codes/simple_regression.R)  <br> [Longley regression](slides/codes/longley_regression.R) <br> [Longley selection](slides/codes/longley_selection.R) <br> [Galileo](slides/codes/galileo.R) <br> [Divorces](slides/codes/divorces.R) |
 | Lecture 10  | [Residual graphs](slides/codes/residual_graphs.R) <br> [Autocorrelation graphic tests](slides/codes/autocorrelation_graph_tests.R) <br> [Multicollinearity](slides/codes/multicollinearity.R) <br> [Stepwise regression: Longley](slides/codes/longley_stepwise.R) <br> [Stepwise regression: Divorces](slides/codes/divorces_stepwise.R) |
 | Lecture 11  | [Anova models](slides/codes/anova.R)           |
-| Appendix B  | [2008 Crisis](slides/codes/2008_crisis_code.R) |
 : {tbl-colwidths="[30,70]"}
 
 

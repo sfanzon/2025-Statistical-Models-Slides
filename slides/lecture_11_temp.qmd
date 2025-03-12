@@ -38,6 +38,9 @@ $
 
 :::
 
+
+
+
 ::: footer
 
 <div color="#cc0164">  </div>
@@ -89,7 +92,7 @@ $
 
 
 
-::: {.content-hidden}
+## {.smaller}
 
 - ANOVA is lesson 11 John
 
@@ -105,6 +108,9 @@ $
 
 - Then move to dummy variable models and ANCOVA
 
+
+## {.smaller}
+
 - We have already seen how regression can be used to perform t-test
     * With two dummy variables $1_A$ and $1_B$
     * With one dummy variable $1_A$ (in this case it would be good to give exercise to compute t-statistic for $\beta$ explicitly and see it coincides with t-statistic for two-sample t-test with common variance (pooled estimator))
@@ -115,6 +121,8 @@ $
 
 - For this see Verzani section 12.2
 
+
+## {.smaller}
 
 - He does the examples of t-test as simple regression that I covered in exercises
 
@@ -191,7 +199,7 @@ t = \frac{ \overline{a} - \overline{b} }{\ese}
 $$
 
 
-:::
+
 
 
 

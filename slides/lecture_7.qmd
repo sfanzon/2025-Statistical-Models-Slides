@@ -2478,22 +2478,16 @@ print(subset)
 ## Table-Formats {.smaller}
 ### 4 key features
     
-1. **Header**: 
-    * If present, header should be the first line of the file
-    * Header is used to provide names for each column of data
-    * If a header is present, you need to tell this to R when importing
-    * If not, R cannot tell if first line is a header or observed data values
+1. **Header**: Used to name columns
+    * Header should be first line
+    * Header is optional
+    * If header present, need to tell R when importing
+    * If not, R cannot tell if first line is header or data
 
 
 
-
-## Table-Formats {.smaller}
-### 4 key features
-
-2. **Delimiter**: 
-    * A character used to separate the entries in each line
+2. **Delimiter**: Character used to separate entries in each line
     * Delimiter character cannot be used for anything else in the file
-    * Delimiter tells R when a specific entry begins and ends
     * Default delimiter is **whitespace**
 
 
@@ -2501,14 +2495,9 @@ print(subset)
 ## Table-Formats {.smaller}
 ### 4 key features
 
-3. **Missing value**: 
-    * Character string used exclusively to denote a missing value
+3. **Missing value**: Character string used exclusively to denote a missing value
     * When reading the file, R will turn these entries into ``NA``
 
-
-
-## Table-Formats {.smaller}
-### 4 key features
 
 4. **Comments**:
     * Table files can include comments
@@ -2518,8 +2507,7 @@ print(subset)
 
 
 
-## Table-Formats {.smaller}
-### Example
+## Example {.smaller}
 
 - Table-Format for **Family Guy** characters can be downloaded here [family_guy.txt](datasets/family_guy.txt)
 
@@ -2545,11 +2533,19 @@ print(subset)
 
 ## read.table command {.smaller}
 
-- Table-Formats can be read via ``read.table()``
-    * This reads a ``.txt`` or ``.csv`` file and outputs a data frame
-- Options of ``read.table()``
-    * ``header = T/F`` -- Tells R if a header is present
-    * ``na.strings = "string"`` -- Tells R that ``"string"`` means ``NA``
+Table-Formats can be read via ``read.table()``
+
+- Reads ``.txt`` or ``.csv`` files
+
+- outputs a data frame
+
+Options of ``read.table()``
+
+- ``header = T/F``
+    * Tells R if a header is present
+
+- ``na.strings = "string"``
+    * Tells R that ``"string"`` means ``NA`` (missing values)
 
 
 
@@ -2570,25 +2566,19 @@ setwd("C:/Users/YourUsername/Desktop")
 ```
 
 
-## Reading our first Table-Format file {.smaller}
-
+##  {.smaller}
 
 3. Read ``family_guy.txt`` into R and store it in data frame ``family`` with code
 
 ```r
 family = read.table(file = "family_guy.txt",
                     header = TRUE,
-                    na.strings = "*"
-                    )
+                    na.strings = "*")
 ```
 
 4. Note that we are telling ``read.table()`` that
     * ``family_guy.txt`` has a header
     * Missing values are denoted by ``*``
-
-
-
-## Reading our first Table-Format file {.smaller}
 
 
 ::: {.column width="48%"}
@@ -2620,9 +2610,9 @@ print(family)
 
 
 
-## Application: t-test {.smaller}
+## Example: t-test {.smaller}
 
-**Example**: Analysis of Consumer Confidence Index for 2008 crisis from Lecture 4
+**Data**: Analysis of Consumer Confidence Index for 2008 crisis (seen in Lecture 3)
 
 - We imported data into R using ``c()``
 - This is ok for small datasets
@@ -2637,7 +2627,7 @@ print(family)
 
 
 
-## Application: t-test {.smaller}
+##  {.smaller}
 
 - The CCI dataset can be downloaded here [2008_crisis.txt](datasets/2008_crisis.txt)
 
@@ -2647,7 +2637,7 @@ print(family)
 
 
 
-## Application: t-test {.smaller}
+## {.smaller}
 
 To perform the t-test on data ``2008_crisis.txt`` we proceed as follows:
 
@@ -2672,7 +2662,7 @@ scores = read.table(file = "2008_crisis",
 ```
 
 
-## Application: t-test {.smaller}
+##  {.smaller}
 
 4. Store 2nd and 3rd columns of ``scores`` into 2 vectors
 
@@ -2685,27 +2675,15 @@ score_2009 <- scores[, 3]
 ```
 
 
-5. Now the t-test can be performed as done in Lecture 4
+5. From here, the t-test can be performed as done in Lecture 3
 
 ```r
 # Compute vector of differences
 difference <- score_2007 - score_2009
 
 # Perform t-test on difference with null hypothesis mu = 0
-t.test(difference, mu = 0)
+t.test(difference, mu = 0)$p.value
 ```
-
-
-
-## Application: t-test {.smaller}
-
-6. We obtain the same result of Lecture 4
-    * p-value is $p < 0.05$
-    * Reject $H_0$: The mean difference is not $0$
-    * In details, the output of ``t.test`` is below
-
-- For convenience you can download the full code [2008_crisis_code.R](codes/2008_crisis_code.R)
-
 ```{r}
 # Read ``2008_crisis.txt`` into R and store in "scores"
 scores = read.table(file = "datasets/2008_crisis.txt",
@@ -2720,8 +2698,18 @@ score_2009 <- scores[, 3]
 difference <- score_2007 - score_2009
 
 # Perform t-test on difference with null hypothesis mu = 0
-t.test(difference, mu = 0)
+t.test(difference, mu = 0)$p.value
 ```
+
+- We obtain the same result of Lecture 3
+    * p-value is $p < 0.05 \implies$ Reject $H_0$: The mean difference is not $0$
+
+- For convenience, you can download the full code [2008_crisis_code.R](codes/2008_crisis_code.R)
+
+
+
+
+
 
 
 

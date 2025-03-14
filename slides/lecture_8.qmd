@@ -321,7 +321,7 @@ From $(x_1,y_1) \,, \ldots , (x_n, y_n)$, learn a regression function
 $$
 R(x) = \Expect[Y | x]
 $$
-which explains the observations, that is,
+which explains the observations, that is, such that
 $$
 R(x_i) = \Expect[Y | x_i] \ \approx \ y_i \,, \qquad \forall \, i = 1 , \ldots, n
 $$
@@ -517,7 +517,7 @@ $$
 
 ::: Theorem
 
-Suppose Assumptions 1--5 hold. The likelihood function of linear regression is 
+Suppose Assumptions 1--5 hold. The likelihood function of $(Y_1,\ldots,Y_n)$ is 
 
 $$
 L(\alpha,\beta, \sigma^2 | y_1, \ldots, y_n ) = \frac{1}{(2\pi \sigma^2)^{n/2}} \, \exp   \Bigg(   -\frac{\sum_{i=1}^n(y_i-\alpha - \beta x_i)^2}{2\sigma^2}      \Bigg)
@@ -592,7 +592,7 @@ Given observations $(x_1,y_1) \,, \ldots , (x_n, y_n)$, learn a linear regressio
 $$
 \Expect[Y | x] = \alpha + \beta x
 $$
-which explains the observations, that is,
+which explains the observations, that is, such that
 \begin{equation} \tag{1}
 \Expect[Y_i] = \Expect[Y | x_i] \ \approx \ y_i \,, \qquad \forall \, i = 1 , \ldots, n
 \end{equation}
@@ -623,8 +623,8 @@ How do we enforce (1)?
 $$
 P(Y_1 \approx y_1, \ldots, Y_n \approx y_n) = \int_{A} f(y) \, dy \approx |A| \, f(y_1,\ldots, y_n)
 $$
-    * $f$ is the joint pdf of $(Y_1,\ldots, Y_n)$
-    * where $A$ is (small) open set in $\R^n$ containing the observations $(y_1,\ldots,y_n)$
+    * where $f$ is the joint pdf of $(Y_1,\ldots, Y_n)$
+    * $A$ is (small) open set in $\R^n$ containing the observations $(y_1,\ldots,y_n)$
     * |A| is the $n$-dimensional volume of $A$
 
 
@@ -866,7 +866,7 @@ $$
 
 ## The general regression problem {.smaller}
 
-**Assumption:** For each $i =1 , \ldots, n$ we observe
+**Assumption:** For each $i =1 , \ldots, n$ we assume given observations
 
 ::: {.column width="42%"}
 
@@ -889,11 +889,11 @@ $$
 
 
 ::: Problem
-From the above data learn a regression function
+From the above data, learn a regression function
 $$
 R(z) = \Expect[Y | z_1, \ldots, z_p]
 $$
-which explains the observations, that is,
+which explains the observations, that is, such that
 $$
 \Expect[Y | z_{i1}, \ldots, z_{ip}] \ \approx \ y_i \,, \qquad \forall \, i = 1 , \ldots, n
 $$
@@ -906,7 +906,7 @@ $$
 ## General linear regression {.smaller}
 
 
-**Key assumption:** The regression function $R(z) = \Expect[Y | z_1, \ldots, z_p]$ is linear
+**Key assumption:** The regression function $R(z) = \Expect[Y | z_1, \ldots, z_p]$ is **linear**
 
 
 ::: Definition
@@ -932,8 +932,7 @@ $\beta_1, \ldots, \beta_p$ are called **regression coefficients**
 ## General linear regression {.smaller}
 ### Model Assumptions
 
-
-Suppose that for each $i =1 , \ldots, n$ we observe
+For each $i =1 , \ldots, n$ we assume given
 
 ::: {.column width="42%"}
 
@@ -956,7 +955,7 @@ Suppose that for each $i =1 , \ldots, n$ we observe
 
 ::: Definition
 
-For each $i = 1, \ldots, n$ we denote by $Y_i$ a random variable with distribution
+For each $i = 1, \ldots, n$, we denote by $Y_i$ a random variable with distribution
 $$
 Y | Z_1 = z_{i1} , \ldots, Z_p = z_{ip}
 $$
@@ -966,30 +965,23 @@ $$
 
 
 
-## General linear regression {.smaller}
-### Model Assumptions
+## {.smaller}
 
-
-**Assumptions:**
+**Model Assumptions:** Recall, $Y_i$ is distributed like $Y | Z_1 = z_{i1} , \ldots, Z_p = z_{ip}$
 
 1. **Predictor is known:** The values $z_{i1}, \ldots, z_{ip}$ are known
 
-2. **Normality:** The distribution of $Y_i$ is normal
+2. **Normality:** The conditional distribution $Y_i$ is normal
 
 3. **Linear mean:** There are parameters $\beta_1,\ldots,\beta_p$ such that
 $$
-\Expect[Y_i] = \beta_1 z_{i1} + \ldots + \beta_p z_{ip}  
+\Expect[Y_i] = \beta_1 z_{i1} + \ldots + \beta_p z_{ip}  \,, \qquad \forall \, i = 1, \ldots, n 
 $$
-
-
-
-## General linear regression {.smaller}
-### Model Assumptions
 
 
 4. **Common variance (Homoscedasticity):** There is a parameter $\sigma^2$ such that
 $$
-\Var[Y_i] = \sigma^2
+\Var[Y_i] = \sigma^2 \,, \qquad \forall \, i = 1, \ldots, n
 $$
 
 5. **Independence:** The random variables 
@@ -1012,7 +1004,7 @@ Assumptions 1-5 are satisfied if and only if
 $$
 Y_i =  \beta_1 z_{i1} + \ldots + \beta_p z_{ip}  + \e_{i}
 $$
-for some **errors**
+for some **errors** or **residuals**
 $$
 \e_1 , \ldots, \e_n  \,\, \text{ iid } \,\, N(0,\sigma^2)
 $$
@@ -1020,14 +1012,12 @@ $$
 :::
 
 
-**Proof:** Similar to the proof of Proposition in Slide 63 Lecture 8. Exercise
-
+**Proof:** Similar to the proof of Proposition in Slide 14. Omitted
 
 
 
 
 ## Likelihood function {.smaller}
-
 
 Introduce the column vectors
 $$
@@ -1035,9 +1025,9 @@ $$
 y := (y_1,\ldots,y_n)^T
 $$
 
-::: Proposition
+::: Theorem
 
-Suppose Assumptions 1--5 hold. The likelihood of general linear regression is
+Suppose Assumptions 1--5 hold. The likelihood function of $(Y_1,\ldots,Y_n)$ is
 $$
 L(\beta, \sigma^2 | y ) = \frac{1}{(2\pi \sigma^2)^{n/2}} \, \exp   \left(   -\frac{\sum_{i=1}^n(y_i- \beta_1 z_{i1} - \ldots - \beta_p z_{ip})^2}{2\sigma^2}  \right)
 $$
@@ -1046,37 +1036,25 @@ $$
 
 
 
-## Likelihood function {.smaller}
-### Proof
+## Proof {.smaller}
 
-- By assumption we have
+- By the Assumptions, we have $Y_i \sim N(\beta_1 z_{i1} + \ldots + \beta_p z_{ip} , \sigma^2 )$
 
-$$
-Y_i \sim N(\beta_1 z_{i1} + \ldots + \beta_p z_{ip} , \sigma^2 )
-$$
-
-- Therefore the pdf of $Y_i$ is 
-
+- Therefore, the pdf of $Y_i$ is 
 $$
 f_{Y_i} (y_i) =  \frac{1}{\sqrt{2\pi \sigma^2}} \exp \left( -\frac{(y_i - \beta_1 z_{i1} - \ldots - \beta_p z_{ip})^2}{2\sigma^2} \right)
 $$
 
 
-
-## Likelihood function {.smaller}
-### Proof
-
-- Since $Y_1,\ldots, Y_n$ are independent we obtain
+- Since $Y_1,\ldots, Y_n$ are independent, we obtain
 \begin{align*}
-L(\beta, \sigma^2 | y) & = f(y_1,\ldots,y_n) \\
-                                  & = \prod_{i=1}^n f_{Y_i}(y_i)  \\
+L(\beta, \sigma^2 | y) & = f(y_1,\ldots,y_n) 
+                                    = \prod_{i=1}^n f_{Y_i}(y_i)  \\
                                   & = \prod_{i=1}^n 
                                   \frac{1}{\sqrt{2\pi \sigma^2}} \exp \left( -\frac{(y_i - \beta_1 z_{i1} - \ldots - \beta_p z_{ip})^2}{2\sigma^2} \right) \\
-                                  & = \frac{1}{(2\pi \sigma^2)^{n/2}} \, \exp   \left(   -\frac{\sum_{i=1}^n(y_i- \beta_1 z_{i1} - \ldots - \beta_p z_{ip})^2}{2\sigma^2}      \right)
+                                  & = \frac{1}{(2\pi \sigma^2)^{n/2}} \, \exp   \left(   -\frac{\sum_{i=1}^n(y_i- \beta_1 z_{i1} - \ldots - \beta_p z_{ip})^2}{2\sigma^2}      \right) \qquad \quad \square
 \end{align*}
 
-
-- This concludes the proof
 
 
 
@@ -1111,8 +1089,7 @@ $$
 
 
 
-## Likelihood function {.smaller}
-### Vectorial notation
+## Vectorial notation {.smaller}
 
 \begin{align*}
 y - Z\beta & = 
@@ -1172,11 +1149,9 @@ y_n - \beta_1 z_{n1} - \ldots - \beta_p z_{np} \\
 
 
 
-## Likelihood function {.smaller}
-### Vectorial notation
+## RSS: Residual Sum of Squares {.smaller}
 
-
-From the previous calculation we get
+From the previous calculation, we get
 
 $$
 (y - Z \beta)^T \, (y - Z\beta) =
@@ -1186,8 +1161,22 @@ $$
 
 ::: Definition 
 
-Let $Z$ be $n \times p$ design matrix and $y \in \R^n$. 
-The **residual sum of squares** associated to the parameter $\beta$ is 
+Assume given
+
+::: {.column width="42%"}
+
+- $n \times p$ design matrix $Z$
+
+:::
+
+::: {.column width="26%"}
+
+- vector $y \in \R^n$
+
+:::
+
+
+The **residual sum of squares** associated to the parameter $\beta$ is the function
 $$
 \RSS \colon \R^p \to \R \,, \qquad 
 \RSS (\beta) :=  (y - Z \beta)^T \, (y - Z\beta)
@@ -1200,7 +1189,7 @@ $$
 ## Likelihood function {.smaller}
 ### Vectorial notation
 
-Using vectorial notation the likelihood function can be re-written as
+Using vectorial notation, the likelihood function can be re-written as
 
 \begin{align*}
 L(\beta, \sigma^2 | y ) & = \frac{1}{(2\pi \sigma^2)^{n/2}} \, \exp   \left(   -\frac{\sum_{i=1}^n(y_i - \beta_1 z_{i1} - \ldots - \beta_p z_{ip})^2}{2\sigma^2}  \right) \\[20pt]
@@ -1212,8 +1201,7 @@ L(\beta, \sigma^2 | y ) & = \frac{1}{(2\pi \sigma^2)^{n/2}} \, \exp   \left(   -
 
 
 
-## General linear regression  {.smaller}
-### Summary
+## Model Summary  {.smaller}
 
 - General linear regression of $Y$ on $Z_1, \ldots, Z_p$ is the function
 $$
@@ -1221,33 +1209,21 @@ $$
 $$
 
 - For each $i=1, \ldots, n$ suppose given the observations 
+    * $(z_{i1}, \ldots, z_{ip}, y_i)$ observed from $(Z_1,\ldots, Z_p,Y)$
+
+
+- Denote by $Y_i$ the random variable $Y | z_{i1} ,\ldots, z_{ip}$
+
+
+- We suppose that $Y_i$ has the form
 $$
-(z_{i1}, \ldots, z_{ip}, y_i)
-$$
-
-
-
-## General linear regression  {.smaller}
-### Summary
-
-- Denote by $Y_i$ the random variable 
-
-$$
-Y | z_{i1} ,\ldots, z_{ip}
-$$
-
-
-- Suppose that $Y_i$ has the form
-
-$$
-Y_i = \beta_1 z_{i1} + \ldots + \beta_p z_{ip} + \e_i
-$$
-
-- The **errors** are
-
-$$
-\e_1,\ldots, \e_n \,\, \text{ iid } \,\, N(0,\sigma^2)
+Y_i = \beta_1 z_{i1} + \ldots + \beta_p z_{ip} + \e_i \,, \qquad \e_i \,\, \text{ iid } \,\, N(0,\sigma^2)
 $$ 
+
+- In particular,
+$$
+\Expect[Y | z_{i1}, \ldots, z_{ip}] = \Expect[Y_i] = \beta_1 z_{i1} + \ldots + \beta_p z_{ip}
+$$
 
 
 
@@ -1258,14 +1234,14 @@ For each $i = 1 , \ldots, n$ suppose given data points
 $(z_{i1}, \ldots, z_{ip}, y_i)$
 
 ::: Problem
-From the above data learn a general linear regression function
+From the above data, learn a general linear regression function
 $$
 \Expect[Y | z_1, \ldots, z_p] = \beta_1 z_1 +
 \ldots + \beta_p z_p
 $$
-which explains the observations, that is,
-\begin{equation} \tag{5}
-\Expect[Y | z_{i1}, \ldots, z_{ip}] \ \approx \ y_i \,, \qquad \forall \, i = 1 , \ldots, n
+which explains the observations, that is, such that
+\begin{equation} \tag{2}
+\Expect[Y_i] = \Expect[Y | z_{i1}, \ldots, z_{ip}] \ \approx \ y_i \,, \qquad \forall \, i = 1 , \ldots, n
 \end{equation}
 
 :::
@@ -1273,56 +1249,35 @@ which explains the observations, that is,
 
 ::: Question
 
-How do we enforce (5)?
+How do we enforce (2)?
 
 :::
 
 
 
 
-## Answer {.smaller}
+## {.smaller}
 
-- Recall that $Y_i$ is distributed like
-
-$$
-Y_i | z_{i1}, \ldots, z_{ip} 
-$$
-
-- Therefore
-
-$$
-\Expect[Y | z_{i1}, \ldots, z_{ip}] = \Expect[Y_i] 
-$$
-
-
-- Hence (5) holds iff 
-
-\begin{equation} \tag{6}
+**Answer:** Recall condition (2) from the previous slide
+\begin{equation} \tag{2}
 \Expect[Y_i] \ \approx \ y_i \,, \qquad \forall \, i = 1 , \ldots, n
 \end{equation}
 
 
-
-## Answer {.smaller}
-
-- If we want (6) to hold, we need to maximize the joint probability
-
+- If we want (2) to hold, we need to maximize the joint probability
 $$
-P(Y_1 \approx y_1, \ldots, Y_n \approx y_n) 
+P(Y_1 \approx y_1, \ldots, Y_n \approx y_n) = 
+\int_{A} f(y) \, dy \approx |A| f(y)
 $$
+    * where $f$ is the joint pdf of $(Y_1,\ldots,Y_n)$
+    * $A$ is a (small) open set in $\R^n$ containing the observations $(y_1,\ldots,y_n)$
+    * $|A|$ is the n-dimensional volume of $A$
 
+- To maximize the above probability, it is enough to maximize $f(y_1,\ldots,y_n)$
 
-- Recall that the likelihood for fixed $y \in \R^n$ is defined as
+- Therefore, choose parameters $\hat \beta,  \hat \sigma$ which **maximize the likelihood function**
 $$
-L(\beta, \sigma^2 | y) = f(y_1,\ldots,y_n)
-$$
-
-
-- Thus joint probability is maximized iff likelihood is maximized
-
-- Hence we need to find parameters $\hat \beta,  \hat \sigma$ which maximize the likelihood function
-
-$$
+\max_{\beta,\sigma} \ f(y | \beta, \sigma^2) = 
 \max_{\beta,\sigma} \ L(\beta, \sigma^2 | y )
 $$
 
@@ -1334,9 +1289,9 @@ $$
 
 ::: Theorem 
 
-Suppose Assumptions 1--5 hold and assume given observations
+Suppose Assumptions 1--5 hold. Assume given observations
 $$
-(z_{i1}, \ldots, z_{ip} ,y_i) \,, \qquad \quad \forall \, i =1 ,\ldots n \,, \qquad
+(z_{i1}, \ldots, z_{ip} ,y_i) \,, \quad \forall \, i =1 ,\ldots n \,, \qquad \text{ s.t. } \,\,
 \det (Z Z^T) \neq 0 
 $$
 The maximization problem
@@ -1361,7 +1316,7 @@ The proof of previous Theorem relies on the following Lemma
 
 Assume given observations
 $$
-(z_{i1}, \ldots, z_{ip} ,y_i) \,, \qquad \quad \forall \, i =1 ,\ldots n \,, \qquad
+(z_{i1}, \ldots, z_{ip} ,y_i) \,, \quad \forall \, i =1 ,\ldots n \,, \qquad \text{ s.t. } \,\,
 \det (Z Z^T) \neq 0 
 $$
 The minimization problem
@@ -1383,7 +1338,7 @@ $$
 
 - To prove the Lemma we need some auxiliary results
 
-- In the following $x$ denotes an $n \times 1$ column vector
+- In the following, $x$ denotes an $n \times 1$ column vector
 
 $$
 x = 
@@ -1468,21 +1423,13 @@ $$
 (A^T)^T= A
 $$
 
-2. Let $M$ be a square $n \times n$ matrix. Then $M$ is symmetric iff
+2. A square matrix $M$ of size $n \times n$ is **symmetric** iff $M^T = M$
+
+
+3. Scalars can be seen as $1 \times 1$ symmetric matrices. Therefore
 $$
-M^T = M
+c^T = c \,, \qquad \forall \, c \in \R
 $$
-
-
-3. Scalars can be seen as $1 \times 1$ symmetric matrices
-
-4. Therefore for any scalar $c \in \R$
-$$
-c^T = c
-$$
-
-
-## Additional results on the matrix transpose {.smaller}
 
 5. For any $m \times n$ matrix $A$ and $n \times p$ matrix $B$
 $$
@@ -1498,13 +1445,13 @@ $$
 
 ## Optimality conditions {.smaller}
 
-We also need the $n$-dimensional version of the Lemma in Slide 18 Lecture 8
+We also need the $n$-dimensional version of the Lemma in Slide 103 Lecture 7
 
 ::: Lemma
 
 Suppose $f \colon \R^n \to \R$ has positive semi-definite Hessian. They are equivalent
 
-1. The point $\hat x$ is a minimizer of $f$, that is, 
+1. The point $\hat x$ is a minimizer of $f$, that is, such that
 
 $$
 f( \hat x ) = \min_{x \in \R^n} f(x)
@@ -1521,42 +1468,30 @@ $$
 
 
 
-## Minimizing the RSS {.smaller}
-### Proof of Lemma
+## Proof: Minimizing the RSS {.smaller}
+
+- Recall the definition of Residual Sum of Squares
+$$
+\RSS \colon \R^{p} \to \R \,, \qquad \RSS(\beta) = (y - Z \beta)^T (y - Z \beta)
+$$
 
 - We are finally ready to minimize the $\RSS$
-
 $$
-\min_{\beta} \ \RSS(\beta) 
-$$
-
-
-- Recall that $\RSS \colon \R^{p} \to \R$ with
-
-$$
-\RSS(\beta) = (y - Z \beta)^T (y - Z \beta)
+\min_{\beta \in \R^p} \ \RSS(\beta) 
 $$
 
-- It is not too difficult to show that $\nabla^2 \RSS$ is positive-semidefinite
-
-- The proof of this fact is left as an exercise
+- It is not too difficult to show that $\nabla^2 \RSS$ is positive-semidefinite (omitted)
 
 
-
-
-## Minimizing the RSS {.smaller}
-### Proof of Lemma
-
-- By the Lemma on Optimality Conditions in Slide 33
-
+- By the Lemma on Optimality Conditions in Slide 50
 $$
 \beta \,\, \text{ minimizes } \,\, \RSS \qquad \iff \qquad
 \nabla \RSS (\beta) = 0
 $$
 
+## {.smaller}
 
-- To compute $\nabla \RSS$ we first expand $\RSS$
-
+- To compute $\nabla \RSS$, we first expand $\RSS$
 \begin{align*}
 \RSS(\beta) & = (y-Z \beta)^T (y-Z \beta) \\[5pt]
             & = (y^T - (Z\beta)^T ) (y-Z \beta) \\[5pt]
@@ -1565,20 +1500,10 @@ $$
                 + \beta^T Z^T Z \beta
 \end{align*}
 
-
-
-## Minimizing the RSS {.smaller}
-### Proof of Lemma
-
 - Note that
-  * $y$ has size $n \times 1$
-  * $Z$ has size $n \times p$
-  * Therefore $Z^T$ has size $p \times n$
-  * $\beta$ has size $p \times 1$
-  * Thus $\beta^T$ has size $1 \times p$
-
-- $\beta^T Z^T y$ therefore has size
-
+  * $\beta$ has size $p \times 1 \quad \implies \quad \beta^T$ has size $1 \times p$
+  * $Z$ has size $n \times p \quad \implies \quad Z^T$ has size $p \times n$
+  * $y$ has size $n \times 1 \quad \implies \quad \beta^T Z^T y$ has size
 $$
 \left( 1 \times p \right) \times
 \left( p \times n \right) \times
@@ -1587,34 +1512,28 @@ $$
 
 
 
-## Minimizing the RSS {.smaller}
-### Proof of Lemma
+## {.smaller}
+
+::: {style="font-size: 0.95em"}
 
 - $\beta^T Z^T y \,$ is a scalar $\quad \implies \quad$ it is symmetric and we get
-
 $$
 \left( \beta^T Z^T y  \right)^T = \beta^T Z^T y
 $$
 
 
 - Using the properties of transposition we also get
-
 $$
 \left( \beta^T Z^T y  \right)^T =  y^T Z \beta
 $$
 
 - From the last 2 equations we conclude
-
 $$
-y^T Z \beta = \beta^T Z^T y
+\beta^T Z^T y = y^T Z \beta
 $$
 
-
-## Minimizing the RSS {.smaller}
-### Proof of Lemma
 
 - The $\RSS$ can now be written as
-
 \begin{align*}
 \RSS(\beta) & = y^T y - y^T Z \beta 
                 - \textcolor{magenta}{\beta^T Z^T y} + \beta^T Z^T Z \beta \\[5pt]
@@ -1623,83 +1542,60 @@ $$
             & = y^T y - 2 y^T Z \beta + \beta^T Z^T Z \beta
 \end{align*}
 
+:::
 
 
-## Minimizing the RSS {.smaller}
-### Proof of Lemma
+##  {.smaller}
 
-- Therefore we have
-
+- Therefore, we have
 \begin{align*}
 \nabla \RSS (\beta) & = \nabla ( y^T y ) 
                       - 2  \nabla (y^T Z     \beta ) + \nabla (\beta^T Z^T Z \beta ) \\[5pt]
                     & = - 2  \nabla (y^T Z     \beta ) + \nabla (\beta^T Z^T Z \beta )
 \end{align*}
 
-
 - We need to compute
-
 $$
  \nabla (y^T Z     \beta )  \qquad \quad \text{ and } \qquad \quad \nabla (\beta^T Z^T Z \beta )
 $$
 
 
-
-## Minimizing the RSS {.smaller}
-### Proof of Lemma
+- Note that $y^T Z$ has dimension $\, ( 1 \times n ) \times ( n \times p ) = 1 \times p$
 
 
-- Note that $y^T Z$ has dimension
-
-$$
-( 1 \times n ) \times ( n \times p ) = 1 \times p
-$$
-
-
-
-
-- Since $\beta$ has dimension $p \times 1$ we can define the function 
-
+- Since $\beta$ has dimension $p \times 1$, we can define the function 
 $$
 f \colon \R^p \to \R \,, \qquad 
 f(\beta) := y^T Z \beta
 $$
 
 
-- By the First Result on Matrix Calculus in Slide 28
-
+- By the First Result on Matrix Calculus in Slide 46
 $$
 \nabla f  = \nabla ( \textcolor{magenta}{y^T Z} \beta) = \textcolor{magenta}{y^T Z}
 $$
 
  
 
-## Minimizing the RSS {.smaller}
-### Proof of Lemma
+## {.smaller}
 
-- Note that $Z^T Z$ has dimension
-$( p \times n ) \times ( n \times p ) = p \times p$
 
-- Since $\beta$ has dimension $p \times 1$ we can define the function 
+- Note that $Z^T Z$ has dimension $\, ( p \times n ) \times ( n \times p ) = p \times p$
+
+- Since $\beta$ has dimension $p \times 1$, we can define the function 
 
 $$
-g \colon \R^p \to \R \,, \qquad 
-g(\beta) := \beta^T Z^T Z \beta 
+h \colon \R^p \to \R \,, \qquad 
+h(\beta) := \beta^T Z^T Z \beta 
 $$
 
 
-- By the Third Result on Matrix Calculus in Slide 30
-
+- By the Third Result on Matrix Calculus in Slide 48
 \begin{align*}
 \nabla h  & = \nabla (\beta^T \textcolor{magenta}{Z^T Z} \beta) = \beta^T (\textcolor{magenta}{Z^T Z} + (\textcolor{magenta}{Z^T Z})^T ) \\[5pt]
 & = \beta^T ( Z^T Z + Z^T Z ) = 2 \beta^T (Z^T Z)
 \end{align*}
 
-
-
-
-## Minimizing the RSS {.smaller}
-### Proof of Lemma
 
 - Putting together these results we obtain
 
@@ -1709,8 +1605,9 @@ $$
 \end{align*}
 
 
-- We can finally solve the optimality conditions:
+## {.smaller}
 
+- We can finally solve the optimality conditions:
 \begin{align*}
 \nabla \RSS (\beta) = 0 \qquad & \iff \qquad 
 -2 y^T Z + 2 \beta^T (Z^T Z) = 0  \\[5pt]
@@ -1719,62 +1616,37 @@ $$
 \end{align*}
 
 
-
-## Minimizing the RSS {.smaller}
-### Proof of Lemma
-
-- So far we have
-
-$$ 
-\beta^T (Z^T Z) =  y^T Z
-$$
-
-- Transposing both sides of the above equation yields
-
-$$
+- Transposing both sides of the last equation yields
+\begin{equation} \tag{3}
  (Z^T Z) \beta = Z^T y
-$$
+\end{equation}
 
-
-## Minimizing the RSS {.smaller}
-### Proof of Lemma
 
 - The matrix $Z^T Z$ is invertible, since we are assuming
-
 $$
 \det (Z^T Z) \neq 0
 $$
 
-- Multiply by $(Z^T Z)^{-1}$ both sides of 
-
-$$
- (Z^T Z) \beta = Z^T y
-$$
-
-
-- We obtain
-
+- Multiplying by $(Z^T Z)^{-1}$ both sides of (3), we get
 $$
 \beta = (Z^T Z)^{-1} Z^T y
 $$
 
 
 
-## Minimizing the RSS {.smaller}
-### Proof of Lemma
+##  {.smaller}
 
-
-- In conclusion 
+- In conclusion, we have shown that
 
 $$
 \nabla \RSS(\beta) = 0 \qquad \iff \qquad 
 \beta = (Z^T Z)^{-1} Z^T y
 $$
 
-- By the Lemma on Optimality Conditions in Slide 33 we infer
+- By the Lemma on Optimality Conditions in Slide 50, we infer
 
 $$
-\beta = (Z^T Z)^{-1} Z^T y  \,\, \text{ minimizes } \,\, \RSS
+\beta = (Z^T Z)^{-1} Z^T y  \,\,\, \text{ minimizes } \,\,\, \RSS
 $$
 
 - This concludes the proof
@@ -1787,11 +1659,12 @@ $$
 
 We are finally in position to prove the main Theorem. We recall the statement
 
+
 ::: Theorem 
 
-Suppose Assumptions 1--5 hold and assume given observations such that
+Suppose Assumptions 1--5 hold. Assume given observations
 $$
-(z_{i1}, \ldots, z_{ip} ,y_i) \,, \qquad \quad \forall \, i =1 ,\ldots n \,, \qquad
+(z_{i1}, \ldots, z_{ip} ,y_i) \,, \quad \forall \, i =1 ,\ldots n \,, \qquad \text{ s.t. } \,\,
 \det (Z Z^T) \neq 0 
 $$
 The maximization problem
@@ -1808,34 +1681,24 @@ $$
 
 
 
-## Maximizing the likelihood {.smaller}
-### Proof of Theorem
 
-- The $\log$ function is strictly increasing 
+## Proof of Theorem {.smaller}
 
-- Therefore the problem
+- The $\log$ function is strictly increasing. Therefore
 $$
 \max_{\beta,\sigma} \ L(\beta, \sigma^2 | y )
-$$
-is equivalent to
-$$
+\quad 
+\text{ is equivalent to } \quad 
 \max_{\beta,\sigma} \ \log L( \beta, \sigma^2 | y )
 $$
 
-
-
-## Maximizing the likelihood {.smaller}
-### Proof of Theorem
-
 - Recall that the likelihood is
-
 $$
 L(\beta, \sigma^2 | y ) =  \frac{1}{(2\pi \sigma^2)^{n/2}} \, \exp   \left(   - \frac{ \RSS(\beta) }{2\sigma^2}      \right)
 $$
 
 
-- Hence the log--likelihood is
-
+- Hence, the log--likelihood is
 $$
 \log L(\beta, \sigma^2 | y ) 
 = - \frac{n}{2} \log (2 \pi) - \frac{n}{2} \log \sigma^2 -
@@ -1844,10 +1707,9 @@ $$
 
 
 
-## Maximizing the likelihood {.smaller}
-### Proof of Theorem
+##  {.smaller}
 
-Suppose $\sigma$ is fixed. In this case the problem
+- Suppose first that $\sigma$ is fixed. In this case the problem
 $$
 \max_{\beta} \ \left\{ \frac{n}{2} \log (2 \pi) - \frac{n}{2} \log \sigma^2 -
 \frac{ \RSS(\beta) }{2 \sigma^2} \right\}
@@ -1857,7 +1719,7 @@ $$
 \min_{\beta} \ \RSS(\beta)
 $$
 
-We have already seen that the $\RSS$ is minimized at
+- We have already proven that the $\RSS$ is minimized at
 $$
 \hat \beta = (Z^T Z)^{-1} Z^T y 
 $$
@@ -1865,11 +1727,9 @@ $$
 
 
 
-## Maximizing the likelihood {.smaller}
-### Proof of Theorem
+## {.smaller}
 
-
-- Substituting $\hat \beta$ we obtain
+- Substituting $\hat \beta$, we obtain
 
 \begin{align*}
 \max_{\beta,\sigma} \ & \log L(\beta, \sigma^2 | y ) 
@@ -1878,8 +1738,9 @@ $$
 \frac{ \RSS(\hat \beta) }{2 \sigma^2}  \right\}
 \end{align*}
 
+- The above is a one-dimensional minimization problem in $\sigma$
 
-- It can be shown that the unique solution to the above problem is
+- Taking the first order derivative wrt $\sigma$, it can be shown the unique solution is
 $$
 \hat{\sigma}^2  = \frac{1}{n} \RSS(\hat \beta)
 $$
@@ -1889,7 +1750,10 @@ $$
 
 
 
-# Part 2: <br>Simple regression as<br> general regression {background-color="#cc0164" visibility="uncounted"}
+
+
+
+# Part 3: <br>Simple regression as<br> general regression {background-color="#cc0164" visibility="uncounted"}
 
 ::: footer
 
@@ -1905,11 +1769,10 @@ $$
 - The general linear regression model is 
 
 $$
-Y_i = \beta_1 z_{i1} +  \ldots +  \beta_p z_{ip} + \e_i \,, \qquad i = 1 , \ldots, n
+Y_i = \beta_1 z_{i1} +  \ldots +  \beta_p z_{ip} + \e_i \,,  \quad \e_i \sim N(0,\sigma^2) \quad \, \forall \,  i = 1 , \ldots, n
 $$
 
-- $Z$ is the design matrix of size $n \times p$
-
+- The design matrix, and data and parameters vectors are
 $$
 Z =
 \left(
@@ -1918,18 +1781,7 @@ z_{11} & \ldots & z_{1p} \\
 \ldots & \ldots & \ldots \\
 z_{n1} & \ldots & z_{np} \\
 \end{array}
-\right)
-$$
-
-
-
-
-## General linear regression model {.smaller}
-
-
-- The data column and parameters vectors are
-
-$$
+\right) \in \R^{n \times p} \,, \qquad 
 y =
 \left(
 \begin{array}{c}
@@ -1937,7 +1789,7 @@ y_1   \\
 \ldots  \\
 y_{n} \\
 \end{array}
-\right) \qquad \quad
+\right)\,, \qquad 
 \beta =
 \left(
 \begin{array}{c}
@@ -1949,9 +1801,7 @@ y_{n} \\
 $$
 
 
-
-- The likelihood for general linear regression is maximized by
-
+- The likelihood function for general linear regression is maximized by
 $$
 \hat \beta = (Z^T Z)^{-1} Z^T y
 $$
@@ -1965,12 +1815,11 @@ $$
 - The simple linear regression model is 
 
 $$
-Y_i = \alpha + \beta x_i + \e_i \,, \qquad i = 1 , \ldots, n
+Y_i = \alpha + \beta x_i + \e_i \,,  \,,  \quad \e_i \sim N(0,\sigma^2) \quad \, \forall \,  i = 1 , \ldots, n
 $$
 
 
 - The data is given by
-
 $$
 x =
 \left(
@@ -1993,8 +1842,7 @@ $$
 
 
 
-- The likelihood for simple linear regression is maximized by
-
+- The likelihood function for simple linear regression is maximized by
 $$
 \hat \alpha = \overline{y} - \hat \beta \, \overline{x} \,, 
 \qquad \quad \hat \beta = \frac{S_{xy}}{S_{xx}}
@@ -2029,10 +1877,11 @@ $$
 
 
 
-## Simple linear regression from general {.smaller}
+##  {.smaller}
 
-- Hence the design matrix is
+::: {style="font-size: 0.94em"}
 
+Therefore, the design matrix is
 $$
 Z =
 \left(
@@ -2041,34 +1890,14 @@ Z =
 \ldots & \ldots \\
 1 & x_{n} \\
 \end{array}
-\right)
-$$
-
-
-- Note that $Z$ has size 
-
-$$
-n \times p = n \times 2
+\right) \in \R^{n \times 2}
 $$
 
 
 
+::: Theorem
 
-## Simple linear regression from general {.smaller}
-### Goal 
-
-- Show that the multiple linear regression estimator
-$$
-(Z^T Z)^{-1} Z^T y
-$$
-recovers the simple linear regression estimators 
-$$
-\hat \alpha = \overline{y} - \hat \beta \overline{x} \,, 
-\qquad \quad \hat \beta = \frac{S_{xy}}{S_{xx}}
-$$
-
-- We expect $(Z^T Z)^{-1} Z^T y$ to contain the estimators $\hat \alpha, \hat \beta$
-
+With the above definition of $Z$, it holds that
 $$
 (Z^T Z)^{-1} Z^T y
 = 
@@ -2077,25 +1906,32 @@ $$
 \hat \alpha \\
 \hat \beta
 \end{array}
-\right)
+\right) \,, \qquad
+\hat \alpha = \overline{y} - \hat \beta \overline{x} \,, 
+\qquad \hat \beta = \frac{S_{xy}}{S_{xx}}
 $$
 
 
+:::
 
 
-## Calculation of $Z^T y$ {.smaller}
+In other words, the multiple linear regression estimator
+$$
+(Z^T Z)^{-1} Z^T y
+$$
+coincides with the simple linear regression estimators $\hat \alpha, \hat \beta$
+
+:::
+
+
+
+
+## Proof: Calculating $Z^T y$ {.smaller}
+
+::: {style="font-size: 0.94em"}
 
 - $Z$ has size $n \times 2 \qquad \implies \qquad$  $Z^T$ has size $2 \times n$
-- $y$ has size $n \times 1$
-- Therefore $Z^T y$ has size
-
-$$
-( 2 \times n )  \times (n \times 1) = 2 \times 1
-$$
-
-
-
-## Calculation of $Z^T y$ {.smaller}
+- $y$ has size $n \times 1 \qquad \implies \qquad Z^T y$ has size $\, ( 2 \times n )  \times (n \times 1) = 2 \times 1$
 
 
 \begin{align*}
@@ -2141,20 +1977,17 @@ x_1 y_1 + x_2 y_2 + \ldots + x_n y_n
 \right)
 \end{align*}
 
+:::
 
 
-## Calculation of $Z^T Z$ {.smaller}
+## Calculating $Z^T Z$ {.smaller}
 
-- $Z$ has size $n \times 2$
-- $Z^T$ has size $2 \times n$
-- Therefore $Z^T Z$ has size
+::: {style="font-size: 0.94em"}
 
-$$
-( 2 \times n )  \times (n \times 2) = 2 \times 2
-$$
+- $Z$ has size $n \times 2 \qquad \implies \qquad$  $Z^T$ has size $2 \times n$
 
+- Therefore $Z^T Z$ has size $\, ( 2 \times n )  \times (n \times 2) = 2 \times 2$
 
-## Calculation of $Z^T Z$ {.smaller}
 
 \begin{align*}
 Z^T Z & = 
@@ -2202,8 +2035,11 @@ x_1 & \ldots & x_n
 \right)
 \end{align*}
 
+:::
 
-## Matrix inverse {.smaller}
+
+
+## Matrix inverse: General formula {.smaller}
 
 - Suppose to have a $2 \times n$ matrix 
 
@@ -2225,7 +2061,7 @@ $$
 $$
 
 
-- If $\det M \neq 0$ the inverse of $M$ is 
+- If $\det M \neq 0$, the inverse of $M$ is 
 
 $$
 M^{-1}
@@ -2240,57 +2076,53 @@ $$
 
 
 
-## Calculation of $(Z^T Z)^{-1}$ {.smaller}
+## Resume the proof: Calculating $(Z^T Z)^{-1}$ {.smaller}
 
-- The determinant of $Z^T Z$ is
 
-\begin{align*}
-\det  \left( Z^T Z \right) & = 
+
+$$
+\det  \left( Z^T Z \right)  = 
 \det
 \left(
 \begin{array}{cc}
     n & n \overline{x} \\
     n \overline{x} & \sum_{i=1}^n x_i^2
 \end{array}
-\right) \\[15pt]
-& =
-n \sum_{i=1}^n x^2_i - n^2 \overline{x}^2 \\[15pt]
-& = n S_{xx}
-\end{align*}
-
-
-- Therefore we have
-
-$$
-\det \left( Z^T Z \right) = n S_{xx} \geq 0
+\right)
+=
+n \sum_{i=1}^n x^2_i - n^2 \overline{x}^2
+= n S_{xx}
 $$
 
 
-## Calculation of $(Z^T Z)^{-1}$ {.smaller}
-
-- Notice that  
-
-$$
-S_{xx} = \sum_{i=1}^n (x_i - \overline{x})^2 = 0 \qquad \iff \qquad x_1 = \ldots = x_n = \overline{x}
-$$
+- Note: $\, S_{xx} = \sum_{i=1}^n (x_i - \overline{x})^2 = 0 \quad \iff \quad x_1 = \ldots = x_n = \overline{x}$
 
 - WLOG we can discard the trivial case $S_{xx} = 0$ because:
-  * The predictors $x_1, \ldots, x_n$ are either chosen or random
+  * The predictors $x_1, \ldots, x_n$ are either chosen, or random
   * If they are chosen, it makes no sense to choose them all equal
   * If they are random, they will all be equal with probability $0$
 
 
-## Calculation of $(Z^T Z)^{-1}$ {.smaller}
+- Therefore, we have
+$$
+\det \left( Z^T Z \right) = n S_{xx} > 0  \quad \implies \quad Z^T Z \, \text{ is invertible}
+$$
 
-- Therefore we assume $S_{xx} > 0$
 
-- This way we have 
+
+
+
+## Calculating $(Z^T Z)^{-1}$ {.smaller}
+
+- Therefore, we assume $S_{xx} > 0$
+
+- This way, we have 
 
 $$
 \det \left( Z^T Z \right) = n S_{xx} > 0
 $$
 
-- Thus $Z^T Z$ is invertible with inverse
+- Thus $Z^T Z$ is invertible, with inverse
 
 \begin{align*}
 (Z^T Z)^{-1} & =
@@ -2407,13 +2239,13 @@ $$
 $$
 
 - **Conclusion**
-  * Simple linear regression can be seen as general regression with $p = 2$
+  * Simple linear regression is special case of general regression with $p = 2$
   * Estimator for general regression recovers estimators for simple regression
 
 
 
 
-# Part 3: <br>Multiple linear<br> regression{background-color="#cc0164" visibility="uncounted"}
+# Part 4: <br>Multiple linear<br> regression{background-color="#cc0164" visibility="uncounted"}
 
 ::: footer
 
@@ -2423,50 +2255,59 @@ $$
 
 
 
-## Mutiple linear regression model {.smaller}
+## Mutiple linear regression{.smaller}
 
 
-The response variable $Y$ depends on $p-1$ predictors
+Response variable $Y$ depends on $p-1$ predictors $X_2, \ldots, X_p$
 
-  $$ 
-  X_2, \ldots, X_p
-  $$
+- The goal is to learn the distribution of 
+$$
+Y | X_2, \ldots, X_p
+$$
+
+- $Y | X_2, \ldots, X_p$ allows to predict values of $Y$, knowing values of $X_2, \ldots, X_p$
+
 
 **Note:** We start counting from $2$ for notational convenience
 
-**Assumption:** For each $i=1, \ldots, n$ we observe
-
-
-
-- data point $(x_{i2}, \ldots, x_{ip}, y_i)$  
-
-
-- $x_{ij}$ is from $X_j$
-
-
-- $y_i$ is from $Y$
 
 
 
 
 ## Mutiple linear regression model {.smaller}
 
-Denote by $Y_i$ the random variable 
+**Assumption:** For each $i=1, \ldots, n$ we assume given observations
 
-$$
-Y | x_{i2} ,\ldots, x_{ip}
-$$
+::: {.column width="42%"}
+
+- data point $(x_{i2}, \ldots, x_{ip}, y_i)$ 
+
+:::
+
+::: {.column width="26%"}
+
+- $x_{ij}$ is from $X_j$
+
+:::
+
+::: {.column width="26%"}
+
+- $y_i$ is from $Y$
+
+:::
+
+
+- Denote by $Y_i$ the random variable $Y | x_{i2} ,\ldots, x_{ip}$
+
+
 
 ::: Definition
 
 The multiple linear regression model is
-
 $$
 Y_i = \beta_1 + \beta_2 x_{i2} + \ldots + \beta_p x_{ip} + \e_i
 $$
-
-where the **errors** satisfy
-
+where the **residuals** satisfy
 $$
 \e_1,\ldots, \e_n \,\, \text{ iid } \,\, N(0,\sigma^2)
 $$ 
@@ -2479,7 +2320,7 @@ $$
 ## Mutiple vs General linear regression {.smaller}
 
 
-- Multiple linear regression is a particular case of general linear regression
+- Multiple linear regression is special case of general linear regression
 
 - To see this, consider a general linear model with $p$ parameters
 
@@ -3746,7 +3587,7 @@ $$
 
 
 
-## Calculation of $Z^T y$ {.smaller}
+## Calculating $Z^T y$ {.smaller}
 
 - We want to compute the regression estimator
 
@@ -3768,7 +3609,7 @@ $$
 
 
 
-## Calculation of $Z^T y$ {.smaller}
+## Calculating $Z^T y$ {.smaller}
 
 
 
@@ -3831,7 +3672,7 @@ Z^T y & =
 
 
 
-## Calculation of $Z^T Z$ {.smaller}
+## Calculating $Z^T Z$ {.smaller}
 
 - $Z$ has dimension $(n_A + n_B) \times 2$
 - $Z^T$ has dimension $2 \times (n_A + n_B)$
@@ -3842,7 +3683,7 @@ $$
 $$
 
 
-## Calculation of $Z^T Z$ {.smaller}
+## Calculating $Z^T Z$ {.smaller}
 
 \begin{align*}
 Z^T Z & = 
@@ -3882,7 +3723,7 @@ Z^T Z & =
 \end{align*}
 
 
-## Calculation of $\hat \beta$ {.smaller}
+## Calculating $\hat \beta$ {.smaller}
 
 - The inverse of a diagonal matrix is diagonal
 

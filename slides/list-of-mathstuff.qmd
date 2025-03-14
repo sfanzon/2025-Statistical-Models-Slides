@@ -29,7 +29,7 @@
 
  [**Proposition**](#Proposition*-3.6)\Pageref{Proposition*-3.6}
 
- [**Proposition**](#Proposition*-3.7)\Pageref{Proposition*-3.7}
+ [**Theorem**](#Theorem*-3.7)\Pageref{Theorem*-3.7}
 
  [**Definition**](#Definition*-3.8)\Pageref{Definition*-3.8}
 

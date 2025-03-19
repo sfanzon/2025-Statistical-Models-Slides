@@ -3739,8 +3739,13 @@ $$
 
 - We want a regression model that can describe the sample means $\overline{a}$ and $\overline{b}$
 
+- It is sufficient to consider a general linear model with $p = 2$, that is,
 
-- To this end, define the data vector $y$ by concatenating $a$ and $b$
+$$
+\Expect[Y | Z_1 = z_1 , Z_2 = z_2 ] = \beta_1 z_1 + \beta_2 z_2
+$$
+
+- Define the data vector $y$ by concatenating $a$ and $b$
 
 $$
 y = 
@@ -3764,11 +3769,7 @@ y =
 $$
 
 
-- We fit a general linear model with $p = 2$ to the data $y$
 
-$$
-\Expect[Y | Z_1 = z_1 , Z_2 = z_2 ] = \beta_1 z_1 + \beta_2 z_2
-$$
 
 
 
@@ -3786,7 +3787,7 @@ Z_1 = 1_{A}(i) :=
 $$
 
 
-- Therefore we have 
+- Therefore, we have 
 
 \begin{align*}
 z_1 & = (\underbrace{1_A(i) , \ldots, 1_A(i)}_{n_A + n_B} ) \\[15pts]
@@ -3941,6 +3942,7 @@ Z^T y & =
 - $Z$ has dimension $(n_A + n_B) \times 2$
 - $Z^T$ has dimension $2 \times (n_A + n_B)$
 - $Z^T Z$ therefore has dimension
+
 $$
 [ 2 \times (n_A + n_B)] \times [ (n_A + n_B) \times 2 ] 
 = 2 \times 2
@@ -3989,7 +3991,7 @@ Z^T Z & =
 
 ## Calculating $\hat \beta$ {.smaller}
 
-- The inverse of a diagonal matrix is diagonal
+- As $Z^T Z$ is diagonal, the inverse is
 
 $$
 (Z^T Z)^{-1} =
@@ -4004,7 +4006,7 @@ $$
 $$
 
 
-- Then we can calculate
+- The MLE is therefore
 
 $$
 \hat \beta = (Z^T Z)^{-1} Z^Ty = 
@@ -4026,7 +4028,7 @@ $$
 
 ## Conclusions {.smaller}
 
-- Therefore the estimator is 
+- The MLE is
 
 $$
 \hat \beta = 

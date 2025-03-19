@@ -2920,7 +2920,7 @@ $$
 :::
 
 
-## Plotting the data {.smaller}
+## Enter the data {.smaller}
 
 
 - Enter the data in 3 vectors
@@ -2941,7 +2941,9 @@ year <- seq(1950, 1959, by = 1)
 
 ## Plotting the data {.smaller}
 
-- Using ``plot`` we plot productivity and year against unemployment
+- Want to see if either *Productivity* or *Year* predict *Unemployment*. Therefore, plot
+    * Productivity Vs Unemployment
+    * Year Vs Unemployment
 
 
 ```r
@@ -2962,8 +2964,8 @@ plot(year, unemployment,
 ```
 
 
-## Plotting the data {.smaller}
-### There appears to be some relationship
+## Output {.smaller}
+### There appears to be some linear relationship
 
 ```{r}
 # Unemployment data
@@ -3033,6 +3035,7 @@ scatterplot3d(x = productivity,
 
 
 ## Plotting the data with ``scatterplot3d`` {.smaller}
+### The data is clearly close to a plane
 
 ```{r}
 # Unemployment data
@@ -3118,11 +3121,11 @@ plot_ly(x = productivity,
 
 - We saw that the data points
 $$
-(x_i, y_i, z_i) = ( \text{productivity}, \text{year}, \text{unemployment} )
+( \text{Productivity}, \text{Year}, \text{Unemployment}  ) \in R^3
 $$
 roughly lie on a **plane**
 
-- **Goal:** Use multiple regression to model such plane
+- **Goal:** Use multiple regression to compute such plane
   * Unemployment is modelled by response variable $Y$
   * Productivity is modelled by predictor $X_2$
   * Year is modelled by predictor $X_3$
@@ -3143,13 +3146,14 @@ $$
 $$
 
 - Enter design matrix ``Z`` into R
+- Enter data ``y`` into R
 - Compute estimator 
 $$
 \hat \beta = (Z^T Z)^{-1} Z^T y
 $$
-- Matrix product in R is $\,$``%*%``
-- Transpose matrix of $\,$``A``$\,$ is $\,$``t(A)``
-- Inverse of matrix $\,$``A``$\,$ is $\,$``solve(A)``
+    * Matrix product in R is $\,$``%*%``
+    * Transpose matrix of $\,$``A``$\,$ is $\,$``t(A)``
+    * Inverse of matrix $\,$``A``$\,$ is $\,$``solve(A)``
 
 :::
 
@@ -3272,21 +3276,23 @@ $$
 
 
 
+
+
+
+
+
 ## Solution {.smaller}
 
-Data vector $y$ is stored in R as usual
+::: {style="font-size: 0.93em"}
+
+- Data vector $y$ is stored in R as usual
 
 ```r
 # Store vector y
 y <- c(3.1, 1.9, 1.7, 1.6, 3.2, 2.7, 2.6, 2.9, 4.7, 3.8)
 ```
 
-
-
-
-## Solution {.smaller}
-
-Design matrix is stored as follows
+- Design matrix is stored as follows
 
 
 ```r
@@ -3305,7 +3311,7 @@ Z <- c(1, 113, 1950,
 # Make Z into a matrix with 3 columns
 Z <- matrix(Z, ncol = 3, byrow = TRUE)
 ```
-
+:::
 
 
 ## Solution {.smaller}
@@ -3414,7 +3420,7 @@ cat("The estimator is", beta)
 
 \begin{align*}
 \Expect[Y | x_2, x_3] & = \hat\beta_1 + \hat\beta_2 \, x_2 + \hat\beta_3 \, x_3 \\[15pt]
- & = -1271.75 + -0.1033386 \times x_2 + 0.6594171 \times x_3 
+ & = -1271.75 + (-0.1033386) \times x_2 + 0.6594171 \times x_3 
 \end{align*}
 
 
@@ -3422,7 +3428,7 @@ cat("The estimator is", beta)
 
 
 
-## Solution: Plot of data and regression plane {.smaller}
+## Plot of data and regression plane {.smaller}
 
 ```{r}
 #| echo: true
@@ -3471,12 +3477,12 @@ plot_ly(x = productivity,
 ## Computing the $R^2$ coefficient  {.smaller} 
 
 
-- How well does such multiple linear model fit our data?
+- How well does the multiple linear model fit our data?
 
 - To answer this question we compute the coefficient of determination
 
 $$
-R^2 = \frac{ \ESS }{ \TSS }  = \frac{ \sum_{i=1}^n ( \hat y_i - \overline{y} )^2 }{ \sum_{i=1}^n (y_i - \overline{y})^2 }
+R^2 = 1 - \frac{\RSS}{\TSS}
 $$
 
 
@@ -3493,7 +3499,7 @@ $$
 
 ```r
 # Compute mean of y
-y_bar <- mean(y)
+y.bar <- mean(y)
 ```
 
 - We compute $\TSS$ with the R command
@@ -3501,27 +3507,31 @@ y_bar <- mean(y)
 
 ```r
 # Compute TSS
-TSS <- sum( ( y - y_bar) ^ 2 )
+TSS <- sum( ( y - y.bar) ^ 2 )
 ```
 
 
-## Computing $\ESS$  {.smaller} 
+## Computing predictions  {.smaller} 
 
 - We have that 
 
 $$
-\ESS := \sum_{i=1}^n (\hat y_i - \overline{y})^2
+\RSS := \sum_{i=1}^n (y_i - \hat y_i)^2
 $$
 
 
-- We need to compute
+- We need to compute the predictions
 
 $$
 \hat y_i :=  \hat \beta_1 + \hat \beta_2 x_{i2} + \hat \beta_3 x_{i3}
 $$
 
 
-## Computing $\ESS$  {.smaller}
+
+
+
+## Computing predictions  {.smaller}
+
 
 - $\hat y$, the design matrix $Z$, and $\hat \beta$ are
 
@@ -3551,7 +3561,7 @@ Z =
 $$
 
 
-- Therefore we can compute 
+- Therefore, we can compute 
 $$
 \hat y_i =  \hat \beta_1 + \hat \beta_2 x_{i2} + \hat \beta_3 x_{i3}
 $$
@@ -3564,24 +3574,29 @@ $$
 
 
 
-## Computing $\ESS$  {.smaller}
+## Computing $\RSS$  {.smaller}
 
 
 - Recall that $\hat \beta$ is stored in ``beta``
 
-- Therefore we can compute $\hat y$ with R command
+- Compute predictions $\hat y = Z \hat{\beta}$
 
 ```r
-# Compute predictions y hat
-y_hat <- Z %*% beta
+# Compute predictions y.hat
+y.hat <- Z %*% beta
 ```
 
 
-- Finally $\ESS$ is computed with
+- Recall that 
+$$
+\RSS = \sum_{i=1}^n (y_i - \hat{y}_i)^2
+$$
+
+- This is computed in R with
 
 ```r
-# Compute ESS
-ESS <- sum( (y_hat - y_bar) ^ 2 )
+# Compute RSS
+RSS <- sum( (y - y.hat) ^ 2 )
 ```
 
 
@@ -3593,11 +3608,9 @@ ESS <- sum( (y_hat - y_bar) ^ 2 )
 
 ```r 
 # Compute coefficient of determination R^2
-R2 <- ESS / TSS
+R2 <- 1 - RSS / TSS
 
-# Print ESS, RSS and R^2
-cat("\nThe Estimated Squared Error ESS is", ESS)
-cat("\nThe Total Squared Error TSS is", TSS)
+# Print R^2
 cat("\nThe coefficient of determination R^2 is", R2)
 ```
 
@@ -3607,9 +3620,7 @@ cat("\nThe coefficient of determination R^2 is", R2)
 
 
 
-## Computing $R^2$  {.smaller}
-
-- Running the code we obtain the output
+## Output & Conclusions  {.smaller}
 
 ```{r} 
 # Store vector y
@@ -3646,49 +3657,37 @@ beta <- m2 %*% m3
 cat("\nThe estimator is", beta)
 
 # Compute mean of y
-y_bar <- mean(y)
+y.bar <- mean(y)
 
 # Compute TSS
-TSS <- sum( ( y - y_bar) ^ 2 )
+TSS <- sum( ( y - y.bar) ^ 2 )
 
 # Compute predictions hat y
-y_hat <- Z %*% beta
+y.hat <- Z %*% beta
 
 # Compute ESS
-ESS <- sum( (y_hat - y_bar) ^ 2 )
+RSS <- sum( (y - y.hat) ^ 2 )
 
 # Compute coefficient of determination R^2
-R2 <- ESS / TSS
+R2 <- 1 - RSS / TSS
 
-# Print ESS, RSS and R^2
-cat("\nThe Estimated Squared Error ESS is", ESS)
-cat("\nThe Total Squared Error TSS is", TSS)
+# Print R^2
 cat("\nThe coefficient of determination R^2 is", R2)
 ```
 
 <br>
 
-- In particular we have 
-
-$$
-R^2 = 0.8655401
-$$
-
-
-
-## Conclusions  {.smaller}
-
 The coefficient of determination
-
 $$
 R^2 = 0.8655401
 $$
-
-is quite close to $1$, showing that
+is quite close to $1$, showing that:
 
 - The model fits data quite well
 - *Productivity Index* and *Year* affect *Unemployment*
-- *Unemployment* is almost completely explained by *Productivity Index* and *Year*
+- *Unemployment* is almost completely explained by *Productivity Index* and *Year*  
+(Because $R^2$ is almost $1$)
+
 
 
 
@@ -3705,7 +3704,7 @@ is quite close to $1$, showing that
 
 ## Two-sample t-test as general regression {.smaller}
 
-- Two-sample t-test is particular case of general linear regression
+- Two-sample t-test is special case of general linear regression
 
 - This example is important for two reasons
 
@@ -3740,14 +3739,8 @@ $$
 
 - We want a regression model that can describe the sample means $\overline{a}$ and $\overline{b}$
 
-- To this end, we fit a general linear model with $p = 2$ to the data
 
-$$
-\Expect[Y | Z_1 = z_1 , Z_2 = z_2 ] = \beta_1 z_1 + \beta_2 z_2
-$$
-
-
-- Define the data vector $y$ by concatenating $a$ and $b$
+- To this end, define the data vector $y$ by concatenating $a$ and $b$
 
 $$
 y = 
@@ -3769,6 +3762,14 @@ y =
      b_{n_B}
 \end{array}\right)
 $$
+
+
+- We fit a general linear model with $p = 2$ to the data $y$
+
+$$
+\Expect[Y | Z_1 = z_1 , Z_2 = z_2 ] = \beta_1 z_1 + \beta_2 z_2
+$$
+
 
 
 

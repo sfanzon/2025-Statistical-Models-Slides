@@ -41,7 +41,7 @@ $
 2. General linear regression
 3. Simple regression as general regression
 4. Multiple linear regression
-5. Coefficient of determination
+5. Coefficient of determination $R^2$
 6. Example of multiple regression
 7. Two sample t-test as general regression
 
@@ -611,7 +611,7 @@ How do we enforce (1)?
 
 ## {.smaller}
 
-::: {style="font-size: 0.94em"}
+::: {style="font-size: 0.89em"}
 
 **Answer:** Recall condition (1) from previous slide
 \begin{equation} \tag{1}
@@ -620,28 +620,31 @@ How do we enforce (1)?
 
 
 - If we want (1) to hold, we need to maximize the joint probability
-$$
+\begin{equation} \tag{P}
 P(Y_1 \approx y_1, \ldots, Y_n \approx y_n) = \int_{A} f(y) \, dy \approx |A| \, f(y_1,\ldots, y_n)
-$$
+end{equation}
     * where $f$ is the joint pdf of $(Y_1,\ldots, Y_n)$
     * $A$ is (small) open set in $\R^n$ containing the observations $(y_1,\ldots,y_n)$
     * |A| is the $n$-dimensional volume of $A$
 
 
 
-- To maximize the probability, it is enough to maximize $f(y_1,\ldots,y_n)$
+- To maximize the probability, by (P), it is enough to maximize $f(y_1,\ldots,y_n)$
 
 - Therefore, choose parameters $\hat \alpha, \hat \beta, \hat \sigma$ which **maximize the likelihood function**
 $$
 \max_{\alpha,\beta,\sigma} f(y_1,\ldots,y_n | \alpha,\beta, \sigma^2) = \max_{\alpha,\beta,\sigma} \ L(\alpha,\beta, \sigma^2 | y_1, \ldots, y_n )
 $$
 
+**Maximum Likelihood Estimation:** Find parameters that maximize the Likelihood, and thus (P)
+
 :::
 
 
 
-## Maximizing the likelihood {.smaller}
+## Maximum Likelihood Estimation {.smaller}
 
+::: {style="font-size: 0.94em"}
 
 ::: Theorem 
 
@@ -657,11 +660,14 @@ $$
 \hat \beta = \frac{S_{xy}}{S_{xy}} \,, \qquad 
 \hat{\sigma}^2  = \frac{1}{n} \sum_{i=1}^n \left(  y_i - \hat \alpha - \hat \beta x_i  \right)^2
 $$
+
 :::
 
+- The constants $\hat \alpha, \hat \beta, \hat{\sigma}^2$ are called *Maximum Likelihood Estimators (MLE)*
 
-**Note:** The coefficients $\hat \alpha$ and $\hat \beta$ are the Least Squares ones!
+- **Important:** $\hat \alpha$ and $\hat \beta$ are the Least Squares coefficients!
 
+:::
 
 
 ## Proof of Theorem {.smaller}
@@ -1265,15 +1271,15 @@ How do we enforce (2)?
 
 
 - If we want (2) to hold, we need to maximize the joint probability
-$$
+\begin{equation}\tag{P}
 P(Y_1 \approx y_1, \ldots, Y_n \approx y_n) = 
 \int_{A} f(y) \, dy \approx |A| f(y)
-$$
+\end{equation}
     * where $f$ is the joint pdf of $(Y_1,\ldots,Y_n)$
     * $A$ is a (small) open set in $\R^n$ containing the observations $(y_1,\ldots,y_n)$
     * $|A|$ is the n-dimensional volume of $A$
 
-- To maximize the above probability, it is enough to maximize $f(y_1,\ldots,y_n)$
+- To maximize the probability, by (P), it is enough to maximize $f(y_1,\ldots,y_n)$
 
 - Therefore, choose parameters $\hat \beta,  \hat \sigma$ which **maximize the likelihood function**
 $$
@@ -1285,7 +1291,7 @@ $$
 
 
 
-## Maximizing the likelihood {.smaller}
+## Maximum Likelihood Estimation {.smaller}
 
 ::: Theorem 
 
@@ -1305,6 +1311,7 @@ $$
 $$
 :::
 
+- The constants $\hat \beta, \hat{\sigma}^2$ are called *Maximum Likelihood Estimators (MLE)*
 
 
 
@@ -1329,6 +1336,7 @@ $$
 $$
 
 :::
+
 
 
 
@@ -1655,7 +1663,7 @@ $$
 
 
 
-## Maximizing the likelihood {.smaller}
+## Maximum Likelihood Estimation {.smaller}
 
 We are finally in position to prove the main Theorem. We recall the statement
 
@@ -2322,13 +2330,13 @@ $$
 
 - Multiple linear regression is special case of general linear regression
 
-- To see this, consider a general linear model with $p$ parameters
+- To see this, consider a *general linear model* with $p$ parameters
 
 $$
 Y_i = \beta_1 z_{i1} + \beta_2 z_{i2} + \ldots  + \beta_p z_{ip}  + \e_i \,, \qquad i = 1 , \ldots, n
 $$
 
-- We want to compare the above to
+- We want to compare the above to the *multiple regression model*
 
 $$
 Y_i = \beta_1 + \beta_2 x_{i2} + \ldots + \beta_p x_{ip} + \e_i
@@ -2365,15 +2373,13 @@ y_n \\
 \end{array}
 \right)
 $$
+**The design matrix includes a first column of 1s to account for the intercept**
+
+- $Z$ has size $n \times p$
+- $y$ has size $n \times 1$
 
 
-- Note that 
-  * $Z$ has size $n \times p$
-  * $y$ has size $n \times 1$
-
-
-- The **estimator** for multiple regression is therefore $\hat \beta \in \R^p$
-
+- The **MLE** for multiple regression is therefore $\hat \beta \in \R^p$
 $$
 \hat \beta = (Z^T Z)^{-1} Z^T y
 $$
@@ -2383,7 +2389,9 @@ $$
 
 
 
-# Part 4: <br>Coefficient of <br>determination {background-color="#cc0164" visibility="uncounted"}
+
+
+# Part 5: <br>Coefficient of <br>determination $R^2$ {background-color="#cc0164" visibility="uncounted"}
 
 ::: footer
 
@@ -2396,13 +2404,13 @@ $$
 
 ## How good is the model? {.smaller}
 
-- Consider the multiple linear regression model
+- Consider the general linear regression model
 
 $$
-Y_i = \beta_1  + \beta_2 x_{i2} + \ldots + \beta_p \, x_{ip} + \e_i
+Y_i = \beta_1 z_{i1}  + \ldots + \beta_p \, z_{ip} + \e_i
 $$
 
-- Denote the estimator by
+- Given the observed values $y = (y_1, \ldots, y_n)$, compute the MLE by
 
 $$
 \hat \beta = (\hat \beta_1, \ldots, \hat \beta_p ) = (Z^T Z)^{-1} Z^T y
@@ -2420,38 +2428,65 @@ $$
 
 
 
-## Predicted values and RSS {.smaller}
+## {.smaller}
 
 
 - The **predicted values** are
+$$
+\hat y_i := \Expect[ Y | z_{i1}, \ldots , z_{ip} ] 
+          =  \hat \beta_1 \, z_{i1} + \ldots + \hat \beta_p \, z_{ip}  \quad \implies \quad \hat y = Z \hat \beta
+$$
 
-\begin{align*}
-\hat y_i & := \Expect[ Y | x_{i2}, \ldots , z_{ip} ] \\
-         & = \hat \beta_1 + \hat \beta_2 \, x_{i2} + \ldots + \hat \beta_p \, x_{ip}
-\end{align*}
 
-- Recall that the **Residual sum of squares** is
-
+- Recall: the **Residual sum of squares** is
 $$
 \RSS := \sum_{i=1}^n ( y_i - \hat y_i )^2 
 $$
-
-- The $\RSS$ measures deviation of predicted values from observed values
-
-
-
-
-
-## Explained sum of squares {.smaller}
-
-
-- The **explained sum of squares** is
+$\RSS$ measures deviation of predicted values from observed values
 
 $$
-\ESS := \sum_{i=1}^n ( \hat y_i - \overline{y} )^2
+\text{Model is good } \,\, \iff \,\,  \hat{y}_i \approx y_i \, \quad \forall \, i \,\, \iff \,\, \RSS \, \text{ is small}
 $$
 
-- $\ESS$ measures deviation of predicted values from the grand mean
+- **However:** $\RSS$ is a relative measure of precision
+    * Need to rescale $\RSS$, which will lead to the coefficient of determination $R^2$
+    * To this end, we need some preliminary results
+
+
+
+## Normal equation for General Regression {.smaller}
+
+::: Lemma
+
+Suppose given the general linear regression model
+
+$$
+Y_i =  \beta_1 z_{i1} + \ldots + \beta_p z_{ip}  + \e_{i}
+$$
+for errors $\e_1 , \ldots, \e_n$ iid $N(0,\sigma^2)$. Define the **observed errors**
+$$
+\hat{\e}_i = y_i - \hat{y}_i 
+$$
+Then the **normal equation** is satisfied
+$$
+\hat{\e}^T Z = \mathbf{0}
+$$
+
+:::
+
+
+## Proof {.smaller}
+
+\begin{align*}
+\hat{\e}^T Z & = (y - \hat y)^T Z & \hat{\e} = y - \hat{y} \\
+             & = (y - Z \hat{\beta})^T Z &  \hat{y} = Z\hat{\beta} \\
+             & = (y - Z (Z^T Z)^{-1} Z^T y)^T Z & \hat{\beta} = (Z^T Z)^{-1} Z^T y \\
+             & = y^T (I - Z (Z^T Z)^{-1} Z^T )^T Z   & \text{factor } \,y \\
+             & = y^T (I - Z (Z^T Z)^{-1} Z^T )^T (Z^T)^T  & Z = (Z^T)^T\\
+             & = y^T [  Z^T (I  - Z (Z^T Z)^{-1} Z^T ) ]^T   & (AB)^T = B^TA^T \\
+             & = y^T [  Z^T - \underbrace{Z^T Z (Z^T Z)^{-1}}_{I} \ Z^T ]^T \\[10pt]
+             & = y^T \left[  Z^T - Z^T  \right]^T = \mathbf{0}
+\end{align*}
 
 
 
@@ -2470,11 +2505,99 @@ $$
 
 
 - Hence $\TSS$ measures variability of the observed data $y_1 , \ldots, y_n$
+     * If data very variable, then usually $y_i$ is far from $\overline{y} \implies \TSS$ is large
+     * If data not very variable, then $y_i \approx \overline{y} \implies \TSS$ is small
+
+
+**Goal:** Decompose the $\TSS$
 
 
 
-## $\TSS = \ESS + \RSS$  {.smaller}
 
+## $\RSS$ and $\ESS$ {.smaller}
+
+- Recall: the **Residual sum of squares** is
+$$
+\RSS := \sum_{i=1}^n ( y_i - \hat y_i )^2 
+$$
+The $\RSS$ measures deviation of predicted values from observed values
+
+
+- Introduce the **explained sum of squares** by
+$$
+\ESS := \sum_{i=1}^n ( \hat y_i - \overline{y} )^2
+$$
+$\ESS$ measures deviation of predicted values from the grand mean
+
+
+
+
+## Decomposition of $\TSS$ {.smaller}
+
+::: Theorem
+
+Suppose given the general linear regression model
+
+$$
+Y_i =  \beta_1 z_{i1} + \ldots + \beta_p z_{ip}  + \e_{i}
+$$
+for errors $\e_1 , \ldots, \e_n$ iid $N(0,\sigma^2)$. Then
+
+$$
+\TSS = \ESS + \RSS -  2 \overline{y} \sum_{i=1}^n \hat{\e}_i
+$$
+where the observed errors are
+$$
+\hat{\e}_i = y_i - \hat{y}_i 
+$$
+
+:::
+
+
+
+
+## Proof  {.smaller}
+
+**Trick:** Add and substract $\hat{y}_i$, then expand:
+
+\begin{align*}
+\TSS & = \sum_{i=1}^n (y_i - \overline{y})^2 \\ 
+& = \sum_{i=1}^n \left[ (\hat{y}_i - \overline{y})  + (y_i - \hat{y}_i) \right]^2 \\
+  & = \sum_{i=1}^n (\hat{y}_i - \overline{y})^2  + (y_i - \hat{y}_i)^2 + 2 (\hat{y}_i - \overline{y})  \underbrace{(y_i - \hat{y}_i)}_{\hat{\e}_i} \\
+  & = \ESS + \RSS + 2 \sum_{i=1}^n \hat{y}_i \hat{\e}_i - 2 \overline{y} \sum_{i=1}^n \hat{\e}_i 
+\end{align*}
+
+
+
+
+## {.smaller}
+
+- Recall the **normal equation**
+
+$$
+\hat{\e}^T Z = \mathbf{0}
+$$
+
+- Using again that $\hat y = Z \hat{\beta}$, we get
+
+$$
+\sum_{i=1}^n \hat{y}_i \hat{\e}_i = 
+\hat{\e}^T \hat{y} = 
+\hat{\e}^T Z \hat{\beta} =
+\mathbf{0} \hat{\beta} = 0
+$$
+
+- From the above, we conclude the thesis:
+$$
+\TSS  = \ESS + \RSS + 2 \underbrace{ \sum_{i=1}^n \hat{y}_i \hat{\e}_i}_{0} - 2 \overline{y} \sum_{i=1}^n \hat{\e}_i
+    = \ESS + \RSS - 2 \overline{y} \sum_{i=1}^n \hat{\e}_i 
+$$
+
+
+
+
+
+## Multiple regression: $\TSS = \ESS + \RSS$  {.smaller}
 
 ::: Theorem
 
@@ -2483,8 +2606,11 @@ Suppose given the multiple regression linear model
 $$
 Y_i =  \beta_1 + \beta_2 x_{i2} + \ldots + \beta_p x_{ip}  + \e_{i}
 $$
-for errors $\e_1 , \ldots, \e_n$ iid $N(0,\sigma^2)$. Then
-
+for errors $\e_1 , \ldots, \e_n$ iid $N(0,\sigma^2)$. Then, the sum of errors is zero
+$$
+\sum_{i=1}^n \hat{\e}_i = 0 \,, 
+$$
+where $\hat{\e}_i = y_i - \hat{y}_i$. In particular, the following decomposition holds
 $$
 \TSS = \ESS + \RSS
 $$
@@ -2492,48 +2618,126 @@ $$
 :::
 
 
-**Proof:** Left as an exercise
+
+
+## Proof  {.smaller}
+
+- Since we are dealing with multiple linear regression, $Z$ has the form
+
+$$
+Z =
+\left(
+\begin{array}{cccc}
+1 & x_{12} & \ldots & x_{1p} \\
+1 & x_{22} & \ldots & x_{2p} \\
+\ldots & \ldots & \ldots & \ldots \\
+1 & x_{n2} & \ldots & x_{np} \\
+\end{array}
+\right) 
+$$
+
+
+- Therefore, we have that 
+
+$$
+\hat{\e}^T Z = 
+(\hat{\e}_1 , \ldots, \hat{\e}_n) 
+\left(
+\begin{array}{cccc}
+1 & x_{12} & \ldots & x_{1p} \\
+1 & x_{22} & \ldots & x_{2p} \\
+\ldots & \ldots & \ldots & \ldots \\
+1 & x_{n2} & \ldots & x_{np} \\
+\end{array}
+\right) = \left(  \sum_{i=1}^n \hat{\e}_i , \ast , \ldots, \ast  \right)
+$$
+
+
+## {.smaller}
+
+- The normal equation says that 
+
+$$
+\hat{\e}^T Z = \mathbf{0}
+$$
+
+- Therefore, we conclude that 
+
+$$
+\hat{\e}^T Z  = \left(  \sum_{i=1}^n \hat{\e}_i , \ast , \ldots, \ast  \right) = (0, 0, \ldots, 0)
+$$
+
+- From the above, we infer that the **sum of the errors is zero**
+
+$$
+\sum_{i=1}^n \hat{\e}_i = 0
+$$
 
 
 
-::: {.content-hidden}
+## {.smaller}
 
-For proof see here
 
-https://en.wikipedia.org/wiki/Explained_sum_of_squares
+- Multiple linear regression is a special case of general linear regression
+
+- Therefore, we can apply the previous Theorem to get
+$$
+\TSS = \ESS + \RSS -  2 \overline{y} \sum_{i=1}^n \hat{\e}_i
+$$
+
+- In the previous slide we have shown that
+
+$$
+\sum_{i=1}^n \hat{\e}_i = 0
+$$
+
+
+- Therefore, the thesis follows 
+
+$$
+\TSS = \ESS + \RSS -  2 \overline{y} \sum_{i=1}^n \hat{\e}_i =  \ESS + \RSS
+$$
+
+
+
+
+
+
+
+## Coefficient of determination $R^2$ {.smaller}
+
+
+Consider the general linear regression model
+$$
+Y_i = \beta_1 z_{i1}  + \ldots + \beta_p \, z_{ip} + \e_i
+$$
+For observed data $y = (y_1, \ldots, y_n)$, define the predictions by
+$$
+\hat{y} = Z\hat{\beta}  \,, \qquad \hat{\beta} = (Z^TZ)^{-1} Z^T y
+$$
+
+
+::: Definition
+
+The **coefficient of determination** is 
+$$
+R^2 := 1 -  \frac{ \RSS }{ \TSS } = 1 - \frac{ \sum_{i=1}^n ( y_i - \hat y_i  )^2 }{ \sum_{i=1}^n ( y_i - \overline{y} )^2 }
+$$
 
 :::
 
 
 
-## Coefficient of determination {.smaller}
 
 
-- The **coefficient of determination** is 
-
-$$
-R^2 :=  \frac{ \ESS }{ \TSS } = \frac{ \sum_{i=1}^n ( \hat y_i - \overline{y} )^2 }{ \sum_{i=1}^n ( y_i - \overline{y} )^2 }
-$$
-
-- $R^2$ measures proportion of total data variability ($\TSS$) which is explained by the regression model ($\ESS$) 
-
-- By the Theorem we have
-
-$$
-R^2 = \frac{ \ESS }{ \TSS } = 1 - \frac{ \RSS }{ \TSS }
-$$
-
-
-
-
-## Coefficient of determination {.smaller}
+## Properties of $R^2$ {.smaller}
 
 ::: Proposition
 
-We have that 
+For the general linear regression model, we have that
 
 $$
-0 \leq R^2 \leq 1
+R^2 \leq 1
 $$
 
 Moreover 
@@ -2545,53 +2749,103 @@ $$
 :::
 
 
-## Coefficient of determination {.smaller}
-### Proof of Proposition
 
-- Note that 
 
+
+
+
+## Proof {.smaller}
+
+
+- Since $\RSS$ and $\TSS$ are sums of squares, we have that
+$\TSS,  \, \RSS \geq 0$
+
+- Therefore, the first part of the statemet follows immediately 
 $$
-\TSS, \, \ESS , \, \RSS \geq 0
+R^2 := 1 - \frac{\RSS}{\TSS}  \leq 1
 $$
 
-- Therefore 
-
+- Moreover, recalling the definition of $\RSS$, we have that
 $$
-R^2 := \frac{\ESS}{\TSS} \geq 0
-$$
-
-
-
-## Coefficient of determination {.smaller}
-### Proof of Proposition
-
-
-- By the Theorem we also have
-
-$$
-R^2 = \frac{ \ESS }{ \TSS } = 1 - \frac{ \RSS }{ \TSS }  \leq 1
+\RSS = \sum_{i=1}^n (y_i - \hat{y}_i)^2 = 0 \quad \iff \quad
+\hat{y}_i = y_i \quad \forall \, i
 $$
 
 
-- Moreover note that
+- The thesis immediately follows:
+$$
+R^2 = 1 \,\, \iff \,\, 1 - \frac{\RSS}{\TSS} = 1  \,\, \iff \,\, \RSS = 0 \,\, \iff \,\,
+\hat{y}_i = y_i \quad \forall \, i
+$$
+
+
+
+
+## $R^2$ might be negative {.smaller}
+
+
+::: Proposition
+
+1. For the **general** linear regression model, it might hold that
+$$
+R^2 < 0
+$$
+
+2. For the **multiple** regression model, it always holds that
+$$
+0 \leq R^2 \leq 1
+$$
+
+:::
+
+Bottom line:
+
+- $R^2$ can be negative for general regression (i.e. when no intercept is present)
+
+- $0 \leq R^2 \leq 1$ for multiple regression (i.e. when intercept is present)
+
+
+
+
+
+## Proof {.smaller}
+
+1. For general linear regression, the following decomposition holds (Thm Slide 85)
+$$
+\TSS = \ESS + \RSS -  2 \overline{y} \sum_{i=1}^n \hat{\e}_i
+$$
+
+
+- By definition of $R^2$, we have
+$$
+R^2 := 1 - \frac{ \RSS }{ \TSS } = \underbrace{\frac{\ESS}{\TSS}}_{\geq 0} - \underbrace{\frac{2 \overline{y} \sum_{i=1}^n \hat{\e}_i}{\TSS}}_{\text{can have any sign}} 
+$$
+
+- Since the last term can have any sign, it might hold that $R^2 < 0$
+
+
+
+## {.smaller}
+
+
+2. For multiple linear regression, the following decomposition holds (Thm Slide 88)
+$$
+\TSS = \ESS + \RSS
+$$
+
+
+- By definition of $R^2$, we have
 
 $$
-\RSS = \sum_{i=1}^n ( y_i - \hat y_i )^2 = 0 \qquad \iff \qquad y_i = \hat y_i \quad \,\, \forall \, i = 1 , \ldots, n
+R^2 := 1 - \frac{ \RSS }{ \TSS } = \frac{\ESS}{\TSS} \geq 0 
 $$
 
+- Therefore, we conclude that
 
-## Coefficient of determination {.smaller}
-### Proof of Proposition
+$$
+0 \leq R^2 \leq 1
+$$
 
-
-- The proof is concluded by noting that
-
-\begin{align*}
-R^2 = 1 \quad & \iff  \quad 1 - \frac{ \RSS }{ \TSS }  = 1 \\[15pt]
-              & \iff \quad \frac{ \RSS }{ \TSS }  = 0 \\[15pt]
-              & \iff \quad \RSS = 0 \\[15pt]
-              & \iff \quad y_i = \hat y_i \quad \,\, \forall \, i = 1 , \ldots, n
-\end{align*}
 
 
 
@@ -2600,26 +2854,35 @@ R^2 = 1 \quad & \iff  \quad 1 - \frac{ \RSS }{ \TSS }  = 1 \\[15pt]
 
 We have shown that
 
-- $0 \leq R^2 \leq 1$
+- $R^2 \leq 1$
 
 - $R^2 = 1 \quad \iff \quad y_i = \hat y_i \quad \,\, \forall \, i = 1 , \ldots, n$
 
 
 **Conclusion:** $R^2$ measures how well the model fits the data
 
-- $R^2$ close to $1 \quad \implies \quad$ model fits data well
-- $R^2$ close to $0 \quad \implies \quad$ model does not fit data well
+$$
+R^2  \, \text{ close to } \, 1 \quad \implies \quad \text{  model fits data well}
+$$
+
+
+<br>
+
+
+**Warning:** $R^2$ can be negative for general regression (no intercept)
 
 
 
 
-# Part 5: <br>Example of <br>multiple regression {background-color="#cc0164" visibility="uncounted"}
+# Part 6: <br>Example of <br>multiple regression {background-color="#cc0164" visibility="uncounted"}
 
 ::: footer
 
 <div color="#cc0164">  </div>
 
 :::
+
+
 
 
 

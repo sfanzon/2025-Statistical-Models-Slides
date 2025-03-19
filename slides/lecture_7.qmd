@@ -954,7 +954,7 @@ $$
 
 |  **Alternative**    | $t_i^*$ **extreme**      |
 |:------------------- |:-------------------------|
-| $\sigma_X^2 \neq \sigma^2_Y$  | $|t_i^*| > |t_{\rm obs}|$  |
+| $\mu_X^2 \neq \mu^2_Y$  | $|t_i^*| > |t_{\rm obs}|$  |
 |  $\mu_X < \mu_Y$    | $t_i^* < t_{\rm obs}$   |
 | $\mu_X > \mu_Y$     | $t_i^* > t_{\rm obs}$    |             
 : {tbl-colwidths="[40,40]"}

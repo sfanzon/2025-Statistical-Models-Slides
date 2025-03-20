@@ -429,47 +429,23 @@
     --color1: #f4cce0;
     --color2: #db4d92;
   }
-  .Axiom {
+  .Idea {
     --color1: #f4cce0;
     --color2: #db4d92;
-  }
-  .Important {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Notation {
-    --color1: #c6e6ed;
-    --color2: #1995ad;
   }
   .Conjecture {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
-  .TODO {
-    --color1: #e7b1b4;
-    --color2: #8c3236;
-  }
-  .DONE {
-    --color1: #cce7b1;
-    --color2: #86b754;
-  }
-  .Warning {
+  .Axiom {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
-  .Proposition {
-    --color1: #f4cce0;
-    --color2: #db4d92;
+  .Example {
+    --color1: #bce5de;
+    --color2: #21aa93;
   }
-  .Idea {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Proof {
-    --color1: #f1f1f2;
-    --color2: #c0c0c1;
-  }
-  .Definition {
+  .Notation {
     --color1: #c6e6ed;
     --color2: #1995ad;
   }
@@ -477,21 +453,45 @@
     --color1: #f4cce0;
     --color2: #db4d92;
   }
+  .Remark {
+    --color1: #bce5de;
+    --color2: #21aa93;
+  }
+  .TODO {
+    --color1: #e7b1b4;
+    --color2: #8c3236;
+  }
   .Question {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
-  .Remark {
-    --color1: #bce5de;
-    --color2: #21aa93;
+  .Proof {
+    --color1: #f1f1f2;
+    --color2: #c0c0c1;
+  }
+  .Warning {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .DONE {
+    --color1: #cce7b1;
+    --color2: #86b754;
+  }
+  .Proposition {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Important {
+    --color1: #f4cce0;
+    --color2: #db4d92;
   }
   .Problem {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
-  .Example {
-    --color1: #bce5de;
-    --color2: #21aa93;
+  .Definition {
+    --color1: #c6e6ed;
+    --color2: #1995ad;
   }
   .Theorem {
     --color1: #f4cce0;
@@ -2473,10 +2473,10 @@ F = 20.267 &gt; 4.125 = F_{1,31}(0.05) \quad \implies \quad  p &lt; 0.05
 <h2>Longley dataset</h2>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>      GNP Unemployed Armed.Forces Population Year Employed
-1 234.289      235.6        159.0    107.608 1947   60.323
-2 259.426      232.5        145.6    108.632 1948   61.122
-3 258.054      368.2        161.6    109.773 1949   60.171</code></pre>
+<pre><code>     GNP.deflator     GNP Unemployed Armed.Forces Population Year Employed
+1947         83.0 234.289      235.6        159.0    107.608 1947   60.323
+1948         88.5 259.426      232.5        145.6    108.632 1948   61.122
+1949         88.2 258.054      368.2        161.6    109.773 1949   60.171</code></pre>
 </div>
 </div>
 <p><strong>Goal:</strong> Explain the number of <em>Employed</em> people <span class="math inline">Y</span> in the US in terms of</p>
@@ -3068,10 +3068,10 @@ p = P(F_{p-k,n-p} &gt; F)
 </ul>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>      GNP Unemployed Armed.Forces Population Year Employed
-1 234.289      235.6        159.0    107.608 1947   60.323
-2 259.426      232.5        145.6    108.632 1948   61.122
-3 258.054      368.2        161.6    109.773 1949   60.171</code></pre>
+<pre><code>     GNP.deflator     GNP Unemployed Armed.Forces Population Year Employed
+1947         83.0 234.289      235.6        159.0    107.608 1947   60.323
+1948         88.5 259.426      232.5        145.6    108.632 1948   61.122
+1949         88.2 258.054      368.2        161.6    109.773 1949   60.171</code></pre>
 </div>
 </div>
 <p><strong>Goal:</strong> Explain the number of <em>Employed</em> people <span class="math inline">Y</span> in the US in terms of</p>
@@ -3162,8 +3162,8 @@ Y = \beta_1 + \beta_2 X_2 + \beta_3 X_3 + \beta_4 X_4 +
 Model 1: y ~ x3 + x4 + x6
 Model 2: y ~ x2 + x3 + x4 + x5 + x6
   Res.Df     RSS Df Sum of Sq      F Pr(&gt;F)
-1     12 1.32336                           
-2     10 0.83935  2   0.48401 2.8833 0.1026</code></pre>
+1     12 0.64164                           
+2     10 0.44797  2   0.19367 2.1616 0.1659</code></pre>
 </div>
 </div>
 <p><strong>Interpretation:</strong></p>
@@ -3180,8 +3180,8 @@ Model 2: y ~ x2 + x3 + x4 + x5 + x6
 Model 1: y ~ x3 + x4 + x6
 Model 2: y ~ x2 + x3 + x4 + x5 + x6
   Res.Df     RSS Df Sum of Sq      F Pr(&gt;F)
-1     12 1.32336                           
-2     10 0.83935  2   0.48401 2.8833 0.1026</code></pre>
+1     12 0.64164                           
+2     10 0.44797  2   0.19367 2.1616 0.1659</code></pre>
 </div>
 </div>
 <p><strong>Interpretation:</strong></p>
@@ -3204,8 +3204,8 @@ Model 2: y ~ x2 + x3 + x4 + x5 + x6
 Model 1: y ~ x3 + x4 + x6
 Model 2: y ~ x2 + x3 + x4 + x5 + x6
   Res.Df     RSS Df Sum of Sq      F Pr(&gt;F)
-1     12 1.32336                           
-2     10 0.83935  2   0.48401 2.8833 0.1026</code></pre>
+1     12 0.64164                           
+2     10 0.44797  2   0.19367 2.1616 0.1659</code></pre>
 </div>
 </div>
 <p><strong>Interpretation:</strong></p>
@@ -3229,8 +3229,8 @@ Model 2: y ~ x2 + x3 + x4 + x5 + x6
 Model 1: y ~ x3 + x4 + x6
 Model 2: y ~ x2 + x3 + x4 + x5 + x6
   Res.Df     RSS Df Sum of Sq      F Pr(&gt;F)
-1     12 1.32336                           
-2     10 0.83935  2   0.48401 2.8833 0.1026</code></pre>
+1     12 0.64164                           
+2     10 0.44797  2   0.19367 2.1616 0.1659</code></pre>
 </div>
 </div>
 <p><strong>Interpretation:</strong></p>
@@ -3255,8 +3255,8 @@ Model 2: y ~ x2 + x3 + x4 + x5 + x6
 Model 1: y ~ x3 + x4 + x6
 Model 2: y ~ x2 + x3 + x4 + x5 + x6
   Res.Df     RSS Df Sum of Sq      F Pr(&gt;F)
-1     12 1.32336                           
-2     10 0.83935  2   0.48401 2.8833 0.1026</code></pre>
+1     12 0.64164                           
+2     10 0.44797  2   0.19367 2.1616 0.1659</code></pre>
 </div>
 </div>
 <p><strong>Interpretation:</strong></p>
@@ -3279,8 +3279,8 @@ F &amp; = \frac{ \mathop{\mathrm{RSS}}_1 - \mathop{\mathrm{RSS}}_2 }{ \mathop{\m
 Model 1: y ~ x3 + x4 + x6
 Model 2: y ~ x2 + x3 + x4 + x5 + x6
   Res.Df     RSS Df Sum of Sq      F Pr(&gt;F)
-1     12 1.32336                           
-2     10 0.83935  2   0.48401 2.8833 0.1026</code></pre>
+1     12 0.64164                           
+2     10 0.44797  2   0.19367 2.1616 0.1659</code></pre>
 </div>
 </div>
 <p><strong>Interpretation:</strong></p>
@@ -3303,8 +3303,8 @@ Model 2: y ~ x2 + x3 + x4 + x5 + x6
 Model 1: y ~ x3 + x4 + x6
 Model 2: y ~ x2 + x3 + x4 + x5 + x6
   Res.Df     RSS Df Sum of Sq      F Pr(&gt;F)
-1     12 1.32336                           
-2     10 0.83935  2   0.48401 2.8833 0.1026</code></pre>
+1     12 0.64164                           
+2     10 0.44797  2   0.19367 2.1616 0.1659</code></pre>
 </div>
 </div>
 <p><strong>Conclusion:</strong></p>

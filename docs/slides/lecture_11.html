@@ -425,55 +425,23 @@
   </style>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
   <style>
-  .Notation {
-    --color1: #c6e6ed;
-    --color2: #1995ad;
-  }
-  .Important {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
   .TODO {
     --color1: #e7b1b4;
     --color2: #8c3236;
   }
-  .Conjecture {
+  .Lemma {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
-  .Axiom {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Corollary {
-    --color1: #f4cce0;
-    --color2: #db4d92;
+  .Remark {
+    --color1: #bce5de;
+    --color2: #21aa93;
   }
   .Warning {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
-  .Example {
-    --color1: #bce5de;
-    --color2: #21aa93;
-  }
-  .Question {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Idea {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Definition {
-    --color1: #c6e6ed;
-    --color2: #1995ad;
-  }
-  .Proof {
-    --color1: #f1f1f2;
-    --color2: #c0c0c1;
-  }
-  .Theorem {
+  .Corollary {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
@@ -485,7 +453,39 @@
     --color1: #cce7b1;
     --color2: #86b754;
   }
-  .Lemma {
+  .Conjecture {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Axiom {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Definition {
+    --color1: #c6e6ed;
+    --color2: #1995ad;
+  }
+  .Idea {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Theorem {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Example {
+    --color1: #bce5de;
+    --color2: #21aa93;
+  }
+  .Notation {
+    --color1: #c6e6ed;
+    --color2: #1995ad;
+  }
+  .Question {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Important {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
@@ -493,9 +493,9 @@
     --color1: #f4cce0;
     --color2: #db4d92;
   }
-  .Remark {
-    --color1: #bce5de;
-    --color2: #21aa93;
+  .Proof {
+    --color1: #f1f1f2;
+    --color2: #c0c0c1;
   }
   </style>
 </head>
@@ -3048,10 +3048,10 @@ Y = \beta_1 + \varepsilon
 <h2>Example: Longley dataset</h2>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>      GNP Unemployed Armed.Forces Population Year Employed
-1 234.289      235.6        159.0    107.608 1947   60.323
-2 259.426      232.5        145.6    108.632 1948   61.122
-3 258.054      368.2        161.6    109.773 1949   60.171</code></pre>
+<pre><code>     GNP.deflator     GNP Unemployed Armed.Forces Population Year Employed
+1947         83.0 234.289      235.6        159.0    107.608 1947   60.323
+1948         88.5 259.426      232.5        145.6    108.632 1948   61.122
+1949         88.2 258.054      368.2        161.6    109.773 1949   60.171</code></pre>
 </div>
 </div>
 <p><strong>Goal:</strong> Explain the number of <em>Employed</em> people <span class="math inline">Y</span> in the US in terms of</p>
@@ -3128,12 +3128,12 @@ Y = \beta_1 + \beta_2 \, X_2 + \beta_3 \, X_3 + \beta_4 \, X_4 + \beta_5 \, X_5
 <span id="cb43-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(longley[ , <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]) <span class="sc">&gt;</span> <span class="fl">0.9</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>               GNP Unemployed Armed.Forces Population  Year
-GNP           TRUE      FALSE        FALSE       TRUE  TRUE
-Unemployed   FALSE       TRUE        FALSE      FALSE FALSE
-Armed.Forces FALSE      FALSE         TRUE      FALSE FALSE
-Population    TRUE      FALSE        FALSE       TRUE  TRUE
-Year          TRUE      FALSE        FALSE       TRUE  TRUE</code></pre>
+<pre><code>             GNP.deflator   GNP Unemployed Armed.Forces Population
+GNP.deflator         TRUE  TRUE      FALSE        FALSE       TRUE
+GNP                  TRUE  TRUE      FALSE        FALSE       TRUE
+Unemployed          FALSE FALSE       TRUE        FALSE      FALSE
+Armed.Forces        FALSE FALSE      FALSE         TRUE      FALSE
+Population           TRUE  TRUE      FALSE        FALSE       TRUE</code></pre>
 </div>
 </div>
 <p><br></p>

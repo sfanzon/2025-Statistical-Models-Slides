@@ -611,7 +611,7 @@ How do we enforce (1)?
 
 ## {.smaller}
 
-::: {style="font-size: 0.89em"}
+::: {style="font-size: 0.88em"}
 
 **Answer:** Recall condition (1) from previous slide
 \begin{equation} \tag{1}
@@ -620,9 +620,10 @@ How do we enforce (1)?
 
 
 - If we want (1) to hold, we need to maximize the joint probability
-\begin{equation} \tag{P}
-P(Y_1 \approx y_1, \ldots, Y_n \approx y_n) = \int_{A} f(y) \, dy \approx |A| \, f(y_1,\ldots, y_n)
-end{equation}
+\begin{equation}\tag{P}
+P(Y_1 \approx y_1, \ldots, Y_n \approx y_n) = 
+\int_{A} f(y) \, dy \approx |A| f(y)
+\end{equation}
     * where $f$ is the joint pdf of $(Y_1,\ldots, Y_n)$
     * $A$ is (small) open set in $\R^n$ containing the observations $(y_1,\ldots,y_n)$
     * |A| is the $n$-dimensional volume of $A$
@@ -635,8 +636,7 @@ end{equation}
 $$
 \max_{\alpha,\beta,\sigma} f(y_1,\ldots,y_n | \alpha,\beta, \sigma^2) = \max_{\alpha,\beta,\sigma} \ L(\alpha,\beta, \sigma^2 | y_1, \ldots, y_n )
 $$
-
-**Maximum Likelihood Estimation:** Find parameters that maximize the Likelihood, and thus (P)
+**Maximum Likelihood Estimation:** Find parameters that maximize the Likelihood, and so (P)
 
 :::
 
@@ -657,7 +657,7 @@ $$
 admits the unique solution
 $$
 \hat \alpha = \overline{y} - \hat  \beta \, \overline{x} \,, \qquad 
-\hat \beta = \frac{S_{xy}}{S_{xy}} \,, \qquad 
+\hat \beta = \frac{S_{xy}}{S_{xx}} \,, \qquad 
 \hat{\sigma}^2  = \frac{1}{n} \sum_{i=1}^n \left(  y_i - \hat \alpha - \hat \beta x_i  \right)^2
 $$
 
@@ -708,7 +708,7 @@ $$
 - This is the Least Squares problem! Hence the solution is
 $$
 \hat \alpha = \overline{y} - \hat  \beta \, \overline{x} \,, \qquad 
-\hat \beta = \frac{S_{xy}}{S_{xy}}
+\hat \beta = \frac{S_{xy}}{S_{xx}}
 $$
 
 

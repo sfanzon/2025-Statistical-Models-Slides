@@ -405,31 +405,7 @@
   </style>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
   <style>
-  .Example {
-    --color1: #bce5de;
-    --color2: #21aa93;
-  }
-  .Warning {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Remark {
-    --color1: #bce5de;
-    --color2: #21aa93;
-  }
-  .Theorem {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Lemma {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Proof {
-    --color1: #f1f1f2;
-    --color2: #c0c0c1;
-  }
-  .Question {
+  .Conjecture {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
@@ -441,23 +417,27 @@
     --color1: #f4cce0;
     --color2: #db4d92;
   }
-  .Corollary {
-    --color1: #f4cce0;
-    --color2: #db4d92;
+  .TODO {
+    --color1: #e7b1b4;
+    --color2: #8c3236;
   }
-  .Conjecture {
-    --color1: #f4cce0;
-    --color2: #db4d92;
+  .Proof {
+    --color1: #f1f1f2;
+    --color2: #c0c0c1;
+  }
+  .DONE {
+    --color1: #cce7b1;
+    --color2: #86b754;
   }
   .Notation {
     --color1: #c6e6ed;
     --color2: #1995ad;
   }
-  .TODO {
-    --color1: #e7b1b4;
-    --color2: #8c3236;
+  .Warning {
+    --color1: #f4cce0;
+    --color2: #db4d92;
   }
-  .Important {
+  .Lemma {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
@@ -465,15 +445,35 @@
     --color1: #f4cce0;
     --color2: #db4d92;
   }
-  .Axiom {
+  .Problem {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
-  .DONE {
-    --color1: #cce7b1;
-    --color2: #86b754;
+  .Remark {
+    --color1: #bce5de;
+    --color2: #21aa93;
   }
-  .Problem {
+  .Question {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Example {
+    --color1: #bce5de;
+    --color2: #21aa93;
+  }
+  .Theorem {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Corollary {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Important {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Axiom {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
@@ -3129,16 +3129,16 @@ x_i^2 + y_i^2 \leq 1
 <h2>Approximation of <span class="math inline">\pi</span> in R: Output</h2>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>After    10000 iterations pi is 3.14640000, error is 0.00480735
-After    20000 iterations pi is 3.14160000, error is 0.00000735
-After    30000 iterations pi is 3.13973333, error is 0.00185932
-After    40000 iterations pi is 3.13620000, error is 0.00539265
-After    50000 iterations pi is 3.14096000, error is 0.00063265
-After    60000 iterations pi is 3.14166667, error is 0.00007401
-After    70000 iterations pi is 3.13977143, error is 0.00182123
-After    80000 iterations pi is 3.13725000, error is 0.00434265
-After    90000 iterations pi is 3.13835556, error is 0.00323710
-After   100000 iterations pi is 3.13908000, error is 0.00251265</code></pre>
+<pre><code>After    10000 iterations pi is 3.16000000, error is 0.01840735
+After    20000 iterations pi is 3.12980000, error is 0.01179265
+After    30000 iterations pi is 3.13453333, error is 0.00705932
+After    40000 iterations pi is 3.13580000, error is 0.00579265
+After    50000 iterations pi is 3.13904000, error is 0.00255265
+After    60000 iterations pi is 3.14060000, error is 0.00099265
+After    70000 iterations pi is 3.14137143, error is 0.00022123
+After    80000 iterations pi is 3.14290000, error is 0.00130735
+After    90000 iterations pi is 3.14031111, error is 0.00128154
+After   100000 iterations pi is 3.14324000, error is 0.00164735</code></pre>
 </div>
 </div>
 <p><strong>Note:</strong></p>

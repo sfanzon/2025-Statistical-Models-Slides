@@ -32,21 +32,19 @@ beta <- m2 %*% m3
 cat("\nThe estimator is", beta)
 
 # Compute mean of y
-y_bar <- mean(y)
+y.bar <- mean(y)
 
 # Compute TSS
-TSS <- sum( ( y - y_bar) ^ 2 )
+TSS <- sum( ( y - y.bar) ^ 2 )
 
 # Compute predictions hat y
-y_hat <- Z %*% beta
+y.hat <- Z %*% beta
 
 # Compute ESS
-ESS <- sum( (y_hat - y_bar) ^ 2 )
+RSS <- sum( (y - y.hat) ^ 2 )
 
 # Compute coefficient of determination R^2
-R2 <- ESS / TSS
+R2 <- 1 - RSS / TSS
 
-# Print ESS, RSS and R^2
-cat("\nThe Estimated Squared Error ESS is", ESS)
-cat("\nThe Total Squared Error TSS is", TSS)
+# Print R^2
 cat("\nThe coefficient of determination R^2 is", R2)

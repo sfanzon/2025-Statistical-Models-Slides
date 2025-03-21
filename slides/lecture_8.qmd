@@ -3423,6 +3423,14 @@ cat("The estimator is", beta)
  & = -1271.75 + (-0.1033386) \times x_2 + 0.6594171 \times x_3 
 \end{align*}
 
+- This means 
+
+\begin{align*}
+\text{Predicted Unemployment}  = 
+ -1271.75 & + (-0.1033386) \times \text{Productivity}  \\[15pt]
+  & + (0.6594171) \times \text{Year}
+\end{align*}
+
 
 - Previous code can be downloaded here [multiple_regression.R](codes/multiple_regression.R)
 

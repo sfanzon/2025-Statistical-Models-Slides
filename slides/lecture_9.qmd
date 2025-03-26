@@ -52,29 +52,23 @@ $
 ## Outline of Lecture 9 {.smaller}
 
 
-3. t-test for regression
-    * Test the significance of individual parameters
+3. t-test for simple regression
+    * Test the significance of the slope parameter
 
-<br>
+4. t-test for general regression
+    * Test the significance of regression parameters
 
-4. F-test for regression
+5. F-test for general regression
     * Test the overall significance of the parameters
 
-<br>
 
-5. The Longley dataset
+6. Worked Example: The Longley dataset
     * Classic example of highly collinear dataset
 
-
-
-## Outline of Lecture 9 {.smaller}
-
-6. Model selection
+7. Model selection
     * Comparison of nested regression models
 
-<br>
-
-7. Examples of model selection
+8. Examples of model selection
 
 
 
@@ -437,7 +431,8 @@ This is not necessarily good
 
 - Problem: the model will not make good predictions on new data 
 
-- This is known as **overfitting** and it should be avoided
+- This is known as **overfitting** and it should be avoided  
+(more on this later)
 
 
 
@@ -788,7 +783,7 @@ $$
 
 
 
-# Part 3: <br>t-test for regression {background-color="#cc0164" visibility="uncounted"}
+# Part 3: <br>t-test for simple regression {background-color="#cc0164" visibility="uncounted"}
 
 ::: footer
 
@@ -818,11 +813,11 @@ $$
 
 - $\beta$ is a random quantity which depends on the sample
 
-- Therefore we can study $\beta$ with the hypothesis test
+- To see if $X$ affects $Y$, we can test the hypothesis
 
 \begin{align*}
-H_0 \colon  & \beta = b \\
-H_1 \colon & \beta \neq b
+H_0 \colon  & \beta = 0 \\
+H_1 \colon & \beta \neq 0
 \end{align*}
 
 
@@ -831,20 +826,20 @@ H_1 \colon & \beta \neq b
 
 ## Construction of t-test {.smaller}
 
-- Want to test hypothesis 
+- More in general, consider the hypothesis 
 
 \begin{align*}
 H_0 \colon  & \beta = b \\
 H_1 \colon & \beta \neq b
 \end{align*}
 
-- Our best guess for $\beta$ is the estimator $\hat \beta$
+- Our best guess for $\beta$ is the ML Estimator
+$$
+\hat \beta = \frac{ S_{xy} }{ S_{xx} }
+$$ 
 
 - To test above hypotheses, we therefore need to
-    * Know the **distribution** of
-    $$
-    \hat \beta = \frac{ S_{xy} }{ S_{xx} }
-    $$
+    * Know the **distribution** of $\hat \beta$
     * Construct **t-statistic** involving $\hat \beta$
 
 
@@ -857,10 +852,11 @@ H_1 \colon & \beta \neq b
 Consider the linear regression model 
 
 $$
-Y_i = \alpha + \beta x_i + \e_i
+Y_i = \alpha + \beta x_i + \e_i  \,, \qquad \e_i \,\, \text{ iid } \,\, N(0, \sigma^2)
 $$
 
-with $\e_i$ iid $N(0, \sigma^2)$. Then
+
+The MLE $\hat{\beta}$ is normally distributed
 
 $$
 \hat \beta \sim N \left(\beta , \frac{ \sigma^2 }{ S_{xx} } \right)
@@ -874,38 +870,24 @@ $$
 
 
 
-## Construction of the t-statistic {.smaller}
-
-- We want to construct t-statistic for $\hat \beta$
+## Construction of t-statistic for $\hat \beta$ {.smaller}
 
 
-- As for the standard t-test, we want a t-statistic of the form
-
-$$
-t = \frac{\text{Estimate } - \text{ Hypothesised Value}}{\ese}
-$$
-
-
-- We know that 
-
+- From the previous Theorem, we know that 
 $$
 \hat \beta \sim N \left(\beta , \frac{ \sigma^2 }{ S_{xx} } \right)
 $$
 
 
 
-## Construction of the t-statistic {.smaller}
-
-
-
 - In particular $\hat \beta$ is an unbiased estimator for $\beta$
-
 $$
 \Expect[ \hat \beta ] = \beta
 $$
 
-- Therefore $\hat \beta$ is the estimate
+- This means $\hat \beta$ is the *Estimate* for the unknown parameter $\beta$
 
+- The t-statistic is therefore
 $$
 t = \frac{\text{Estimate } - \text{ Hypothesised Value}}{\ese} 
   = \frac{ \hat \beta - \beta }{ \ese }
@@ -913,85 +895,77 @@ $$
 
 
 
-## Estimated Standard Error {.smaller}
 
-- We need to find a **Standard Error** for $\hat \beta$
+## Estimated Standard Error for $\hat \beta$ {.smaller}
 
-- We know that 
 
+- From the Theorem in Slide 30, we know that 
 $$
-\Var [\hat \beta] = \frac{ \sigma^2 }{ S_{xx}}
-$$
-
-- Hence the standard error of $\hat \beta$ is the standard deviation
-
-$$
-\SD [\hat \beta] = \frac{ \sigma }{ S_{xx} }
+\Var [\hat \beta] = \frac{ \sigma^2 }{ S_{xx}} \quad \implies \quad \SD [\hat \beta] = \frac{ \sigma }{ \sqrt{S_{xx}} }
 $$
 
-- $\SD$ cannot be used for testing, since $\sigma^2$ is unknown
-
-
-
-## Estimated Standard Error {.smaller}
+- The standard deviation $\SD$ cannot be used as error, since $\sigma^2$ is unknown  
+(Recall that $\sigma^2$ is the unknown variance of the error $\e_i$)
 
 - We however have an estimate for $\sigma^2$
-
 $$
 \hat \sigma^2 = \frac{1}{n} \RSS = \frac1n \sum_{i=1}^n (y_i - \hat y_i)^2
 $$
 
 - $\hat \sigma^2$ was obtained from maximization of the likelihood function (Lecture 8) 
 
-- It can be shown that (see Section 11.3.4 in [@casella-berger])
 
+
+##  {.smaller}
+
+
+- It can be shown that
 $$
 \Expect[ \hat\sigma^2 ] = \frac{n-2}{n} \, \sigma^2
 $$
+(for a proof, see Section 11.3.4 in [@casella-berger])
 
-
-
-## Estimated Standard Error {.smaller}
 
 - Therefore $\hat\sigma^2$ is not unbiased estimator of $\sigma^2$
 
-- We hence rescale and introduce $S^2$
-
+- To obtain an unbiased estimator, we rescale $\hat\sigma^2$ and introduce $S^2$
 $$
 S^2 := \frac{n}{n-2} \, \hat\sigma^2 = \frac{\RSS}{n-2} 
 $$
 
-- This way $S^2$ is unbiased estimator for $\sigma^2$
-
+- This way, $S^2$ is unbiased estimator for $\sigma^2$
 $$
-\Expect[S^2] =  \frac{n}{n-2}  \, \Expect[\hat\sigma^2] =  \frac{n}{n-2} \, \frac{n-2}{n} \, \sigma^2 = \sigma^2
+\Expect[S^2] =  \frac{n}{n-2}  \, \Expect[\hat\sigma^2] =  \frac{n}{n-2} \,\cdot \, \frac{n-2}{n} \, \cdot \, \sigma^2 = \sigma^2
 $$
 
 
-## Estimated Standard Error {.smaller}
+## {.smaller}
+
 
 - Recall that the standard deviation of $\hat \beta$ is
 
 $$
-\SD [\hat \beta] = \frac{ \sigma }{ S_{xx} }
+\SD [\hat \beta] = \frac{ \sigma }{ \sqrt{S_{xx}} }
 $$
 
 - We replace the unknown $\sigma$ with its unbiased estimator $S$ 
 
-- We obtain the **estimated standard error**
+- This gives the **estimated standard error**
 
 $$
-\ese = \frac{S}{\sqrt{S_{xx}}}
+\ese := \frac{S}{\sqrt{S_{xx}}} \,, \qquad S = \sqrt{\frac{\RSS}{n-2}}
 $$
 
 
-## t-statistic to test $\hat \beta$ {.smaller}
+
+
+## t-statistic for testing $\hat \beta$ {.smaller}
 
 The t-statistic for $\hat \beta$ is then
 
 $$
 t = \frac{\text{Estimate } - \text{ Hypothesised Value}}{\ese}
-  = \frac{ \hat \beta - \beta }{ S / \sqrt{S_{xx}} }
+  = \frac{ \hat \beta - \beta }{ S / \sqrt{S_{xx}} } 
 $$
 
 
@@ -1000,10 +974,10 @@ $$
 Consider the linear regression model 
 
 $$
-Y_i = \alpha + \beta x_i + \e_i
+Y_i = \alpha + \beta x_i + \e_i \,, \qquad \e_i \,\, \text{ iid } \,\, N(0, \sigma^2)
 $$
 
-with $\e_i$ iid $N(0, \sigma^2)$. Then
+The t-statistic for $\hat{\beta}$ follows a t-distribution
 
 $$
 t = \frac{ \hat \beta - \beta }{ S / \sqrt{S_{xx}} }  
@@ -1035,27 +1009,21 @@ U := \frac{ \hat \beta - \beta }{ \sigma / \sqrt{S_{xx}} } \,, \qquad \quad V :=
 $$
 
 
-## How to prove the Theorem {.smaller}
+##  {.smaller}
 
 - We know that 
-
 $$
 \hat \beta \sim N \left(\beta , \frac{ \sigma^2 }{ S_{xx} } \right)
 $$
 
 
 - Therefore 
-
 $$
 U = \frac{ \hat \beta - \beta }{ \sigma / \sqrt{S_{xx}} } \, \sim \, N(0,1)
 $$
 
 
-
-## How to prove the Theorem {.smaller}
-
-- Moreover it can be shown that 
-
+- Moreover, it can be shown that 
 $$
 V = \frac{(n-2) S^2}{\sigma^2} \, \sim \, \chi_{n-2}^2
 $$
@@ -1064,7 +1032,7 @@ $$
 
 
 
-## How to prove the Theorem {.smaller}
+##  {.smaller}
 
 - In summary, we have
 
@@ -1079,7 +1047,7 @@ $$
 U \sim N(0,1) \,, \qquad \quad V \sim \chi_{n-2}^2
 $$
 
-- From the Theorem on t-distribution in Lecture 3 we conclude
+- From the Theorem on t-distribution in Lecture 2, we conclude
 
 $$
 t \sim t_{n-2}
@@ -1088,68 +1056,97 @@ $$
 
 
 
-## Summary: t-test for $\beta$ {.smaller}
+## The t-test for $\beta$ {.smaller}
 
-**Goal**: Estimate the slope $\beta$ for the simple linear model
+**Assumption:** Given data points $(x_1, y_1), \ldots, (x_n,y_n)$, consider the simple linear regression model
+$$
+Y_i = \alpha + \beta x_i + \e_i \,, \qquad \e_i \,\, \text{ iid } \,\, N(0,\sigma^2)
+$$
 
+
+**Goal**: Statistical inference on the slope $\beta$
+
+
+**Hypotheses**: If $b$ is guess for $\beta$, the two-sided hypothesis is
 $$
-Y_i = \alpha + \beta x_i + \e_i \,, \qquad \e_i \, \text{ iid } \, N(0,\sigma^2)
+H_0 \colon \beta = b \,, \quad \qquad 
+H_1 \colon \beta \neq b
 $$
+The one-sided alternative hypotheses are
+$$
+H_1 \colon \beta < b \quad  \text{ or } \quad 
+H_1 \colon \beta > b
+$$
+
+
+
+
+## Procedure: 3 Steps {.smaller}
+
+1. **Calculation**: Compute the MLE $\hat{\alpha}, \hat{\beta}$ and the predictions $\hat{y}_i$
+$$
+\hat \beta = \frac{ S_{xy} }{ S_{xx} }  \,, \qquad 
+\hat \alpha = \overline{y} - \hat \beta \overline{x} \,, \qquad \hat{y}_i = \hat{\alpha} + \hat{\beta} x_i
+$$
+Compute the *Residual Sum of Squares* and the estimator $S^2$ 
+$$
+\RSS = \sum_{i=1}^n (y_i - \hat{y}_i)^2 \,, \qquad  S^2 := \frac{\RSS}{n-2}
+$$
+Finally, compute the t-statistic
+$$
+t = \frac{\hat \beta - b }{ \ese }  \,, \qquad \ese = \frac{S}{\sqrt{S_{xx}} }
+$$
+
+
+
+## {.smaller}
+
+2. **Statistical Tables or R**: Find either
+    * Critical value $t^*$ in [Table 1](files/Statistics_Tables.pdf)
+    * p-value in R
 
 <br>
 
-**Hypotheses**: If $b$ is guess for $\beta$ the hypotheses are
-
-\begin{align*}
-H_0 & \colon \beta = b \\
-H_1 & \colon \beta \neq b
-\end{align*}
-
-
-
-## Summary: t-test for $\beta$ {.smaller}
-
-
-- The t-statistic is
-
+3. **Interpretation**: Reject $H_0$ when either
 $$
-t = \frac{\hat \beta - b }{ \ese } \, \sim \, t_{n-2} \,, \qquad \quad
-\ese = \frac{S }{\sqrt{S_{xx}} }
-$$
-
-- In the above we have
-
-$$
-\hat \beta = \frac{ S_{xy} }{ S_{xx} } \,, \qquad \quad S^2 := \frac{\RSS}{n-2} 
-$$
-
-
-- The p-value is
-
-$$
-p = 2 P( t_{n-2} > |t| )
+p < 0.05 \qquad \text{ or } \qquad t \in \,\,\text{Rejection Region} 
+\qquad \qquad \qquad \qquad
+(T \, \sim \, t_{n-2})
 $$
 
 
 
 
+| Alternative                      | Rejection Region  | $t^*$             | p-value         |
+|----------------------------------|-------------------|-------------------|-----------------|
+| $\beta \neq b$               | $|t| > t^*$       | $t_{n-2}(0.025)$| $2P(T > |t|)$   |
+| $\beta < b$                  | $t < - t^*$       | $t_{n-2}(0.05)$ | $P(T < t)$      |
+| $\beta > b$                  | $t > t^*$         | $t_{n-2}(0.05)$ | $P(T > t)$      |
+: {tbl-colwidths="[25,25,25,25]"}
 
-## Example: Stock and Gold prices {.smaller}
+
+
+
+
+
+
+## Worked Example: Stock and Gold prices {.smaller}
 
 - Recall that 
-    * $Y =$ Gold Price
     * $X =$ Stock Price
+    * $Y =$ Gold Price
 
-- We want to test if *Gold Price* affects *Stock Price* at level $0.05$
-    * Consider the linear model
-    $$
-    Y_i =  \alpha + \beta x_i + \e_i 
-    $$
-    * Test the hypotheses
-    \begin{align*}
-    H_0 & \colon \beta = 0 \\
-    H_1 & \colon \beta \neq 0
-    \end{align*}
+- **Goal:** Test if *Gold Price* affects *Stock Price* at level $0.05$
+
+- **Procedure:** Consider the linear model
+$$
+Y_i =  \alpha + \beta x_i + \e_i  \,, \quad \e_i \,\, \text{ iid } \,\, N(0,\sigma^2)
+$$
+Test the hypotheses with two-sided alternative
+\begin{align*}
+H_0 & \colon \beta = 0 \\
+H_1 & \colon \beta \neq 0
+\end{align*}
 
 
 
@@ -1164,7 +1161,7 @@ $$
 - Fit the simple linear model with the following commands
 
 $$
-\text{gold.price } = \alpha + \beta \, \times  \text{ stock.price } + \text{ error}
+\text{gold.price } = \alpha + \beta \, \times  (\text{ stock.price }) + \text{ error}
 $$
 
 
@@ -1189,10 +1186,11 @@ summary(fit.model)
 ::::
   
 
-- $\texttt{(Intercept)}$: 1st row of the table contains statistics related to $\hat \alpha$
+- $\texttt{(Intercept)}$: 1st row of the table contains information related to $\hat \alpha$
 
-- $\texttt{stock.price}$: 2nd row of the table contains statistics related to $\hat \beta$
-    * For larger models there will be additional rows below the 2nd
+- $\texttt{stock.price}$: 2nd row of the table contains information related to $\hat \beta$
+
+- For larger models, there will be additional rows below the 2nd
     * These will be **informative** about additional regression parameters
 
 
@@ -1212,11 +1210,11 @@ summary(fit.model)
 
 | $\texttt{Estimate}$   | $\text{The value of } \hat \beta$                  |
 |:------------------    |:----------                                         |
-| $\texttt{Std. Error}$ | Estimated standard error $\ese$ for $\beta$        |
+| $\texttt{Std. Error}$ | Estimated standard error $\ese$ for $\hat \beta$        |
 | $\texttt{t value}$    | t-statistic $\, t = \dfrac{\hat \beta - 0 }{\ese}$|
 | $\texttt{Pr(>|t|)}$   | p-value $\, p = 2 P( t_{n-2} > |t| )$             |
-| $\texttt{*}$, $\, \texttt{**}$, $\, \texttt{***}$, $\, \texttt{.}$   | Statistical significance -- More stars is better |
-: {tbl-colwidths="[35,65]"}
+| $\texttt{***}$, $\, \texttt{**}$, $\, \texttt{*}$, $\, \texttt{.}$   | Significance (how large is p-value) -- More stars is better |
+: {tbl-colwidths="[30,70]"}
 
 
 
@@ -1259,15 +1257,43 @@ $$
 
 ::::
   
-- The p-value cannot be computed by hand
 
-- However we can find critical value in [Table 1](files/Statistics_Tables.pdf)
+- The p-value computed by R is $p = 8.9 \times 10^{-5}$
+
+- We can also compute it by hand: The degrees of freedom are
 
 $$
 n = \text{No. of data points} = 33 \,, \qquad  \text{df} = n - 2 = 31
 $$
 
-- Critical value is $\, t_{31}(0.025) = 2.040$
+```{r}
+#| echo: true
+t <- - 4.502 
+p <- 2 - 2 * pt(abs(t), df = 31)
+
+cat("The p-value is", p)
+```
+
+
+
+## Output: $\ese$, t-statistic, p-value {.smaller}
+
+:::: {.columns}
+
+::: {.column width="100%"}
+![](images/simple_regression_output_cut_2.png){width=70%}
+:::
+
+::::
+
+
+- In alternative, we can find critical value in [Table 1](files/Statistics_Tables.pdf)
+
+$$
+n = \text{No. of data points} = 33 \,, \qquad  \text{df} = n - 2 = 31
+$$
+
+- For two-sided test, the critical value is $\, t_{31}(0.025) = 2.040$
 
 $$
 |t| = 4.502 > 2.040 = t_{31}(0.025) \quad \implies \quad  p < 0.05
@@ -1287,11 +1313,11 @@ $$
 
 **Interpretation:** $\, p$ is very small (hence the $\, \texttt{***} \,$ rating)
 
-- Therefore we reject the null hypothesis $H_0$ and the real parameter is $\beta \neq 0$
+- Therefore, we reject the null hypothesis $H_0$, and the real parameter is $\beta \neq 0$
 
-- Since $\beta \neq 0$ we have that *Stock Prices* affect *Gold Prices*
+- Since $\beta \neq 0$, we have that *Stock Prices* affect *Gold Prices*
 
-- The best estimate for $\beta$ is $\hat \beta = -6.169$
+- The best estimate for $\beta$ is the MLE $\hat \beta = -6.169$
 
 - $\hat \beta < 0$ and statistically significant:  
 $\,\,$ 
@@ -1299,25 +1325,84 @@ As *Stock Prices* increase *Gold Prices* decrease
 
 
 
+
+
 ## Warning {.smaller}
 
+The t-statistic and p-value in the *summary* refer to the two-sided test
+$$
+H_0 \colon \beta = 0 \,, \qquad 
+H_1 \colon \beta \neq 0
+$$
+In such case the t-statistic and p-value given in *summary are*
+$$
+t = \frac{\hat \beta - 0}{\ese} \,, \qquad p = 2P(t_{n- 2} > |t|) 
+$$
 
-- t-statistic in summary refers to two-sided t-test of whether a coefficient is 0
 
-- If $b = 0$ or one-sided t-test is required
-    * Compute t-statistic by hand
-    $$
-    t = \frac{\hat \beta - b}{\ese}
-    $$
+## {.smaller}
+
+If instead you are required to test
+$$
+H_0 \colon \beta = b \,, \qquad 
+H_1 \colon \beta \neq b \,, \quad 
+\beta < b\,, \quad  \text{ or } \,\,
+\beta > b
+$$
+
+1. The t-statistic has to be computed by hand
+$$
+t = \frac{\hat \beta - b}{\ese}
+$$
     * $\, \ese$ is in the 2nd row under $\,\, \texttt{Std. Error}$
-    * Compute p-value *by hand* with $\,\, \texttt{pt(t, df)}$
+
+2. The p-value must be computed by hand, according to the table
+
+| Alternative                  | p-value         | R command    |
+|------------------------------|-----------------|--------------|
+| $\beta \neq b$               | $2P(t_{n-2} > |t|)$      | ``2 - 2 * pt(abs(t), df = n - 2)``|
+| $\beta < b$                  | $P(t_{n-2} < t)$      | ``pt(t, df = n - 2)``|
+| $\beta > b$                  | $P(t_{n-2} > t)$      | ``1 - pt(t, df = n - 2)`` |
+: {tbl-colwidths="[20,25,50]"}
 
 
 
+# Part 4: <br>t-test for general regression {background-color="#cc0164" visibility="uncounted"}
 
-## t-test for general regression {.smaller}
+::: footer
 
-- Consider the general linear regression model
+<div color="#cc0164">  </div>
+
+:::
+
+
+
+## Recall: The t-test for simple regression {.smaller}
+
+- In the previous Part, we have considered the simple linear regression model
+
+$$
+Y_i = \alpha + \beta x_i + \e_i \,, \qquad \e_i \,\, \text{ iid } \,\, N(0,\sigma^2)
+$$
+
+- We have that 
+
+$$
+X \,\, \text{ affects } \,\, Y \qquad \iff \qquad
+\beta \neq 0
+$$
+
+- To see if $X$ affects $Y$, we have developed a t-test for the hypothesis
+
+\begin{align*}
+H_0 \colon  & \beta = b \\
+H_1 \colon & \beta \neq b
+\end{align*}
+
+
+## The t-test for general regression {.smaller}
+
+- Now, consider the *general linear regression model*
 
 $$
 Y_i = \beta_1 z_{i1} + \ldots + \beta_{ip} z_{ip} + \e_i \,, \qquad 
@@ -1331,34 +1416,53 @@ Z_j \,\, \text{ affects } \,\, Y \qquad \iff \qquad
 \beta_j \neq 0
 $$
 
-- To see if $Z_j$ affects $Y$ we need to test the hypothesis
+- To see if $Z_j$ affects $Y$ we can test the hypothesis
+
+\begin{align*}
+H_0 \colon  & \beta_j = 0 \\
+H_1 \colon & \beta_j \neq 0
+\end{align*}
+
+
+
+
+## Construction of t-test {.smaller}
+
+- More in general, consider the hypothesis 
 
 \begin{align*}
 H_0 \colon  & \beta_j = b_j \\
 H_1 \colon & \beta_j \neq b_j
 \end{align*}
 
-
-
-
-## Distribution of estimator $\hat \beta$ {.smaller}
-
-
-- The estimator for the general model is
-
+- Our best guess for $\beta_j$ is the ML Estimator
 $$
-\hat \beta = (Z^T Z)^{-1} Z^T y
+\hat{\beta}_j = (\hat \beta)_j \,, \qquad \hat \beta = (Z^T Z)^{-1} Z^T y
 $$
+($\beta_j$ is the j-th component of the vector $\beta$)
+
+- To test above hypotheses, we therefore need to
+    * Know the **distribution** of $\hat{\beta}_j$
+    * Construct **t-statistic** involving $\hat{\beta}_j$
 
 
-- It can be proven that (see Section 11.5 in [@degroot])
 
+## Distribution of $\hat \beta_j$ {.smaller}
+
+::: {style="font-size: 0.92em"}
+
+::: Theorem
+
+Consider the general linear regression model 
 $$
-\hat \beta_j \sim N \left( \beta_j ,  \xi_{jj} \sigma^2 \right)
+Y_i = \beta_1 z_{i1} + \ldots + \beta_{ip} z_{ip} + \e_i \,, \qquad 
+\e_i \, \text{ iid } \, N(0, \sigma^2)
 $$
-
-- The numbers $\xi_{jj}$ are the diagonal entries of the $p \times p$ matrix
-
+The MLE $\hat{\beta}_j$ is normally distributed
+$$
+\hat \beta_j \sim N \left( \beta_j ,  \xi_{jj} \sigma^2 \right) \,,
+$$
+where the numbers $\xi_{jj}$ are the diagonal entries of the $p \times p$ matrix
 $$
 (Z^T Z)^{-1} =
 \left(
@@ -1371,101 +1475,102 @@ $$
 $$
 
 
-
-## Construction of the t-statistic {.smaller}
-
+:::
 
 
-- In particular $\hat \beta_j$ is an unbiased estimator for $\beta_j$
+**Proof:** Quite difficult. If interested, see see Section 11.5 in [@degroot] 
 
+:::
+
+
+
+
+## Construction of the t-statistic for $\hat{\beta}_j$ {.smaller}
+
+- From the previous Theorem, we know that
 $$
-\Expect[ \hat \beta_j ] = \beta_j
+\hat \beta_j \sim N \left( \beta_j ,  \xi_{jj} \sigma^2 \right)
 $$
 
-- Therefore the t-statistic for $\hat \beta_j$ is
 
+- In particular, $\hat{\beta}_j$ is an unbiased estimator for $\beta_j$
+$$
+\Expect[ \hat{\beta}_j ] = \beta_j
+$$
+
+- This means $\hat{\beta}_j$ is the *Estimate* for the unknown parameter $\beta$
+
+- The t-statistic is therefore
 $$
 t = \frac{\text{Estimate } - \text{ Hypothesised Value}}{\ese} 
-  = \frac{ \hat \beta_j - \beta_j }{ \ese }
+  = \frac{ \hat{\beta}_j - \beta_j }{ \ese }
 $$
 
 
 
-## Estimated Standard Error {.smaller}
+## Estimated Standard Error for $\hat{\beta}_j$ {.smaller}
 
-- We need to find a **Standard Error** for $\hat \beta_j$
 
-- We know that 
-
+- From the Theorem, we know that 
 $$
-\Var [\hat \beta_j] =  \xi_{jj} \, \sigma^2 
-$$
-
-- Hence the standard error of $\hat \beta_j$ is the standard deviation
-
-$$
+\Var [\hat{\beta}_j] =  \xi_{jj} \, \sigma^2  \qquad \implies \qquad 
 \SD [\hat \beta_j] =  \xi_{jj}^{1/2} \, \sigma
 $$
 
-- $\SD$ cannot be used for testing, since $\sigma^2$ is unknown
+- The standard deviation $\SD$ cannot be used as error, since $\sigma^2$ is unknown
 
-
-
-
-## Estimated Standard Error {.smaller}
 
 - We however have an estimate for $\sigma^2$
-
 $$
 \hat \sigma^2 = \frac{1}{n} \RSS = \frac1n \sum_{i=1}^n (y_i - \hat y_i)^2
 $$
 
-- $\hat \sigma^2$ was obtained from maximization of the likelihood function (Lecture 9) 
+- $\hat \sigma^2$ was obtained from maximization of the likelihood function (Lecture 8) 
+
+
+
+## {.smaller}
+
 
 - It can be shown that (see Section 11.5 in [@degroot])
-
 $$
 \Expect[ \hat\sigma^2 ] = \frac{n-p}{n} \, \sigma^2
 $$
 
 
-
-## Estimated Standard Error {.smaller}
-
 - Therefore $\hat\sigma^2$ is not unbiased estimator of $\sigma^2$
 
-- We hence rescale and introduce $S^2$
-
+- To obtain unbiased estimator, we rescale $\hat\sigma^2$ and introduce $S^2$
 $$
 S^2 := \frac{n}{n-p} \, \hat\sigma^2 = \frac{\RSS}{n-p} 
 $$
 
-- This way $S^2$ is unbiased estimator for $\sigma^2$
+- This way, $S^2$ is unbiased estimator for $\sigma^2$
 
 $$
 \Expect[S^2] =  \frac{n}{n-p}  \, \Expect[\hat\sigma^2] =  \frac{n}{n-p} \, \frac{n-p}{n} \, \sigma^2 = \sigma^2
 $$
 
 
-## Estimated Standard Error {.smaller}
+## {.smaller}
 
-- Recall that the standard deviation of $\hat \beta$ is
+- Recall that the standard deviation of $\hat{\beta}_j$ is
 
 $$
-\SD [\hat \beta] = \xi_{jj}^{1/2} \, \sigma
+\SD [\hat{\beta}_j] = \xi_{jj}^{1/2} \, \sigma
 $$
 
 - We replace the unknown $\sigma$ with its unbiased estimator $S$ 
 
-- We obtain the **estimated standard error**
+- This gives the **estimated standard error**
 
 $$
-\ese =\xi_{jj}^{1/2} \,  S
+\ese =\xi_{jj}^{1/2} \,  S \,, \qquad S = \sqrt{\frac{\RSS}{n-2}}
 $$
 
 
 
-## t-statistic to test $\beta_j$ {.smaller}
+## t-statistic for testing $\beta_j$ {.smaller}
 
 
 ::: Theorem 
@@ -1473,10 +1578,10 @@ $$
 Consider the general linear regression model 
 
 $$
-Y_i = \beta_1 z_{i1} + \ldots +\beta_p z_{ip} + \e_i
+Y_i = \beta_1 z_{i1} + \ldots +\beta_p z_{ip} + \e_i \,, \qquad \e_i \,\, \text{ iid } \,\, N(0, \sigma^2)
 $$
 
-with $\e_i$ iid $N(0, \sigma^2)$. Then
+The t-statistic for $\hat{\beta}$ follows a t-distribution
 
 $$
 t = \frac{\text{Estimate } - \text{ Hypothesised Value}}{\ese} = \frac{ \hat \beta_j - \beta_j }{ \xi_{jj}^{1/2} \, S}  
@@ -1489,74 +1594,386 @@ $$
 **Proof:** See section 11.5 in [@degroot]
 
 
-## Summary: t-test for $\beta_j$ {.smaller}
 
-**Goal**: Estimate the coefficient $\beta_j$ for the general linear model
 
+## The t-test for $\beta_j$ {.smaller}
+
+**Assumption:** Given data points $(z_{1i}, \ldots, z_{pi}, y_i)$, consider the general model
 $$
 Y_i = \beta_1 z_{i1} + \ldots + \beta_p z_{ip} + \e_i \,, \qquad \e_i \, \text{ iid } \, N(0,\sigma^2)
 $$
 
+**Goal**: Statistical inference on the coefficients $\beta_j$
+
+**Hypotheses**: If $b_j$ is guess for $\beta_j$, the two-sided hypotheses is
+$$
+H_0 \colon \beta_j = b_j \,, \quad \qquad 
+H_1 \colon \beta_j \neq b_j
+$$
+The one-sided alternative hypotheses are
+$$
+H_1 \colon \beta_j < b_j \quad  \text{ or } \quad 
+H_1 \colon \beta_j > b_j
+$$
+
+
+
+## Procedure: 3 Steps {.smaller}
+
+
+1. **Calculation**: Write down the design matrix $Z$ and compute
+$$
+(Z^T Z)^{-1} =
+\left(
+\begin{array}{ccc}
+\xi_{11} & \ldots & \xi_{1p} \\
+\ldots   & \ldots & \ldots \\
+\xi_{p1} & \ldots & \xi_{pp} \\
+\end{array}
+\right)
+$$
+Compute the MLE $\hat{\beta}$, predictions $\hat{y}$, RSS and $S^2$
+$$
+\hat \beta = (Z^TZ)^{-1} Z^T y  \,, \qquad 
+\hat{y} = Z \hat{\beta} \,, \qquad 
+\RSS = \sum_{i=1}^n (y_i - \hat{y}_i)^2 \,, \qquad  S^2 := \frac{\RSS}{n-2}
+$$
+Finally, compute the t-statistic
+$$
+t = \frac{\hat \beta_j - b_j }{ \ese }  \,, \qquad \quad
+\ese = \xi_{jj}^{1/2} \, S 
+$$
+
+
+
+
+
+## {.smaller}
+
+2. **Statistical Tables or R**: Find either
+    * Critical value $t^*$ in [Table 1](files/Statistics_Tables.pdf)
+    * p-value in R
+
 <br>
 
-**Hypotheses**: If $b_j$ is guess for $\beta_j$ the hypotheses are
+3. **Interpretation**: Reject $H_0$ when either
+$$
+p < 0.05 \qquad \text{ or } \qquad t \in \,\,\text{Rejection Region} 
+\qquad \qquad \qquad \qquad
+(T \, \sim \, t_{n-p})
+$$
 
+
+
+
+| Alternative                      | Rejection Region  | $t^*$             | p-value         |
+|----------------------------------|-------------------|-------------------|-----------------|
+| $\beta_j \neq b_j$               | $|t| > t^*$       | $t_{n-p}(0.025)$| $2P(T > |t|)$   |
+| $\beta_j < b_j$                  | $t < - t^*$       | $t_{n-p}(0.05)$ | $P(T < t)$      |
+| $\beta_j > b_j$                  | $t > t^*$         | $t_{n-p}(0.05)$ | $P(T > t)$      |
+: {tbl-colwidths="[25,25,25,25]"}
+
+
+
+
+
+
+
+## Implementation in R {.smaller}
+
+- First, fit general regression model with ``lm``
+
+- Then read the *summary*
+
+Assume the hypotheses to test are
+$$
+H_0 \colon \beta_j = 0 \,, \qquad 
+H_1 \colon \beta_j \neq 0
+$$
+In such case, the t-statistic and p-value are explicitly given in the *summary*
+$$
+t = \frac{\hat \beta_j - 0}{\ese} \,, \qquad p = 2P(t_{n- p} > |t|) 
+$$
+
+- Read the t-statistic in $j$-th variable row under $\,\, \texttt{t value}$
+
+- Read the p-value in $j$-th variable row under $\,\, \texttt{Pr(>|t|)}$
+
+
+
+
+## {.smaller}
+
+::: {style="font-size: 0.92em"}
+
+If instead you are required to test
+$$
+H_0 \colon \beta_j = b_j \,, \qquad 
+H_1 \colon \beta_j \neq b_j \,, \quad 
+\beta_j < b_j \,, \quad  \text{ or } \,\,
+\beta_j > b_j
+$$
+
+1. The t-statistic has to be computed by hand
+$$
+t = \frac{\hat{\beta}_j - b_j}{\ese}
+$$
+    * $\,\, \hat \beta_j$ is in $j$-th variable row under $\,\, \texttt{Estimate}$
+    * $\,\, \ese$ for $\hat \beta_j$ is in $j$-th variable row under $\,\, \texttt{Std. Error}$
+
+
+2. The p-value must be computed by hand, according to the table
+
+| Alternative                  | p-value         | R command    |
+|------------------------------|-----------------|--------------|
+| $\beta_j \neq b_j$               | $2P(t_{n-p} > |t|)$      | ``2 - 2 * pt(abs(t), df = n - p)``|
+| $\beta_j < b_j$                  | $P(t_{n-p} < t)$      | ``pt(t, df = n - p)``|
+| $\beta_j > b_j$                  | $P(t_{n-p} > t)$      | ``1 - pt(t, df = n - p)`` |
+: {tbl-colwidths="[20,25,50]"}
+
+:::
+
+
+
+
+
+
+
+## Worked Example: Stock and Gold prices {.smaller}
+
+- Recall that 
+    * $X =$ Stock Price
+    * $Y =$ Gold Price
+
+- **Goal:** Test if an *intercept is present*, at level $0.05$
+
+- **Procedure:** Consider the linear model
+$$
+Y_i =  \alpha + \beta x_i + \e_i  \,, \quad \e_i \,\, \text{ iid } \,\, N(0,\sigma^2)
+$$
+Test the hypotheses with two-sided alternative
 \begin{align*}
-H_0 & \colon \beta_j = b_j \\
-H_1 & \colon \beta_j \neq b_j
+H_0 & \colon \alpha = 0 \\
+H_1 & \colon \alpha \neq 0
 \end{align*}
 
 
 
-## Summary: t-test for $\beta_j$ {.smaller}
 
-- The t-statistic is
+## Testing for $\alpha= 0$ {.smaller}
 
-$$
-t = \frac{\hat \beta_j - b_j }{ \ese } \, \sim \, t_{n-p} \,, \qquad \quad
-\ese = \xi_{jj}^{1/2} \, S 
-$$
+- Recall that Stock Prices and Gold Prices are stored in R vectors
+    * ``stock.price``
+    * ``gold.price``
 
-- In the above $\xi_{jj}$ are diagonal entries of $(Z^TZ)^{-1}$ and
 
-$$
-\hat \beta = (Z^TZ)^{-1} Z^T y \,, \qquad \quad S^2 := \frac{\RSS}{n-p} 
-$$
-
-- The p-value is
+- Fit the simple linear model with the following commands
 
 $$
-p = 2P (t_{n-p} > |t|)
+\text{gold.price } = \alpha + \beta \, \times  (\text{ stock.price }) + \text{ error}
 $$
 
 
+```r
+# Fit simple linear regression model
+fit.model <- lm(gold.price ~ stock.price)
 
-## t-test in R: Fit general regression with ``lm`` {.smaller}
-
-
-- If $b_j = 0$ and a two-sided t-test is required
-    * t-statistic is in $j$-th variable row under $\,\, \texttt{t value}$
-    * p-value is in $j$-th variable row under $\,\, \texttt{Pr(>|t|)}$
-
-
-- If $b_j \neq 0$ or one-sided t-test is required
-    * Compute t-statistic by hand
-    $$
-    t = \frac{\hat \beta_j - b_j}{\ese}
-    $$
-    * $\,\, \hat \beta_j$ is in $j$-th variable row under $\,\, \texttt{Estimate}$
-    * $\,\, \ese$ for $\hat \beta_j$ is in $j$-th variable row under $\,\, \texttt{Std. Error}$
-    * Compute p-value *by hand* with $\,\, \texttt{pt(t, df)}$
+# Print result to screen
+summary(fit.model)
+```
 
 
 
-## Example: $\ese$ for simple linear regression {.smaller}
+
+
+## Output: $\ese$, t-statistic, p-value {.smaller}
+
+:::: {.columns}
+
+::: {.column width="100%"}
+![](images/simple_regression_output_cut_2.png){width=70%}
+:::
+
+::::
+  
+- $\texttt{(Intercept)}$: 1st row of the table contains information related to $\hat \alpha$
+
+| $\texttt{Estimate}$   | $\text{The value of } \hat \alpha$                  |
+|:------------------    |:----------                                         |
+| $\texttt{Std. Error}$ | Estimated standard error $\ese$ for $\hat \alpha$        |
+| $\texttt{t value}$    | t-statistic $\, t = \dfrac{\hat \alpha - 0 }{\ese}$|
+| $\texttt{Pr(>|t|)}$   | p-value $\, p = 2 P( t_{n-2} > |t| )$             |
+| $\texttt{***}$, $\, \texttt{**}$, $\, \texttt{*}$, $\, \texttt{.}$   | Significance (how large is p-value) -- More stars is better |
+: {tbl-colwidths="[30,70]"}
+
+
+
+## Output: $\ese$, t-statistic, p-value {.smaller}
+
+:::: {.columns}
+
+::: {.column width="100%"}
+![](images/simple_regression_output_cut_2.png){width=70%}
+:::
+
+::::
+  
+- The above table then gives
+
+$$
+\hat \alpha = 37.917 \,, \qquad \ese = 4.336 \, , \qquad t =  8.744 \,, \qquad 
+p = 7.14 \times 10^{-10} \
+$$
+
+
+- The $t$-statistic computed by R can also be computed by hand
+
+$$
+  t   = \frac{\hat \alpha - 0}{ \ese }
+      = \frac{37.917}{4.336} = 8.744 
+$$
+
+
+
+
+## Output: $\ese$, t-statistic, p-value {.smaller}
+
+:::: {.columns}
+
+::: {.column width="100%"}
+![](images/simple_regression_output_cut_2.png){width=70%}
+:::
+
+::::
+  
+- The p-value computed by R is $p = 7.14 \times 10^{-10}$
+
+- We can also compute it by hand: The degrees of freedom are
+
+$$
+n = \text{No. of data points} = 33 \,, \qquad  \text{df} = n - 2 = 31
+$$
+
+```{r}
+#| echo: true
+t <- 8.744
+p <- 2 - 2 * pt(abs(t), df = 31)
+
+cat("The p-value is", p)
+```
+
+
+
+
+## Output: $\ese$, t-statistic, p-value {.smaller}
+
+:::: {.columns}
+
+::: {.column width="100%"}
+![](images/simple_regression_output_cut_2.png){width=70%}
+:::
+
+::::
+
+
+- In alternative, we can find the critical value in [Table 1](files/Statistics_Tables.pdf)
+
+$$
+n = \text{No. of data points} = 33 \,, \qquad  \text{df} = n - 2 = 31
+$$
+
+- For two-sided test, the critical value is $\, t_{31}(0.025) = 2.040$
+
+$$
+|t| = 8.744 > 2.040 = t_{31}(0.025) \quad \implies \quad  p < 0.05
+$$
+
+
+
+
+## Output: $\ese$, t-statistic, p-value {.smaller}
+
+:::: {.columns}
+
+::: {.column width="100%"}
+![](images/simple_regression_output_cut_2.png){width=70%}
+:::
+
+::::
+
+
+**Interpretation:** $\, p$ is very small (hence the $\, \texttt{***} \,$ rating)
+
+- Therefore, we reject the null hypothesis $H_0$, and the real parameter is $\alpha \neq 0$
+
+- Since $\alpha \neq 0$, we deduce that the model has to *include an intercept*
+
+- The best estimate for $\alpha$ is the MLE $\hat \alpha = 37.917$
+
+
+
+
+
+## Theoretical Example {.smaller}
+### Deriving $\ese$ for simple linear regression 
 
 - Consider the simple regression model
 
 $$
 Y_i = \alpha + \beta x_i + \e_i
 $$
+
+
+- We have seen in the previous part that the $\ese$ for $\hat{\beta}$ is
+
+$$
+\ese = \frac{S}{\sqrt{S_{xx}}} \,, \qquad S = \sqrt{ \frac{\RSS}{n-2} }
+$$
+
+
+- However, we have not computed the $\ese$ for $\hat{\alpha}$
+
+
+**Goal:** Compute $\ese$ for $\hat{\alpha}$ using the theory developed for general regression
+
+
+
+
+## {.smaller}
+
+**Theory developed so far:**
+
+- Consider the general linear model
+$$
+Y_i = \beta_1 z_{i1} + \ldots +\beta_p z_{ip} + \e_i \,, \qquad \e_i \,\, \text{ iid } \,\, N(0, \sigma^2)
+$$
+
+- We have shown that the estimated standard error for $\hat{\beta}_j$ is
+$$
+\ese = \xi_{jj}^{1/2} \, S \,, \qquad 
+S = \sqrt{ \frac{\RSS}{n-2} }
+$$
+where $\xi_{jj}$ are the diagonal entries of the matrix
+$$
+(Z^T Z)^{-1} =
+\left(
+\begin{array}{ccc}
+\xi_{11} & \ldots & \xi_{1p} \\
+\ldots   & \ldots & \ldots \\
+\xi_{p1} & \ldots & \xi_{pp} \\
+\end{array}
+\right)
+$$
+
+
+## {.smaller}
+
+- Let us go back to the linear regression model
+
+$$
+Y_i = \alpha + \beta x_i + \e_i
+$$
+
 
 
 - The design matrix is
@@ -1572,9 +1989,9 @@ Z = \left(
 $$
 
 
-## Example: $\ese$ for simple linear regression {.smaller}
+##  {.smaller}
 
-- We have seen in Lecture 9 that
+- We have computed in Lecture 8 that
 
 $$
 (Z^T Z)^{-1} = 
@@ -1591,16 +2008,16 @@ $$
 - Hence the $\ese$ for $\hat \alpha$ and $\hat \beta$ are
 
 \begin{align*}
-\ese (\hat \alpha) & = \xi_{11}^{1/2} \, S^2 = \sqrt{ \frac{ \sum_{i=1}^n x_i^2 }{ n S_{xx} } } \, S^2 \\[7pt]
-\ese (\hat \beta) & = \xi_{22}^{1/2} \, S^2 = \frac{ S^2 }{ \sqrt{ S_{xx} } }
+\ese (\hat \alpha) & = \xi_{11}^{1/2} \, S = \sqrt{ \frac{ \sum_{i=1}^n x_i^2 }{ n S_{xx} } } \, S \\[7pt]
+\ese (\hat \beta) & = \xi_{22}^{1/2} \, S = \frac{ S }{ \sqrt{ S_{xx} } }
 \end{align*}
 
-- **Note:** $\, \ese(\hat\beta)$ coincides with the $\ese$ in Slide 50
+- **Note:** $\, \ese(\hat\beta)$ coincides with the $\ese$ in Slide 35
 
 
 
 
-# Part 4: <br>F-test for regression {background-color="#cc0164" visibility="uncounted"}
+# Part 5: <br>F-test for general regression {background-color="#cc0164" visibility="uncounted"}
 
 ::: footer
 
@@ -2146,7 +2563,7 @@ $$
 
 
 
-# Part 5: <br>The Longley dataset {background-color="#cc0164" visibility="uncounted"}
+# Part 6: <br>Worked Example: <br> The Longley dataset {background-color="#cc0164" visibility="uncounted"}
 
 ::: footer
 
@@ -2498,7 +2915,7 @@ The model does really well because it is **trivial**
 
 
 
-# Part 6: <br> Model selection <br> {background-color="#cc0164" visibility="uncounted"}
+# Part 7: <br> Model selection <br> {background-color="#cc0164" visibility="uncounted"}
 
 ::: footer
 
@@ -2833,7 +3250,7 @@ $$
 
 
 
-# Part 7: <br>Examples of <br> model selection {background-color="#cc0164" visibility="uncounted"}
+# Part 8: <br>Examples of <br> model selection {background-color="#cc0164" visibility="uncounted"}
 
 ::: footer
 

@@ -425,33 +425,17 @@
   </style>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
   <style>
-  .Question {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Important {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
   .Problem {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
-  .Idea {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Conjecture {
+  .Corollary {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
   .Notation {
     --color1: #c6e6ed;
     --color2: #1995ad;
-  }
-  .Proof {
-    --color1: #f1f1f2;
-    --color2: #c0c0c1;
   }
   .DONE {
     --color1: #cce7b1;
@@ -461,31 +445,39 @@
     --color1: #c6e6ed;
     --color2: #1995ad;
   }
-  .Axiom {
+  .Warning {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
-  .Example {
-    --color1: #bce5de;
-    --color2: #21aa93;
+  .Important {
+    --color1: #f4cce0;
+    --color2: #db4d92;
   }
   .Remark {
     --color1: #bce5de;
     --color2: #21aa93;
   }
-  .Warning {
+  .Example {
+    --color1: #bce5de;
+    --color2: #21aa93;
+  }
+  .Proposition {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
-  .Corollary {
+  .Question {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Conjecture {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Idea {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
   .Theorem {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Proposition {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
@@ -496,6 +488,14 @@
   .TODO {
     --color1: #e7b1b4;
     --color2: #8c3236;
+  }
+  .Proof {
+    --color1: #f1f1f2;
+    --color2: #c0c0c1;
+  }
+  .Axiom {
+    --color1: #f4cce0;
+    --color2: #db4d92;
   }
   </style>
 </head>
@@ -553,36 +553,26 @@
 <section id="outline-of-lecture-9-1" class="slide level2 smaller">
 <h2>Outline of Lecture 9</h2>
 <ol start="3" type="1">
-<li>t-test for regression
+<li>t-test for simple regression
 <ul>
-<li>Test the significance of individual parameters</li>
+<li>Test the significance of the slope parameter</li>
 </ul></li>
-</ol>
-<p><br></p>
-<ol start="4" type="1">
-<li>F-test for regression
+<li>t-test for general regression
+<ul>
+<li>Test the significance of regression parameters</li>
+</ul></li>
+<li>F-test for general regression
 <ul>
 <li>Test the overall significance of the parameters</li>
 </ul></li>
-</ol>
-<p><br></p>
-<ol start="5" type="1">
-<li>The Longley dataset
+<li>Worked Example: The Longley dataset
 <ul>
 <li>Classic example of highly collinear dataset</li>
 </ul></li>
-</ol>
-</section>
-<section id="outline-of-lecture-9-2" class="slide level2 smaller">
-<h2>Outline of Lecture 9</h2>
-<ol start="6" type="1">
 <li>Model selection
 <ul>
 <li>Comparison of nested regression models</li>
 </ul></li>
-</ol>
-<p><br></p>
-<ol start="7" type="1">
 <li>Examples of model selection</li>
 </ol>
 </section></section>
@@ -1051,7 +1041,8 @@ R^2  = 1 - \frac{ \mathop{\mathrm{RSS}}}{ \mathop{\mathrm{TSS}}}
   y_i \approx \hat y_i \,, \quad \forall \,\, i = 1 , \ldots, n
   </span></p></li>
 <li><p>Problem: the model will not make good predictions on new data</p></li>
-<li><p>This is known as <strong>overfitting</strong> and it should be avoided</p></li>
+<li><p>This is known as <strong>overfitting</strong> and it should be avoided<br>
+(more on this later)</p></li>
 </ul>
 </section>
 <section id="some-observations-about-r2-1" class="slide level2 smaller">
@@ -1318,8 +1309,8 @@ R^2 = 0.395325 \geq 0.3
 </ul>
 </section></section>
 <section>
-<section id="part-3-t-test-for-regression" class="title-slide slide level1 center" data-background-color="#cc0164" data-visibility="uncounted">
-<h1>Part 3: <br>t-test for regression</h1>
+<section id="part-3-t-test-for-simple-regression" class="title-slide slide level1 center" data-background-color="#cc0164" data-visibility="uncounted">
+<h1>Part 3: <br>t-test for simple regression</h1>
 <div class="footer">
 <div color="#cc0164">
 
@@ -1343,29 +1334,29 @@ X \,\, \text{ affects } \,\, Y \qquad \iff \qquad
 </span></p>
 <ul>
 <li><p><span class="math inline">\beta</span> is a random quantity which depends on the sample</p></li>
-<li><p>Therefore we can study <span class="math inline">\beta</span> with the hypothesis test</p></li>
+<li><p>To see if <span class="math inline">X</span> affects <span class="math inline">Y</span>, we can test the hypothesis</p></li>
 </ul>
 <p><span class="math display">\begin{align*}
-H_0 \colon  &amp; \beta = b \\
-H_1 \colon &amp; \beta \neq b
+H_0 \colon  &amp; \beta = 0 \\
+H_1 \colon &amp; \beta \neq 0
 \end{align*}</span></p>
 </section>
 <section id="construction-of-t-test" class="slide level2 smaller">
 <h2>Construction of t-test</h2>
 <ul>
-<li>Want to test hypothesis</li>
+<li>More in general, consider the hypothesis</li>
 </ul>
 <p><span class="math display">\begin{align*}
 H_0 \colon  &amp; \beta = b \\
 H_1 \colon &amp; \beta \neq b
 \end{align*}</span></p>
 <ul>
-<li><p>Our best guess for <span class="math inline">\beta</span> is the estimator <span class="math inline">\hat \beta</span></p></li>
+<li><p>Our best guess for <span class="math inline">\beta</span> is the ML Estimator <span class="math display">
+\hat \beta = \frac{ S_{xy} }{ S_{xx} }
+</span></p></li>
 <li><p>To test above hypotheses, we therefore need to</p>
 <ul>
-<li>Know the <strong>distribution</strong> of <span class="math display">
-  \hat \beta = \frac{ S_{xy} }{ S_{xx} }
-  </span></li>
+<li>Know the <strong>distribution</strong> of <span class="math inline">\hat \beta</span></li>
 <li>Construct <strong>t-statistic</strong> involving <span class="math inline">\hat \beta</span></li>
 </ul></li>
 </ul>
@@ -1375,9 +1366,9 @@ H_1 \colon &amp; \beta \neq b
 <div id="Theorem*-4.1" class="Theorem">
 <p></p><details class="Theorem fbx-simplebox fbx-default" open=""><summary><strong>Theorem</strong></summary><div>Consider the linear regression model<p></p>
 <p><span class="math display">
-Y_i = \alpha + \beta x_i + \varepsilon_i
+Y_i = \alpha + \beta x_i + \varepsilon_i  \,, \qquad \varepsilon_i \,\, \text{ iid } \,\, N(0, \sigma^2)
 </span></p>
-<p>with <span class="math inline">\varepsilon_i</span> iid <span class="math inline">N(0, \sigma^2)</span>. Then</p>
+<p>The MLE <span class="math inline">\hat{\beta}</span> is normally distributed</p>
 <p><span class="math display">
 \hat \beta \sim N \left(\beta , \frac{ \sigma^2 }{ S_{xx} } \right)
 </span></p>
@@ -1385,107 +1376,69 @@ Y_i = \alpha + \beta x_i + \varepsilon_i
 </div>
 <p><strong>Proof:</strong> Quite difficult. If interested see Theorem 11.3.3 in <span class="citation" data-cites="casella-berger">[<a href="#/references" role="doc-biblioref" onclick="">1</a>]</span></p>
 </section>
-<section id="construction-of-the-t-statistic" class="slide level2 smaller">
-<h2>Construction of the t-statistic</h2>
+<section id="construction-of-t-statistic-for-hat-beta" class="slide level2 smaller">
+<h2>Construction of t-statistic for <span class="math inline">\hat \beta</span></h2>
 <ul>
-<li><p>We want to construct t-statistic for <span class="math inline">\hat \beta</span></p></li>
-<li><p>As for the standard t-test, we want a t-statistic of the form</p></li>
-</ul>
-<p><span class="math display">
-t = \frac{\text{Estimate } - \text{ Hypothesised Value}}{\mathop{\mathrm{e.s.e.}}}
-</span></p>
-<ul>
-<li>We know that</li>
-</ul>
-<p><span class="math display">
+<li><p>From the previous Theorem, we know that <span class="math display">
 \hat \beta \sim N \left(\beta , \frac{ \sigma^2 }{ S_{xx} } \right)
-</span></p>
-</section>
-<section id="construction-of-the-t-statistic-1" class="slide level2 smaller">
-<h2>Construction of the t-statistic</h2>
-<ul>
-<li>In particular <span class="math inline">\hat \beta</span> is an unbiased estimator for <span class="math inline">\beta</span></li>
-</ul>
-<p><span class="math display">
+</span></p></li>
+<li><p>In particular <span class="math inline">\hat \beta</span> is an unbiased estimator for <span class="math inline">\beta</span> <span class="math display">
 {\rm I\kern-.3em E}[ \hat \beta ] = \beta
-</span></p>
-<ul>
-<li>Therefore <span class="math inline">\hat \beta</span> is the estimate</li>
-</ul>
-<p><span class="math display">
+</span></p></li>
+<li><p>This means <span class="math inline">\hat \beta</span> is the <em>Estimate</em> for the unknown parameter <span class="math inline">\beta</span></p></li>
+<li><p>The t-statistic is therefore <span class="math display">
 t = \frac{\text{Estimate } - \text{ Hypothesised Value}}{\mathop{\mathrm{e.s.e.}}}
-  = \frac{ \hat \beta - \beta }{ \mathop{\mathrm{e.s.e.}}}
-</span></p>
-</section>
-<section id="estimated-standard-error" class="slide level2 smaller">
-<h2>Estimated Standard Error</h2>
-<ul>
-<li><p>We need to find a <strong>Standard Error</strong> for <span class="math inline">\hat \beta</span></p></li>
-<li><p>We know that</p></li>
-</ul>
-<p><span class="math display">
-{\rm Var}[\hat \beta] = \frac{ \sigma^2 }{ S_{xx}}
-</span></p>
-<ul>
-<li>Hence the standard error of <span class="math inline">\hat \beta</span> is the standard deviation</li>
-</ul>
-<p><span class="math display">
-{\rm SD}[\hat \beta] = \frac{ \sigma }{ S_{xx} }
-</span></p>
-<ul>
-<li><span class="math inline">{\rm SD}</span> cannot be used for testing, since <span class="math inline">\sigma^2</span> is unknown</li>
+= \frac{ \hat \beta - \beta }{ \mathop{\mathrm{e.s.e.}}}
+</span></p></li>
 </ul>
 </section>
-<section id="estimated-standard-error-1" class="slide level2 smaller">
-<h2>Estimated Standard Error</h2>
+<section id="estimated-standard-error-for-hat-beta" class="slide level2 smaller">
+<h2>Estimated Standard Error for <span class="math inline">\hat \beta</span></h2>
 <ul>
-<li>We however have an estimate for <span class="math inline">\sigma^2</span></li>
-</ul>
-<p><span class="math display">
+<li><p>From the Theorem in Slide 30, we know that <span class="math display">
+{\rm Var}[\hat \beta] = \frac{ \sigma^2 }{ S_{xx}} \quad \implies \quad {\rm SD}[\hat \beta] = \frac{ \sigma }{ \sqrt{S_{xx}} }
+</span></p></li>
+<li><p>The standard deviation <span class="math inline">{\rm SD}</span> cannot be used as error, since <span class="math inline">\sigma^2</span> is unknown<br>
+(Recall that <span class="math inline">\sigma^2</span> is the unknown variance of the error <span class="math inline">\varepsilon_i</span>)</p></li>
+<li><p>We however have an estimate for <span class="math inline">\sigma^2</span> <span class="math display">
 \hat \sigma^2 = \frac{1}{n} \mathop{\mathrm{RSS}}= \frac1n \sum_{i=1}^n (y_i - \hat y_i)^2
-</span></p>
-<ul>
+</span></p></li>
 <li><p><span class="math inline">\hat \sigma^2</span> was obtained from maximization of the likelihood function (Lecture 8)</p></li>
-<li><p>It can be shown that (see Section 11.3.4 in <span class="citation" data-cites="casella-berger">[<a href="#/references" role="doc-biblioref" onclick="">1</a>]</span>)</p></li>
 </ul>
-<p><span class="math display">
+</section>
+<section id="section-1" class="slide level2 smaller">
+<h2></h2>
+<ul>
+<li><p>It can be shown that <span class="math display">
 {\rm I\kern-.3em E}[ \hat\sigma^2 ] = \frac{n-2}{n} \, \sigma^2
-</span></p>
-</section>
-<section id="estimated-standard-error-2" class="slide level2 smaller">
-<h2>Estimated Standard Error</h2>
-<ul>
+</span> (for a proof, see Section 11.3.4 in <span class="citation" data-cites="casella-berger">[<a href="#/references" role="doc-biblioref" onclick="">1</a>]</span>)</p></li>
 <li><p>Therefore <span class="math inline">\hat\sigma^2</span> is not unbiased estimator of <span class="math inline">\sigma^2</span></p></li>
-<li><p>We hence rescale and introduce <span class="math inline">S^2</span></p></li>
-</ul>
-<p><span class="math display">
+<li><p>To obtain an unbiased estimator, we rescale <span class="math inline">\hat\sigma^2</span> and introduce <span class="math inline">S^2</span> <span class="math display">
 S^2 := \frac{n}{n-2} \, \hat\sigma^2 = \frac{\mathop{\mathrm{RSS}}}{n-2}
-</span></p>
-<ul>
-<li>This way <span class="math inline">S^2</span> is unbiased estimator for <span class="math inline">\sigma^2</span></li>
+</span></p></li>
+<li><p>This way, <span class="math inline">S^2</span> is unbiased estimator for <span class="math inline">\sigma^2</span> <span class="math display">
+{\rm I\kern-.3em E}[S^2] =  \frac{n}{n-2}  \, {\rm I\kern-.3em E}[\hat\sigma^2] =  \frac{n}{n-2} \,\cdot \, \frac{n-2}{n} \, \cdot \, \sigma^2 = \sigma^2
+</span></p></li>
 </ul>
-<p><span class="math display">
-{\rm I\kern-.3em E}[S^2] =  \frac{n}{n-2}  \, {\rm I\kern-.3em E}[\hat\sigma^2] =  \frac{n}{n-2} \, \frac{n-2}{n} \, \sigma^2 = \sigma^2
-</span></p>
 </section>
-<section id="estimated-standard-error-3" class="slide level2 smaller">
-<h2>Estimated Standard Error</h2>
+<section id="section-2" class="slide level2 smaller">
+<h2></h2>
 <ul>
 <li>Recall that the standard deviation of <span class="math inline">\hat \beta</span> is</li>
 </ul>
 <p><span class="math display">
-{\rm SD}[\hat \beta] = \frac{ \sigma }{ S_{xx} }
+{\rm SD}[\hat \beta] = \frac{ \sigma }{ \sqrt{S_{xx}} }
 </span></p>
 <ul>
 <li><p>We replace the unknown <span class="math inline">\sigma</span> with its unbiased estimator <span class="math inline">S</span></p></li>
-<li><p>We obtain the <strong>estimated standard error</strong></p></li>
+<li><p>This gives the <strong>estimated standard error</strong></p></li>
 </ul>
 <p><span class="math display">
-\mathop{\mathrm{e.s.e.}}= \frac{S}{\sqrt{S_{xx}}}
+\mathop{\mathrm{e.s.e.}}:= \frac{S}{\sqrt{S_{xx}}} \,, \qquad S = \sqrt{\frac{\mathop{\mathrm{RSS}}}{n-2}}
 </span></p>
 </section>
-<section id="t-statistic-to-test-hat-beta" class="slide level2 smaller">
-<h2>t-statistic to test <span class="math inline">\hat \beta</span></h2>
+<section id="t-statistic-for-testing-hat-beta" class="slide level2 smaller">
+<h2>t-statistic for testing <span class="math inline">\hat \beta</span></h2>
 <p>The t-statistic for <span class="math inline">\hat \beta</span> is then</p>
 <p><span class="math display">
 t = \frac{\text{Estimate } - \text{ Hypothesised Value}}{\mathop{\mathrm{e.s.e.}}}
@@ -1494,9 +1447,9 @@ t = \frac{\text{Estimate } - \text{ Hypothesised Value}}{\mathop{\mathrm{e.s.e.}
 <div id="Theorem*-4.2" class="Theorem">
 <p></p><details class="Theorem fbx-simplebox fbx-default" open=""><summary><strong>Theorem</strong></summary><div>Consider the linear regression model<p></p>
 <p><span class="math display">
-Y_i = \alpha + \beta x_i + \varepsilon_i
+Y_i = \alpha + \beta x_i + \varepsilon_i \,, \qquad \varepsilon_i \,\, \text{ iid } \,\, N(0, \sigma^2)
 </span></p>
-<p>with <span class="math inline">\varepsilon_i</span> iid <span class="math inline">N(0, \sigma^2)</span>. Then</p>
+<p>The t-statistic for <span class="math inline">\hat{\beta}</span> follows a t-distribution</p>
 <p><span class="math display">
 t = \frac{ \hat \beta - \beta }{ S / \sqrt{S_{xx}} }  
 \, \sim \,
@@ -1523,35 +1476,23 @@ t = \frac{ \hat \beta - \beta }{ S / \sqrt{S_{xx}} }
 U := \frac{ \hat \beta - \beta }{ \sigma / \sqrt{S_{xx}} } \,, \qquad \quad V := \frac{ (n-2) S^2 }{ \sigma^2 }
 </span></p>
 </section>
-<section id="how-to-prove-the-theorem-1" class="slide level2 smaller">
-<h2>How to prove the Theorem</h2>
+<section id="section-3" class="slide level2 smaller">
+<h2></h2>
 <ul>
-<li>We know that</li>
-</ul>
-<p><span class="math display">
+<li><p>We know that <span class="math display">
 \hat \beta \sim N \left(\beta , \frac{ \sigma^2 }{ S_{xx} } \right)
-</span></p>
-<ul>
-<li>Therefore</li>
-</ul>
-<p><span class="math display">
+</span></p></li>
+<li><p>Therefore <span class="math display">
 U = \frac{ \hat \beta - \beta }{ \sigma / \sqrt{S_{xx}} } \, \sim \, N(0,1)
-</span></p>
-</section>
-<section id="how-to-prove-the-theorem-2" class="slide level2 smaller">
-<h2>How to prove the Theorem</h2>
-<ul>
-<li>Moreover it can be shown that</li>
-</ul>
-<p><span class="math display">
+</span></p></li>
+<li><p>Moreover, it can be shown that <span class="math display">
 V = \frac{(n-2) S^2}{\sigma^2} \, \sim \, \chi_{n-2}^2
-</span></p>
-<ul>
-<li>It can also be shown that <span class="math inline">U</span> and <span class="math inline">V</span> are independent</li>
+</span></p></li>
+<li><p>It can also be shown that <span class="math inline">U</span> and <span class="math inline">V</span> are independent</p></li>
 </ul>
 </section>
-<section id="how-to-prove-the-theorem-3" class="slide level2 smaller">
-<h2>How to prove the Theorem</h2>
+<section id="section-4" class="slide level2 smaller">
+<h2></h2>
 <ul>
 <li>In summary, we have</li>
 </ul>
@@ -1566,65 +1507,108 @@ t = \frac{ \hat \beta - \beta }{ S / \sqrt{S_{xx}} }
 U \sim N(0,1) \,, \qquad \quad V \sim \chi_{n-2}^2
 </span></p>
 <ul>
-<li>From the Theorem on t-distribution in Lecture 3 we conclude</li>
+<li>From the Theorem on t-distribution in Lecture 2, we conclude</li>
 </ul>
 <p><span class="math display">
 t \sim t_{n-2}
 </span></p>
 </section>
-<section id="summary-t-test-for-beta" class="slide level2 smaller">
-<h2>Summary: t-test for <span class="math inline">\beta</span></h2>
-<p><strong>Goal</strong>: Estimate the slope <span class="math inline">\beta</span> for the simple linear model</p>
-<p><span class="math display">
-Y_i = \alpha + \beta x_i + \varepsilon_i \,, \qquad \varepsilon_i \, \text{ iid } \, N(0,\sigma^2)
+<section id="the-t-test-for-beta" class="slide level2 smaller">
+<h2>The t-test for <span class="math inline">\beta</span></h2>
+<p><strong>Assumption:</strong> Given data points <span class="math inline">(x_1, y_1), \ldots, (x_n,y_n)</span>, consider the simple linear regression model <span class="math display">
+Y_i = \alpha + \beta x_i + \varepsilon_i \,, \qquad \varepsilon_i \,\, \text{ iid } \,\, N(0,\sigma^2)
 </span></p>
+<p><strong>Goal</strong>: Statistical inference on the slope <span class="math inline">\beta</span></p>
+<p><strong>Hypotheses</strong>: If <span class="math inline">b</span> is guess for <span class="math inline">\beta</span>, the two-sided hypothesis is <span class="math display">
+H_0 \colon \beta = b \,, \quad \qquad
+H_1 \colon \beta \neq b
+</span> The one-sided alternative hypotheses are <span class="math display">
+H_1 \colon \beta &lt; b \quad  \text{ or } \quad
+H_1 \colon \beta &gt; b
+</span></p>
+</section>
+<section id="procedure-3-steps" class="slide level2 smaller">
+<h2>Procedure: 3 Steps</h2>
+<ol type="1">
+<li><strong>Calculation</strong>: Compute the MLE <span class="math inline">\hat{\alpha}, \hat{\beta}</span> and the predictions <span class="math inline">\hat{y}_i</span> <span class="math display">
+\hat \beta = \frac{ S_{xy} }{ S_{xx} }  \,, \qquad
+\hat \alpha = \overline{y} - \hat \beta \overline{x} \,, \qquad \hat{y}_i = \hat{\alpha} + \hat{\beta} x_i
+</span> Compute the <em>Residual Sum of Squares</em> and the estimator <span class="math inline">S^2</span> <span class="math display">
+\mathop{\mathrm{RSS}}= \sum_{i=1}^n (y_i - \hat{y}_i)^2 \,, \qquad  S^2 := \frac{\mathop{\mathrm{RSS}}}{n-2}
+</span> Finally, compute the t-statistic <span class="math display">
+t = \frac{\hat \beta - b }{ \mathop{\mathrm{e.s.e.}}}  \,, \qquad \mathop{\mathrm{e.s.e.}}= \frac{S}{\sqrt{S_{xx}} }
+</span></li>
+</ol>
+</section>
+<section id="section-5" class="slide level2 smaller">
+<h2></h2>
+<ol start="2" type="1">
+<li><strong>Statistical Tables or R</strong>: Find either
+<ul>
+<li>Critical value <span class="math inline">t^*</span> in <a href="files/Statistics_Tables.pdf">Table 1</a></li>
+<li>p-value in R</li>
+</ul></li>
+</ol>
 <p><br></p>
-<p><strong>Hypotheses</strong>: If <span class="math inline">b</span> is guess for <span class="math inline">\beta</span> the hypotheses are</p>
-<p><span class="math display">\begin{align*}
-H_0 &amp; \colon \beta = b \\
-H_1 &amp; \colon \beta \neq b
-\end{align*}</span></p>
+<ol start="3" type="1">
+<li><strong>Interpretation</strong>: Reject <span class="math inline">H_0</span> when either <span class="math display">
+p &lt; 0.05 \qquad \text{ or } \qquad t \in \,\,\text{Rejection Region}
+\qquad \qquad \qquad \qquad
+(T \, \sim \, t_{n-2})
+</span></li>
+</ol>
+<table class="caption-top">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Alternative</th>
+<th>Rejection Region</th>
+<th><span class="math inline">t^*</span></th>
+<th>p-value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\beta \neq b</span></td>
+<td><span class="math inline">|t| &gt; t^*</span></td>
+<td><span class="math inline">t_{n-2}(0.025)</span></td>
+<td><span class="math inline">2P(T &gt; |t|)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\beta &lt; b</span></td>
+<td><span class="math inline">t &lt; - t^*</span></td>
+<td><span class="math inline">t_{n-2}(0.05)</span></td>
+<td><span class="math inline">P(T &lt; t)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\beta &gt; b</span></td>
+<td><span class="math inline">t &gt; t^*</span></td>
+<td><span class="math inline">t_{n-2}(0.05)</span></td>
+<td><span class="math inline">P(T &gt; t)</span></td>
+</tr>
+</tbody>
+</table>
 </section>
-<section id="summary-t-test-for-beta-1" class="slide level2 smaller">
-<h2>Summary: t-test for <span class="math inline">\beta</span></h2>
+<section id="worked-example-stock-and-gold-prices" class="slide level2 smaller">
+<h2>Worked Example: Stock and Gold prices</h2>
 <ul>
-<li>The t-statistic is</li>
-</ul>
-<p><span class="math display">
-t = \frac{\hat \beta - b }{ \mathop{\mathrm{e.s.e.}}} \, \sim \, t_{n-2} \,, \qquad \quad
-\mathop{\mathrm{e.s.e.}}= \frac{S }{\sqrt{S_{xx}} }
-</span></p>
+<li><p>Recall that</p>
 <ul>
-<li>In the above we have</li>
-</ul>
-<p><span class="math display">
-\hat \beta = \frac{ S_{xy} }{ S_{xx} } \,, \qquad \quad S^2 := \frac{\mathop{\mathrm{RSS}}}{n-2}
-</span></p>
-<ul>
-<li>The p-value is</li>
-</ul>
-<p><span class="math display">
-p = 2 P( t_{n-2} &gt; |t| )
-</span></p>
-</section>
-<section id="example-stock-and-gold-prices-3" class="slide level2 smaller">
-<h2>Example: Stock and Gold prices</h2>
-<ul>
-<li>Recall that
-<ul>
-<li><span class="math inline">Y =</span> Gold Price</li>
 <li><span class="math inline">X =</span> Stock Price</li>
+<li><span class="math inline">Y =</span> Gold Price</li>
 </ul></li>
-<li>We want to test if <em>Gold Price</em> affects <em>Stock Price</em> at level <span class="math inline">0.05</span>
-<ul>
-<li>Consider the linear model <span class="math display">
-  Y_i =  \alpha + \beta x_i + \varepsilon_i
-  </span></li>
-<li>Test the hypotheses <span class="math display">\begin{align*}
-  H_0 &amp; \colon \beta = 0 \\
-  H_1 &amp; \colon \beta \neq 0
-  \end{align*}</span></li>
-</ul></li>
+<li><p><strong>Goal:</strong> Test if <em>Gold Price</em> affects <em>Stock Price</em> at level <span class="math inline">0.05</span></p></li>
+<li><p><strong>Procedure:</strong> Consider the linear model <span class="math display">
+Y_i =  \alpha + \beta x_i + \varepsilon_i  \,, \quad \varepsilon_i \,\, \text{ iid } \,\, N(0,\sigma^2)
+</span> Test the hypotheses with two-sided alternative <span class="math display">\begin{align*}
+H_0 &amp; \colon \beta = 0 \\
+H_1 &amp; \colon \beta \neq 0
+\end{align*}</span></p></li>
 </ul>
 </section>
 <section id="testing-for-beta-0" class="slide level2 smaller">
@@ -1638,7 +1622,7 @@ p = 2 P( t_{n-2} &gt; |t| )
 <li>Fit the simple linear model with the following commands</li>
 </ul>
 <p><span class="math display">
-\text{gold.price } = \alpha + \beta \, \times  \text{ stock.price } + \text{ error}
+\text{gold.price } = \alpha + \beta \, \times  (\text{ stock.price }) + \text{ error}
 </span></p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Fit simple linear regression model</span></span>
 <span id="cb13-2"><a aria-hidden="true" tabindex="-1"></a>fit.model <span class="ot">&lt;-</span> <span class="fu">lm</span>(gold.price <span class="sc">~</span> stock.price)</span>
@@ -1653,10 +1637,10 @@ p = 2 P( t_{n-2} &gt; |t| )
 <p><img data-src="images/simple_regression_output_cut_2.png" style="width:70.0%"></p>
 </div></div>
 <ul>
-<li><p><span class="math inline">\texttt{(Intercept)}</span>: 1st row of the table contains statistics related to <span class="math inline">\hat \alpha</span></p></li>
-<li><p><span class="math inline">\texttt{stock.price}</span>: 2nd row of the table contains statistics related to <span class="math inline">\hat \beta</span></p>
+<li><p><span class="math inline">\texttt{(Intercept)}</span>: 1st row of the table contains information related to <span class="math inline">\hat \alpha</span></p></li>
+<li><p><span class="math inline">\texttt{stock.price}</span>: 2nd row of the table contains information related to <span class="math inline">\hat \beta</span></p></li>
+<li><p>For larger models, there will be additional rows below the 2nd</p>
 <ul>
-<li>For larger models there will be additional rows below the 2nd</li>
 <li>These will be <strong>informative</strong> about additional regression parameters</li>
 </ul></li>
 </ul>
@@ -1672,8 +1656,8 @@ p = 2 P( t_{n-2} &gt; |t| )
 </ul>
 <table class="caption-top">
 <colgroup>
-<col style="width: 35%">
-<col style="width: 65%">
+<col style="width: 30%">
+<col style="width: 70%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -1684,7 +1668,7 @@ p = 2 P( t_{n-2} &gt; |t| )
 <tbody>
 <tr class="odd">
 <td style="text-align: left;"><span class="math inline">\texttt{Std. Error}</span></td>
-<td style="text-align: left;">Estimated standard error <span class="math inline">\mathop{\mathrm{e.s.e.}}</span> for <span class="math inline">\beta</span></td>
+<td style="text-align: left;">Estimated standard error <span class="math inline">\mathop{\mathrm{e.s.e.}}</span> for <span class="math inline">\hat \beta</span></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><span class="math inline">\texttt{t value}</span></td>
@@ -1695,8 +1679,8 @@ p = 2 P( t_{n-2} &gt; |t| )
 <td style="text-align: left;">p-value <span class="math inline">\, p = 2 P( t_{n-2} &gt; |t| )</span></td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><span class="math inline">\texttt{*}</span>, <span class="math inline">\, \texttt{**}</span>, <span class="math inline">\, \texttt{***}</span>, <span class="math inline">\, \texttt{.}</span></td>
-<td style="text-align: left;">Statistical significance – More stars is better</td>
+<td style="text-align: left;"><span class="math inline">\texttt{***}</span>, <span class="math inline">\, \texttt{**}</span>, <span class="math inline">\, \texttt{*}</span>, <span class="math inline">\, \texttt{.}</span></td>
+<td style="text-align: left;">Significance (how large is p-value) – More stars is better</td>
 </tr>
 </tbody>
 </table>
@@ -1729,18 +1713,21 @@ p = 8.9 \times 10^{-5} \
 <p><img data-src="images/simple_regression_output_cut_2.png" style="width:70.0%"></p>
 </div></div>
 <ul>
-<li><p>The p-value cannot be computed by hand</p></li>
-<li><p>However we can find critical value in <a href="files/Statistics_Tables.pdf">Table 1</a></p></li>
+<li><p>The p-value computed by R is <span class="math inline">p = 8.9 \times 10^{-5}</span></p></li>
+<li><p>We can also compute it by hand: The degrees of freedom are</p></li>
 </ul>
 <p><span class="math display">
 n = \text{No. of data points} = 33 \,, \qquad  \text{df} = n - 2 = 31
 </span></p>
-<ul>
-<li>Critical value is <span class="math inline">\, t_{31}(0.025) = 2.040</span></li>
-</ul>
-<p><span class="math display">
-|t| = 4.502 &gt; 2.040 = t_{31}(0.025) \quad \implies \quad  p &lt; 0.05
-</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a aria-hidden="true" tabindex="-1"></a>t <span class="ot">&lt;-</span> <span class="sc">-</span> <span class="fl">4.502</span> </span>
+<span id="cb14-2"><a aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">-</span> <span class="dv">2</span> <span class="sc">*</span> <span class="fu">pt</span>(<span class="fu">abs</span>(t), <span class="at">df =</span> <span class="dv">31</span>)</span>
+<span id="cb14-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"The p-value is"</span>, p)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>The p-value is 8.901425e-05</code></pre>
+</div>
+</div>
 </section>
 <section id="output-mathopmathrme.s.e.-t-statistic-p-value-4" class="slide level2 smaller">
 <h2>Output: <span class="math inline">\mathop{\mathrm{e.s.e.}}</span>, t-statistic, p-value</h2>
@@ -1748,33 +1735,128 @@ n = \text{No. of data points} = 33 \,, \qquad  \text{df} = n - 2 = 31
 <div class="column" style="width:100%;">
 <p><img data-src="images/simple_regression_output_cut_2.png" style="width:70.0%"></p>
 </div></div>
+<ul>
+<li>In alternative, we can find critical value in <a href="files/Statistics_Tables.pdf">Table 1</a></li>
+</ul>
+<p><span class="math display">
+n = \text{No. of data points} = 33 \,, \qquad  \text{df} = n - 2 = 31
+</span></p>
+<ul>
+<li>For two-sided test, the critical value is <span class="math inline">\, t_{31}(0.025) = 2.040</span></li>
+</ul>
+<p><span class="math display">
+|t| = 4.502 &gt; 2.040 = t_{31}(0.025) \quad \implies \quad  p &lt; 0.05
+</span></p>
+</section>
+<section id="output-mathopmathrme.s.e.-t-statistic-p-value-5" class="slide level2 smaller">
+<h2>Output: <span class="math inline">\mathop{\mathrm{e.s.e.}}</span>, t-statistic, p-value</h2>
+<div class="columns">
+<div class="column" style="width:100%;">
+<p><img data-src="images/simple_regression_output_cut_2.png" style="width:70.0%"></p>
+</div></div>
 <p><strong>Interpretation:</strong> <span class="math inline">\, p</span> is very small (hence the <span class="math inline">\, \texttt{***} \,</span> rating)</p>
 <ul>
-<li><p>Therefore we reject the null hypothesis <span class="math inline">H_0</span> and the real parameter is <span class="math inline">\beta \neq 0</span></p></li>
-<li><p>Since <span class="math inline">\beta \neq 0</span> we have that <em>Stock Prices</em> affect <em>Gold Prices</em></p></li>
-<li><p>The best estimate for <span class="math inline">\beta</span> is <span class="math inline">\hat \beta = -6.169</span></p></li>
+<li><p>Therefore, we reject the null hypothesis <span class="math inline">H_0</span>, and the real parameter is <span class="math inline">\beta \neq 0</span></p></li>
+<li><p>Since <span class="math inline">\beta \neq 0</span>, we have that <em>Stock Prices</em> affect <em>Gold Prices</em></p></li>
+<li><p>The best estimate for <span class="math inline">\beta</span> is the MLE <span class="math inline">\hat \beta = -6.169</span></p></li>
 <li><p><span class="math inline">\hat \beta &lt; 0</span> and statistically significant:<br>
 <span class="math inline">\,\,</span> As <em>Stock Prices</em> increase <em>Gold Prices</em> decrease</p></li>
 </ul>
 </section>
 <section id="warning" class="slide level2 smaller">
 <h2>Warning</h2>
-<ul>
-<li><p>t-statistic in summary refers to two-sided t-test of whether a coefficient is 0</p></li>
-<li><p>If <span class="math inline">b = 0</span> or one-sided t-test is required</p>
-<ul>
-<li>Compute t-statistic by hand <span class="math display">
-  t = \frac{\hat \beta - b}{\mathop{\mathrm{e.s.e.}}}
-  </span></li>
-<li><span class="math inline">\, \mathop{\mathrm{e.s.e.}}</span> is in the 2nd row under <span class="math inline">\,\, \texttt{Std. Error}</span></li>
-<li>Compute p-value <em>by hand</em> with <span class="math inline">\,\, \texttt{pt(t, df)}</span></li>
-</ul></li>
-</ul>
+<p>The t-statistic and p-value in the <em>summary</em> refer to the two-sided test <span class="math display">
+H_0 \colon \beta = 0 \,, \qquad
+H_1 \colon \beta \neq 0
+</span> In such case the t-statistic and p-value given in <em>summary are</em> <span class="math display">
+t = \frac{\hat \beta - 0}{\mathop{\mathrm{e.s.e.}}} \,, \qquad p = 2P(t_{n- 2} &gt; |t|)
+</span></p>
 </section>
-<section id="t-test-for-general-regression" class="slide level2 smaller">
-<h2>t-test for general regression</h2>
+<section id="section-6" class="slide level2 smaller">
+<h2></h2>
+<p>If instead you are required to test <span class="math display">
+H_0 \colon \beta = b \,, \qquad
+H_1 \colon \beta \neq b \,, \quad
+\beta &lt; b\,, \quad  \text{ or } \,\,
+\beta &gt; b
+</span></p>
+<ol type="1">
+<li>The t-statistic has to be computed by hand <span class="math display">
+t = \frac{\hat \beta - b}{\mathop{\mathrm{e.s.e.}}}
+</span>
 <ul>
-<li>Consider the general linear regression model</li>
+<li><span class="math inline">\, \mathop{\mathrm{e.s.e.}}</span> is in the 2nd row under <span class="math inline">\,\, \texttt{Std. Error}</span></li>
+</ul></li>
+<li>The p-value must be computed by hand, according to the table</li>
+</ol>
+<table class="caption-top" style="width:95%;">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 25%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Alternative</th>
+<th>p-value</th>
+<th>R command</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\beta \neq b</span></td>
+<td><span class="math inline">2P(t_{n-2} &gt; |t|)</span></td>
+<td><code>2 - 2 * pt(abs(t), df = n - 2)</code></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\beta &lt; b</span></td>
+<td><span class="math inline">P(t_{n-2} &lt; t)</span></td>
+<td><code>pt(t, df = n - 2)</code></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\beta &gt; b</span></td>
+<td><span class="math inline">P(t_{n-2} &gt; t)</span></td>
+<td><code>1 - pt(t, df = n - 2)</code></td>
+</tr>
+</tbody>
+</table>
+</section></section>
+<section>
+<section id="part-4-t-test-for-general-regression" class="title-slide slide level1 center" data-background-color="#cc0164" data-visibility="uncounted">
+<h1>Part 4: <br>t-test for general regression</h1>
+<div class="footer">
+<div color="#cc0164">
+
+</div>
+</div>
+</section>
+<section id="recall-the-t-test-for-simple-regression" class="slide level2 smaller">
+<h2>Recall: The t-test for simple regression</h2>
+<ul>
+<li>In the previous Part, we have considered the simple linear regression model</li>
+</ul>
+<p><span class="math display">
+Y_i = \alpha + \beta x_i + \varepsilon_i \,, \qquad \varepsilon_i \,\, \text{ iid } \,\, N(0,\sigma^2)
+</span></p>
+<ul>
+<li>We have that</li>
+</ul>
+<p><span class="math display">
+X \,\, \text{ affects } \,\, Y \qquad \iff \qquad
+\beta \neq 0
+</span></p>
+<ul>
+<li>To see if <span class="math inline">X</span> affects <span class="math inline">Y</span>, we have developed a t-test for the hypothesis</li>
+</ul>
+<p><span class="math display">\begin{align*}
+H_0 \colon  &amp; \beta = b \\
+H_1 \colon &amp; \beta \neq b
+\end{align*}</span></p>
+</section>
+<section id="the-t-test-for-general-regression" class="slide level2 smaller">
+<h2>The t-test for general regression</h2>
+<ul>
+<li>Now, consider the <em>general linear regression model</em></li>
 </ul>
 <p><span class="math display">
 Y_i = \beta_1 z_{i1} + \ldots + \beta_{ip} z_{ip} + \varepsilon_i \,, \qquad
@@ -1788,31 +1870,43 @@ Z_j \,\, \text{ affects } \,\, Y \qquad \iff \qquad
 \beta_j \neq 0
 </span></p>
 <ul>
-<li>To see if <span class="math inline">Z_j</span> affects <span class="math inline">Y</span> we need to test the hypothesis</li>
+<li>To see if <span class="math inline">Z_j</span> affects <span class="math inline">Y</span> we can test the hypothesis</li>
+</ul>
+<p><span class="math display">\begin{align*}
+H_0 \colon  &amp; \beta_j = 0 \\
+H_1 \colon &amp; \beta_j \neq 0
+\end{align*}</span></p>
+</section>
+<section id="construction-of-t-test-1" class="slide level2 smaller">
+<h2>Construction of t-test</h2>
+<ul>
+<li>More in general, consider the hypothesis</li>
 </ul>
 <p><span class="math display">\begin{align*}
 H_0 \colon  &amp; \beta_j = b_j \\
 H_1 \colon &amp; \beta_j \neq b_j
 \end{align*}</span></p>
+<ul>
+<li><p>Our best guess for <span class="math inline">\beta_j</span> is the ML Estimator <span class="math display">
+\hat{\beta}_j = (\hat \beta)_j \,, \qquad \hat \beta = (Z^T Z)^{-1} Z^T y
+</span> (<span class="math inline">\beta_j</span> is the j-th component of the vector <span class="math inline">\beta</span>)</p></li>
+<li><p>To test above hypotheses, we therefore need to</p>
+<ul>
+<li>Know the <strong>distribution</strong> of <span class="math inline">\hat{\beta}_j</span></li>
+<li>Construct <strong>t-statistic</strong> involving <span class="math inline">\hat{\beta}_j</span></li>
+</ul></li>
+</ul>
 </section>
-<section id="distribution-of-estimator-hat-beta" class="slide level2 smaller">
-<h2>Distribution of estimator <span class="math inline">\hat \beta</span></h2>
-<ul>
-<li>The estimator for the general model is</li>
-</ul>
-<p><span class="math display">
-\hat \beta = (Z^T Z)^{-1} Z^T y
-</span></p>
-<ul>
-<li>It can be proven that (see Section 11.5 in <span class="citation" data-cites="degroot">[<a href="#/references" role="doc-biblioref" onclick="">2</a>]</span>)</li>
-</ul>
-<p><span class="math display">
-\hat \beta_j \sim N \left( \beta_j ,  \xi_{jj} \sigma^2 \right)
-</span></p>
-<ul>
-<li>The numbers <span class="math inline">\xi_{jj}</span> are the diagonal entries of the <span class="math inline">p \times p</span> matrix</li>
-</ul>
-<p><span class="math display">
+<section id="distribution-of-hat-beta_j" class="slide level2 smaller">
+<h2>Distribution of <span class="math inline">\hat \beta_j</span></h2>
+<div style="font-size: 0.92em">
+<div class="Theorem">
+<p></p><details class="Theorem fbx-simplebox fbx-default" open=""><summary><strong>Theorem</strong></summary><div>Consider the general linear regression model <span class="math display">
+Y_i = \beta_1 z_{i1} + \ldots + \beta_{ip} z_{ip} + \varepsilon_i \,, \qquad
+\varepsilon_i \, \text{ iid } \, N(0, \sigma^2)
+</span> The MLE <span class="math inline">\hat{\beta}_j</span> is normally distributed <span class="math display">
+\hat \beta_j \sim N \left( \beta_j ,  \xi_{jj} \sigma^2 \right) \,,
+</span> where the numbers <span class="math inline">\xi_{jj}</span> are the diagonal entries of the <span class="math inline">p \times p</span> matrix <span class="math display">
 (Z^T Z)^{-1} =
 \left(
 \begin{array}{ccc}
@@ -1821,99 +1915,82 @@ H_1 \colon &amp; \beta_j \neq b_j
 \xi_{p1} &amp; \ldots &amp; \xi_{pp} \\
 \end{array}
 \right)
-</span></p>
+</span><p></p>
+</div></details>
+</div>
+<p><strong>Proof:</strong> Quite difficult. If interested, see see Section 11.5 in <span class="citation" data-cites="degroot">[<a href="#/references" role="doc-biblioref" onclick="">2</a>]</span></p>
+</div>
 </section>
-<section id="construction-of-the-t-statistic-2" class="slide level2 smaller">
-<h2>Construction of the t-statistic</h2>
+<section id="construction-of-the-t-statistic-for-hatbeta_j" class="slide level2 smaller">
+<h2>Construction of the t-statistic for <span class="math inline">\hat{\beta}_j</span></h2>
 <ul>
-<li>In particular <span class="math inline">\hat \beta_j</span> is an unbiased estimator for <span class="math inline">\beta_j</span></li>
-</ul>
-<p><span class="math display">
-{\rm I\kern-.3em E}[ \hat \beta_j ] = \beta_j
-</span></p>
-<ul>
-<li>Therefore the t-statistic for <span class="math inline">\hat \beta_j</span> is</li>
-</ul>
-<p><span class="math display">
+<li><p>From the previous Theorem, we know that <span class="math display">
+\hat \beta_j \sim N \left( \beta_j ,  \xi_{jj} \sigma^2 \right)
+</span></p></li>
+<li><p>In particular, <span class="math inline">\hat{\beta}_j</span> is an unbiased estimator for <span class="math inline">\beta_j</span> <span class="math display">
+{\rm I\kern-.3em E}[ \hat{\beta}_j ] = \beta_j
+</span></p></li>
+<li><p>This means <span class="math inline">\hat{\beta}_j</span> is the <em>Estimate</em> for the unknown parameter <span class="math inline">\beta</span></p></li>
+<li><p>The t-statistic is therefore <span class="math display">
 t = \frac{\text{Estimate } - \text{ Hypothesised Value}}{\mathop{\mathrm{e.s.e.}}}
-  = \frac{ \hat \beta_j - \beta_j }{ \mathop{\mathrm{e.s.e.}}}
-</span></p>
+= \frac{ \hat{\beta}_j - \beta_j }{ \mathop{\mathrm{e.s.e.}}}
+</span></p></li>
+</ul>
 </section>
-<section id="estimated-standard-error-4" class="slide level2 smaller">
-<h2>Estimated Standard Error</h2>
+<section id="estimated-standard-error-for-hatbeta_j" class="slide level2 smaller">
+<h2>Estimated Standard Error for <span class="math inline">\hat{\beta}_j</span></h2>
 <ul>
-<li><p>We need to find a <strong>Standard Error</strong> for <span class="math inline">\hat \beta_j</span></p></li>
-<li><p>We know that</p></li>
-</ul>
-<p><span class="math display">
-{\rm Var}[\hat \beta_j] =  \xi_{jj} \, \sigma^2
-</span></p>
-<ul>
-<li>Hence the standard error of <span class="math inline">\hat \beta_j</span> is the standard deviation</li>
-</ul>
-<p><span class="math display">
+<li><p>From the Theorem, we know that <span class="math display">
+{\rm Var}[\hat{\beta}_j] =  \xi_{jj} \, \sigma^2  \qquad \implies \qquad
 {\rm SD}[\hat \beta_j] =  \xi_{jj}^{1/2} \, \sigma
-</span></p>
-<ul>
-<li><span class="math inline">{\rm SD}</span> cannot be used for testing, since <span class="math inline">\sigma^2</span> is unknown</li>
-</ul>
-</section>
-<section id="estimated-standard-error-5" class="slide level2 smaller">
-<h2>Estimated Standard Error</h2>
-<ul>
-<li>We however have an estimate for <span class="math inline">\sigma^2</span></li>
-</ul>
-<p><span class="math display">
+</span></p></li>
+<li><p>The standard deviation <span class="math inline">{\rm SD}</span> cannot be used as error, since <span class="math inline">\sigma^2</span> is unknown</p></li>
+<li><p>We however have an estimate for <span class="math inline">\sigma^2</span> <span class="math display">
 \hat \sigma^2 = \frac{1}{n} \mathop{\mathrm{RSS}}= \frac1n \sum_{i=1}^n (y_i - \hat y_i)^2
-</span></p>
-<ul>
-<li><p><span class="math inline">\hat \sigma^2</span> was obtained from maximization of the likelihood function (Lecture 9)</p></li>
-<li><p>It can be shown that (see Section 11.5 in <span class="citation" data-cites="degroot">[<a href="#/references" role="doc-biblioref" onclick="">2</a>]</span>)</p></li>
+</span></p></li>
+<li><p><span class="math inline">\hat \sigma^2</span> was obtained from maximization of the likelihood function (Lecture 8)</p></li>
 </ul>
-<p><span class="math display">
-{\rm I\kern-.3em E}[ \hat\sigma^2 ] = \frac{n-p}{n} \, \sigma^2
-</span></p>
 </section>
-<section id="estimated-standard-error-6" class="slide level2 smaller">
-<h2>Estimated Standard Error</h2>
+<section id="section-7" class="slide level2 smaller">
+<h2></h2>
 <ul>
+<li><p>It can be shown that (see Section 11.5 in <span class="citation" data-cites="degroot">[<a href="#/references" role="doc-biblioref" onclick="">2</a>]</span>) <span class="math display">
+{\rm I\kern-.3em E}[ \hat\sigma^2 ] = \frac{n-p}{n} \, \sigma^2
+</span></p></li>
 <li><p>Therefore <span class="math inline">\hat\sigma^2</span> is not unbiased estimator of <span class="math inline">\sigma^2</span></p></li>
-<li><p>We hence rescale and introduce <span class="math inline">S^2</span></p></li>
-</ul>
-<p><span class="math display">
+<li><p>To obtain unbiased estimator, we rescale <span class="math inline">\hat\sigma^2</span> and introduce <span class="math inline">S^2</span> <span class="math display">
 S^2 := \frac{n}{n-p} \, \hat\sigma^2 = \frac{\mathop{\mathrm{RSS}}}{n-p}
-</span></p>
-<ul>
-<li>This way <span class="math inline">S^2</span> is unbiased estimator for <span class="math inline">\sigma^2</span></li>
+</span></p></li>
+<li><p>This way, <span class="math inline">S^2</span> is unbiased estimator for <span class="math inline">\sigma^2</span></p></li>
 </ul>
 <p><span class="math display">
 {\rm I\kern-.3em E}[S^2] =  \frac{n}{n-p}  \, {\rm I\kern-.3em E}[\hat\sigma^2] =  \frac{n}{n-p} \, \frac{n-p}{n} \, \sigma^2 = \sigma^2
 </span></p>
 </section>
-<section id="estimated-standard-error-7" class="slide level2 smaller">
-<h2>Estimated Standard Error</h2>
+<section id="section-8" class="slide level2 smaller">
+<h2></h2>
 <ul>
-<li>Recall that the standard deviation of <span class="math inline">\hat \beta</span> is</li>
+<li>Recall that the standard deviation of <span class="math inline">\hat{\beta}_j</span> is</li>
 </ul>
 <p><span class="math display">
-{\rm SD}[\hat \beta] = \xi_{jj}^{1/2} \, \sigma
+{\rm SD}[\hat{\beta}_j] = \xi_{jj}^{1/2} \, \sigma
 </span></p>
 <ul>
 <li><p>We replace the unknown <span class="math inline">\sigma</span> with its unbiased estimator <span class="math inline">S</span></p></li>
-<li><p>We obtain the <strong>estimated standard error</strong></p></li>
+<li><p>This gives the <strong>estimated standard error</strong></p></li>
 </ul>
 <p><span class="math display">
-\mathop{\mathrm{e.s.e.}}=\xi_{jj}^{1/2} \,  S
+\mathop{\mathrm{e.s.e.}}=\xi_{jj}^{1/2} \,  S \,, \qquad S = \sqrt{\frac{\mathop{\mathrm{RSS}}}{n-2}}
 </span></p>
 </section>
-<section id="t-statistic-to-test-beta_j" class="slide level2 smaller">
-<h2>t-statistic to test <span class="math inline">\beta_j</span></h2>
-<div id="Theorem*-4.3" class="Theorem">
+<section id="t-statistic-for-testing-beta_j" class="slide level2 smaller">
+<h2>t-statistic for testing <span class="math inline">\beta_j</span></h2>
+<div id="Theorem*-5.1" class="Theorem">
 <p></p><details class="Theorem fbx-simplebox fbx-default" open=""><summary><strong>Theorem</strong></summary><div>Consider the general linear regression model<p></p>
 <p><span class="math display">
-Y_i = \beta_1 z_{i1} + \ldots +\beta_p z_{ip} + \varepsilon_i
+Y_i = \beta_1 z_{i1} + \ldots +\beta_p z_{ip} + \varepsilon_i \,, \qquad \varepsilon_i \,\, \text{ iid } \,\, N(0, \sigma^2)
 </span></p>
-<p>with <span class="math inline">\varepsilon_i</span> iid <span class="math inline">N(0, \sigma^2)</span>. Then</p>
+<p>The t-statistic for <span class="math inline">\hat{\beta}</span> follows a t-distribution</p>
 <p><span class="math display">
 t = \frac{\text{Estimate } - \text{ Hypothesised Value}}{\mathop{\mathrm{e.s.e.}}} = \frac{ \hat \beta_j - \beta_j }{ \xi_{jj}^{1/2} \, S}  
 \, \sim \,
@@ -1923,64 +2000,363 @@ t_{n-p}
 </div>
 <p><strong>Proof:</strong> See section 11.5 in <span class="citation" data-cites="degroot">[<a href="#/references" role="doc-biblioref" onclick="">2</a>]</span></p>
 </section>
-<section id="summary-t-test-for-beta_j" class="slide level2 smaller">
-<h2>Summary: t-test for <span class="math inline">\beta_j</span></h2>
-<p><strong>Goal</strong>: Estimate the coefficient <span class="math inline">\beta_j</span> for the general linear model</p>
-<p><span class="math display">
+<section id="the-t-test-for-beta_j" class="slide level2 smaller">
+<h2>The t-test for <span class="math inline">\beta_j</span></h2>
+<p><strong>Assumption:</strong> Given data points <span class="math inline">(z_{1i}, \ldots, z_{pi}, y_i)</span>, consider the general model <span class="math display">
 Y_i = \beta_1 z_{i1} + \ldots + \beta_p z_{ip} + \varepsilon_i \,, \qquad \varepsilon_i \, \text{ iid } \, N(0,\sigma^2)
 </span></p>
-<p><br></p>
-<p><strong>Hypotheses</strong>: If <span class="math inline">b_j</span> is guess for <span class="math inline">\beta_j</span> the hypotheses are</p>
-<p><span class="math display">\begin{align*}
-H_0 &amp; \colon \beta_j = b_j \\
-H_1 &amp; \colon \beta_j \neq b_j
-\end{align*}</span></p>
+<p><strong>Goal</strong>: Statistical inference on the coefficients <span class="math inline">\beta_j</span></p>
+<p><strong>Hypotheses</strong>: If <span class="math inline">b_j</span> is guess for <span class="math inline">\beta_j</span>, the two-sided hypotheses is <span class="math display">
+H_0 \colon \beta_j = b_j \,, \quad \qquad
+H_1 \colon \beta_j \neq b_j
+</span> The one-sided alternative hypotheses are <span class="math display">
+H_1 \colon \beta_j &lt; b_j \quad  \text{ or } \quad
+H_1 \colon \beta_j &gt; b_j
+</span></p>
 </section>
-<section id="summary-t-test-for-beta_j-1" class="slide level2 smaller">
-<h2>Summary: t-test for <span class="math inline">\beta_j</span></h2>
-<ul>
-<li>The t-statistic is</li>
-</ul>
-<p><span class="math display">
-t = \frac{\hat \beta_j - b_j }{ \mathop{\mathrm{e.s.e.}}} \, \sim \, t_{n-p} \,, \qquad \quad
+<section id="procedure-3-steps-1" class="slide level2 smaller">
+<h2>Procedure: 3 Steps</h2>
+<ol type="1">
+<li><strong>Calculation</strong>: Write down the design matrix <span class="math inline">Z</span> and compute <span class="math display">
+(Z^T Z)^{-1} =
+\left(
+\begin{array}{ccc}
+\xi_{11} &amp; \ldots &amp; \xi_{1p} \\
+\ldots   &amp; \ldots &amp; \ldots \\
+\xi_{p1} &amp; \ldots &amp; \xi_{pp} \\
+\end{array}
+\right)
+</span> Compute the MLE <span class="math inline">\hat{\beta}</span>, predictions <span class="math inline">\hat{y}</span>, RSS and <span class="math inline">S^2</span> <span class="math display">
+\hat \beta = (Z^TZ)^{-1} Z^T y  \,, \qquad
+\hat{y} = Z \hat{\beta} \,, \qquad
+\mathop{\mathrm{RSS}}= \sum_{i=1}^n (y_i - \hat{y}_i)^2 \,, \qquad  S^2 := \frac{\mathop{\mathrm{RSS}}}{n-2}
+</span> Finally, compute the t-statistic <span class="math display">
+t = \frac{\hat \beta_j - b_j }{ \mathop{\mathrm{e.s.e.}}}  \,, \qquad \quad
 \mathop{\mathrm{e.s.e.}}= \xi_{jj}^{1/2} \, S
-</span></p>
-<ul>
-<li>In the above <span class="math inline">\xi_{jj}</span> are diagonal entries of <span class="math inline">(Z^TZ)^{-1}</span> and</li>
-</ul>
-<p><span class="math display">
-\hat \beta = (Z^TZ)^{-1} Z^T y \,, \qquad \quad S^2 := \frac{\mathop{\mathrm{RSS}}}{n-p}
-</span></p>
-<ul>
-<li>The p-value is</li>
-</ul>
-<p><span class="math display">
-p = 2P (t_{n-p} &gt; |t|)
-</span></p>
+</span></li>
+</ol>
 </section>
-<section id="t-test-in-r-fit-general-regression-with-lm" class="slide level2 smaller">
-<h2>t-test in R: Fit general regression with <code>lm</code></h2>
+<section id="section-9" class="slide level2 smaller">
+<h2></h2>
+<ol start="2" type="1">
+<li><strong>Statistical Tables or R</strong>: Find either
 <ul>
-<li>If <span class="math inline">b_j = 0</span> and a two-sided t-test is required
-<ul>
-<li>t-statistic is in <span class="math inline">j</span>-th variable row under <span class="math inline">\,\, \texttt{t value}</span></li>
-<li>p-value is in <span class="math inline">j</span>-th variable row under <span class="math inline">\,\, \texttt{Pr(&gt;|t|)}</span></li>
+<li>Critical value <span class="math inline">t^*</span> in <a href="files/Statistics_Tables.pdf">Table 1</a></li>
+<li>p-value in R</li>
 </ul></li>
-<li>If <span class="math inline">b_j \neq 0</span> or one-sided t-test is required
+</ol>
+<p><br></p>
+<ol start="3" type="1">
+<li><strong>Interpretation</strong>: Reject <span class="math inline">H_0</span> when either <span class="math display">
+p &lt; 0.05 \qquad \text{ or } \qquad t \in \,\,\text{Rejection Region}
+\qquad \qquad \qquad \qquad
+(T \, \sim \, t_{n-p})
+</span></li>
+</ol>
+<table class="caption-top">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Alternative</th>
+<th>Rejection Region</th>
+<th><span class="math inline">t^*</span></th>
+<th>p-value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\beta_j \neq b_j</span></td>
+<td><span class="math inline">|t| &gt; t^*</span></td>
+<td><span class="math inline">t_{n-p}(0.025)</span></td>
+<td><span class="math inline">2P(T &gt; |t|)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\beta_j &lt; b_j</span></td>
+<td><span class="math inline">t &lt; - t^*</span></td>
+<td><span class="math inline">t_{n-p}(0.05)</span></td>
+<td><span class="math inline">P(T &lt; t)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\beta_j &gt; b_j</span></td>
+<td><span class="math inline">t &gt; t^*</span></td>
+<td><span class="math inline">t_{n-p}(0.05)</span></td>
+<td><span class="math inline">P(T &gt; t)</span></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="implementation-in-r" class="slide level2 smaller">
+<h2>Implementation in R</h2>
 <ul>
-<li>Compute t-statistic by hand <span class="math display">
-  t = \frac{\hat \beta_j - b_j}{\mathop{\mathrm{e.s.e.}}}
-  </span></li>
+<li><p>First, fit general regression model with <code>lm</code></p></li>
+<li><p>Then read the <em>summary</em></p></li>
+</ul>
+<p>Assume the hypotheses to test are <span class="math display">
+H_0 \colon \beta_j = 0 \,, \qquad
+H_1 \colon \beta_j \neq 0
+</span> In such case, the t-statistic and p-value are explicitly given in the <em>summary</em> <span class="math display">
+t = \frac{\hat \beta_j - 0}{\mathop{\mathrm{e.s.e.}}} \,, \qquad p = 2P(t_{n- p} &gt; |t|)
+</span></p>
+<ul>
+<li><p>Read the t-statistic in <span class="math inline">j</span>-th variable row under <span class="math inline">\,\, \texttt{t value}</span></p></li>
+<li><p>Read the p-value in <span class="math inline">j</span>-th variable row under <span class="math inline">\,\, \texttt{Pr(&gt;|t|)}</span></p></li>
+</ul>
+</section>
+<section id="section-10" class="slide level2 smaller">
+<h2></h2>
+<div style="font-size: 0.92em">
+<p>If instead you are required to test <span class="math display">
+H_0 \colon \beta_j = b_j \,, \qquad
+H_1 \colon \beta_j \neq b_j \,, \quad
+\beta_j &lt; b_j \,, \quad  \text{ or } \,\,
+\beta_j &gt; b_j
+</span></p>
+<ol type="1">
+<li>The t-statistic has to be computed by hand <span class="math display">
+t = \frac{\hat{\beta}_j - b_j}{\mathop{\mathrm{e.s.e.}}}
+</span>
+<ul>
 <li><span class="math inline">\,\, \hat \beta_j</span> is in <span class="math inline">j</span>-th variable row under <span class="math inline">\,\, \texttt{Estimate}</span></li>
 <li><span class="math inline">\,\, \mathop{\mathrm{e.s.e.}}</span> for <span class="math inline">\hat \beta_j</span> is in <span class="math inline">j</span>-th variable row under <span class="math inline">\,\, \texttt{Std. Error}</span></li>
-<li>Compute p-value <em>by hand</em> with <span class="math inline">\,\, \texttt{pt(t, df)}</span></li>
 </ul></li>
+<li>The p-value must be computed by hand, according to the table</li>
+</ol>
+<table class="caption-top" style="width:95%;">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 25%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Alternative</th>
+<th>p-value</th>
+<th>R command</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\beta_j \neq b_j</span></td>
+<td><span class="math inline">2P(t_{n-p} &gt; |t|)</span></td>
+<td><code>2 - 2 * pt(abs(t), df = n - p)</code></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\beta_j &lt; b_j</span></td>
+<td><span class="math inline">P(t_{n-p} &lt; t)</span></td>
+<td><code>pt(t, df = n - p)</code></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\beta_j &gt; b_j</span></td>
+<td><span class="math inline">P(t_{n-p} &gt; t)</span></td>
+<td><code>1 - pt(t, df = n - p)</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="worked-example-stock-and-gold-prices-1" class="slide level2 smaller">
+<h2>Worked Example: Stock and Gold prices</h2>
+<ul>
+<li><p>Recall that</p>
+<ul>
+<li><span class="math inline">X =</span> Stock Price</li>
+<li><span class="math inline">Y =</span> Gold Price</li>
+</ul></li>
+<li><p><strong>Goal:</strong> Test if an <em>intercept is present</em>, at level <span class="math inline">0.05</span></p></li>
+<li><p><strong>Procedure:</strong> Consider the linear model <span class="math display">
+Y_i =  \alpha + \beta x_i + \varepsilon_i  \,, \quad \varepsilon_i \,\, \text{ iid } \,\, N(0,\sigma^2)
+</span> Test the hypotheses with two-sided alternative <span class="math display">\begin{align*}
+H_0 &amp; \colon \alpha = 0 \\
+H_1 &amp; \colon \alpha \neq 0
+\end{align*}</span></p></li>
 </ul>
 </section>
-<section id="example-mathopmathrme.s.e.-for-simple-linear-regression" class="slide level2 smaller">
-<h2>Example: <span class="math inline">\mathop{\mathrm{e.s.e.}}</span> for simple linear regression</h2>
+<section id="testing-for-alpha-0" class="slide level2 smaller">
+<h2>Testing for <span class="math inline">\alpha= 0</span></h2>
+<ul>
+<li>Recall that Stock Prices and Gold Prices are stored in R vectors
+<ul>
+<li><code>stock.price</code></li>
+<li><code>gold.price</code></li>
+</ul></li>
+<li>Fit the simple linear model with the following commands</li>
+</ul>
+<p><span class="math display">
+\text{gold.price } = \alpha + \beta \, \times  (\text{ stock.price }) + \text{ error}
+</span></p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Fit simple linear regression model</span></span>
+<span id="cb16-2"><a aria-hidden="true" tabindex="-1"></a>fit.model <span class="ot">&lt;-</span> <span class="fu">lm</span>(gold.price <span class="sc">~</span> stock.price)</span>
+<span id="cb16-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Print result to screen</span></span>
+<span id="cb16-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit.model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="output-mathopmathrme.s.e.-t-statistic-p-value-6" class="slide level2 smaller">
+<h2>Output: <span class="math inline">\mathop{\mathrm{e.s.e.}}</span>, t-statistic, p-value</h2>
+<div class="columns">
+<div class="column" style="width:100%;">
+<p><img data-src="images/simple_regression_output_cut_2.png" style="width:70.0%"></p>
+</div></div>
+<ul>
+<li><span class="math inline">\texttt{(Intercept)}</span>: 1st row of the table contains information related to <span class="math inline">\hat \alpha</span></li>
+</ul>
+<table class="caption-top">
+<colgroup>
+<col style="width: 30%">
+<col style="width: 70%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"><span class="math inline">\texttt{Estimate}</span></th>
+<th style="text-align: left;"><span class="math inline">\text{The value of } \hat \alpha</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\texttt{Std. Error}</span></td>
+<td style="text-align: left;">Estimated standard error <span class="math inline">\mathop{\mathrm{e.s.e.}}</span> for <span class="math inline">\hat \alpha</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\texttt{t value}</span></td>
+<td style="text-align: left;">t-statistic <span class="math inline">\, t = \dfrac{\hat \alpha - 0 }{\mathop{\mathrm{e.s.e.}}}</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\texttt{Pr(&gt;|t|)}</span></td>
+<td style="text-align: left;">p-value <span class="math inline">\, p = 2 P( t_{n-2} &gt; |t| )</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\texttt{***}</span>, <span class="math inline">\, \texttt{**}</span>, <span class="math inline">\, \texttt{*}</span>, <span class="math inline">\, \texttt{.}</span></td>
+<td style="text-align: left;">Significance (how large is p-value) – More stars is better</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="output-mathopmathrme.s.e.-t-statistic-p-value-7" class="slide level2 smaller">
+<h2>Output: <span class="math inline">\mathop{\mathrm{e.s.e.}}</span>, t-statistic, p-value</h2>
+<div class="columns">
+<div class="column" style="width:100%;">
+<p><img data-src="images/simple_regression_output_cut_2.png" style="width:70.0%"></p>
+</div></div>
+<ul>
+<li>The above table then gives</li>
+</ul>
+<p><span class="math display">
+\hat \alpha = 37.917 \,, \qquad \mathop{\mathrm{e.s.e.}}= 4.336 \, , \qquad t =  8.744 \,, \qquad
+p = 7.14 \times 10^{-10} \
+</span></p>
+<ul>
+<li>The <span class="math inline">t</span>-statistic computed by R can also be computed by hand</li>
+</ul>
+<p><span class="math display">
+  t   = \frac{\hat \alpha - 0}{ \mathop{\mathrm{e.s.e.}}}
+      = \frac{37.917}{4.336} = 8.744
+</span></p>
+</section>
+<section id="output-mathopmathrme.s.e.-t-statistic-p-value-8" class="slide level2 smaller">
+<h2>Output: <span class="math inline">\mathop{\mathrm{e.s.e.}}</span>, t-statistic, p-value</h2>
+<div class="columns">
+<div class="column" style="width:100%;">
+<p><img data-src="images/simple_regression_output_cut_2.png" style="width:70.0%"></p>
+</div></div>
+<ul>
+<li><p>The p-value computed by R is <span class="math inline">p = 7.14 \times 10^{-10}</span></p></li>
+<li><p>We can also compute it by hand: The degrees of freedom are</p></li>
+</ul>
+<p><span class="math display">
+n = \text{No. of data points} = 33 \,, \qquad  \text{df} = n - 2 = 31
+</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a aria-hidden="true" tabindex="-1"></a>t <span class="ot">&lt;-</span> <span class="fl">8.744</span></span>
+<span id="cb17-2"><a aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">-</span> <span class="dv">2</span> <span class="sc">*</span> <span class="fu">pt</span>(<span class="fu">abs</span>(t), <span class="at">df =</span> <span class="dv">31</span>)</span>
+<span id="cb17-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-4"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"The p-value is"</span>, p)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>The p-value is 7.135255e-10</code></pre>
+</div>
+</div>
+</section>
+<section id="output-mathopmathrme.s.e.-t-statistic-p-value-9" class="slide level2 smaller">
+<h2>Output: <span class="math inline">\mathop{\mathrm{e.s.e.}}</span>, t-statistic, p-value</h2>
+<div class="columns">
+<div class="column" style="width:100%;">
+<p><img data-src="images/simple_regression_output_cut_2.png" style="width:70.0%"></p>
+</div></div>
+<ul>
+<li>In alternative, we can find the critical value in <a href="files/Statistics_Tables.pdf">Table 1</a></li>
+</ul>
+<p><span class="math display">
+n = \text{No. of data points} = 33 \,, \qquad  \text{df} = n - 2 = 31
+</span></p>
+<ul>
+<li>For two-sided test, the critical value is <span class="math inline">\, t_{31}(0.025) = 2.040</span></li>
+</ul>
+<p><span class="math display">
+|t| = 8.744 &gt; 2.040 = t_{31}(0.025) \quad \implies \quad  p &lt; 0.05
+</span></p>
+</section>
+<section id="output-mathopmathrme.s.e.-t-statistic-p-value-10" class="slide level2 smaller">
+<h2>Output: <span class="math inline">\mathop{\mathrm{e.s.e.}}</span>, t-statistic, p-value</h2>
+<div class="columns">
+<div class="column" style="width:100%;">
+<p><img data-src="images/simple_regression_output_cut_2.png" style="width:70.0%"></p>
+</div></div>
+<p><strong>Interpretation:</strong> <span class="math inline">\, p</span> is very small (hence the <span class="math inline">\, \texttt{***} \,</span> rating)</p>
+<ul>
+<li><p>Therefore, we reject the null hypothesis <span class="math inline">H_0</span>, and the real parameter is <span class="math inline">\alpha \neq 0</span></p></li>
+<li><p>Since <span class="math inline">\alpha \neq 0</span>, we deduce that the model has to <em>include an intercept</em></p></li>
+<li><p>The best estimate for <span class="math inline">\alpha</span> is the MLE <span class="math inline">\hat \alpha = 37.917</span></p></li>
+</ul>
+</section>
+<section id="theoretical-example" class="slide level2 smaller">
+<h2>Theoretical Example</h2>
+<h3 id="deriving-mathopmathrme.s.e.-for-simple-linear-regression">Deriving <span class="math inline">\mathop{\mathrm{e.s.e.}}</span> for simple linear regression</h3>
 <ul>
 <li>Consider the simple regression model</li>
+</ul>
+<p><span class="math display">
+Y_i = \alpha + \beta x_i + \varepsilon_i
+</span></p>
+<ul>
+<li>We have seen in the previous part that the <span class="math inline">\mathop{\mathrm{e.s.e.}}</span> for <span class="math inline">\hat{\beta}</span> is</li>
+</ul>
+<p><span class="math display">
+\mathop{\mathrm{e.s.e.}}= \frac{S}{\sqrt{S_{xx}}} \,, \qquad S = \sqrt{ \frac{\mathop{\mathrm{RSS}}}{n-2} }
+</span></p>
+<ul>
+<li>However, we have not computed the <span class="math inline">\mathop{\mathrm{e.s.e.}}</span> for <span class="math inline">\hat{\alpha}</span></li>
+</ul>
+<p><strong>Goal:</strong> Compute <span class="math inline">\mathop{\mathrm{e.s.e.}}</span> for <span class="math inline">\hat{\alpha}</span> using the theory developed for general regression</p>
+</section>
+<section id="section-11" class="slide level2 smaller">
+<h2></h2>
+<p><strong>Theory developed so far:</strong></p>
+<ul>
+<li><p>Consider the general linear model <span class="math display">
+Y_i = \beta_1 z_{i1} + \ldots +\beta_p z_{ip} + \varepsilon_i \,, \qquad \varepsilon_i \,\, \text{ iid } \,\, N(0, \sigma^2)
+</span></p></li>
+<li><p>We have shown that the estimated standard error for <span class="math inline">\hat{\beta}_j</span> is <span class="math display">
+\mathop{\mathrm{e.s.e.}}= \xi_{jj}^{1/2} \, S \,, \qquad
+S = \sqrt{ \frac{\mathop{\mathrm{RSS}}}{n-2} }
+</span> where <span class="math inline">\xi_{jj}</span> are the diagonal entries of the matrix <span class="math display">
+(Z^T Z)^{-1} =
+\left(
+\begin{array}{ccc}
+\xi_{11} &amp; \ldots &amp; \xi_{1p} \\
+\ldots   &amp; \ldots &amp; \ldots \\
+\xi_{p1} &amp; \ldots &amp; \xi_{pp} \\
+\end{array}
+\right)
+</span></p></li>
+</ul>
+</section>
+<section id="section-12" class="slide level2 smaller">
+<h2></h2>
+<ul>
+<li>Let us go back to the linear regression model</li>
 </ul>
 <p><span class="math display">
 Y_i = \alpha + \beta x_i + \varepsilon_i
@@ -1998,10 +2374,10 @@ Z = \left(
 \right)
 </span></p>
 </section>
-<section id="example-mathopmathrme.s.e.-for-simple-linear-regression-1" class="slide level2 smaller">
-<h2>Example: <span class="math inline">\mathop{\mathrm{e.s.e.}}</span> for simple linear regression</h2>
+<section id="section-13" class="slide level2 smaller">
+<h2></h2>
 <ul>
-<li>We have seen in Lecture 9 that</li>
+<li>We have computed in Lecture 8 that</li>
 </ul>
 <p><span class="math display">
 (Z^T Z)^{-1} =
@@ -2017,16 +2393,16 @@ Z = \left(
 <li>Hence the <span class="math inline">\mathop{\mathrm{e.s.e.}}</span> for <span class="math inline">\hat \alpha</span> and <span class="math inline">\hat \beta</span> are</li>
 </ul>
 <p><span class="math display">\begin{align*}
-\mathop{\mathrm{e.s.e.}}(\hat \alpha) &amp; = \xi_{11}^{1/2} \, S^2 = \sqrt{ \frac{ \sum_{i=1}^n x_i^2 }{ n S_{xx} } } \, S^2 \\[7pt]
-\mathop{\mathrm{e.s.e.}}(\hat \beta) &amp; = \xi_{22}^{1/2} \, S^2 = \frac{ S^2 }{ \sqrt{ S_{xx} } }
+\mathop{\mathrm{e.s.e.}}(\hat \alpha) &amp; = \xi_{11}^{1/2} \, S = \sqrt{ \frac{ \sum_{i=1}^n x_i^2 }{ n S_{xx} } } \, S \\[7pt]
+\mathop{\mathrm{e.s.e.}}(\hat \beta) &amp; = \xi_{22}^{1/2} \, S = \frac{ S }{ \sqrt{ S_{xx} } }
 \end{align*}</span></p>
 <ul>
-<li><strong>Note:</strong> <span class="math inline">\, \mathop{\mathrm{e.s.e.}}(\hat\beta)</span> coincides with the <span class="math inline">\mathop{\mathrm{e.s.e.}}</span> in Slide 50</li>
+<li><strong>Note:</strong> <span class="math inline">\, \mathop{\mathrm{e.s.e.}}(\hat\beta)</span> coincides with the <span class="math inline">\mathop{\mathrm{e.s.e.}}</span> in Slide 35</li>
 </ul>
 </section></section>
 <section>
-<section id="part-4-f-test-for-regression" class="title-slide slide level1 center" data-background-color="#cc0164" data-visibility="uncounted">
-<h1>Part 4: <br>F-test for regression</h1>
+<section id="part-5-f-test-for-general-regression" class="title-slide slide level1 center" data-background-color="#cc0164" data-visibility="uncounted">
+<h1>Part 5: <br>F-test for general regression</h1>
 <div class="footer">
 <div color="#cc0164">
 
@@ -2201,7 +2577,7 @@ H_1 &amp; \colon \beta \neq 0
 </section>
 <section id="f-statistic-for-overall-significance" class="slide level2 smaller">
 <h2>F-statistic for overall significance</h2>
-<div id="Definition*-5.1" class="Definition">
+<div id="Definition*-6.1" class="Definition">
 <p></p><details class="Definition fbx-simplebox fbx-default" open=""><summary><strong>Definition</strong></summary><div>The <strong>F-statistic</strong> for overall significance is<p></p>
 <p><span class="math display">\begin{align*}
 F &amp; := \frac{\mathop{\mathrm{RSS}}(1) - \mathop{\mathrm{RSS}}(p)}{ \mathop{\mathrm{df}}(1) - \mathop{\mathrm{df}}(p) } \bigg/
@@ -2218,7 +2594,7 @@ F \, \sim \, F_{p-1,n-p}
 </section>
 <section id="rewriting-the-f-statistic" class="slide level2 smaller">
 <h2>Rewriting the F-statistic</h2>
-<div id="Proposition*-5.2" class="Proposition">
+<div id="Proposition*-6.2" class="Proposition">
 <p></p><details class="Proposition fbx-simplebox fbx-default" open=""><summary><strong>Proposition</strong></summary><div>The F-statistic can be rewritten as<p></p>
 <p><span class="math display">\begin{align*}
 F &amp; = \frac{\mathop{\mathrm{RSS}}(1) - \mathop{\mathrm{RSS}}(p)}{ p - 1 } \bigg/
@@ -2291,7 +2667,7 @@ F &amp; = \frac{\mathop{\mathrm{RSS}}(1) - \mathop{\mathrm{RSS}}(p)}{ p - 1 } \b
 </section>
 <section id="f-statistic-for-simple-regression" class="slide level2 smaller">
 <h2>F-statistic for simple regression</h2>
-<div id="Proposition*-5.3" class="Proposition">
+<div id="Proposition*-6.3" class="Proposition">
 <details class="Proposition fbx-simplebox fbx-default" open=""><summary><strong>Proposition</strong></summary><div>
 <ol type="1">
 <li><p>The <span class="math inline">F</span>-statistic for overall significance in simple regression is <span class="math display">
@@ -2355,7 +2731,7 @@ p = P ( F_{p-1,n-2} &gt; F)
 </ul></li>
 </ul>
 </section>
-<section id="example-stock-and-gold-prices-4" class="slide level2 smaller">
+<section id="example-stock-and-gold-prices-3" class="slide level2 smaller">
 <h2>Example: Stock and Gold prices</h2>
 <ul>
 <li><p>Recall that</p>
@@ -2387,11 +2763,11 @@ H_1 &amp; \colon \beta \neq 0
 <p><span class="math display">
 \text{gold.price } = \alpha + \beta \, \times  \text{ stock.price } + \text{ error}
 </span></p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Fit simple linear regression model</span></span>
-<span id="cb14-2"><a aria-hidden="true" tabindex="-1"></a>fit.model <span class="ot">&lt;-</span> <span class="fu">lm</span>(gold.price <span class="sc">~</span> stock.price)</span>
-<span id="cb14-3"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Print result to screen</span></span>
-<span id="cb14-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit.model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Fit simple linear regression model</span></span>
+<span id="cb19-2"><a aria-hidden="true" tabindex="-1"></a>fit.model <span class="ot">&lt;-</span> <span class="fu">lm</span>(gold.price <span class="sc">~</span> stock.price)</span>
+<span id="cb19-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Print result to screen</span></span>
+<span id="cb19-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit.model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="output-f-statistic-and-p-value" class="slide level2 smaller">
 <h2>Output: F-statistic and p-value</h2>
@@ -2461,8 +2837,8 @@ F = 20.267 &gt; 4.125 = F_{1,31}(0.05) \quad \implies \quad  p &lt; 0.05
 </span></p>
 </section></section>
 <section>
-<section id="part-5-the-longley-dataset" class="title-slide slide level1 center" data-background-color="#cc0164" data-visibility="uncounted">
-<h1>Part 5: <br>The Longley dataset</h1>
+<section id="part-6-worked-example-the-longley-dataset" class="title-slide slide level1 center" data-background-color="#cc0164" data-visibility="uncounted">
+<h1>Part 6: <br>Worked Example: <br> The Longley dataset</h1>
 <div class="footer">
 <div color="#cc0164">
 
@@ -2494,17 +2870,17 @@ F = 20.267 &gt; 4.125 = F_{1,31}(0.05) \quad \implies \quad  p &lt; 0.05
 <li><p>Longley dataset available here <a href="datasets/longley.txt">longley.txt</a></p></li>
 <li><p>Download the file and place it in current working directory</p></li>
 </ul>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Read data file</span></span>
-<span id="cb16-2"><a aria-hidden="true" tabindex="-1"></a>longley <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="at">file =</span> <span class="st">"longley.txt"</span>,</span>
-<span id="cb16-3"><a aria-hidden="true" tabindex="-1"></a>                      <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb16-4"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-5"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Store columns in vectors</span></span>
-<span id="cb16-6"><a aria-hidden="true" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> longley[ , <span class="dv">1</span>]</span>
-<span id="cb16-7"><a aria-hidden="true" tabindex="-1"></a>x3 <span class="ot">&lt;-</span> longley[ , <span class="dv">2</span>]</span>
-<span id="cb16-8"><a aria-hidden="true" tabindex="-1"></a>x4 <span class="ot">&lt;-</span> longley[ , <span class="dv">3</span>]</span>
-<span id="cb16-9"><a aria-hidden="true" tabindex="-1"></a>x5 <span class="ot">&lt;-</span> longley[ , <span class="dv">4</span>]</span>
-<span id="cb16-10"><a aria-hidden="true" tabindex="-1"></a>x6 <span class="ot">&lt;-</span> longley[ , <span class="dv">5</span>]</span>
-<span id="cb16-11"><a aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> longley[ , <span class="dv">6</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Read data file</span></span>
+<span id="cb21-2"><a aria-hidden="true" tabindex="-1"></a>longley <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="at">file =</span> <span class="st">"longley.txt"</span>,</span>
+<span id="cb21-3"><a aria-hidden="true" tabindex="-1"></a>                      <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb21-4"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-5"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Store columns in vectors</span></span>
+<span id="cb21-6"><a aria-hidden="true" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> longley[ , <span class="dv">1</span>]</span>
+<span id="cb21-7"><a aria-hidden="true" tabindex="-1"></a>x3 <span class="ot">&lt;-</span> longley[ , <span class="dv">2</span>]</span>
+<span id="cb21-8"><a aria-hidden="true" tabindex="-1"></a>x4 <span class="ot">&lt;-</span> longley[ , <span class="dv">3</span>]</span>
+<span id="cb21-9"><a aria-hidden="true" tabindex="-1"></a>x5 <span class="ot">&lt;-</span> longley[ , <span class="dv">4</span>]</span>
+<span id="cb21-10"><a aria-hidden="true" tabindex="-1"></a>x6 <span class="ot">&lt;-</span> longley[ , <span class="dv">5</span>]</span>
+<span id="cb21-11"><a aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> longley[ , <span class="dv">6</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="r-commands-for-fitting-multiple-regression" class="slide level2 smaller">
 <h2>R commands for fitting multiple regression</h2>
@@ -2515,17 +2891,17 @@ F = 20.267 &gt; 4.125 = F_{1,31}(0.05) \quad \implies \quad  p &lt; 0.05
 Y = \beta_1 + \beta_2 \, X_2 + \beta_3 \, X_3 + \beta_4 \, X_4 + \beta_5 \, X_5
     + \beta_6 \, X_6 + \varepsilon
 </span></p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Fit multiple regression model</span></span>
-<span id="cb17-2"><a aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x2 <span class="sc">+</span> x3 <span class="sc">+</span> x4 <span class="sc">+</span> x5 <span class="sc">+</span> x6)</span>
-<span id="cb17-3"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Print summary</span></span>
-<span id="cb17-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Fit multiple regression model</span></span>
+<span id="cb22-2"><a aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x2 <span class="sc">+</span> x3 <span class="sc">+</span> x4 <span class="sc">+</span> x5 <span class="sc">+</span> x6)</span>
+<span id="cb22-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Print summary</span></span>
+<span id="cb22-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><br></p>
 <ul>
 <li>Full code can be downloaded here <a href="codes/longley_regression.R">longley_regression.R</a></li>
 </ul>
 </section>
-<section id="section-1" class="slide level2 smaller">
+<section id="section-14" class="slide level2 smaller">
 <h2></h2>
 <div class="columns">
 <div class="column" style="width:100%;">
@@ -2632,7 +3008,7 @@ H_1 \colon \, \beta_j \neq 0
 </tbody>
 </table>
 </section>
-<section id="section-2" class="slide level2 smaller">
+<section id="section-15" class="slide level2 smaller">
 <h2></h2>
 <div class="column" style="width:100%;">
 <p><img data-src="images/longley_output_2.png" style="width:68.0%"></p>
@@ -2642,7 +3018,7 @@ H_1 \colon \, \beta_j \neq 0
 <li>Significant variables have at least one star</li>
 </ul>
 </section>
-<section id="section-3" class="slide level2 smaller">
+<section id="section-16" class="slide level2 smaller">
 <h2></h2>
 <div class="column" style="width:100%;">
 <p><img data-src="images/longley_output_2.png" style="width:68.0%"></p>
@@ -2655,7 +3031,7 @@ H_1 \colon \, \beta_j \neq 0
 </ul></li>
 </ol>
 </section>
-<section id="section-4" class="slide level2 smaller">
+<section id="section-17" class="slide level2 smaller">
 <h2></h2>
 <div class="column" style="width:100%;">
 <p><img data-src="images/longley_output_2.png" style="width:68.0%"></p>
@@ -2670,7 +3046,7 @@ H_1 \colon \, \beta_j \neq 0
 </ul></li>
 </ol>
 </section>
-<section id="section-5" class="slide level2 smaller">
+<section id="section-18" class="slide level2 smaller">
 <h2></h2>
 <div class="column" style="width:100%;">
 <p><img data-src="images/longley_output_2.png" style="width:68.0%"></p>
@@ -2684,7 +3060,7 @@ H_1 \colon \, \beta_j \neq 0
 </ul></li>
 </ol>
 </section>
-<section id="section-6" class="slide level2 smaller">
+<section id="section-19" class="slide level2 smaller">
 <h2></h2>
 <div class="column" style="width:100%;">
 <p><img data-src="images/longley_output_2.png" style="width:68.0%"></p>
@@ -2698,7 +3074,7 @@ H_1 \colon \, \beta_j \neq 0
 </ul></li>
 </ol>
 </section>
-<section id="section-7" class="slide level2 smaller">
+<section id="section-20" class="slide level2 smaller">
 <h2></h2>
 <div class="column" style="width:100%;">
 <p><img data-src="images/longley_output_2.png" style="width:68.0%"></p>
@@ -2750,8 +3126,8 @@ H_1 \colon \, \text{At least one } \beta_j \neq 0
 </ul>
 </section></section>
 <section>
-<section id="part-6-model-selection" class="title-slide slide level1 center" data-background-color="#cc0164" data-visibility="uncounted">
-<h1>Part 6: <br> Model selection <br></h1>
+<section id="part-7-model-selection" class="title-slide slide level1 center" data-background-color="#cc0164" data-visibility="uncounted">
+<h1>Part 7: <br> Model selection <br></h1>
 <div class="footer">
 <div color="#cc0164">
 
@@ -2916,7 +3292,7 @@ k &lt; p \quad \implies \quad \mathop{\mathrm{RSS}}(k) \geq \mathop{\mathrm{RSS}
 </section>
 <section id="f-statistic-for-model-selection" class="slide level2 smaller">
 <h2>F-statistic for model selection</h2>
-<div id="Definition*-7.1" class="Definition">
+<div id="Definition*-8.1" class="Definition">
 <p></p><details class="Definition fbx-simplebox fbx-default" open=""><summary><strong>Definition</strong></summary><div>The F-statistic for model selection is<p></p>
 <p><span class="math display">\begin{align*}
 F &amp; = \frac{ \mathop{\mathrm{RSS}}_1 - \mathop{\mathrm{RSS}}_2 }{ \mathop{\mathrm{df}}_1 - \mathop{\mathrm{df}}_2  } \bigg/
@@ -3044,8 +3420,8 @@ p = P(F_{p-k,n-p} &gt; F)
 </ul>
 </section></section>
 <section>
-<section id="part-7-examples-of-model-selection" class="title-slide slide level1 center" data-background-color="#cc0164" data-visibility="uncounted">
-<h1>Part 7: <br>Examples of <br> model selection</h1>
+<section id="part-8-examples-of-model-selection" class="title-slide slide level1 center" data-background-color="#cc0164" data-visibility="uncounted">
+<h1>Part 8: <br>Examples of <br> model selection</h1>
 <div class="footer">
 <div color="#cc0164">
 
@@ -3118,17 +3494,17 @@ Y = \beta_1 + \beta_2 X_2 + \beta_3 X_3 + \beta_4 X_4 +
 <li><p>Longley dataset available here <a href="datasets/longley.txt">longley.txt</a></p></li>
 <li><p>Download the file and place it in current working directory</p></li>
 </ul>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Read data file</span></span>
-<span id="cb19-2"><a aria-hidden="true" tabindex="-1"></a>longley <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="at">file =</span> <span class="st">"longley.txt"</span>,</span>
-<span id="cb19-3"><a aria-hidden="true" tabindex="-1"></a>                      <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb19-4"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-5"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Store columns in vectors</span></span>
-<span id="cb19-6"><a aria-hidden="true" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> longley[ , <span class="dv">1</span>]</span>
-<span id="cb19-7"><a aria-hidden="true" tabindex="-1"></a>x3 <span class="ot">&lt;-</span> longley[ , <span class="dv">2</span>]</span>
-<span id="cb19-8"><a aria-hidden="true" tabindex="-1"></a>x4 <span class="ot">&lt;-</span> longley[ , <span class="dv">3</span>]</span>
-<span id="cb19-9"><a aria-hidden="true" tabindex="-1"></a>x5 <span class="ot">&lt;-</span> longley[ , <span class="dv">4</span>]</span>
-<span id="cb19-10"><a aria-hidden="true" tabindex="-1"></a>x6 <span class="ot">&lt;-</span> longley[ , <span class="dv">5</span>]</span>
-<span id="cb19-11"><a aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> longley[ , <span class="dv">6</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Read data file</span></span>
+<span id="cb24-2"><a aria-hidden="true" tabindex="-1"></a>longley <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="at">file =</span> <span class="st">"longley.txt"</span>,</span>
+<span id="cb24-3"><a aria-hidden="true" tabindex="-1"></a>                      <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb24-4"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-5"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Store columns in vectors</span></span>
+<span id="cb24-6"><a aria-hidden="true" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> longley[ , <span class="dv">1</span>]</span>
+<span id="cb24-7"><a aria-hidden="true" tabindex="-1"></a>x3 <span class="ot">&lt;-</span> longley[ , <span class="dv">2</span>]</span>
+<span id="cb24-8"><a aria-hidden="true" tabindex="-1"></a>x4 <span class="ot">&lt;-</span> longley[ , <span class="dv">3</span>]</span>
+<span id="cb24-9"><a aria-hidden="true" tabindex="-1"></a>x5 <span class="ot">&lt;-</span> longley[ , <span class="dv">4</span>]</span>
+<span id="cb24-10"><a aria-hidden="true" tabindex="-1"></a>x6 <span class="ot">&lt;-</span> longley[ , <span class="dv">5</span>]</span>
+<span id="cb24-11"><a aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> longley[ , <span class="dv">6</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="r-commands-for-fitting-multiple-regression-1" class="slide level2 smaller">
 <h2>R commands for fitting multiple regression</h2>
@@ -3141,14 +3517,14 @@ Y = \beta_1 + \beta_2 X_2 + \beta_3 X_3 + \beta_4 X_4 +
 \textbf{Model 2:} &amp; \quad Y = \beta_1 + \beta_2 X_2 + \beta_3 X_3 + \beta_4 X_4 +
        \beta_5 X_5 +  \beta_6 X_6 + \varepsilon
 \end{align*}</span></p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Fit Model 1 and Model 2</span></span>
-<span id="cb20-2"><a aria-hidden="true" tabindex="-1"></a>model<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x3 <span class="sc">+</span> x4 <span class="sc">+</span> x6)</span>
-<span id="cb20-3"><a aria-hidden="true" tabindex="-1"></a>model<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x2 <span class="sc">+</span> x3 <span class="sc">+</span> x4 <span class="sc">+</span> x5 <span class="sc">+</span> x6)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Fit Model 1 and Model 2</span></span>
+<span id="cb25-2"><a aria-hidden="true" tabindex="-1"></a>model<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x3 <span class="sc">+</span> x4 <span class="sc">+</span> x6)</span>
+<span id="cb25-3"><a aria-hidden="true" tabindex="-1"></a>model<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x2 <span class="sc">+</span> x3 <span class="sc">+</span> x4 <span class="sc">+</span> x5 <span class="sc">+</span> x6)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ol start="2" type="1">
 <li>F-test for model selection is done using the command <span class="math inline">\, \texttt{anova}</span></li>
 </ol>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># F-test for model selection</span></span>
-<span id="cb21-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(model<span class="fl">.1</span>, model<span class="fl">.2</span>, <span class="at">test =</span> <span class="st">"F"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># F-test for model selection</span></span>
+<span id="cb26-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(model<span class="fl">.1</span>, model<span class="fl">.2</span>, <span class="at">test =</span> <span class="st">"F"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
 <li>Full code can be downloaded here <a href="codes/longley_selection.R">longley_selection.R</a></li>
 </ul>
@@ -3321,7 +3697,7 @@ Model 2: y ~ x2 + x3 + x4 + x5 + x6
 <p>Engraving (1546): people believed projectiles follow circular trajectories (<a href="https://www.alamy.com/engraving-depicting-the-path-of-a-projectile-shown-as-a-circular-arc-rather-than-a-parabolic-arc-as-was-later-proved-to-be-the-case-by-galileo-galileo-galilei-1564-1642-an-italian-polymath-dated-16th-century-image186386912.html">source</a>)</p>
 
 <img data-src="images/engraving.jpg" style="width:73.0%" class="r-stretch"></section>
-<section id="section-8" class="slide level2 smaller">
+<section id="section-21" class="slide level2 smaller">
 <h2></h2>
 <ul>
 <li>1609: Galileo proved mathematically that projectile trajectories are parabolic
@@ -3334,7 +3710,7 @@ Model 2: y ~ x2 + x3 + x4 + x5 + x6
 </ul>
 
 <img data-src="images/galileo_0.png" style="width:73.0%" class="r-stretch"></section>
-<section id="section-9" class="slide level2 smaller">
+<section id="section-22" class="slide level2 smaller">
 <h2></h2>
 <ul>
 <li>We have access to Galileo’s original data <span class="citation" data-cites="drake_galileo">[<a href="#/references" role="doc-biblioref" onclick="">3</a>]</span></li>
@@ -3373,29 +3749,29 @@ Model 2: y ~ x2 + x3 + x4 + x5 + x6
 </tbody>
 </table>
 <p><br></p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Enter the data</span></span>
-<span id="cb29-2"><a aria-hidden="true" tabindex="-1"></a>height <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">100</span>, <span class="dv">200</span>, <span class="dv">300</span>, <span class="dv">450</span>, <span class="dv">600</span>, <span class="dv">800</span>, <span class="dv">1000</span>)</span>
-<span id="cb29-3"><a aria-hidden="true" tabindex="-1"></a>distance <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">253</span>, <span class="dv">337</span>, <span class="dv">395</span>, <span class="dv">451</span>, <span class="dv">495</span>, <span class="dv">534</span>, <span class="dv">573</span>)</span>
-<span id="cb29-4"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-5"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Scatter plot of data</span></span>
-<span id="cb29-6"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(height, distance, <span class="at">pch =</span> <span class="dv">16</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Enter the data</span></span>
+<span id="cb34-2"><a aria-hidden="true" tabindex="-1"></a>height <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">100</span>, <span class="dv">200</span>, <span class="dv">300</span>, <span class="dv">450</span>, <span class="dv">600</span>, <span class="dv">800</span>, <span class="dv">1000</span>)</span>
+<span id="cb34-3"><a aria-hidden="true" tabindex="-1"></a>distance <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">253</span>, <span class="dv">337</span>, <span class="dv">395</span>, <span class="dv">451</span>, <span class="dv">495</span>, <span class="dv">534</span>, <span class="dv">573</span>)</span>
+<span id="cb34-4"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-5"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Scatter plot of data</span></span>
+<span id="cb34-6"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(height, distance, <span class="at">pch =</span> <span class="dv">16</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="section-10" class="slide level2 smaller">
+<section id="section-23" class="slide level2 smaller">
 <h2></h2>
 <p>We clearly see a parabola. Therefore we expect a relation of the form</p>
 <p><span class="math display">
 {\rm distance} = \beta_1 + \beta_2 \, {\rm height } + \beta_3 \, {\rm height }^2
 </span></p>
 
-<img data-src="lecture_9_files/figure-revealjs/unnamed-chunk-16-1.png" width="960" class="r-stretch"></section>
+<img data-src="lecture_9_files/figure-revealjs/unnamed-chunk-18-1.png" width="960" class="r-stretch"></section>
 <section id="fit-linear-model" class="slide level2 smaller">
 <h2>Fit linear model</h2>
 <p><span class="math display">
 {\rm distance} = \beta_1 + \beta_2 \, {\rm height }
 </span></p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Fit linear model</span></span>
-<span id="cb30-2"><a aria-hidden="true" tabindex="-1"></a>linear <span class="ot">&lt;-</span> <span class="fu">lm</span>(distance <span class="sc">~</span> height)</span>
-<span id="cb30-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(linear)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Fit linear model</span></span>
+<span id="cb35-2"><a aria-hidden="true" tabindex="-1"></a>linear <span class="ot">&lt;-</span> <span class="fu">lm</span>(distance <span class="sc">~</span> height)</span>
+<span id="cb35-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(linear)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <pre class="verbatim"><code>
 Multiple R-squared:  0.9264,    Adjusted R-squared:  0.9116 
 
@@ -3413,9 +3789,9 @@ Multiple R-squared:  0.9264,    Adjusted R-squared:  0.9116
 </span></p>
 <p><br></p>
 <p><strong>Note:</strong> To specify powers we need to type <span class="math inline">\,\, \texttt{I}</span></p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Fit quadratic model</span></span>
-<span id="cb32-2"><a aria-hidden="true" tabindex="-1"></a>quadratic <span class="ot">&lt;-</span> <span class="fu">lm</span>(distance <span class="sc">~</span> height <span class="sc">+</span> <span class="fu">I</span>( height<span class="sc">^</span><span class="dv">2</span> ))</span>
-<span id="cb32-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(quadratic)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Fit quadratic model</span></span>
+<span id="cb37-2"><a aria-hidden="true" tabindex="-1"></a>quadratic <span class="ot">&lt;-</span> <span class="fu">lm</span>(distance <span class="sc">~</span> height <span class="sc">+</span> <span class="fu">I</span>( height<span class="sc">^</span><span class="dv">2</span> ))</span>
+<span id="cb37-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(quadratic)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <pre class="verbatim"><code>
 Multiple R-squared:  0.9903,    Adjusted R-squared:  0.9855 
 
@@ -3433,9 +3809,9 @@ Multiple R-squared:  0.9903,    Adjusted R-squared:  0.9855
 \, {\rm height }^2 + \beta_4 \, {\rm height }^3
 </span></p>
 <p><br></p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Fit cubic model</span></span>
-<span id="cb34-2"><a aria-hidden="true" tabindex="-1"></a>cubic <span class="ot">&lt;-</span> <span class="fu">lm</span>(distance <span class="sc">~</span> height <span class="sc">+</span> <span class="fu">I</span>( height<span class="sc">^</span><span class="dv">2</span> ) <span class="sc">+</span> <span class="fu">I</span> (height<span class="sc">^</span><span class="dv">3</span>))</span>
-<span id="cb34-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(cubic)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Fit cubic model</span></span>
+<span id="cb39-2"><a aria-hidden="true" tabindex="-1"></a>cubic <span class="ot">&lt;-</span> <span class="fu">lm</span>(distance <span class="sc">~</span> height <span class="sc">+</span> <span class="fu">I</span>( height<span class="sc">^</span><span class="dv">2</span> ) <span class="sc">+</span> <span class="fu">I</span> (height<span class="sc">^</span><span class="dv">3</span>))</span>
+<span id="cb39-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(cubic)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <pre class="verbatim"><code>
 Multiple R-squared:  0.9994,    Adjusted R-squared:  0.9987 
 
@@ -3452,8 +3828,8 @@ Multiple R-squared:  0.9994,    Adjusted R-squared:  0.9987
 <li><p>Which model is better: quadratic or cubic?</p></li>
 <li><p>Let us perform F-test for model selection</p></li>
 </ul>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Model selection</span></span>
-<span id="cb36-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(quadratic, cubic, <span class="at">test =</span> <span class="st">"F"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Model selection</span></span>
+<span id="cb41-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(quadratic, cubic, <span class="at">test =</span> <span class="st">"F"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <pre class="verbatim"><code>
 Analysis of Variance Table
 
@@ -3484,36 +3860,36 @@ Model 2: distance ~ height + I(height^2) + I(height^3)
 <div class="cell">
 <details class="code-fold">
 <summary>Click here to show the full code</summary>
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Enter the data</span></span>
-<span id="cb38-2"><a aria-hidden="true" tabindex="-1"></a>height <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">100</span>, <span class="dv">200</span>, <span class="dv">300</span>, <span class="dv">450</span>, <span class="dv">600</span>, <span class="dv">800</span>, <span class="dv">1000</span>)</span>
-<span id="cb38-3"><a aria-hidden="true" tabindex="-1"></a>distance <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">253</span>, <span class="dv">337</span>, <span class="dv">395</span>, <span class="dv">451</span>, <span class="dv">495</span>, <span class="dv">534</span>, <span class="dv">573</span>)</span>
-<span id="cb38-4"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-5"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Scatter plot of data</span></span>
-<span id="cb38-6"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(height, distance, <span class="at">xlab =</span> <span class="st">""</span>, <span class="at">ylab =</span> <span class="st">""</span>, <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">cex =</span> <span class="dv">2</span>)</span>
-<span id="cb38-7"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-8"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Add labels</span></span>
-<span id="cb38-9"><a aria-hidden="true" tabindex="-1"></a><span class="fu">mtext</span>(<span class="st">"Initial height"</span>, <span class="at">side =</span> <span class="dv">1</span>, <span class="at">line =</span> <span class="dv">3</span>, <span class="at">cex =</span> <span class="fl">2.1</span>)</span>
-<span id="cb38-10"><a aria-hidden="true" tabindex="-1"></a><span class="fu">mtext</span>(<span class="st">"Horizontal distance"</span>, <span class="at">side =</span> <span class="dv">2</span>, <span class="at">line =</span> <span class="fl">2.5</span>, <span class="at">cex =</span> <span class="fl">2.1</span>)</span>
-<span id="cb38-11"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-12"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Fit quadratic model</span></span>
-<span id="cb38-13"><a aria-hidden="true" tabindex="-1"></a>quadratic <span class="ot">&lt;-</span> <span class="fu">lm</span>(distance <span class="sc">~</span> height <span class="sc">+</span> <span class="fu">I</span>( height<span class="sc">^</span><span class="dv">2</span> ))</span>
-<span id="cb38-14"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-15"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Fit cubic model</span></span>
-<span id="cb38-16"><a aria-hidden="true" tabindex="-1"></a>cubic <span class="ot">&lt;-</span> <span class="fu">lm</span>(distance <span class="sc">~</span> height <span class="sc">+</span> <span class="fu">I</span>( height<span class="sc">^</span><span class="dv">2</span> ) <span class="sc">+</span> <span class="fu">I</span> (height<span class="sc">^</span><span class="dv">3</span>))</span>
-<span id="cb38-17"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-18"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Plot quadratic Vs Cubic</span></span>
-<span id="cb38-19"><a aria-hidden="true" tabindex="-1"></a>polynomial <span class="ot">&lt;-</span> <span class="fu">Vectorize</span>(<span class="cf">function</span>(x, ps) {</span>
-<span id="cb38-20"><a aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">length</span>(ps)</span>
-<span id="cb38-21"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">sum</span>(ps<span class="sc">*</span>x<span class="sc">^</span>(<span class="dv">1</span><span class="sc">:</span>n<span class="dv">-1</span>))</span>
-<span id="cb38-22"><a aria-hidden="true" tabindex="-1"></a>}, <span class="st">"x"</span>)</span>
-<span id="cb38-23"><a aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">polynomial</span>(x, <span class="fu">coef</span>(quadratic)), <span class="at">add=</span><span class="cn">TRUE</span>, <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
-<span id="cb38-24"><a aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">polynomial</span>(x, <span class="fu">coef</span>(cubic)), <span class="at">add=</span><span class="cn">TRUE</span>, <span class="at">col =</span> <span class="st">"blue"</span>, <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
-<span id="cb38-25"><a aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">"topleft"</span>, <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">"quadratic"</span>, <span class="st">"cubic"</span>), </span>
-<span id="cb38-26"><a aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"red"</span>, <span class="st">"blue"</span>), <span class="at">lty =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">cex =</span> <span class="fl">2.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Enter the data</span></span>
+<span id="cb43-2"><a aria-hidden="true" tabindex="-1"></a>height <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">100</span>, <span class="dv">200</span>, <span class="dv">300</span>, <span class="dv">450</span>, <span class="dv">600</span>, <span class="dv">800</span>, <span class="dv">1000</span>)</span>
+<span id="cb43-3"><a aria-hidden="true" tabindex="-1"></a>distance <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">253</span>, <span class="dv">337</span>, <span class="dv">395</span>, <span class="dv">451</span>, <span class="dv">495</span>, <span class="dv">534</span>, <span class="dv">573</span>)</span>
+<span id="cb43-4"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-5"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Scatter plot of data</span></span>
+<span id="cb43-6"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(height, distance, <span class="at">xlab =</span> <span class="st">""</span>, <span class="at">ylab =</span> <span class="st">""</span>, <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">cex =</span> <span class="dv">2</span>)</span>
+<span id="cb43-7"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-8"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Add labels</span></span>
+<span id="cb43-9"><a aria-hidden="true" tabindex="-1"></a><span class="fu">mtext</span>(<span class="st">"Initial height"</span>, <span class="at">side =</span> <span class="dv">1</span>, <span class="at">line =</span> <span class="dv">3</span>, <span class="at">cex =</span> <span class="fl">2.1</span>)</span>
+<span id="cb43-10"><a aria-hidden="true" tabindex="-1"></a><span class="fu">mtext</span>(<span class="st">"Horizontal distance"</span>, <span class="at">side =</span> <span class="dv">2</span>, <span class="at">line =</span> <span class="fl">2.5</span>, <span class="at">cex =</span> <span class="fl">2.1</span>)</span>
+<span id="cb43-11"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-12"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Fit quadratic model</span></span>
+<span id="cb43-13"><a aria-hidden="true" tabindex="-1"></a>quadratic <span class="ot">&lt;-</span> <span class="fu">lm</span>(distance <span class="sc">~</span> height <span class="sc">+</span> <span class="fu">I</span>( height<span class="sc">^</span><span class="dv">2</span> ))</span>
+<span id="cb43-14"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-15"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Fit cubic model</span></span>
+<span id="cb43-16"><a aria-hidden="true" tabindex="-1"></a>cubic <span class="ot">&lt;-</span> <span class="fu">lm</span>(distance <span class="sc">~</span> height <span class="sc">+</span> <span class="fu">I</span>( height<span class="sc">^</span><span class="dv">2</span> ) <span class="sc">+</span> <span class="fu">I</span> (height<span class="sc">^</span><span class="dv">3</span>))</span>
+<span id="cb43-17"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-18"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Plot quadratic Vs Cubic</span></span>
+<span id="cb43-19"><a aria-hidden="true" tabindex="-1"></a>polynomial <span class="ot">&lt;-</span> <span class="fu">Vectorize</span>(<span class="cf">function</span>(x, ps) {</span>
+<span id="cb43-20"><a aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">length</span>(ps)</span>
+<span id="cb43-21"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">sum</span>(ps<span class="sc">*</span>x<span class="sc">^</span>(<span class="dv">1</span><span class="sc">:</span>n<span class="dv">-1</span>))</span>
+<span id="cb43-22"><a aria-hidden="true" tabindex="-1"></a>}, <span class="st">"x"</span>)</span>
+<span id="cb43-23"><a aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">polynomial</span>(x, <span class="fu">coef</span>(quadratic)), <span class="at">add=</span><span class="cn">TRUE</span>, <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb43-24"><a aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">polynomial</span>(x, <span class="fu">coef</span>(cubic)), <span class="at">add=</span><span class="cn">TRUE</span>, <span class="at">col =</span> <span class="st">"blue"</span>, <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb43-25"><a aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">"topleft"</span>, <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">"quadratic"</span>, <span class="st">"cubic"</span>), </span>
+<span id="cb43-26"><a aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"red"</span>, <span class="st">"blue"</span>), <span class="at">lty =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">cex =</span> <span class="fl">2.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 
 </div>
-<img data-src="lecture_9_files/figure-revealjs/unnamed-chunk-17-1.png" width="960" class="r-stretch"></section>
+<img data-src="lecture_9_files/figure-revealjs/unnamed-chunk-19-1.png" width="960" class="r-stretch"></section>
 <section id="why-not-try-higher-degree-polynomials" class="slide level2 smaller">
 <h2>Why not try higher degree polynomials</h2>
 <p><span class="math display">
@@ -3522,10 +3898,10 @@ Model 2: distance ~ height + I(height^2) + I(height^3)
 + \beta_5 \, {\rm height }^4
 </span></p>
 <p><br></p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Fit quartic model</span></span>
-<span id="cb39-2"><a aria-hidden="true" tabindex="-1"></a>quartic <span class="ot">&lt;-</span> <span class="fu">lm</span>(distance <span class="sc">~</span> height <span class="sc">+</span> <span class="fu">I</span>( height<span class="sc">^</span><span class="dv">2</span> ) <span class="sc">+</span> <span class="fu">I</span> (height<span class="sc">^</span><span class="dv">3</span>) </span>
-<span id="cb39-3"><a aria-hidden="true" tabindex="-1"></a>                                                <span class="sc">+</span> <span class="fu">I</span> (height<span class="sc">^</span><span class="dv">4</span>))</span>
-<span id="cb39-4"><a aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(quartic)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Fit quartic model</span></span>
+<span id="cb44-2"><a aria-hidden="true" tabindex="-1"></a>quartic <span class="ot">&lt;-</span> <span class="fu">lm</span>(distance <span class="sc">~</span> height <span class="sc">+</span> <span class="fu">I</span>( height<span class="sc">^</span><span class="dv">2</span> ) <span class="sc">+</span> <span class="fu">I</span> (height<span class="sc">^</span><span class="dv">3</span>) </span>
+<span id="cb44-3"><a aria-hidden="true" tabindex="-1"></a>                                                <span class="sc">+</span> <span class="fu">I</span> (height<span class="sc">^</span><span class="dv">4</span>))</span>
+<span id="cb44-4"><a aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(quartic)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <pre class="verbatim"><code>
 Multiple R-squared:  0.9998,    Adjusted R-squared:  0.9995
 
@@ -3538,8 +3914,8 @@ Multiple R-squared:  0.9998,    Adjusted R-squared:  0.9995
 </section>
 <section id="model-selection-cubic-vs-quartic" class="slide level2 smaller">
 <h2>Model selection: cubic Vs quartic</h2>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Model selection</span></span>
-<span id="cb41-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(cubic, quartic, <span class="at">test =</span> <span class="st">"F"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Model selection</span></span>
+<span id="cb46-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(cubic, quartic, <span class="at">test =</span> <span class="st">"F"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <pre class="verbatim"><code>
 Analysis of Variance Table
 
@@ -3672,22 +4048,22 @@ Model 2: distance ~ height + I(height^2) + I(height^3) + I(height^4)
 <div class="cell">
 <details class="code-fold">
 <summary>Click here to show the full code</summary>
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Divorces data</span></span>
-<span id="cb43-2"><a aria-hidden="true" tabindex="-1"></a>year <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>,<span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">10</span>, <span class="dv">15</span>, <span class="dv">20</span>, <span class="dv">25</span>, <span class="dv">30</span>)</span>
-<span id="cb43-3"><a aria-hidden="true" tabindex="-1"></a>percent <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">3.51</span>, <span class="fl">9.5</span>, <span class="fl">8.91</span>, <span class="fl">9.35</span>, <span class="fl">8.18</span>, <span class="fl">6.43</span>, <span class="fl">5.31</span>, </span>
-<span id="cb43-4"><a aria-hidden="true" tabindex="-1"></a>             <span class="fl">5.07</span>, <span class="fl">3.65</span>, <span class="fl">3.8</span>, <span class="fl">2.83</span>, <span class="fl">1.51</span>, <span class="fl">1.27</span>, <span class="fl">0.49</span>)</span>
-<span id="cb43-5"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb43-6"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Scatter plot of data</span></span>
-<span id="cb43-7"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(year, percent, <span class="at">xlab =</span> <span class="st">""</span>, <span class="at">ylab =</span> <span class="st">""</span>, <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">cex =</span> <span class="dv">2</span>)</span>
-<span id="cb43-8"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb43-9"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Add labels</span></span>
-<span id="cb43-10"><a aria-hidden="true" tabindex="-1"></a><span class="fu">mtext</span>(<span class="st">"Years of marriage"</span>, <span class="at">side =</span> <span class="dv">1</span>, <span class="at">line =</span> <span class="dv">3</span>, <span class="at">cex =</span> <span class="fl">2.1</span>)</span>
-<span id="cb43-11"><a aria-hidden="true" tabindex="-1"></a><span class="fu">mtext</span>(<span class="st">"Risk of divorce by adultery"</span>, <span class="at">side =</span> <span class="dv">2</span>, <span class="at">line =</span> <span class="fl">2.5</span>, <span class="at">cex =</span> <span class="fl">2.1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Divorces data</span></span>
+<span id="cb48-2"><a aria-hidden="true" tabindex="-1"></a>year <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>,<span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">10</span>, <span class="dv">15</span>, <span class="dv">20</span>, <span class="dv">25</span>, <span class="dv">30</span>)</span>
+<span id="cb48-3"><a aria-hidden="true" tabindex="-1"></a>percent <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">3.51</span>, <span class="fl">9.5</span>, <span class="fl">8.91</span>, <span class="fl">9.35</span>, <span class="fl">8.18</span>, <span class="fl">6.43</span>, <span class="fl">5.31</span>, </span>
+<span id="cb48-4"><a aria-hidden="true" tabindex="-1"></a>             <span class="fl">5.07</span>, <span class="fl">3.65</span>, <span class="fl">3.8</span>, <span class="fl">2.83</span>, <span class="fl">1.51</span>, <span class="fl">1.27</span>, <span class="fl">0.49</span>)</span>
+<span id="cb48-5"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-6"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Scatter plot of data</span></span>
+<span id="cb48-7"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(year, percent, <span class="at">xlab =</span> <span class="st">""</span>, <span class="at">ylab =</span> <span class="st">""</span>, <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">cex =</span> <span class="dv">2</span>)</span>
+<span id="cb48-8"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-9"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Add labels</span></span>
+<span id="cb48-10"><a aria-hidden="true" tabindex="-1"></a><span class="fu">mtext</span>(<span class="st">"Years of marriage"</span>, <span class="at">side =</span> <span class="dv">1</span>, <span class="at">line =</span> <span class="dv">3</span>, <span class="at">cex =</span> <span class="fl">2.1</span>)</span>
+<span id="cb48-11"><a aria-hidden="true" tabindex="-1"></a><span class="fu">mtext</span>(<span class="st">"Risk of divorce by adultery"</span>, <span class="at">side =</span> <span class="dv">2</span>, <span class="at">line =</span> <span class="fl">2.5</span>, <span class="at">cex =</span> <span class="fl">2.1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div>
 <figure>
-<p><img data-src="lecture_9_files/figure-revealjs/unnamed-chunk-18-1.png" width="960"></p>
+<p><img data-src="lecture_9_files/figure-revealjs/unnamed-chunk-20-1.png" width="960"></p>
 </figure>
 </div>
 </div>
@@ -3695,14 +4071,14 @@ Model 2: distance ~ height + I(height^2) + I(height^3) + I(height^4)
 </div></section>
 <section id="fitting-linear-model" class="slide level2 smaller">
 <h2>Fitting linear model</h2>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Divorces data</span></span>
-<span id="cb44-2"><a aria-hidden="true" tabindex="-1"></a>year <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>,<span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">10</span>, <span class="dv">15</span>, <span class="dv">20</span>, <span class="dv">25</span>, <span class="dv">30</span>)</span>
-<span id="cb44-3"><a aria-hidden="true" tabindex="-1"></a>percent <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">3.51</span>, <span class="fl">9.5</span>, <span class="fl">8.91</span>, <span class="fl">9.35</span>, <span class="fl">8.18</span>, <span class="fl">6.43</span>, <span class="fl">5.31</span>, </span>
-<span id="cb44-4"><a aria-hidden="true" tabindex="-1"></a>             <span class="fl">5.07</span>, <span class="fl">3.65</span>, <span class="fl">3.8</span>, <span class="fl">2.83</span>, <span class="fl">1.51</span>, <span class="fl">1.27</span>, <span class="fl">0.49</span>)</span>
-<span id="cb44-5"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-6"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Fit linear model</span></span>
-<span id="cb44-7"><a aria-hidden="true" tabindex="-1"></a>linear <span class="ot">&lt;-</span> <span class="fu">lm</span>(percent <span class="sc">~</span> year)</span>
-<span id="cb44-8"><a aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(linear)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Divorces data</span></span>
+<span id="cb49-2"><a aria-hidden="true" tabindex="-1"></a>year <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>,<span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">10</span>, <span class="dv">15</span>, <span class="dv">20</span>, <span class="dv">25</span>, <span class="dv">30</span>)</span>
+<span id="cb49-3"><a aria-hidden="true" tabindex="-1"></a>percent <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">3.51</span>, <span class="fl">9.5</span>, <span class="fl">8.91</span>, <span class="fl">9.35</span>, <span class="fl">8.18</span>, <span class="fl">6.43</span>, <span class="fl">5.31</span>, </span>
+<span id="cb49-4"><a aria-hidden="true" tabindex="-1"></a>             <span class="fl">5.07</span>, <span class="fl">3.65</span>, <span class="fl">3.8</span>, <span class="fl">2.83</span>, <span class="fl">1.51</span>, <span class="fl">1.27</span>, <span class="fl">0.49</span>)</span>
+<span id="cb49-5"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-6"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Fit linear model</span></span>
+<span id="cb49-7"><a aria-hidden="true" tabindex="-1"></a>linear <span class="ot">&lt;-</span> <span class="fu">lm</span>(percent <span class="sc">~</span> year)</span>
+<span id="cb49-8"><a aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(linear)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <pre class="verbatim"><code>
             Estimate Std. Error t value Pr(&gt;|t|)    
 (Intercept)  7.88575    0.78667  10.024 3.49e-07 ***
@@ -3721,9 +4097,9 @@ year        -0.27993    0.05846  -4.788 0.000442 ***
 <li><p>Linear model offered a reasonable explanation of the divorce data</p></li>
 <li><p>Is quadratic model better?</p></li>
 </ul>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Fit quadratic model</span></span>
-<span id="cb46-2"><a aria-hidden="true" tabindex="-1"></a>quadratic <span class="ot">&lt;-</span> <span class="fu">lm</span>(percent <span class="sc">~</span> year <span class="sc">+</span> <span class="fu">I</span>( year<span class="sc">^</span><span class="dv">2</span> ))</span>
-<span id="cb46-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(quadratic)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Fit quadratic model</span></span>
+<span id="cb51-2"><a aria-hidden="true" tabindex="-1"></a>quadratic <span class="ot">&lt;-</span> <span class="fu">lm</span>(percent <span class="sc">~</span> year <span class="sc">+</span> <span class="fu">I</span>( year<span class="sc">^</span><span class="dv">2</span> ))</span>
+<span id="cb51-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(quadratic)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <pre class="verbatim"><code>
              Estimate Std. Error t value Pr(&gt;|t|)    
 (Intercept)  8.751048   1.258038   6.956  2.4e-05 ***
@@ -3743,8 +4119,8 @@ I(year^2)    0.006794   0.007663   0.887   0.3943
 <li><p>We concluded that a linear model is better fit</p></li>
 <li><p>To cross check this result we do F-test for model selection</p></li>
 </ul>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Model selection</span></span>
-<span id="cb48-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(linear, quadratic, <span class="at">test =</span> <span class="st">"F"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Model selection</span></span>
+<span id="cb53-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(linear, quadratic, <span class="at">test =</span> <span class="st">"F"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <pre class="verbatim"><code>
 Model 1: percent ~ year
 Model 2: percent ~ year + I(year^2)
@@ -3781,7 +4157,7 @@ Model 2: percent ~ year + I(year^2)
 <li>Code is available here <a href="codes/divorces.R">divorces.R</a></li>
 </ul>
 </section>
-<section id="section-11" class="slide level2 smaller">
+<section id="section-24" class="slide level2 smaller">
 <h2></h2>
 <ul>
 <li><p>Visual confirmation: Linear model is better and divorce-risk is decreasing</p></li>
@@ -3790,49 +4166,49 @@ Model 2: percent ~ year + I(year^2)
 <div class="cell">
 <details class="code-fold">
 <summary>Click here to show the full code</summary>
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Divorces data</span></span>
-<span id="cb50-2"><a aria-hidden="true" tabindex="-1"></a>year <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>,<span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">10</span>, <span class="dv">15</span>, <span class="dv">20</span>, <span class="dv">25</span>, <span class="dv">30</span>)</span>
-<span id="cb50-3"><a aria-hidden="true" tabindex="-1"></a>percent <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">3.51</span>, <span class="fl">9.5</span>, <span class="fl">8.91</span>, <span class="fl">9.35</span>, <span class="fl">8.18</span>, <span class="fl">6.43</span>, <span class="fl">5.31</span>, </span>
-<span id="cb50-4"><a aria-hidden="true" tabindex="-1"></a>             <span class="fl">5.07</span>, <span class="fl">3.65</span>, <span class="fl">3.8</span>, <span class="fl">2.83</span>, <span class="fl">1.51</span>, <span class="fl">1.27</span>, <span class="fl">0.49</span>)</span>
-<span id="cb50-5"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-6"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Fit linear model</span></span>
-<span id="cb50-7"><a aria-hidden="true" tabindex="-1"></a>linear <span class="ot">&lt;-</span> <span class="fu">lm</span>(percent <span class="sc">~</span> year)</span>
-<span id="cb50-8"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-9"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Fit quadratic model</span></span>
-<span id="cb50-10"><a aria-hidden="true" tabindex="-1"></a>quadratic <span class="ot">&lt;-</span> <span class="fu">lm</span>(percent <span class="sc">~</span> year <span class="sc">+</span> <span class="fu">I</span>( year<span class="sc">^</span><span class="dv">2</span> ))</span>
-<span id="cb50-11"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-12"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Scatter plot of data</span></span>
-<span id="cb50-13"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(year, percent, <span class="at">xlab =</span> <span class="st">""</span>, <span class="at">ylab =</span> <span class="st">""</span>, <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">cex =</span> <span class="dv">2</span>)</span>
-<span id="cb50-14"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-15"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Add labels</span></span>
-<span id="cb50-16"><a aria-hidden="true" tabindex="-1"></a><span class="fu">mtext</span>(<span class="st">"Years of marriage"</span>, <span class="at">side =</span> <span class="dv">1</span>, <span class="at">line =</span> <span class="dv">3</span>, <span class="at">cex =</span> <span class="fl">2.1</span>)</span>
-<span id="cb50-17"><a aria-hidden="true" tabindex="-1"></a><span class="fu">mtext</span>(<span class="st">"Risk of divorce by adultery"</span>, <span class="at">side =</span> <span class="dv">2</span>, <span class="at">line =</span> <span class="fl">2.5</span>, <span class="at">cex =</span> <span class="fl">2.1</span>)</span>
-<span id="cb50-18"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-19"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Plot Linear Vs Quadratic</span></span>
-<span id="cb50-20"><a aria-hidden="true" tabindex="-1"></a>polynomial <span class="ot">&lt;-</span> <span class="fu">Vectorize</span>(<span class="cf">function</span>(x, ps) {</span>
-<span id="cb50-21"><a aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">length</span>(ps)</span>
-<span id="cb50-22"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">sum</span>(ps<span class="sc">*</span>x<span class="sc">^</span>(<span class="dv">1</span><span class="sc">:</span>n<span class="dv">-1</span>))</span>
-<span id="cb50-23"><a aria-hidden="true" tabindex="-1"></a>}, <span class="st">"x"</span>)</span>
-<span id="cb50-24"><a aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">polynomial</span>(x, <span class="fu">coef</span>(linear)), <span class="at">add=</span><span class="cn">TRUE</span>, <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
-<span id="cb50-25"><a aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">polynomial</span>(x, <span class="fu">coef</span>(quadratic)), <span class="at">add=</span><span class="cn">TRUE</span>, <span class="at">col =</span> <span class="st">"blue"</span>, <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
-<span id="cb50-26"><a aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">"topright"</span>, <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">"Linear"</span>, <span class="st">"Quadratic"</span>), </span>
-<span id="cb50-27"><a aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"red"</span>, <span class="st">"blue"</span>), <span class="at">lty =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="at">cex =</span> <span class="dv">3</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Divorces data</span></span>
+<span id="cb55-2"><a aria-hidden="true" tabindex="-1"></a>year <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>,<span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">10</span>, <span class="dv">15</span>, <span class="dv">20</span>, <span class="dv">25</span>, <span class="dv">30</span>)</span>
+<span id="cb55-3"><a aria-hidden="true" tabindex="-1"></a>percent <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">3.51</span>, <span class="fl">9.5</span>, <span class="fl">8.91</span>, <span class="fl">9.35</span>, <span class="fl">8.18</span>, <span class="fl">6.43</span>, <span class="fl">5.31</span>, </span>
+<span id="cb55-4"><a aria-hidden="true" tabindex="-1"></a>             <span class="fl">5.07</span>, <span class="fl">3.65</span>, <span class="fl">3.8</span>, <span class="fl">2.83</span>, <span class="fl">1.51</span>, <span class="fl">1.27</span>, <span class="fl">0.49</span>)</span>
+<span id="cb55-5"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-6"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Fit linear model</span></span>
+<span id="cb55-7"><a aria-hidden="true" tabindex="-1"></a>linear <span class="ot">&lt;-</span> <span class="fu">lm</span>(percent <span class="sc">~</span> year)</span>
+<span id="cb55-8"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-9"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Fit quadratic model</span></span>
+<span id="cb55-10"><a aria-hidden="true" tabindex="-1"></a>quadratic <span class="ot">&lt;-</span> <span class="fu">lm</span>(percent <span class="sc">~</span> year <span class="sc">+</span> <span class="fu">I</span>( year<span class="sc">^</span><span class="dv">2</span> ))</span>
+<span id="cb55-11"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-12"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Scatter plot of data</span></span>
+<span id="cb55-13"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(year, percent, <span class="at">xlab =</span> <span class="st">""</span>, <span class="at">ylab =</span> <span class="st">""</span>, <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">cex =</span> <span class="dv">2</span>)</span>
+<span id="cb55-14"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-15"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Add labels</span></span>
+<span id="cb55-16"><a aria-hidden="true" tabindex="-1"></a><span class="fu">mtext</span>(<span class="st">"Years of marriage"</span>, <span class="at">side =</span> <span class="dv">1</span>, <span class="at">line =</span> <span class="dv">3</span>, <span class="at">cex =</span> <span class="fl">2.1</span>)</span>
+<span id="cb55-17"><a aria-hidden="true" tabindex="-1"></a><span class="fu">mtext</span>(<span class="st">"Risk of divorce by adultery"</span>, <span class="at">side =</span> <span class="dv">2</span>, <span class="at">line =</span> <span class="fl">2.5</span>, <span class="at">cex =</span> <span class="fl">2.1</span>)</span>
+<span id="cb55-18"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-19"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Plot Linear Vs Quadratic</span></span>
+<span id="cb55-20"><a aria-hidden="true" tabindex="-1"></a>polynomial <span class="ot">&lt;-</span> <span class="fu">Vectorize</span>(<span class="cf">function</span>(x, ps) {</span>
+<span id="cb55-21"><a aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">length</span>(ps)</span>
+<span id="cb55-22"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">sum</span>(ps<span class="sc">*</span>x<span class="sc">^</span>(<span class="dv">1</span><span class="sc">:</span>n<span class="dv">-1</span>))</span>
+<span id="cb55-23"><a aria-hidden="true" tabindex="-1"></a>}, <span class="st">"x"</span>)</span>
+<span id="cb55-24"><a aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">polynomial</span>(x, <span class="fu">coef</span>(linear)), <span class="at">add=</span><span class="cn">TRUE</span>, <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb55-25"><a aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">polynomial</span>(x, <span class="fu">coef</span>(quadratic)), <span class="at">add=</span><span class="cn">TRUE</span>, <span class="at">col =</span> <span class="st">"blue"</span>, <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb55-26"><a aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">"topright"</span>, <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">"Linear"</span>, <span class="st">"Quadratic"</span>), </span>
+<span id="cb55-27"><a aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"red"</span>, <span class="st">"blue"</span>), <span class="at">lty =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="at">cex =</span> <span class="dv">3</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 
 </div>
-<img data-src="lecture_9_files/figure-revealjs/unnamed-chunk-19-1.png" width="960" class="r-stretch"></section>
+<img data-src="lecture_9_files/figure-revealjs/unnamed-chunk-21-1.png" width="960" class="r-stretch"></section>
 <section id="why-not-try-higher-order-polynomials" class="slide level2 smaller">
 <h2>Why not try higher order polynomials</h2>
 <ul>
 <li>Let us compare Linear model with Order 6 Model</li>
 </ul>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Fit order 6 model</span></span>
-<span id="cb51-2"><a aria-hidden="true" tabindex="-1"></a>order_6 <span class="ot">&lt;-</span> <span class="fu">lm</span>(percent <span class="sc">~</span> year  <span class="sc">+</span> <span class="fu">I</span>( year<span class="sc">^</span><span class="dv">2</span> ) <span class="sc">+</span> <span class="fu">I</span>( year<span class="sc">^</span><span class="dv">3</span> ) <span class="sc">+</span> </span>
-<span id="cb51-3"><a aria-hidden="true" tabindex="-1"></a>                              <span class="sc">+</span> <span class="fu">I</span>( year<span class="sc">^</span><span class="dv">4</span> ) <span class="sc">+</span> <span class="fu">I</span>( year<span class="sc">^</span><span class="dv">5</span> ) <span class="sc">+</span></span>
-<span id="cb51-4"><a aria-hidden="true" tabindex="-1"></a>                              <span class="sc">+</span> <span class="fu">I</span>( year<span class="sc">^</span><span class="dv">6</span> ))</span>
-<span id="cb51-5"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-6"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Model selection</span></span>
-<span id="cb51-7"><a aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(linear, order_6)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Fit order 6 model</span></span>
+<span id="cb56-2"><a aria-hidden="true" tabindex="-1"></a>order_6 <span class="ot">&lt;-</span> <span class="fu">lm</span>(percent <span class="sc">~</span> year  <span class="sc">+</span> <span class="fu">I</span>( year<span class="sc">^</span><span class="dv">2</span> ) <span class="sc">+</span> <span class="fu">I</span>( year<span class="sc">^</span><span class="dv">3</span> ) <span class="sc">+</span> </span>
+<span id="cb56-3"><a aria-hidden="true" tabindex="-1"></a>                              <span class="sc">+</span> <span class="fu">I</span>( year<span class="sc">^</span><span class="dv">4</span> ) <span class="sc">+</span> <span class="fu">I</span>( year<span class="sc">^</span><span class="dv">5</span> ) <span class="sc">+</span></span>
+<span id="cb56-4"><a aria-hidden="true" tabindex="-1"></a>                              <span class="sc">+</span> <span class="fu">I</span>( year<span class="sc">^</span><span class="dv">6</span> ))</span>
+<span id="cb56-5"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-6"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Model selection</span></span>
+<span id="cb56-7"><a aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(linear, order_6)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <pre class="verbatim"><code>
 Model 1: percent ~ year
 Model 2: percent ~ year + I(year^2) + I(year^3) + I(year^4) + I(year^5) + 
@@ -3856,7 +4232,7 @@ Model 2: percent ~ year + I(year^2) + I(year^3) + I(year^4) + I(year^5) +
 <li><p>What is going on? Let us plot the regression functions</p></li>
 </ul>
 </section>
-<section id="section-12" class="slide level2 smaller">
+<section id="section-25" class="slide level2 smaller">
 <h2></h2>
 <div class="column" style="width:45%;">
 <p><br></p>
@@ -3877,40 +4253,40 @@ Model 2: percent ~ year + I(year^2) + I(year^3) + I(year^4) + I(year^5) +
 <div class="cell">
 <details class="code-fold">
 <summary>Click here to show the full code</summary>
-<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Divorces data</span></span>
-<span id="cb53-2"><a aria-hidden="true" tabindex="-1"></a>year <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>,<span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">10</span>, <span class="dv">15</span>, <span class="dv">20</span>, <span class="dv">25</span>, <span class="dv">30</span>)</span>
-<span id="cb53-3"><a aria-hidden="true" tabindex="-1"></a>percent <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">3.51</span>, <span class="fl">9.5</span>, <span class="fl">8.91</span>, <span class="fl">9.35</span>, <span class="fl">8.18</span>, <span class="fl">6.43</span>, <span class="fl">5.31</span>, </span>
-<span id="cb53-4"><a aria-hidden="true" tabindex="-1"></a>             <span class="fl">5.07</span>, <span class="fl">3.65</span>, <span class="fl">3.8</span>, <span class="fl">2.83</span>, <span class="fl">1.51</span>, <span class="fl">1.27</span>, <span class="fl">0.49</span>)</span>
-<span id="cb53-5"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-6"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Fit linear model</span></span>
-<span id="cb53-7"><a aria-hidden="true" tabindex="-1"></a>linear <span class="ot">&lt;-</span> <span class="fu">lm</span>(percent <span class="sc">~</span> year)</span>
-<span id="cb53-8"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-9"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Fit order 6 model</span></span>
-<span id="cb53-10"><a aria-hidden="true" tabindex="-1"></a>order_6 <span class="ot">&lt;-</span> <span class="fu">lm</span>(percent <span class="sc">~</span> year  <span class="sc">+</span> <span class="fu">I</span>( year<span class="sc">^</span><span class="dv">2</span> ) <span class="sc">+</span> <span class="fu">I</span>( year<span class="sc">^</span><span class="dv">3</span> ) <span class="sc">+</span> </span>
-<span id="cb53-11"><a aria-hidden="true" tabindex="-1"></a>                                <span class="fu">I</span>( year<span class="sc">^</span><span class="dv">4</span> ) <span class="sc">+</span> <span class="fu">I</span>( year<span class="sc">^</span><span class="dv">5</span> ) <span class="sc">+</span></span>
-<span id="cb53-12"><a aria-hidden="true" tabindex="-1"></a>                                <span class="fu">I</span>( year<span class="sc">^</span><span class="dv">6</span> ))</span>
-<span id="cb53-13"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-14"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Scatter plot of data</span></span>
-<span id="cb53-15"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(year, percent, <span class="at">xlab =</span> <span class="st">""</span>, <span class="at">ylab =</span> <span class="st">""</span>, <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">cex =</span> <span class="dv">2</span>)</span>
-<span id="cb53-16"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-17"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Add labels</span></span>
-<span id="cb53-18"><a aria-hidden="true" tabindex="-1"></a><span class="fu">mtext</span>(<span class="st">"Years of marriage"</span>, <span class="at">side =</span> <span class="dv">1</span>, <span class="at">line =</span> <span class="dv">3</span>, <span class="at">cex =</span> <span class="fl">2.1</span>)</span>
-<span id="cb53-19"><a aria-hidden="true" tabindex="-1"></a><span class="fu">mtext</span>(<span class="st">"Risk of divorce by adultery"</span>, <span class="at">side =</span> <span class="dv">2</span>, <span class="at">line =</span> <span class="fl">2.5</span>, <span class="at">cex =</span> <span class="fl">2.1</span>)</span>
-<span id="cb53-20"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-21"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Plot Linear Vs Quadratic</span></span>
-<span id="cb53-22"><a aria-hidden="true" tabindex="-1"></a>polynomial <span class="ot">&lt;-</span> <span class="fu">Vectorize</span>(<span class="cf">function</span>(x, ps) {</span>
-<span id="cb53-23"><a aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">length</span>(ps)</span>
-<span id="cb53-24"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">sum</span>(ps<span class="sc">*</span>x<span class="sc">^</span>(<span class="dv">1</span><span class="sc">:</span>n<span class="dv">-1</span>))</span>
-<span id="cb53-25"><a aria-hidden="true" tabindex="-1"></a>}, <span class="st">"x"</span>)</span>
-<span id="cb53-26"><a aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">polynomial</span>(x, <span class="fu">coef</span>(linear)), <span class="at">add=</span><span class="cn">TRUE</span>, <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
-<span id="cb53-27"><a aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">polynomial</span>(x, <span class="fu">coef</span>(order_6)), <span class="at">add=</span><span class="cn">TRUE</span>, <span class="at">col =</span> <span class="st">"blue"</span>, <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span>
-<span id="cb53-28"><a aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">"topright"</span>, <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">"Linear"</span>, <span class="st">"Order 6"</span>), </span>
-<span id="cb53-29"><a aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"red"</span>, <span class="st">"blue"</span>), <span class="at">lty =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="at">cex =</span> <span class="dv">3</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Divorces data</span></span>
+<span id="cb58-2"><a aria-hidden="true" tabindex="-1"></a>year <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>,<span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">10</span>, <span class="dv">15</span>, <span class="dv">20</span>, <span class="dv">25</span>, <span class="dv">30</span>)</span>
+<span id="cb58-3"><a aria-hidden="true" tabindex="-1"></a>percent <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">3.51</span>, <span class="fl">9.5</span>, <span class="fl">8.91</span>, <span class="fl">9.35</span>, <span class="fl">8.18</span>, <span class="fl">6.43</span>, <span class="fl">5.31</span>, </span>
+<span id="cb58-4"><a aria-hidden="true" tabindex="-1"></a>             <span class="fl">5.07</span>, <span class="fl">3.65</span>, <span class="fl">3.8</span>, <span class="fl">2.83</span>, <span class="fl">1.51</span>, <span class="fl">1.27</span>, <span class="fl">0.49</span>)</span>
+<span id="cb58-5"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-6"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Fit linear model</span></span>
+<span id="cb58-7"><a aria-hidden="true" tabindex="-1"></a>linear <span class="ot">&lt;-</span> <span class="fu">lm</span>(percent <span class="sc">~</span> year)</span>
+<span id="cb58-8"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-9"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Fit order 6 model</span></span>
+<span id="cb58-10"><a aria-hidden="true" tabindex="-1"></a>order_6 <span class="ot">&lt;-</span> <span class="fu">lm</span>(percent <span class="sc">~</span> year  <span class="sc">+</span> <span class="fu">I</span>( year<span class="sc">^</span><span class="dv">2</span> ) <span class="sc">+</span> <span class="fu">I</span>( year<span class="sc">^</span><span class="dv">3</span> ) <span class="sc">+</span> </span>
+<span id="cb58-11"><a aria-hidden="true" tabindex="-1"></a>                                <span class="fu">I</span>( year<span class="sc">^</span><span class="dv">4</span> ) <span class="sc">+</span> <span class="fu">I</span>( year<span class="sc">^</span><span class="dv">5</span> ) <span class="sc">+</span></span>
+<span id="cb58-12"><a aria-hidden="true" tabindex="-1"></a>                                <span class="fu">I</span>( year<span class="sc">^</span><span class="dv">6</span> ))</span>
+<span id="cb58-13"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-14"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Scatter plot of data</span></span>
+<span id="cb58-15"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(year, percent, <span class="at">xlab =</span> <span class="st">""</span>, <span class="at">ylab =</span> <span class="st">""</span>, <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">cex =</span> <span class="dv">2</span>)</span>
+<span id="cb58-16"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-17"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Add labels</span></span>
+<span id="cb58-18"><a aria-hidden="true" tabindex="-1"></a><span class="fu">mtext</span>(<span class="st">"Years of marriage"</span>, <span class="at">side =</span> <span class="dv">1</span>, <span class="at">line =</span> <span class="dv">3</span>, <span class="at">cex =</span> <span class="fl">2.1</span>)</span>
+<span id="cb58-19"><a aria-hidden="true" tabindex="-1"></a><span class="fu">mtext</span>(<span class="st">"Risk of divorce by adultery"</span>, <span class="at">side =</span> <span class="dv">2</span>, <span class="at">line =</span> <span class="fl">2.5</span>, <span class="at">cex =</span> <span class="fl">2.1</span>)</span>
+<span id="cb58-20"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-21"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Plot Linear Vs Quadratic</span></span>
+<span id="cb58-22"><a aria-hidden="true" tabindex="-1"></a>polynomial <span class="ot">&lt;-</span> <span class="fu">Vectorize</span>(<span class="cf">function</span>(x, ps) {</span>
+<span id="cb58-23"><a aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">length</span>(ps)</span>
+<span id="cb58-24"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">sum</span>(ps<span class="sc">*</span>x<span class="sc">^</span>(<span class="dv">1</span><span class="sc">:</span>n<span class="dv">-1</span>))</span>
+<span id="cb58-25"><a aria-hidden="true" tabindex="-1"></a>}, <span class="st">"x"</span>)</span>
+<span id="cb58-26"><a aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">polynomial</span>(x, <span class="fu">coef</span>(linear)), <span class="at">add=</span><span class="cn">TRUE</span>, <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb58-27"><a aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">polynomial</span>(x, <span class="fu">coef</span>(order_6)), <span class="at">add=</span><span class="cn">TRUE</span>, <span class="at">col =</span> <span class="st">"blue"</span>, <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span>
+<span id="cb58-28"><a aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">"topright"</span>, <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">"Linear"</span>, <span class="st">"Order 6"</span>), </span>
+<span id="cb58-29"><a aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"red"</span>, <span class="st">"blue"</span>), <span class="at">lty =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="at">cex =</span> <span class="dv">3</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div>
 <figure>
-<p><img data-src="lecture_9_files/figure-revealjs/unnamed-chunk-20-1.png" width="960"></p>
+<p><img data-src="lecture_9_files/figure-revealjs/unnamed-chunk-22-1.png" width="960"></p>
 </figure>
 </div>
 </div>

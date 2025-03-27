@@ -1088,9 +1088,9 @@ Compute the *Residual Sum of Squares* and the estimator $S^2$
 $$
 \RSS = \sum_{i=1}^n (y_i - \hat{y}_i)^2 \,, \qquad  S^2 := \frac{\RSS}{n-2}
 $$
-Finally, compute the t-statistic
+Finally, compute the $\ese$ and t-statistic
 $$
-t = \frac{\hat \beta - b }{ \ese }  \,, \qquad \ese = \frac{S}{\sqrt{S_{xx}} }
+\ese = \frac{S}{\sqrt{S_{xx}} } \,, \qquad t = \frac{\hat \beta - b }{ \ese }  \ \sim \ t_{n-2}
 $$
 
 
@@ -1642,10 +1642,9 @@ $$
 \hat{y} = Z \hat{\beta} \,, \qquad 
 \RSS = \sum_{i=1}^n (y_i - \hat{y}_i)^2 \,, \qquad  S^2 := \frac{\RSS}{n-2}
 $$
-Finally, compute the t-statistic
+Finally, compute the $\ese$ and the t-statistic
 $$
-t = \frac{\hat \beta_j - b_j }{ \ese }  \,, \qquad \quad
-\ese = \xi_{jj}^{1/2} \, S 
+\ese = \xi_{jj}^{1/2} \, S\,, \qquad  t = \frac{\hat \beta_j - b_j }{ \ese } \ \sim \ t_{n-p} 
 $$
 
 

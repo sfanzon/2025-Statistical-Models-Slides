@@ -405,25 +405,13 @@
   </style>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
   <style>
-  .Warning {
+  .TODO {
+    --color1: #e7b1b4;
+    --color2: #8c3236;
+  }
+  .Lemma {
     --color1: #f4cce0;
     --color2: #db4d92;
-  }
-  .Problem {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Question {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Axiom {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Definition {
-    --color1: #c6e6ed;
-    --color2: #1995ad;
   }
   .Theorem {
     --color1: #f4cce0;
@@ -433,15 +421,23 @@
     --color1: #f4cce0;
     --color2: #db4d92;
   }
+  .Notation {
+    --color1: #c6e6ed;
+    --color2: #1995ad;
+  }
+  .Proof {
+    --color1: #f1f1f2;
+    --color2: #c0c0c1;
+  }
   .Example {
     --color1: #bce5de;
     --color2: #21aa93;
   }
-  .Lemma {
-    --color1: #f4cce0;
-    --color2: #db4d92;
+  .Remark {
+    --color1: #bce5de;
+    --color2: #21aa93;
   }
-  .Conjecture {
+  .Problem {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
@@ -449,31 +445,35 @@
     --color1: #f4cce0;
     --color2: #db4d92;
   }
-  .Notation {
-    --color1: #c6e6ed;
-    --color2: #1995ad;
-  }
-  .Remark {
-    --color1: #bce5de;
-    --color2: #21aa93;
-  }
-  .DONE {
-    --color1: #cce7b1;
-    --color2: #86b754;
+  .Conjecture {
+    --color1: #f4cce0;
+    --color2: #db4d92;
   }
   .Proposition {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
-  .TODO {
-    --color1: #e7b1b4;
-    --color2: #8c3236;
-  }
-  .Proof {
-    --color1: #f1f1f2;
-    --color2: #c0c0c1;
-  }
   .Corollary {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .DONE {
+    --color1: #cce7b1;
+    --color2: #86b754;
+  }
+  .Warning {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Question {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Definition {
+    --color1: #c6e6ed;
+    --color2: #1995ad;
+  }
+  .Axiom {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
@@ -3129,16 +3129,16 @@ x_i^2 + y_i^2 \leq 1
 <h2>Approximation of <span class="math inline">\pi</span> in R: Output</h2>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>After    10000 iterations pi is 3.14840000, error is 0.00680735
-After    20000 iterations pi is 3.15060000, error is 0.00900735
-After    30000 iterations pi is 3.16186667, error is 0.02027401
-After    40000 iterations pi is 3.15470000, error is 0.01310735
-After    50000 iterations pi is 3.15176000, error is 0.01016735
-After    60000 iterations pi is 3.15053333, error is 0.00894068
-After    70000 iterations pi is 3.14960000, error is 0.00800735
-After    80000 iterations pi is 3.15230000, error is 0.01070735
-After    90000 iterations pi is 3.15075556, error is 0.00916290
-After   100000 iterations pi is 3.15184000, error is 0.01024735</code></pre>
+<pre><code>After    10000 iterations pi is 3.16600000, error is 0.02440735
+After    20000 iterations pi is 3.13760000, error is 0.00399265
+After    30000 iterations pi is 3.13653333, error is 0.00505932
+After    40000 iterations pi is 3.13960000, error is 0.00199265
+After    50000 iterations pi is 3.13792000, error is 0.00367265
+After    60000 iterations pi is 3.13826667, error is 0.00332599
+After    70000 iterations pi is 3.14142857, error is 0.00016408
+After    80000 iterations pi is 3.14300000, error is 0.00140735
+After    90000 iterations pi is 3.14164444, error is 0.00005179
+After   100000 iterations pi is 3.14612000, error is 0.00452735</code></pre>
 </div>
 </div>
 <p><strong>Note:</strong></p>

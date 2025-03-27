@@ -58,7 +58,7 @@ $
 4. t-test for general regression
     * Test the significance of regression parameters
 
-5. F-test for general regression
+5. F-test for multiple regression
     * Test the overall significance of the parameters
 
 
@@ -1621,8 +1621,16 @@ $$
 ## Procedure: 3 Steps {.smaller}
 
 
-1. **Calculation**: Write down the design matrix $Z$ and compute
+1. **Calculation**: Write down the design matrix $Z$ and compute $(Z^TZ)^{-1}$
 $$
+Z :=
+\left(
+\begin{array}{ccc}
+z_{11} & \ldots & z_{1p} \\
+\ldots & \ldots & \ldots \\
+z_{n1} & \ldots & z_{np} \\
+\end{array}
+\right) \,, \qquad
 (Z^T Z)^{-1} =
 \left(
 \begin{array}{ccc}
@@ -2017,7 +2025,7 @@ $$
 
 
 
-# Part 5: <br>F-test for general regression {background-color="#cc0164" visibility="uncounted"}
+# Part 5: <br>F-test for multiple regression {background-color="#cc0164" visibility="uncounted"}
 
 ::: footer
 
@@ -2053,10 +2061,10 @@ $$
 
 The F-test for overall significance has 3 steps:
 
-1. Define a larger **full model** (with more parameters)
+1. Define a larger **Full Model** (with more parameters)
 
 
-2. Define a smaller nested **reduced model** (with fewer parameters)
+2. Define a smaller nested **Reduced Model** (with fewer parameters)
 
 
 3. Use an F-statistic to decide between larger or smaller model
@@ -2065,10 +2073,8 @@ The F-test for overall significance has 3 steps:
 
 ## Overall significance for multiple regression {.smaller}
 
-
-
-- Model 1 is the smaller **reduced model**
-- Model 2 is the larger **full model**
+- Model 1 is the smaller **Reduced Model**
+- Model 2 is the larger **Full Model**
 
 \begin{align*}
 \textbf{Model 1:} & \quad Y_i = \beta_1 + \e_i \\[15pt]
@@ -2076,20 +2082,21 @@ The F-test for overall significance has 3 steps:
 \end{align*}
 
 
-- Choosing the smaller Model 1 is equivalent to accepting $H_0$
+- Choosing the Full Model 2 is equivalent to rejecting $H_0$
 
 \begin{align*}
 H_0 & \colon \, \beta_2 = \beta_3 = \ldots = \beta_p = 0 \\
 H_1 & \colon \text{ At least one of the } \beta_i \text{ is non-zero}
 \end{align*}
 
+**Coefficients $\beta_i$ in both models are intended to be the components of the MLE $\hat \beta$**
 
 
 ## Overall significance for simple regression {.smaller}
 
 
-- Model 1 is the smaller **reduced model**
-- Model 2 is the larger **full model**
+- Model 1 is the smaller **Reduced Model**
+- Model 2 is the larger **Full Model**
 
 \begin{align*}
 \textbf{Model 1:} & \quad Y_i = \alpha + \e_i \\[15pt]
@@ -2097,30 +2104,32 @@ H_1 & \colon \text{ At least one of the } \beta_i \text{ is non-zero}
 \end{align*}
 
 
-- Choosing the smaller Model 1 is equivalent to accepting $H_0$
+- Choosing the Full Model 2 is equivalent to rejecting $H_0$
 
 \begin{align*}
 H_0 & \colon \beta = 0 \\
 H_1 & \colon \beta \neq 0 
 \end{align*}
 
+**Coefficients $\alpha, \beta$ in both models are intended to be the MLEs $\hat\alpha, \hat\beta$**
 
 
-## Construction of F-statistic {.smaller}
 
-- Consider the full model with $p$ parameters
+## RSS for the Full Model {.smaller}
+
+- Consider the Full Model with $p$ parameters
 
 $$
 \textbf{Model 2:}  \quad Y_i = \beta_1  + \beta_2 x_{i2} + \ldots + \beta_p x_{ip} + \e_i
 $$
 
-- Predictions for the full model are
+- Predictions for the Full Model are
 
 $$
-\hat y_i := \beta_1  + \beta_2 x_{i2} + \ldots + \beta_p x_{ip}  
+\hat y_i := \beta_1  + \beta_2 x_{i2} + \ldots + \beta_p x_{ip} \,, \quad \forall \, i = 1 , \ldots, n
 $$
 
-- Define the residual sum of squares for the full model
+- Define the *Residual Sum of Squares* for the Full Model
 
 $$
 \RSS(p) := \sum_{i=1}^n (y_i - \hat y_i)^2 
@@ -2128,23 +2137,23 @@ $$
 
 
 
-## Construction of F-statistic {.smaller}
 
+## RSS for the Reduced Model {.smaller}
 
-- Consider now the reduced model
+- Consider now the Reduced Model
 
 $$
 \textbf{Model 1:} \quad Y_i = \beta_1 + \e_i
 $$
 
 
-- Predictions of the reduced model are constant
+- Predictions of the Reduced Model are constant
 
 $$
-\hat y_i = \beta_1 
+\hat y_i = \beta_1 \,, \quad \forall \, i = 1 , \ldots, n
 $$
 
-- Define the residual sum of squares for the full model
+- Define the *Residual Sum of Squares* for the Reduced Model
 
 $$
 \RSS(1) := \sum_{i=1}^n (y_i - \beta_1)^2
@@ -2152,15 +2161,39 @@ $$
 
 
 
-## Construction of F-statistic {.smaller}
+## Property of the RSS {.smaller}
 
-- Suppose the parameters of the full model
+- Recall that $\RSS$ is defined via **minimization**
+$$
+\RSS(k) := \min_{\beta_1 , \ldots , \beta_k} \ \sum_{i=1}^n ( y_i - \hat y_i)^2 \,, \qquad 
+\hat y_i := \beta_1 + \beta_2 x_{i2} + \ldots + \beta_k x_{ik}
+$$
+with minumum achieved when $\beta$ coincides with the MLE $\hat \beta = (Z^TZ)^{-1}Z^Ty$
+
+- Therefore $\RSS$ cannot increase if we add parameters to the model
+
+$$
+\RSS(1) \geq \RSS(p)
+$$
+
+
+- In particular, we have that 
+
+$$
+\frac{\RSS(1) - \RSS (p)}{\RSS(p)} \geq 0
+$$
+
+
+
+## Deciding between the two models {.smaller}
+
+- Suppose the parameters of the Full Model
 $$
 \beta_2, \ldots, \beta_p
 $$
-are not important
+are not important (meaning that they are close to $0$)
 
-- In this case the predictions of full and reduced model will be similar
+- In this case the predictions of full and Reduced Model will be similar
 
 - Therefore the $\RSS$ for the 2 models are similar
 
@@ -2170,20 +2203,32 @@ $$
 
 
 
-## Construction of F-statistic {.smaller}
 
-- Recall that $\RSS$ is defined via minimization
+## Deciding between the two models {.smaller}
+
+- Suppose instead that the parameters of the Full Model
+$$
+\beta_2, \ldots, \beta_p
+$$
+are important (meaning that they are not close to $0$)
+
+
+- In this case the predictions of full and Reduced Model will be different
+
+- In particular, the Full Model will give much better predictions
+
+- This means the RSS for the Full Model will be **smaller**
 
 $$
-\RSS(k) := \min_{\beta_1 , \ldots , \beta_k} \ \sum_{i=1}^n ( y_i - \hat y_i)^2 \,, \qquad 
-\hat y_i := \beta_1 + \beta_2 x_{i2} + \ldots + \beta_k x_{ik}
+\RSS (1) \gg \RSS(p)
 $$
 
-- Therefore $\RSS$ cannot increase if we add parameters to the model
 
-$$
-\RSS(1) \geq \RSS(p)
-$$
+
+
+
+
+## Conclusion {.smaller}
 
 - To measure how influential the parameters $\beta_2, \ldots, \beta_p$ are, we study
 
@@ -2192,22 +2237,38 @@ $$
 $$
 
 
+- If parameters $\beta_2, \ldots, \beta_p$ are **not influential**, then 
+
+$$
+\RSS(1) \approx \RSS (p) \qquad \implies \qquad  \frac{\RSS(1) - \RSS (p)}{\RSS(p)} \approx 0
+$$
+
+
+- If parameters $\beta_2, \ldots, \beta_p$ are **influential**, then 
+
+$$
+\RSS(1) \gg \RSS (p) \qquad \implies \qquad  \frac{\RSS(1) - \RSS (p)}{\RSS(p)} \gg 0
+$$
+
+
+
+
 
 ## Construction of F-statistic {.smaller}
 
-- We now suitably rescale
+- In order to construct a meaningful statistic, we need to rescale the quantity
 
 $$
 \frac{\RSS(1) - \RSS (p)}{\RSS(p)}
 $$
 
-- To this end, note that the degrees of freedom of reduced model are 
+- Note that the degrees of freedom of Reduced Model (1 parameter) are 
 
 $$
 \df (1) = n - 1
 $$
 
-- The degrees of freedom of the full model are 
+- The degrees of freedom of the Full Model (p parameters) are 
 
 $$
 \df (p) = n - p
@@ -2261,21 +2322,21 @@ F & = \frac{\RSS(1) - \RSS (p)}{ p - 1 } \bigg/
 
 ## Proof of Proposition {.smaller}
 
-- Notice that $\TSS$ does not depend on $p$ since
-
+- Recall the definition of *Total Sum of Squares*
 $$
 \TSS = \sum_{i=1}^n (y_i - \overline{y})^2
 $$
 
+- Notice that the definition of $\TSS$ does not depend on $p$
 
-- Recall the definition of $R^2$
 
+- Recall the definition of $R^2$ for the Full Model (which has p parameters)
 $$
 R^2 = 1 - \frac{\RSS (p)}{\TSS} 
 $$
 
 
-- From the above we obtain
+- From the above, we obtain
 
 $$
 \RSS(p) = (1 - R^2) \TSS
@@ -2284,9 +2345,9 @@ $$
 
 
 
-## Proof of Proposition {.smaller}
+##  {.smaller}
 
-- By definition we have that 
+- By definition, we have that 
 
 $$
 \RSS(1) = \min_{\beta_1} \ \sum_{i=1}^n (y_i - \beta_1)^2 
@@ -2298,7 +2359,7 @@ $$
 \beta_1 = \overline{y}
 $$
 
-- Therefore we have
+- Therefore, we have
 
 $$
 \RSS(1) =  \sum_{i=1}^n (y_i - \overline{y})^2 = \TSS
@@ -2307,7 +2368,7 @@ $$
 
 
 
-## Proof of Proposition {.smaller}
+##  {.smaller}
 
 - We just obtained the two identities
 
@@ -2316,7 +2377,7 @@ $$
 $$
 
 
-- From the above we conclude the proof
+- From the above, we conclude the proof
 
 \begin{align*}
 F & = \frac{\RSS(1) - \RSS (p)}{ p - 1 } \bigg/ 
@@ -2340,9 +2401,9 @@ F = t^2 \,, \qquad \quad t = \frac{\hat \beta}{ S / \sqrt{S_{xx}}}
 $$
 where $t$ is the t-statistic for $\hat \beta$.
 
-2. In particular the p-values for t-test and F-test coincide
+2. In particular, the p-values for t-test and F-test coincide
 $$
-p = P( t_{n-2} > |t| ) = P( F_{1,n-2} > F )
+p = 2P( t_{n-2} > |t| ) = P( |t_{n-2}| > |t| )  = P( F_{1,n-2} > F )
 $$
 
 :::
@@ -2352,22 +2413,19 @@ $$
 
 
 
-## Summary: F-test for overall significance {.smaller}
+## The F-test for overall significance {.smaller}
 
-**Goal:** Test the **overall significance** of the model
+**Assumption:** Given data points $(x_{i2},\ldots , x_{ip},  y_i)$, consider the nested models
 
-$$
-Y_i = \beta_1  + \beta_2 x_{i2} + \ldots + \beta_p x_{ip} + \e_i
-$$
+\begin{align*}
+\textbf{Model 1:} & \quad Y_i = \beta_1 + \e_i  & \text{Reduced Model}\\[15pt]
+\textbf{Model 2:} & \quad Y_i = \beta_1  + \beta_2 x_{i2} + \ldots + \beta_p x_{ip} + \e_i & \text{Full Model}
+\end{align*}
 
-This means answering the question:
+**Goal:** Testing the *overall significance* of the parameters $\beta_2,\ldots, \beta_p$  
+(i.e. decide which model gives better predictions)
 
-$$
-\text{ Does at least one } X_i \text{ affect } Y \text{ ?}
-$$
-
-
-**Hypotheses:** The above question is equivalent to testing
+**Hypothesis:** Choosing the Full Model 2, is equivalent to rejecting $H_0$
 
 \begin{align*}
 H_0 & \colon \, \beta_2 = \beta_3 = \ldots = \beta_p = 0 \\
@@ -2376,37 +2434,61 @@ H_1 & \colon \text{ At least one of the } \beta_i \text{ is non-zero}
 
 
 
-## Summary: F-test for overall significance {.smaller}
+## Procedure: 3 Steps {.smaller}
 
-- F-statistic is
-
-\begin{align*}
-F & = \frac{\RSS(1) - \RSS (p)}{ p - 1 } \bigg/ 
-\frac{\RSS(p)}{n - p}  \\[15pt]
-  & = \frac{R^2}{1 - R^2} \, \cdot \, \frac{n - p}{p - 1} 
-\end{align*}
-
-- Distribution of $F$ is
-
+1. **Calculation**: Write design matrix $Z$, and compute MLE $\hat{\beta}$ and predictions $\hat{y}_i$
 $$
-F \, \sim  \, F_{p-1,n-p}
+Z =
+\left(
+\begin{array}{cccc}
+1 & x_{12} & \ldots & x_{1p} \\
+\ldots & \ldots & \ldots & \ldots \\
+1 & x_{n2} & \ldots & x_{np} \\
+\end{array}
+\right) \,, \qquad \hat{\beta} = (Z^TZ)^{-1} Z^T y \,, \qquad \hat{y} = Z \hat{\beta}
 $$
-
-
-
-
-
-## Summary: F-test for overall significance {.smaller}
-
-- The p-value is
-
+Compute the $\RSS$, $\TSS$ and $R^2$ coefficient for the Full Model
 $$
-p = P ( F_{p-1,n-2} > F)
+\RSS(p) = \sum_{i=1}^n (y_i - \hat{y}_i)^2 \,, \qquad 
+\TSS = \sum_{i=1}^n (y_i - \overline{y})^2\,, \qquad 
+R^2 = 1 - \frac{\RSS(p)}{\TSS}
+$$
+Finally, compute the F-statistic for *overall significance*
+$$
+F = \frac{R^2}{1 - R^2} \, \cdot \, \frac{n - p}{p - 1} \ \sim \ F_{p-1, n - p} 
 $$
 
 
-- **F-test in R:**
-    * Fit the multiple regression model with ``lm``
+
+## {.smaller}
+
+2. **Statistical Tables or R**: Find either
+    * Critical value $F^*$ in [Table 3](files/Statistics_Tables.pdf)
+    * p-value in R
+
+<br>
+
+3. **Interpretation**: Reject $H_0$ when either
+$$
+p < 0.05 \qquad \text{ or } \qquad F \in \,\,\text{Rejection Region}
+$$
+
+
+
+
+| Alternative                               | Rejection Region  | $F^*$              | p-value              |
+|-------------------------------------------|-------------------|--------------------|----------------------|
+| At least one of the $\beta_i$ is non-zero | $F > F^*$         | $F_{p-1,n-p}(0.05)$| $P(F_{p-1,n-p} > F)$ |
+: {tbl-colwidths="[25,25,25,25]"}
+
+
+
+## Implementation in R {.smaller}
+
+
+1. Fit the Full Model with ``lm``
+
+2. Read the *Summary*
     * F-statistic is listed in the summary
     * p-value is listed in the summary
 
@@ -2414,30 +2496,44 @@ $$
 
 
 
-## Example: Stock and Gold prices {.smaller}
+## Worked Example: Stock and Gold prices {.smaller}
 
 - Recall that 
-    * $Y =$ Gold Price
     * $X =$ Stock Price
+    * $Y =$ Gold Price
 
-- We want to test the **overall significance** of the model
+- Consider the simple linear regression model
 
-    $$
-    Y_i =  \alpha + \beta x_i + \e_i 
-    $$
+$$
+Y_i =  \alpha + \beta x_i + \e_i 
+$$
 
-- To this end, perform F-test for the hypotheses
+- We want to test the **overall significance** of the parameter $\beta$
+
+
+## {.smaller}
+
+- This means deciding which of the two models below gives better predictions
 
 \begin{align*}
-H_0 & \colon \beta = 0 \\
-H_1 & \colon \beta \neq 0
+\textbf{Model 1:} & \quad Y_i = \alpha + \e_i  & \text{Reduced Model}\\[15pt]
+\textbf{Model 2:} & \quad Y_i = \alpha  + \beta x_{i} + \e_i & \text{Full Model}
 \end{align*}
 
+- **Hypothesis:** Choosing the Full Model 2, is equivalent to rejecting $H_0$
+
+\begin{align*}
+H_0 & \colon \, \beta = 0 \\
+H_1 & \colon \, \beta \neq 0
+\end{align*}
+
+- Let us perform the F-test in R
 
 
 
 
-## F-test for overall significance {.smaller}
+
+##  {.smaller}
 
 - Recall that Stock Prices and Gold Prices are stored in R vectors
     * ``stock.price``
@@ -2447,7 +2543,7 @@ H_1 & \colon \beta \neq 0
 - Fit the simple linear model with the following commands
 
 $$
-\text{gold.price } = \alpha + \beta \, \times  \text{ stock.price } + \text{ error}
+\text{gold.price } = \alpha + \beta \, \times ( \text{ stock.price } ) + \text{ error}
 $$
 
 
@@ -2472,18 +2568,21 @@ summary(fit.model)
 ::::
   
 
-- F-statistic is $F = 20.27$ 
+- The computed F-statistic is $F = 20.27$ 
 
-- Degrees of freedom are $1$ and $31$, meaning that $F \, \sim \, F_{1,31}$
+- There are $n = 33$ data points, and $p = 2$ parameters in the Full Model
 
-- The p-value is 
-
+- Therefore, the degrees of freedom are
 $$
-p = P( F_{1,31} > F ) = 8.904 \times 10^{-5}
+{\rm df}_1 = p - 1 = 2 - 1 = 1 \,, \qquad 
+{\rm df}_2 = n - p = 33 - 2 = 31
 $$
+These are listed in the output, after the F-statistic
 
-
-- **Conclusion:** Strong evidence ($p=0.000$) that *Stock Price* affects *Gold Price*
+- In particular, we have that the F-statistic has distribution 
+$$
+F \ \sim \ F_{{\rm df}_1, {\rm df}_2} = F_{1,31}
+$$
 
 
 
@@ -2500,7 +2599,31 @@ $$
 ::::
   
 
-We can also compute F-statistic by hand
+- The computed p-value is 
+$$
+p = P( F_{1,31} > F ) = 8.904 \times 10^{-5}
+$$
+
+
+- **Conclusion:** Strong evidence ($p=0.000$) that the parameter $\beta$ is significant
+    * Going back to the model, this means that *Stock Price* affects *Gold Price*
+
+
+
+
+
+## Output: F-statistic and p-value {.smaller}
+
+:::: {.columns}
+
+::: {.column width="100%"}
+![](images/simple_regression_output_cut_3.png){width=80%}
+:::
+
+::::
+  
+
+We could also compute F-statistic by hand
 
 - From the output we see that $R^2 = 0.3953$
 
@@ -2526,13 +2649,24 @@ $$
 
 ::::
   
-- The p-value cannot be computed by hand
 
-- However we can find critical values close to $F_{1,31} (0.05)$ in [Table 3](files/Statistics_Tables.pdf)
+- Similarly, the p-value could be computed by hand
 
 $$
-F_{1, 30} (0.05) = 4.17 \,, \qquad \quad  F_{1, 40} (0.05) = 4.08
+p = P( F_{1,31} > F ) = 8.904 \times 10^{-5}
 $$
+
+```{r}
+#| echo: true
+F <- 20.267    # Input the precise value, rather than the rounded one given in Summary
+n <- 33
+p <- 2
+
+p.value <- 1 - pf(F, df1 = p - 1, df2 = n - p)
+
+cat("The p-value is", p.value)
+``` 
+
 
 
 
@@ -2546,16 +2680,20 @@ $$
 
 ::::
 
-- We can approximate $F_{1,31} (0.05)$ by averaging the found values
 
+- We can also find critical value $F_{1,31} (0.05)$, by finding its closest values in [Table 3](files/Statistics_Tables.pdf)
+$$
+F_{1, 30} (0.05) = 4.17 \,, \qquad \quad  F_{1, 40} (0.05) = 4.08
+$$
+
+- Approximate $F_{1,31} (0.05)$ by averaging the above values
 $$
 F_{1,31}(0.05) \, \approx  \,  \frac{F_{1, 30} (0.05) +  F_{1, 40} (0.05)}{2} = 4.125
 $$
 
-- We reject $H_0$ since
-
+- We reject $H_0$, since
 $$
-F = 20.267 > 4.125 = F_{1,31}(0.05) \quad \implies \quad  p < 0.05
+F = 20.267 > F_{1,31}(0.05) = 4.125  \quad \implies \quad  p < 0.05
 $$
 
 
@@ -2574,23 +2712,47 @@ $$
 
 
 
-## Longley dataset {.smaller}
+## Longley macroeconomic dataset {.smaller}
+### 7 economical variables, observed yearly 1947--1962 (16 years)
+
+
+:::: {.columns}
+
+::: {.column width="100%"}
+![](images/longley.png){width=100%}
+:::
+
+:::
+
+
+::: footer
+
+<div color="#cc0164">  </div>
+
+:::
+
+
+
+
+
+## {.smaller}
 
 ```{r}
 longley <- read.table(file = "datasets/longley.txt",
                       header = TRUE)
 
-head(longley,n=3)
+head(longley, n = 3)     # Prints the first 3 rows of dataset
 ```
-
 
 **Goal:** Explain the number of *Employed* people $Y$ in the US in terms of
 
-- $X_2$ *GNP* Gross National Product
-- $X_3$ number of *Unemployed*
-- $X_4$ number of people in the *Armed Forces*
-- $X_5$ *non-institutionalised Population* $\geq$ age 14 (not in care of insitutions)
-- $X_6$ *Years* from 1947 to 1962
+- $X_2$ *GNP.deflator*: Coefficient for adjusting the Gross National Product for inflation  
+($1954 = 100$, meaning that the yearly GDP has to be adjusted for inflation with reference to the last year, which is 1954)
+- $X_3$ *GNP*: The yearly Gross National Product in billion dollars
+- $X_4$ *Unemployed*: The number of unemployed people in 
+- $X_5$ *Armed.Forces*: Number of people in the Armed Forces
+- $X_6$ *Population*:  The non-institutionalised population $\geq$ age 14 (not in care of insitutions)
+- $X_7$ *Year*: We have yearly data from 1947 to 1962
 
 
 
@@ -2952,7 +3114,7 @@ The model does really well because it is **trivial**
     H_0 & \colon \, \beta_2 = \beta_3 = \ldots = \beta_p = 0 \\
     H_1 & \colon \text{ At least one of the } \beta_i \text{ is non-zero}
     \end{align*}
-    * Choosing Model 1 is equivalent to accepting $H_0$
+    * Choosing the Full Model 2 is equivalent to rejecting $H_0$
 
 
 
@@ -3310,14 +3472,14 @@ head(longley,n=3)
 We therefore want to select between the models:
 
 
-- **Model 1:** The reduced model without $X_2$ and $X_5$
+- **Model 1:** The Reduced Model without $X_2$ and $X_5$
 
 $$
 Y = \beta_1 + \beta_3 X_3 + \beta_4 X_4 + 
        \beta_6 X_6 + \e
 $$
 
-- **Model 2:** The full model
+- **Model 2:** The Full Model
 
 $$
 Y = \beta_1 + \beta_2 X_2 + \beta_3 X_3 + \beta_4 X_4 + 
@@ -3625,7 +3787,7 @@ anova(model.1, model.2, test = "F")
 
 - The p-value is $p = 0.1026 > 0.05$
 - This means we cannot reject $H_0$
-- Therefore the reduced Model 1 has to be preferred
+- Therefore the Reduced Model 1 has to be preferred
 - This gives statistical evidence that $X_2$ and $X_5$ can be excluded from the model
 - *GNP* and *Non-institutionalised* do not affect *Number of Employed*
 

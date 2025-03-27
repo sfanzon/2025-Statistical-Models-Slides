@@ -2712,7 +2712,7 @@ $$
 
 
 
-## Longley macroeconomic dataset {.smaller}
+## Longley US macroeconomic dataset {.smaller}
 ### 7 economical variables, observed yearly 1947--1962 (16 years)
 
 
@@ -2735,29 +2735,69 @@ $$
 
 
 
-## {.smaller}
+##  {.smaller}
+
+::: {style="font-size: 0.92em"}
+
+- The Longley dataset was analyzed by J.W. Longley in his 1967 paper [@longley]
+
+- It is stored in R by default, in the variable ``longley``
+
+- The first line of ``help(longley)`` reads:
+    * *A macroeconomic data set which provides a well-known example for a highly collinear regression*
+
+- We will see next time what *highly collinear* means
+
+- For convenience, you can also download the Longley dataset here [longley.txt](datasets/longley.txt)
+
+- Download the file and place it in current working directory
+
+- Let us load the dataset and read the first 3 lines
 
 ```{r}
-longley <- read.table(file = "datasets/longley.txt",
-                      header = TRUE)
+#| echo: true
+longley <- read.table(file = "datasets/longley.txt", header = TRUE)
 
 head(longley, n = 3)     # Prints the first 3 rows of dataset
 ```
 
-**Goal:** Explain the number of *Employed* people $Y$ in the US in terms of
-
-- $X_2$ *GNP.deflator*: Coefficient for adjusting the Gross National Product for inflation  
-($1954 = 100$, meaning that the yearly GDP has to be adjusted for inflation with reference to the last year, which is 1954)
-- $X_3$ *GNP*: The yearly Gross National Product in billion dollars
-- $X_4$ *Unemployed*: The number of unemployed people in 
-- $X_5$ *Armed.Forces*: Number of people in the Armed Forces
-- $X_6$ *Population*:  The non-institutionalised population $\geq$ age 14 (not in care of insitutions)
-- $X_7$ *Year*: We have yearly data from 1947 to 1962
+:::
 
 
 
 
-## R commands for reading in the data {.smaller}
+## {.smaller}
+
+
+```{r}
+longley <- read.table(file = "datasets/longley.txt", header = TRUE)
+
+head(longley, n = 3)     # Prints the first 3 rows of dataset
+```
+
+::: {style="font-size: 0.30em"}
+
+<br>
+
+:::
+
+| #   | Name            | Description |
+|-----|----------------|-------------|
+| $X_2$  | GNP.deflator   | Coefficient for adjusting GNP for inflation ($1954 = 100$)  (1954 is reference year: other years need adjusting) |
+| $X_3$  | GNP           | Yearly Gross National Product (in Billion Dollars)  |
+| $X_4$  | Unemployed    | Number of unemployed people (in thousands)  |
+| $X_5$  | Armed.Forces  | Number of people in the Armed Forces (in thousands) |
+| $X_6$  | Population    | Non-institutionalized Population $\geq$ age 14 (in thousands) (People $\geq 14$ not in Armed Forces or care of institutions) |
+| $X_7$  | Year          | The year in which the data is recorded. Range: 1947–1962 |
+| $Y$   | Employed      | Number of employed people (in thousands) |
+: {tbl-colwidths="[5,10,85]"}
+
+
+
+
+## Analyzing the Longley Dataset {.smaller}
+
+**Goal:** Explain the number of *Employed* people $Y$ in terms of $X_i$ variables
 
 - Longley dataset available here [longley.txt](datasets/longley.txt)
 
@@ -2765,32 +2805,32 @@ head(longley, n = 3)     # Prints the first 3 rows of dataset
 
 ```r
 # Read data file
-longley <- read.table(file = "longley.txt",
-                      header = TRUE)
+longley <- read.table(file = "longley.txt", header = TRUE)
 
 # Store columns in vectors
-x2 <- longley[ , 1]
-x3 <- longley[ , 2]
-x4 <- longley[ , 3]
-x5 <- longley[ , 4]
-x6 <- longley[ , 5]
-y <- longley[ , 6]
+x2 <- longley[ , 1]        # GNP Deflator
+x3 <- longley[ , 2]        # GNP
+x4 <- longley[ , 3]        # Unemployed
+x5 <- longley[ , 4]        # Armed Forces
+x6 <- longley[ , 5]        # Population
+x7 <- longley[ , 6]        # Year
+y <- longley[ , 7]         # Employed
 ```
 
 
-## R commands for fitting multiple regression {.smaller}
+## Fitting multiple regression {.smaller}
 
 - We want to fit the multiple regression model
 
 $$
 Y = \beta_1 + \beta_2 \, X_2 + \beta_3 \, X_3 + \beta_4 \, X_4 + \beta_5 \, X_5
-    + \beta_6 \, X_6 + \e
+    + \beta_6 \, X_6 + \beta_7 \, X_7 + \e
 $$
 
 
 ```r
 # Fit multiple regression model
-model <- lm(y ~ x2 + x3 + x4 + x5 + x6)
+model <- lm(y ~ x2 + x3 + x4 + x5 + x6 + x7)
 
 # Print summary
 summary(model)
@@ -2800,32 +2840,42 @@ summary(model)
 
 - Full code can be downloaded here [longley_regression.R](codes/longley_regression.R)
 
+- Output is in the next slide
+
 
 ##  {.smaller}
 
 :::: {.columns}
 
 ::: {.column width="100%"}
-![](images/longley_output.png){width=70%}
+![](images/longley_output.png){width=73%}
 :::
 
 ::::
+
+::: footer
+
+<div color="#cc0164">  </div>
+
+:::
+
 
 
 
 ## Interpreting R output {.smaller}
 
-We are interested in the following information
+We are interested in the following information:
 
-1. The $R^2$ statistic
+1. Coefficient of determination $R^2$
 
-2. The individual t-statistics
+2. Individual t-statistics for the parameters $\beta_i$
 
-3. The F-statistic to assess overall significance
+3. F-statistic to assess overall significance of parameters $\beta_i$
 
 
 
-## The $R^2$ statistic {.smaller}
+
+## 1. Coefficient of determination $R^2$ {.smaller}
 
 :::: {.columns}
 
@@ -2837,16 +2887,17 @@ We are interested in the following information
 
 - We have that $R^2=0.9955$ 
 
-- $R^2$ is very high which suggests we might have quite a good model
+- $R^2$ is very high, which suggests we might have quite a good model
 
 - This means the model explains around 99.6\% of the variability in the data
 
-- There is a chance $R^2$ is too high to be true (see later)
+- There is a chance $R^2$ is too high to be true  
+(This means the model is *overfitting* - More on this later)
 
 
 
 
-## The individual t-statistics {.smaller}
+## 2. Individual t-statistics {.smaller}
 
 - Look at p-values for each variable $X_j$
 
@@ -2881,13 +2932,17 @@ $$
 
 
 
-## The individual t-statistics {.smaller}
+##  {.smaller}
 
 ::: {.column width="100%"}
 ![](images/longley_output_3.png){width=83%}
 :::
 
-- Stars in output help you find the significant p-values
+<br>
+
+**Stars in output help you find the significant p-values**
+
+<br>
 
 | Significance code       | p-value               |  Coefficient        |
 |:------------------    |:----------              |:-----------------   |
@@ -2921,9 +2976,9 @@ $$
 :::
 
 1. Intercept has two stars $\, \texttt{**}$ and hence is significant
-    * The p-value is $p = 0.001932$
-    * Since $p < 0.05$ we conclude that the real intercept is $\beta_1 \neq 0$
-    * Estimated intercept is $\hat \beta_1 = -3.45 \times 10^{3}$
+    * The p-value is $p = 0.00356$
+    * Since $p < 0.05$, we conclude that the real intercept is $\beta_1 \neq 0$
+    * Estimated intercept is $\hat \beta_1 = -3.482 \times 10^{3}$
 
 
 
@@ -2935,12 +2990,12 @@ $$
 :::
 
 
-2. $X_2$ and $X_5$ have no stars
-    * p-values are $p \geq 0.1$ and therefore  $\beta_2 = \beta_5 = 0$
-    * Notice that the estimates $\hat \beta_2$ and $\hat \beta_5$ are not zero
-    * However these estimates have to be ignored due to t-test
-    * $X_2$ and $X_5$ have no effect on $Y$
-    * Hence *GNP* and *Non-Institutionalized* do not affect *Number of Employed*
+2. $X_2, X_3, X_6$ have no stars
+    * p-values are $p \geq 0.1$ and therefore the real $\beta_2 = \beta_3 = \beta_6 = 0$
+    * Notice that the ML Estimators $\hat{\beta}_2, \hat{\beta}_3, \hat{\beta}_6$ are not zero
+    * However, these estimates have to be ignored as t-test is not significant
+    * $X_2, X_3, X_6$ have no effect on $Y$
+    * Hence *GNP Deflator, GNP* and *Population* do not affect *Number of Employed*
 
 
 
@@ -2952,27 +3007,12 @@ $$
 :::
 
 
-3. $X_3$ has three stars $\, \texttt{***}$ and hence is significant
-    * Since $p<0.05$ we have that $\beta_3 \neq 0$
-    * Estimated coefficient is $\hat \beta_3 < 0$
-    * Since $\hat \beta_3 < 0$ we have that $X_3$ negatively affects $Y$
-    * As the *Number of Unemployed* increases the *Number of Employed* decreases
-
-
-
-
-##  {.smaller}
-
-::: {.column width="100%"}
-![](images/longley_output_2.png){width=68%}
-:::
-
-
-4. $X_4$ has three stars $\, \texttt{***}$ and hence is significant
+3. $X_4$ has two stars $\, \texttt{**}$, and hence is significant
     * Since $p<0.05$ we have that $\beta_4 \neq 0$
     * Estimated coefficient is $\hat \beta_4 < 0$
-    * Therefore $X_4$ negatively affects $Y$
-    * As the size of *Armed Forces* increases the *Number of Employed* decreases
+    * Since $\hat \beta_4 < 0$, we have that $X_4$ negatively affects $Y$
+    * As the *Number of Unemployed* increases, the *Number of Employed* decreases
+
 
 
 
@@ -2983,17 +3023,32 @@ $$
 :::
 
 
-5. $X_6$ has two stars $\, \texttt{**}$ and hence is significant
-    * Since $p<0.05$ we have that $\beta_6 \neq 0$
-    * Estimated coefficient is $\hat \beta_6 > 0$
-    * Therefore $X_6$ positively affects $Y$
-    * Remember that $X_6$ is the *Year*
-    * The *Number of Employed* is increasing every year from 1947 to 1962
+4. $X_5$ has three stars $\, \texttt{***}$, and hence is significant
+    * Since $p<0.05$, we have that $\beta_5 \neq 0$
+    * Estimated coefficient is $\hat \beta_5 < 0$
+    * Therefore $X_5$ negatively affects $Y$
+    * As the size of *Armed Forces* increases, the *Number of Employed* decreases
+
+
+
+##  {.smaller}
+
+::: {.column width="100%"}
+![](images/longley_output_2.png){width=68%}
+:::
+
+
+5. $X_7$ has two stars $\, \texttt{**}$, and hence is significant
+    * Since $p<0.05$ we have that $\beta_7 \neq 0$
+    * Estimated coefficient is $\hat \beta_7 > 0$
+    * Therefore $X_7$ positively affects $Y$
+    * Remember that $X_7$ is the *Year*
+    * The *Number of Employed* is generally increasing from 1947 to 1962
 
 
 
 
-## The F-statistic to assess overall significance {.smaller}
+## 3. F-statistic to assess overall significance {.smaller}
 
 :::: {.columns}
 
@@ -3003,18 +3058,18 @@ $$
 
 ::::
 
-- The F-statistic is $F = 438.8$ with distribution $F_{5, 10}$
+- The F-statistic is $F = 330.3$, with distribution $F_{6, 9}$
 
-- The p-value for F-test is $p = 2.242 \times 10^{-11} < 0.05$
+- The p-value for F-test is $p = 4.984 \times 10^{-10} < 0.05$
 
-- Recall: Such p-value refers to the F-test for
+- Recall: F-statistic and p-value refer to the F-test for
 
 $$
 H_0 \colon \, \beta_2 =  \ldots = \beta_6 = 0  \,, \qquad 
 H_1 \colon \, \text{At least one } \beta_j \neq 0
 $$
 
-- Since $p < 0.05$ we reject $H_0$
+- Since $p < 0.05$, we reject $H_0$
 
 - There is evidence that at least one of the $X$-variables affects $Y$
 
@@ -3023,16 +3078,15 @@ $$
 ## Conclusions {.smaller}
 
 
-- There is evidence that at least one of the $X$-variables affects $Y$
+- From F-test: There is evidence that at least one of the $X$-variables affects $Y$
 
-- We have seen that 
-    * $X_2$ and $X_5$ do not affect $Y$
-    * $X_3$ and $X_4$ negatively affect $Y$
-    * $X_6$ positively affects $Y$
+- From individual t-tests, we have:
+    * $X_2, X_3, X_6$ do not affect $Y$
+    * $X_4$ and $X_5$ negatively affect $Y$
+    * $X_7$ positively affects $Y$
 
-- The $R^2$ statistic is really high:
+- Coefficient of determination $R^2$ is really high:
     * The model explains around 99.6% of the variability in the data
-
 
 
 

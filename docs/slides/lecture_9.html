@@ -425,23 +425,39 @@
   </style>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
   <style>
-  .Remark {
-    --color1: #bce5de;
-    --color2: #21aa93;
-  }
-  .Proof {
-    --color1: #f1f1f2;
-    --color2: #c0c0c1;
-  }
-  .Question {
-    --color1: #f4cce0;
-    --color2: #db4d92;
+  .Notation {
+    --color1: #c6e6ed;
+    --color2: #1995ad;
   }
   .Definition {
     --color1: #c6e6ed;
     --color2: #1995ad;
   }
-  .Warning {
+  .Question {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Idea {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Conjecture {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Corollary {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Remark {
+    --color1: #bce5de;
+    --color2: #21aa93;
+  }
+  .Axiom {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Proposition {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
@@ -449,29 +465,29 @@
     --color1: #f4cce0;
     --color2: #db4d92;
   }
-  .Problem {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Notation {
-    --color1: #c6e6ed;
-    --color2: #1995ad;
-  }
-  .Conjecture {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
   .Example {
     --color1: #bce5de;
     --color2: #21aa93;
   }
-  .Corollary {
+  .Warning {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Problem {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
   .Lemma {
     --color1: #f4cce0;
     --color2: #db4d92;
+  }
+  .DONE {
+    --color1: #cce7b1;
+    --color2: #86b754;
+  }
+  .Proof {
+    --color1: #f1f1f2;
+    --color2: #c0c0c1;
   }
   .Important {
     --color1: #f4cce0;
@@ -480,22 +496,6 @@
   .TODO {
     --color1: #e7b1b4;
     --color2: #8c3236;
-  }
-  .Proposition {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Axiom {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Idea {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .DONE {
-    --color1: #cce7b1;
-    --color2: #86b754;
   }
   </style>
 </head>
@@ -2460,7 +2460,6 @@ Y_i = \beta_1  + \beta_2 x_{i2} + \ldots + \beta_p x_{ip} + \varepsilon_i
 H_0 &amp; \colon \, \beta_2 = \beta_3 = \ldots = \beta_p = 0 \\
 H_1 &amp; \colon \text{ At least one of the } \beta_i \text{ is non-zero}
 \end{align*}</span></p>
-<p><strong>Coefficients <span class="math inline">\beta_i</span> in both models are intended to be the components of the MLE <span class="math inline">\hat \beta</span></strong></p>
 </section>
 <section id="overall-significance-for-simple-regression" class="slide level2 smaller">
 <h2>Overall significance for simple regression</h2>
@@ -2490,10 +2489,10 @@ H_1 &amp; \colon \beta \neq 0
 \textbf{Model 2:}  \quad Y_i = \beta_1  + \beta_2 x_{i2} + \ldots + \beta_p x_{ip} + \varepsilon_i
 </span></p>
 <ul>
-<li>Predictions for the Full Model are</li>
+<li>Denote by <span class="math inline">\hat \beta</span> the MLE for the Full Model. Therefore, predictions are</li>
 </ul>
 <p><span class="math display">
-\hat y_i := \beta_1  + \beta_2 x_{i2} + \ldots + \beta_p x_{ip} \,, \quad \forall \, i = 1 , \ldots, n
+\hat y_i := \hat{\beta}_1  + \hat{\beta}_2 x_{i2} + \ldots + \hat{\beta}_p x_{ip} \,, \quad \forall \, i = 1 , \ldots, n \,,
 </span></p>
 <ul>
 <li>Define the <em>Residual Sum of Squares</em> for the Full Model</li>
@@ -2511,16 +2510,16 @@ H_1 &amp; \colon \beta \neq 0
 \textbf{Model 1:} \quad Y_i = \beta_1 + \varepsilon_i
 </span></p>
 <ul>
-<li>Predictions of the Reduced Model are constant</li>
+<li>Denote by <span class="math inline">\hat{\beta}_1</span> the MLE for the Reduced Model. Therefore, predictions are</li>
 </ul>
 <p><span class="math display">
-\hat y_i = \beta_1 \,, \quad \forall \, i = 1 , \ldots, n
+\hat y_i = \hat{\beta}_1 \,, \quad \forall \, i = 1 , \ldots, n
 </span></p>
 <ul>
 <li>Define the <em>Residual Sum of Squares</em> for the Reduced Model</li>
 </ul>
 <p><span class="math display">
-\mathop{\mathrm{RSS}}(1) := \sum_{i=1}^n (y_i - \beta_1)^2
+\mathop{\mathrm{RSS}}(1) := \sum_{i=1}^n (y_i - \hat{\beta}_1)^2
 </span></p>
 </section>
 <section id="property-of-the-rss" class="slide level2 smaller">
@@ -2544,51 +2543,60 @@ H_1 &amp; \colon \beta \neq 0
 </section>
 <section id="deciding-between-the-two-models" class="slide level2 smaller">
 <h2>Deciding between the two models</h2>
+<div style="font-size: 0.95em">
+<p>The hypothesis for deciding between the two model is <span class="math display">\begin{align*}
+H_0 &amp; \colon \, \beta_2 = \beta_3 = \ldots = \beta_p = 0 \\
+H_1 &amp; \colon \text{ At least one of the } \beta_i \text{ is non-zero}
+\end{align*}</span></p>
 <ul>
-<li><p>Suppose the parameters of the Full Model <span class="math display">
-\beta_2, \ldots, \beta_p
-</span> are not important (meaning that they are close to <span class="math inline">0</span>)</p></li>
-<li><p>In this case the predictions of full and Reduced Model will be similar</p></li>
-<li><p>Therefore the <span class="math inline">\mathop{\mathrm{RSS}}</span> for the 2 models are similar</p></li>
+<li><p>Suppose the null hypothesis <span class="math inline">H_0</span> holds</p></li>
+<li><p>In this case, the Reduced Model and Full models are the same</p></li>
+<li><p>Therefore, predictions of Full and Reduced Model will be similar</p></li>
+<li><p>Hence, the <span class="math inline">\mathop{\mathrm{RSS}}</span> for the 2 models are similar</p></li>
 </ul>
 <p><span class="math display">
 \mathop{\mathrm{RSS}}(1) \, \approx \, \mathop{\mathrm{RSS}}(p)
 </span></p>
+</div>
 </section>
 <section id="deciding-between-the-two-models-1" class="slide level2 smaller">
 <h2>Deciding between the two models</h2>
+<div style="font-size: 0.95em">
+<p>The hypothesis for deciding between the two model is <span class="math display">\begin{align*}
+H_0 &amp; \colon \, \beta_2 = \beta_3 = \ldots = \beta_p = 0 \\
+H_1 &amp; \colon \text{ At least one of the } \beta_i \text{ is non-zero}
+\end{align*}</span></p>
 <ul>
-<li><p>Suppose instead that the parameters of the Full Model <span class="math display">
-\beta_2, \ldots, \beta_p
-</span> are important (meaning that they are not close to <span class="math inline">0</span>)</p></li>
-<li><p>In this case the predictions of full and Reduced Model will be different</p></li>
-<li><p>In particular, the Full Model will give much better predictions</p></li>
-<li><p>This means the RSS for the Full Model will be <strong>smaller</strong></p></li>
-</ul>
-<p><span class="math display">
+<li><p>Suppose instead that the alternative hypothesis <span class="math inline">H_1</span> holds</p></li>
+<li><p>In this case the predictions of Full and Reduced Model will be different</p></li>
+<li><p>As already noted, in general it holds that <span class="math display">
+\mathop{\mathrm{RSS}}(1) \geq \mathop{\mathrm{RSS}}(p)
+</span></p></li>
+<li><p>From <span class="math inline">H_1</span>, we know that some of the extra parameters <span class="math inline">\beta_2 , \ldots, \beta_p</span> are non zero</p></li>
+<li><p>Thus, Full Model will give better predictions <span class="math inline">\implies \mathop{\mathrm{RSS}}(p)</span> is <strong>much smaller</strong> <span class="math display">
 \mathop{\mathrm{RSS}}(1) \gg \mathop{\mathrm{RSS}}(p)
-</span></p>
+</span></p></li>
+</ul>
+</div>
 </section>
-<section id="conclusion-1" class="slide level2 smaller">
-<h2>Conclusion</h2>
-<ul>
-<li>To measure how influential the parameters <span class="math inline">\beta_2, \ldots, \beta_p</span> are, we study</li>
-</ul>
-<p><span class="math display">
-\frac{\mathop{\mathrm{RSS}}(1) - \mathop{\mathrm{RSS}}(p)}{\mathop{\mathrm{RSS}}(p)}
-</span></p>
-<ul>
-<li>If parameters <span class="math inline">\beta_2, \ldots, \beta_p</span> are <strong>not influential</strong>, then</li>
-</ul>
-<p><span class="math display">
-\mathop{\mathrm{RSS}}(1) \approx \mathop{\mathrm{RSS}}(p) \qquad \implies \qquad  \frac{\mathop{\mathrm{RSS}}(1) - \mathop{\mathrm{RSS}}(p)}{\mathop{\mathrm{RSS}}(p)} \approx 0
-</span></p>
-<ul>
-<li>If parameters <span class="math inline">\beta_2, \ldots, \beta_p</span> are <strong>influential</strong>, then</li>
-</ul>
-<p><span class="math display">
-\mathop{\mathrm{RSS}}(1) \gg \mathop{\mathrm{RSS}}(p) \qquad \implies \qquad  \frac{\mathop{\mathrm{RSS}}(1) - \mathop{\mathrm{RSS}}(p)}{\mathop{\mathrm{RSS}}(p)} \gg 0
-</span></p>
+<section id="conclusion-2-cases" class="slide level2 smaller">
+<h2>Conclusion: 2 cases</h2>
+<div style="font-size: 0.95em">
+<ol type="1">
+<li>Choose the Reduced Model:</li>
+</ol>
+<p><span class="math display">\begin{align*}
+H_0 \,\, \text{ holds } &amp; \, \iff \,  \beta_2 = \ldots =  \beta_p = 0 \\[15pt]
+&amp; \, \iff \, \mathop{\mathrm{RSS}}(1) \approx \mathop{\mathrm{RSS}}(p) \, \iff \, \frac{\mathop{\mathrm{RSS}}(1) - \mathop{\mathrm{RSS}}(p)}{\mathop{\mathrm{RSS}}(p)} \approx 0
+\end{align*}</span></p>
+<ol start="2" type="1">
+<li>Choose the Full Model:</li>
+</ol>
+<p><span class="math display">\begin{align*}
+H_1 \,\, \text{ holds } &amp; \, \iff \, \exists \,\, i \, \text{ s.t.  } \, \beta_i \neq 0 \\[15pt]
+&amp; \, \iff \, \mathop{\mathrm{RSS}}(1) \gg \mathop{\mathrm{RSS}}(p) \, \iff \, \frac{\mathop{\mathrm{RSS}}(1) - \mathop{\mathrm{RSS}}(p)}{\mathop{\mathrm{RSS}}(p)} \gg 0
+\end{align*}</span></p>
+</div>
 </section>
 <section id="construction-of-f-statistic" class="slide level2 smaller">
 <h2>Construction of F-statistic</h2>
@@ -2696,21 +2704,41 @@ F &amp; = \frac{\mathop{\mathrm{RSS}}(1) - \mathop{\mathrm{RSS}}(p)}{ p - 1 } \b
   &amp; = \frac{R^2}{1 - R^2} \, \cdot \, \frac{n - p}{p - 1}
 \end{align*}</span></p>
 </section>
-<section id="f-statistic-for-simple-regression" class="slide level2 smaller">
-<h2>F-statistic for simple regression</h2>
-<div id="Proposition*-6.3" class="Proposition">
-<details class="Proposition fbx-simplebox fbx-default" open=""><summary><strong>Proposition</strong></summary><div>
+<section id="testing-overall-significance" class="slide level2 smaller">
+<h2>Testing overall significance</h2>
+<ul>
+<li><p><strong>Recall:</strong> We want to test the <em>overall significance</em> of the parameters <span class="math inline">\beta_2,\ldots, \beta_p</span></p></li>
+<li><p>This means deciding which model gives better predictions between <span class="math display">\begin{align*}
+\textbf{Model 1:} &amp; \quad Y_i = \beta_1 + \varepsilon_i  &amp; \text{Reduced Model}\\[15pt]
+\textbf{Model 2:} &amp; \quad Y_i = \beta_1  + \beta_2 x_{i2} + \ldots + \beta_p x_{ip} + \varepsilon_i &amp; \text{Full Model}
+\end{align*}</span></p></li>
+<li><p>To make a decision, we have formulated the hypothesis <span class="math display">\begin{align*}
+H_0 &amp; \colon \, \beta_2 = \beta_3 = \ldots = \beta_p = 0 \\
+H_1 &amp; \colon \text{ At least one of the } \beta_i \text{ is non-zero}
+\end{align*}</span></p></li>
+<li><p><span class="math inline">H_0</span> favors Model 1</p></li>
+<li><p><span class="math inline">H_1</span> favors Model 2</p></li>
+</ul>
+</section>
+<section id="section-16" class="slide level2 smaller">
+<h2></h2>
+<div style="font-size: 0.95em">
+<p>We use the F-statistic to decide between the two models <span class="math display">
+F = \frac{\mathop{\mathrm{RSS}}(1) - \mathop{\mathrm{RSS}}(p)}{ p - 1 } \bigg/
+\frac{\mathop{\mathrm{RSS}}(p)}{n - p}
+</span></p>
 <ol type="1">
-<li><p>The <span class="math inline">F</span>-statistic for overall significance in simple regression is <span class="math display">
-F = t^2 \,, \qquad \quad t = \frac{\hat \beta}{ S / \sqrt{S_{xx}}}
-</span> where <span class="math inline">t</span> is the t-statistic for <span class="math inline">\hat \beta</span>.</p></li>
-<li><p>In particular, the p-values for t-test and F-test coincide <span class="math display">
-p = 2P( t_{n-2} &gt; |t| ) = P( |t_{n-2}| &gt; |t| )  = P( F_{1,n-2} &gt; F )
-</span></p></li>
+<li><p>Choose the Reduced Model: <span class="math display">\begin{align*}
+H_0 \,\, \text{ holds }  \, \iff \,  \beta_2 = \ldots =  \beta_p = 0
+  \, \iff \, \mathop{\mathrm{RSS}}(1) \approx \mathop{\mathrm{RSS}}(p) \, \iff \, F \approx 0
+\end{align*}</span></p></li>
+<li><p>Choose the Full Model: <span class="math display">\begin{align*}
+H_1 \,\, \text{ holds }  \, \iff \, \exists \,\, i \, \text{ s.t.  } \, \beta_i \neq 0
+  \, \iff \, \mathop{\mathrm{RSS}}(1) \gg \mathop{\mathrm{RSS}}(p) \, \iff \, F \gg 0
+\end{align*}</span></p></li>
 </ol>
-</div></details>
+<p><strong>Therefore, the test is one-sided: <span class="math inline">\,\,</span> Reject <span class="math inline">H_0 \iff F \gg 0</span></strong></p>
 </div>
-<p><strong>Proof:</strong> Will be left as an exercise</p>
 </section>
 <section id="the-f-test-for-overall-significance" class="slide level2 smaller">
 <h2>The F-test for overall significance</h2>
@@ -2748,7 +2776,7 @@ F = \frac{R^2}{1 - R^2} \, \cdot \, \frac{n - p}{p - 1} \ \sim \ F_{p-1, n - p}
 </span></li>
 </ol>
 </section>
-<section id="section-16" class="slide level2 smaller">
+<section id="section-17" class="slide level2 smaller">
 <h2></h2>
 <ol start="2" type="1">
 <li><strong>Statistical Tables or R</strong>: Find either
@@ -2799,6 +2827,22 @@ p &lt; 0.05 \qquad \text{ or } \qquad F \in \,\,\text{Rejection Region}
 </ul></li>
 </ol>
 </section>
+<section id="f-statistic-for-simple-regression" class="slide level2 smaller">
+<h2>F-statistic for simple regression</h2>
+<div id="Proposition*-6.3" class="Proposition">
+<details class="Proposition fbx-simplebox fbx-default" open=""><summary><strong>Proposition</strong></summary><div>
+<ol type="1">
+<li><p>The <span class="math inline">F</span>-statistic for overall significance in simple regression is <span class="math display">
+F = t^2 \,, \qquad \quad t = \frac{\hat \beta}{ S / \sqrt{S_{xx}}}
+</span> where <span class="math inline">t</span> is the t-statistic for <span class="math inline">\hat \beta</span>.</p></li>
+<li><p>In particular, the p-values for t-test and F-test coincide <span class="math display">
+p = 2P( t_{n-2} &gt; |t| ) = P( |t_{n-2}| &gt; |t| )  = P( F_{1,n-2} &gt; F )
+</span></p></li>
+</ol>
+</div></details>
+</div>
+<p><strong>Proof:</strong> Will be left as an exercise</p>
+</section>
 <section id="worked-example-stock-and-gold-prices-2" class="slide level2 smaller">
 <h2>Worked Example: Stock and Gold prices</h2>
 <ul>
@@ -2816,7 +2860,7 @@ Y_i =  \alpha + \beta x_i + \varepsilon_i
 <li>We want to test the <strong>overall significance</strong> of the parameter <span class="math inline">\beta</span></li>
 </ul>
 </section>
-<section id="section-17" class="slide level2 smaller">
+<section id="section-18" class="slide level2 smaller">
 <h2></h2>
 <ul>
 <li>This means deciding which of the two models below gives better predictions</li>
@@ -2836,7 +2880,7 @@ H_1 &amp; \colon \, \beta \neq 0
 <li>Let us perform the F-test in R</li>
 </ul>
 </section>
-<section id="section-18" class="slide level2 smaller">
+<section id="section-19" class="slide level2 smaller">
 <h2></h2>
 <ul>
 <li>Recall that Stock Prices and Gold Prices are stored in R vectors
@@ -2970,7 +3014,7 @@ F = 20.267 &gt; F_{1,31}(0.05) = 4.125  \quad \implies \quad  p &lt; 0.05
 </div>
 </div>
 </section>
-<section id="section-19" class="slide level2 smaller">
+<section id="section-20" class="slide level2 smaller">
 <h2></h2>
 <div style="font-size: 0.92em">
 <ul>
@@ -2998,7 +3042,7 @@ F = 20.267 &gt; F_{1,31}(0.05) = 4.125  \quad \implies \quad  p &lt; 0.05
 </div>
 </div>
 </section>
-<section id="section-20" class="slide level2 smaller">
+<section id="section-21" class="slide level2 smaller">
 <h2></h2>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
@@ -3102,7 +3146,7 @@ Y = \beta_1 + \beta_2 \, X_2 + \beta_3 \, X_3 + \beta_4 \, X_4 + \beta_5 \, X_5
 <li><p>Output is in the next slide</p></li>
 </ul>
 </section>
-<section id="section-21" class="slide level2 smaller">
+<section id="section-22" class="slide level2 smaller">
 <h2></h2>
 <div class="columns">
 <div class="column" style="width:100%;">
@@ -3166,7 +3210,7 @@ H_1 \colon \, \beta_j \neq 0
 </ul></li>
 </ul>
 </div></section>
-<section id="section-22" class="slide level2 smaller">
+<section id="section-23" class="slide level2 smaller">
 <h2></h2>
 <div class="column" style="width:100%;">
 <p><img data-src="images/longley_output_3.png" style="width:83.0%"></p>
@@ -3215,7 +3259,7 @@ H_1 \colon \, \beta_j \neq 0
 </tbody>
 </table>
 </section>
-<section id="section-23" class="slide level2 smaller">
+<section id="section-24" class="slide level2 smaller">
 <h2></h2>
 <div class="column" style="width:100%;">
 <p><img data-src="images/longley_output_2.png" style="width:68.0%"></p>
@@ -3225,7 +3269,7 @@ H_1 \colon \, \beta_j \neq 0
 <li>Significant variables have at least one star</li>
 </ul>
 </section>
-<section id="section-24" class="slide level2 smaller">
+<section id="section-25" class="slide level2 smaller">
 <h2></h2>
 <div class="column" style="width:100%;">
 <p><img data-src="images/longley_output_2.png" style="width:68.0%"></p>
@@ -3238,7 +3282,7 @@ H_1 \colon \, \beta_j \neq 0
 </ul></li>
 </ol>
 </section>
-<section id="section-25" class="slide level2 smaller">
+<section id="section-26" class="slide level2 smaller">
 <h2></h2>
 <div class="column" style="width:100%;">
 <p><img data-src="images/longley_output_2.png" style="width:68.0%"></p>
@@ -3253,7 +3297,7 @@ H_1 \colon \, \beta_j \neq 0
 </ul></li>
 </ol>
 </section>
-<section id="section-26" class="slide level2 smaller">
+<section id="section-27" class="slide level2 smaller">
 <h2></h2>
 <div class="column" style="width:100%;">
 <p><img data-src="images/longley_output_2.png" style="width:68.0%"></p>
@@ -3267,7 +3311,7 @@ H_1 \colon \, \beta_j \neq 0
 </ul></li>
 </ol>
 </section>
-<section id="section-27" class="slide level2 smaller">
+<section id="section-28" class="slide level2 smaller">
 <h2></h2>
 <div class="column" style="width:100%;">
 <p><img data-src="images/longley_output_2.png" style="width:68.0%"></p>
@@ -3281,7 +3325,7 @@ H_1 \colon \, \beta_j \neq 0
 </ul></li>
 </ol>
 </section>
-<section id="section-28" class="slide level2 smaller">
+<section id="section-29" class="slide level2 smaller">
 <h2></h2>
 <div class="column" style="width:100%;">
 <p><img data-src="images/longley_output_2.png" style="width:68.0%"></p>
@@ -3352,7 +3396,7 @@ H_1 \colon \, \text{At least one } \beta_j \neq 0
 <li>Despite higher <span class="math inline">R^2</span>, the model might not make good predictions</li>
 </ul>
 </section>
-<section id="section-29" class="slide level2 smaller">
+<section id="section-30" class="slide level2 smaller">
 <h2></h2>
 <p><strong>Overfitting Example:</strong> Think of a polynomial passing through all the data points</p>
 <ul>

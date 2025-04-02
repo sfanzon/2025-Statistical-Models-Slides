@@ -425,7 +425,7 @@
   </style>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
   <style>
-  .Conjecture {
+  .Axiom {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
@@ -433,23 +433,7 @@
     --color1: #f4cce0;
     --color2: #db4d92;
   }
-  .DONE {
-    --color1: #cce7b1;
-    --color2: #86b754;
-  }
-  .Notation {
-    --color1: #c6e6ed;
-    --color2: #1995ad;
-  }
   .Important {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Lemma {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Axiom {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
@@ -457,9 +441,9 @@
     --color1: #f4cce0;
     --color2: #db4d92;
   }
-  .Warning {
-    --color1: #f4cce0;
-    --color2: #db4d92;
+  .TODO {
+    --color1: #e7b1b4;
+    --color2: #8c3236;
   }
   .Proof {
     --color1: #f1f1f2;
@@ -469,19 +453,11 @@
     --color1: #c6e6ed;
     --color2: #1995ad;
   }
-  .Remark {
-    --color1: #bce5de;
-    --color2: #21aa93;
+  .Lemma {
+    --color1: #f4cce0;
+    --color2: #db4d92;
   }
-  .TODO {
-    --color1: #e7b1b4;
-    --color2: #8c3236;
-  }
-  .Example {
-    --color1: #bce5de;
-    --color2: #21aa93;
-  }
-  .Theorem {
+  .Conjecture {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
@@ -489,13 +465,37 @@
     --color1: #f4cce0;
     --color2: #db4d92;
   }
+  .DONE {
+    --color1: #cce7b1;
+    --color2: #86b754;
+  }
+  .Remark {
+    --color1: #bce5de;
+    --color2: #21aa93;
+  }
   .Question {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
+  .Theorem {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Notation {
+    --color1: #c6e6ed;
+    --color2: #1995ad;
+  }
   .Corollary {
     --color1: #f4cce0;
     --color2: #db4d92;
+  }
+  .Warning {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Example {
+    --color1: #bce5de;
+    --color2: #21aa93;
   }
   </style>
 </head>
@@ -523,8 +523,8 @@
 
 </section>
 <section>
-<section id="lecture-10-practical-regression" class="title-slide slide level1 center" data-background-color="#cc0164" data-visibility="uncounted">
-<h1>Lecture 10: <br>Practical regression</h1>
+<section id="lecture-10-model-selection-regression-assumptions" class="title-slide slide level1 center" data-background-color="#cc0164" data-visibility="uncounted">
+<h1>Lecture 10: <br> Model Selection &amp; <br> Regression Assumptions</h1>
 <div class="footer">
 <div color="#cc0164">
 
@@ -534,16 +534,16 @@
 <section id="outline-of-lecture-10" class="slide level2 smaller">
 <h2>Outline of Lecture 10</h2>
 <ol type="1">
-<li>Model selection
+<li>Model Selection
 <ul>
 <li>Comparison of nested regression models</li>
 </ul></li>
-<li>Examples of model selection</li>
+<li>Examples of Model Selection</li>
 </ol>
 </section></section>
 <section>
 <section id="part-1-model-selection" class="title-slide slide level1 center" data-background-color="#cc0164" data-visibility="uncounted">
-<h1>Part 1: <br> Model selection <br></h1>
+<h1>Part 1: <br> Model Selection <br></h1>
 <div class="footer">
 <div color="#cc0164">
 
@@ -552,86 +552,114 @@
 </section>
 <section id="testing-regression-parameters" class="slide level2 smaller">
 <h2>Testing regression parameters</h2>
-<p><strong>Summary:</strong> We have seen</p>
+<p><strong>Summary:</strong> In Lecture 10 we have studied t-test and F-test for regression parameters:</p>
+<ol type="1">
+<li><strong>t-test:</strong> Consider the <em>general linear regression model</em></li>
+</ol>
+<p><span class="math display">
+Y_i = \beta_1 z_{i1} + \ldots + \beta_{ip} z_{ip} + \varepsilon_i \,, \qquad
+\varepsilon_i \, \text{ iid } \, N(0, \sigma^2)
+</span></p>
 <ul>
-<li><strong>t-test</strong>
-<ul>
-<li>Test the significance of individual parameters <span class="math display">\begin{align*}
-  H_0 &amp; \colon \, \beta_j = 0 \\
-  H_1 &amp; \colon \, \beta_j \neq 0
-  \end{align*}</span></li>
-</ul></li>
+<li>We have that</li>
 </ul>
+<p><span class="math display">
+Z_j \,\, \text{ affects } \,\, Y \qquad \iff \qquad
+\beta_j \neq 0
+</span></p>
+<ul>
+<li>To see if <span class="math inline">Z_j</span> affects <span class="math inline">Y</span>, we introduced <strong>t-test</strong> for the hypothesis</li>
+</ul>
+<p><span class="math display">\begin{align*}
+H_0 \colon  &amp; \beta_j = 0 \\
+H_1 \colon &amp; \beta_j \neq 0
+\end{align*}</span></p>
 </section>
 <section id="testing-regression-parameters-1" class="slide level2 smaller">
 <h2>Testing regression parameters</h2>
+<ol start="2" type="1">
+<li><strong>F-test:</strong> We considered two <strong>nested</strong> multiple regression models <span class="math display">\begin{align*}
+\textbf{Model 1:} &amp; \qquad Y_ i= \beta_1 + \varepsilon_i \\[10pt]
+\textbf{Model 2:} &amp; \qquad Y_ i= \beta_1 + \beta_2 x_{i2}+ \ldots + \beta_p x_{ip} + \varepsilon_i
+\end{align*}</span></li>
+</ol>
 <ul>
-<li><strong>F-test</strong>
+<li>We tested the <strong>Overall Significance</strong> of the parameters <span class="math inline">\beta_2 , \ldots, \beta_p</span>
 <ul>
-<li>Test the overall significance of the model</li>
-<li>This is done by comparing two <strong>nested</strong> regression models <span class="math display">\begin{align*}
-  \textbf{Model 1:} &amp; \qquad Y_ i= \beta_1 + \varepsilon_i \\[10pt]
-  \textbf{Model 2:} &amp; \qquad Y_ i= \beta_1 + \beta_2 x_{2, i}+ \ldots + \beta_p x_{p, i} + \varepsilon_i
-  \end{align*}</span></li>
-<li>The comparison is achieved with F-test for <span class="math display">\begin{align*}
-  H_0 &amp; \colon \, \beta_2 = \beta_3 = \ldots = \beta_p = 0 \\
-  H_1 &amp; \colon \text{ At least one of the } \beta_i \text{ is non-zero}
-  \end{align*}</span></li>
-<li>Choosing the Full Model 2 is equivalent to rejecting <span class="math inline">H_0</span></li>
+<li>This means choosing which model makes better predictions</li>
 </ul></li>
+<li>The comparison is achieved with <strong>F-test</strong> for the hypothesis</li>
 </ul>
+<p><span class="math display">\begin{align*}
+H_0 &amp; \colon \, \beta_2 = \beta_3 = \ldots = \beta_p = 0 \\
+H_1 &amp; \colon \text{ At least one of the } \beta_i \text{ is non-zero}
+\end{align*}</span></p>
 </section>
 <section id="more-general-nested-models" class="slide level2 smaller">
 <h2>More general nested models</h2>
-<ul>
-<li>Consider the more general <strong>nested</strong> models</li>
-</ul>
+<p>Consider the more general <strong>nested</strong> multiple regression models</p>
 <p><span class="math display">\begin{align*}
-    \textbf{Model 1:} &amp; \quad Y_ i =\beta_1 + \beta_2 x_{2, i}+ \ldots + \beta_{k} x_{k, i} + \varepsilon_i \\[10pt]
-    \textbf{Model 2:} &amp; \quad Y_ i= \beta_1 + \beta_2 x_{2, i}+ \ldots + \beta_{k} x_{k, i} + \beta_{k + 1} x_{k + 1, i} +
-    \ldots + \beta_{p} x_{p, i} + \varepsilon_i
+    \textbf{Model 1:} &amp; \quad Y_ i =\beta_1 + \beta_2 x_{i2}+ \ldots + \beta_{k} x_{ik} + \varepsilon_i \\[10pt]
+    \textbf{Model 2:} &amp; \quad Y_ i= \beta_1 + \beta_2 x_{i2}+ \ldots + \beta_{k} x_{ik} + \beta_{k + 1} x_{i(k + 1)} +
+    \ldots + \beta_{p} x_{ip} + \varepsilon_i
 \end{align*}</span></p>
 <ul>
 <li><p>Model 1 has k parameters</p></li>
-<li><p>Model 2 has p parameters with <span class="math inline">p &gt; k</span></p></li>
-<li><p>The two models coincide if</p></li>
+<li><p>Model 2 has p parameters, with <span class="math inline">p &gt; k</span></p></li>
+<li><p>The two models coincide if and only if all the extra parameters are zero</p></li>
 </ul>
 <p><span class="math display">
 \beta_{k + 1} = \beta_{k + 2} = \ldots = \beta_p = 0
 </span></p>
-<p><strong>Question:</strong> How do we decide which model is better?</p>
 </section>
 <section id="model-selection" class="slide level2 smaller">
-<h2>Model selection</h2>
-<ul>
-<li>Consider the more general <strong>nested</strong> models</li>
-</ul>
+<h2>Model Selection</h2>
+<p>Consider the more general <strong>nested</strong> multiple regression models</p>
 <p><span class="math display">\begin{align*}
-    \textbf{Model 1:} &amp; \quad Y_ i =\beta_1 + \beta_2 x_{2, i}+ \ldots + \beta_{k} x_{k, i} + \varepsilon_i \\[10pt]
-    \textbf{Model 2:} &amp; \quad Y_ i= \beta_1 + \beta_2 x_{2, i}+ \ldots + \beta_{k} x_{k, i} + \beta_{k + 1} x_{k + 1, i} +
-    \ldots + \beta_{p} x_{p, i} + \varepsilon_i
+    \textbf{Model 1:} &amp; \quad Y_ i =\beta_1 + \beta_2 x_{i2}+ \ldots + \beta_{k} x_{ik} + \varepsilon_i \\[10pt]
+    \textbf{Model 2:} &amp; \quad Y_ i= \beta_1 + \beta_2 x_{i2}+ \ldots + \beta_{k} x_{ik} + \beta_{k + 1} x_{i(k + 1)} +
+    \ldots + \beta_{p} x_{ip} + \varepsilon_i
+\end{align*}</span></p>
+<p><strong>Question:</strong> How do we decide which model is better?</p>
+<p><strong>Answer:</strong> Test hypothesis for <em>Model Selection</em></p>
+<p><span class="math display">\begin{align*}
+H_0 \colon &amp; \, \beta_{k+1} = \beta_{k+2} = \ldots  = \beta_p = 0 \\[5pt]
+H_1 \colon &amp; \, \text{ At least one among } \beta_{k+1}, \ldots, \beta_p \text{ is non-zero}
 \end{align*}</span></p>
 <ul>
-<li>Define the predictions for the two models</li>
+<li><span class="math inline">H_0</span> is in favor of Model 1 <span class="math inline">\qquad \quad H_1</span> is in favor of Model 2</li>
+</ul>
+</section>
+<section id="comparing-the-two-models" class="slide level2 smaller">
+<h2>Comparing the two Models</h2>
+<p>Consider the more general <strong>nested</strong> multiple regression models</p>
+<p><span class="math display">\begin{align*}
+    \textbf{Model 1:} &amp; \quad Y_ i =\beta_1 + \beta_2 x_{i2}+ \ldots + \beta_{k} x_{ik} + \varepsilon_i \\[10pt]
+    \textbf{Model 2:} &amp; \quad Y_ i= \beta_1 + \beta_2 x_{i2}+ \ldots + \beta_{k} x_{ik} + \beta_{k + 1} x_{i(k + 1)} +
+    \ldots + \beta_{p} x_{ip} + \varepsilon_i
+\end{align*}</span></p>
+<p><strong>Goal:</strong> Formulate a statistic to decide between the 2 Models</p>
+<ul>
+<li><p>First, calculate ML Estimators <span class="math inline">\hat{\beta}^1</span> and <span class="math inline">\hat{\beta}^2</span> for Models 1 and 2, respectively</p></li>
+<li><p>With the MLEs, define the predictions for the two models</p></li>
 </ul>
 <p><span class="math display">\begin{align*}
-\hat y_i^1 &amp; := \beta_1 + \beta_2 x_{2, i}+ \ldots + \beta_{k} x_{k, i} \\[10pt]
-\hat y_i^2 &amp; :=  \beta_1 + \beta_2 x_{2, i}+ \ldots + \beta_{k} x_{k, i} + \beta_{k + 1} x_{k + 1, i} +
-    \ldots + \beta_{p} x_{p, i}
+\hat y_i^1 &amp; := \hat{\beta}_1^{1} + \hat{\beta}_2^1 x_{i2}+ \ldots + \hat{\beta}_{k}^1 x_{ik} \\[10pt]
+\hat y_i^2 &amp; :=  \hat{\beta}_1^2 + \hat{\beta}_2^2 x_{i2}+ \ldots + \hat{\beta}_{k}^2 x_{ik} + \hat{\beta}_{k + 1}^2 x_{i(k + 1)} +
+    \ldots + \hat{\beta}_{p}^2 x_{ip}
 \end{align*}</span></p>
 </section>
-<section id="model-selection-1" class="slide level2 smaller">
-<h2>Model selection</h2>
-<ul>
-<li>Consider the more general <strong>nested</strong> models</li>
-</ul>
+<section id="comparing-the-two-models-1" class="slide level2 smaller">
+<h2>Comparing the two Models</h2>
+<p>Consider the more general <strong>nested</strong> multiple regression models</p>
 <p><span class="math display">\begin{align*}
-    \textbf{Model 1:} &amp; \quad Y_ i =\beta_1 + \beta_2 x_{2, i}+ \ldots + \beta_{k} x_{k, i} + \varepsilon_i \\[10pt]
-    \textbf{Model 2:} &amp; \quad Y_ i= \beta_1 + \beta_2 x_{2, i}+ \ldots + \beta_{k} x_{k, i} + \beta_{k + 1} x_{k + 1, i} +
-    \ldots + \beta_{p} x_{p, i} + \varepsilon_i
+    \textbf{Model 1:} &amp; \quad Y_ i =\beta_1 + \beta_2 x_{i2}+ \ldots + \beta_{k} x_{ik} + \varepsilon_i \\[10pt]
+    \textbf{Model 2:} &amp; \quad Y_ i= \beta_1 + \beta_2 x_{i2}+ \ldots + \beta_{k} x_{ik} + \beta_{k + 1} x_{i(k + 1)} +
+    \ldots + \beta_{p} x_{ip} + \varepsilon_i
 \end{align*}</span></p>
 <ul>
-<li><span class="math inline">\mathop{\mathrm{RSS}}</span> measures variation between data and prediction</li>
+<li><p>Recall: The <span class="math inline">\mathop{\mathrm{RSS}}</span> measures variation between data and prediction</p></li>
+<li><p>Compute the <span class="math inline">\mathop{\mathrm{RSS}}</span> for both models</p></li>
 </ul>
 <p><span class="math display">\begin{align*}
     \textbf{Model 1:} &amp; \quad \mathop{\mathrm{RSS}}_1 := \mathop{\mathrm{RSS}}(k) = \sum_{i=1}^n (y_i - \hat y_i^1)^2 \\[10pt]
@@ -640,62 +668,88 @@
 </section>
 <section id="extra-sum-of-squares" class="slide level2 smaller">
 <h2>Extra sum of squares</h2>
-<ul>
-<li>Consider the more general <strong>nested</strong> models</li>
-</ul>
-<p><span class="math display">\begin{align*}
-    \textbf{Model 1:} &amp; \quad Y_ i =\beta_1 + \beta_2 x_{2, i}+ \ldots + \beta_{k} x_{k, i} + \varepsilon_i \\[10pt]
-    \textbf{Model 2:} &amp; \quad Y_ i= \beta_1 + \beta_2 x_{2, i}+ \ldots + \beta_{k} x_{k, i} + \beta_{k + 1} x_{k + 1, i} +
-    \ldots + \beta_{p} x_{p, i} + \varepsilon_i
-\end{align*}</span></p>
-<ul>
-<li>The <strong>extra sum of squares</strong> is the difference</li>
-</ul>
+<div id="Definition*-2.1" class="Definition">
+<p></p><details class="Definition fbx-simplebox fbx-default" open=""><summary><strong>Definition</strong></summary><div>The <strong>extra sum of squares</strong> is the difference<p></p>
 <p><span class="math display">
 \mathop{\mathrm{RSS}}_1 - \mathop{\mathrm{RSS}}_2 := \mathop{\mathrm{RSS}}(k) - \mathop{\mathrm{RSS}}(p)
 </span></p>
+</div></details>
+</div>
+<p><strong>Recall:</strong> <span class="math inline">\mathop{\mathrm{RSS}}</span> cannot increase if we increase the number of parameteres <span class="math display">
+k &lt; p \quad \implies \quad \mathop{\mathrm{RSS}}(k) \geq \mathop{\mathrm{RSS}}(p)
+</span> (this is because <span class="math inline">\mathop{\mathrm{RSS}}</span> is defined via minimization, as already remarked in Lecture 10)</p>
+<p><strong>Remark:</strong> In particular, we deduce that the <em>Extra Sum of Squares</em> is non-negative <span class="math display">
+\mathop{\mathrm{RSS}}_1 - \mathop{\mathrm{RSS}}_2 \geq 0
+</span></p>
+</section>
+<section id="deciding-between-the-two-models" class="slide level2 smaller">
+<h2>Deciding between the two models</h2>
+<div style="font-size: 0.95em">
+<p>The hypothesis for deciding between the two model is <span class="math display">\begin{align*}
+H_0 \colon &amp; \, \beta_{k+1} = \beta_{k+2} = \ldots  = \beta_p = 0 \\[5pt]
+H_1 \colon &amp; \, \text{ At least one among } \beta_{k+1}, \ldots, \beta_p \text{ is non-zero}
+\end{align*}</span></p>
+<ul>
+<li><p>Suppose the null hypothesis <span class="math inline">H_0</span> holds</p></li>
+<li><p>In this case, the two Models are the same</p></li>
+<li><p>Therefore, predictions will be similar</p></li>
+<li><p>Hence, the <span class="math inline">\mathop{\mathrm{RSS}}</span> for the 2 models are similar</p></li>
+</ul>
+<p><span class="math display">
+\mathop{\mathrm{RSS}}_1 \, \approx \, \mathop{\mathrm{RSS}}_2
+</span></p>
+</div>
+</section>
+<section id="deciding-between-the-two-models-1" class="slide level2 smaller">
+<h2>Deciding between the two models</h2>
+<div style="font-size: 0.95em">
+<p>The hypothesis for deciding between the two model is <span class="math display">\begin{align*}
+H_0 \colon &amp; \, \beta_{k+1} = \beta_{k+2} = \ldots  = \beta_p = 0 \\[5pt]
+H_1 \colon &amp; \, \text{ At least one among } \beta_{k+1}, \ldots, \beta_p \text{ is non-zero}
+\end{align*}</span></p>
+<ul>
+<li><p>Suppose instead that the alternative hypothesis <span class="math inline">H_1</span> holds</p></li>
+<li><p>As already noted, in general it holds that <span class="math display">
+\mathop{\mathrm{RSS}}_1 \geq \mathop{\mathrm{RSS}}_2
+</span></p></li>
+<li><p>From <span class="math inline">H_1</span>, we know that some of the extra parameters <span class="math inline">\beta_{k+1} , \ldots, \beta_p</span> are non-zero</p></li>
+<li><p>Thus, Model 2 will give better predictions <span class="math inline">\implies \mathop{\mathrm{RSS}}_2</span> is <strong>much smaller</strong> <span class="math display">
+\mathop{\mathrm{RSS}}_1 \gg \mathop{\mathrm{RSS}}_2
+</span></p></li>
+</ul>
+</div>
+</section>
+<section id="conclusion-2-cases" class="slide level2 smaller">
+<h2>Conclusion: 2 cases</h2>
+<div style="font-size: 0.95em">
+<ol type="1">
+<li>Choose Model 1:</li>
+</ol>
+<p><span class="math display">\begin{align*}
+H_0 \,\, \text{ holds } &amp; \, \iff \,  \beta_{k+1} = \beta_{k+2} = \ldots  = \beta_p = 0 \\[15pt]
+&amp; \, \iff \, \mathop{\mathrm{RSS}}_1 \approx \mathop{\mathrm{RSS}}_2 \, \iff \, \frac{\mathop{\mathrm{RSS}}_1 - \mathop{\mathrm{RSS}}_2}{\mathop{\mathrm{RSS}}_2} \approx 0
+\end{align*}</span></p>
+<ol start="2" type="1">
+<li>Choose Model 2:</li>
+</ol>
+<p><span class="math display">\begin{align*}
+H_1 \,\, \text{ holds } &amp; \, \iff \, \exists \,\, i \in \{ k+1, \ldots, p\} \, \text{ s.t.  } \, \beta_i \neq 0 \\[15pt]
+&amp; \, \iff \, \mathop{\mathrm{RSS}}_1 \gg \mathop{\mathrm{RSS}}_2 \, \iff \, \frac{\mathop{\mathrm{RSS}}_1 - \mathop{\mathrm{RSS}}_2}{\mathop{\mathrm{RSS}}_2} \gg 0
+\end{align*}</span></p>
+</div>
 </section>
 <section id="construction-of-f-statistic" class="slide level2 smaller">
 <h2>Construction of F-statistic</h2>
-<p><strong>Goal:</strong> Use <span class="math inline">\mathop{\mathrm{RSS}}</span> to construct statistic to compare the 2 models</p>
+<div style="font-size: 0.95em">
 <ul>
-<li><p>Suppose the extra parameters of Model 2 <span class="math display">
-\beta_{k+1}, \, \beta_{k+2} , \, \ldots , \, \beta_p
-</span> are not important</p></li>
-<li><p>Hence the predictions of the 2 models will be similar <span class="math display">
-\hat y_i^1 \, \approx \, \hat y_i^2
-</span></p></li>
-<li><p>Therefore the <span class="math inline">\mathop{\mathrm{RSS}}</span> for the 2 models are similar <span class="math display">
-\mathop{\mathrm{RSS}}_1 \, \approx \, \mathop{\mathrm{RSS}}_2
-</span></p></li>
-</ul>
-</section>
-<section id="construction-of-f-statistic-1" class="slide level2 smaller">
-<h2>Construction of F-statistic</h2>
-<ul>
-<li>Recall that <span class="math inline">\mathop{\mathrm{RSS}}</span> cannot increase if we increase parameters</li>
+<li>Thus, the quantity below can be used as statistic to decide between the 2 models</li>
 </ul>
 <p><span class="math display">
-k &lt; p \quad \implies \quad \mathop{\mathrm{RSS}}(k) \geq \mathop{\mathrm{RSS}}(p)
+\frac{\mathop{\mathrm{RSS}}_1 - \mathop{\mathrm{RSS}}_2}{\mathop{\mathrm{RSS}}_2}
 </span></p>
 <ul>
-<li>To measure influence of extra parameters <span class="math display">
-\beta_{k+1}, \, \beta_{k+2} , \, \ldots , \, \beta_p
-</span> we consider the ratio <span class="math display">
-\frac{ \mathop{\mathrm{RSS}}_1 - \mathop{\mathrm{RSS}}_2 }{ \mathop{\mathrm{RSS}}_2 } = \frac{ \mathop{\mathrm{RSS}}(k) - \mathop{\mathrm{RSS}}(p) }{ \mathop{\mathrm{RSS}}(p) }
-</span></li>
-</ul>
-</section>
-<section id="construction-of-f-statistic-2" class="slide level2 smaller">
-<h2>Construction of F-statistic</h2>
-<ul>
-<li>We now suitably rescale</li>
-</ul>
-<p><span class="math display">
-\frac{ \mathop{\mathrm{RSS}}_1 - \mathop{\mathrm{RSS}}_2 }{ \mathop{\mathrm{RSS}}_2 }
-</span></p>
-<ul>
-<li>Note that the degrees of freedom are
+<li><p>However, in order to obtain a known distribution, we need to rescale</p></li>
+<li><p>To this end, note that the degrees of freedom are:</p>
 <ul>
 <li>Model 1: <span class="math display">
   k \text{ parameters } \quad \implies \quad \mathop{\mathrm{df}}_1 =  n - k
@@ -705,11 +759,12 @@ k &lt; p \quad \implies \quad \mathop{\mathrm{RSS}}(k) \geq \mathop{\mathrm{RSS}
   </span></li>
 </ul></li>
 </ul>
+</div>
 </section>
 <section id="f-statistic-for-model-selection" class="slide level2 smaller">
-<h2>F-statistic for model selection</h2>
-<div id="Definition*-2.1" class="Definition">
-<p></p><details class="Definition fbx-simplebox fbx-default" open=""><summary><strong>Definition</strong></summary><div>The F-statistic for model selection is<p></p>
+<h2>F-statistic for Model Selection</h2>
+<div id="Definition*-2.2" class="Definition">
+<p></p><details class="Definition fbx-simplebox fbx-default" open=""><summary><strong>Definition</strong></summary><div>The F-statistic for Model Selection is<p></p>
 <p><span class="math display">\begin{align*}
 F &amp; = \frac{ \mathop{\mathrm{RSS}}_1 - \mathop{\mathrm{RSS}}_2 }{ \mathop{\mathrm{df}}_1 - \mathop{\mathrm{df}}_2  } \bigg/
       \frac{ \mathop{\mathrm{RSS}}_2 }{ \mathop{\mathrm{df}}_2  }  \\[20pt]
@@ -718,126 +773,218 @@ F &amp; = \frac{ \mathop{\mathrm{RSS}}_1 - \mathop{\mathrm{RSS}}_2 }{ \mathop{\m
 \end{align*}</span></p>
 </div></details>
 </div>
-<p><strong>Theorem:</strong> The F-statistic for model selection has F-distribution</p>
+<p><strong>Theorem:</strong> The F-statistic for Model Selection has F-distribution</p>
 <p><span class="math display">
 F \, \sim  \, F_{\mathop{\mathrm{df}}_1 - \mathop{\mathrm{df}}_2 , \, \mathop{\mathrm{df}}_2} = F_{p - k, \, n - p}
 </span></p>
 </section>
 <section id="rewriting-the-f-statistic" class="slide level2 smaller">
 <h2>Rewriting the F-statistic</h2>
-<ul>
-<li>Recall the formulas for sums of squares</li>
-</ul>
-<p><span class="math display">
-\mathop{\mathrm{TSS}}= \mathop{\mathrm{ESS}}(p) + \mathop{\mathrm{RSS}}(p)  \,, \qquad \quad
-\mathop{\mathrm{TSS}}= \mathop{\mathrm{ESS}}(k) + \mathop{\mathrm{RSS}}(k)  
-</span></p>
-<ul>
-<li><p><strong>Note:</strong> <span class="math inline">\mathop{\mathrm{TSS}}</span> does not depend on numeber of parameters</p></li>
-<li><p>Also define the coefficient of determination for the two models</p></li>
-</ul>
-<p><span class="math display">
-R_1^2 := R^2 (k) := \frac{ \mathop{\mathrm{ESS}}(k) }{ \mathop{\mathrm{TSS}}}
-\, , \qquad \quad
-R_2^2 := R^2 (p) := \frac{ \mathop{\mathrm{ESS}}(p) }{ \mathop{\mathrm{TSS}}}
-</span></p>
-</section>
-<section id="rewriting-the-f-statistic-1" class="slide level2 smaller">
-<h2>Rewriting the F-statistic</h2>
-<p><span class="math display">\begin{align*}
-\mathop{\mathrm{RSS}}(k) - \mathop{\mathrm{RSS}}(p) &amp; = \mathop{\mathrm{ESS}}(p) - \mathop{\mathrm{ESS}}(k) \\[10pt]
-                  &amp; = \mathop{\mathrm{TSS}}( R^2(p) - R^2(k) ) \\[10pt]
-                  &amp; = \mathop{\mathrm{TSS}}( R^2_2 - R^2_1 ) \\[20pt]
-\mathop{\mathrm{RSS}}(p) &amp; = \mathop{\mathrm{TSS}}- \mathop{\mathrm{ESS}}(p)  \\[10pt]
-        &amp; = \mathop{\mathrm{TSS}}- \mathop{\mathrm{TSS}}\, \cdot \, R^2 (p) \\[10pt]
-        &amp; = \mathop{\mathrm{TSS}}(1 - R^2(p)) \\[10pt]
-        &amp; = \mathop{\mathrm{TSS}}(1 - R_2^2)
-\end{align*}</span></p>
-</section>
-<section id="rewriting-the-f-statistic-2" class="slide level2 smaller">
-<h2>Rewriting the F-statistic</h2>
-<p>Therefore the F-statistic can be rewritten as</p>
+<p>Denote by <span class="math inline">R^2_1</span> and <span class="math inline">R^2_2</span> the coefficients of determination of the 2 models</p>
+<div id="Proposition*-2.3" class="Proposition">
+<p></p><details class="Proposition fbx-simplebox fbx-default" open=""><summary><strong>Proposition</strong></summary><div>The F-statistic for Model Selection can be rewritten as<p></p>
 <p><span class="math display">\begin{align*}
 F &amp; = \frac{ \mathop{\mathrm{RSS}}_1 - \mathop{\mathrm{RSS}}_2 }{ \mathop{\mathrm{df}}_1 - \mathop{\mathrm{df}}_2  } \bigg/
       \frac{ \mathop{\mathrm{RSS}}_2 }{ \mathop{\mathrm{df}}_2 }   \\[20pt]
-  &amp; = \frac{ \mathop{\mathrm{TSS}}(R^2_2 - R^2_1) }{\mathop{\mathrm{TSS}}(1 - R^2_2 )}  \, \cdot \,  \frac{n-p}{p-k} \\[20pt]
   &amp; = \frac{ R^2_2 - R^2_1 }{1 - R^2_2}  \, \cdot \,  \frac{n-p}{p-k}
 \end{align*}</span></p>
+</div></details>
+</div>
+</section>
+<section id="proof-of-proposition" class="slide level2 smaller">
+<h2>Proof of Proposition</h2>
+<ul>
+<li>Recall the definition of coefficient of determination for the two models</li>
+</ul>
+<p><span class="math display">
+R_1^2 := R^2 (k) := 1 - \frac{ \mathop{\mathrm{RSS}}(k) }{ \mathop{\mathrm{TSS}}}
+\, , \qquad \quad
+R_2^2 := R^2 (p) := 1 - \frac{ \mathop{\mathrm{RSS}}(p) }{ \mathop{\mathrm{TSS}}}
+</span></p>
+<ul>
+<li><p><strong>Note:</strong> <span class="math inline">\mathop{\mathrm{TSS}}</span> does not depend on numeber of parameters</p></li>
+<li><p>From the above, we get</p></li>
+</ul>
+<p><span class="math display">
+\mathop{\mathrm{RSS}}(k) = (1 - R_1^2) \mathop{\mathrm{TSS}}
+\, , \qquad \quad
+\mathop{\mathrm{RSS}}(p) = (1 - R_2^2) \mathop{\mathrm{TSS}}
+</span></p>
+<ul>
+<li>In particular, we obtain</li>
+</ul>
+<p><span class="math display">\begin{align*}
+\mathop{\mathrm{RSS}}(k) - \mathop{\mathrm{RSS}}(p) = ( R^2_2 - R^2_1 )  \mathop{\mathrm{TSS}}
+\end{align*}</span></p>
+</section>
+<section id="section" class="slide level2 smaller">
+<h2></h2>
+<ul>
+<li>Therefore, the F-statistic can be rewritten as</li>
+</ul>
+<p><span class="math display">\begin{align*}
+F &amp; = \frac{ \mathop{\mathrm{RSS}}_1 - \mathop{\mathrm{RSS}}_2 }{ \mathop{\mathrm{df}}_1 - \mathop{\mathrm{df}}_2  } \bigg/
+      \frac{ \mathop{\mathrm{RSS}}_2 }{ \mathop{\mathrm{df}}_2 }   \\[20pt]
+  &amp; = \frac{ \mathop{\mathrm{RSS}}(k) - \mathop{\mathrm{RSS}}(p) }{\mathop{\mathrm{RSS}}(p)}  \, \cdot \,  \frac{n-p}{p-k} \\[20pt]
+  &amp; = \frac{ (R^2_2 - R^2_1) \mathop{\mathrm{TSS}}}{ (1 - R^2_2) \mathop{\mathrm{TSS}}} \, \cdot \,  \frac{n-p}{p-k} \\[20pt]
+  &amp; = \frac{ R^2_2 - R^2_1 }{1 - R^2_2}  \, \cdot \,  \frac{n-p}{p-k}
+\end{align*}</span></p>
+<ul>
+<li>The proof is concluded</li>
+</ul>
+</section>
+<section id="test-for-model-selection" class="slide level2 smaller">
+<h2>Test for Model Selection</h2>
+<ul>
+<li><strong>Recall:</strong> We want to decide between the 2 models</li>
+</ul>
+<p><span class="math display">\begin{align*}
+    \textbf{Model 1:} &amp; \quad Y_ i =\beta_1 + \beta_2 x_{i2}+ \ldots + \beta_{k} x_{ik} + \varepsilon_i \\[10pt]
+    \textbf{Model 2:} &amp; \quad Y_ i= \beta_1 + \beta_2 x_{i2}+ \ldots + \beta_{k} x_{ik} + \beta_{k + 1} x_{i(k + 1)} +
+    \ldots + \beta_{p} x_{ip} + \varepsilon_i
+\end{align*}</span></p>
+<ul>
+<li>To make a decision, we have formulated the hypothesis</li>
+</ul>
+<p><span class="math display">\begin{align*}
+H_0 \colon &amp; \, \beta_{k+1} = \beta_{k+2} = \ldots  = \beta_p = 0 \\[5pt]
+H_1 \colon &amp; \, \text{ At least one among } \beta_{k+1}, \ldots, \beta_p \text{ is non-zero}
+\end{align*}</span></p>
+<ul>
+<li><span class="math inline">H_0</span> is in favor of Model 1 <span class="math inline">\qquad \quad H_1</span> is in favor of Model 2</li>
+</ul>
+</section>
+<section id="section-1" class="slide level2 smaller">
+<h2></h2>
+<div style="font-size: 0.93em">
+<p>We use the F-statistic to decide between the two models <span class="math display">
+F = \frac{ \mathop{\mathrm{RSS}}(k) - \mathop{\mathrm{RSS}}(p) }{ p - k  } \bigg/
+      \frac{ \mathop{\mathrm{RSS}}(p) }{ n - p  }
+</span></p>
+<ol type="1">
+<li><p>Choose Model 1: <span class="math display">\begin{align*}
+H_0 \,\, \text{ holds }  &amp; \, \iff \, \beta_{k+1} = \beta_{k+2} = \ldots  = \beta_p = 0  \\[10pt]
+  &amp; \, \iff \, \mathop{\mathrm{RSS}}(k) \approx \mathop{\mathrm{RSS}}(p) \, \iff \, F \approx 0
+\end{align*}</span></p></li>
+<li><p>Choose Model 2: <span class="math display">\begin{align*}
+H_1 \,\, \text{ holds } &amp; \, \iff \,\exists \,\, i \in \{ k+1, \ldots, p\} \, \text{ s.t.  } \, \beta_i \neq 0  \\[10pt]
+  &amp;  \, \iff \, \mathop{\mathrm{RSS}}(k) \gg \mathop{\mathrm{RSS}}(p) \, \iff \, F \gg 0
+\end{align*}</span></p></li>
+</ol>
+<ul>
+<li><strong>Therefore, the test is one-sided: <span class="math inline">\,\,</span> Reject <span class="math inline">H_0 \iff F \gg 0</span></strong></li>
+</ul>
+</div>
+</section>
+<section id="the-f-test-for-model-selection" class="slide level2 smaller">
+<h2>The F-test for Model Selection</h2>
+<p><strong>Assumption:</strong> Given data points <span class="math inline">(x_{i2},\ldots , x_{ip},  y_i)</span>, consider the nested models</p>
+<p><span class="math display">\begin{align*}
+    \textbf{Model 1:} &amp; \quad Y_ i =\beta_1 + \beta_2 x_{i2}+ \ldots + \beta_{k} x_{ik} + \varepsilon_i \\[10pt]
+    \textbf{Model 2:} &amp; \quad Y_ i= \beta_1 + \beta_2 x_{i2}+ \ldots + \beta_{k} x_{ik} + \beta_{k + 1} x_{i(k + 1)} +
+    \ldots + \beta_{p} x_{ip} + \varepsilon_i
+\end{align*}</span></p>
+<p><strong>Hypothesis:</strong> To decide which model gives better predictions</p>
+<p><span class="math display">\begin{align*}
+H_0 \colon &amp; \, \beta_{k+1} = \beta_{k+2} = \ldots  = \beta_p = 0 \\[5pt]
+H_1 \colon &amp; \, \text{ At least one among } \beta_{k+1}, \ldots, \beta_p \text{ is non-zero}
+\end{align*}</span></p>
+<ul>
+<li><span class="math inline">H_0</span> is in favor of Model 1 <span class="math inline">\qquad \quad H_1</span> is in favor of Model 2</li>
+</ul>
+</section>
+<section id="procedure-3-steps" class="slide level2 smaller">
+<h2>Procedure: 3 Steps</h2>
+<ol type="1">
+<li><strong>Calculation</strong>: Compute MLEs <span class="math inline">\hat{\beta}^1, \hat{\beta}^2</span> and predictions <span class="math inline">\hat{y}_i^2, \hat{y}_i^2</span> for the 2 models <span class="math display">
+\hat{\beta}^i = (Z_i^TZ_i)^{-1} Z_i^T y \,, \qquad \hat{y}^i = Z_i \hat{\beta}^i \,, \qquad Z_i = \text{design matrix for Model } i
+</span> Compute the <span class="math inline">\mathop{\mathrm{TSS}}</span>. Compute <span class="math inline">\mathop{\mathrm{RSS}}</span> and <span class="math inline">R^2</span> coefficient for both models <span class="math display">
+\mathop{\mathrm{TSS}}= \sum_{i=1}^n (y_i - \overline{y})^2\,, \qquad
+\mathop{\mathrm{RSS}}_j = \sum_{i=1}^n (y_i - \hat{y}_i^j)^2 \,, \qquad
+R^2_j = 1 - \frac{\mathop{\mathrm{RSS}}_j}{\mathop{\mathrm{TSS}}}
+</span> Finally, compute the F-statistic for <em>Model Selection</em> <span class="math display">
+F = \frac{R^2_2 - R_1^2}{1 - R^2_2} \, \cdot \, \frac{n - p}{p - k} \ \sim \ F_{p-k, n - p}
+</span></li>
+</ol>
+</section>
+<section id="section-2" class="slide level2 smaller">
+<h2></h2>
+<ol start="2" type="1">
+<li><strong>Statistical Tables or R</strong>: Find either
+<ul>
+<li>Critical value <span class="math inline">F^*</span> in <a href="files/Statistics_Tables.pdf">Table 3</a></li>
+<li>p-value in R</li>
+</ul></li>
+</ol>
+<p><br></p>
+<ol start="3" type="1">
+<li><strong>Interpretation</strong>: Reject <span class="math inline">H_0</span> when either <span class="math display">
+p &lt; 0.05 \qquad \text{ or } \qquad F \in \,\,\text{Rejection Region}
+</span></li>
+</ol>
+<table class="caption-top">
+<colgroup>
+<col style="width: 35%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Alternative</th>
+<th>Rejection Region</th>
+<th><span class="math inline">F^*</span></th>
+<th>p-value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\exists \,\, i \in \{ k+1, \ldots, p\}</span> s.t. <span class="math inline">\beta_i \neq 0</span></td>
+<td><span class="math inline">F &gt; F^*</span></td>
+<td><span class="math inline">F_{p-k,n-p}(0.05)</span></td>
+<td><span class="math inline">P(F_{p-k,n-p} &gt; F)</span></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="the-f-test-for-model-selection-in-r" class="slide level2 smaller">
+<h2>The F-test for Model Selection in R</h2>
+<ol type="1">
+<li>Fit the two models with <code>lm</code></li>
+<li>Compare the models with the command <span class="math inline">\, \texttt{anova} \qquad\quad</span> (more on this later)</li>
+</ol>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a>model<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> ... <span class="sc">+</span> xk)</span>
+<span id="cb1-2"><a aria-hidden="true" tabindex="-1"></a>model<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> ... <span class="sc">+</span> xk <span class="sc">+</span> <span class="fu">x</span>(k<span class="sc">+</span><span class="dv">1</span>) <span class="sc">+</span> ... <span class="sc">+</span> xp)</span>
+<span id="cb1-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(model<span class="fl">.1</span>, model<span class="fl">.2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Alternative:</strong></p>
+<ul>
+<li>Find <span class="math inline">R^2_1</span> and <span class="math inline">R^2_2</span> in each Summary</li>
+<li>Compute F-statistic and p-value by hand, using formulas</li>
+</ul>
+<p><span class="math display">
+F = \frac{R^2_2 - R_1^2}{1 - R^2_2} \, \cdot \, \frac{n - p}{p - k} \,, \qquad p = P(F_{p-k,n-p} &gt; F)
+</span></p>
 </section>
 <section id="f-test-for-overall-significance-revisited" class="slide level2 smaller">
-<h2>F-test for overall significance revisited</h2>
+<h2>F-test for Overall Significance revisited</h2>
 <ul>
-<li><p>The F-test for overall significance allows to select between models <span class="math display">\begin{align*}
+<li><p>The F-test for Overall Significance allows to select between models <span class="math display">\begin{align*}
   \textbf{Model 1:} &amp; \qquad Y_ i= \beta_1 + \varepsilon_i \\[10pt]
   \textbf{Model 2:} &amp; \qquad Y_ i= \beta_1 + \beta_2 x_{2, i}+ \ldots + \beta_p x_{p, i} + \varepsilon_i
 \end{align*}</span></p></li>
 <li><p>Model 1 has <span class="math inline">k = 1</span> parameters</p></li>
-<li><p>F-statistic for model selection coincides with F-statistic for overall significance</p></li>
+<li><p>F-statistic for <em>Model Selection</em> coincides with F-statistic for <em>Overall Significance</em></p></li>
 </ul>
 <p><span class="math display">
 F = \frac{ \mathop{\mathrm{RSS}}(1) - \mathop{\mathrm{RSS}}(p) }{ p - 1  } \bigg/
       \frac{ \mathop{\mathrm{RSS}}(p) }{ n - p  }
 </span></p>
-</section>
-<section id="summary-f-test-for-model-selection" class="slide level2 smaller">
-<h2>Summary: F-test for model selection</h2>
-<p><strong>Goal:</strong> Choose one of the nested models</p>
-<p><span class="math display">\begin{align*}
-    \textbf{Model 1:} &amp; \quad Y_ i =\beta_1 + \beta_2 x_{2, i}+ \ldots + \beta_{k} x_{k, i} + \varepsilon_i \\[10pt]
-    \textbf{Model 2:} &amp; \quad Y_ i= \beta_1 + \beta_2 x_{2, i}+ \ldots + \beta_{k} x_{k, i} + \beta_{k + 1} x_{k + 1, i} +
-    \ldots + \beta_{p} x_{p, i} + \varepsilon_i
-\end{align*}</span></p>
-<p><strong>Hypotheses:</strong> Choosing a model is equivalent to testing</p>
-<p><span class="math display">\begin{align*}
-H_0 \colon &amp; \, \beta_{k+1} = \beta_{k+2} = \ldots  = \beta_p \\[5pt]
-H_1 \colon &amp; \, \text{ At least one among } \beta_{k+1}, \ldots, \beta_p \text{ is non-zero}
-\end{align*}</span></p>
-<ul>
-<li><span class="math inline">H_0</span> is in favor of Model 1</li>
-<li><span class="math inline">H_1</span> is in favor of Model 2</li>
-</ul>
-</section>
-<section id="summary-f-test-for-model-selection-1" class="slide level2 smaller">
-<h2>Summary: F-test for model selection</h2>
-<ul>
-<li>The F-statistic is</li>
-</ul>
-<p><span class="math display">\begin{align*}
-F &amp; = \frac{ \mathop{\mathrm{RSS}}_1 - \mathop{\mathrm{RSS}}_2 }{ \mathop{\mathrm{df}}_1 - \mathop{\mathrm{df}}_2  } \bigg/
-      \frac{ \mathop{\mathrm{RSS}}_2 }{ \mathop{\mathrm{df}}_2  }   \\[20pt]
-  &amp; = \frac{ R^2_2 - R^2_1 }{1 - R^2_2 }  \, \cdot \,  \frac{n-p}{p-k}
-\end{align*}</span></p>
-<ul>
-<li>Distribution of <span class="math inline">F</span> is</li>
-</ul>
-<p><span class="math display">
-F \, \sim \, F_{ \mathop{\mathrm{df}}_1 - \mathop{\mathrm{df}}_2 , \, \mathop{\mathrm{df}}_2 } = F_{p-k, \, n-p}
-</span></p>
-</section>
-<section id="summary-f-test-for-model-selection-2" class="slide level2 smaller">
-<h2>Summary: F-test for model selection</h2>
-<ul>
-<li>The p-value is</li>
-</ul>
-<p><span class="math display">
-p = P(F_{p-k,n-p} &gt; F)
-</span></p>
-<ul>
-<li><strong>F-test for model selection in R:</strong>
-<ul>
-<li>Fit the two models with <span class="math inline">\,\texttt{lm}</span></li>
-<li>Use the command <span class="math inline">\, \texttt{anova} \qquad\quad</span> (more on this later)</li>
-</ul></li>
-<li><strong>Alternative:</strong>
-<ul>
-<li>Find <span class="math inline">R^2_1</span> and <span class="math inline">R^2_2</span> in summary</li>
-<li>Compute F-statistic and p-value</li>
-</ul></li>
-</ul>
+<p><strong>Model Selection and Overall Significance tests coincide in this case</strong></p>
 </section></section>
 <section>
 <section id="part-2-examples-of-model-selection" class="title-slide slide level1 center" data-background-color="#cc0164" data-visibility="uncounted">
-<h1>Part 2: <br>Examples of <br> model selection</h1>
+<h1>Part 2: <br>Examples of <br> Model Selection</h1>
 <div class="footer">
 <div color="#cc0164">
 
@@ -845,19 +992,16 @@ p = P(F_{p-k,n-p} &gt; F)
 </div>
 </section>
 <section id="examples-of-model-selection" class="slide level2 smaller">
-<h2>Examples of model selection</h2>
+<h2>Examples of Model Selection</h2>
 <p>We illustrate F-test for Model Selection with 3 examples:</p>
 <ul>
 <li>Joint significance in Multiple linear Regression</li>
-<li>Polynomial regression 1</li>
-<li>Polynomial regression 2</li>
+<li>Polynomial regression (Two Examples)</li>
 </ul>
 </section>
 <section id="example-1-multiple-linear-regression" class="slide level2 smaller">
 <h2>Example 1: Multiple linear regression</h2>
-<ul>
-<li>Consider again the Longley dataset</li>
-</ul>
+<h3 id="consider-again-the-longley-dataset">Consider again the Longley dataset</h3>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>     GNP.deflator     GNP Unemployed Armed.Forces Population Year Employed
@@ -866,254 +1010,274 @@ p = P(F_{p-k,n-p} &gt; F)
 1949         88.2 258.054      368.2        161.6    109.773 1949   60.171</code></pre>
 </div>
 </div>
+<div style="font-size: 0.30em">
+<p><br></p>
+</div>
 <p><strong>Goal:</strong> Explain the number of <em>Employed</em> people <span class="math inline">Y</span> in the US in terms of</p>
 <ul>
-<li><span class="math inline">X_2</span> <em>GNP</em> Gross National Product</li>
-<li><span class="math inline">X_3</span> number of <em>Unemployed</em></li>
-<li><span class="math inline">X_4</span> number of people in the <em>Armed Forces</em></li>
-<li><span class="math inline">X_5</span> <em>non-institutionalised Population</em> <span class="math inline">\geq</span> age 14 (not in care of insitutions)</li>
-<li><span class="math inline">X_6</span> <em>Years</em> from 1947 to 1962</li>
+<li><span class="math inline">X_2</span> <em>GNP deflator</em> to adjust GNP for inflation</li>
+<li><span class="math inline">X_3</span> <em>GNP</em> Gross National Product</li>
+<li><span class="math inline">X_4</span> number of <em>Unemployed</em></li>
+<li><span class="math inline">X_5</span> number of people in the <em>Armed Forces</em></li>
+<li><span class="math inline">X_6</span> <em>non-institutionalised Population</em> <span class="math inline">\geq</span> age 14 (not in care of insitutions)</li>
+<li><span class="math inline">X_7</span> <em>Years</em> from 1947 to 1962</li>
 </ul>
 </section>
-<section id="example-1-multiple-linear-regression-1" class="slide level2 smaller">
-<h2>Example 1: Multiple linear regression</h2>
-<p><strong>Previously:</strong> Using t-test for parameters significance we showed that</p>
+<section id="section-3" class="slide level2 smaller">
+<h2></h2>
+<p><strong>Previous Analysis:</strong> Using t-test for parameters significance, we showed that</p>
 <ul>
-<li><span class="math inline">X_2</span> and <span class="math inline">X_5</span> do not affect <span class="math inline">Y</span></li>
-<li><span class="math inline">X_3</span> and <span class="math inline">X_4</span> negatively affect <span class="math inline">Y</span></li>
-<li><span class="math inline">X_6</span> positively affects <span class="math inline">Y</span></li>
+<li><span class="math inline">X_2, X_3</span> and <span class="math inline">X_6</span> do not affect <span class="math inline">Y</span></li>
+<li><span class="math inline">X_4</span> and <span class="math inline">X_5</span> negatively affect <span class="math inline">Y</span></li>
+<li><span class="math inline">X_7</span> positively affects <span class="math inline">Y</span></li>
 </ul>
-<p><strong>Question:</strong> Since <span class="math inline">X_2</span> and <span class="math inline">X_5</span> do not affect <span class="math inline">Y</span>, can we exclude them from the model?</p>
-</section>
-<section id="two-competing-models" class="slide level2 smaller">
-<h2>Two competing models</h2>
-<p>We therefore want to select between the models:</p>
+<p><strong>Question:</strong> Since <span class="math inline">X_2, X_3, X_6</span> do not affect <span class="math inline">Y</span>, can we exclude them from the model?</p>
+<p><strong>Answer:</strong> Use the F-test for Model Selection on the 2 nested models</p>
 <ul>
-<li><strong>Model 1:</strong> The Reduced Model without <span class="math inline">X_2</span> and <span class="math inline">X_5</span></li>
-</ul>
-<p><span class="math display">
-Y = \beta_1 + \beta_3 X_3 + \beta_4 X_4 +
-       \beta_6 X_6 + \varepsilon
-</span></p>
-<ul>
-<li><strong>Model 2:</strong> The Full Model</li>
-</ul>
-<p><span class="math display">
+<li><p><strong>Model 1:</strong> The Reduced Model without <span class="math inline">X_2, X_3, X_6</span> <span class="math display">
+Y = \beta_1 +  \beta_4 X_4 +  \beta_5 X_5 +
+     \beta_7 X_7 + \varepsilon
+</span></p></li>
+<li><p><strong>Model 2:</strong> The Full Model <span class="math display">
 Y = \beta_1 + \beta_2 X_2 + \beta_3 X_3 + \beta_4 X_4 +
-       \beta_5 X_5 +  \beta_6 X_6 + \varepsilon
-</span></p>
+     \beta_5 X_5 +  \beta_6 X_6 +  \beta_7 X_7 + \varepsilon
+</span></p></li>
+</ul>
 </section>
 <section id="r-commands-for-reading-in-the-data" class="slide level2 smaller">
 <h2>R commands for reading in the data</h2>
 <ul>
-<li><p>We read the data in the same way we did earlier</p></li>
+<li><p>We read the data in the same way we did last time</p></li>
 <li><p>Longley dataset available here <a href="datasets/longley.txt">longley.txt</a></p></li>
 <li><p>Download the file and place it in current working directory</p></li>
 </ul>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Read data file</span></span>
-<span id="cb2-2"><a aria-hidden="true" tabindex="-1"></a>longley <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="at">file =</span> <span class="st">"longley.txt"</span>,</span>
-<span id="cb2-3"><a aria-hidden="true" tabindex="-1"></a>                      <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb2-4"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-5"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Store columns in vectors</span></span>
-<span id="cb2-6"><a aria-hidden="true" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> longley[ , <span class="dv">1</span>]</span>
-<span id="cb2-7"><a aria-hidden="true" tabindex="-1"></a>x3 <span class="ot">&lt;-</span> longley[ , <span class="dv">2</span>]</span>
-<span id="cb2-8"><a aria-hidden="true" tabindex="-1"></a>x4 <span class="ot">&lt;-</span> longley[ , <span class="dv">3</span>]</span>
-<span id="cb2-9"><a aria-hidden="true" tabindex="-1"></a>x5 <span class="ot">&lt;-</span> longley[ , <span class="dv">4</span>]</span>
-<span id="cb2-10"><a aria-hidden="true" tabindex="-1"></a>x6 <span class="ot">&lt;-</span> longley[ , <span class="dv">5</span>]</span>
-<span id="cb2-11"><a aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> longley[ , <span class="dv">6</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Read data file</span></span>
+<span id="cb3-2"><a aria-hidden="true" tabindex="-1"></a>longley <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="at">file =</span> <span class="st">"longley.txt"</span>, <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb3-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Store columns in vectors</span></span>
+<span id="cb3-5"><a aria-hidden="true" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> longley[ , <span class="dv">1</span>]        <span class="co"># GNP Deflator</span></span>
+<span id="cb3-6"><a aria-hidden="true" tabindex="-1"></a>x3 <span class="ot">&lt;-</span> longley[ , <span class="dv">2</span>]        <span class="co"># GNP</span></span>
+<span id="cb3-7"><a aria-hidden="true" tabindex="-1"></a>x4 <span class="ot">&lt;-</span> longley[ , <span class="dv">3</span>]        <span class="co"># Unemployed</span></span>
+<span id="cb3-8"><a aria-hidden="true" tabindex="-1"></a>x5 <span class="ot">&lt;-</span> longley[ , <span class="dv">4</span>]        <span class="co"># Armed Forces</span></span>
+<span id="cb3-9"><a aria-hidden="true" tabindex="-1"></a>x6 <span class="ot">&lt;-</span> longley[ , <span class="dv">5</span>]        <span class="co"># Population</span></span>
+<span id="cb3-10"><a aria-hidden="true" tabindex="-1"></a>x7 <span class="ot">&lt;-</span> longley[ , <span class="dv">6</span>]        <span class="co"># Year</span></span>
+<span id="cb3-11"><a aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> longley[ , <span class="dv">7</span>]         <span class="co"># Employed</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="r-commands-for-fitting-multiple-regression" class="slide level2 smaller">
-<h2>R commands for fitting multiple regression</h2>
+<section id="r-commands-for-f-test-of-model-selection" class="slide level2 smaller">
+<h2>R commands for F-test of Model Selection</h2>
 <ol type="1">
 <li>Fit the two multiple regression models</li>
 </ol>
 <p><span class="math display">\begin{align*}
-\textbf{Model 1:} &amp; \quad Y = \beta_1 + \beta_3 X_3 + \beta_4 X_4 +
-       \beta_6 X_6 + \varepsilon\\[10pt]
+\textbf{Model 1:} &amp; \quad Y = \beta_1 + \beta_4 X_4 + \beta_5 X_5 +
+       \beta_7 X_7 + \varepsilon\\[10pt]
 \textbf{Model 2:} &amp; \quad Y = \beta_1 + \beta_2 X_2 + \beta_3 X_3 + \beta_4 X_4 +
-       \beta_5 X_5 +  \beta_6 X_6 + \varepsilon
+       \beta_5 X_5 +  \beta_6 X_6 +  \beta_7 X_7 + \varepsilon
 \end{align*}</span></p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Fit Model 1 and Model 2</span></span>
-<span id="cb3-2"><a aria-hidden="true" tabindex="-1"></a>model<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x3 <span class="sc">+</span> x4 <span class="sc">+</span> x6)</span>
-<span id="cb3-3"><a aria-hidden="true" tabindex="-1"></a>model<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x2 <span class="sc">+</span> x3 <span class="sc">+</span> x4 <span class="sc">+</span> x5 <span class="sc">+</span> x6)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Fit Model 1 and Model 2</span></span>
+<span id="cb4-2"><a aria-hidden="true" tabindex="-1"></a>model<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x4 <span class="sc">+</span> x5 <span class="sc">+</span> x7)</span>
+<span id="cb4-3"><a aria-hidden="true" tabindex="-1"></a>model<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x2 <span class="sc">+</span> x3 <span class="sc">+</span> x4 <span class="sc">+</span> x5 <span class="sc">+</span> x6 <span class="sc">+</span> x7)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ol start="2" type="1">
-<li>F-test for model selection is done using the command <span class="math inline">\, \texttt{anova}</span></li>
+<li>F-test for Model Selection is done using the command <span class="math inline">\, \texttt{anova}</span></li>
 </ol>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># F-test for model selection</span></span>
-<span id="cb4-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(model<span class="fl">.1</span>, model<span class="fl">.2</span>, <span class="at">test =</span> <span class="st">"F"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># F-test for Model Selection</span></span>
+<span id="cb5-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(model<span class="fl">.1</span>, model<span class="fl">.2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
 <li>Full code can be downloaded here <a href="codes/longley_selection.R">longley_selection.R</a></li>
 </ul>
 </section>
-<section id="anova-output" class="slide level2 smaller">
-<h2>Anova output</h2>
+<section id="section-4" class="slide level2 smaller">
+<h2></h2>
+<div style="font-size: 0.95em">
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>Analysis of Variance Table
 
-Model 1: y ~ x3 + x4 + x6
-Model 2: y ~ x2 + x3 + x4 + x5 + x6
+Model 1: y ~ x4 + x5 + x7
+Model 2: y ~ x2 + x3 + x4 + x5 + x6 + x7
   Res.Df     RSS Df Sum of Sq      F Pr(&gt;F)
-1     12 0.64164                           
-2     10 0.44797  2   0.19367 2.1616 0.1659</code></pre>
+1     12 1.32336                           
+2      9 0.83642  3   0.48694 1.7465  0.227</code></pre>
 </div>
 </div>
-<p><strong>Interpretation:</strong></p>
+<p><br></p>
 <ul>
-<li>First two lines tell us which models are being compared</li>
+<li><p>First two lines say that the following 2 models are being compared <span class="math display">\begin{align*}
+  \textbf{Model 1:} &amp; \quad Y = \beta_1 + \beta_4 x_{4} + \beta_5 x_{5} + \beta_7 x_{7}  + \varepsilon\\[10pt]
+  \textbf{Model 2:} &amp;\quad Y =\beta_1 + \beta_2 x_{2}+ \beta_3 x_{3} + \beta_4 x_{4} + \beta_5 x_{5} + \beta_{6} x_{6} + \beta_7 x_{7}  + \varepsilon
+\end{align*}</span></p></li>
+<li><p>The null hypothesis favors Model 1; The alternative favors Model 2 <span class="math display">\begin{align*}
+H_0 \colon &amp; \, \beta_{2} = \beta_{3} = \beta_6 = 0 \\[5pt]
+H_1 \colon &amp; \, \text{ At least one among } \beta_{2}, \beta_{3}, \beta_6  \text{ is non-zero}
+\end{align*}</span></p></li>
 </ul>
+</div>
 </section>
-<section id="anova-output-1" class="slide level2 smaller">
-<h2>Anova output</h2>
+<section id="section-5" class="slide level2 smaller">
+<h2></h2>
+<div style="font-size: 0.95em">
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>Analysis of Variance Table
 
-Model 1: y ~ x3 + x4 + x6
-Model 2: y ~ x2 + x3 + x4 + x5 + x6
+Model 1: y ~ x4 + x5 + x7
+Model 2: y ~ x2 + x3 + x4 + x5 + x6 + x7
   Res.Df     RSS Df Sum of Sq      F Pr(&gt;F)
-1     12 0.64164                           
-2     10 0.44797  2   0.19367 2.1616 0.1659</code></pre>
+1     12 1.32336                           
+2      9 0.83642  3   0.48694 1.7465  0.227</code></pre>
 </div>
 </div>
-<p><strong>Interpretation:</strong></p>
+<p><br></p>
 <ul>
 <li><span class="math inline">\texttt{Res.Df} \,</span> are the degrees of freedom of each model
 <ul>
 <li>The sample size of longley is 16</li>
 <li>Model 1 has <span class="math inline">k=4</span> parameters</li>
-<li>Model 2 has <span class="math inline">p=6</span> parameters</li>
-<li><span class="math inline">\mathop{\mathrm{df}}_1 = n - k = 16 - 4 = 12   \quad \qquad \mathop{\mathrm{df}}_2 = n - p = 16 - 6 = 10</span></li>
+<li>Model 2 has <span class="math inline">p=7</span> parameters</li>
+<li><span class="math inline">\mathop{\mathrm{df}}_1 = n - k = 16 - 4 = 12   \quad \qquad \mathop{\mathrm{df}}_2 = n - p = 16 - 7 = 9</span></li>
 </ul></li>
 </ul>
+</div>
 </section>
-<section id="anova-output-2" class="slide level2 smaller">
-<h2>Anova output</h2>
+<section id="section-6" class="slide level2 smaller">
+<h2></h2>
+<div style="font-size: 0.95em">
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>Analysis of Variance Table
 
-Model 1: y ~ x3 + x4 + x6
-Model 2: y ~ x2 + x3 + x4 + x5 + x6
+Model 1: y ~ x4 + x5 + x7
+Model 2: y ~ x2 + x3 + x4 + x5 + x6 + x7
   Res.Df     RSS Df Sum of Sq      F Pr(&gt;F)
-1     12 0.64164                           
-2     10 0.44797  2   0.19367 2.1616 0.1659</code></pre>
+1     12 1.32336                           
+2      9 0.83642  3   0.48694 1.7465  0.227</code></pre>
 </div>
 </div>
-<p><strong>Interpretation:</strong></p>
+<p><br></p>
 <ul>
 <li><span class="math inline">\texttt{Df} \,</span> is difference in degrees of freedom
 <ul>
 <li><span class="math inline">\mathop{\mathrm{df}}_1 = 12</span></li>
-<li><span class="math inline">\mathop{\mathrm{df}}_2 = 10</span></li>
+<li><span class="math inline">\mathop{\mathrm{df}}_2 = 9</span></li>
 <li>Therefore the difference is <span class="math display">
-  \mathop{\mathrm{df}}_1 - \mathop{\mathrm{df}}_2 = 12 - 10 = 2
+  \mathop{\mathrm{df}}_1 - \mathop{\mathrm{df}}_2 = 12 - 9 = 3
   </span></li>
 </ul></li>
 </ul>
+</div>
 </section>
-<section id="anova-output-3" class="slide level2 smaller">
-<h2>Anova output</h2>
+<section id="section-7" class="slide level2 smaller">
+<h2></h2>
+<div style="font-size: 0.95em">
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>Analysis of Variance Table
 
-Model 1: y ~ x3 + x4 + x6
-Model 2: y ~ x2 + x3 + x4 + x5 + x6
+Model 1: y ~ x4 + x5 + x7
+Model 2: y ~ x2 + x3 + x4 + x5 + x6 + x7
   Res.Df     RSS Df Sum of Sq      F Pr(&gt;F)
-1     12 0.64164                           
-2     10 0.44797  2   0.19367 2.1616 0.1659</code></pre>
+1     12 1.32336                           
+2      9 0.83642  3   0.48694 1.7465  0.227</code></pre>
 </div>
 </div>
-<p><strong>Interpretation:</strong></p>
+<p><br></p>
 <ul>
 <li><span class="math inline">\texttt{RSS} \,</span> is the residual sum of squares for each model
 <ul>
 <li><span class="math inline">\mathop{\mathrm{RSS}}_1 = 1.32336</span></li>
-<li><span class="math inline">\mathop{\mathrm{RSS}}_2 = 0.83935</span></li>
+<li><span class="math inline">\mathop{\mathrm{RSS}}_2 = 0.83642</span></li>
 </ul></li>
-<li><span class="math inline">\texttt{Sum of Sq} \,</span> is the extra sum of squares
+<li><span class="math inline">\texttt{Sum of Sq} \,</span> is the <em>Extra Sum of Squares</em>
 <ul>
-<li><span class="math inline">\mathop{\mathrm{RSS}}_1 - \mathop{\mathrm{RSS}}_2 = 0.48401</span></li>
+<li><span class="math inline">\mathop{\mathrm{RSS}}_1 - \mathop{\mathrm{RSS}}_2 = 0.48694</span></li>
 </ul></li>
 </ul>
+</div>
 </section>
-<section id="anova-output-4" class="slide level2 smaller">
-<h2>Anova output</h2>
+<section id="section-8" class="slide level2 smaller">
+<h2></h2>
+<div style="font-size: 0.95em">
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>Analysis of Variance Table
 
-Model 1: y ~ x3 + x4 + x6
-Model 2: y ~ x2 + x3 + x4 + x5 + x6
+Model 1: y ~ x4 + x5 + x7
+Model 2: y ~ x2 + x3 + x4 + x5 + x6 + x7
   Res.Df     RSS Df Sum of Sq      F Pr(&gt;F)
-1     12 0.64164                           
-2     10 0.44797  2   0.19367 2.1616 0.1659</code></pre>
+1     12 1.32336                           
+2      9 0.83642  3   0.48694 1.7465  0.227</code></pre>
 </div>
 </div>
-<p><strong>Interpretation:</strong></p>
+<p><br></p>
 <ul>
-<li><span class="math inline">\texttt{F} \,</span> is the F-statistic for model selection</li>
+<li><span class="math inline">\texttt{F} \,</span> is the F-statistic for Model Selection</li>
 </ul>
 <p><span class="math display">\begin{align*}
 F &amp; = \frac{ \mathop{\mathrm{RSS}}_1 - \mathop{\mathrm{RSS}}_2 }{ \mathop{\mathrm{df}}_1 - \mathop{\mathrm{df}}_2 } \bigg/
       \frac{ \mathop{\mathrm{RSS}}_2 }{ \mathop{\mathrm{df}}_2 } \\
-  &amp; = \frac{ 1.32336 - 0.83935 }{ 12 - 10 } \bigg/
-      \frac{ 0.83935 }{ 10 } =  2.8833
+  &amp; = \frac{ 1.32336 - 0.83642 }{ 12 - 9 } \bigg/
+      \frac{ 0.83642 }{ 9 } =  1.7465
 \end{align*}</span></p>
+</div>
 </section>
-<section id="anova-output-5" class="slide level2 smaller">
-<h2>Anova output</h2>
+<section id="section-9" class="slide level2 smaller">
+<h2></h2>
+<div style="font-size: 0.95em">
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>Analysis of Variance Table
 
-Model 1: y ~ x3 + x4 + x6
-Model 2: y ~ x2 + x3 + x4 + x5 + x6
+Model 1: y ~ x4 + x5 + x7
+Model 2: y ~ x2 + x3 + x4 + x5 + x6 + x7
   Res.Df     RSS Df Sum of Sq      F Pr(&gt;F)
-1     12 0.64164                           
-2     10 0.44797  2   0.19367 2.1616 0.1659</code></pre>
+1     12 1.32336                           
+2      9 0.83642  3   0.48694 1.7465  0.227</code></pre>
 </div>
 </div>
-<p><strong>Interpretation:</strong></p>
+<p><br></p>
 <ul>
-<li><span class="math inline">\texttt{Pr(&gt;F)}</span> is the p-value for F-test
+<li><span class="math inline">\texttt{Pr(&gt;F)}</span> is the p-value for the F-test for Model Selection
 <ul>
-<li><span class="math inline">F \, \sim \, F_{\mathop{\mathrm{df}}_1 - \mathop{\mathrm{df}}_2 , \, \mathop{\mathrm{df}}_2 } = F_{2, 10}</span></li>
+<li><span class="math inline">F \, \sim \, F_{\mathop{\mathrm{df}}_1 - \mathop{\mathrm{df}}_2 , \, \mathop{\mathrm{df}}_2 } = F_{3, 9}</span></li>
 <li>Therefore the p-value is <span class="math display">
-  p = P(F_{2,10} &gt; F) = 0.1026
+  p = P(F_{3,9} &gt; F) = 0.227
   </span></li>
 </ul></li>
 </ul>
+</div>
 </section>
-<section id="anova-output-6" class="slide level2 smaller">
-<h2>Anova output</h2>
+<section id="section-10" class="slide level2 smaller">
+<h2></h2>
+<div style="font-size: 0.95em">
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>Analysis of Variance Table
 
-Model 1: y ~ x3 + x4 + x6
-Model 2: y ~ x2 + x3 + x4 + x5 + x6
+Model 1: y ~ x4 + x5 + x7
+Model 2: y ~ x2 + x3 + x4 + x5 + x6 + x7
   Res.Df     RSS Df Sum of Sq      F Pr(&gt;F)
-1     12 0.64164                           
-2     10 0.44797  2   0.19367 2.1616 0.1659</code></pre>
+1     12 1.32336                           
+2      9 0.83642  3   0.48694 1.7465  0.227</code></pre>
 </div>
 </div>
-<p><strong>Conclusion:</strong></p>
+<p><br></p>
+<p><strong>Conclusion:</strong> The p-value is <span class="math inline">p = 0.227 &gt; 0.05</span></p>
 <ul>
-<li>The p-value is <span class="math inline">p = 0.1026 &gt; 0.05</span></li>
-<li>This means we cannot reject <span class="math inline">H_0</span></li>
-<li>Therefore the Reduced Model 1 has to be preferred</li>
-<li>This gives statistical evidence that <span class="math inline">X_2</span> and <span class="math inline">X_5</span> can be excluded from the model</li>
-<li><em>GNP</em> and <em>Non-institutionalised</em> do not affect <em>Number of Employed</em></li>
+<li><p>This means we cannot reject <span class="math inline">H_0</span>, which said that <span class="math inline">\beta_{2} = \beta_{3} = \beta_6 = 0</span></p></li>
+<li><p>Therefore the Reduced Model 1 has to be preferred <span class="math display">
+Y = \beta_1 + \beta_4 x_{4} + \beta_5 x_{5} + \beta_7 x_{7}  + \varepsilon
+</span></p></li>
+<li><p>This gives statistical evidence that <span class="math inline">X_2, X_3,X_6</span> can be excluded from the model</p></li>
+<li><p><em>GNP Deflator</em>, <em>GNP</em> and <em>Population</em> do not affect the <em>Number of Employed</em></p></li>
 </ul>
+</div>
 </section>
 <section id="example-2-motion-of-falling-bodies" class="slide level2 smaller">
 <h2>Example 2: Motion of falling bodies</h2>
 <p>Engraving (1546): people believed projectiles follow circular trajectories (<a href="https://www.alamy.com/engraving-depicting-the-path-of-a-projectile-shown-as-a-circular-arc-rather-than-a-parabolic-arc-as-was-later-proved-to-be-the-case-by-galileo-galileo-galilei-1564-1642-an-italian-polymath-dated-16th-century-image186386912.html">source</a>)</p>
 
 <img data-src="images/engraving.jpg" style="width:73.0%" class="r-stretch"></section>
-<section id="section" class="slide level2 smaller">
+<section id="section-11" class="slide level2 smaller">
 <h2></h2>
 <ul>
 <li>1609: Galileo proved mathematically that projectile trajectories are parabolic
@@ -1126,7 +1290,7 @@ Model 2: y ~ x2 + x3 + x4 + x5 + x6
 </ul>
 
 <img data-src="images/galileo_0.png" style="width:73.0%" class="r-stretch"></section>
-<section id="section-1" class="slide level2 smaller">
+<section id="section-12" class="slide level2 smaller">
 <h2></h2>
 <ul>
 <li>We have access to Galileo’s original data <span class="citation" data-cites="drake_galileo">[<a href="#/references" role="doc-biblioref" onclick="">1</a>]</span></li>
@@ -1139,20 +1303,18 @@ Model 2: y ~ x2 + x3 + x4 + x5 + x6
 <h2>Plotting the data</h2>
 <p><br></p>
 <table class="caption-top">
-<thead>
-<tr class="header">
-<th style="text-align: left;"><strong>Initial Height</strong></th>
-<th style="text-align: left;">100</th>
-<th style="text-align: left;">200</th>
-<th style="text-align: left;">300</th>
-<th style="text-align: left;">450</th>
-<th style="text-align: left;">600</th>
-<th style="text-align: left;">800</th>
-<th style="text-align: left;">1000</th>
-</tr>
-</thead>
 <tbody>
 <tr class="odd">
+<td style="text-align: left;"><strong>Initial Height</strong></td>
+<td style="text-align: left;">100</td>
+<td style="text-align: left;">200</td>
+<td style="text-align: left;">300</td>
+<td style="text-align: left;">450</td>
+<td style="text-align: left;">600</td>
+<td style="text-align: left;">800</td>
+<td style="text-align: left;">1000</td>
+</tr>
+<tr class="even">
 <td style="text-align: left;"><strong>Horizontal Distance</strong></td>
 <td style="text-align: left;">253</td>
 <td style="text-align: left;">337</td>
@@ -1165,87 +1327,355 @@ Model 2: y ~ x2 + x3 + x4 + x5 + x6
 </tbody>
 </table>
 <p><br></p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Enter the data</span></span>
-<span id="cb12-2"><a aria-hidden="true" tabindex="-1"></a>height <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">100</span>, <span class="dv">200</span>, <span class="dv">300</span>, <span class="dv">450</span>, <span class="dv">600</span>, <span class="dv">800</span>, <span class="dv">1000</span>)</span>
-<span id="cb12-3"><a aria-hidden="true" tabindex="-1"></a>distance <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">253</span>, <span class="dv">337</span>, <span class="dv">395</span>, <span class="dv">451</span>, <span class="dv">495</span>, <span class="dv">534</span>, <span class="dv">573</span>)</span>
-<span id="cb12-4"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-5"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Scatter plot of data</span></span>
-<span id="cb12-6"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(height, distance, <span class="at">pch =</span> <span class="dv">16</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Enter the data</span></span>
+<span id="cb13-2"><a aria-hidden="true" tabindex="-1"></a>height <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">100</span>, <span class="dv">200</span>, <span class="dv">300</span>, <span class="dv">450</span>, <span class="dv">600</span>, <span class="dv">800</span>, <span class="dv">1000</span>)</span>
+<span id="cb13-3"><a aria-hidden="true" tabindex="-1"></a>distance <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">253</span>, <span class="dv">337</span>, <span class="dv">395</span>, <span class="dv">451</span>, <span class="dv">495</span>, <span class="dv">534</span>, <span class="dv">573</span>)</span>
+<span id="cb13-4"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-5"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Scatter plot of data</span></span>
+<span id="cb13-6"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(height, distance, <span class="at">pch =</span> <span class="dv">16</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="section-2" class="slide level2 smaller">
-<h2></h2>
-<p>We clearly see a parabola. Therefore we expect a relation of the form</p>
-<p><span class="math display">
-{\rm distance} = \beta_1 + \beta_2 \, {\rm height } + \beta_3 \, {\rm height }^2
-</span></p>
-
-<img data-src="lecture_10_files/figure-revealjs/unnamed-chunk-9-1.png" width="960" class="r-stretch"></section>
-<section id="fit-linear-model" class="slide level2 smaller">
-<h2>Fit linear model</h2>
-<p><span class="math display">
-{\rm distance} = \beta_1 + \beta_2 \, {\rm height }
-</span></p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Fit linear model</span></span>
-<span id="cb13-2"><a aria-hidden="true" tabindex="-1"></a>linear <span class="ot">&lt;-</span> <span class="fu">lm</span>(distance <span class="sc">~</span> height)</span>
-<span id="cb13-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(linear)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<pre class="verbatim"><code>
-Multiple R-squared:  0.9264,    Adjusted R-squared:  0.9116 
-
-</code></pre>
+<section id="data-visualization" class="slide level2 smaller">
+<h2>Data visualization</h2>
+<div class="column" style="width:45%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="lecture_10_files/figure-revealjs/unnamed-chunk-9-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:53%;">
+<div style="font-size: 0.93em">
 <ul>
-<li>The coefficient of correlation is <span class="math inline">R^2 = 0.9264</span></li>
-<li><span class="math inline">R^2</span> is quite high, showing that a linear model fits reasonably well</li>
+<li><p>The plot shows that a parabola might fit better than a straight line</p></li>
+<li><p>We can first fit the usual simple linear regression model <span class="math display">
+{\rm distance} = \beta_1 + \beta_2 \, {\rm height } + \varepsilon
+</span></p></li>
+<li><p>Then, we can try a degree 2 polynomial (linear) regression model <span class="math display">
+{\rm distance} = \beta_1 + \beta_2 \, {\rm height } + \beta_3 \, {\rm height }^2 + \varepsilon
+</span></p></li>
+<li><p>We can compare the 2 models with the F-test for <em>Model Selection</em></p></li>
 </ul>
-</section>
-<section id="is-a-quadratic-model-better" class="slide level2 smaller">
-<h2>Is a quadratic model better?</h2>
+</div>
+</div></section>
+<section id="fit-simple-linear-model" class="slide level2 smaller">
+<h2>Fit simple linear model</h2>
 <p><span class="math display">
-{\rm distance} = \beta_1 + \beta_2 \, {\rm height } + \beta_3  
-\, {\rm height }^2
+{\rm distance} = \beta_1 + \beta_2 \, {\rm height } + \varepsilon
 </span></p>
 <p><br></p>
-<p><strong>Note:</strong> To specify powers we need to type <span class="math inline">\,\, \texttt{I}</span></p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Fit quadratic model</span></span>
-<span id="cb15-2"><a aria-hidden="true" tabindex="-1"></a>quadratic <span class="ot">&lt;-</span> <span class="fu">lm</span>(distance <span class="sc">~</span> height <span class="sc">+</span> <span class="fu">I</span>( height<span class="sc">^</span><span class="dv">2</span> ))</span>
-<span id="cb15-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(quadratic)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<pre class="verbatim"><code>
-Multiple R-squared:  0.9903,    Adjusted R-squared:  0.9855 
+<div class="sourceCode" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Fit linear model</span></span>
+<span id="cb14-2"><a aria-hidden="true" tabindex="-1"></a>linear <span class="ot">&lt;-</span> <span class="fu">lm</span>(distance <span class="sc">~</span> height)</span>
+<span id="cb14-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Print summary</span></span>
+<span id="cb14-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(linear)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="section-13" class="slide level2 smaller">
+<h2></h2>
+<div style="font-size: 0.95em">
+<pre class="verbatim"><code>Coefficients:
+             Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) 269.71246   24.31239  11.094 0.000104 ***
+height        0.33334    0.04203   7.931 0.000513 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
+Residual standard error: 33.68 on 5 degrees of freedom
+Multiple R-squared:  0.9264,    Adjusted R-squared:  0.9116 
+F-statistic: 62.91 on 1 and 5 DF,  p-value: 0.0005132
 </code></pre>
+<p><br></p>
 <ul>
-<li>The coefficient of correlation is <span class="math inline">R^2 = 0.9903</span></li>
-<li>This is higher than the previous score <span class="math inline">R^2 = 0.9264</span></li>
-<li>The quadratic trajectory explains <span class="math inline">99\%</span> of variability in the data</li>
+<li>Individual t-tests show that coefficients for both <strong>Intercept</strong> and <strong>height</strong> are non-zero
+<ul>
+<li><span class="math inline">\beta_1 \neq 0</span> because corresponding p-value is <span class="math inline">p = 0.000104 &lt; 0.05</span></li>
+<li><span class="math inline">\beta_2 \neq 0</span> because corresponding p-value is <span class="math inline">p = 0.000513 &lt; 0.05</span></li>
+</ul></li>
+<li>F-test for overall significance coincides with t-test for paramter <span class="math inline">\beta_2</span>
+<ul>
+<li>Recall: This is always true for simple regression</li>
+<li>Hence, F-test is redundant in this case</li>
+</ul></li>
 </ul>
+</div>
+</section>
+<section id="section-14" class="slide level2 smaller">
+<h2></h2>
+<div style="font-size: 0.95em">
+<pre class="verbatim"><code>Coefficients:
+             Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) 269.71246   24.31239  11.094 0.000104 ***
+height        0.33334    0.04203   7.931 0.000513 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 33.68 on 5 degrees of freedom
+Multiple R-squared:  0.9264,    Adjusted R-squared:  0.9116 
+F-statistic: 62.91 on 1 and 5 DF,  p-value: 0.0005132
+</code></pre>
+<p><br></p>
+<ul>
+<li>The coefficient of determination is <span class="math inline">R^2 = 0.9264</span>
+<ul>
+<li>This is quite high (close to <span class="math inline">1</span>)</li>
+</ul></li>
+<li><strong>Conclusion:</strong> Every indicator shows that the linear model fits quite well</li>
+</ul>
+</div>
+</section>
+<section id="fit-quadratic-model" class="slide level2 smaller">
+<h2>Fit quadratic model</h2>
+<p><span class="math display">
+{\rm distance} = \beta_1 + \beta_2 \, {\rm height } + \beta_3  
+\, {\rm height }^2 + \varepsilon
+</span></p>
+<p><br></p>
+<p><strong>Note:</strong> To specify powers, we need to type <span class="math inline">\,\, \texttt{I}</span></p>
+<p><br></p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Fit quadratic model</span></span>
+<span id="cb17-2"><a aria-hidden="true" tabindex="-1"></a>quadratic <span class="ot">&lt;-</span> <span class="fu">lm</span>(distance <span class="sc">~</span> height <span class="sc">+</span> <span class="fu">I</span>( height<span class="sc">^</span><span class="dv">2</span> ))</span>
+<span id="cb17-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Print summary</span></span>
+<span id="cb17-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(quadratic)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="section-15" class="slide level2 smaller">
+<h2></h2>
+<div style="font-size: 0.95em">
+<pre class="verbatim"><code>Coefficients:
+              Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  1.999e+02  1.676e+01  11.928 0.000283 ***
+height       7.083e-01  7.482e-02   9.467 0.000695 ***
+I(height^2) -3.437e-04  6.678e-05  -5.147 0.006760 ** 
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 13.64 on 4 degrees of freedom
+Multiple R-squared:  0.9903,    Adjusted R-squared:  0.9855 
+F-statistic:   205 on 2 and 4 DF,  p-value: 9.333e-05</code></pre>
+<p><br></p>
+<ul>
+<li>Individual t-tests show that all coefficients are non-zero
+<ul>
+<li><span class="math inline">\beta_1 \neq 0</span> because corresponding p-value is <span class="math inline">p = 0.000283 &lt; 0.05</span></li>
+<li><span class="math inline">\beta_2 \neq 0</span> because corresponding p-value is <span class="math inline">p = 0.000695 &lt; 0.05</span></li>
+<li><span class="math inline">\beta_3 \neq 0</span> because corresponding p-value is <span class="math inline">p = 0.006760 &lt; 0.05</span></li>
+</ul></li>
+<li>In particular, this shows that the <em>extra quadratic term</em> is significant</li>
+</ul>
+</div>
+</section>
+<section id="section-16" class="slide level2 smaller">
+<h2></h2>
+<div style="font-size: 0.95em">
+<pre class="verbatim"><code>Coefficients:
+              Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  1.999e+02  1.676e+01  11.928 0.000283 ***
+height       7.083e-01  7.482e-02   9.467 0.000695 ***
+I(height^2) -3.437e-04  6.678e-05  -5.147 0.006760 ** 
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 13.64 on 4 degrees of freedom
+Multiple R-squared:  0.9903,    Adjusted R-squared:  0.9855 
+F-statistic:   205 on 2 and 4 DF,  p-value: 9.333e-05</code></pre>
+<p><br></p>
+<ul>
+<li>F-test for overall significance gives a p-value of <span class="math inline">p = 9.333 \times 10^{-05} &lt; 0.05</span>
+<ul>
+<li>This means we reject the null hypothesis that <span class="math display">
+  \beta_2 = \beta_3 = 0
+  </span></li>
+<li>Hence, we have confirmation that at least one of the parameters is significant</li>
+</ul></li>
+</ul>
+</div>
+</section>
+<section id="section-17" class="slide level2 smaller">
+<h2></h2>
+<div style="font-size: 0.95em">
+<pre class="verbatim"><code>Coefficients:
+              Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  1.999e+02  1.676e+01  11.928 0.000283 ***
+height       7.083e-01  7.482e-02   9.467 0.000695 ***
+I(height^2) -3.437e-04  6.678e-05  -5.147 0.006760 ** 
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 13.64 on 4 degrees of freedom
+Multiple R-squared:  0.9903,    Adjusted R-squared:  0.9855 
+F-statistic:   205 on 2 and 4 DF,  p-value: 9.333e-05</code></pre>
+<p><br></p>
+<ul>
+<li>The coefficient of determination is <span class="math inline">R^2 = 0.9903</span>
+<ul>
+<li>This is quite high (close to <span class="math inline">1</span>)</li>
+<li>The quadratic trajectory explains <span class="math inline">99\%</span> of variability in the data</li>
+</ul></li>
+<li><strong>Conclusion:</strong> Every indicator shows that the quadratic model fits quite well</li>
+</ul>
+</div>
+</section>
+<section id="linear-vs-quadratic" class="slide level2 smaller">
+<h2>Linear Vs Quadratic</h2>
+<ul>
+<li><p>We have seen that both linear and quadratic models fit well</p></li>
+<li><p>In particular, the coefficients of determination are <span class="math display">
+R^2 \text{ for quadratic model} = 0.9903 &gt; R^2 \text{ for linear model} = 0.9264
+</span></p></li>
+<li><p>This confirms that the Quadratic model offers a better fit</p></li>
+<li><p>However, need to confirm that Quadratic model makes <strong>better predictions</strong></p>
+<ul>
+<li>Can be done with <em>F-test for Model Selection</em></li>
+</ul></li>
+</ul>
+<div style="font-size: 0.25em">
+<p><br></p>
+</div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># F-test for Model Selection</span></span>
+<span id="cb21-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(linear, quadratic)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="section-18" class="slide level2 smaller">
+<h2></h2>
+<div style="font-size: 0.95em">
+<pre class="verbatim"><code>Analysis of Variance Table
+
+Model 1: distance ~ height
+Model 2: distance ~ height + I(height^2)
+  Res.Df    RSS Df Sum of Sq      F  Pr(&gt;F)   
+1      5 5671.2                               
+2      4  744.1  1    4927.1 26.487 0.00676 **</code></pre>
+<p><br></p>
+<ul>
+<li><p>First two lines say that the following 2 models are being compared <span class="math display">\begin{align*}
+  \textbf{Model 1:} &amp; \quad {\rm distance} = \beta_1 + \beta_2 \, {\rm height } + \varepsilon\\[10pt]
+  \textbf{Model 2:} &amp; \quad {\rm distance} = \beta_1 + \beta_2 \, {\rm height } + \beta_3  
+\, {\rm height }^2 + \varepsilon
+\end{align*}</span></p></li>
+<li><p>The null hypothesis favors Model 1; The alternative favors Model 2 <span class="math display">\begin{align*}
+H_0 \colon &amp; \,  \beta_{3}  = 0 \\[5pt]
+H_1 \colon &amp; \,  \beta_{3} \neq 0
+\end{align*}</span></p></li>
+</ul>
+</div>
+</section>
+<section id="section-19" class="slide level2 smaller">
+<h2></h2>
+<div style="font-size: 0.95em">
+<pre class="verbatim"><code>Analysis of Variance Table
+
+Model 1: distance ~ height
+Model 2: distance ~ height + I(height^2)
+  Res.Df    RSS Df Sum of Sq      F  Pr(&gt;F)   
+1      5 5671.2                               
+2      4  744.1  1    4927.1 26.487 0.00676 **</code></pre>
+<p><br></p>
+<ul>
+<li><p><strong>Note:</strong> Hypothesis for Model Selection coincides with hypothesis of significance of <span class="math inline">\beta_3</span> <span class="math display">\begin{align*}
+H_0 \colon &amp; \,  \beta_{3}  = 0 \\[5pt]
+H_1 \colon &amp; \,  \beta_{3} \neq 0
+\end{align*}</span></p></li>
+<li><p>In this case, t-test for significance of <span class="math inline">\beta_3</span> and F-test for Model Selection coincide</p></li>
+<li><p>They both give a p-value of <span class="math inline">p = 0.00676 &lt; 0.05</span></p></li>
+<li><p>This means we reject <span class="math inline">H_0 \quad \implies</span> the Quadratic term is needed</p></li>
+<li><p><strong>Quadratic model has to be preferred to the linear one</strong></p></li>
+</ul>
+</div>
 </section>
 <section id="why-not-try-a-cubic-model" class="slide level2 smaller">
-<h2>Why not try a cubic model?</h2>
+<h2>Why not try a Cubic model?</h2>
+<p><br></p>
 <p><span class="math display">
 {\rm distance} = \beta_1 + \beta_2 \, {\rm height } + \beta_3  
-\, {\rm height }^2 + \beta_4 \, {\rm height }^3
+\, {\rm height }^2 + \beta_4 \, {\rm height }^3 + \varepsilon
 </span></p>
 <p><br></p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Fit cubic model</span></span>
-<span id="cb17-2"><a aria-hidden="true" tabindex="-1"></a>cubic <span class="ot">&lt;-</span> <span class="fu">lm</span>(distance <span class="sc">~</span> height <span class="sc">+</span> <span class="fu">I</span>( height<span class="sc">^</span><span class="dv">2</span> ) <span class="sc">+</span> <span class="fu">I</span> (height<span class="sc">^</span><span class="dv">3</span>))</span>
-<span id="cb17-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(cubic)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<pre class="verbatim"><code>
-Multiple R-squared:  0.9994,    Adjusted R-squared:  0.9987 
+<div class="sourceCode" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Fit cubic model</span></span>
+<span id="cb24-2"><a aria-hidden="true" tabindex="-1"></a>cubic <span class="ot">&lt;-</span> <span class="fu">lm</span>(distance <span class="sc">~</span> height <span class="sc">+</span> <span class="fu">I</span>( height<span class="sc">^</span><span class="dv">2</span> ) <span class="sc">+</span> <span class="fu">I</span> (height<span class="sc">^</span><span class="dv">3</span>))</span>
+<span id="cb24-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Print Summary</span></span>
+<span id="cb24-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(cubic)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="section-20" class="slide level2 smaller">
+<h2></h2>
+<div style="font-size: 0.93em">
+<pre class="verbatim"><code>Coefficients:
+              Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  1.558e+02  8.326e+00  18.710 0.000333 ***
+height       1.115e+00  6.567e-02  16.983 0.000445 ***
+I(height^2) -1.245e-03  1.384e-04  -8.994 0.002902 ** 
+I(height^3)  5.477e-07  8.327e-08   6.577 0.007150 ** 
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
-</code></pre>
+Residual standard error: 4.011 on 3 degrees of freedom
+Multiple R-squared:  0.9994,    Adjusted R-squared:  0.9987 
+F-statistic:  1595 on 3 and 3 DF,  p-value: 2.662e-05</code></pre>
+<p><br></p>
 <ul>
-<li>The coefficient of correlation is <span class="math inline">R^2 = 0.9994</span></li>
-<li>This is higher than the score of quadratic model <span class="math inline">R^2 = 0.9903</span></li>
-<li>What is going on?</li>
+<li>Individual t-tests show that all coefficients are non-zero (p-values <span class="math inline">&lt; 0.05</span>)
+<ul>
+<li>In particular, this shows that the <em>extra cubic term</em> is significant</li>
+</ul></li>
+<li>F-test for overall significance gives a p-value of <span class="math inline">p = 2.662 \times 10^{-05} &lt; 0.05</span>
+<ul>
+<li>We have confirmation that at least one of the parameters is non-zero</li>
+</ul></li>
 </ul>
+</div>
+</section>
+<section id="section-21" class="slide level2 smaller">
+<h2></h2>
+<div style="font-size: 0.93em">
+<pre class="verbatim"><code>Coefficients:
+              Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  1.558e+02  8.326e+00  18.710 0.000333 ***
+height       1.115e+00  6.567e-02  16.983 0.000445 ***
+I(height^2) -1.245e-03  1.384e-04  -8.994 0.002902 ** 
+I(height^3)  5.477e-07  8.327e-08   6.577 0.007150 ** 
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 4.011 on 3 degrees of freedom
+Multiple R-squared:  0.9994,    Adjusted R-squared:  0.9987 
+F-statistic:  1595 on 3 and 3 DF,  p-value: 2.662e-05</code></pre>
+<p><br></p>
+<ul>
+<li>The coefficient of determination is <span class="math inline">R^2 = 0.9994</span>
+<ul>
+<li>This is quite high (close to <span class="math inline">1</span>)</li>
+</ul></li>
+<li><strong>Conclusion:</strong> Every indicator shows that the Cubic model fits quite well</li>
+</ul>
+</div>
 </section>
 <section id="quadratic-vs-cubic" class="slide level2 smaller">
-<h2>Quadratic vs cubic</h2>
+<h2>Quadratic vs Cubic</h2>
 <ul>
-<li><p>Which model is better: quadratic or cubic?</p></li>
-<li><p>Let us perform F-test for model selection</p></li>
+<li><p>Both Quadratic and Cubic models fit well</p></li>
+<li><p>In particular, the coefficients of determination are <span class="math display">
+R^2 \text{ for Cubic model} = 0.9994 &gt; R^2 \text{ for Quadratic model} =  0.9903
+</span></p></li>
+<li><p>This confirms that the Cubic model offers a better fit</p>
+<ul>
+<li>Falling bodies follow cubic trajectories???</li>
+<li>What is going on?</li>
+</ul></li>
+<li><p>Need to confirm that Cubic model makes <strong>better predictions</strong></p>
+<ul>
+<li>Can be done with <em>F-test for Model Selection</em></li>
+</ul></li>
 </ul>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Model selection</span></span>
-<span id="cb19-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(quadratic, cubic, <span class="at">test =</span> <span class="st">"F"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div style="font-size: 0.25em">
+<p><br></p>
+</div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># F-test for Model Selection</span></span>
+<span id="cb27-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(quadratic, cubic)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="section-22" class="slide level2 smaller">
+<h2></h2>
+<div style="font-size: 0.93em">
 <pre class="verbatim"><code>
 Analysis of Variance Table
 
@@ -1254,84 +1684,197 @@ Model 2: distance ~ height + I(height^2) + I(height^3)
   Res.Df    RSS Df Sum of Sq     F  Pr(&gt;F)   
 1      4 744.08                              
 2      3  48.25  1    695.82 43.26 0.00715 **</code></pre>
-</section>
-<section id="model-selection-quadratic-vs-cubic" class="slide level2 smaller">
-<h2>Model selection: quadratic Vs cubic</h2>
+<p><br></p>
 <ul>
-<li><p>The F-test is significant since <span class="math inline">p = 0.007 &lt; 0.05</span></p></li>
-<li><p>This means we should reject the null hypothesis that</p></li>
+<li><p>First two lines say that the following 2 models are being compared <span class="math display">\begin{align*}
+  \textbf{Model 1:} &amp; \quad {\rm distance} = \beta_1 + \beta_2 \, {\rm height } + \varepsilon\\[10pt]
+  \textbf{Model 2:} &amp; \quad {\rm distance} = \beta_1 + \beta_2 \, {\rm height } + \beta_3  
+\, {\rm height }^2  + \beta_4  
+\, {\rm height }^3 + \varepsilon
+\end{align*}</span></p></li>
+<li><p>The null hypothesis favors Model 1; The alternative favors Model 2 <span class="math display">\begin{align*}
+H_0 \colon &amp; \,  \beta_{4}  = 0 \\[5pt]
+H_1 \colon &amp; \,  \beta_{4} \neq 0
+\end{align*}</span></p></li>
 </ul>
-<p><span class="math display">
-\beta_4 = 0
-</span></p>
-<ul>
-<li><p>Therefore the quadratic model does not describe the data well</p></li>
-<li><p>The underlying relationship from Galileo’s data is cubic and not quadratic</p></li>
-<li><p>Probably the <em>inclined plane</em> introduced drag</p></li>
-<li><p>Code can be downloaded here <a href="codes/galileo.R">galileo.R</a></p></li>
-</ul>
+</div>
 </section>
-<section id="plot-quadratic-vs-cubic" class="slide level2 smaller">
-<h2>Plot: Quadratic Vs Cubic</h2>
+<section id="section-23" class="slide level2 smaller">
+<h2></h2>
+<div style="font-size: 0.93em">
+<pre class="verbatim"><code>
+Analysis of Variance Table
+
+Model 1: distance ~ height + I(height^2)
+Model 2: distance ~ height + I(height^2) + I(height^3)
+  Res.Df    RSS Df Sum of Sq     F  Pr(&gt;F)   
+1      4 744.08                              
+2      3  48.25  1    695.82 43.26 0.00715 **</code></pre>
+<p><br></p>
+<ul>
+<li><p><strong>Note:</strong> Hypothesis for Model Selection coincides with hypothesis of significance of <span class="math inline">\beta_4</span> <span class="math display">\begin{align*}
+H_0 \colon &amp; \,  \beta_{4}  = 0 \\[5pt]
+H_1 \colon &amp; \,  \beta_{4} \neq 0
+\end{align*}</span></p></li>
+<li><p>In this case, t-test for significance of <span class="math inline">\beta_4</span> and F-test for Model Selection coincide</p></li>
+<li><p>They both give a p-value of <span class="math inline">p = 0.00715 &lt; 0.05</span></p></li>
+<li><p>This means we reject <span class="math inline">H_0 \quad \implies</span> the Cubic term is needed</p></li>
+<li><p><strong>Cubic model has to be preferred to the Quadratic one</strong></p></li>
+</ul>
+</div>
+</section>
+<section id="conclusion" class="slide level2 smaller">
+<h2>Conclusion</h2>
+<div class="column" style="width:48%;">
 <div class="cell">
 <details class="code-fold">
 <summary>Click here to show the full code</summary>
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Enter the data</span></span>
-<span id="cb21-2"><a aria-hidden="true" tabindex="-1"></a>height <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">100</span>, <span class="dv">200</span>, <span class="dv">300</span>, <span class="dv">450</span>, <span class="dv">600</span>, <span class="dv">800</span>, <span class="dv">1000</span>)</span>
-<span id="cb21-3"><a aria-hidden="true" tabindex="-1"></a>distance <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">253</span>, <span class="dv">337</span>, <span class="dv">395</span>, <span class="dv">451</span>, <span class="dv">495</span>, <span class="dv">534</span>, <span class="dv">573</span>)</span>
-<span id="cb21-4"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-5"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Scatter plot of data</span></span>
-<span id="cb21-6"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(height, distance, <span class="at">xlab =</span> <span class="st">""</span>, <span class="at">ylab =</span> <span class="st">""</span>, <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">cex =</span> <span class="dv">2</span>)</span>
-<span id="cb21-7"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-8"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Add labels</span></span>
-<span id="cb21-9"><a aria-hidden="true" tabindex="-1"></a><span class="fu">mtext</span>(<span class="st">"Initial height"</span>, <span class="at">side =</span> <span class="dv">1</span>, <span class="at">line =</span> <span class="dv">3</span>, <span class="at">cex =</span> <span class="fl">2.1</span>)</span>
-<span id="cb21-10"><a aria-hidden="true" tabindex="-1"></a><span class="fu">mtext</span>(<span class="st">"Horizontal distance"</span>, <span class="at">side =</span> <span class="dv">2</span>, <span class="at">line =</span> <span class="fl">2.5</span>, <span class="at">cex =</span> <span class="fl">2.1</span>)</span>
-<span id="cb21-11"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-12"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Fit quadratic model</span></span>
-<span id="cb21-13"><a aria-hidden="true" tabindex="-1"></a>quadratic <span class="ot">&lt;-</span> <span class="fu">lm</span>(distance <span class="sc">~</span> height <span class="sc">+</span> <span class="fu">I</span>( height<span class="sc">^</span><span class="dv">2</span> ))</span>
-<span id="cb21-14"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-15"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Fit cubic model</span></span>
-<span id="cb21-16"><a aria-hidden="true" tabindex="-1"></a>cubic <span class="ot">&lt;-</span> <span class="fu">lm</span>(distance <span class="sc">~</span> height <span class="sc">+</span> <span class="fu">I</span>( height<span class="sc">^</span><span class="dv">2</span> ) <span class="sc">+</span> <span class="fu">I</span> (height<span class="sc">^</span><span class="dv">3</span>))</span>
-<span id="cb21-17"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-18"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Plot quadratic Vs Cubic</span></span>
-<span id="cb21-19"><a aria-hidden="true" tabindex="-1"></a>polynomial <span class="ot">&lt;-</span> <span class="fu">Vectorize</span>(<span class="cf">function</span>(x, ps) {</span>
-<span id="cb21-20"><a aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">length</span>(ps)</span>
-<span id="cb21-21"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">sum</span>(ps<span class="sc">*</span>x<span class="sc">^</span>(<span class="dv">1</span><span class="sc">:</span>n<span class="dv">-1</span>))</span>
-<span id="cb21-22"><a aria-hidden="true" tabindex="-1"></a>}, <span class="st">"x"</span>)</span>
-<span id="cb21-23"><a aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">polynomial</span>(x, <span class="fu">coef</span>(quadratic)), <span class="at">add=</span><span class="cn">TRUE</span>, <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
-<span id="cb21-24"><a aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">polynomial</span>(x, <span class="fu">coef</span>(cubic)), <span class="at">add=</span><span class="cn">TRUE</span>, <span class="at">col =</span> <span class="st">"blue"</span>, <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
-<span id="cb21-25"><a aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">"topleft"</span>, <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">"quadratic"</span>, <span class="st">"cubic"</span>), </span>
-<span id="cb21-26"><a aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"red"</span>, <span class="st">"blue"</span>), <span class="at">lty =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">cex =</span> <span class="fl">2.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Enter the data</span></span>
+<span id="cb30-2"><a aria-hidden="true" tabindex="-1"></a>height <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">100</span>, <span class="dv">200</span>, <span class="dv">300</span>, <span class="dv">450</span>, <span class="dv">600</span>, <span class="dv">800</span>, <span class="dv">1000</span>)</span>
+<span id="cb30-3"><a aria-hidden="true" tabindex="-1"></a>distance <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">253</span>, <span class="dv">337</span>, <span class="dv">395</span>, <span class="dv">451</span>, <span class="dv">495</span>, <span class="dv">534</span>, <span class="dv">573</span>)</span>
+<span id="cb30-4"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-5"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Scatter plot of data</span></span>
+<span id="cb30-6"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(height, distance, <span class="at">xlab =</span> <span class="st">""</span>, <span class="at">ylab =</span> <span class="st">""</span>, <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">cex =</span> <span class="dv">2</span>)</span>
+<span id="cb30-7"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-8"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Add labels</span></span>
+<span id="cb30-9"><a aria-hidden="true" tabindex="-1"></a><span class="fu">mtext</span>(<span class="st">"Initial height"</span>, <span class="at">side =</span> <span class="dv">1</span>, <span class="at">line =</span> <span class="dv">3</span>, <span class="at">cex =</span> <span class="fl">2.1</span>)</span>
+<span id="cb30-10"><a aria-hidden="true" tabindex="-1"></a><span class="fu">mtext</span>(<span class="st">"Horizontal distance"</span>, <span class="at">side =</span> <span class="dv">2</span>, <span class="at">line =</span> <span class="fl">2.5</span>, <span class="at">cex =</span> <span class="fl">2.1</span>)</span>
+<span id="cb30-11"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-12"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Fit quadratic model</span></span>
+<span id="cb30-13"><a aria-hidden="true" tabindex="-1"></a>quadratic <span class="ot">&lt;-</span> <span class="fu">lm</span>(distance <span class="sc">~</span> height <span class="sc">+</span> <span class="fu">I</span>( height<span class="sc">^</span><span class="dv">2</span> ))</span>
+<span id="cb30-14"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-15"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Fit cubic model</span></span>
+<span id="cb30-16"><a aria-hidden="true" tabindex="-1"></a>cubic <span class="ot">&lt;-</span> <span class="fu">lm</span>(distance <span class="sc">~</span> height <span class="sc">+</span> <span class="fu">I</span>( height<span class="sc">^</span><span class="dv">2</span> ) <span class="sc">+</span> <span class="fu">I</span> (height<span class="sc">^</span><span class="dv">3</span>))</span>
+<span id="cb30-17"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-18"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Plot quadratic Vs Cubic</span></span>
+<span id="cb30-19"><a aria-hidden="true" tabindex="-1"></a>polynomial <span class="ot">&lt;-</span> <span class="fu">Vectorize</span>(<span class="cf">function</span>(x, ps) {</span>
+<span id="cb30-20"><a aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">length</span>(ps)</span>
+<span id="cb30-21"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">sum</span>(ps<span class="sc">*</span>x<span class="sc">^</span>(<span class="dv">1</span><span class="sc">:</span>n<span class="dv">-1</span>))</span>
+<span id="cb30-22"><a aria-hidden="true" tabindex="-1"></a>}, <span class="st">"x"</span>)</span>
+<span id="cb30-23"><a aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">polynomial</span>(x, <span class="fu">coef</span>(quadratic)), <span class="at">add=</span><span class="cn">TRUE</span>, <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb30-24"><a aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">polynomial</span>(x, <span class="fu">coef</span>(cubic)), <span class="at">add=</span><span class="cn">TRUE</span>, <span class="at">col =</span> <span class="st">"blue"</span>, <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb30-25"><a aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">"topleft"</span>, <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">"quadratic"</span>, <span class="st">"cubic"</span>), </span>
+<span id="cb30-26"><a aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"red"</span>, <span class="st">"blue"</span>), <span class="at">lty =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">cex =</span> <span class="fl">2.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="lecture_10_files/figure-revealjs/unnamed-chunk-10-1.png" width="960"></p>
+</figure>
 </div>
-<img data-src="lecture_10_files/figure-revealjs/unnamed-chunk-10-1.png" width="960" class="r-stretch"></section>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div style="font-size: 0.95em">
+<ul>
+<li><p>Cubic model works better than Quadratic model</p></li>
+<li><p>The underlying relationship from Galileo’s data is Cubic and not Quadratic</p></li>
+<li><p>Probably the <em>inclined plane</em> introduced <em>drag</em></p></li>
+<li><p>Code can be downloaded here <a href="codes/galileo.R">galileo.R</a></p></li>
+</ul>
+</div>
+</div></section>
 <section id="why-not-try-higher-degree-polynomials" class="slide level2 smaller">
-<h2>Why not try higher degree polynomials</h2>
+<h2>Why not try higher degree polynomials?</h2>
+<p><br></p>
 <p><span class="math display">
 {\rm distance} = \beta_1 + \beta_2 \, {\rm height } + \beta_3  
 \, {\rm height }^2 + \beta_4 \, {\rm height }^3
-+ \beta_5 \, {\rm height }^4
++ \beta_5 \, {\rm height }^4 + \varepsilon
 </span></p>
 <p><br></p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Fit quartic model</span></span>
-<span id="cb22-2"><a aria-hidden="true" tabindex="-1"></a>quartic <span class="ot">&lt;-</span> <span class="fu">lm</span>(distance <span class="sc">~</span> height <span class="sc">+</span> <span class="fu">I</span>( height<span class="sc">^</span><span class="dv">2</span> ) <span class="sc">+</span> <span class="fu">I</span> (height<span class="sc">^</span><span class="dv">3</span>) </span>
-<span id="cb22-3"><a aria-hidden="true" tabindex="-1"></a>                                                <span class="sc">+</span> <span class="fu">I</span> (height<span class="sc">^</span><span class="dv">4</span>))</span>
-<span id="cb22-4"><a aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(quartic)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<pre class="verbatim"><code>
-Multiple R-squared:  0.9998,    Adjusted R-squared:  0.9995
-
-</code></pre>
-<ul>
-<li>We obtain a coefficient <span class="math inline">R^2 = 0.9998</span></li>
-<li>This is even higher than cubic model coefficient <span class="math inline">R^2 =  0.9994</span></li>
-<li>Is the quartic model actually better?</li>
-</ul>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Fit Quartic model</span></span>
+<span id="cb31-2"><a aria-hidden="true" tabindex="-1"></a>quartic <span class="ot">&lt;-</span> <span class="fu">lm</span>(distance <span class="sc">~</span> height <span class="sc">+</span> <span class="fu">I</span>( height<span class="sc">^</span><span class="dv">2</span> ) <span class="sc">+</span> <span class="fu">I</span> (height<span class="sc">^</span><span class="dv">3</span>) </span>
+<span id="cb31-3"><a aria-hidden="true" tabindex="-1"></a>                                                <span class="sc">+</span> <span class="fu">I</span> (height<span class="sc">^</span><span class="dv">4</span>))</span>
+<span id="cb31-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Print summary</span></span>
+<span id="cb31-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(quartic)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="model-selection-cubic-vs-quartic" class="slide level2 smaller">
-<h2>Model selection: cubic Vs quartic</h2>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Model selection</span></span>
-<span id="cb24-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(cubic, quartic, <span class="at">test =</span> <span class="st">"F"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="section-24" class="slide level2 smaller">
+<h2></h2>
+<div style="font-size: 0.93em">
+<pre class="verbatim"><code>Coefficients:
+              Estimate Std. Error t value Pr(&gt;|t|)   
+(Intercept)  1.383e+02  9.066e+00  15.254  0.00427 **
+height       1.346e+00  1.061e-01  12.690  0.00615 **
+I(height^2) -2.117e-03  3.793e-04  -5.582  0.03063 * 
+I(height^3)  1.766e-06  5.186e-07   3.406  0.07644 . 
+I(height^4) -5.610e-10  2.375e-10  -2.362  0.14201   
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 2.523 on 2 degrees of freedom
+Multiple R-squared:  0.9998,    Adjusted R-squared:  0.9995 
+F-statistic:  3024 on 4 and 2 DF,  p-value: 0.0003306</code></pre>
+<p><br></p>
+<ul>
+<li>Individual t-tests show that:
+<ul>
+<li>Coefficients for <strong>Intercept</strong>, <strong>Linear</strong> and <strong>Quadratic</strong> terms are non-zero (<span class="math inline">p &lt; 0.05</span>)</li>
+<li>Coefficients for <strong>Cubic</strong> and <strong>Quartic</strong> term are zero (<span class="math inline">p &gt; 0.05</span>)</li>
+</ul></li>
+<li>F-test for overall significance gives a p-value of <span class="math inline">p = 0.0003306 &lt; 0.05</span>
+<ul>
+<li>We have confirmation that at least one of the coefficients is non-zero</li>
+</ul></li>
+</ul>
+</div>
+</section>
+<section id="section-25" class="slide level2 smaller">
+<h2></h2>
+<div style="font-size: 0.93em">
+<pre class="verbatim"><code>Coefficients:
+              Estimate Std. Error t value Pr(&gt;|t|)   
+(Intercept)  1.383e+02  9.066e+00  15.254  0.00427 **
+height       1.346e+00  1.061e-01  12.690  0.00615 **
+I(height^2) -2.117e-03  3.793e-04  -5.582  0.03063 * 
+I(height^3)  1.766e-06  5.186e-07   3.406  0.07644 . 
+I(height^4) -5.610e-10  2.375e-10  -2.362  0.14201   
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 2.523 on 2 degrees of freedom
+Multiple R-squared:  0.9998,    Adjusted R-squared:  0.9995 
+F-statistic:  3024 on 4 and 2 DF,  p-value: 0.0003306</code></pre>
+<p><br></p>
+<ul>
+<li>The coefficient of determination is <span class="math inline">R^2 = 0.9998</span>
+<ul>
+<li>This is almost <span class="math inline">1</span></li>
+</ul></li>
+<li><strong>Conclusion:</strong> There are signs that the model is overfitting
+<ul>
+<li>Coefficient <span class="math inline">R^2</span> extremely high</li>
+<li>However, some terms (Cubic and Quartic) are not significant</li>
+</ul></li>
+</ul>
+</div>
+</section>
+<section id="cubic-vs-quartic" class="slide level2 smaller">
+<h2>Cubic vs Quartic</h2>
+<div style="font-size: 0.96em">
+<ul>
+<li><p>We saw that the Cubic model fits data well</p></li>
+<li><p>Quartic model shows some issues:</p>
+<ul>
+<li>Extremely high <span class="math inline">R^2</span> coefficient</li>
+<li>However, some paramteres are non-significant</li>
+</ul></li>
+<li><p>Nevertheless, the coefficients of determination are <span class="math display">
+R^2 \text{ for Quartic model} = 0.9998 &gt; R^2 \text{ for Cubic model} =  0.9994
+</span></p></li>
+<li><p>Maybe the Quartic model is actually better?</p></li>
+<li><p>To compare predictions, use F-test for Model Selection</p></li>
+</ul>
+<div style="font-size: 0.25em">
+<p><br></p>
+</div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># F-test for Model Selection</span></span>
+<span id="cb34-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(cubic, quartic)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="section-26" class="slide level2 smaller">
+<h2></h2>
+<div style="font-size: 0.93em">
 <pre class="verbatim"><code>
 Analysis of Variance Table
 
@@ -1339,142 +1882,76 @@ Model 1: distance ~ height + I(height^2) + I(height^3)
 Model 2: distance ~ height + I(height^2) + I(height^3) + I(height^4)
   Res.Df    RSS Df Sum of Sq      F Pr(&gt;F)
 1      3 48.254                           
-2      2 12.732  1    35.522 5.5799  0.142
-
-</code></pre>
+2      2 12.732  1    35.522 5.5799  0.142</code></pre>
+<p><br></p>
 <ul>
-<li><p>The F-test is not significant since <span class="math inline">p = 0.142 &gt; 0.05</span></p></li>
-<li><p>This means we cannot reject the null hypothesis that <span class="math inline">\beta_5 = 0</span></p></li>
-<li><p>The cubic models does better than quartic, despite higher <span class="math inline">R^2</span></p></li>
+<li><p>The null hypothesis favors Model 1; The alternative favors Model 2 <span class="math display">\begin{align*}
+H_0 \colon &amp; \,  \beta_{5}  = 0 \\[5pt]
+H_1 \colon &amp; \,  \beta_{5} \neq 0
+\end{align*}</span></p></li>
+<li><p>The p-value is <span class="math inline">p = 0.142 &gt; 0.05 \quad \implies \quad</span> do not reject <span class="math inline">H_0</span></p></li>
+<li><p>This means <span class="math inline">\beta_5 = 0</span>, showing that the Quartic term is not improving predictions</p></li>
+</ul>
+</div>
+</section>
+<section id="section-27" class="slide level2 smaller">
+<h2></h2>
+<div style="font-size: 0.93em">
+<pre class="verbatim"><code>
+Analysis of Variance Table
+
+Model 1: distance ~ height + I(height^2) + I(height^3)
+Model 2: distance ~ height + I(height^2) + I(height^3) + I(height^4)
+  Res.Df    RSS Df Sum of Sq      F Pr(&gt;F)
+1      3 48.254                           
+2      2 12.732  1    35.522 5.5799  0.142</code></pre>
+<p><br></p>
+<p><strong>Conclusion:</strong> Cubic model has to be preferred to the Quartic one</p>
+<ul>
+<li><p>The Cubic model makes better predictions, despite lower <span class="math inline">R^2</span> coefficient</p></li>
 <li><p>The underlying relationship from Galileo’s data is indeed cubic!</p></li>
 </ul>
+</div>
 </section>
-<section id="example-3-divorces" class="slide level2 smaller">
-<h2>Example 3: Divorces</h2>
+<section id="example-3-debunking-fake-news" class="slide level2 smaller">
+<h2>Example 3: Debunking fake news</h2>
+<p>Screenshot of a Daily Mirror article <a href="https://www.mirror.co.uk/news/uk-news/second-year-of-marriage-is-peak-time-337551?int_source=amp_continue_reading&amp;int_medium=amp&amp;int_campaign=continue_reading_button#amp-readmore-target">(link)</a></p>
+
+<img data-src="images/mirror.png" style="width:100.0%" class="r-stretch"></section>
+<section id="section-28" class="slide level2 smaller">
+<h2></h2>
 <ul>
-<li>Data from <strong>Daily Mirror</strong> gives
+<li><p>All the hallmarks of fake news are present</p>
 <ul>
-<li>Percentage of divorces caused by adultery VS years of marriage</li>
+<li>Bold claim</li>
+<li>No precise references</li>
+<li>No actual data</li>
 </ul></li>
-<li>Original analysis claimed
+<li><p>The original “study” on <a href="https://www.divorce-online.co.uk">Divorce-Online.co.uk</a> seems unavailable at present (2025)</p></li>
+<li><p>However, the Daily Mirror article <a href="https://www.mirror.co.uk/news/uk-news/second-year-of-marriage-is-peak-time-337551?int_source=amp_continue_reading&amp;int_medium=amp&amp;int_campaign=continue_reading_button#amp-readmore-target">(link)</a> states the following:</p>
 <ul>
-<li>Divorce-risk peaks at year 2 then decreases thereafter</li>
+<li><em>The poll [from Divorce-Online.co.uk] backs Office for National Statistics figures</em></li>
 </ul></li>
-<li>Is this conclusion misleading?
-<ul>
-<li>Does a quadratic model offers a better fit than a straight line model?</li>
-</ul></li>
+<li><p>The dataset in question can be found on the ONS Website <a href="https://www.ons.gov.uk/peoplepopulationandcommunity/birthsdeathsandmarriages/divorce/datasets/divorcesinenglandandwalesageatmarriagedurationofmarriageandcohortanalyses">(Link to the Dataset)</a></p></li>
 </ul>
 </section>
-<section id="divorces-dataset" class="slide level2 smaller">
-<h2>Divorces dataset</h2>
-<h3 id="percent-of-divorces-caused-by-adultery-by-year-of-marriage">Percent of divorces caused by adultery by year of marriage</h3>
-<p><br></p>
-<table class="caption-top" style="width:100%;">
-<colgroup>
-<col style="width: 30%">
-<col style="width: 10%">
-<col style="width: 10%">
-<col style="width: 10%">
-<col style="width: 10%">
-<col style="width: 10%">
-<col style="width: 10%">
-<col style="width: 10%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;"><strong>Years of Marriage</strong></th>
-<th style="text-align: left;">1</th>
-<th style="text-align: left;">2</th>
-<th style="text-align: left;">3</th>
-<th style="text-align: left;">4</th>
-<th style="text-align: left;">5</th>
-<th style="text-align: left;">6</th>
-<th style="text-align: left;">7</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;"><strong>% divorces adultery</strong></td>
-<td style="text-align: left;">3.51</td>
-<td style="text-align: left;">9.50</td>
-<td style="text-align: left;">8.91</td>
-<td style="text-align: left;">9.35</td>
-<td style="text-align: left;">8.18</td>
-<td style="text-align: left;">6.43</td>
-<td style="text-align: left;">5.31</td>
-</tr>
-</tbody>
-</table>
-<p><br></p>
-<table class="caption-top" style="width:100%;">
-<colgroup>
-<col style="width: 30%">
-<col style="width: 10%">
-<col style="width: 10%">
-<col style="width: 10%">
-<col style="width: 10%">
-<col style="width: 10%">
-<col style="width: 10%">
-<col style="width: 10%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;"><strong>Years of Marriage</strong></th>
-<th style="text-align: left;">8</th>
-<th style="text-align: left;">9</th>
-<th style="text-align: left;">10</th>
-<th style="text-align: left;">15</th>
-<th style="text-align: left;">20</th>
-<th style="text-align: left;">25</th>
-<th style="text-align: left;">30</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;"><strong>% divorces adultery</strong></td>
-<td style="text-align: left;">5.07</td>
-<td style="text-align: left;">3.65</td>
-<td style="text-align: left;">3.80</td>
-<td style="text-align: left;">2.83</td>
-<td style="text-align: left;">1.51</td>
-<td style="text-align: left;">1.27</td>
-<td style="text-align: left;">0.49</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="plot-years-of-marriage-vs-divorce-risk" class="slide level2 smaller">
-<h2>Plot: Years of Marriage Vs Divorce-risk</h2>
+<section id="the-divorces-dataset" class="slide level2 smaller">
+<h2>The divorces dataset</h2>
 <div class="column" style="width:48%;">
-<ul>
-<li>Looks like: Divorce-risk is
-<ul>
-<li>First low,</li>
-<li>then peaks at year 2</li>
-<li>then decreases</li>
-</ul></li>
-<li>Change of trend suggests:
-<ul>
-<li>Higher order model might be good fit</li>
-<li>Consider quadratic model</li>
-</ul></li>
-</ul>
-</div><div class="column" style="width:48%;">
 <div class="cell">
 <details class="code-fold">
 <summary>Click here to show the full code</summary>
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Divorces data</span></span>
-<span id="cb26-2"><a aria-hidden="true" tabindex="-1"></a>year <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>,<span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">10</span>, <span class="dv">15</span>, <span class="dv">20</span>, <span class="dv">25</span>, <span class="dv">30</span>)</span>
-<span id="cb26-3"><a aria-hidden="true" tabindex="-1"></a>percent <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">3.51</span>, <span class="fl">9.5</span>, <span class="fl">8.91</span>, <span class="fl">9.35</span>, <span class="fl">8.18</span>, <span class="fl">6.43</span>, <span class="fl">5.31</span>, </span>
-<span id="cb26-4"><a aria-hidden="true" tabindex="-1"></a>             <span class="fl">5.07</span>, <span class="fl">3.65</span>, <span class="fl">3.8</span>, <span class="fl">2.83</span>, <span class="fl">1.51</span>, <span class="fl">1.27</span>, <span class="fl">0.49</span>)</span>
-<span id="cb26-5"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-6"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Scatter plot of data</span></span>
-<span id="cb26-7"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(year, percent, <span class="at">xlab =</span> <span class="st">""</span>, <span class="at">ylab =</span> <span class="st">""</span>, <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">cex =</span> <span class="dv">2</span>)</span>
-<span id="cb26-8"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-9"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Add labels</span></span>
-<span id="cb26-10"><a aria-hidden="true" tabindex="-1"></a><span class="fu">mtext</span>(<span class="st">"Years of marriage"</span>, <span class="at">side =</span> <span class="dv">1</span>, <span class="at">line =</span> <span class="dv">3</span>, <span class="at">cex =</span> <span class="fl">2.1</span>)</span>
-<span id="cb26-11"><a aria-hidden="true" tabindex="-1"></a><span class="fu">mtext</span>(<span class="st">"Risk of divorce by adultery"</span>, <span class="at">side =</span> <span class="dv">2</span>, <span class="at">line =</span> <span class="fl">2.5</span>, <span class="at">cex =</span> <span class="fl">2.1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Divorces data</span></span>
+<span id="cb37-2"><a aria-hidden="true" tabindex="-1"></a>year <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>,<span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">10</span>, <span class="dv">15</span>, <span class="dv">20</span>, <span class="dv">25</span>, <span class="dv">30</span>)</span>
+<span id="cb37-3"><a aria-hidden="true" tabindex="-1"></a>percent <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">3.51</span>, <span class="fl">9.5</span>, <span class="fl">8.91</span>, <span class="fl">9.35</span>, <span class="fl">8.18</span>, <span class="fl">6.43</span>, <span class="fl">5.31</span>, </span>
+<span id="cb37-4"><a aria-hidden="true" tabindex="-1"></a>             <span class="fl">5.07</span>, <span class="fl">3.65</span>, <span class="fl">3.8</span>, <span class="fl">2.83</span>, <span class="fl">1.51</span>, <span class="fl">1.27</span>, <span class="fl">0.49</span>)</span>
+<span id="cb37-5"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-6"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Scatter plot of data</span></span>
+<span id="cb37-7"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(year, percent, <span class="at">xlab =</span> <span class="st">""</span>, <span class="at">ylab =</span> <span class="st">""</span>, <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">cex =</span> <span class="dv">2</span>)</span>
+<span id="cb37-8"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-9"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Add labels</span></span>
+<span id="cb37-10"><a aria-hidden="true" tabindex="-1"></a><span class="fu">mtext</span>(<span class="st">"Years of marriage"</span>, <span class="at">side =</span> <span class="dv">1</span>, <span class="at">line =</span> <span class="dv">3</span>, <span class="at">cex =</span> <span class="fl">2.1</span>)</span>
+<span id="cb37-11"><a aria-hidden="true" tabindex="-1"></a><span class="fu">mtext</span>(<span class="st">"Risk of divorce"</span>, <span class="at">side =</span> <span class="dv">2</span>, <span class="at">line =</span> <span class="fl">2.5</span>, <span class="at">cex =</span> <span class="fl">2.1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div>
@@ -1484,220 +1961,140 @@ Model 2: distance ~ height + I(height^2) + I(height^3) + I(height^4)
 </div>
 </div>
 </div>
-</div></section>
-<section id="fitting-linear-model" class="slide level2 smaller">
-<h2>Fitting linear model</h2>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Divorces data</span></span>
-<span id="cb27-2"><a aria-hidden="true" tabindex="-1"></a>year <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>,<span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">10</span>, <span class="dv">15</span>, <span class="dv">20</span>, <span class="dv">25</span>, <span class="dv">30</span>)</span>
-<span id="cb27-3"><a aria-hidden="true" tabindex="-1"></a>percent <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">3.51</span>, <span class="fl">9.5</span>, <span class="fl">8.91</span>, <span class="fl">9.35</span>, <span class="fl">8.18</span>, <span class="fl">6.43</span>, <span class="fl">5.31</span>, </span>
-<span id="cb27-4"><a aria-hidden="true" tabindex="-1"></a>             <span class="fl">5.07</span>, <span class="fl">3.65</span>, <span class="fl">3.8</span>, <span class="fl">2.83</span>, <span class="fl">1.51</span>, <span class="fl">1.27</span>, <span class="fl">0.49</span>)</span>
-<span id="cb27-5"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-6"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Fit linear model</span></span>
-<span id="cb27-7"><a aria-hidden="true" tabindex="-1"></a>linear <span class="ot">&lt;-</span> <span class="fu">lm</span>(percent <span class="sc">~</span> year)</span>
-<span id="cb27-8"><a aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(linear)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<pre class="verbatim"><code>
-            Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)  7.88575    0.78667  10.024 3.49e-07 ***
-year        -0.27993    0.05846  -4.788 0.000442 ***
-
-</code></pre>
-<ul>
-<li>t-test for <span class="math inline">\beta_2</span> is significant since <span class="math inline">p = 0.0004 &lt; 0.05</span></li>
-<li>Therefore <span class="math inline">\beta_2 \neq 0</span> and the estimate is <span class="math inline">\hat \beta_2 = -0.27993</span></li>
-<li>The risk of divorce decreases with years of marriage (because <span class="math inline">\hat \beta_2 &lt; 0</span>)</li>
-</ul>
-</section>
-<section id="fitting-quadratic-model" class="slide level2 smaller">
-<h2>Fitting quadratic model</h2>
-<ul>
-<li><p>Linear model offered a reasonable explanation of the divorce data</p></li>
-<li><p>Is quadratic model better?</p></li>
-</ul>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Fit quadratic model</span></span>
-<span id="cb29-2"><a aria-hidden="true" tabindex="-1"></a>quadratic <span class="ot">&lt;-</span> <span class="fu">lm</span>(percent <span class="sc">~</span> year <span class="sc">+</span> <span class="fu">I</span>( year<span class="sc">^</span><span class="dv">2</span> ))</span>
-<span id="cb29-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(quadratic)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<pre class="verbatim"><code>
-             Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)  8.751048   1.258038   6.956  2.4e-05 ***
-year        -0.482252   0.235701  -2.046   0.0654 .  
-I(year^2)    0.006794   0.007663   0.887   0.3943 
-
-</code></pre>
-<ul>
-<li><p>t-test for <span class="math inline">\beta_3</span> is not significant since <span class="math inline">p = 0.3943 &gt; 0.05</span></p></li>
-<li><p>Cannot reject null hypothesis <span class="math inline">\beta_3 = 0 \quad \implies \quad</span> Quadratic term not needed!</p></li>
-<li><p>The original analysis in the <strong>Daily Mirror is probably mistaken</strong></p></li>
-</ul>
-</section>
-<section id="model-selection-linear-vs-quadratic" class="slide level2 smaller">
-<h2>Model selection: Linear Vs Quadratic</h2>
-<ul>
-<li><p>We concluded that a linear model is better fit</p></li>
-<li><p>To cross check this result we do F-test for model selection</p></li>
-</ul>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Model selection</span></span>
-<span id="cb31-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(linear, quadratic, <span class="at">test =</span> <span class="st">"F"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<pre class="verbatim"><code>
-Model 1: percent ~ year
-Model 2: percent ~ year + I(year^2)
-  Res.Df    RSS Df Sum of Sq     F Pr(&gt;F)
-1     12 42.375                          
-2     11 39.549  1     2.826 0.786 0.3943
-
-</code></pre>
-<ul>
-<li>F-test is not significant since <span class="math inline">p = 0.3943 &gt; 0.05</span></li>
-<li>We cannot reject the null hypothesis that <span class="math inline">\beta_3 = 0</span></li>
-<li>Quadratic model is worse than linear model</li>
-</ul>
-</section>
-<section id="conclusions" class="slide level2 smaller">
-<h2>Conclusions</h2>
-<ul>
-<li>Daily Mirror Claim: Divorce-risk peaks at year 2 then decreases thereafter
-<ul>
-<li>Claim suggests higher order model needed to explain change in trend</li>
-</ul></li>
-<li>Analysis conducted:
-<ul>
-<li>Fit linear and quadratic regression models</li>
-<li>t-test of significance discarded quadratic term</li>
-<li>F-test for model selection discarded Quadratic model</li>
-</ul></li>
-<li>Findings: Claims in Daily Mirror are misleading
-<ul>
-<li>Linear model seems to be better than quadratic</li>
-<li>This suggests divorce-risk generally decreases over time</li>
-<li>Peak in year 2 can be explained by unusually low divorce-risk in 1st year</li>
-</ul></li>
-<li>Code is available here <a href="codes/divorces.R">divorces.R</a></li>
-</ul>
-</section>
-<section id="section-3" class="slide level2 smaller">
-<h2></h2>
-<ul>
-<li><p>Visual confirmation: Linear model is better and divorce-risk is decreasing</p></li>
-<li><p>Peak in year 2 should be explained by unusually low divorce-risk in 1st year</p></li>
-</ul>
-<div class="cell">
-<details class="code-fold">
-<summary>Click here to show the full code</summary>
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Divorces data</span></span>
-<span id="cb33-2"><a aria-hidden="true" tabindex="-1"></a>year <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>,<span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">10</span>, <span class="dv">15</span>, <span class="dv">20</span>, <span class="dv">25</span>, <span class="dv">30</span>)</span>
-<span id="cb33-3"><a aria-hidden="true" tabindex="-1"></a>percent <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">3.51</span>, <span class="fl">9.5</span>, <span class="fl">8.91</span>, <span class="fl">9.35</span>, <span class="fl">8.18</span>, <span class="fl">6.43</span>, <span class="fl">5.31</span>, </span>
-<span id="cb33-4"><a aria-hidden="true" tabindex="-1"></a>             <span class="fl">5.07</span>, <span class="fl">3.65</span>, <span class="fl">3.8</span>, <span class="fl">2.83</span>, <span class="fl">1.51</span>, <span class="fl">1.27</span>, <span class="fl">0.49</span>)</span>
-<span id="cb33-5"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-6"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Fit linear model</span></span>
-<span id="cb33-7"><a aria-hidden="true" tabindex="-1"></a>linear <span class="ot">&lt;-</span> <span class="fu">lm</span>(percent <span class="sc">~</span> year)</span>
-<span id="cb33-8"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-9"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Fit quadratic model</span></span>
-<span id="cb33-10"><a aria-hidden="true" tabindex="-1"></a>quadratic <span class="ot">&lt;-</span> <span class="fu">lm</span>(percent <span class="sc">~</span> year <span class="sc">+</span> <span class="fu">I</span>( year<span class="sc">^</span><span class="dv">2</span> ))</span>
-<span id="cb33-11"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-12"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Scatter plot of data</span></span>
-<span id="cb33-13"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(year, percent, <span class="at">xlab =</span> <span class="st">""</span>, <span class="at">ylab =</span> <span class="st">""</span>, <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">cex =</span> <span class="dv">2</span>)</span>
-<span id="cb33-14"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-15"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Add labels</span></span>
-<span id="cb33-16"><a aria-hidden="true" tabindex="-1"></a><span class="fu">mtext</span>(<span class="st">"Years of marriage"</span>, <span class="at">side =</span> <span class="dv">1</span>, <span class="at">line =</span> <span class="dv">3</span>, <span class="at">cex =</span> <span class="fl">2.1</span>)</span>
-<span id="cb33-17"><a aria-hidden="true" tabindex="-1"></a><span class="fu">mtext</span>(<span class="st">"Risk of divorce by adultery"</span>, <span class="at">side =</span> <span class="dv">2</span>, <span class="at">line =</span> <span class="fl">2.5</span>, <span class="at">cex =</span> <span class="fl">2.1</span>)</span>
-<span id="cb33-18"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-19"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Plot Linear Vs Quadratic</span></span>
-<span id="cb33-20"><a aria-hidden="true" tabindex="-1"></a>polynomial <span class="ot">&lt;-</span> <span class="fu">Vectorize</span>(<span class="cf">function</span>(x, ps) {</span>
-<span id="cb33-21"><a aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">length</span>(ps)</span>
-<span id="cb33-22"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">sum</span>(ps<span class="sc">*</span>x<span class="sc">^</span>(<span class="dv">1</span><span class="sc">:</span>n<span class="dv">-1</span>))</span>
-<span id="cb33-23"><a aria-hidden="true" tabindex="-1"></a>}, <span class="st">"x"</span>)</span>
-<span id="cb33-24"><a aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">polynomial</span>(x, <span class="fu">coef</span>(linear)), <span class="at">add=</span><span class="cn">TRUE</span>, <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
-<span id="cb33-25"><a aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">polynomial</span>(x, <span class="fu">coef</span>(quadratic)), <span class="at">add=</span><span class="cn">TRUE</span>, <span class="at">col =</span> <span class="st">"blue"</span>, <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
-<span id="cb33-26"><a aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">"topright"</span>, <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">"Linear"</span>, <span class="st">"Quadratic"</span>), </span>
-<span id="cb33-27"><a aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"red"</span>, <span class="st">"blue"</span>), <span class="at">lty =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="at">cex =</span> <span class="dv">3</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-
+</div><div class="column" style="width:48%;">
+<div style="font-size: 0.72em">
+<table class="caption-top" style="width:50%;">
+<colgroup>
+<col style="width: 30%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"><strong>Years of Marriage</strong></th>
+<th style="text-align: left;"><strong>% divorces</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">3.51</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">9.50</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">8.91</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">9.35</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">8.18</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">6</td>
+<td style="text-align: left;">6.43</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">7</td>
+<td style="text-align: left;">5.31</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">8</td>
+<td style="text-align: left;">5.07</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">9</td>
+<td style="text-align: left;">3.65</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">10</td>
+<td style="text-align: left;">3.80</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">15</td>
+<td style="text-align: left;">2.83</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">20</td>
+<td style="text-align: left;">1.51</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">25</td>
+<td style="text-align: left;">1.27</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">30</td>
+<td style="text-align: left;">0.49</td>
+</tr>
+</tbody>
+</table>
 </div>
-<img data-src="lecture_10_files/figure-revealjs/unnamed-chunk-12-1.png" width="960" class="r-stretch"></section>
-<section id="why-not-try-higher-order-polynomials" class="slide level2 smaller">
-<h2>Why not try higher order polynomials</h2>
-<ul>
-<li>Let us compare Linear model with Order 6 Model</li>
-</ul>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Fit order 6 model</span></span>
-<span id="cb34-2"><a aria-hidden="true" tabindex="-1"></a>order_6 <span class="ot">&lt;-</span> <span class="fu">lm</span>(percent <span class="sc">~</span> year  <span class="sc">+</span> <span class="fu">I</span>( year<span class="sc">^</span><span class="dv">2</span> ) <span class="sc">+</span> <span class="fu">I</span>( year<span class="sc">^</span><span class="dv">3</span> ) <span class="sc">+</span> </span>
-<span id="cb34-3"><a aria-hidden="true" tabindex="-1"></a>                              <span class="sc">+</span> <span class="fu">I</span>( year<span class="sc">^</span><span class="dv">4</span> ) <span class="sc">+</span> <span class="fu">I</span>( year<span class="sc">^</span><span class="dv">5</span> ) <span class="sc">+</span></span>
-<span id="cb34-4"><a aria-hidden="true" tabindex="-1"></a>                              <span class="sc">+</span> <span class="fu">I</span>( year<span class="sc">^</span><span class="dv">6</span> ))</span>
-<span id="cb34-5"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-6"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Model selection</span></span>
-<span id="cb34-7"><a aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(linear, order_6)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<pre class="verbatim"><code>
-Model 1: percent ~ year
-Model 2: percent ~ year + I(year^2) + I(year^3) + I(year^4) + I(year^5) + 
-    +I(year^6)
-  Res.Df    RSS Df Sum of Sq      F   Pr(&gt;F)   
-1     12 42.375                                
-2      7  3.724  5    38.651 14.531 0.001404 **</code></pre>
-</section>
-<section id="why-not-try-higher-order-polynomials-1" class="slide level2 smaller">
-<h2>Why not try higher order polynomials</h2>
-<ul>
-<li><p>F-test is significant since <span class="math inline">p = 0.001 &lt; 0.05</span></p></li>
-<li><p>This means we reject the null hypothesis that</p></li>
-</ul>
-<p><span class="math display">
-\beta_3 = \beta_4 = \beta_5 = \beta_6 = 0
-</span></p>
-<ul>
-<li><p>The Order 6 model is better than the Linear model</p></li>
-<li><p>Peak divorce-rate in Year 2 is well explained by order 6 regression</p></li>
-<li><p>What is going on? Let us plot the regression functions</p></li>
-</ul>
-</section>
-<section id="section-4" class="slide level2 smaller">
-<h2></h2>
-<div class="column" style="width:45%;">
-<p><br></p>
-<ul>
-<li>There are more peaks:
-<ul>
-<li>Decreasing risk of divorce for 23 years</li>
-<li>But it gets boring after 27 years!</li>
-</ul></li>
-<li><strong>Model overfits</strong>:
-<ul>
-<li>Data is very well explained</li>
-<li>but predictions are not realistic</li>
-</ul></li>
-<li>Linear model should be preferred</li>
-</ul>
-</div><div class="column" style="width:46%;">
+</div></section>
+<section id="the-divorces-dataset-1" class="slide level2 smaller">
+<h2>The divorces dataset</h2>
+<div class="column" style="width:48%;">
 <div class="cell">
 <details class="code-fold">
 <summary>Click here to show the full code</summary>
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Divorces data</span></span>
-<span id="cb36-2"><a aria-hidden="true" tabindex="-1"></a>year <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>,<span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">10</span>, <span class="dv">15</span>, <span class="dv">20</span>, <span class="dv">25</span>, <span class="dv">30</span>)</span>
-<span id="cb36-3"><a aria-hidden="true" tabindex="-1"></a>percent <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">3.51</span>, <span class="fl">9.5</span>, <span class="fl">8.91</span>, <span class="fl">9.35</span>, <span class="fl">8.18</span>, <span class="fl">6.43</span>, <span class="fl">5.31</span>, </span>
-<span id="cb36-4"><a aria-hidden="true" tabindex="-1"></a>             <span class="fl">5.07</span>, <span class="fl">3.65</span>, <span class="fl">3.8</span>, <span class="fl">2.83</span>, <span class="fl">1.51</span>, <span class="fl">1.27</span>, <span class="fl">0.49</span>)</span>
-<span id="cb36-5"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-6"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Fit linear model</span></span>
-<span id="cb36-7"><a aria-hidden="true" tabindex="-1"></a>linear <span class="ot">&lt;-</span> <span class="fu">lm</span>(percent <span class="sc">~</span> year)</span>
-<span id="cb36-8"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-9"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Fit order 6 model</span></span>
-<span id="cb36-10"><a aria-hidden="true" tabindex="-1"></a>order_6 <span class="ot">&lt;-</span> <span class="fu">lm</span>(percent <span class="sc">~</span> year  <span class="sc">+</span> <span class="fu">I</span>( year<span class="sc">^</span><span class="dv">2</span> ) <span class="sc">+</span> <span class="fu">I</span>( year<span class="sc">^</span><span class="dv">3</span> ) <span class="sc">+</span> </span>
-<span id="cb36-11"><a aria-hidden="true" tabindex="-1"></a>                                <span class="fu">I</span>( year<span class="sc">^</span><span class="dv">4</span> ) <span class="sc">+</span> <span class="fu">I</span>( year<span class="sc">^</span><span class="dv">5</span> ) <span class="sc">+</span></span>
-<span id="cb36-12"><a aria-hidden="true" tabindex="-1"></a>                                <span class="fu">I</span>( year<span class="sc">^</span><span class="dv">6</span> ))</span>
-<span id="cb36-13"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-14"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Scatter plot of data</span></span>
-<span id="cb36-15"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(year, percent, <span class="at">xlab =</span> <span class="st">""</span>, <span class="at">ylab =</span> <span class="st">""</span>, <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">cex =</span> <span class="dv">2</span>)</span>
-<span id="cb36-16"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-17"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Add labels</span></span>
-<span id="cb36-18"><a aria-hidden="true" tabindex="-1"></a><span class="fu">mtext</span>(<span class="st">"Years of marriage"</span>, <span class="at">side =</span> <span class="dv">1</span>, <span class="at">line =</span> <span class="dv">3</span>, <span class="at">cex =</span> <span class="fl">2.1</span>)</span>
-<span id="cb36-19"><a aria-hidden="true" tabindex="-1"></a><span class="fu">mtext</span>(<span class="st">"Risk of divorce by adultery"</span>, <span class="at">side =</span> <span class="dv">2</span>, <span class="at">line =</span> <span class="fl">2.5</span>, <span class="at">cex =</span> <span class="fl">2.1</span>)</span>
-<span id="cb36-20"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-21"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Plot Linear Vs Quadratic</span></span>
-<span id="cb36-22"><a aria-hidden="true" tabindex="-1"></a>polynomial <span class="ot">&lt;-</span> <span class="fu">Vectorize</span>(<span class="cf">function</span>(x, ps) {</span>
-<span id="cb36-23"><a aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">length</span>(ps)</span>
-<span id="cb36-24"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">sum</span>(ps<span class="sc">*</span>x<span class="sc">^</span>(<span class="dv">1</span><span class="sc">:</span>n<span class="dv">-1</span>))</span>
-<span id="cb36-25"><a aria-hidden="true" tabindex="-1"></a>}, <span class="st">"x"</span>)</span>
-<span id="cb36-26"><a aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">polynomial</span>(x, <span class="fu">coef</span>(linear)), <span class="at">add=</span><span class="cn">TRUE</span>, <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
-<span id="cb36-27"><a aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">polynomial</span>(x, <span class="fu">coef</span>(order_6)), <span class="at">add=</span><span class="cn">TRUE</span>, <span class="at">col =</span> <span class="st">"blue"</span>, <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span>
-<span id="cb36-28"><a aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">"topright"</span>, <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">"Linear"</span>, <span class="st">"Order 6"</span>), </span>
-<span id="cb36-29"><a aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"red"</span>, <span class="st">"blue"</span>), <span class="at">lty =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="at">cex =</span> <span class="dv">3</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Divorces data</span></span>
+<span id="cb38-2"><a aria-hidden="true" tabindex="-1"></a>year <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>,<span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">10</span>, <span class="dv">15</span>, <span class="dv">20</span>, <span class="dv">25</span>, <span class="dv">30</span>)</span>
+<span id="cb38-3"><a aria-hidden="true" tabindex="-1"></a>percent <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">3.51</span>, <span class="fl">9.5</span>, <span class="fl">8.91</span>, <span class="fl">9.35</span>, <span class="fl">8.18</span>, <span class="fl">6.43</span>, <span class="fl">5.31</span>, </span>
+<span id="cb38-4"><a aria-hidden="true" tabindex="-1"></a>             <span class="fl">5.07</span>, <span class="fl">3.65</span>, <span class="fl">3.8</span>, <span class="fl">2.83</span>, <span class="fl">1.51</span>, <span class="fl">1.27</span>, <span class="fl">0.49</span>)</span>
+<span id="cb38-5"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-6"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Scatter plot of data</span></span>
+<span id="cb38-7"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(year, percent, <span class="at">xlab =</span> <span class="st">""</span>, <span class="at">ylab =</span> <span class="st">""</span>, <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">cex =</span> <span class="dv">2</span>)</span>
+<span id="cb38-8"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-9"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Add labels</span></span>
+<span id="cb38-10"><a aria-hidden="true" tabindex="-1"></a><span class="fu">mtext</span>(<span class="st">"Years of marriage"</span>, <span class="at">side =</span> <span class="dv">1</span>, <span class="at">line =</span> <span class="dv">3</span>, <span class="at">cex =</span> <span class="fl">2.1</span>)</span>
+<span id="cb38-11"><a aria-hidden="true" tabindex="-1"></a><span class="fu">mtext</span>(<span class="st">"Risk of divorce"</span>, <span class="at">side =</span> <span class="dv">2</span>, <span class="at">line =</span> <span class="fl">2.5</span>, <span class="at">cex =</span> <span class="fl">2.1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="lecture_10_files/figure-revealjs/unnamed-chunk-12-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:48%;">
+<div style="font-size: 0.95em">
+<ul>
+<li>From the plot: Divorce-risk is
+<ul>
+<li>First low</li>
+<li>then peaks at year 2</li>
+<li>then decreases</li>
+</ul></li>
+<li><em>Daily Mirror</em> claimed:
+<ul>
+<li>Divorce-risk peaks at year 2, then decreases thereafter</li>
+<li>From the plot, the claim seems credible</li>
+</ul></li>
+</ul>
+</div>
+</div></section>
+<section id="the-divorces-dataset-2" class="slide level2 smaller">
+<h2>The divorces dataset</h2>
+<div class="column" style="width:48%;">
+<div class="cell">
+<details class="code-fold">
+<summary>Click here to show the full code</summary>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Divorces data</span></span>
+<span id="cb39-2"><a aria-hidden="true" tabindex="-1"></a>year <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>,<span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">10</span>, <span class="dv">15</span>, <span class="dv">20</span>, <span class="dv">25</span>, <span class="dv">30</span>)</span>
+<span id="cb39-3"><a aria-hidden="true" tabindex="-1"></a>percent <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">3.51</span>, <span class="fl">9.5</span>, <span class="fl">8.91</span>, <span class="fl">9.35</span>, <span class="fl">8.18</span>, <span class="fl">6.43</span>, <span class="fl">5.31</span>, </span>
+<span id="cb39-4"><a aria-hidden="true" tabindex="-1"></a>             <span class="fl">5.07</span>, <span class="fl">3.65</span>, <span class="fl">3.8</span>, <span class="fl">2.83</span>, <span class="fl">1.51</span>, <span class="fl">1.27</span>, <span class="fl">0.49</span>)</span>
+<span id="cb39-5"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-6"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Scatter plot of data</span></span>
+<span id="cb39-7"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(year, percent, <span class="at">xlab =</span> <span class="st">""</span>, <span class="at">ylab =</span> <span class="st">""</span>, <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">cex =</span> <span class="dv">2</span>)</span>
+<span id="cb39-8"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-9"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Add labels</span></span>
+<span id="cb39-10"><a aria-hidden="true" tabindex="-1"></a><span class="fu">mtext</span>(<span class="st">"Years of marriage"</span>, <span class="at">side =</span> <span class="dv">1</span>, <span class="at">line =</span> <span class="dv">3</span>, <span class="at">cex =</span> <span class="fl">2.1</span>)</span>
+<span id="cb39-11"><a aria-hidden="true" tabindex="-1"></a><span class="fu">mtext</span>(<span class="st">"Risk of divorce"</span>, <span class="at">side =</span> <span class="dv">2</span>, <span class="at">line =</span> <span class="fl">2.5</span>, <span class="at">cex =</span> <span class="fl">2.1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div>
@@ -1706,6 +2103,278 @@ Model 2: percent ~ year + I(year^2) + I(year^3) + I(year^4) + I(year^5) +
 </figure>
 </div>
 </div>
+</div>
+</div><div class="column" style="width:48%;">
+<div style="font-size: 0.95em">
+<ul>
+<li>We can fact check the claim with regression:
+<ul>
+<li>A peak in the data means there is a change of trend</li>
+<li>This can only be explained by a polynomial model</li>
+<li>Fit quadratic model</li>
+</ul></li>
+<li>If claim is to be believed:
+<ul>
+<li>quadratic model should do better than a linear one</li>
+</ul></li>
+</ul>
+</div>
+</div></section>
+<section id="fitting-linear-model" class="slide level2 smaller">
+<h2>Fitting linear model</h2>
+<p><br></p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Divorces data</span></span>
+<span id="cb40-2"><a aria-hidden="true" tabindex="-1"></a>year <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>,<span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">10</span>, <span class="dv">15</span>, <span class="dv">20</span>, <span class="dv">25</span>, <span class="dv">30</span>)</span>
+<span id="cb40-3"><a aria-hidden="true" tabindex="-1"></a>percent <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">3.51</span>, <span class="fl">9.5</span>, <span class="fl">8.91</span>, <span class="fl">9.35</span>, <span class="fl">8.18</span>, <span class="fl">6.43</span>, <span class="fl">5.31</span>, </span>
+<span id="cb40-4"><a aria-hidden="true" tabindex="-1"></a>             <span class="fl">5.07</span>, <span class="fl">3.65</span>, <span class="fl">3.8</span>, <span class="fl">2.83</span>, <span class="fl">1.51</span>, <span class="fl">1.27</span>, <span class="fl">0.49</span>)</span>
+<span id="cb40-5"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-6"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Fit linear model</span></span>
+<span id="cb40-7"><a aria-hidden="true" tabindex="-1"></a>linear <span class="ot">&lt;-</span> <span class="fu">lm</span>(percent <span class="sc">~</span> year)</span>
+<span id="cb40-8"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-9"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Plot summary</span></span>
+<span id="cb40-10"><a aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(linear)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="section-29" class="slide level2 smaller">
+<h2></h2>
+<div style="font-size: 0.95em">
+<pre class="verbatim"><code>Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  7.88575    0.78667  10.024 3.49e-07 ***
+year        -0.27993    0.05846  -4.788 0.000442 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 1.879 on 12 degrees of freedom
+Multiple R-squared:  0.6564,    Adjusted R-squared:  0.6278 
+F-statistic: 22.93 on 1 and 12 DF,  p-value: 0.0004422</code></pre>
+<p><br></p>
+<ul>
+<li><p>t-test for <span class="math inline">\beta_2</span> is significant, since <span class="math inline">p = 0.0004 &lt; 0.05</span></p></li>
+<li><p>Therefore <span class="math inline">\beta_2 \neq 0</span>, and the estimate is <span class="math inline">\hat \beta_2 = -0.27993</span></p></li>
+<li><p>The risk of divorce decreases with years of marriage (because <span class="math inline">\hat \beta_2 &lt; 0</span>)</p></li>
+<li><p>Coefficient of determination is <span class="math inline">R^2 = 0.6564</span>, which is reasonably high</p></li>
+<li><p><strong>Conclusion:</strong> The linear model provides a good fit</p></li>
+</ul>
+</div>
+</section>
+<section id="fitting-quadratic-model" class="slide level2 smaller">
+<h2>Fitting quadratic model</h2>
+<ul>
+<li><p>Linear model offered a reasonable explanation of the divorce data</p></li>
+<li><p>Is a quadratic model better?</p></li>
+</ul>
+<p><br></p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Fit quadratic model</span></span>
+<span id="cb42-2"><a aria-hidden="true" tabindex="-1"></a>quadratic <span class="ot">&lt;-</span> <span class="fu">lm</span>(percent <span class="sc">~</span> year <span class="sc">+</span> <span class="fu">I</span>( year<span class="sc">^</span><span class="dv">2</span> ))</span>
+<span id="cb42-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Print summary</span></span>
+<span id="cb42-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(quadratic)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="section-30" class="slide level2 smaller">
+<h2></h2>
+<div style="font-size: 0.95em">
+<pre class="verbatim"><code>Coefficients:
+             Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  8.751048   1.258038   6.956  2.4e-05 ***
+year        -0.482252   0.235701  -2.046   0.0654 .  
+I(year^2)    0.006794   0.007663   0.887   0.3943    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 1.896 on 11 degrees of freedom
+Multiple R-squared:  0.6794,    Adjusted R-squared:  0.6211 
+F-statistic: 11.65 on 2 and 11 DF,  p-value: 0.001919</code></pre>
+<p><br></p>
+<ul>
+<li><p>t-test for <span class="math inline">\beta_3</span> is not significant, since <span class="math inline">p = 0.3943 &gt; 0.05</span></p></li>
+<li><p>Cannot reject null hypothesis that <span class="math inline">\beta_3 = 0 \quad \implies \quad</span> Quadratic term not needed!</p></li>
+<li><p><strong>Note:</strong> No need to run Model Selection to compare linear and quadratic models</p>
+<ul>
+<li>This is because, when comparing linear and quadratic models, the extra term corresponds to the parameter <span class="math inline">\beta_3</span></li>
+<li>Therefore, F-test for Model Selection would give same p-value as t-test for <span class="math inline">\beta_3</span></li>
+</ul></li>
+</ul>
+</div>
+</section>
+<section id="conclusions" class="slide level2 smaller">
+<h2>Conclusions</h2>
+<div style="font-size: 0.95em">
+<ul>
+<li>Daily Mirror’s Claim: Divorce-risk peaks at year 2 then decreases thereafter
+<ul>
+<li>Claim suggests higher order model needed to explain change in trend</li>
+</ul></li>
+<li>Analysis conducted by us:
+<ul>
+<li>Fit linear and quadratic regression models</li>
+<li>t-test of significance discarded quadratic term</li>
+<li>This is equivalent to F-test for Model Selection: Quadratic model is discarded</li>
+</ul></li>
+<li>Our Findings: Claim in Daily Mirror article is <strong>misleading</strong>
+<ul>
+<li>Linear model is clearly better than quadratic model</li>
+<li>This suggests divorce-risk generally decreases over time</li>
+<li>Peak in year 2 can be explained by unusually low divorce-risk in 1st year</li>
+<li>This means data for 1st year is <em>outlier</em></li>
+</ul></li>
+</ul>
+</div>
+</section>
+<section id="visual-confirmation" class="slide level2 smaller">
+<h2>Visual confirmation</h2>
+<div class="column" style="width:48%;">
+<div class="cell">
+<details class="code-fold">
+<summary>Click here to show the full code</summary>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Divorces data</span></span>
+<span id="cb44-2"><a aria-hidden="true" tabindex="-1"></a>year <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>,<span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">10</span>, <span class="dv">15</span>, <span class="dv">20</span>, <span class="dv">25</span>, <span class="dv">30</span>)</span>
+<span id="cb44-3"><a aria-hidden="true" tabindex="-1"></a>percent <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">3.51</span>, <span class="fl">9.5</span>, <span class="fl">8.91</span>, <span class="fl">9.35</span>, <span class="fl">8.18</span>, <span class="fl">6.43</span>, <span class="fl">5.31</span>, </span>
+<span id="cb44-4"><a aria-hidden="true" tabindex="-1"></a>             <span class="fl">5.07</span>, <span class="fl">3.65</span>, <span class="fl">3.8</span>, <span class="fl">2.83</span>, <span class="fl">1.51</span>, <span class="fl">1.27</span>, <span class="fl">0.49</span>)</span>
+<span id="cb44-5"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-6"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Fit linear model</span></span>
+<span id="cb44-7"><a aria-hidden="true" tabindex="-1"></a>linear <span class="ot">&lt;-</span> <span class="fu">lm</span>(percent <span class="sc">~</span> year)</span>
+<span id="cb44-8"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-9"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Fit quadratic model</span></span>
+<span id="cb44-10"><a aria-hidden="true" tabindex="-1"></a>quadratic <span class="ot">&lt;-</span> <span class="fu">lm</span>(percent <span class="sc">~</span> year <span class="sc">+</span> <span class="fu">I</span>( year<span class="sc">^</span><span class="dv">2</span> ))</span>
+<span id="cb44-11"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-12"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Scatter plot of data</span></span>
+<span id="cb44-13"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(year, percent, <span class="at">xlab =</span> <span class="st">""</span>, <span class="at">ylab =</span> <span class="st">""</span>, <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">cex =</span> <span class="dv">2</span>)</span>
+<span id="cb44-14"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-15"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Add labels</span></span>
+<span id="cb44-16"><a aria-hidden="true" tabindex="-1"></a><span class="fu">mtext</span>(<span class="st">"Years of marriage"</span>, <span class="at">side =</span> <span class="dv">1</span>, <span class="at">line =</span> <span class="dv">3</span>, <span class="at">cex =</span> <span class="fl">2.1</span>)</span>
+<span id="cb44-17"><a aria-hidden="true" tabindex="-1"></a><span class="fu">mtext</span>(<span class="st">"Risk of divorce"</span>, <span class="at">side =</span> <span class="dv">2</span>, <span class="at">line =</span> <span class="fl">2.5</span>, <span class="at">cex =</span> <span class="fl">2.1</span>)</span>
+<span id="cb44-18"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-19"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Plot Linear Vs Quadratic</span></span>
+<span id="cb44-20"><a aria-hidden="true" tabindex="-1"></a>polynomial <span class="ot">&lt;-</span> <span class="fu">Vectorize</span>(<span class="cf">function</span>(x, ps) {</span>
+<span id="cb44-21"><a aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">length</span>(ps)</span>
+<span id="cb44-22"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">sum</span>(ps<span class="sc">*</span>x<span class="sc">^</span>(<span class="dv">1</span><span class="sc">:</span>n<span class="dv">-1</span>))</span>
+<span id="cb44-23"><a aria-hidden="true" tabindex="-1"></a>}, <span class="st">"x"</span>)</span>
+<span id="cb44-24"><a aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">polynomial</span>(x, <span class="fu">coef</span>(linear)), <span class="at">add=</span><span class="cn">TRUE</span>, <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb44-25"><a aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">polynomial</span>(x, <span class="fu">coef</span>(quadratic)), <span class="at">add=</span><span class="cn">TRUE</span>, <span class="at">col =</span> <span class="st">"blue"</span>, <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb44-26"><a aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">"topright"</span>, <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">"Linear"</span>, <span class="st">"Quadratic"</span>), </span>
+<span id="cb44-27"><a aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"red"</span>, <span class="st">"blue"</span>), <span class="at">lty =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="at">cex =</span> <span class="dv">3</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="lecture_10_files/figure-revealjs/unnamed-chunk-14-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:48%;">
+<p><br> <br></p>
+<div style="font-size: 0.95em">
+<ul>
+<li><p>Linear model is evidently better at explaining decreasing divorce-risk</p></li>
+<li><p>Peak in year 2 should be explained by unusually low divorce-risk in 1st year</p></li>
+<li><p>This means Year 1 data is <em>outlier</em></p></li>
+<li><p>Code is available here <a href="codes/divorces.R">divorces.R</a></p></li>
+</ul>
+</div>
+</div></section>
+<section id="why-not-try-higher-order-polynomials" class="slide level2 smaller">
+<h2>Why not try higher order polynomials?</h2>
+<ul>
+<li><p>We can try fitting higher-order polynomial models to explain <em>peak in Year 2</em></p></li>
+<li><p>The lowest-order polynomial that provides a good fit is degree 6 (try it yourself!)</p></li>
+<li><p>Let us compare the <em>linear model</em> with the <em>degree 6 polynomial model</em></p></li>
+</ul>
+<p><br></p>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Fit order 6 model</span></span>
+<span id="cb45-2"><a aria-hidden="true" tabindex="-1"></a>degree<span class="fl">.6</span> <span class="ot">&lt;-</span> <span class="fu">lm</span>(percent <span class="sc">~</span> year <span class="sc">+</span> <span class="fu">I</span>( year<span class="sc">^</span><span class="dv">2</span> ) <span class="sc">+</span> <span class="fu">I</span>( year<span class="sc">^</span><span class="dv">3</span> ) <span class="sc">+</span> </span>
+<span id="cb45-3"><a aria-hidden="true" tabindex="-1"></a>                              <span class="sc">+</span> <span class="fu">I</span>( year<span class="sc">^</span><span class="dv">4</span> ) <span class="sc">+</span> <span class="fu">I</span>( year<span class="sc">^</span><span class="dv">5</span> ) <span class="sc">+</span></span>
+<span id="cb45-4"><a aria-hidden="true" tabindex="-1"></a>                              <span class="sc">+</span> <span class="fu">I</span>( year<span class="sc">^</span><span class="dv">6</span> ))</span>
+<span id="cb45-5"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-6"><a aria-hidden="true" tabindex="-1"></a><span class="co"># F-test for Model Selection</span></span>
+<span id="cb45-7"><a aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(linear, degree<span class="fl">.6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="section-31" class="slide level2 smaller">
+<h2></h2>
+<pre class="verbatim"><code>Model 1: percent ~ year
+Model 2: percent ~ year + I(year^2) + I(year^3) + I(year^4) + I(year^5) + 
+    +I(year^6)
+  Res.Df    RSS Df Sum of Sq      F   Pr(&gt;F)   
+1     12 42.375                                
+2      7  3.724  5    38.651 14.531 0.001404 **</code></pre>
+<p><br></p>
+<ul>
+<li><p>F-test for Model Selection is significant, since <span class="math inline">p = 0.001 &lt; 0.05</span></p></li>
+<li><p>This means we reject the null hypothesis that <span class="math display">
+\beta_3 = \beta_4 = \beta_5 = \beta_6 = 0
+</span></p></li>
+<li><p>The degree 6 model is better than the Linear model</p></li>
+<li><p>Peak divorce-rate in Year 2 is well explained by order 6 regression</p></li>
+<li><p>What is going on? Was the Daily Mirror right?</p>
+<ul>
+<li>Let us plot the fitted regression functions</li>
+</ul></li>
+</ul>
+</section>
+<section id="section-32" class="slide level2 smaller">
+<h2></h2>
+<div class="column" style="width:49%;">
+<div class="cell">
+<details class="code-fold">
+<summary>Click here to show the full code</summary>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Divorces data</span></span>
+<span id="cb47-2"><a aria-hidden="true" tabindex="-1"></a>year <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>,<span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">10</span>, <span class="dv">15</span>, <span class="dv">20</span>, <span class="dv">25</span>, <span class="dv">30</span>)</span>
+<span id="cb47-3"><a aria-hidden="true" tabindex="-1"></a>percent <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">3.51</span>, <span class="fl">9.5</span>, <span class="fl">8.91</span>, <span class="fl">9.35</span>, <span class="fl">8.18</span>, <span class="fl">6.43</span>, <span class="fl">5.31</span>, </span>
+<span id="cb47-4"><a aria-hidden="true" tabindex="-1"></a>             <span class="fl">5.07</span>, <span class="fl">3.65</span>, <span class="fl">3.8</span>, <span class="fl">2.83</span>, <span class="fl">1.51</span>, <span class="fl">1.27</span>, <span class="fl">0.49</span>)</span>
+<span id="cb47-5"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-6"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Fit linear model</span></span>
+<span id="cb47-7"><a aria-hidden="true" tabindex="-1"></a>linear <span class="ot">&lt;-</span> <span class="fu">lm</span>(percent <span class="sc">~</span> year)</span>
+<span id="cb47-8"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-9"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Fit degree 6 model</span></span>
+<span id="cb47-10"><a aria-hidden="true" tabindex="-1"></a>degree<span class="fl">.6</span> <span class="ot">&lt;-</span> <span class="fu">lm</span>(percent <span class="sc">~</span> year  <span class="sc">+</span> <span class="fu">I</span>( year<span class="sc">^</span><span class="dv">2</span> ) <span class="sc">+</span> <span class="fu">I</span>( year<span class="sc">^</span><span class="dv">3</span> ) <span class="sc">+</span> </span>
+<span id="cb47-11"><a aria-hidden="true" tabindex="-1"></a>                                <span class="fu">I</span>( year<span class="sc">^</span><span class="dv">4</span> ) <span class="sc">+</span> <span class="fu">I</span>( year<span class="sc">^</span><span class="dv">5</span> ) <span class="sc">+</span></span>
+<span id="cb47-12"><a aria-hidden="true" tabindex="-1"></a>                                <span class="fu">I</span>( year<span class="sc">^</span><span class="dv">6</span> ))</span>
+<span id="cb47-13"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-14"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Scatter plot of data</span></span>
+<span id="cb47-15"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(year, percent, <span class="at">xlab =</span> <span class="st">""</span>, <span class="at">ylab =</span> <span class="st">""</span>, <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">cex =</span> <span class="dv">2</span>)</span>
+<span id="cb47-16"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-17"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Add labels</span></span>
+<span id="cb47-18"><a aria-hidden="true" tabindex="-1"></a><span class="fu">mtext</span>(<span class="st">"Years of marriage"</span>, <span class="at">side =</span> <span class="dv">1</span>, <span class="at">line =</span> <span class="dv">3</span>, <span class="at">cex =</span> <span class="fl">2.1</span>)</span>
+<span id="cb47-19"><a aria-hidden="true" tabindex="-1"></a><span class="fu">mtext</span>(<span class="st">"Risk of divorce"</span>, <span class="at">side =</span> <span class="dv">2</span>, <span class="at">line =</span> <span class="fl">2.5</span>, <span class="at">cex =</span> <span class="fl">2.1</span>)</span>
+<span id="cb47-20"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-21"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Plot Linear Vs Quadratic</span></span>
+<span id="cb47-22"><a aria-hidden="true" tabindex="-1"></a>polynomial <span class="ot">&lt;-</span> <span class="fu">Vectorize</span>(<span class="cf">function</span>(x, ps) {</span>
+<span id="cb47-23"><a aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">length</span>(ps)</span>
+<span id="cb47-24"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">sum</span>(ps<span class="sc">*</span>x<span class="sc">^</span>(<span class="dv">1</span><span class="sc">:</span>n<span class="dv">-1</span>))</span>
+<span id="cb47-25"><a aria-hidden="true" tabindex="-1"></a>}, <span class="st">"x"</span>)</span>
+<span id="cb47-26"><a aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">polynomial</span>(x, <span class="fu">coef</span>(linear)), <span class="at">add=</span><span class="cn">TRUE</span>, <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb47-27"><a aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">polynomial</span>(x, <span class="fu">coef</span>(degree<span class="fl">.6</span>)), <span class="at">add=</span><span class="cn">TRUE</span>, <span class="at">col =</span> <span class="st">"blue"</span>, <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span>
+<span id="cb47-28"><a aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">"topright"</span>, <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">"Linear"</span>, <span class="st">"Degree 6"</span>), </span>
+<span id="cb47-29"><a aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"red"</span>, <span class="st">"blue"</span>), <span class="at">lty =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="at">cex =</span> <span class="dv">3</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="lecture_10_files/figure-revealjs/unnamed-chunk-15-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:49%;">
+<div style="font-size: 0.92em">
+<ul>
+<li><p>Degree 6 model explains Peak at Year 2</p></li>
+<li><p>However, the model introduces new peaks!</p>
+<ul>
+<li>We observe a decreasing risk of divorce for 23 years</li>
+<li>But marriage gets boring after 27 years!</li>
+</ul></li>
+<li><p><strong>Degree 6 Model overfits</strong>:</p>
+<ul>
+<li>No, the Daily Mirror is not right</li>
+<li>Data is very well explained</li>
+<li>but predictions are not realistic</li>
+</ul></li>
+<li><p>Linear model should be preferred</p>
+<ul>
+<li>We will justify this rigorously with <strong>Stepwise Regression</strong></li>
+</ul></li>
+</ul>
 </div>
 </div></section>
 <section id="references" class="slide level2 smaller scrollable">

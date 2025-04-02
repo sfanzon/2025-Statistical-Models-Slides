@@ -13,6 +13,10 @@ print(summary(linear))
 quadratic <- lm(distance ~ height + I( height^2 ))
 print(summary(quadratic))
 
+# Model selection: linear VS quadratic
+selection.1 <- anova(linear, quadratic)
+print(selection.1)
+
 # Fit cubic model
 cubic <- lm(distance ~ height + I( height^2 ) + I (height^3))
 print(summary(cubic))
@@ -22,12 +26,12 @@ quartic <- lm(distance ~ height + I( height^2 ) + I (height^3) + I (height^4))
 print(summary(quartic))
 
 # Model selection: quadratic VS cubic
-selection.1 <- anova(quadratic, cubic, test = "F")
-print(selection.1)
+selection.2 <- anova(quadratic, cubic)
+print(selection.2)
 
 # Model selection: cubic VS quartic
-selection.2 <- anova(cubic, quartic, test = "F")
-print(selection.2)
+selection.3 <- anova(cubic, quartic)
+print(selection.3)
 
 # Plot quadratic Vs Cubic
 polynomial <- Vectorize(function(x, ps) {

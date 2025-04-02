@@ -5,19 +5,20 @@ percent <- c(3.51, 9.5, 8.91, 9.35, 8.18, 6.43, 5.31,
 
 # Scatter plot of data
 plot(year, percent, xlab = "Years of marriage", 
-     ylab = "Risk of divorce by adultery", 
+     ylab = "Risk of divorce", 
      pch = 16)
 
 # Fit linear model
 linear <- lm(percent ~ year)
+
+# Print summary
 print(summary(linear))
 
 # Fit quadratic model
 quadratic <- lm(percent ~ year + I( year^2 ))
 
-# Model selection
-selection <- anova(linear, quadratic, test = "F")
-print(selection)
+# Print summary
+print(summary(quadratic))
 
 # Plot Linear Vs Quadratic
 polynomial <- Vectorize(function(x, ps) {

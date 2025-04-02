@@ -425,23 +425,19 @@
   </style>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
   <style>
-  .Notation {
-    --color1: #c6e6ed;
-    --color2: #1995ad;
-  }
-  .Definition {
-    --color1: #c6e6ed;
-    --color2: #1995ad;
+  .Theorem {
+    --color1: #f4cce0;
+    --color2: #db4d92;
   }
   .Question {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
-  .Idea {
-    --color1: #f4cce0;
-    --color2: #db4d92;
+  .TODO {
+    --color1: #e7b1b4;
+    --color2: #8c3236;
   }
-  .Conjecture {
+  .Idea {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
@@ -449,35 +445,11 @@
     --color1: #f4cce0;
     --color2: #db4d92;
   }
-  .Remark {
-    --color1: #bce5de;
-    --color2: #21aa93;
+  .Notation {
+    --color1: #c6e6ed;
+    --color2: #1995ad;
   }
-  .Axiom {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Proposition {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Theorem {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Example {
-    --color1: #bce5de;
-    --color2: #21aa93;
-  }
-  .Warning {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Problem {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Lemma {
+  .Conjecture {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
@@ -485,17 +457,45 @@
     --color1: #cce7b1;
     --color2: #86b754;
   }
-  .Proof {
-    --color1: #f1f1f2;
-    --color2: #c0c0c1;
+  .Warning {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Proposition {
+    --color1: #f4cce0;
+    --color2: #db4d92;
   }
   .Important {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
-  .TODO {
-    --color1: #e7b1b4;
-    --color2: #8c3236;
+  .Problem {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Example {
+    --color1: #bce5de;
+    --color2: #21aa93;
+  }
+  .Lemma {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Proof {
+    --color1: #f1f1f2;
+    --color2: #c0c0c1;
+  }
+  .Axiom {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Definition {
+    --color1: #c6e6ed;
+    --color2: #1995ad;
+  }
+  .Remark {
+    --color1: #bce5de;
+    --color2: #21aa93;
   }
   </style>
 </head>
@@ -563,7 +563,7 @@
 </ul></li>
 <li>F-test for multiple regression
 <ul>
-<li>Test the overall significance of the parameters</li>
+<li>Test the Overall Significance of the parameters</li>
 </ul></li>
 <li>Worked Example: The Longley dataset
 <ul>
@@ -2092,8 +2092,8 @@ p &lt; 0.05 \qquad \text{ or } \qquad t \in \,\,\text{Rejection Region}
 </tbody>
 </table>
 </section>
-<section id="implementation-in-r" class="slide level2 smaller">
-<h2>Implementation in R</h2>
+<section id="the-t-test-for-beta_j-in-r" class="slide level2 smaller">
+<h2>The t-test for <span class="math inline">\beta_j</span> in R</h2>
 <ul>
 <li><p>First, fit general regression model with <code>lm</code></p></li>
 <li><p>Then read the <em>summary</em></p></li>
@@ -2412,9 +2412,9 @@ Z = \left(
 </div>
 </section>
 <section id="f-test-for-overall-significance" class="slide level2 smaller">
-<h2>F-test for overall significance</h2>
+<h2>F-test for Overall Significance</h2>
 <ul>
-<li>Want to test the <strong>overall significance</strong> of the model</li>
+<li>Want to test the <strong>Overall Significance</strong> of the model</li>
 </ul>
 <p><span class="math display">
 Y_i = \beta_1  + \beta_2 x_{i2} + \ldots + \beta_p x_{ip} + \varepsilon_i
@@ -2435,8 +2435,8 @@ Y_i = \beta_1  + \beta_2 x_{i2} + \ldots + \beta_p x_{ip} + \varepsilon_i
 </ul>
 </section>
 <section id="f-test-for-overall-significance-1" class="slide level2 smaller">
-<h2>F-test for overall significance</h2>
-<p>The F-test for overall significance has 3 steps:</p>
+<h2>F-test for Overall Significance</h2>
+<p>The F-test for Overall Significance has 3 steps:</p>
 <ol type="1">
 <li><p>Define a larger <strong>Full Model</strong> (with more parameters)</p></li>
 <li><p>Define a smaller nested <strong>Reduced Model</strong> (with fewer parameters)</p></li>
@@ -2444,7 +2444,7 @@ Y_i = \beta_1  + \beta_2 x_{i2} + \ldots + \beta_p x_{ip} + \varepsilon_i
 </ol>
 </section>
 <section id="overall-significance-for-multiple-regression" class="slide level2 smaller">
-<h2>Overall significance for multiple regression</h2>
+<h2>Overall Significance for multiple regression</h2>
 <ul>
 <li>Model 1 is the smaller <strong>Reduced Model</strong></li>
 <li>Model 2 is the larger <strong>Full Model</strong></li>
@@ -2462,7 +2462,7 @@ H_1 &amp; \colon \text{ At least one of the } \beta_i \text{ is non-zero}
 \end{align*}</span></p>
 </section>
 <section id="overall-significance-for-simple-regression" class="slide level2 smaller">
-<h2>Overall significance for simple regression</h2>
+<h2>Overall Significance for simple regression</h2>
 <ul>
 <li>Model 1 is the smaller <strong>Reduced Model</strong></li>
 <li>Model 2 is the larger <strong>Full Model</strong></li>
@@ -2478,7 +2478,6 @@ H_1 &amp; \colon \text{ At least one of the } \beta_i \text{ is non-zero}
 H_0 &amp; \colon \beta = 0 \\
 H_1 &amp; \colon \beta \neq 0
 \end{align*}</span></p>
-<p><strong>Coefficients <span class="math inline">\alpha, \beta</span> in both models are intended to be the MLEs <span class="math inline">\hat\alpha, \hat\beta</span></strong></p>
 </section>
 <section id="rss-for-the-full-model" class="slide level2 smaller">
 <h2>RSS for the Full Model</h2>
@@ -2601,13 +2600,14 @@ H_1 \,\, \text{ holds } &amp; \, \iff \, \exists \,\, i \, \text{ s.t.  } \, \be
 <section id="construction-of-f-statistic" class="slide level2 smaller">
 <h2>Construction of F-statistic</h2>
 <ul>
-<li>In order to construct a meaningful statistic, we need to rescale the quantity</li>
+<li>Thus, the quantity below could be used as statistic to decide between the 2 models</li>
 </ul>
 <p><span class="math display">
 \frac{\mathop{\mathrm{RSS}}(1) - \mathop{\mathrm{RSS}}(p)}{\mathop{\mathrm{RSS}}(p)}
 </span></p>
 <ul>
-<li>Note that the degrees of freedom of Reduced Model (1 parameter) are</li>
+<li><p>However, in order to obtain a known distribution, we need to rescale</p></li>
+<li><p>Note that the degrees of freedom of Reduced Model (1 parameter) are</p></li>
 </ul>
 <p><span class="math display">
 \mathop{\mathrm{df}}(1) = n - 1
@@ -2620,9 +2620,9 @@ H_1 \,\, \text{ holds } &amp; \, \iff \, \exists \,\, i \, \text{ s.t.  } \, \be
 </span></p>
 </section>
 <section id="f-statistic-for-overall-significance" class="slide level2 smaller">
-<h2>F-statistic for overall significance</h2>
+<h2>F-statistic for Overall Significance</h2>
 <div id="Definition*-6.1" class="Definition">
-<p></p><details class="Definition fbx-simplebox fbx-default" open=""><summary><strong>Definition</strong></summary><div>The <strong>F-statistic</strong> for overall significance is<p></p>
+<p></p><details class="Definition fbx-simplebox fbx-default" open=""><summary><strong>Definition</strong></summary><div>The <strong>F-statistic</strong> for Overall Significance is<p></p>
 <p><span class="math display">\begin{align*}
 F &amp; := \frac{\mathop{\mathrm{RSS}}(1) - \mathop{\mathrm{RSS}}(p)}{ \mathop{\mathrm{df}}(1) - \mathop{\mathrm{df}}(p) } \bigg/
 \frac{\mathop{\mathrm{RSS}}(p)}{\mathop{\mathrm{df}}(p)}  \\[15pt]
@@ -2631,7 +2631,7 @@ F &amp; := \frac{\mathop{\mathrm{RSS}}(1) - \mathop{\mathrm{RSS}}(p)}{ \mathop{\
 \end{align*}</span></p>
 </div></details>
 </div>
-<p><strong>Theorem:</strong> The F-statistic for overall significance has F-distribution</p>
+<p><strong>Theorem:</strong> The F-statistic for Overall Significance has F-distribution</p>
 <p><span class="math display">
 F \, \sim \, F_{p-1,n-p}
 </span></p>
@@ -2705,9 +2705,9 @@ F &amp; = \frac{\mathop{\mathrm{RSS}}(1) - \mathop{\mathrm{RSS}}(p)}{ p - 1 } \b
 \end{align*}</span></p>
 </section>
 <section id="testing-overall-significance" class="slide level2 smaller">
-<h2>Testing overall significance</h2>
+<h2>Testing Overall Significance</h2>
 <ul>
-<li><p><strong>Recall:</strong> We want to test the <em>overall significance</em> of the parameters <span class="math inline">\beta_2,\ldots, \beta_p</span></p></li>
+<li><p><strong>Recall:</strong> We want to test the <em>Overall Significance</em> of the parameters <span class="math inline">\beta_2,\ldots, \beta_p</span></p></li>
 <li><p>This means deciding which model gives better predictions between <span class="math display">\begin{align*}
 \textbf{Model 1:} &amp; \quad Y_i = \beta_1 + \varepsilon_i  &amp; \text{Reduced Model}\\[15pt]
 \textbf{Model 2:} &amp; \quad Y_i = \beta_1  + \beta_2 x_{i2} + \ldots + \beta_p x_{ip} + \varepsilon_i &amp; \text{Full Model}
@@ -2741,13 +2741,13 @@ H_1 \,\, \text{ holds }  \, \iff \, \exists \,\, i \, \text{ s.t.  } \, \beta_i 
 </div>
 </section>
 <section id="the-f-test-for-overall-significance" class="slide level2 smaller">
-<h2>The F-test for overall significance</h2>
+<h2>The F-test for Overall Significance</h2>
 <p><strong>Assumption:</strong> Given data points <span class="math inline">(x_{i2},\ldots , x_{ip},  y_i)</span>, consider the nested models</p>
 <p><span class="math display">\begin{align*}
 \textbf{Model 1:} &amp; \quad Y_i = \beta_1 + \varepsilon_i  &amp; \text{Reduced Model}\\[15pt]
 \textbf{Model 2:} &amp; \quad Y_i = \beta_1  + \beta_2 x_{i2} + \ldots + \beta_p x_{ip} + \varepsilon_i &amp; \text{Full Model}
 \end{align*}</span></p>
-<p><strong>Goal:</strong> Testing the <em>overall significance</em> of the parameters <span class="math inline">\beta_2,\ldots, \beta_p</span><br>
+<p><strong>Goal:</strong> Testing the <em>Overall Significance</em> of the parameters <span class="math inline">\beta_2,\ldots, \beta_p</span><br>
 (i.e.&nbsp;decide which model gives better predictions)</p>
 <p><strong>Hypothesis:</strong> Choosing the Full Model 2, is equivalent to rejecting <span class="math inline">H_0</span></p>
 <p><span class="math display">\begin{align*}
@@ -2771,7 +2771,7 @@ Z =
 \mathop{\mathrm{RSS}}(p) = \sum_{i=1}^n (y_i - \hat{y}_i)^2 \,, \qquad
 \mathop{\mathrm{TSS}}= \sum_{i=1}^n (y_i - \overline{y})^2\,, \qquad
 R^2 = 1 - \frac{\mathop{\mathrm{RSS}}(p)}{\mathop{\mathrm{TSS}}}
-</span> Finally, compute the F-statistic for <em>overall significance</em> <span class="math display">
+</span> Finally, compute the F-statistic for <em>Overall Significance</em> <span class="math display">
 F = \frac{R^2}{1 - R^2} \, \cdot \, \frac{n - p}{p - 1} \ \sim \ F_{p-1, n - p}
 </span></li>
 </ol>
@@ -2816,8 +2816,8 @@ p &lt; 0.05 \qquad \text{ or } \qquad F \in \,\,\text{Rejection Region}
 </tbody>
 </table>
 </section>
-<section id="implementation-in-r-1" class="slide level2 smaller">
-<h2>Implementation in R</h2>
+<section id="the-f-test-for-overall-significance-in-r" class="slide level2 smaller">
+<h2>The F-test for Overall Significance in R</h2>
 <ol type="1">
 <li><p>Fit the Full Model with <code>lm</code></p></li>
 <li><p>Read the <em>Summary</em></p>
@@ -2826,78 +2826,94 @@ p &lt; 0.05 \qquad \text{ or } \qquad F \in \,\,\text{Rejection Region}
 <li>p-value is listed in the summary</li>
 </ul></li>
 </ol>
-</section>
-<section id="f-statistic-for-simple-regression" class="slide level2 smaller">
-<h2>F-statistic for simple regression</h2>
-<div id="Proposition*-6.3" class="Proposition">
-<details class="Proposition fbx-simplebox fbx-default" open=""><summary><strong>Proposition</strong></summary><div>
-<ol type="1">
-<li><p>The <span class="math inline">F</span>-statistic for overall significance in simple regression is <span class="math display">
-F = t^2 \,, \qquad \quad t = \frac{\hat \beta}{ S / \sqrt{S_{xx}}}
-</span> where <span class="math inline">t</span> is the t-statistic for <span class="math inline">\hat \beta</span>.</p></li>
-<li><p>In particular, the p-values for t-test and F-test coincide <span class="math display">
-p = 2P( t_{n-2} &gt; |t| ) = P( |t_{n-2}| &gt; |t| )  = P( F_{1,n-2} &gt; F )
-</span></p></li>
-</ol>
-</div></details>
-</div>
-<p><strong>Proof:</strong> Will be left as an exercise</p>
-</section>
-<section id="worked-example-stock-and-gold-prices-2" class="slide level2 smaller">
-<h2>Worked Example: Stock and Gold prices</h2>
-<ul>
-<li>Recall that
-<ul>
-<li><span class="math inline">X =</span> Stock Price</li>
-<li><span class="math inline">Y =</span> Gold Price</li>
-</ul></li>
-<li>Consider the simple linear regression model</li>
-</ul>
-<p><span class="math display">
-Y_i =  \alpha + \beta x_i + \varepsilon_i
-</span></p>
-<ul>
-<li>We want to test the <strong>overall significance</strong> of the parameter <span class="math inline">\beta</span></li>
-</ul>
-</section>
-<section id="section-18" class="slide level2 smaller">
-<h2></h2>
-<ul>
-<li>This means deciding which of the two models below gives better predictions</li>
-</ul>
-<p><span class="math display">\begin{align*}
-\textbf{Model 1:} &amp; \quad Y_i = \alpha + \varepsilon_i  &amp; \text{Reduced Model}\\[15pt]
-\textbf{Model 2:} &amp; \quad Y_i = \alpha  + \beta x_{i} + \varepsilon_i &amp; \text{Full Model}
-\end{align*}</span></p>
-<ul>
-<li><strong>Hypothesis:</strong> Choosing the Full Model 2, is equivalent to rejecting <span class="math inline">H_0</span></li>
-</ul>
-<p><span class="math display">\begin{align*}
-H_0 &amp; \colon \, \beta = 0 \\
-H_1 &amp; \colon \, \beta \neq 0
-\end{align*}</span></p>
-<ul>
-<li>Let us perform the F-test in R</li>
-</ul>
-</section>
-<section id="section-19" class="slide level2 smaller">
-<h2></h2>
-<ul>
-<li>Recall that Stock Prices and Gold Prices are stored in R vectors
-<ul>
-<li><code>stock.price</code></li>
-<li><code>gold.price</code></li>
-</ul></li>
-<li>Fit the simple linear model with the following commands</li>
-</ul>
-<p><span class="math display">
-\text{gold.price } = \alpha + \beta \, \times ( \text{ stock.price } ) + \text{ error}
-</span></p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Fit simple linear regression model</span></span>
-<span id="cb19-2"><a aria-hidden="true" tabindex="-1"></a>fit.model <span class="ot">&lt;-</span> <span class="fu">lm</span>(gold.price <span class="sc">~</span> stock.price)</span>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Fit the Full Model</span></span>
+<span id="cb19-2"><a aria-hidden="true" tabindex="-1"></a>full.model <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x2 <span class="sc">+</span> x3 <span class="sc">+</span> ... <span class="sc">+</span> xp)</span>
 <span id="cb19-3"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Print result to screen</span></span>
-<span id="cb19-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit.model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb19-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Read the summary</span></span>
+<span id="cb19-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(full.model)</span>
+<span id="cb19-6"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-7"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-8"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-9"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-10"><a aria-hidden="true" tabindex="-1"></a><span class="do">## F-statistic for simple regression {.smaller}</span></span>
+<span id="cb19-11"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-12"><a aria-hidden="true" tabindex="-1"></a><span class="sc">:::</span> Proposition</span>
+<span id="cb19-13"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-14"><a aria-hidden="true" tabindex="-1"></a><span class="fl">1.</span> The <span class="sc">$</span>F<span class="sc">$-</span>statistic <span class="cf">for</span> Overall Significance <span class="cf">in</span> simple regression is</span>
+<span id="cb19-15"><a aria-hidden="true" tabindex="-1"></a><span class="sc">$</span><span class="er">$</span></span>
+<span id="cb19-16"><a aria-hidden="true" tabindex="-1"></a>F <span class="ot">=</span> t<span class="sc">^</span><span class="dv">2</span> \,, \qquad \quad t <span class="ot">=</span> \frac{\hat \beta}{ S <span class="sc">/</span> \sqrt{S_{xx}}}</span>
+<span id="cb19-17"><a aria-hidden="true" tabindex="-1"></a><span class="sc">$</span><span class="er">$</span></span>
+<span id="cb19-18"><a aria-hidden="true" tabindex="-1"></a>where <span class="sc">$</span>t<span class="sc">$</span> is the t<span class="sc">-</span>statistic <span class="cf">for</span> <span class="sc">$</span>\hat \beta<span class="sc">$</span>.</span>
+<span id="cb19-19"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-20"><a aria-hidden="true" tabindex="-1"></a><span class="fl">2.</span> In particular, the p<span class="sc">-</span>values <span class="cf">for</span> t<span class="sc">-</span>test and F<span class="sc">-</span>test coincide</span>
+<span id="cb19-21"><a aria-hidden="true" tabindex="-1"></a><span class="sc">$</span><span class="er">$</span></span>
+<span id="cb19-22"><a aria-hidden="true" tabindex="-1"></a>p <span class="ot">=</span> <span class="dv">2</span><span class="fu">P</span>( t_{n<span class="dv">-2</span>} <span class="sc">&gt;</span> <span class="er">|</span>t<span class="sc">|</span> ) <span class="ot">=</span> <span class="fu">P</span>( <span class="sc">|</span>t_{n<span class="dv">-2</span>}<span class="sc">|</span> <span class="er">&gt;</span> <span class="er">|</span>t<span class="sc">|</span> )  <span class="ot">=</span> <span class="fu">P</span>( F_{<span class="dv">1</span>,n<span class="dv">-2</span>} <span class="sc">&gt;</span> F )</span>
+<span id="cb19-23"><a aria-hidden="true" tabindex="-1"></a><span class="sc">$</span><span class="er">$</span></span>
+<span id="cb19-24"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-25"><a aria-hidden="true" tabindex="-1"></a><span class="er">:::</span></span>
+<span id="cb19-26"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-27"><a aria-hidden="true" tabindex="-1"></a><span class="er">**</span>Proof<span class="sc">:</span><span class="er">**</span> Will be left as an exercise</span>
+<span id="cb19-28"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-29"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-30"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-31"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-32"><a aria-hidden="true" tabindex="-1"></a><span class="do">## Worked Example: Stock and Gold prices {.smaller}</span></span>
+<span id="cb19-33"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-34"><a aria-hidden="true" tabindex="-1"></a><span class="sc">-</span> Recall that </span>
+<span id="cb19-35"><a aria-hidden="true" tabindex="-1"></a>    <span class="sc">*</span> <span class="er">$</span>X <span class="ot">=</span><span class="er">$</span> Stock Price</span>
+<span id="cb19-36"><a aria-hidden="true" tabindex="-1"></a>    <span class="sc">*</span> <span class="er">$</span>Y <span class="ot">=</span><span class="er">$</span> Gold Price</span>
+<span id="cb19-37"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-38"><a aria-hidden="true" tabindex="-1"></a><span class="sc">-</span> Consider the simple linear regression model</span>
+<span id="cb19-39"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-40"><a aria-hidden="true" tabindex="-1"></a><span class="sc">$</span><span class="er">$</span></span>
+<span id="cb19-41"><a aria-hidden="true" tabindex="-1"></a>Y_i <span class="ot">=</span>  \alpha <span class="sc">+</span> \beta x_i <span class="sc">+</span> \e_i </span>
+<span id="cb19-42"><a aria-hidden="true" tabindex="-1"></a><span class="sc">$</span><span class="er">$</span></span>
+<span id="cb19-43"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-44"><a aria-hidden="true" tabindex="-1"></a><span class="sc">-</span> We want to test the <span class="sc">**</span>Overall Significance<span class="sc">**</span> of the parameter <span class="sc">$</span>\beta<span class="sc">$</span></span>
+<span id="cb19-45"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-46"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-47"><a aria-hidden="true" tabindex="-1"></a><span class="do">## {.smaller}</span></span>
+<span id="cb19-48"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-49"><a aria-hidden="true" tabindex="-1"></a><span class="sc">-</span> This means deciding which of the two models below gives better predictions</span>
+<span id="cb19-50"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-51"><a aria-hidden="true" tabindex="-1"></a>\begin{align<span class="sc">*</span>}</span>
+<span id="cb19-52"><a aria-hidden="true" tabindex="-1"></a>\textbf{Model <span class="dv">1</span><span class="sc">:</span>} <span class="sc">&amp;</span> \quad Y_i <span class="ot">=</span> \alpha <span class="sc">+</span> \e_i  <span class="sc">&amp;</span> \text{Reduced Model}\\[<span class="dv">15</span>pt]</span>
+<span id="cb19-53"><a aria-hidden="true" tabindex="-1"></a>\textbf{Model <span class="dv">2</span><span class="sc">:</span>} <span class="sc">&amp;</span> \quad Y_i <span class="ot">=</span> \alpha  <span class="sc">+</span> \beta x_{i} <span class="sc">+</span> \e_i <span class="sc">&amp;</span> \text{Full Model}</span>
+<span id="cb19-54"><a aria-hidden="true" tabindex="-1"></a>\end{align<span class="sc">*</span>}</span>
+<span id="cb19-55"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-56"><a aria-hidden="true" tabindex="-1"></a><span class="sc">-</span> <span class="er">**</span>Hypothesis<span class="sc">:</span><span class="er">**</span> Choosing the Full Model <span class="dv">2</span>, is equivalent to rejecting <span class="sc">$</span>H_0<span class="sc">$</span></span>
+<span id="cb19-57"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-58"><a aria-hidden="true" tabindex="-1"></a>\begin{align<span class="sc">*</span>}</span>
+<span id="cb19-59"><a aria-hidden="true" tabindex="-1"></a>H_0 <span class="sc">&amp;</span> \colon \, \beta <span class="ot">=</span> <span class="dv">0</span> \\</span>
+<span id="cb19-60"><a aria-hidden="true" tabindex="-1"></a>H_1 <span class="sc">&amp;</span> \colon \, \beta \neq <span class="dv">0</span></span>
+<span id="cb19-61"><a aria-hidden="true" tabindex="-1"></a>\end{align<span class="sc">*</span>}</span>
+<span id="cb19-62"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-63"><a aria-hidden="true" tabindex="-1"></a><span class="sc">-</span> Let us perform the F<span class="sc">-</span>test <span class="cf">in</span> R</span>
+<span id="cb19-64"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-65"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-66"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-67"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-68"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-69"><a aria-hidden="true" tabindex="-1"></a><span class="do">##  {.smaller}</span></span>
+<span id="cb19-70"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-71"><a aria-hidden="true" tabindex="-1"></a><span class="sc">-</span> Recall that Stock Prices and Gold Prices are stored <span class="cf">in</span> R vectors</span>
+<span id="cb19-72"><a aria-hidden="true" tabindex="-1"></a>    <span class="sc">*</span> <span class="st">``</span>stock.price<span class="st">``</span></span>
+<span id="cb19-73"><a aria-hidden="true" tabindex="-1"></a>    <span class="sc">*</span> <span class="st">``</span>gold.price<span class="st">``</span></span>
+<span id="cb19-74"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-75"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-76"><a aria-hidden="true" tabindex="-1"></a><span class="sc">-</span> Fit the simple linear model with the following commands</span>
+<span id="cb19-77"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-78"><a aria-hidden="true" tabindex="-1"></a><span class="sc">$</span><span class="er">$</span></span>
+<span id="cb19-79"><a aria-hidden="true" tabindex="-1"></a>\text{gold.price } <span class="ot">=</span> \alpha <span class="sc">+</span> \beta \, \<span class="fu">times</span> ( \text{ stock.price } ) <span class="sc">+</span> \text{ error}</span>
+<span id="cb19-80"><a aria-hidden="true" tabindex="-1"></a><span class="sc">$</span><span class="er">$</span></span>
+<span id="cb19-81"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-82"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-83"><a aria-hidden="true" tabindex="-1"></a><span class="st">```</span><span class="at">r</span></span>
+<span id="cb19-84"><a aria-hidden="true" tabindex="-1"></a><span class="at"># Fit simple linear regression model</span></span>
+<span id="cb19-85"><a aria-hidden="true" tabindex="-1"></a><span class="at">fit.model &lt;- lm(gold.price ~ stock.price)</span></span>
+<span id="cb19-86"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-87"><a aria-hidden="true" tabindex="-1"></a><span class="at"># Print result to screen</span></span>
+<span id="cb19-88"><a aria-hidden="true" tabindex="-1"></a><span class="at">summary(fit.model)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="output-f-statistic-and-p-value" class="slide level2 smaller">
 <h2>Output: F-statistic and p-value</h2>
@@ -3014,7 +3030,7 @@ F = 20.267 &gt; F_{1,31}(0.05) = 4.125  \quad \implies \quad  p &lt; 0.05
 </div>
 </div>
 </section>
-<section id="section-20" class="slide level2 smaller">
+<section id="section-18" class="slide level2 smaller">
 <h2></h2>
 <div style="font-size: 0.92em">
 <ul>
@@ -3042,7 +3058,7 @@ F = 20.267 &gt; F_{1,31}(0.05) = 4.125  \quad \implies \quad  p &lt; 0.05
 </div>
 </div>
 </section>
-<section id="section-21" class="slide level2 smaller">
+<section id="section-19" class="slide level2 smaller">
 <h2></h2>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
@@ -3146,7 +3162,7 @@ Y = \beta_1 + \beta_2 \, X_2 + \beta_3 \, X_3 + \beta_4 \, X_4 + \beta_5 \, X_5
 <li><p>Output is in the next slide</p></li>
 </ul>
 </section>
-<section id="section-22" class="slide level2 smaller">
+<section id="section-20" class="slide level2 smaller">
 <h2></h2>
 <div class="columns">
 <div class="column" style="width:100%;">
@@ -3164,7 +3180,7 @@ Y = \beta_1 + \beta_2 \, X_2 + \beta_3 \, X_3 + \beta_4 \, X_4 + \beta_5 \, X_5
 <ol type="1">
 <li><p>Coefficient of determination <span class="math inline">R^2</span></p></li>
 <li><p>Individual t-statistics for the parameters <span class="math inline">\beta_i</span></p></li>
-<li><p>F-statistic to assess overall significance of parameters <span class="math inline">\beta_i</span></p></li>
+<li><p>F-statistic to assess Overall Significance of parameters <span class="math inline">\beta_i</span></p></li>
 </ol>
 </section>
 <section id="coefficient-of-determination-r2-1" class="slide level2 smaller">
@@ -3210,7 +3226,7 @@ H_1 \colon \, \beta_j \neq 0
 </ul></li>
 </ul>
 </div></section>
-<section id="section-23" class="slide level2 smaller">
+<section id="section-21" class="slide level2 smaller">
 <h2></h2>
 <div class="column" style="width:100%;">
 <p><img data-src="images/longley_output_3.png" style="width:83.0%"></p>
@@ -3259,7 +3275,7 @@ H_1 \colon \, \beta_j \neq 0
 </tbody>
 </table>
 </section>
-<section id="section-24" class="slide level2 smaller">
+<section id="section-22" class="slide level2 smaller">
 <h2></h2>
 <div class="column" style="width:100%;">
 <p><img data-src="images/longley_output_2.png" style="width:68.0%"></p>
@@ -3269,7 +3285,7 @@ H_1 \colon \, \beta_j \neq 0
 <li>Significant variables have at least one star</li>
 </ul>
 </section>
-<section id="section-25" class="slide level2 smaller">
+<section id="section-23" class="slide level2 smaller">
 <h2></h2>
 <div class="column" style="width:100%;">
 <p><img data-src="images/longley_output_2.png" style="width:68.0%"></p>
@@ -3282,7 +3298,7 @@ H_1 \colon \, \beta_j \neq 0
 </ul></li>
 </ol>
 </section>
-<section id="section-26" class="slide level2 smaller">
+<section id="section-24" class="slide level2 smaller">
 <h2></h2>
 <div class="column" style="width:100%;">
 <p><img data-src="images/longley_output_2.png" style="width:68.0%"></p>
@@ -3297,7 +3313,7 @@ H_1 \colon \, \beta_j \neq 0
 </ul></li>
 </ol>
 </section>
-<section id="section-27" class="slide level2 smaller">
+<section id="section-25" class="slide level2 smaller">
 <h2></h2>
 <div class="column" style="width:100%;">
 <p><img data-src="images/longley_output_2.png" style="width:68.0%"></p>
@@ -3311,7 +3327,7 @@ H_1 \colon \, \beta_j \neq 0
 </ul></li>
 </ol>
 </section>
-<section id="section-28" class="slide level2 smaller">
+<section id="section-26" class="slide level2 smaller">
 <h2></h2>
 <div class="column" style="width:100%;">
 <p><img data-src="images/longley_output_2.png" style="width:68.0%"></p>
@@ -3325,7 +3341,7 @@ H_1 \colon \, \beta_j \neq 0
 </ul></li>
 </ol>
 </section>
-<section id="section-29" class="slide level2 smaller">
+<section id="section-27" class="slide level2 smaller">
 <h2></h2>
 <div class="column" style="width:100%;">
 <p><img data-src="images/longley_output_2.png" style="width:68.0%"></p>
@@ -3341,7 +3357,7 @@ H_1 \colon \, \beta_j \neq 0
 </ol>
 </section>
 <section id="f-statistic-to-assess-overall-significance" class="slide level2 smaller">
-<h2>3. F-statistic to assess overall significance</h2>
+<h2>3. F-statistic to assess Overall Significance</h2>
 <div class="columns">
 <div class="column" style="width:100%;">
 <p><img data-src="images/longley_output_1.png" style="width:85.0%"></p>
@@ -3396,7 +3412,7 @@ H_1 \colon \, \text{At least one } \beta_j \neq 0
 <li>Despite higher <span class="math inline">R^2</span>, the model might not make good predictions</li>
 </ul>
 </section>
-<section id="section-30" class="slide level2 smaller">
+<section id="section-28" class="slide level2 smaller">
 <h2></h2>
 <p><strong>Overfitting Example:</strong> Think of a polynomial passing through all the data points</p>
 <ul>

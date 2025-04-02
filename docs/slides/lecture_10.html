@@ -425,15 +425,19 @@
   </style>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
   <style>
-  .Remark {
-    --color1: #bce5de;
-    --color2: #21aa93;
+  .TODO {
+    --color1: #e7b1b4;
+    --color2: #8c3236;
   }
-  .Axiom {
+  .Corollary {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
-  .Warning {
+  .DONE {
+    --color1: #cce7b1;
+    --color2: #86b754;
+  }
+  .Theorem {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
@@ -441,33 +445,9 @@
     --color1: #c6e6ed;
     --color2: #1995ad;
   }
-  .Question {
+  .Axiom {
     --color1: #f4cce0;
     --color2: #db4d92;
-  }
-  .TODO {
-    --color1: #e7b1b4;
-    --color2: #8c3236;
-  }
-  .DONE {
-    --color1: #cce7b1;
-    --color2: #86b754;
-  }
-  .Corollary {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Theorem {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Example {
-    --color1: #bce5de;
-    --color2: #21aa93;
-  }
-  .Notation {
-    --color1: #c6e6ed;
-    --color2: #1995ad;
   }
   .Lemma {
     --color1: #f4cce0;
@@ -477,11 +457,35 @@
     --color1: #f4cce0;
     --color2: #db4d92;
   }
+  .Warning {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Remark {
+    --color1: #bce5de;
+    --color2: #21aa93;
+  }
+  .Example {
+    --color1: #bce5de;
+    --color2: #21aa93;
+  }
+  .Proposition {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Notation {
+    --color1: #c6e6ed;
+    --color2: #1995ad;
+  }
   .Problem {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
-  .Proposition {
+  .Important {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Question {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
@@ -492,10 +496,6 @@
   .Proof {
     --color1: #f1f1f2;
     --color2: #c0c0c1;
-  }
-  .Important {
-    --color1: #f4cce0;
-    --color2: #db4d92;
   }
   </style>
 </head>
@@ -2527,10 +2527,10 @@ Y_i = \beta_1 z_{i1} + \beta_2 z_{i2} + \ldots + \beta_p z_{ip} + \varepsilon_i
 <li><p>The above methods <strong>rely heavily</strong> on homoscedasticity</p></li>
 </ul>
 </section>
-<section id="why-is-homoscedasticity-important-1" class="slide level2 smaller">
-<h2>Why is homoscedasticity important?</h2>
+<section id="section-33" class="slide level2 smaller">
+<h2></h2>
 <ul>
-<li><p>For example the maximum likelihood estimation relied on the calculation <span class="math display">\begin{align*}
+<li><p>For example, the maximum likelihood estimation relied on the calculation <span class="math display">\begin{align*}
   L &amp; = \prod_{i=1}^n  f_{Y_i} (y_i)  
       = \prod_{i=1}^n \frac{1}{\sqrt{2\pi \sigma^2}} \exp \left( -\frac{(y_i - \hat y_i)^2}{2\sigma^2} \right) \\[15pts]
     &amp; = \frac{1}{(2\pi \sigma^2)^{n/2}} \, \exp   \left(   -\frac{\sum_{i=1}^n(y_i- \hat y_i)^2}{2\sigma^2}      \right) \\[15pts]
@@ -2542,8 +2542,8 @@ Y_i = \beta_1 z_{i1} + \beta_2 z_{i2} + \ldots + \beta_p z_{ip} + \varepsilon_i
 {\rm Var}[Y_i] = \sigma^2 \qquad \forall \,\, i
 </span></p>
 </section>
-<section id="why-is-homoscedasticity-important-2" class="slide level2 smaller">
-<h2>Why is homoscedasticity important?</h2>
+<section id="section-34" class="slide level2 smaller">
+<h2></h2>
 <ul>
 <li>Suppose the calculation in previous slide holds</li>
 </ul>
@@ -2563,8 +2563,8 @@ L = \frac{1}{(2\pi \sigma^2)^{n/2}} \, \exp   \left(   -\frac{ \mathop{\mathrm{R
 \hat \beta = (Z^T Z)^{-1} Z^T y
 </span></p>
 </section>
-<section id="why-is-homoscedasticity-important-3" class="slide level2 smaller">
-<h2>Why is homoscedasticity important?</h2>
+<section id="section-35" class="slide level2 smaller">
+<h2></h2>
 <ul>
 <li>Without homoscedasticity we would have</li>
 </ul>
@@ -2572,17 +2572,17 @@ L = \frac{1}{(2\pi \sigma^2)^{n/2}} \, \exp   \left(   -\frac{ \mathop{\mathrm{R
 L \neq \frac{1}{(2\pi \sigma^2)^{n/2}} \, \exp   \left(   -\frac{ \mathop{\mathrm{RSS}}}{2\sigma^2}      \right)
 </span></p>
 <ul>
-<li><p>Therefore <span class="math inline">\hat \beta</span> would no longer maximize the likelihood!</p></li>
-<li><p>In this case <span class="math inline">\hat \beta</span> would still be an unbiased estimator for <span class="math inline">\beta</span></p></li>
+<li><p>Therefore, <span class="math inline">\hat \beta</span> would no longer maximize the likelihood!</p></li>
+<li><p>But <span class="math inline">\hat \beta</span> would still be an unbiased estimator for <span class="math inline">\beta</span></p></li>
 </ul>
 <p><span class="math display">
 {\rm I\kern-.3em E}[\hat \beta ] = \beta
 </span></p>
 </section>
-<section id="why-is-homoscedasticity-important-4" class="slide level2 smaller">
-<h2>Why is homoscedasticity important?</h2>
+<section id="section-36" class="slide level2 smaller">
+<h2></h2>
 <ul>
-<li><p>However the quantity <span class="math display">
+<li><p>However, the quantity <span class="math display">
 S^2 = \frac{ \mathop{\mathrm{RSS}}(\hat \beta) }{n-p}
 </span> is not anymore unbiased estimator for the population variance <span class="math inline">\sigma^2</span> <span class="math display">
 {\rm I\kern-.3em E}[S^2] \neq \sigma^2
@@ -2590,13 +2590,13 @@ S^2 = \frac{ \mathop{\mathrm{RSS}}(\hat \beta) }{n-p}
 <li><p>This is a problem because the estimated standard error for <span class="math inline">\beta_j</span> involves <span class="math inline">S^2</span> <span class="math display">
 \mathop{\mathrm{e.s.e.}}(\beta_j) = \xi_{jj}^{1/2} \, S  
 </span></p></li>
-<li><p>Therefore <span class="math inline">\mathop{\mathrm{e.s.e.}}</span> becomes <strong>unreliable</strong></p></li>
+<li><p>Therefore <span class="math inline">\mathop{\mathrm{e.s.e.}}</span> become <strong>unreliable</strong></p></li>
 </ul>
 </section>
-<section id="why-is-homoscedasticity-important-5" class="slide level2 smaller">
-<h2>Why is homoscedasticity important?</h2>
+<section id="section-37" class="slide level2 smaller">
+<h2></h2>
 <ul>
-<li><p>Then also t-statistic for significance of <span class="math inline">\beta_j</span> becomes unreliable</p></li>
+<li><p>Then, also t-statistic for significance of <span class="math inline">\beta_j</span> becomes unreliable</p></li>
 <li><p>This is because the t-statistic depends on <span class="math inline">\mathop{\mathrm{e.s.e.}}</span></p></li>
 </ul>
 <p><span class="math display">
@@ -2607,7 +2607,7 @@ t = \frac{ \hat\beta_j - \beta_j }{ \mathop{\mathrm{e.s.e.}}}
 <ul>
 <li>t-tests for significance of <span class="math inline">\beta_j</span></li>
 <li>confidence intervals for <span class="math inline">\beta_j</span></li>
-<li><span class="math inline">F</span>-tests for model selection</li>
+<li><span class="math inline">F</span>-tests for Model Selection</li>
 <li>They all break down and become unreliable!</li>
 </ul></li>
 </ul>
@@ -2617,7 +2617,7 @@ t = \frac{ \hat\beta_j - \beta_j }{ \mathop{\mathrm{e.s.e.}}}
 <ul>
 <li><p>Heteroscedasticity in linear regression is no longer a big problem</p></li>
 <li><p>This is thanks to 1980s research on <em>robust standard errors</em> (<a href="https://en.wikipedia.org/wiki/Heteroskedasticity-consistent_standard_errors">more info here</a>)</p></li>
-<li><p>Moreover heteroscedasticity only becomes a problem when it is <strong>severe</strong></p></li>
+<li><p>Moreover, heteroscedasticity only becomes a problem when it is <strong>severe</strong></p></li>
 </ul>
 </section>
 <section id="how-to-detect-heteroscedasticity" class="slide level2 smaller">
@@ -2630,50 +2630,50 @@ t = \frac{ \hat\beta_j - \beta_j }{ \mathop{\mathrm{e.s.e.}}}
 </ul>
 <p><br></p>
 <ul>
-<li>There are formal tests (see <span class="citation" data-cites="gujarati_porter">[<a href="#/references" role="doc-biblioref" onclick="">2</a>]</span>)
+<li><p>There are formal tests (see <span class="citation" data-cites="gujarati_porter">[<a href="#/references" role="doc-biblioref" onclick="">2</a>]</span>)</p>
 <ul>
 <li>Goldfeldt-Quant test</li>
 <li>White’s test for heteroscedasticity</li>
 </ul></li>
-</ul>
-</section>
-<section id="how-to-detect-heteroscedasticity-1" class="slide level2 smaller">
-<h2>How to detect Heteroscedasticity</h2>
-<ul>
-<li>Alternative: <strong>graphical checks</strong>
+<li><p>However, we do not cover them</p></li>
+<li><p>Alternative: <strong>Graphical Checks</strong></p>
 <ul>
 <li>Simpler and more robust</li>
 </ul></li>
+</ul>
+</section>
+<section id="graphical-checks" class="slide level2 smaller">
+<h2>Graphical Checks</h2>
+<ul>
 <li>They involve studying the model <strong>residuals</strong></li>
 </ul>
 <p><span class="math display">
-e_i := y_i - \hat y_i
+\hat{\varepsilon}_i := y_i - \hat y_i
 </span></p>
 <ul>
-<li><p>By definition <span class="math inline">e_i</span> is sampled from <span class="math inline">\varepsilon_i</span></p></li>
+<li><p>By definition, <span class="math inline">\hat{\varepsilon}_i</span> is sampled from the error <span class="math inline">\varepsilon_i</span></p></li>
 <li><p>We have heteroscedasticity if</p></li>
 </ul>
 <p><span class="math display">
 {\rm Var}[\varepsilon_i] \neq {\rm Var}[\varepsilon_j] \, \quad \, \text{ for some } \, i \neq j
 </span></p>
 <ul>
-<li>Hence under heteroscedasticity the residuals <span class="math inline">e_i</span> have <strong>different variance</strong></li>
+<li>Hence, under heteroscedasticity, the residuals <span class="math inline">\hat{\varepsilon}_i</span> have <strong>different variance</strong></li>
 </ul>
 </section>
-<section id="graphical-checks" class="slide level2 smaller">
-<h2>Graphical checks</h2>
-<h3 id="first-method-histogram-of-residuals">First method: Histogram of residuals</h3>
+<section id="first-method-histogram-of-residuals" class="slide level2 smaller">
+<h2>First method: Histogram of residuals</h2>
 <ul>
 <li>Yes Heteroscedasticity:
 <ul>
-<li>Residuals have different variance</li>
-<li>Histogram will display <strong>asymetric pattern</strong></li>
+<li>Residuals <span class="math inline">\varepsilon_i</span> have different variance</li>
+<li>Histogram of <span class="math inline">\hat{\varepsilon}_i</span> will display <strong>asymetric pattern</strong></li>
 </ul></li>
 <li>No Heteroscedasticity:
 <ul>
 <li>Homoscedasticity assumption holds</li>
-<li>Residuals have same variance</li>
-<li>Histogram will look like <strong>normal</strong> distribution <span class="math inline">N(0,\sigma^2)</span></li>
+<li>Residuals <span class="math inline">\varepsilon_i</span> have same variance, with <span class="math inline">\varepsilon_i \sim N(0, \sigma^2)</span></li>
+<li>Histogram of <span class="math inline">\hat{\varepsilon}_i</span> will look like <strong>normal</strong> distribution <span class="math inline">N(0,\sigma^2)</span></li>
 </ul></li>
 </ul>
 </section>
@@ -2701,26 +2701,35 @@ e_i := y_i - \hat y_i
 </div>
 </div>
 </div></section>
-<section id="graphical-checks-1" class="slide level2 smaller">
-<h2>Graphical checks</h2>
-<h3 id="second-method-residual-graphs">Second method: Residual graphs</h3>
+<section id="second-method-residual-graphs" class="slide level2 smaller">
+<h2>Second method: Residual graphs</h2>
 <ul>
 <li>Residual graphs are plots of
 <ul>
-<li>Residuals against fitted values</li>
-<li>Squared residuals against fitted values</li>
+<li>Residuals <span class="math inline">\hat{\varepsilon}_i</span> against fitted values <span class="math inline">\hat{y}_i</span></li>
+<li>Squared residuals <span class="math inline">\hat{\varepsilon}_i^2</span> against fitted values <span class="math inline">\hat{y}_i</span></li>
 </ul></li>
 <li>Important:
 <ul>
-<li>No Heteroscedasticity: Plots will look <strong>random</strong></li>
-<li>Yes Heteroscedasticity: Plots will show certain <strong>patterns</strong></li>
+<li>No Heteroscedasticity <span class="math inline">\implies</span> Plots will look <strong>random</strong></li>
+<li>Yes Heteroscedasticity <span class="math inline">\implies</span> Plots will show certain <strong>patterns</strong></li>
 </ul></li>
 <li>Good reference is the book <span class="citation" data-cites="draper_smith">[<a href="#/references" role="doc-biblioref" onclick="">3</a>]</span></li>
 </ul>
 </section>
 <section id="interepretation-of-residual-graphs" class="slide level2 smaller">
 <h2>Interepretation of Residual Graphs</h2>
-<div class="column" style="width:50%;">
+<div class="column" style="width:47%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="lecture_10_files/figure-revealjs/unnamed-chunk-18-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
 <ul>
 <li><strong>No systematic pattern:</strong>
 <ul>
@@ -2734,44 +2743,32 @@ e_i := y_i - \hat y_i
 <li>Vertical spread is comparable</li>
 </ul></li>
 </ul>
-</div><div class="column" style="width:47%;">
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure>
-<p><img data-src="lecture_10_files/figure-revealjs/unnamed-chunk-18-1.png" width="960"></p>
-</figure>
-</div>
-</div>
-</div>
 </div></section>
 <section id="interepretation-of-residual-graphs-1" class="slide level2 smaller">
 <h2>Interepretation of Residual Graphs</h2>
 <h3 id="patterns-implying-heteroscedasticity">Patterns implying Heteroscedasticity</h3>
 <ol type="1">
-<li><p>Funnelling out of residuals</p></li>
-<li><p>Funnelling in of residuals</p></li>
-<li><p>Linear residuals – Proportional to <span class="math inline">\hat y_i</span></p></li>
-<li><p>Quadratic residuals – Proportional to <span class="math inline">\hat{y}^2_i</span></p></li>
+<li>Funnelling out of residuals:
+<ul>
+<li>Residuals close to 0 for small <span class="math inline">\hat{y}_i</span> values, and more spread out for large <span class="math inline">\hat{y}_i</span></li>
+</ul></li>
+<li>Funnelling in of residuals
+<ul>
+<li>Residuals spread out for small <span class="math inline">\hat{y}_i</span> values, and close to 0 for large <span class="math inline">\hat{y}_i</span></li>
+</ul></li>
+<li>Linear residuals
+<ul>
+<li>Residuals are proportional to <span class="math inline">\hat y_i</span></li>
+</ul></li>
+<li>Quadratic residuals
+<ul>
+<li>Residuals are proportional to <span class="math inline">\hat{y}^2_i</span></li>
+</ul></li>
 </ol>
 <p><strong>In these special cases we can transform the data to avoid heteroscedasticity</strong></p>
 </section>
-<section id="funnelling-out-of-residuals" class="slide level2 smaller">
-<h2>Funnelling out of residuals</h2>
-<div class="columns">
-<div class="column" style="width:100%;">
-<p><img data-src="images/funnellinplot.png" style="width:100.0%"></p>
-</div></div>
-</section>
-<section id="funnelling-in-of-residuals" class="slide level2 smaller">
-<h2>Funnelling in of residuals</h2>
-<div class="columns">
-<div class="column" style="width:100%;">
-<p><img data-src="images/funnelloutplot.png" style="width:100.0%"></p>
-</div></div>
-</section>
-<section id="linear-and-quadratic-residuals" class="slide level2">
-<h2>Linear and Quadratic residuals</h2>
+<section id="funnelling-out-and-funnelling-in-residuals" class="slide level2 smaller">
+<h2>Funnelling Out and Funnelling In residuals</h2>
 <div class="column" style="width:48%;">
 <div class="cell">
 <div class="cell-output-display">
@@ -2793,6 +2790,29 @@ e_i := y_i - \hat y_i
 </div>
 </div>
 </div></section>
+<section id="linear-and-quadratic-residuals" class="slide level2">
+<h2>Linear and Quadratic residuals</h2>
+<div class="column" style="width:48%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="lecture_10_files/figure-revealjs/unnamed-chunk-21-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:48%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="lecture_10_files/figure-revealjs/unnamed-chunk-22-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></section>
 <section id="remedial-transformations" class="slide level2 smaller">
 <h2>Remedial transformations</h2>
 <ul>
@@ -2800,7 +2820,7 @@ e_i := y_i - \hat y_i
 <ul>
 <li>transform the data <span class="math inline">y</span></li>
 </ul></li>
-<li>A tranformation which often helps is
+<li>A tranformation which often helps with Funnelling residuals is
 <ul>
 <li><span class="math inline">\, \log y</span></li>
 </ul></li>
@@ -2903,7 +2923,7 @@ Y_i = \beta_1 + \beta_2 X_{i} + \varepsilon_i
 <span id="cb51-9"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Fit regression model</span></span>
 <span id="cb51-10"><a aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(gold.price <span class="sc">~</span> stock.price)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="section-33" class="slide level2 smaller">
+<section id="section-38" class="slide level2 smaller">
 <h2></h2>
 <ul>
 <li><strong>Plot:</strong> Residuals look heteroscedastic
@@ -2930,14 +2950,14 @@ Y_i = \beta_1 + \beta_2 X_{i} + \varepsilon_i
 <div class="cell-output-display">
 <div>
 <figure>
-<p><img data-src="lecture_10_files/figure-revealjs/unnamed-chunk-21-1.png" width="960"></p>
+<p><img data-src="lecture_10_files/figure-revealjs/unnamed-chunk-23-1.png" width="960"></p>
 </figure>
 </div>
 </div>
 </div>
 </div></div>
 </section>
-<section id="section-34" class="slide level2 smaller">
+<section id="section-39" class="slide level2 smaller">
 <h2></h2>
 <ul>
 <li><strong>Histogram:</strong> Confirms initial intuition of heteroscedasticity
@@ -2961,14 +2981,14 @@ Y_i = \beta_1 + \beta_2 X_{i} + \varepsilon_i
 <div class="cell-output-display">
 <div>
 <figure>
-<p><img data-src="lecture_10_files/figure-revealjs/unnamed-chunk-22-1.png" width="960"></p>
+<p><img data-src="lecture_10_files/figure-revealjs/unnamed-chunk-24-1.png" width="960"></p>
 </figure>
 </div>
 </div>
 </div>
 </div></div>
 </section>
-<section id="section-35" class="slide level2 smaller">
+<section id="section-40" class="slide level2 smaller">
 <h2></h2>
 <ul>
 <li><strong>Residual Graph:</strong> Displays funnelling out pattern
@@ -2994,14 +3014,14 @@ Y_i = \beta_1 + \beta_2 X_{i} + \varepsilon_i
 <div class="cell-output-display">
 <div>
 <figure>
-<p><img data-src="lecture_10_files/figure-revealjs/unnamed-chunk-23-1.png" width="960"></p>
+<p><img data-src="lecture_10_files/figure-revealjs/unnamed-chunk-25-1.png" width="960"></p>
 </figure>
 </div>
 </div>
 </div>
 </div></div>
 </section>
-<section id="section-36" class="slide level2 smaller">
+<section id="section-41" class="slide level2 smaller">
 <h2></h2>
 <ul>
 <li><strong>Remedial transformation:</strong> To try and reduce heteroscedasticity take
@@ -3025,47 +3045,13 @@ Y_i = \beta_1 + \beta_2 X_{i} + \varepsilon_i
 <span id="cb55-10"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Compute fitted values for log model</span></span>
 <span id="cb55-11"><a aria-hidden="true" tabindex="-1"></a>log.fitted <span class="ot">&lt;-</span> log.model<span class="sc">$</span>fitted</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section></section>
-<section id="section-37" class="title-slide slide level1 smaller center">
+<section id="section-42" class="title-slide slide level1 smaller center">
 <h1></h1>
 <ul>
 <li>Heteroscedasticity has definitely reduced
 <ul>
 <li>Left: Residual plot for original model</li>
 <li>Right: Residual plot for <span class="math inline">\log y</span> data model</li>
-</ul></li>
-</ul>
-<div class="columns" style="display: flex !important; height: 50%;">
-<div class="column" style="display: flex; justify-content: center; align-items: center;">
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure>
-<p><img data-src="lecture_10_files/figure-revealjs/unnamed-chunk-24-1.png" width="960"></p>
-</figure>
-</div>
-</div>
-</div>
-</div><div class="column" style="display: flex; justify-content: center; align-items: center;">
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure>
-<p><img data-src="lecture_10_files/figure-revealjs/unnamed-chunk-25-1.png" width="960"></p>
-</figure>
-</div>
-</div>
-</div>
-</div></div>
-</section>
-
-<section>
-<section id="section-38" class="title-slide slide level1 smaller center">
-<h1></h1>
-<ul>
-<li>Heteroscedasticity has definitely reduced
-<ul>
-<li>Left: Histogram of residuals for original model</li>
-<li>Right: Histogram of residuals for <span class="math inline">\log y</span> data model</li>
 </ul></li>
 </ul>
 <div class="columns" style="display: flex !important; height: 50%;">
@@ -3085,6 +3071,40 @@ Y_i = \beta_1 + \beta_2 X_{i} + \varepsilon_i
 <div>
 <figure>
 <p><img data-src="lecture_10_files/figure-revealjs/unnamed-chunk-27-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+
+<section>
+<section id="section-43" class="title-slide slide level1 smaller center">
+<h1></h1>
+<ul>
+<li>Heteroscedasticity has definitely reduced
+<ul>
+<li>Left: Histogram of residuals for original model</li>
+<li>Right: Histogram of residuals for <span class="math inline">\log y</span> data model</li>
+</ul></li>
+</ul>
+<div class="columns" style="display: flex !important; height: 50%;">
+<div class="column" style="display: flex; justify-content: center; align-items: center;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="lecture_10_files/figure-revealjs/unnamed-chunk-28-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="display: flex; justify-content: center; align-items: center;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="lecture_10_files/figure-revealjs/unnamed-chunk-29-1.png" width="960"></p>
 </figure>
 </div>
 </div>

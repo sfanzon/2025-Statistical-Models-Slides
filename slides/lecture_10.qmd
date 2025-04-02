@@ -2575,9 +2575,9 @@ $$
 
 
 
-## Why is homoscedasticity important? {.smaller}
+##  {.smaller}
 
-- For example the maximum likelihood estimation relied on the calculation
+- For example, the maximum likelihood estimation relied on the calculation
     \begin{align*}
     L & = \prod_{i=1}^n  f_{Y_i} (y_i)  
         = \prod_{i=1}^n \frac{1}{\sqrt{2\pi \sigma^2}} \exp \left( -\frac{(y_i - \hat y_i)^2}{2\sigma^2} \right) \\[15pts]
@@ -2594,7 +2594,7 @@ $$
 
 
 
-## Why is homoscedasticity important? {.smaller}
+##  {.smaller}
 
 - Suppose the calculation in previous slide holds
 
@@ -2618,7 +2618,7 @@ $$
 
 
 
-## Why is homoscedasticity important? {.smaller}
+##  {.smaller}
 
 - Without homoscedasticity we would have
 
@@ -2627,10 +2627,10 @@ L \neq \frac{1}{(2\pi \sigma^2)^{n/2}} \, \exp   \left(   -\frac{ \RSS }{2\sigma
 $$
 
 
-- Therefore $\hat \beta$ would no longer maximize the likelihood!
+- Therefore, $\hat \beta$ would no longer maximize the likelihood!
 
 
-- In this case $\hat \beta$ would still be an unbiased estimator for $\beta$
+- But $\hat \beta$ would still be an unbiased estimator for $\beta$
 
 $$
 \Expect [\hat \beta ] = \beta
@@ -2638,9 +2638,9 @@ $$
 
 
 
-## Why is homoscedasticity important? {.smaller}
+##  {.smaller}
 
-- However the quantity
+- However, the quantity
 $$
 S^2 = \frac{ \RSS(\hat \beta) }{n-p}
 $$
@@ -2655,15 +2655,15 @@ $$
 \ese (\beta_j) = \xi_{jj}^{1/2} \, S  
 $$
 
-- Therefore $\ese$ becomes **unreliable**
+- Therefore $\ese$ become **unreliable**
 
 
 
 
-## Why is homoscedasticity important? {.smaller}
+##  {.smaller}
 
 
-- Then also t-statistic for significance of $\beta_j$ becomes unreliable
+- Then, also t-statistic for significance of $\beta_j$ becomes unreliable
 
 - This is because the t-statistic depends on $\ese$
 
@@ -2674,7 +2674,7 @@ $$
 - **Without homoscedasticity the regression maths does not work!**
     * t-tests for significance of $\beta_j$
     * confidence intervals for $\beta_j$
-    * $F$-tests for model selection
+    * $F$-tests for Model Selection
     * They all break down and become unreliable!
 
 
@@ -2687,7 +2687,7 @@ $$
 - This is thanks to 1980s research on *robust standard errors* ([more info here](https://en.wikipedia.org/wiki/Heteroskedasticity-consistent_standard_errors))
 
 
-- Moreover heteroscedasticity only becomes a problem when it is **severe**
+- Moreover, heteroscedasticity only becomes a problem when it is **severe**
 
 
 
@@ -2704,20 +2704,25 @@ $$
     * White's test for heteroscedasticity
 
 
+- However, we do not cover them
 
-## How to detect Heteroscedasticity {.smaller}
-
-- Alternative: **graphical checks**
+- Alternative: **Graphical Checks**
     * Simpler and more robust
+
+
+
+
+## Graphical Checks {.smaller}
+
 
 - They involve studying the model **residuals**
 
 $$
-e_i := y_i - \hat y_i
+\hat{\e}_i := y_i - \hat y_i
 $$
 
 
-- By definition $e_i$ is sampled from $\e_i$
+- By definition, $\hat{\e}_i$ is sampled from the error $\e_i$
 
 - We have heteroscedasticity if 
 
@@ -2725,7 +2730,7 @@ $$
 \Var [\e_i] \neq \Var [\e_j] \, \quad \, \text{ for some } \, i \neq j
 $$
 
-- Hence under heteroscedasticity the residuals $e_i$ have **different variance**
+- Hence, under heteroscedasticity, the residuals $\hat{\e}_i$ have **different variance**
 
 
 
@@ -2733,17 +2738,16 @@ $$
 
 
 
-## Graphical checks {.smaller}
-### First method: Histogram of residuals
+## First method: Histogram of residuals {.smaller}
 
 - Yes Heteroscedasticity:
-    * Residuals have different variance
-    * Histogram will display **asymetric pattern**
+    * Residuals $\e_i$ have different variance
+    * Histogram of $\hat{\e}_i$ will display **asymetric pattern**
 
 - No Heteroscedasticity:
     * Homoscedasticity assumption holds
-    * Residuals have same variance
-    * Histogram will look like **normal** distribution $N(0,\sigma^2)$
+    * Residuals $\e_i$ have same variance, with $\e_i \sim N(0, \sigma^2)$
+    * Histogram of $\hat{\e}_i$ will look like **normal** distribution $N(0,\sigma^2)$
 
 
 
@@ -2805,17 +2809,16 @@ mtext("Residuals", side=1, line=2.5, cex=2.5)
 
 
 
-## Graphical checks {.smaller}
-### Second method: Residual graphs
+## Second method: Residual graphs {.smaller}
 
 - Residual graphs are plots of
-    * Residuals against fitted values
-    * Squared residuals against fitted values
+    * Residuals $\hat{\e}_i$ against fitted values $\hat{y}_i$
+    * Squared residuals $\hat{\e}_i^2$ against fitted values $\hat{y}_i$
 
 
 - Important:
-    * No Heteroscedasticity: Plots will look **random**
-    * Yes Heteroscedasticity: Plots will show certain **patterns**
+    * No Heteroscedasticity $\implies$ Plots will look **random**
+    * Yes Heteroscedasticity $\implies$ Plots will show certain **patterns**
 
 - Good reference is the book [@draper_smith]
 
@@ -2824,25 +2827,13 @@ mtext("Residuals", side=1, line=2.5, cex=2.5)
 
 ## Interepretation of Residual Graphs {.smaller}
 
-::: {.column width="50%"}
-
-- **No systematic pattern:**
-    * Suggests no heteroscedasticity
-    * Corresponds to constant variance 
-    * Homoscedasticity assumption holds
-
-- Residuals resemble sample $N(0,\sigma^2)$
-    * About half residuals negative and half positive
-    * Vertical spread is comparable
-
-:::
-
 ::: {.column width="47%"}
 ```{r}
 #| echo: false
 #| fig-asp: 1
 
 # Generate random N(0,1) vector
+set.seed(1)
 data <- rnorm(300)
 
 # Threshold at 2.5 standard deviation for 
@@ -2864,16 +2855,36 @@ abline(0, 0, col = "red", lwd = 3)
 :::
 
 
+::: {.column width="50%"}
+
+- **No systematic pattern:**
+    * Suggests no heteroscedasticity
+    * Corresponds to constant variance 
+    * Homoscedasticity assumption holds
+
+- Residuals resemble sample $N(0,\sigma^2)$
+    * About half residuals negative and half positive
+    * Vertical spread is comparable
+
+:::
+
+
+
+
 ## Interepretation of Residual Graphs {.smaller}
 ### Patterns implying Heteroscedasticity
 
-1. Funnelling out of residuals
+1. Funnelling out of residuals: 
+    * Residuals close to 0 for small $\hat{y}_i$ values, and more spread out for large $\hat{y}_i$
 
 2. Funnelling in of residuals
+    * Residuals spread out for small $\hat{y}_i$ values, and close to 0 for large $\hat{y}_i$
 
-3. Linear residuals -- Proportional to $\hat y_i$
+3. Linear residuals
+    * Residuals are proportional to $\hat y_i$
 
-4. Quadratic residuals -- Proportional to $\hat{y}^2_i$
+4. Quadratic residuals
+    * Residuals are proportional to $\hat{y}^2_i$
 
 
 **In these special cases we can transform the data to avoid heteroscedasticity**
@@ -2882,31 +2893,91 @@ abline(0, 0, col = "red", lwd = 3)
 
 
 
-## Funnelling out of residuals {.smaller}
+## Funnelling Out and Funnelling In residuals {.smaller}
 
 
-:::: {.columns}
+::: {.column width="48%"}
 
-::: {.column width="100%"}
-![](images/funnellinplot.png){width=100%}
+```{r}
+#| echo: false
+#| fig-asp: 1
+
+
+# Generate sample data
+set.seed(1)
+x <- runif(1000, -1, 1)
+
+# Generate residuals with increasing variance as |x| is larger
+errors <- rnorm(1000, mean = 0, sd = abs(x))
+
+# Define response variable with slight heteroscedasticity
+y <- 3 * x + errors
+
+# Fit a linear model
+model <- lm(y ~ x)
+
+# Extract fitted values and residuals
+fitted_values <- fitted(model)
+residuals <- resid(model)
+
+# Plot fitted values vs residuals
+plot(fitted_values, residuals,
+     xlab = "", 
+     ylab = "", 
+     pch = 16)
+
+mtext("Fitted Values", side = 1, line = 3, cex = 2.1)
+mtext("Residuals", side = 2, line = 2.5, cex = 2.1)
+
+# Add reference line
+abline(0, 0, col = "red", lwd = 3)
+```
+
 :::
 
-::::
+
+::: {.column width="48%"}
+
+```{r}
+#| echo: false
+#| fig-asp: 1
 
 
+# Generate sample data
+set.seed(1)
+x <- runif(1000, -7, 7)
 
-## Funnelling in of residuals {.smaller}
+# Small constant to prevent division by zero
+epsilon <- 0.05  
 
-:::: {.columns}
+# Generate residuals with increasing variance as |x| close to zero
+errors <- rnorm(1000, mean = 0, sd = 1 / (abs(x) + epsilon))
 
-::: {.column width="100%"}
-![](images/funnelloutplot.png){width=100%}
+# Define response variable with slight heteroscedasticity
+y <- 3 * x + errors
+
+# Fit a linear model
+model <- lm(y ~ x)
+
+# Extract fitted values and residuals
+fitted_values <- fitted(model)
+residuals <- resid(model)
+
+# Plot fitted values vs residuals
+plot(fitted_values, residuals,
+     xlab = "", 
+     ylab = "", 
+     pch = 16, 
+     ylim = c(-2, 2))
+
+mtext("Fitted Values", side = 1, line = 3, cex = 2.1)
+mtext("Residuals", side = 2, line = 2.5, cex = 2.1)
+
+# Add reference line
+abline(0, 0, col = "red", lwd = 3)
+```
+
 :::
-
-::::
-
-
-
 
 
 ## Linear and Quadratic residuals
@@ -2985,7 +3056,7 @@ abline(0, 0, col = "red", lwd = 3)
 - To try and reduce heteroscedasticity we can 
     * transform the data $y$ 
 
-- A tranformation which often helps is
+- A tranformation which often helps with Funnelling residuals is
     * $\, \log y$
 
 - For linear and quadratic patterns you can try

@@ -2844,12 +2844,13 @@ data <- data[abs(data) <= 2.5]
 plot(data, 
     xlab = "", 
     ylab = "", 
-    pch = 16)
+    pch = 16,
+    cex = 1.2)
 
 mtext("Fitted Values", side=1, line=3, cex=2.1)
 mtext("Residuals", side=2, line=2.5, cex=2.1)
 
-abline(0, 0, col = "red", lwd = 3)
+abline(0, 0, col = "red", lwd = 4)
 ```
 
 :::
@@ -2930,7 +2931,7 @@ mtext("Fitted Values", side = 1, line = 3, cex = 2.1)
 mtext("Residuals", side = 2, line = 2.5, cex = 2.1)
 
 # Add reference line
-abline(0, 0, col = "red", lwd = 3)
+abline(0, 0, col = "red", lwd = 4)
 ```
 
 :::
@@ -2974,7 +2975,7 @@ mtext("Fitted Values", side = 1, line = 3, cex = 2.1)
 mtext("Residuals", side = 2, line = 2.5, cex = 2.1)
 
 # Add reference line
-abline(0, 0, col = "red", lwd = 3)
+abline(0, 0, col = "red", lwd = 4)
 ```
 
 :::
@@ -3009,7 +3010,7 @@ plot(data,
 mtext("Fitted Values", side=1, line=3, cex=2.1)
 mtext("Residuals", side=2, line=2.5, cex=2.1)
 
-abline(0, 0, col = "red", lwd = 3)
+abline(0, 0, col = "red", lwd = 4)
 ```
 
 :::
@@ -3041,7 +3042,7 @@ plot(data,
 mtext("Fitted Values", side=1, line=3, cex=2.1)
 mtext("Residuals", side=2, line=2.5, cex=2.1)
 
-abline(0, 0, col = "red", lwd = 3)
+abline(0, 0, col = "red", lwd = 4)
 ```
 
 
@@ -3051,10 +3052,9 @@ abline(0, 0, col = "red", lwd = 3)
 
 
 
-## Remedial transformations {.smaller}
+## Remedial transformations for $Y$ {.smaller}
 
-- To try and reduce heteroscedasticity we can 
-    * transform the data $y$ 
+To try and reduce heteroscedasticity we can **transform the data $y$** 
 
 - A tranformation which often helps with Funnelling residuals is
     * $\, \log y$
@@ -3066,23 +3066,24 @@ abline(0, 0, col = "red", lwd = 3)
 
 
 
-## Remedial transformations {.smaller}
+## Remedial transformations for $X$ {.smaller}
 
-- Heteroscedasticity can be associated with some of the $X$-variables
-    * In this case plot the residuals or squared residuals against $X$
+Heteroscedasticity can also be associated with some of the $X$-variables
 
-- The book [@gujarati_porter] discusses two cases
+- To detect it, plot the residuals $\hat{\e}_i$ against $X$
 
-    * The error variance is proportional to $X^2_i$
-    $$
-    \Var [\e_i] \, \approx \, \sigma^2 \, X^2_i
-    $$
-    * The error variance is proportional to $X_i$
-    $$
-    \Var [\e_i] \, \approx \, \sigma^2 \, X_i
-    $$
+The book [@gujarati_porter] discusses two cases
 
-- **In each case divide through by the square root of the offending $X$-term**
+1. The error variance is proportional to $X^2_i$
+$$
+\Var [\e_i] \, \approx \, \sigma^2 \, X^2_i
+$$
+
+2. The error variance is proportional to $X_i$
+$$
+\Var [\e_i] \, \approx \, \sigma^2 \, X_i
+$$
+**In each case, divide through by the square root of the offending $X$-term**
 
 
 
@@ -3094,13 +3095,15 @@ $$
 Y_i = \beta_1 + \beta_2 X_{i} + \e_i
 $$
 
+- Assume error variance is proportional to $X_i^2$ 
+
 - Divide through by $X_i$
 
 \begin{equation} \tag{1}
 \frac{Y_i}{X_i} = \frac{\beta_1}{X_i}+\beta_2+\frac{\e_i}{X_i}
 \end{equation}
 
-- Estimate equation (1) with usual least squares regression approach
+- Fit simple regression to the model in (1)
 
 
 
@@ -3113,38 +3116,39 @@ $$
 Y_i = \beta_1 + \beta_2 X_{i} + \e_i
 $$
 
+- Assume error variance is proportional to $X_i$ 
+
 - Divide through by $\sqrt{X_i}$
 
 \begin{equation} \tag{2}
 \frac{Y_i}{\sqrt{X_i}} = \frac{\beta_1}{\sqrt{X_i}}+\beta_2 \sqrt{X_i} + \frac{\e_i}{\sqrt{X_i}}
 \end{equation}
 
-- Estimate equation (2) with usual least squares regression approach
+- Fit simple regression to the model in (2)
 
 
 
 
 ## Analysis of regression residuals in R {.smaller}
 
-- We need R commands for **residuals** and **fitted values**
+We need R commands to compute **residuals** and **fitted values**
 
-- Fit a linear model as usual
+
+1. Fit linear model as usual
 
 ```r
 # Fit a linear model
 model <- lm(formula)
 ```
 
-- To obtain fitted values $\hat y_i$ 
+<br>
+
+2. To obtain fitted values $\hat y_i$ and residual values $\hat{\e}_i = y_i - \hat y_i$
 
 ```r
 # Compute fitted values
 fitted.values <- model$fitted
-```
 
-- To obtain the residual values $\e_i = y_i - \hat y_i$
-
-```r
 # Compute residual values
 residuals <- model$resid
 ```
@@ -3190,12 +3194,13 @@ plot(stock.price,
      gold.price, 
      xlab = "Stock Price", 
      ylab = "Gold Price",
-     pch = 16) 
+     pch = 16,
+     cex = 2) 
 
 # Plot regression line
 abline(model, 
       col = "red", 
-      lwd = 3)
+      lwd = 4)
 ```
 
 :::
@@ -3222,14 +3227,15 @@ plot(stock.price,
      gold.price, 
      xlab = "", 
      ylab= "",
-     pch = 16)
+     pch = 16,
+     cex = 2)
 
 # Add labels
 mtext("Stock Price", side=1, line=3, cex=2.1)
 mtext("Gold Price", side=2, line=2.5, cex=2.1)
 
 # Plot regression line
-abline(model, col = "red", lwd = 3)
+abline(model, col = "red", lwd = 4)
 ```
 
 :::

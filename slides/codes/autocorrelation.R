@@ -26,10 +26,10 @@ plot(residuals,
      xlab = "Time", 
      ylab = "Residuals",
      pch = 16,
-     cex = 1.5)
+     cex = 2)
 
 # Add y = 0 line for reference
-abline(0, 0, col = "red", lwd = 3)
+abline(0, 0, col = "red", lwd = 4)
 
 # Compute length of residuals
 length(residuals)
@@ -39,10 +39,10 @@ residuals.lag.0 <- residuals[2:33]
 residuals.lag.1 <-residuals[1:32]
 
 # Plot Original residuals 
-# Vs Shifted residuals
-plot(residuals.lag.0, 
-     residuals.lag.1,
-     xlab = "Residuals Lag 0", 
-     ylab = "Residuals Lag 1",
+# Vs Lagged residuals
+plot(residuals.lag.1, 
+     residuals.lag.0,
+     xlab = "Residuals Lag 1", 
+     ylab = "Residuals Lag 0",
      pch = 16,
-     cex = 1.5)
+     cex = 2)

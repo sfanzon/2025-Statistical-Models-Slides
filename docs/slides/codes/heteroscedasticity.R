@@ -23,10 +23,11 @@ plot(stock.price,
      gold.price, 
      xlab = "Stock Price", 
      ylab = "Gold Price",
-     pch = 16) 
+     pch = 16,
+     cex = 2) 
 
 # Plot regression line
-abline(model, col = "red", lwd = 3)
+abline(model, col = "red", lwd = 4)
 
 # Compute residuals
 residuals <- model$resid
@@ -44,10 +45,11 @@ fitted <- model$fitted
 plot(fitted, residuals,
      xlab = "Fitted Values", 
      ylab = "Residuals",
-     pch = 16)
+     pch = 16,
+     cex = 2)
 
 # Add y = 0 line for reference
-abline(0, 0, col = "red", lwd = 3)
+abline(0, 0, col = "red", lwd = 4)
 
 # Transform data via log(y)
 log.gold.price <- log(gold.price)
@@ -65,13 +67,28 @@ log.fitted <- log.model$fitted
 plot(log.fitted, log.residuals,
      xlab = "Fitted Values", 
      ylab = "Residuals",
-     pch = 16)
+     pch = 16, 
+     cex = 2)
 
 # Add y = 0 line for reference
-abline(0, 0, col = "red", lwd = 3)
+abline(0, 0, col = "red", lwd = 4)
 
 # Histogram of residuals for transformed model
 hist(log.residuals,
 xlab = "Residuals",
 ylab = "Frequency",
 col = "skyblue")
+
+# Create dataframe for predictors
+predictors <- data.frame(stock.price = c(1.2, 2, 3.1, 4, 6))
+
+# Make predictions
+log.predictions <- predict(log.model, predictors, inter = "pred")
+
+# Print predictions
+print(log.predictions)
+
+# Rescale log predictions
+predictions <- exp(log.predictions)
+
+print(predictions)

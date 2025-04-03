@@ -45,6 +45,8 @@ $
 
 4. Heteroscedasticity
 
+5. Autocorrelation
+
 
 
 # Part 1: <br> Model Selection <br> {background-color="#cc0164" visibility="uncounted"}
@@ -2693,26 +2695,26 @@ $$
 
 ## How to detect Heteroscedasticity {.smaller}
 
-- Heteroscedasticity is commonly present in real-world datasets
-    * We should be able to detect it
+Heteroscedasticity is commonly present in real-world datasets. We should be able to detect it
 
 
-<br>
+1. Graphical methods
+    * Simple, robust and informative
 
-- There are formal tests (see [@gujarati_porter])
+
+2. Statistical tests (see [@gujarati_porter])
     * Goldfeldt-Quant test
     * White's test for heteroscedasticity
 
 
-- However, we do not cover them
-
-- Alternative: **Graphical Checks**
-    * Simpler and more robust
+**We do not cover statistical tests, only Graphical methods**
 
 
 
 
-## Graphical Checks {.smaller}
+
+
+## Graphical methods for Heteroscedasticity {.smaller}
 
 
 - They involve studying the model **residuals**
@@ -2813,7 +2815,7 @@ mtext("Residuals", side=1, line=2.5, cex=2.5)
 
 - Residual graphs are plots of
     * Residuals $\hat{\e}_i$ against fitted values $\hat{y}_i$
-    * Squared residuals $\hat{\e}_i^2$ against fitted values $\hat{y}_i$
+
 
 
 - Important:
@@ -3052,11 +3054,32 @@ abline(0, 0, col = "red", lwd = 4)
 
 
 
+## What to do in case of Heteroscedasticity? {.smaller}
+
+Assume you fitted the model
+
+$$
+Y = \beta_1 + \beta_2 X_2 + \ldots + \beta_p X_p + \e
+$$
+
+
+If heteroscedasticity is detected, we can transform the data:
+
+1. Remedial transformations for $Y$
+    * Transform the data $Y$
+
+2. Remedial transformations for $X_i$
+    * Divide through by a suitable power of $X_i$
+
+
+
+
+
 ## Remedial transformations for $Y$ {.smaller}
 
 To try and reduce heteroscedasticity we can **transform the data $y$** 
 
-- A tranformation which often helps with Funnelling residuals is
+- A tranformation which often helps is
     * $\, \log y$
 
 - For linear and quadratic patterns you can try
@@ -3089,13 +3112,17 @@ $$
 
 ## Error variance proportional to $X_i^2$ {.smaller}
 
--  Start with the model
+- For example, consider the model
 
 $$
 Y_i = \beta_1 + \beta_2 X_{i} + \e_i
 $$
 
-- Assume error variance is proportional to $X_i^2$ 
+- Assume that error variance is proportional to $X_i^2$, that is, 
+
+$$
+\e_i \,\, \text{ independent } \,\, N(0,\sigma^2 X_i^2)
+$$
 
 - Divide through by $X_i$
 
@@ -3103,28 +3130,79 @@ $$
 \frac{Y_i}{X_i} = \frac{\beta_1}{X_i}+\beta_2+\frac{\e_i}{X_i}
 \end{equation}
 
-- Fit simple regression to the model in (1)
 
+
+## {.smaller}
+
+- Consider the substitutions
+
+$$
+\widetilde{Y}_i = \frac{Y_i}{X_i} \,, \qquad \widetilde{X}_i = \frac{1}{X_i} \,, \qquad  \tilde{\e}_i = \frac{\e_i}{X_i}
+$$
+
+- The model in (1) is therefore equivalent to 
+
+\begin{equation} \tag{2}
+\widetilde{Y}_i = \beta_1 + \beta_2 \widetilde{X}_i + \tilde{\e}_i 
+\end{equation}
+
+- By assumption, we have $\e_i$ independent and $N(0,\sigma^2 X_i^2)$. Therefore,
+
+$$
+\tilde{\e}_i \,\, \text{ iid } \,\, N(0,\sigma^2)
+$$
+
+
+- Thus, the model in (2) satisfies all the Regression Assumptions
+
+
+## {.smaller}
+
+- Assume we now want to make predictions for the value $x$
+
+- First, fit the simple regression model in (2). This gives MLEs $\hat{\beta}_1, \hat{\beta}_2$
+
+- Recalling the substitution $\widetilde{X} = 1 / X$, we define
+
+$$
+\widetilde{x} = 1/x
+$$
+
+- The prediction of Model (2) for such value is
+
+$$
+\widetilde{y} = \hat{\beta}_1 + \hat{\beta}_2 \widetilde{x}
+$$
+
+- Now, recall that $\widetilde{Y} = Y / X$. Therefore, $Y = \widetilde{Y}X$, and the prediction is
+
+$$
+\hat{y} = \widetilde{y} \cdot x
+$$
 
 
 
 ## Error variance proportional to $X_i$ {.smaller}
 
--  Start with the model
+- For example, consider the model
 
 $$
 Y_i = \beta_1 + \beta_2 X_{i} + \e_i
 $$
 
-- Assume error variance is proportional to $X_i$ 
+- Assume error variance is proportional to $X_i$, that is, 
+
+$$
+\e_i \,\, \text{ independent } \,\, N(0,\sigma^2 X_i)
+$$
 
 - Divide through by $\sqrt{X_i}$
 
-\begin{equation} \tag{2}
+\begin{equation} \tag{3}
 \frac{Y_i}{\sqrt{X_i}} = \frac{\beta_1}{\sqrt{X_i}}+\beta_2 \sqrt{X_i} + \frac{\e_i}{\sqrt{X_i}}
 \end{equation}
 
-- Fit simple regression to the model in (2)
+- With suitable substitutions, we can fit simple regression to the model in (3)
 
 
 
@@ -3157,7 +3235,7 @@ residuals <- model$resid
 
 ## Example: Stock Vs Gold prices {.smaller}
 
-- The full code for the example is available here [residual_graphs.R](codes/residual_graphs.R)
+- The full code for the example is available here [heteroscedasticity.R](codes/heteroscedasticity.R)
 
 - Stock Vs Gold prices data is available here [stock_gold.txt](datasets/stock_gold.txt)
 
@@ -3179,9 +3257,15 @@ model <- lm(gold.price ~ stock.price)
 
 ##  {.smaller}
 
-- **Plot:** Residuals look heteroscedastic
-    * Most points are below the line
-    * Points under the line appear more distant 
+::: {style="font-size: 0.93em"}
+
+**Scatter Plot:** of $y$ against $x$, with regression line
+
+- Most points are below the line
+- Points under the line appear more distant
+- This means errors have different variance $\implies$ heteroscedasticity
+
+:::
 
 
 ::::: {.columns style='display: flex !important; height: 60%;'}
@@ -3244,9 +3328,15 @@ abline(model, col = "red", lwd = 4)
 
 ##  {.smaller}
 
-- **Histogram:** Confirms initial intuition of heteroscedasticity
-    * Residuals are not normally distributed
-    * Residuals have different variance (skewed histogram)
+::: {style="font-size: 0.93em"}
+
+**Histogram of residuals:** Confirms initial intuition of heteroscedasticity
+
+- Residuals are not normally distributed
+- Residuals have different variance (skewed histogram)
+
+:::
+
 
 ::::: {.columns style='display: flex !important; height: 60%;'}
 
@@ -3303,8 +3393,15 @@ mtext("Frequency", side = 2, line = 2.5, cex = 2.5)
 
 ## {.smaller}
 
-- **Residual Graph:** Displays funnelling out pattern
-    * We definitely have **heteroscedasticity**
+::: {style="font-size: 0.93em"}
+
+**Residual Graph:** Plot residuals against fitted values 
+
+- Displays funnelling out pattern
+- We definitely have **heteroscedasticity**
+
+:::
+
 
 ::::: {.columns style='display: flex !important; height: 65%;'}
 
@@ -3318,10 +3415,11 @@ fitted <- model$fitted
 plot(fitted, residuals,
      xlab = "Fitted Values", 
      ylab = "Residuals",
-     pch = 16)
+     pch = 16,
+     cex = 2)
 
 # Add y = 0 line for reference
-abline(0, 0, col = "red", lwd = 3)
+abline(0, 0, col = "red", lwd = 4)
 ```
 
 :::
@@ -3353,14 +3451,15 @@ fitted <- model$fitted
 plot(fitted, residuals,
      xlab = "", 
      ylab = "",
-     pch = 16)
+     pch = 16,
+     cex = 2)
 
 # Increase label size
 mtext("Fitted Values", side = 1, line = 2.5, cex = 2.5)
 mtext("Residuals", side = 2, line = 2.5, cex = 2.5)
 
 # Add y = 0 line for reference
-abline(0, 0, col = "red", lwd = 3)
+abline(0, 0, col = "red", lwd = 4)
 ```
 
 :::
@@ -3374,7 +3473,7 @@ abline(0, 0, col = "red", lwd = 3)
 - **Remedial transformation:** To try and reduce heteroscedasticity take
     * $\, \log y$
 
-- This means we need to fit the model
+- This means, we fit the model
 
 $$
 \log Y_i = \alpha + \beta X_i + \e_i
@@ -3399,9 +3498,10 @@ log.fitted <- log.model$fitted
 
 # {.smaller}
 
-- Heteroscedasticity has definitely reduced
-    * Left: Residual plot for original model
-    * Right: Residual plot for $\log y$ data model
+Heteroscedasticity has definitely reduced
+
+- Left: Residual plot for original model
+- Right: Residual plot for $\log y$ data model
 
 
 
@@ -3434,7 +3534,8 @@ fitted <- model$fitted
 plot(fitted, residuals,
      xlab = "", 
      ylab = "",
-     pch = 16)
+     pch = 16,
+     cex = 2)
 
 # Increase label size
 mtext("Fitted Values", side = 1, line = 2.5, cex = 2.5)
@@ -3476,7 +3577,8 @@ log.fitted <- log.model$fitted
 plot(log.fitted, log.residuals,
      xlab = "", 
      ylab = "",
-     pch = 16)
+     pch = 16,
+     cex = 2)
 
 # Increase label size
 mtext("Fitted Values", side = 1, line = 2.5, cex = 2.5)
@@ -3493,9 +3595,10 @@ abline(0, 0, col = "red", lwd = 3)
 
 # {.smaller}
 
-- Heteroscedasticity has definitely reduced
-    * Left: Histogram of residuals for original model
-    * Right: Histogram of residuals for $\log y$ data model
+Heteroscedasticity has definitely reduced
+
+- Left: Histogram of residuals for original model
+- Right: Histogram of residuals for $\log y$ data model
 
 
 
@@ -3577,6 +3680,817 @@ mtext("Frequency", side = 2, line = 2.5, cex = 2.5)
 :::
 :::::
 
+
+
+## {.smaller}
+
+**Conclusion:** The log model seems to better satisfy the Regression Assumptions  
+(due to less heteroschedasticity)
+
+- Predictions should be done using the second model
+
+$$
+\log Y = \alpha + \beta X + \e 
+$$
+
+- Given a data point $x$, the log model predicts
+$$
+\widetilde{y} = \log y
+$$
+
+- The actual prediction is 
+$$
+y = e^{\widetilde{y}}
+$$
+
+
+- How do we make predictions on new values?
+
+
+
+## Predictions for linear models {.smaller}
+
+The function ``predict`` is used to make different types of predictions
+
+$$
+\text{predict(model, newdata = ..., interval = ..., level = ...)}
+$$
+
+- ``model`` is the output of an *lm model*
+
+- Predictors are given as argument in ``newdata`` 
+    * newdata has to be a data frame
+    * names of predictors have to match those used in the model formula
+
+- The optional argument ``interval`` requests a prediction confidence interval
+    * This is a confidence interval around the prediction value
+
+- The optional argument ``level`` specifies the amplitude of the confidence interval
+    * Default in $0.95$, which computes a $95\%$ prediction interval
+
+
+## Back to the Example: Stock Vs Gold prices {.smaller}
+
+
+- We want to predict the price of *Gold* for the following stock prices
+
+|               |     |   |      |    |   |
+|:----------    |:--  |:--|:--   |:-- |:--|
+ **Stock price**| 1.2 | 2 |  3.1 | 4  | 6 |
+
+
+- Predictions will be done with the logarithmic model
+
+$$
+\log(Y) = \alpha + \beta X + \e
+$$
+
+- This is because the log model shows less heteroscedasticity
+
+- Recall that 
+    * $X =$ Stock Price, which is stored in ``stock.price`` 
+    * $Y =$ Gold Price, which is stored in ``gold.price``
+    * $\log(Y)$ is stored in ``log.gold.price``
+
+
+## {.smaller}
+
+
+```r
+# Fit log model
+log.model <- lm(log.gold.price ~ stock.price)
+
+# Create dataframe for predictors
+predictors <- data.frame(stock.price = c(1.2, 2, 3.1, 4, 6))
+
+# Make predictions
+log.predictions <- predict(log.model, predictors, inter = "pred")
+
+# Print predictions
+print(log.predictions)
+```
+
+
+```{r}
+prices <- read.table(file = "datasets/stock_gold.txt",
+                   header = TRUE
+                  )
+
+stock.price <- prices$stock_price
+gold.price <- prices$gold_price
+
+# Transform data via log(y)
+log.gold.price <- log(gold.price)
+
+# Fit linear model with log(y) data
+log.model <- lm(log.gold.price ~ stock.price)
+
+# Create a dataframe for the predictors
+
+predictors <- data.frame(stock.price = c(1.2, 2, 3.1, 4, 6))
+
+
+# Make predictions
+ 
+log.predictions <- predict(log.model, predictors, inter = "pred")
+
+log.predictions
+```
+
+
+- These are predictions for the log model, that is, $\widetilde{y} = \log y$ 
+
+- We need to rescale to obtain the desired predictions $y = e^{\widetilde{y}}$
+
+
+
+
+## {.smaller}
+
+
+::: {style="font-size: 0.95em"}
+
+- Predictions with log model are in vector ``log.predictions``
+
+
+```r
+# Rescale log predictions
+predictions <- exp(log.predictions)
+
+print(predictions)
+```
+
+
+```{r}
+prices <- read.table(file = "datasets/stock_gold.txt",
+                   header = TRUE
+                  )
+
+stock.price <- prices$stock_price
+gold.price <- prices$gold_price
+
+# Transform data via log(y)
+log.gold.price <- log(gold.price)
+
+# Fit linear model with log(y) data
+log.model <- lm(log.gold.price ~ stock.price)
+
+# Create dataframe of predictors
+predictors <- data.frame(stock.price = c(1.2, 2, 3.1, 4, 6))
+
+
+# Make predictions
+log.predictions <- predict(log.model, predictors, inter = "pred")
+
+# Rescale log predictions
+predictions <- exp(log.predictions)
+
+print(predictions)
+```
+
+
+**Reading the output:** For example, the first line says that:
+
+- For Stock Price of $1.2$, the model predicts Gold Price of $29.84797$
+- $95\%$ confidence interval for the predicted Gold Price is $[11.804051, 75.47422]$
+- When Stock Price is $1.2$, the interval contains the true Gold Price $95\%$ of the times
+
+
+:::
+
+
+
+
+
+
+
+
+# Part 5: <br>Autocorrelation {background-color="#cc0164" visibility="uncounted"}
+
+::: footer
+
+<div color="#cc0164">  </div>
+
+:::
+
+
+
+
+## Autocorrelation {.smaller}
+
+- The general linear regression model is 
+
+$$
+Y_i = \beta_1 z_{i1} + \beta_2 z_{i2} + \ldots + \beta_p z_{ip} + \e_i
+$$
+
+
+- Consider Assumption 5
+    * **Independence:** Errors $\e_1, \ldots, \e_n$ are independent, and thus uncorrelated
+    $$
+    \Cor(\e_i , \e_j) = 0 \qquad \forall \,\, i \neq j
+    $$
+
+- **Autocorrelation:** The violation of Assumption 5
+
+$$
+\Cor(\e_i , \e_j) = 0 \qquad \text{ for some } \,\, i \neq j
+$$
+
+
+
+
+## Why is independence important? {.smaller}
+
+- Recall the methods to assess linear models 
+
+    * Coefficient $R^2$
+    * $t$-tests for parameters significance
+    * $F$-test for model selection
+
+- The above methods **rely heavily** on independence
+
+
+
+## Why is independence important? {.smaller}
+
+- Once again, let us consider the likelihood calculation
+    \begin{align*}
+    L & = f(y_1, \ldots, y_n) =  \prod_{i=1}^n  f_{Y_i} (y_i)  
+         \\[15pts]
+      & = \frac{1}{(2\pi \sigma^2)^{n/2}} \, \exp   \left(   -\frac{\sum_{i=1}^n(y_i- \hat y_i)^2}{2\sigma^2}      \right) \\[15pts]
+      & = \frac{1}{(2\pi \sigma^2)^{n/2}} \, \exp   \left(   -\frac{ \RSS }{2\sigma^2}      \right)
+    \end{align*}
+
+
+- The second equality is only possible thanks to independence of 
+
+$$
+Y_1 , \ldots, Y_n
+$$
+
+
+
+## Why is independence important? {.smaller}
+
+- If we have **autocorrelation** then
+
+$$
+\Cor (\e_i,\e_j) \neq 0 \quad \text{ for some } \, i \neq j
+$$
+
+- In particualar we would have
+
+$$
+\e_i \, \text{ and } \, \e_j \, \text{ dependent } \quad \implies \quad Y_i \, \text{ and } \, Y_j \, \text{ dependent }
+$$
+
+
+- Therefore the calculation in previous slide breaks down
+
+$$
+L \neq \frac{1}{(2\pi \sigma^2)^{n/2}} \, \exp   \left(   -\frac{ \RSS }{2\sigma^2}      \right)
+$$
+
+
+
+## Why is independence important? {.smaller}
+
+- In this case $\hat \beta$ does no longer maximize the likelihood!
+
+- As already seen, this implies that 
+
+$$
+\ese (\beta_j) \,\, \text{ is unreliable}
+$$
+
+- **Without independence, the regression maths does not work!**
+    * t-tests for significance of $\beta_j$
+    * confidence intervals for $\beta_j$
+    * $F$-tests for Model Selection
+    * They all break down and become unreliable!
+
+
+
+
+## Causes of Autocorrelation {.smaller}
+### Time-series data
+
+- Autocorrelation means that
+
+$$
+\Cor (\e_i,\e_j) \neq 0 \quad \text{ for some } \, i \neq j
+$$
+
+- Autocorrelation if often unavoidable
+
+- Typically associated with **time series data**
+    * Observations ordered wrt time or space are usually correlated
+    * This is because observations taken close together may take similar values
+
+
+## Example: Financial data {.smaller}
+
+- Autocorrelation is especially likely for datasets in 
+    * Accounting
+    * Finance
+    * Economics
+
+- Autocorrelation is likely if the data have been recorded over time
+    * E.g. daily, weekly, monthly, quarterly, yearly
+
+- Example: Datasetet on *Stock prices* and *Gold prices*
+    * General linear regression model assumes uncorrelated errors
+    * Not realistic to assume that price observations for say 2020 and 2021 would be independent
+
+
+## Causes of Autocorrelation  {.smaller}
+### Inertia
+
+- Economic time series tend to exhibit **cyclical behaviour**
+
+- Examples: GNP, price indices, production figures, employment statistics etc.
+
+- These series tend to be quite slow moving
+    * Effect of inertia is that successive observations are highly correlated
+
+**This is an extremely common phenomenon in financial and economic time series**
+
+
+## Causes of Autocorrelation  {.smaller}
+### Cobweb Phenomenon
+
+- Characteristic of industries in which a large amount of time passes between
+    * the decision to produce something 
+    * and its arrival on the market
+
+- Cobweb phenomenon is common with agricultural commodities
+
+- Economic agents (e.g. farmers) decide
+    * how many goods to supply to the market
+    * based on previous year price 
+
+
+## Causes of Autocorrelation  {.smaller}
+### Cobweb Phenomenon
+
+- **Example:** the amount of crops farmers supply to the market at time $t$ might be
+
+\begin{equation} \tag{3}
+{\rm Supply}_t = \beta_1 + \beta_2 \, {\rm Price}_{t-1} + \e_t
+\end{equation}
+
+- Errors $\e_t$ in equation (3) are unlikely to be completely random and patternless
+
+- This is because 
+    1. They represent actions of intelligent economic agents (e.g. farmers)
+    2. Price from previous year influences supply for current year
+
+**Error terms are likely to be autocorrelated**
+
+
+
+## Causes of Autocorrelation  {.smaller}
+### Data manipulation
+
+
+**Examples:** 
+
+- Quarterly data may smooth out the wild fluctuations in monthly sales figures
+
+- Low frequency economic survey data may be interpolated
+
+**However:** Such data transformations may be inevitable
+
+- In social sciences data quality may be variable
+
+- This may induce systematic patterns and autocorrelation
+    
+
+**No magic solution -- Autocorrelation is unavoidable and must be considered**
+
+
+
+
+## How to detect Autocorrelation {.smaller}
+
+Autocorrelation is often unavoidable. We should be able to detect it:
+
+1. Graphical methods
+    * Simple, robust and informative
+
+2. Statistical tests
+    * Runs test
+    * Durbin-Watson test
+
+
+
+**Graphical and statistical methods can be useful cross-check of each other!**
+
+
+
+
+## Graphical methods for Autocorrelation {.smaller}
+
+1. Time-series plot of residuals:
+    * Plot residuals $\hat{\e}_t$ over time
+
+2. Autocorrelation plot of residuals:
+    * Plot residuals $\hat{\e}_t$ against lagged residuals $\hat{\e}_{t-1}$
+
+
+
+Check to see if any evidence of a systematic pattern exists:
+
+- No Autocorrelation: Plots will look **random**
+- Yes Autocorrelation: Plots will show certain **patterns**
+
+
+
+## Example: Stock Vs Gold prices {.smaller}
+
+- Code for this example is available here [autocorrelation.R](codes/autocorrelation.R)
+
+- Stock Vs Gold prices data is available here [stock_gold.txt](datasets/stock_gold.txt)
+
+- Read data into R and fit simple regression
+
+```r
+# Load dataset
+prices <- read.table(file = "stock_gold.txt",
+                    header = TRUE)
+
+# Store data-frame into 2 vectors
+stock.price <- prices[ , 1]
+gold.price <- prices[ , 2]
+
+# Fit regression model
+model <- lm(gold.price ~ stock.price)
+```
+
+
+
+
+##  {.smaller}
+
+::: {style="font-size: 0.94em"}
+
+**Time-series plot of residuals:** Plot the residuals $\hat{\e}_i$
+
+- Time series plot suggests some evidence for autocorrelation
+- Look for successive *runs* of residuals either side of line $y = 0 \,$ (see $t = 15$)
+
+:::
+
+
+::::: {.columns style='display: flex !important; height: 60%;'}
+
+::: {.column width="38%" style='display: flex; justify-content: center; align-items: center;'}
+
+```r
+# Compute residuals
+residuals <- model$resid
+
+# Time-series plot of residuals
+plot(residuals,
+     xlab = "Time", 
+     ylab = "Residuals",
+     pch = 16,
+     cex = 2)
+
+# Add line y = 0 for reference
+abline(0, 0, col = "red", lwd = 4)
+```
+
+:::
+
+::: {.column width="61%" style='display: flex; justify-content: center; align-items: center;'}
+
+```{r}
+#| echo: false
+#| fig-asp: 1
+
+# Read the data
+prices <- read.table(file = "datasets/stock_gold.txt",
+                   header = TRUE
+                  )
+
+stock.price <- prices$stock_price
+gold.price <- prices$gold_price
+
+# Fit regression model
+model <- lm(gold.price ~ stock.price)
+
+# Compute residuals
+residuals <- model$resid
+
+# Time-series plot of residuals
+plot(residuals, 
+     xlab = "", 
+     ylab= "",
+     pch = 16,
+     cex = 2)
+
+# Add labels
+mtext("Time", side=1, line=3, cex=2.1)
+mtext("Residuals", side=2, line=2.5, cex=2.1)
+
+# Add line y = 0 for reference
+abline(0, 0, col = "red", lwd = 4)
+```
+
+:::
+:::::
+
+
+
+
+## {.smaller}
+
+
+::::: {.columns style='display: flex !important; height: 90%;'}
+
+::: {.column width="27%" style='display: flex; align-items: center;'}
+
+::: {style="font-size: 0.94em"}
+
+**Autocorrelation plot of residuals:**
+
+- Want to plot $\hat{\e}_t$ against $\hat{\e}_{t-1}$
+- Shift $\hat{\e}_t$ by 1 to get $\hat{\e}_{t-1}$
+- Can only plot magenta pairs
+- We have 1 pair less than the actual number of residuals
+
+:::
+
+
+:::
+
+::: {.column width="72%" style='display: flex; justify-content: center; align-items: center;'}
+
+![](images/shifted_vectors.png){width=110%}
+![](images/shifted_vectors_2.png){width=110%}
+
+:::
+:::::
+
+
+
+
+
+##  {.smaller}
+
+
+- We want to plot $\hat{\e}_t$ against $\hat{\e}_{t-1}$
+    * Residuals $\hat{\e}_t$ are stored in vector $\,\, \texttt{residuals}$
+    * We need to create a shifted version of $\,\, \texttt{residuals}$
+    * First compute the length of $\,\, \texttt{residuals}$
+
+```r
+# Compute length of residuals
+length(residuals)
+```
+```{r}
+# Read the data
+prices <- read.table(file = "datasets/stock_gold.txt",
+                   header = TRUE
+                  )
+
+stock.price <- prices$stock_price
+gold.price <- prices$gold_price
+
+# Fit regression model
+model <- lm(gold.price ~ stock.price)
+
+# Compute residuals
+residuals <- model$resid
+
+# Compute length of residuals
+length(residuals)
+```
+
+
+- Need to generate the $33-1$ pairs for plotting
+
+
+##  {.smaller}
+
+
+- **Lag 0:** 
+    * This is the original vector with no lag
+    * Lose one observation from $\,\, \texttt{residuals}$ -- the first observation
+
+```r 
+residuals.lag.0 <- residuals[2:33]
+```
+
+
+- **Lag 1:** 
+    * This is the original vector, shifted by 1
+    * Lose one observation from $\,\, \texttt{residuals}$ -- the last observation
+
+```r 
+residuals.lag.1 <- residuals[1:32]
+```
+
+
+
+##  {.smaller}
+
+::: {style="font-size: 0.94em"}
+
+**Autocorrelation plot of residuals:** Plot $\hat{\e}_t$ against $\hat{\e}_{t-1}$
+
+- Plot suggests positive autocorrelation of residuals
+- This means $\, \hat{\e}_t \, \approx \, a + b \, \hat{\e}_{t-1} \,$ with $b > 0$ 
+    
+:::
+
+::::: {.columns style='display: flex !important; height: 60%;'}
+
+::: {.column width="38%" style='display: flex; justify-content: center; align-items: center;'}
+
+```r
+# Plot Lag0 against Lag1 residuals
+
+plot(residuals.lag.1, 
+     residuals.lag.0,
+     xlab = "Residuals Lag 1", 
+     ylab = "Residuals Lag 0",
+     pch = 16,
+     cex = 2)
+```
+
+:::
+
+::: {.column width="61%" style='display: flex; justify-content: center; align-items: center;'}
+
+```{r}
+#| echo: false
+#| fig-asp: 1
+
+# Read the data
+prices <- read.table(file = "datasets/stock_gold.txt",
+                   header = TRUE
+                  )
+
+stock.price <- prices$stock_price
+gold.price <- prices$gold_price
+
+# Fit regression model
+model <- lm(gold.price ~ stock.price)
+
+# Compute residuals
+residuals <- model$resid
+
+# Generate lagged version of residuals
+residuals.lag.0 <- residuals[2:33]
+residuals.lag.1 <-residuals[1:32]
+
+# Plot Lag0 against Lag 1 residuals
+plot(residuals.lag.1, 
+     residuals.lag.0,
+     xlab = "", 
+     ylab= "",
+     pch = 16,
+     cex = 2)
+
+# Add labels
+mtext("Residuals Lag 1", side=1, line=3, cex=2.1)
+mtext("Residuals Lag 0", side=2, line=2.5, cex=2.1)
+```
+
+:::
+:::::
+
+
+
+## {.smaller}
+
+**Conclusions:** The dataset Gold Price vs Stock Price exhibits Autocorrelation
+
+- Autocorrelation was detected by both graphical methods:
+    * Time-series of residuals
+    * Autocorrelation plot of residuals
+
+
+- This was expected, given that the dataset represents a time-series of prices
+
+
+
+
+## Statistical tests for Autocorrelation {.smaller}
+
+- Runs test:
+    * If Regression Assumptions are satisfied, the residuals are $\e_i \sim N(0,\sigma^2)$
+    * This means residuals $\hat{\e}_i$ are equally likely to be positive or negative
+    * The runs test uses this observation to formulate a test for autocorrelation
+
+
+- Durbin-Watson test:
+    * Test to see if residuals are AR(1) - Auto-regressive of order 1
+    * This means testing if there exists a linear relation of the form
+    $$
+    \hat{\e}_t = a + b \hat{\e}_{t-1} + \delta_t
+    $$
+    where $\delta_t \sim N(0,\sigma^2)$ is an error term
+ 
+
+**We do not cover these tests**
+
+
+
+
+
+## What to do in case of Autocorrelation? {.smaller}
+
+- Consider the simple regression model
+
+$$
+Y_i = \alpha + \beta x_i + \e_i
+$$
+
+- Suppose that autocorrelation occurs
+
+$$
+\Cor (\hat{\e}_i, \hat{\e}_j ) \neq 0 \quad \text{ for some } \, i \neq j
+$$
+
+- Also, suppose that autocorrelation is Auto-Regressive of Order 1
+
+$$
+\hat{\e}_t = a + b \, \hat{\e}_{t-1} + \delta_t \,, \qquad
+\delta_t \,\, \text{ iid } \,\, N(0,\sigma^2)
+$$
+
+- Example: This is the case for dataset *Stock prices* Vs *Gold prices*
+
+
+##  {.smaller}
+
+- In this case, predictions from the simple linear model are not reliable
+
+$$
+Y_i = \alpha + \beta x_i + \e_i
+$$
+
+
+- Instead, substitute into the model the relation $\hat{\e}_t = a + b \, \hat{\e}_{t-1} + \delta_t$
+
+- We obtain the new linear model (up to relabelling coefficients)
+
+$$
+Y_t = \alpha + \beta x_t + \rho \hat{\e}_{t-1} + \delta_t  \,, \qquad
+\delta_t \,\, \text{ iid } \,\, N(0,\sigma^2)
+$$
+
+- The above is an **Autoregressive linear Model** of order 1  
+(because time $t-1$ influences time $t$)
+    * These models couple regression with time-series analysis (ARIMA models)
+    * Good reference is book by Shumway and Stoffer [@shumway]
+
+**You will see ARIMA models next year**
+
+
+
+::: {.content-hidden}
+
+Do next time
+
+- Statistical tests for autocorrelation: You can do
+both Runs test and Durbin Watson. It is not clear what d_L is in Durbin Watson: ask John
+
+- This is Lecture 9 John Fry slides Section 4 onwards
+
+- Do also ARIMA for time series (good reference is Shumway, Stoffer - Time Series Analysis and Its Applications 4th edition)
+
+- You can just fit arima to the example following John Fry. I don't understand the output, and for some reason the command
+
+arima(gold.price , xreg = stock.price, order = c(1, 0, 0))
+
+saying non-stationary AR part from CSS
+
+gives error 
+
+
+- Below is Rcode for Lecture 9 of John Fry
+
+#R example Section 4
+#need to load the tseries package
+residsign<-1*(resid01>0)
+residsign<-factor(residsign)
+runs.test(residsign)
+#durbin-watson example
+#need to load the lmtest package
+dwtest(a.lm)
+#R example Section 5
+arima(realgoldprice, xreg=realstockprice, order=c(1, 0, 0))
+coeff<-c(0.5578,     3.9406,         -0.0487)
+ese<-c(0.1545,     0.5675,          0.0247)
+t<-abs(coeff)/ese
+2*(1-pt(t, 30))
+
+:::
 
 
 

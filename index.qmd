@@ -97,8 +97,8 @@ There are 11 lectures in this module. Links to the slides and lecture titles are
 | Lecture 7   | [Bootstrap CI](slides/codes/bootstrap_CI.R) <br> [Bootstrap t-test](slides/codes/bootstrap_t_test.R) <br> [Bootstrap F-test](slides/codes/bootstrap_F_test.R) <br> [2008 Crisis](slides/codes/2008_crisis_code.R) <br> [Least-squares Solution 1](slides/codes/least_squares_1.R) <br>  [Least-squares Solution 2](slides/codes/least_squares_2.R)  |
 | Lecture 8   | [Multiple Regression](slides/codes/multiple_regression.R) <br> [R2 multiple regression](slides/codes/R2_multiple_regression.R) |
 | Lecture 9  | [Simple Regression](slides/codes/simple_regression.R)  <br> [Longley regression](slides/codes/longley_regression.R)  |
-| Lecture 10  | [Longley selection](slides/codes/longley_selection.R) <br> [Galileo](slides/codes/galileo.R) <br> [Divorces](slides/codes/divorces.R) <br> [Residual graphs](slides/codes/residual_graphs.R) <br> [Autocorrelation graphic tests](slides/codes/autocorrelation_graph_tests.R) <br> [Multicollinearity](slides/codes/multicollinearity.R) <br> [Stepwise regression: Longley](slides/codes/longley_stepwise.R) <br> [Stepwise regression: Divorces](slides/codes/divorces_stepwise.R) |
-| Lecture 11  | [Anova models](slides/codes/anova.R)           |
+| Lecture 10  | [Longley selection](slides/codes/longley_selection.R) <br> [Galileo](slides/codes/galileo.R) <br> [Divorces](slides/codes/divorces.R) <br> [Heteroscedasticity](slides/codes/heteroscedasticity.R) <br> [Autocorrelation](slides/codes/autocorrelation.R)  |
+| Lecture 11  | [Multicollinearity](slides/codes/multicollinearity.R) <br> [Stepwise regression: Longley](slides/codes/longley_stepwise.R) <br> [Stepwise regression: Divorces](slides/codes/divorces_stepwise.R)  <br> [Anova models](slides/codes/anova.R)           |
 : {tbl-colwidths="[30,70]"}
 
 

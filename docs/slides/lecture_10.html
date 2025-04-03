@@ -425,27 +425,11 @@
   </style>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
   <style>
-  .Theorem {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Lemma {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Remark {
-    --color1: #bce5de;
-    --color2: #21aa93;
-  }
-  .Question {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
   .Important {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
-  .Warning {
+  .Conjecture {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
@@ -453,11 +437,15 @@
     --color1: #cce7b1;
     --color2: #86b754;
   }
-  .TODO {
-    --color1: #e7b1b4;
-    --color2: #8c3236;
+  .Proof {
+    --color1: #f1f1f2;
+    --color2: #c0c0c1;
   }
-  .Conjecture {
+  .Problem {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Theorem {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
@@ -465,23 +453,15 @@
     --color1: #f4cce0;
     --color2: #db4d92;
   }
-  .Proof {
-    --color1: #f1f1f2;
-    --color2: #c0c0c1;
-  }
-  .Example {
+  .Remark {
     --color1: #bce5de;
     --color2: #21aa93;
   }
-  .Definition {
-    --color1: #c6e6ed;
-    --color2: #1995ad;
-  }
-  .Idea {
+  .Corollary {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
-  .Axiom {
+  .Lemma {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
@@ -489,11 +469,31 @@
     --color1: #c6e6ed;
     --color2: #1995ad;
   }
-  .Problem {
+  .Example {
+    --color1: #bce5de;
+    --color2: #21aa93;
+  }
+  .TODO {
+    --color1: #e7b1b4;
+    --color2: #8c3236;
+  }
+  .Idea {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
-  .Corollary {
+  .Question {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Warning {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Definition {
+    --color1: #c6e6ed;
+    --color2: #1995ad;
+  }
+  .Axiom {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
@@ -538,6 +538,7 @@
 <li><p>Examples of Model Selection</p></li>
 <li><p>Regression Assumptions</p></li>
 <li><p>Heteroscedasticity</p></li>
+<li><p>Autocorrelation</p></li>
 </ol>
 </section></section>
 <section>
@@ -2622,28 +2623,22 @@ t = \frac{ \hat\beta_j - \beta_j }{ \mathop{\mathrm{e.s.e.}}}
 </section>
 <section id="how-to-detect-heteroscedasticity" class="slide level2 smaller">
 <h2>How to detect Heteroscedasticity</h2>
+<p>Heteroscedasticity is commonly present in real-world datasets. We should be able to detect it</p>
+<ol type="1">
+<li>Graphical methods
 <ul>
-<li>Heteroscedasticity is commonly present in real-world datasets
-<ul>
-<li>We should be able to detect it</li>
+<li>Simple, robust and informative</li>
 </ul></li>
-</ul>
-<p><br></p>
-<ul>
-<li><p>There are formal tests (see <span class="citation" data-cites="gujarati_porter">[<a href="#/references" role="doc-biblioref" onclick="">2</a>]</span>)</p>
+<li>Statistical tests (see <span class="citation" data-cites="gujarati_porter">[<a href="#/references" role="doc-biblioref" onclick="">2</a>]</span>)
 <ul>
 <li>Goldfeldt-Quant test</li>
 <li>White’s test for heteroscedasticity</li>
 </ul></li>
-<li><p>However, we do not cover them</p></li>
-<li><p>Alternative: <strong>Graphical Checks</strong></p>
-<ul>
-<li>Simpler and more robust</li>
-</ul></li>
-</ul>
+</ol>
+<p><strong>We do not cover statistical tests, only Graphical methods</strong></p>
 </section>
-<section id="graphical-checks" class="slide level2 smaller">
-<h2>Graphical Checks</h2>
+<section id="graphical-methods-for-heteroscedasticity" class="slide level2 smaller">
+<h2>Graphical methods for Heteroscedasticity</h2>
 <ul>
 <li>They involve studying the model <strong>residuals</strong></li>
 </ul>
@@ -2707,7 +2702,6 @@ t = \frac{ \hat\beta_j - \beta_j }{ \mathop{\mathrm{e.s.e.}}}
 <li>Residual graphs are plots of
 <ul>
 <li>Residuals <span class="math inline">\hat{\varepsilon}_i</span> against fitted values <span class="math inline">\hat{y}_i</span></li>
-<li>Squared residuals <span class="math inline">\hat{\varepsilon}_i^2</span> against fitted values <span class="math inline">\hat{y}_i</span></li>
 </ul></li>
 <li>Important:
 <ul>
@@ -2813,11 +2807,29 @@ t = \frac{ \hat\beta_j - \beta_j }{ \mathop{\mathrm{e.s.e.}}}
 </div>
 </div>
 </div></section>
+<section id="what-to-do-in-case-of-heteroscedasticity" class="slide level2 smaller">
+<h2>What to do in case of Heteroscedasticity?</h2>
+<p>Assume you fitted the model</p>
+<p><span class="math display">
+Y = \beta_1 + \beta_2 X_2 + \ldots + \beta_p X_p + \varepsilon
+</span></p>
+<p>If heteroscedasticity is detected, we can transform the data:</p>
+<ol type="1">
+<li>Remedial transformations for <span class="math inline">Y</span>
+<ul>
+<li>Transform the data <span class="math inline">Y</span></li>
+</ul></li>
+<li>Remedial transformations for <span class="math inline">X_i</span>
+<ul>
+<li>Divide through by a suitable power of <span class="math inline">X_i</span></li>
+</ul></li>
+</ol>
+</section>
 <section id="remedial-transformations-for-y" class="slide level2 smaller">
 <h2>Remedial transformations for <span class="math inline">Y</span></h2>
 <p>To try and reduce heteroscedasticity we can <strong>transform the data <span class="math inline">y</span></strong></p>
 <ul>
-<li>A tranformation which often helps with Funnelling residuals is
+<li>A tranformation which often helps is
 <ul>
 <li><span class="math inline">\, \log y</span></li>
 </ul></li>
@@ -2847,39 +2859,93 @@ t = \frac{ \hat\beta_j - \beta_j }{ \mathop{\mathrm{e.s.e.}}}
 <section id="error-variance-proportional-to-x_i2" class="slide level2 smaller">
 <h2>Error variance proportional to <span class="math inline">X_i^2</span></h2>
 <ul>
-<li>Start with the model</li>
+<li>For example, consider the model</li>
 </ul>
 <p><span class="math display">
 Y_i = \beta_1 + \beta_2 X_{i} + \varepsilon_i
 </span></p>
 <ul>
-<li><p>Assume error variance is proportional to <span class="math inline">X_i^2</span></p></li>
-<li><p>Divide through by <span class="math inline">X_i</span></p></li>
+<li>Assume that error variance is proportional to <span class="math inline">X_i^2</span>, that is,</li>
+</ul>
+<p><span class="math display">
+\varepsilon_i \,\, \text{ independent } \,\, N(0,\sigma^2 X_i^2)
+</span></p>
+<ul>
+<li>Divide through by <span class="math inline">X_i</span></li>
 </ul>
 <p><span class="math display">\begin{equation} \tag{1}
 \frac{Y_i}{X_i} = \frac{\beta_1}{X_i}+\beta_2+\frac{\varepsilon_i}{X_i}
 \end{equation}</span></p>
+</section>
+<section id="section-38" class="slide level2 smaller">
+<h2></h2>
 <ul>
-<li>Fit simple regression to the model in (1)</li>
+<li>Consider the substitutions</li>
 </ul>
+<p><span class="math display">
+\widetilde{Y}_i = \frac{Y_i}{X_i} \,, \qquad \widetilde{X}_i = \frac{1}{X_i} \,, \qquad  \tilde{\varepsilon}_i = \frac{\varepsilon_i}{X_i}
+</span></p>
+<ul>
+<li>The model in (1) is therefore equivalent to</li>
+</ul>
+<p><span class="math display">\begin{equation} \tag{2}
+\widetilde{Y}_i = \beta_1 + \beta_2 \widetilde{X}_i + \tilde{\varepsilon}_i
+\end{equation}</span></p>
+<ul>
+<li>By assumption, we have <span class="math inline">\varepsilon_i</span> independent and <span class="math inline">N(0,\sigma^2 X_i^2)</span>. Therefore,</li>
+</ul>
+<p><span class="math display">
+\tilde{\varepsilon}_i \,\, \text{ iid } \,\, N(0,\sigma^2)
+</span></p>
+<ul>
+<li>Thus, the model in (2) satisfies all the Regression Assumptions</li>
+</ul>
+</section>
+<section id="section-39" class="slide level2 smaller">
+<h2></h2>
+<ul>
+<li><p>Assume we now want to make predictions for the value <span class="math inline">x</span></p></li>
+<li><p>First, fit the simple regression model in (2). This gives MLEs <span class="math inline">\hat{\beta}_1, \hat{\beta}_2</span></p></li>
+<li><p>Recalling the substitution <span class="math inline">\widetilde{X} = 1 / X</span>, we define</p></li>
+</ul>
+<p><span class="math display">
+\widetilde{x} = 1/x
+</span></p>
+<ul>
+<li>The prediction of Model (2) for such value is</li>
+</ul>
+<p><span class="math display">
+\widetilde{y} = \hat{\beta}_1 + \hat{\beta}_2 \widetilde{x}
+</span></p>
+<ul>
+<li>Now, recall that <span class="math inline">\widetilde{Y} = Y / X</span>. Therefore, <span class="math inline">Y = \widetilde{Y}X</span>, and the prediction is</li>
+</ul>
+<p><span class="math display">
+\hat{y} = \widetilde{y} \cdot x
+</span></p>
 </section>
 <section id="error-variance-proportional-to-x_i" class="slide level2 smaller">
 <h2>Error variance proportional to <span class="math inline">X_i</span></h2>
 <ul>
-<li>Start with the model</li>
+<li>For example, consider the model</li>
 </ul>
 <p><span class="math display">
 Y_i = \beta_1 + \beta_2 X_{i} + \varepsilon_i
 </span></p>
 <ul>
-<li><p>Assume error variance is proportional to <span class="math inline">X_i</span></p></li>
-<li><p>Divide through by <span class="math inline">\sqrt{X_i}</span></p></li>
+<li>Assume error variance is proportional to <span class="math inline">X_i</span>, that is,</li>
 </ul>
-<p><span class="math display">\begin{equation} \tag{2}
+<p><span class="math display">
+\varepsilon_i \,\, \text{ independent } \,\, N(0,\sigma^2 X_i)
+</span></p>
+<ul>
+<li>Divide through by <span class="math inline">\sqrt{X_i}</span></li>
+</ul>
+<p><span class="math display">\begin{equation} \tag{3}
 \frac{Y_i}{\sqrt{X_i}} = \frac{\beta_1}{\sqrt{X_i}}+\beta_2 \sqrt{X_i} + \frac{\varepsilon_i}{\sqrt{X_i}}
 \end{equation}</span></p>
 <ul>
-<li>Fit simple regression to the model in (2)</li>
+<li>With suitable substitutions, we can fit simple regression to the model in (3)</li>
 </ul>
 </section>
 <section id="analysis-of-regression-residuals-in-r" class="slide level2 smaller">
@@ -2903,7 +2969,7 @@ Y_i = \beta_1 + \beta_2 X_{i} + \varepsilon_i
 <section id="example-stock-vs-gold-prices" class="slide level2 smaller">
 <h2>Example: Stock Vs Gold prices</h2>
 <ul>
-<li><p>The full code for the example is available here <a href="codes/residual_graphs.R">residual_graphs.R</a></p></li>
+<li><p>The full code for the example is available here <a href="codes/heteroscedasticity.R">heteroscedasticity.R</a></p></li>
 <li><p>Stock Vs Gold prices data is available here <a href="datasets/stock_gold.txt">stock_gold.txt</a></p></li>
 <li><p>Read data into R and fit simple regression</p></li>
 </ul>
@@ -2918,15 +2984,16 @@ Y_i = \beta_1 + \beta_2 X_{i} + \varepsilon_i
 <span id="cb50-9"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Fit regression model</span></span>
 <span id="cb50-10"><a aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(gold.price <span class="sc">~</span> stock.price)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="section-38" class="slide level2 smaller">
+<section id="section-40" class="slide level2 smaller">
 <h2></h2>
-<ul>
-<li><strong>Plot:</strong> Residuals look heteroscedastic
+<div style="font-size: 0.93em">
+<p><strong>Scatter Plot:</strong> of <span class="math inline">y</span> against <span class="math inline">x</span>, with regression line</p>
 <ul>
 <li>Most points are below the line</li>
 <li>Points under the line appear more distant</li>
-</ul></li>
+<li>This means errors have different variance <span class="math inline">\implies</span> heteroscedasticity</li>
 </ul>
+</div>
 <div class="columns" style="display: flex !important; height: 60%;">
 <div class="column" style="display: flex; justify-content: center; align-items: center;">
 <div class="sourceCode" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Scatter plot</span></span>
@@ -2953,15 +3020,15 @@ Y_i = \beta_1 + \beta_2 X_{i} + \varepsilon_i
 </div>
 </div></div>
 </section>
-<section id="section-39" class="slide level2 smaller">
+<section id="section-41" class="slide level2 smaller">
 <h2></h2>
-<ul>
-<li><strong>Histogram:</strong> Confirms initial intuition of heteroscedasticity
+<div style="font-size: 0.93em">
+<p><strong>Histogram of residuals:</strong> Confirms initial intuition of heteroscedasticity</p>
 <ul>
 <li>Residuals are not normally distributed</li>
 <li>Residuals have different variance (skewed histogram)</li>
-</ul></li>
 </ul>
+</div>
 <div class="columns" style="display: flex !important; height: 60%;">
 <div class="column" style="display: flex; justify-content: center; align-items: center;">
 <div class="sourceCode" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Compute residuals</span></span>
@@ -2984,14 +3051,15 @@ Y_i = \beta_1 + \beta_2 X_{i} + \varepsilon_i
 </div>
 </div></div>
 </section>
-<section id="section-40" class="slide level2 smaller">
+<section id="section-42" class="slide level2 smaller">
 <h2></h2>
+<div style="font-size: 0.93em">
+<p><strong>Residual Graph:</strong> Plot residuals against fitted values</p>
 <ul>
-<li><strong>Residual Graph:</strong> Displays funnelling out pattern
-<ul>
+<li>Displays funnelling out pattern</li>
 <li>We definitely have <strong>heteroscedasticity</strong></li>
-</ul></li>
 </ul>
+</div>
 <div class="columns" style="display: flex !important; height: 65%;">
 <div class="column" style="display: flex; justify-content: center; align-items: center;">
 <div class="sourceCode" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Compute fitted values</span></span>
@@ -3001,10 +3069,11 @@ Y_i = \beta_1 + \beta_2 X_{i} + \varepsilon_i
 <span id="cb53-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(fitted, residuals,</span>
 <span id="cb53-6"><a aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Fitted Values"</span>, </span>
 <span id="cb53-7"><a aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"Residuals"</span>,</span>
-<span id="cb53-8"><a aria-hidden="true" tabindex="-1"></a>     <span class="at">pch =</span> <span class="dv">16</span>)</span>
-<span id="cb53-9"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-10"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Add y = 0 line for reference</span></span>
-<span id="cb53-11"><a aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb53-8"><a aria-hidden="true" tabindex="-1"></a>     <span class="at">pch =</span> <span class="dv">16</span>,</span>
+<span id="cb53-9"><a aria-hidden="true" tabindex="-1"></a>     <span class="at">cex =</span> <span class="dv">2</span>)</span>
+<span id="cb53-10"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-11"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Add y = 0 line for reference</span></span>
+<span id="cb53-12"><a aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">lwd =</span> <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column" style="display: flex; justify-content: center; align-items: center;">
 <div class="cell">
 <div class="cell-output-display">
@@ -3017,14 +3086,14 @@ Y_i = \beta_1 + \beta_2 X_{i} + \varepsilon_i
 </div>
 </div></div>
 </section>
-<section id="section-41" class="slide level2 smaller">
+<section id="section-43" class="slide level2 smaller">
 <h2></h2>
 <ul>
 <li><strong>Remedial transformation:</strong> To try and reduce heteroscedasticity take
 <ul>
 <li><span class="math inline">\, \log y</span></li>
 </ul></li>
-<li>This means we need to fit the model</li>
+<li>This means, we fit the model</li>
 </ul>
 <p><span class="math display">
 \log Y_i = \alpha + \beta X_i + \varepsilon_i
@@ -3041,14 +3110,12 @@ Y_i = \beta_1 + \beta_2 X_{i} + \varepsilon_i
 <span id="cb54-10"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Compute fitted values for log model</span></span>
 <span id="cb54-11"><a aria-hidden="true" tabindex="-1"></a>log.fitted <span class="ot">&lt;-</span> log.model<span class="sc">$</span>fitted</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section></section>
-<section id="section-42" class="title-slide slide level1 smaller center">
+<section id="section-44" class="title-slide slide level1 smaller center">
 <h1></h1>
-<ul>
-<li>Heteroscedasticity has definitely reduced
+<p>Heteroscedasticity has definitely reduced</p>
 <ul>
 <li>Left: Residual plot for original model</li>
 <li>Right: Residual plot for <span class="math inline">\log y</span> data model</li>
-</ul></li>
 </ul>
 <div class="columns" style="display: flex !important; height: 50%;">
 <div class="column" style="display: flex; justify-content: center; align-items: center;">
@@ -3075,14 +3142,12 @@ Y_i = \beta_1 + \beta_2 X_{i} + \varepsilon_i
 </section>
 
 <section>
-<section id="section-43" class="title-slide slide level1 smaller center">
+<section id="section-45" class="title-slide slide level1 smaller center">
 <h1></h1>
-<ul>
-<li>Heteroscedasticity has definitely reduced
+<p>Heteroscedasticity has definitely reduced</p>
 <ul>
 <li>Left: Histogram of residuals for original model</li>
 <li>Right: Histogram of residuals for <span class="math inline">\log y</span> data model</li>
-</ul></li>
 </ul>
 <div class="columns" style="display: flex !important; height: 50%;">
 <div class="column" style="display: flex; justify-content: center; align-items: center;">
@@ -3107,6 +3172,594 @@ Y_i = \beta_1 + \beta_2 X_{i} + \varepsilon_i
 </div>
 </div></div>
 </section>
+<section id="section-46" class="slide level2 smaller">
+<h2></h2>
+<p><strong>Conclusion:</strong> The log model seems to better satisfy the Regression Assumptions<br>
+(due to less heteroschedasticity)</p>
+<ul>
+<li>Predictions should be done using the second model</li>
+</ul>
+<p><span class="math display">
+\log Y = \alpha + \beta X + \varepsilon
+</span></p>
+<ul>
+<li><p>Given a data point <span class="math inline">x</span>, the log model predicts <span class="math display">
+\widetilde{y} = \log y
+</span></p></li>
+<li><p>The actual prediction is <span class="math display">
+y = e^{\widetilde{y}}
+</span></p></li>
+<li><p>How do we make predictions on new values?</p></li>
+</ul>
+</section>
+<section id="predictions-for-linear-models" class="slide level2 smaller">
+<h2>Predictions for linear models</h2>
+<p>The function <code>predict</code> is used to make different types of predictions</p>
+<p><span class="math display">
+\text{predict(model, newdata = ..., interval = ..., level = ...)}
+</span></p>
+<ul>
+<li><p><code>model</code> is the output of an <em>lm model</em></p></li>
+<li><p>Predictors are given as argument in <code>newdata</code></p>
+<ul>
+<li>newdata has to be a data frame</li>
+<li>names of predictors have to match those used in the model formula</li>
+</ul></li>
+<li><p>The optional argument <code>interval</code> requests a prediction confidence interval</p>
+<ul>
+<li>This is a confidence interval around the prediction value</li>
+</ul></li>
+<li><p>The optional argument <code>level</code> specifies the amplitude of the confidence interval</p>
+<ul>
+<li>Default in <span class="math inline">0.95</span>, which computes a <span class="math inline">95\%</span> prediction interval</li>
+</ul></li>
+</ul>
+</section>
+<section id="back-to-the-example-stock-vs-gold-prices" class="slide level2 smaller">
+<h2>Back to the Example: Stock Vs Gold prices</h2>
+<ul>
+<li>We want to predict the price of <em>Gold</em> for the following stock prices</li>
+</ul>
+<table class="caption-top">
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Stock price</strong></td>
+<td style="text-align: left;">1.2</td>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">3.1</td>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">6</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Predictions will be done with the logarithmic model</li>
+</ul>
+<p><span class="math display">
+\log(Y) = \alpha + \beta X + \varepsilon
+</span></p>
+<ul>
+<li><p>This is because the log model shows less heteroscedasticity</p></li>
+<li><p>Recall that</p>
+<ul>
+<li><span class="math inline">X =</span> Stock Price, which is stored in <code>stock.price</code></li>
+<li><span class="math inline">Y =</span> Gold Price, which is stored in <code>gold.price</code></li>
+<li><span class="math inline">\log(Y)</span> is stored in <code>log.gold.price</code></li>
+</ul></li>
+</ul>
+</section>
+<section id="section-47" class="slide level2 smaller">
+<h2></h2>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Fit log model</span></span>
+<span id="cb55-2"><a aria-hidden="true" tabindex="-1"></a>log.model <span class="ot">&lt;-</span> <span class="fu">lm</span>(log.gold.price <span class="sc">~</span> stock.price)</span>
+<span id="cb55-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Create dataframe for predictors</span></span>
+<span id="cb55-5"><a aria-hidden="true" tabindex="-1"></a>predictors <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">stock.price =</span> <span class="fu">c</span>(<span class="fl">1.2</span>, <span class="dv">2</span>, <span class="fl">3.1</span>, <span class="dv">4</span>, <span class="dv">6</span>))</span>
+<span id="cb55-6"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-7"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Make predictions</span></span>
+<span id="cb55-8"><a aria-hidden="true" tabindex="-1"></a>log.predictions <span class="ot">&lt;-</span> <span class="fu">predict</span>(log.model, predictors, <span class="at">inter =</span> <span class="st">"pred"</span>)</span>
+<span id="cb55-9"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-10"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Print predictions</span></span>
+<span id="cb55-11"><a aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(log.predictions)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>       fit       lwr      upr
+1 3.396117 2.4684428 4.323791
+2 3.132980 2.2263949 4.039564
+3 2.771166 1.8732920 3.669039
+4 2.475136 1.5665173 3.383755
+5 1.817292 0.8310317 2.803553</code></pre>
+</div>
+</div>
+<ul>
+<li><p>These are predictions for the log model, that is, <span class="math inline">\widetilde{y} = \log y</span></p></li>
+<li><p>We need to rescale to obtain the desired predictions <span class="math inline">y = e^{\widetilde{y}}</span></p></li>
+</ul>
+</section>
+<section id="section-48" class="slide level2 smaller">
+<h2></h2>
+<div style="font-size: 0.95em">
+<ul>
+<li>Predictions with log model are in vector <code>log.predictions</code></li>
+</ul>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Rescale log predictions</span></span>
+<span id="cb57-2"><a aria-hidden="true" tabindex="-1"></a>predictions <span class="ot">&lt;-</span> <span class="fu">exp</span>(log.predictions)</span>
+<span id="cb57-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-4"><a aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(predictions)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>       fit       lwr      upr
+1 29.84797 11.804051 75.47422
+2 22.94223  9.266399 56.80158
+3 15.97725  6.509691 39.21421
+4 11.88332  4.789937 29.48125
+5  6.15517  2.295686 16.50318</code></pre>
+</div>
+</div>
+<p><strong>Reading the output:</strong> For example, the first line says that:</p>
+<ul>
+<li>For Stock Price of <span class="math inline">1.2</span>, the model predicts Gold Price of <span class="math inline">29.84797</span></li>
+<li><span class="math inline">95\%</span> confidence interval for the predicted Gold Price is <span class="math inline">[11.804051, 75.47422]</span></li>
+<li>When Stock Price is <span class="math inline">1.2</span>, the interval contains the true Gold Price <span class="math inline">95\%</span> of the times</li>
+</ul>
+</div>
+</section></section>
+<section>
+<section id="part-5-autocorrelation" class="title-slide slide level1 center" data-background-color="#cc0164" data-visibility="uncounted">
+<h1>Part 5: <br>Autocorrelation</h1>
+<div class="footer">
+<div color="#cc0164">
+
+</div>
+</div>
+</section>
+<section id="autocorrelation" class="slide level2 smaller">
+<h2>Autocorrelation</h2>
+<ul>
+<li>The general linear regression model is</li>
+</ul>
+<p><span class="math display">
+Y_i = \beta_1 z_{i1} + \beta_2 z_{i2} + \ldots + \beta_p z_{ip} + \varepsilon_i
+</span></p>
+<ul>
+<li>Consider Assumption 5
+<ul>
+<li><strong>Independence:</strong> Errors <span class="math inline">\varepsilon_1, \ldots, \varepsilon_n</span> are independent, and thus uncorrelated <span class="math display">
+  {\rm Cor}(\varepsilon_i , \varepsilon_j) = 0 \qquad \forall \,\, i \neq j
+  </span></li>
+</ul></li>
+<li><strong>Autocorrelation:</strong> The violation of Assumption 5</li>
+</ul>
+<p><span class="math display">
+{\rm Cor}(\varepsilon_i , \varepsilon_j) = 0 \qquad \text{ for some } \,\, i \neq j
+</span></p>
+</section>
+<section id="why-is-independence-important" class="slide level2 smaller">
+<h2>Why is independence important?</h2>
+<ul>
+<li><p>Recall the methods to assess linear models</p>
+<ul>
+<li>Coefficient <span class="math inline">R^2</span></li>
+<li><span class="math inline">t</span>-tests for parameters significance</li>
+<li><span class="math inline">F</span>-test for model selection</li>
+</ul></li>
+<li><p>The above methods <strong>rely heavily</strong> on independence</p></li>
+</ul>
+</section>
+<section id="why-is-independence-important-1" class="slide level2 smaller">
+<h2>Why is independence important?</h2>
+<ul>
+<li><p>Once again, let us consider the likelihood calculation <span class="math display">\begin{align*}
+  L &amp; = f(y_1, \ldots, y_n) =  \prod_{i=1}^n  f_{Y_i} (y_i)  
+       \\[15pts]
+    &amp; = \frac{1}{(2\pi \sigma^2)^{n/2}} \, \exp   \left(   -\frac{\sum_{i=1}^n(y_i- \hat y_i)^2}{2\sigma^2}      \right) \\[15pts]
+    &amp; = \frac{1}{(2\pi \sigma^2)^{n/2}} \, \exp   \left(   -\frac{ \mathop{\mathrm{RSS}}}{2\sigma^2}      \right)
+  \end{align*}</span></p></li>
+<li><p>The second equality is only possible thanks to independence of</p></li>
+</ul>
+<p><span class="math display">
+Y_1 , \ldots, Y_n
+</span></p>
+</section>
+<section id="why-is-independence-important-2" class="slide level2 smaller">
+<h2>Why is independence important?</h2>
+<ul>
+<li>If we have <strong>autocorrelation</strong> then</li>
+</ul>
+<p><span class="math display">
+{\rm Cor}(\varepsilon_i,\varepsilon_j) \neq 0 \quad \text{ for some } \, i \neq j
+</span></p>
+<ul>
+<li>In particualar we would have</li>
+</ul>
+<p><span class="math display">
+\varepsilon_i \, \text{ and } \, \varepsilon_j \, \text{ dependent } \quad \implies \quad Y_i \, \text{ and } \, Y_j \, \text{ dependent }
+</span></p>
+<ul>
+<li>Therefore the calculation in previous slide breaks down</li>
+</ul>
+<p><span class="math display">
+L \neq \frac{1}{(2\pi \sigma^2)^{n/2}} \, \exp   \left(   -\frac{ \mathop{\mathrm{RSS}}}{2\sigma^2}      \right)
+</span></p>
+</section>
+<section id="why-is-independence-important-3" class="slide level2 smaller">
+<h2>Why is independence important?</h2>
+<ul>
+<li><p>In this case <span class="math inline">\hat \beta</span> does no longer maximize the likelihood!</p></li>
+<li><p>As already seen, this implies that</p></li>
+</ul>
+<p><span class="math display">
+\mathop{\mathrm{e.s.e.}}(\beta_j) \,\, \text{ is unreliable}
+</span></p>
+<ul>
+<li><strong>Without independence, the regression maths does not work!</strong>
+<ul>
+<li>t-tests for significance of <span class="math inline">\beta_j</span></li>
+<li>confidence intervals for <span class="math inline">\beta_j</span></li>
+<li><span class="math inline">F</span>-tests for Model Selection</li>
+<li>They all break down and become unreliable!</li>
+</ul></li>
+</ul>
+</section>
+<section id="causes-of-autocorrelation" class="slide level2 smaller">
+<h2>Causes of Autocorrelation</h2>
+<h3 id="time-series-data">Time-series data</h3>
+<ul>
+<li>Autocorrelation means that</li>
+</ul>
+<p><span class="math display">
+{\rm Cor}(\varepsilon_i,\varepsilon_j) \neq 0 \quad \text{ for some } \, i \neq j
+</span></p>
+<ul>
+<li><p>Autocorrelation if often unavoidable</p></li>
+<li><p>Typically associated with <strong>time series data</strong></p>
+<ul>
+<li>Observations ordered wrt time or space are usually correlated</li>
+<li>This is because observations taken close together may take similar values</li>
+</ul></li>
+</ul>
+</section>
+<section id="example-financial-data" class="slide level2 smaller">
+<h2>Example: Financial data</h2>
+<ul>
+<li>Autocorrelation is especially likely for datasets in
+<ul>
+<li>Accounting</li>
+<li>Finance</li>
+<li>Economics</li>
+</ul></li>
+<li>Autocorrelation is likely if the data have been recorded over time
+<ul>
+<li>E.g. daily, weekly, monthly, quarterly, yearly</li>
+</ul></li>
+<li>Example: Datasetet on <em>Stock prices</em> and <em>Gold prices</em>
+<ul>
+<li>General linear regression model assumes uncorrelated errors</li>
+<li>Not realistic to assume that price observations for say 2020 and 2021 would be independent</li>
+</ul></li>
+</ul>
+</section>
+<section id="causes-of-autocorrelation-1" class="slide level2 smaller">
+<h2>Causes of Autocorrelation</h2>
+<h3 id="inertia">Inertia</h3>
+<ul>
+<li><p>Economic time series tend to exhibit <strong>cyclical behaviour</strong></p></li>
+<li><p>Examples: GNP, price indices, production figures, employment statistics etc.</p></li>
+<li><p>These series tend to be quite slow moving</p>
+<ul>
+<li>Effect of inertia is that successive observations are highly correlated</li>
+</ul></li>
+</ul>
+<p><strong>This is an extremely common phenomenon in financial and economic time series</strong></p>
+</section>
+<section id="causes-of-autocorrelation-2" class="slide level2 smaller">
+<h2>Causes of Autocorrelation</h2>
+<h3 id="cobweb-phenomenon">Cobweb Phenomenon</h3>
+<ul>
+<li><p>Characteristic of industries in which a large amount of time passes between</p>
+<ul>
+<li>the decision to produce something</li>
+<li>and its arrival on the market</li>
+</ul></li>
+<li><p>Cobweb phenomenon is common with agricultural commodities</p></li>
+<li><p>Economic agents (e.g.&nbsp;farmers) decide</p>
+<ul>
+<li>how many goods to supply to the market</li>
+<li>based on previous year price</li>
+</ul></li>
+</ul>
+</section>
+<section id="causes-of-autocorrelation-3" class="slide level2 smaller">
+<h2>Causes of Autocorrelation</h2>
+<h3 id="cobweb-phenomenon-1">Cobweb Phenomenon</h3>
+<ul>
+<li><strong>Example:</strong> the amount of crops farmers supply to the market at time <span class="math inline">t</span> might be</li>
+</ul>
+<p><span class="math display">\begin{equation} \tag{3}
+{\rm Supply}_t = \beta_1 + \beta_2 \, {\rm Price}_{t-1} + \varepsilon_t
+\end{equation}</span></p>
+<ul>
+<li><p>Errors <span class="math inline">\varepsilon_t</span> in equation (3) are unlikely to be completely random and patternless</p></li>
+<li><p>This is because</p>
+<ol type="1">
+<li>They represent actions of intelligent economic agents (e.g.&nbsp;farmers)</li>
+<li>Price from previous year influences supply for current year</li>
+</ol></li>
+</ul>
+<p><strong>Error terms are likely to be autocorrelated</strong></p>
+</section>
+<section id="causes-of-autocorrelation-4" class="slide level2 smaller">
+<h2>Causes of Autocorrelation</h2>
+<h3 id="data-manipulation">Data manipulation</h3>
+<p><strong>Examples:</strong></p>
+<ul>
+<li><p>Quarterly data may smooth out the wild fluctuations in monthly sales figures</p></li>
+<li><p>Low frequency economic survey data may be interpolated</p></li>
+</ul>
+<p><strong>However:</strong> Such data transformations may be inevitable</p>
+<ul>
+<li><p>In social sciences data quality may be variable</p></li>
+<li><p>This may induce systematic patterns and autocorrelation</p></li>
+</ul>
+<p><strong>No magic solution – Autocorrelation is unavoidable and must be considered</strong></p>
+</section>
+<section id="how-to-detect-autocorrelation" class="slide level2 smaller">
+<h2>How to detect Autocorrelation</h2>
+<p>Autocorrelation is often unavoidable. We should be able to detect it:</p>
+<ol type="1">
+<li>Graphical methods
+<ul>
+<li>Simple, robust and informative</li>
+</ul></li>
+<li>Statistical tests
+<ul>
+<li>Runs test</li>
+<li>Durbin-Watson test</li>
+</ul></li>
+</ol>
+<p><strong>Graphical and statistical methods can be useful cross-check of each other!</strong></p>
+</section>
+<section id="graphical-methods-for-autocorrelation" class="slide level2 smaller">
+<h2>Graphical methods for Autocorrelation</h2>
+<ol type="1">
+<li>Time-series plot of residuals:
+<ul>
+<li>Plot residuals <span class="math inline">\hat{\varepsilon}_t</span> over time</li>
+</ul></li>
+<li>Autocorrelation plot of residuals:
+<ul>
+<li>Plot residuals <span class="math inline">\hat{\varepsilon}_t</span> against lagged residuals <span class="math inline">\hat{\varepsilon}_{t-1}</span></li>
+</ul></li>
+</ol>
+<p>Check to see if any evidence of a systematic pattern exists:</p>
+<ul>
+<li>No Autocorrelation: Plots will look <strong>random</strong></li>
+<li>Yes Autocorrelation: Plots will show certain <strong>patterns</strong></li>
+</ul>
+</section>
+<section id="example-stock-vs-gold-prices-1" class="slide level2 smaller">
+<h2>Example: Stock Vs Gold prices</h2>
+<ul>
+<li><p>Code for this example is available here <a href="codes/autocorrelation.R">autocorrelation.R</a></p></li>
+<li><p>Stock Vs Gold prices data is available here <a href="datasets/stock_gold.txt">stock_gold.txt</a></p></li>
+<li><p>Read data into R and fit simple regression</p></li>
+</ul>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Load dataset</span></span>
+<span id="cb59-2"><a aria-hidden="true" tabindex="-1"></a>prices <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="at">file =</span> <span class="st">"stock_gold.txt"</span>,</span>
+<span id="cb59-3"><a aria-hidden="true" tabindex="-1"></a>                    <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb59-4"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-5"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Store data-frame into 2 vectors</span></span>
+<span id="cb59-6"><a aria-hidden="true" tabindex="-1"></a>stock.price <span class="ot">&lt;-</span> prices[ , <span class="dv">1</span>]</span>
+<span id="cb59-7"><a aria-hidden="true" tabindex="-1"></a>gold.price <span class="ot">&lt;-</span> prices[ , <span class="dv">2</span>]</span>
+<span id="cb59-8"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-9"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Fit regression model</span></span>
+<span id="cb59-10"><a aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(gold.price <span class="sc">~</span> stock.price)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="section-49" class="slide level2 smaller">
+<h2></h2>
+<div style="font-size: 0.94em">
+<p><strong>Time-series plot of residuals:</strong> Plot the residuals <span class="math inline">\hat{\varepsilon}_i</span></p>
+<ul>
+<li>Time series plot suggests some evidence for autocorrelation</li>
+<li>Look for successive <em>runs</em> of residuals either side of line <span class="math inline">y = 0 \,</span> (see <span class="math inline">t = 15</span>)</li>
+</ul>
+</div>
+<div class="columns" style="display: flex !important; height: 60%;">
+<div class="column" style="display: flex; justify-content: center; align-items: center;">
+<div class="sourceCode" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Compute residuals</span></span>
+<span id="cb60-2"><a aria-hidden="true" tabindex="-1"></a>residuals <span class="ot">&lt;-</span> model<span class="sc">$</span>resid</span>
+<span id="cb60-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Time-series plot of residuals</span></span>
+<span id="cb60-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(residuals,</span>
+<span id="cb60-6"><a aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Time"</span>, </span>
+<span id="cb60-7"><a aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"Residuals"</span>,</span>
+<span id="cb60-8"><a aria-hidden="true" tabindex="-1"></a>     <span class="at">pch =</span> <span class="dv">16</span>,</span>
+<span id="cb60-9"><a aria-hidden="true" tabindex="-1"></a>     <span class="at">cex =</span> <span class="dv">2</span>)</span>
+<span id="cb60-10"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-11"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Add line y = 0 for reference</span></span>
+<span id="cb60-12"><a aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">lwd =</span> <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div><div class="column" style="display: flex; justify-content: center; align-items: center;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="lecture_10_files/figure-revealjs/unnamed-chunk-32-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="section-50" class="slide level2 smaller">
+<h2></h2>
+<div class="columns" style="display: flex !important; height: 90%;">
+<div class="column" style="display: flex; align-items: center;">
+<div style="font-size: 0.94em">
+<p><strong>Autocorrelation plot of residuals:</strong></p>
+<ul>
+<li>Want to plot <span class="math inline">\hat{\varepsilon}_t</span> against <span class="math inline">\hat{\varepsilon}_{t-1}</span></li>
+<li>Shift <span class="math inline">\hat{\varepsilon}_t</span> by 1 to get <span class="math inline">\hat{\varepsilon}_{t-1}</span></li>
+<li>Can only plot magenta pairs</li>
+<li>We have 1 pair less than the actual number of residuals</li>
+</ul>
+</div>
+</div><div class="column" style="display: flex; justify-content: center; align-items: center;">
+<p><img data-src="images/shifted_vectors.png" style="width:110.0%"> <img data-src="images/shifted_vectors_2.png" style="width:110.0%"></p>
+</div></div>
+</section>
+<section id="section-51" class="slide level2 smaller">
+<h2></h2>
+<ul>
+<li>We want to plot <span class="math inline">\hat{\varepsilon}_t</span> against <span class="math inline">\hat{\varepsilon}_{t-1}</span>
+<ul>
+<li>Residuals <span class="math inline">\hat{\varepsilon}_t</span> are stored in vector <span class="math inline">\,\, \texttt{residuals}</span></li>
+<li>We need to create a shifted version of <span class="math inline">\,\, \texttt{residuals}</span></li>
+<li>First compute the length of <span class="math inline">\,\, \texttt{residuals}</span></li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Compute length of residuals</span></span>
+<span id="cb61-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(residuals)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 33</code></pre>
+</div>
+</div>
+<ul>
+<li>Need to generate the <span class="math inline">33-1</span> pairs for plotting</li>
+</ul>
+</section>
+<section id="section-52" class="slide level2 smaller">
+<h2></h2>
+<ul>
+<li><strong>Lag 0:</strong>
+<ul>
+<li>This is the original vector with no lag</li>
+<li>Lose one observation from <span class="math inline">\,\, \texttt{residuals}</span> – the first observation</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a aria-hidden="true" tabindex="-1"></a>residuals.lag<span class="fl">.0</span> <span class="ot">&lt;-</span> residuals[<span class="dv">2</span><span class="sc">:</span><span class="dv">33</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li><strong>Lag 1:</strong>
+<ul>
+<li>This is the original vector, shifted by 1</li>
+<li>Lose one observation from <span class="math inline">\,\, \texttt{residuals}</span> – the last observation</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a aria-hidden="true" tabindex="-1"></a>residuals.lag<span class="fl">.1</span> <span class="ot">&lt;-</span> residuals[<span class="dv">1</span><span class="sc">:</span><span class="dv">32</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="section-53" class="slide level2 smaller">
+<h2></h2>
+<div style="font-size: 0.94em">
+<p><strong>Autocorrelation plot of residuals:</strong> Plot <span class="math inline">\hat{\varepsilon}_t</span> against <span class="math inline">\hat{\varepsilon}_{t-1}</span></p>
+<ul>
+<li>Plot suggests positive autocorrelation of residuals</li>
+<li>This means <span class="math inline">\, \hat{\varepsilon}_t \, \approx \, a + b \, \hat{\varepsilon}_{t-1} \,</span> with <span class="math inline">b &gt; 0</span></li>
+</ul>
+</div>
+<div class="columns" style="display: flex !important; height: 60%;">
+<div class="column" style="display: flex; justify-content: center; align-items: center;">
+<div class="sourceCode" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Plot Lag0 against Lag1 residuals</span></span>
+<span id="cb65-2"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(residuals.lag<span class="fl">.1</span>, </span>
+<span id="cb65-4"><a aria-hidden="true" tabindex="-1"></a>     residuals.lag<span class="fl">.0</span>,</span>
+<span id="cb65-5"><a aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Residuals Lag 1"</span>, </span>
+<span id="cb65-6"><a aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"Residuals Lag 0"</span>,</span>
+<span id="cb65-7"><a aria-hidden="true" tabindex="-1"></a>     <span class="at">pch =</span> <span class="dv">16</span>,</span>
+<span id="cb65-8"><a aria-hidden="true" tabindex="-1"></a>     <span class="at">cex =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div><div class="column" style="display: flex; justify-content: center; align-items: center;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="lecture_10_files/figure-revealjs/unnamed-chunk-34-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="section-54" class="slide level2 smaller">
+<h2></h2>
+<p><strong>Conclusions:</strong> The dataset Gold Price vs Stock Price exhibits Autocorrelation</p>
+<ul>
+<li>Autocorrelation was detected by both graphical methods:
+<ul>
+<li>Time-series of residuals</li>
+<li>Autocorrelation plot of residuals</li>
+</ul></li>
+<li>This was expected, given that the dataset represents a time-series of prices</li>
+</ul>
+</section>
+<section id="statistical-tests-for-autocorrelation" class="slide level2 smaller">
+<h2>Statistical tests for Autocorrelation</h2>
+<ul>
+<li>Runs test:
+<ul>
+<li>If Regression Assumptions are satisfied, the residuals are <span class="math inline">\varepsilon_i \sim N(0,\sigma^2)</span></li>
+<li>This means residuals <span class="math inline">\hat{\varepsilon}_i</span> are equally likely to be positive or negative</li>
+<li>The runs test uses this observation to formulate a test for autocorrelation</li>
+</ul></li>
+<li>Durbin-Watson test:
+<ul>
+<li>Test to see if residuals are AR(1) - Auto-regressive of order 1</li>
+<li>This means testing if there exists a linear relation of the form <span class="math display">
+  \hat{\varepsilon}_t = a + b \hat{\varepsilon}_{t-1} + \delta_t
+  </span> where <span class="math inline">\delta_t \sim N(0,\sigma^2)</span> is an error term</li>
+</ul></li>
+</ul>
+<p><strong>We do not cover these tests</strong></p>
+</section>
+<section id="what-to-do-in-case-of-autocorrelation" class="slide level2 smaller">
+<h2>What to do in case of Autocorrelation?</h2>
+<ul>
+<li>Consider the simple regression model</li>
+</ul>
+<p><span class="math display">
+Y_i = \alpha + \beta x_i + \varepsilon_i
+</span></p>
+<ul>
+<li>Suppose that autocorrelation occurs</li>
+</ul>
+<p><span class="math display">
+{\rm Cor}(\hat{\varepsilon}_i, \hat{\varepsilon}_j ) \neq 0 \quad \text{ for some } \, i \neq j
+</span></p>
+<ul>
+<li>Also, suppose that autocorrelation is Auto-Regressive of Order 1</li>
+</ul>
+<p><span class="math display">
+\hat{\varepsilon}_t = a + b \, \hat{\varepsilon}_{t-1} + \delta_t \,, \qquad
+\delta_t \,\, \text{ iid } \,\, N(0,\sigma^2)
+</span></p>
+<ul>
+<li>Example: This is the case for dataset <em>Stock prices</em> Vs <em>Gold prices</em></li>
+</ul>
+</section>
+<section id="section-55" class="slide level2 smaller">
+<h2></h2>
+<ul>
+<li>In this case, predictions from the simple linear model are not reliable</li>
+</ul>
+<p><span class="math display">
+Y_i = \alpha + \beta x_i + \varepsilon_i
+</span></p>
+<ul>
+<li><p>Instead, substitute into the model the relation <span class="math inline">\hat{\varepsilon}_t = a + b \, \hat{\varepsilon}_{t-1} + \delta_t</span></p></li>
+<li><p>We obtain the new linear model (up to relabelling coefficients)</p></li>
+</ul>
+<p><span class="math display">
+Y_t = \alpha + \beta x_t + \rho \hat{\varepsilon}_{t-1} + \delta_t  \,, \qquad
+\delta_t \,\, \text{ iid } \,\, N(0,\sigma^2)
+</span></p>
+<ul>
+<li>The above is an <strong>Autoregressive linear Model</strong> of order 1<br>
+(because time <span class="math inline">t-1</span> influences time <span class="math inline">t</span>)
+<ul>
+<li>These models couple regression with time-series analysis (ARIMA models)</li>
+<li>Good reference is book by Shumway and Stoffer <span class="citation" data-cites="shumway">[<a href="#/references" role="doc-biblioref" onclick="">4</a>]</span></li>
+</ul></li>
+</ul>
+<p><strong>You will see ARIMA models next year</strong></p>
+</section>
 <section id="references" class="slide level2 smaller scrollable">
 <h2>References</h2>
 
@@ -3124,6 +3777,9 @@ Y_i = \beta_1 + \beta_2 X_{i} + \varepsilon_i
 </div>
 <div id="ref-draper_smith" class="csl-entry" role="listitem">
 <div class="csl-left-margin">[3] </div><div class="csl-right-inline">Draper, N. R., Smith, H., Applied regression analysis, Wiley, 1998.</div>
+</div>
+<div id="ref-shumway" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[4] </div><div class="csl-right-inline">Shumway, R. H., Stoffer, D. S., Time series analysis and its applications, fourth edition, Springer, 2017.</div>
 </div>
 </div>
 </section></section>

@@ -76,7 +76,7 @@ There are 11 lectures in this module. Links to the slides and lecture titles are
 | <a href="slides/lecture_8.qmd">Lecture 8</a>   | The maths of Regression                       |
 | <a href="slides/lecture_9.qmd">Lecture 9</a>   | Practical regression                          |
 | <a href="slides/lecture_10.qmd">Lecture 10</a> | Model Selection & Regression Assumptions      |
-| <a href="slides/lecture_11.qmd">Lecture 11</a> | ANOVA                                         |
+| <a href="slides/lecture_11.qmd">Lecture 11</a> | Stepwise Regression & ANOVA                   |
 | <a href="slides/appendix_A.qmd">Appendix A</a> | Probability revision                          |
 | <a href="slides/appendix_B.qmd">Appendix B</a> | More on R                                     |
 : {tbl-colwidths="[30,70]"}

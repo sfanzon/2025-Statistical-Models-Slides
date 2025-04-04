@@ -1582,7 +1582,8 @@ Model 2: distance ~ height + I(height^2) + I(height^3)
 
 - First two lines say that the following 2 models are being compared
 \begin{align*}
-    \textbf{Model 1:} & \quad {\rm distance} = \beta_1 + \beta_2 \, {\rm height } + \e \\[10pt]
+    \textbf{Model 1:} & \quad {\rm distance} = \beta_1 + \beta_2 \, {\rm height } +  \beta_3  
+\, {\rm height }^2  + \e \\[10pt]
     \textbf{Model 2:} & \quad {\rm distance} = \beta_1 + \beta_2 \, {\rm height } + \beta_3  
 \, {\rm height }^2  + \beta_4  
 \, {\rm height }^3 + \e

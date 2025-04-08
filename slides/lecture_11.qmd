@@ -1880,6 +1880,12 @@ $$
 R^2 = 1 - \frac{\RSS}{\TSS}
 $$
 
+- It always holds that
+
+$$
+R^2 \leq 1
+$$
+
 - We used $R^2$ to measure how well a regression model fits the data
     * Large $R^2$ implies good fit
     * Small $R^2$ implies bad fit
@@ -1892,13 +1898,13 @@ $$
 
 - We saw this phenomenon in the **Galileo** example in Lecture 10
 
-- Fitting the model 
+- Fitting the simple model 
 $$
     \rm{distance} = \beta_1 + \beta_2 \, \rm{height}  + \e
 $$
-yielded $R^2 = 0.9264$
+gave $R^2 = 0.9264$
 
-- In contrast the quadratic, cubic, and quartic models yielded, respectively
+- In contrast the quadratic, cubic, and quartic models gave, respectively
 $$
 R^2 = 0.9903 \,, \qquad R^2 = 0.9994 \,, \qquad 
 R^2 = 0.9998
@@ -1910,7 +1916,7 @@ $$
 
 ##  {.smaller}
 
-**Conclusion:**  If the degree of the polynomial is sufficiently high, we will get $R^2 = 1$
+**Conclusion:**  If the degree of the polynomial is sufficiently high, we can get $R^2 = 1$
 
 - Indeed, there always exist a polynomial passing exactly through the data points
 
@@ -1918,7 +1924,7 @@ $$
 (\rm{height}_1, \rm{distance}_1) \,, \ldots , (\rm{height}_n, \rm{distance}_n)
 $$
 
-- For such polynomial model the predictions match the data perfectly
+- For such polynomial model, the predictions match the data perfectly
 
 $$
 \hat y_i = y_i \,, \qquad \forall \,\, i = 1 , \ldots, n
@@ -1932,19 +1938,75 @@ $$
 $$
 
 
-## Overfitting the model {.smaller}
 
-**Warning:**  Adding increasingly higher number of parameters is not good
 
-- It leads to a phenomenon called **overfitting**
+## Overfitting the data {.smaller}
+
+::: {style="font-size: 0.95em"}
+
+**Warning:**  Adding increasingly higher number of parameters is not always good
+
+- It might lead to a phenomenon called **overfitting**
     * The model fits the data very well
-    * However the model does not make good predictions on unseen data
+    * However the model does not make good predictions
 
-- We encountered this phenomenon in the **Divorces** example of Lecture 10
+**Example 1:** In the Galileo example, we saw that
+
+- $R^2$ increases when adding higher order terms
+- Howevever, the F-test for Model Slection tells us that the order 3 model is best
+- Going to 4th order improves $R^2$, but makes predictions worse  
+(as detected by F-test for Model Selection comparing Order 3 and 4 models)
+
+**Example 2:** In the **Divorces** example, however, things were different
+
+:::
 
 
 
 ## Revisiting the Divorces example {.smaller}
+
+
+::: {.column width="46%"}
+
+```{r} 
+#| echo: true
+#| code-fold: true
+#| code-summary: "Click here to show the full code"
+#| fig-asp: 1
+
+# Divorces data
+year <- c(1, 2, 3, 4, 5, 6,7, 8, 9, 10, 15, 20, 25, 30)
+percent <- c(3.51, 9.5, 8.91, 9.35, 8.18, 6.43, 5.31, 
+             5.07, 3.65, 3.8, 2.83, 1.51, 1.27, 0.49)
+
+# Fit linear model
+linear <- lm(percent ~ year)
+
+# Fit order 6 model
+order_6 <- lm(percent ~ year  + I( year^2 ) + I( year^3 ) + 
+                                I( year^4 ) + I( year^5 ) +
+                                I( year^6 ))
+
+# Scatter plot of data
+plot(year, percent, xlab = "", ylab = "", pch = 16, cex = 2)
+
+# Add labels
+mtext("Years of marriage", side = 1, line = 3, cex = 2.1)
+mtext("Risk of divorce", side = 2, line = 2.5, cex = 2.1)
+
+# Plot Linear Vs Quadratic
+polynomial <- Vectorize(function(x, ps) {
+  n <- length(ps)
+  sum(ps*x^(1:n-1))
+}, "x")
+curve(polynomial(x, coef(linear)), add=TRUE, col = "red", lwd = 2)
+curve(polynomial(x, coef(order_6)), add=TRUE, col = "blue", lty = 2, lwd = 3)
+legend("topright", legend = c("Linear", "Order 6"), 
+       col = c("red", "blue"), lty = c(1,2), cex = 3, lwd = 3)
+```
+
+:::
+
 
 ::: {.column width="45%"}
 
@@ -1962,6 +2024,12 @@ $$
 :::
 
 
+
+
+
+
+## Revisiting the Divorces example {.smaller}
+
 ::: {.column width="46%"}
 
 ```{r} 
@@ -1988,7 +2056,7 @@ plot(year, percent, xlab = "", ylab = "", pch = 16, cex = 2)
 
 # Add labels
 mtext("Years of marriage", side = 1, line = 3, cex = 2.1)
-mtext("Risk of divorce by adultery", side = 2, line = 2.5, cex = 2.1)
+mtext("Risk of divorce", side = 2, line = 2.5, cex = 2.1)
 
 # Plot Linear Vs Quadratic
 polynomial <- Vectorize(function(x, ps) {
@@ -2003,21 +2071,26 @@ legend("topright", legend = c("Linear", "Order 6"),
 
 :::
 
-
-
-
-## Revisiting the Divorces example {.smaller}
 
 ::: {.column width="45%"}
 
 <br>
 
-- Fitting *Order 6* polynomial yields better results
-    * The coefficient $R^2$ decreases (of course!)
-    * F-test for model comparison prefers *Order 6* model to the linear one
+- However, fitting *Order 6* polynomial yields better results
+    * The coefficient $R^2$ increases (of course!)
+    * F-test for Model Selection prefers *Order 6* model to the linear one
 
-- Statistically *Order 6* model is better than *Linear* model
+- Statistically, *Order 6* model is better than *Linear* model
+    * In the sense that *Order 6* makes better predictions
+
 :::
+
+
+
+
+
+
+## Revisiting the Divorces example {.smaller}
 
 
 ::: {.column width="46%"}
@@ -2046,7 +2119,7 @@ plot(year, percent, xlab = "", ylab = "", pch = 16, cex = 2)
 
 # Add labels
 mtext("Years of marriage", side = 1, line = 3, cex = 2.1)
-mtext("Risk of divorce by adultery", side = 2, line = 2.5, cex = 2.1)
+mtext("Risk of divorce", side = 2, line = 2.5, cex = 2.1)
 
 # Plot Linear Vs Quadratic
 polynomial <- Vectorize(function(x, ps) {
@@ -2062,13 +2135,7 @@ legend("topright", legend = c("Linear", "Order 6"),
 :::
 
 
-
-
-## Revisiting the Divorces example {.smaller}
-
 ::: {.column width="45%"}
-
-
 
 - However, looking at the plot:
     * *Order 6* model introduces unnatural spike at 27 years
@@ -2076,51 +2143,10 @@ legend("topright", legend = c("Linear", "Order 6"),
 
 - Question:
     * $R^2$ coefficient and F-test are in favor of *Order 6* model
-    * How do we rule out the *Order 6* model?
+    * How do we rule out *Order 6* model?
 
 - Answer: We need a new measure for comparing regression models
-
-:::
-
-
-::: {.column width="46%"}
-
-```{r} 
-#| echo: true
-#| code-fold: true
-#| code-summary: "Click here to show the full code"
-#| fig-asp: 1
-
-# Divorces data
-year <- c(1, 2, 3, 4, 5, 6,7, 8, 9, 10, 15, 20, 25, 30)
-percent <- c(3.51, 9.5, 8.91, 9.35, 8.18, 6.43, 5.31, 
-             5.07, 3.65, 3.8, 2.83, 1.51, 1.27, 0.49)
-
-# Fit linear model
-linear <- lm(percent ~ year)
-
-# Fit order 6 model
-order_6 <- lm(percent ~ year  + I( year^2 ) + I( year^3 ) + 
-                                I( year^4 ) + I( year^5 ) +
-                                I( year^6 ))
-
-# Scatter plot of data
-plot(year, percent, xlab = "", ylab = "", pch = 16, cex = 2)
-
-# Add labels
-mtext("Years of marriage", side = 1, line = 3, cex = 2.1)
-mtext("Risk of divorce by adultery", side = 2, line = 2.5, cex = 2.1)
-
-# Plot Linear Vs Quadratic
-polynomial <- Vectorize(function(x, ps) {
-  n <- length(ps)
-  sum(ps*x^(1:n-1))
-}, "x")
-curve(polynomial(x, coef(linear)), add=TRUE, col = "red", lwd = 2)
-curve(polynomial(x, coef(order_6)), add=TRUE, col = "blue", lty = 2, lwd = 3)
-legend("topright", legend = c("Linear", "Order 6"), 
-       col = c("red", "blue"), lty = c(1,2), cex = 3, lwd = 3)
-```
+    * AIC
 
 :::
 
@@ -2137,7 +2163,9 @@ legend("topright", legend = c("Linear", "Order 6"),
 
 - The difference between AIC and $R^2$ is that AIC also **accounts for overfitting**
 
-- The formal definition of AIC is
+::: Definition 
+
+The AIC is
 
 $$
 {\rm AIC} := 2p - 2 \log ( \hat{L} )
@@ -2147,28 +2175,29 @@ $$
 
 - $\hat{L} =$ maximum value of the likelihood function 
 
+:::
 
 
 
-## Akaike information criterion (AIC) {.smaller}
+## Rewriting the AIC {.smaller}
 
-- In past lectures we have shown that for the general regression model 
+- In past lectures, we have shown that general regression satisfies
 
 $$
- \ln(\hat L)=
- -\frac{n}{2}\ln(2\pi) - \frac{n}{2}\ln(\hat\sigma^2) - \frac{1}{2\hat\sigma^2} \RSS \,, \qquad \hat \sigma^2 := \frac{\RSS}{n}
+ \log(\hat L)=
+ -\frac{n}{2}\log(2\pi) - \frac{n}{2}\log(\hat\sigma^2) - \frac{1}{2\hat\sigma^2} \RSS \,, \qquad \hat \sigma^2 := \frac{\RSS}{n}
 $$
 
 - Therefore 
 
 $$
-\ln(\hat L)= - \frac{n}{2}  \log \left( \frac{\RSS}{n}  \right) + C
+\log(\hat L)= - \frac{n}{2}  \log \left( \frac{\RSS}{n}  \right) + C
 $$
 
 
 - $C$ is constant depending only on the number of sample points
 
-- Thus $C$ does not change if the data does not change
+- Thus, $C$ does not change if the data does not change
 
 
 
@@ -2186,7 +2215,7 @@ $$
     * **Model complexity:** Since the number of degrees of freedom $p$ is present
 
 
-- Therefore a model with low AIC is such that:
+- Therefore, a model with low AIC is such that:
     1. Model fits data well
     2. Model is not too complex, preventing overfitting
 
@@ -2198,7 +2227,7 @@ $$
 - *Stepwise regression* function in R uses AIC to compare models
     * the model with **lowest AIC** is selected
 
-- Hence Stepwise regression outputs the model which, at the same time
+- Hence, Stepwise regression outputs the model which, at the same time
     1. Best fits the given data 
     2. Prevents overfitting
 
@@ -2210,29 +2239,65 @@ $$
 
 
 ## Example: Divorces {.smaller}
-### The dataset
 
-- Code for this example is available here [divorces_stepwise.R](codes/divorces_stepwise.R)
+::: {.column width="48%"}
+```{r}
+#| echo: true
+#| code-fold: true
+#| code-summary: "Click here to show the full code"
+#| fig-asp: 1
 
-<br>
+# Divorces data
+year <- c(1, 2, 3, 4, 5, 6,7, 8, 9, 10, 15, 20, 25, 30)
+percent <- c(3.51, 9.5, 8.91, 9.35, 8.18, 6.43, 5.31, 
+             5.07, 3.65, 3.8, 2.83, 1.51, 1.27, 0.49)
 
-| **Years of Marriage**              | 1   |  2   |  3  |  4  | 5  |   6  |  7  |
-|:---------------------------------- |:--- |:-    |:--  |:--  |:-- |:---  |:--  |
-| **\% divorces adultery**        | 3.51| 9.50 | 8.91| 9.35|8.18| 6.43 | 5.31|
-: {tbl-colwidths="[30,10,10,10,10,10,10,10]"}
+# Scatter plot of data
+plot(year, percent, xlab = "", ylab = "", pch = 16, cex = 2)
+
+# Add labels
+mtext("Years of marriage", side = 1, line = 3, cex = 2.1)
+mtext("Risk of divorce", side = 2, line = 2.5, cex = 2.1)
+```
+:::
 
 
-<br>
+
+::: {.column width="48%"}
+
+::: {style="font-size: 0.72em"}
+
+| **Years of Marriage**  |  **\% divorces** | 
+|:---------------------- |:---              |
+| 1                      | 3.51             |
+| 2                      | 9.50             |
+| 3                      | 8.91             |
+| 4                      | 9.35             |
+| 5                      | 8.18             |
+| 6                      | 6.43             |
+| 7                      | 5.31             |
+| 8                      | 5.07             |
+| 9                      | 3.65             |
+| 10                     | 3.80             |
+| 15                     | 2.83             |
+| 20                     | 1.51             |
+| 25                     | 1.27             |
+| 30                     | 0.49             |
+: {tbl-colwidths="[30,20]"}
+
+:::
 
 
-| **Years of Marriage**              | 8   |  9   | 10  | 15  |20  |  25  | 30  |
-|:---------------------------------- |:--- |:-    |:--  |:--  |:-- |:---  |:--  |
-| **\% divorces adultery**        | 5.07| 3.65 | 3.80| 2.83|1.51| 1.27 | 0.49|
-: {tbl-colwidths="[30,10,10,10,10,10,10,10]"}
+:::
+
+
 
 
 
 ## Fitting the null model  {.smaller}
+
+
+- Code for this example available here [divorces_stepwise.R](codes/divorces_stepwise.R)
 
 - First we import the data into R
 
@@ -2257,6 +2322,8 @@ null.model <- lm(percent ~ 1)
 ```
 
 
+
+
 ## Fitting the full model  {.smaller}
 
 - The full model is the *Order 6* model
@@ -2277,7 +2344,7 @@ full.model <- lm(percent ~ year  + I( year^2 ) + I( year^3 ) +
 
 ## Stepwise regression {.smaller}
 
-- We run stepwise regression and save the best model
+We run stepwise regression and save the best model:
 
 ```r
 best.model <- step(null.model, 
@@ -2287,7 +2354,7 @@ best.model <- step(null.model,
 
 <br>
 
-- The best model is *Linear*, and not *Order 6*!
+- The selected model is *linear*, not the *Order 6* polynomial!
 
 ```r
 summary(best.model)
@@ -2302,17 +2369,162 @@ lm(formula = percent ~ year)
 
 ```
 
+- To understand how ``step`` made this choice, let us examine its output
+
+
+
+
+
+##  {.smaller}
+
+::: {.column width="49%"}
+
+::: {style="font-size: 0.88em"}
+
+```verbatim
+Start:  AIC=32.46
+percent ~ 1
+
+            Df Sum of Sq     RSS    AIC
++ year       1    80.966  42.375 19.505
++ I(year^2)  1    68.741  54.600 23.054
++ I(year^3)  1    56.724  66.617 25.839
++ I(year^4)  1    48.335  75.006 27.499
++ I(year^5)  1    42.411  80.930 28.563
++ I(year^6)  1    38.068  85.273 29.295
+<none>                   123.341 32.463
+```
+
+:::
+
+:::
+
+
+::: {.column width="49%"}
+
+::: {style="font-size: 0.88em"}
+
+```verbatim
+Step:  AIC=19.5
+percent ~ year
+
+            Df Sum of Sq     RSS    AIC
+<none>                    42.375 19.505
++ I(year^4)  1     3.659  38.716 20.241
++ I(year^3)  1     3.639  38.736 20.248
++ I(year^5)  1     3.434  38.941 20.322
++ I(year^6)  1     3.175  39.200 20.415
++ I(year^2)  1     2.826  39.549 20.539
+- year       1    80.966 123.341 32.463
+```
+
+:::
+
+:::
+
+
+::: {style="font-size: 0.15em"}
+
+<br>
+
+:::
+
+::: {style="font-size: 0.88em"}
+
+- The first part of the output is on the left  
+- As requested, `step` begins with the *null model*: `percent ~ 1`  
+- This model has an AIC of $32.46$  
+- `step` then tests adding each variable from the *full model* one at a time  
+- This includes all polynomial terms: ``+ I(year^k)``  
+- For each, it computes the AIC and ranks the terms by lowest value  
+- The largest improvement comes from adding  `year`. Therefore, the variable `year` is selected
+- This means the current best model is: ``percent ~ year``
+
+:::
+
+
+
+
+
+##  {.smaller}
+
+::: {.column width="49%"}
+
+::: {style="font-size: 0.88em"}
+
+```verbatim
+Start:  AIC=32.46
+percent ~ 1
+
+            Df Sum of Sq     RSS    AIC
++ year       1    80.966  42.375 19.505
++ I(year^2)  1    68.741  54.600 23.054
++ I(year^3)  1    56.724  66.617 25.839
++ I(year^4)  1    48.335  75.006 27.499
++ I(year^5)  1    42.411  80.930 28.563
++ I(year^6)  1    38.068  85.273 29.295
+<none>                   123.341 32.463
+```
+
+:::
+
+:::
+
+
+::: {.column width="49%"}
+
+::: {style="font-size: 0.88em"}
+
+```verbatim
+Step:  AIC=19.5
+percent ~ year
+
+            Df Sum of Sq     RSS    AIC
+<none>                    42.375 19.505
++ I(year^4)  1     3.659  38.716 20.241
++ I(year^3)  1     3.639  38.736 20.248
++ I(year^5)  1     3.434  38.941 20.322
++ I(year^6)  1     3.175  39.200 20.415
++ I(year^2)  1     2.826  39.549 20.539
+- year       1    80.966 123.341 32.463
+```
+
+:::
+
+:::
+
+
+::: {style="font-size: 0.15em"}
+
+<br>
+
+:::
+
+
+::: {style="font-size: 0.88em"}
+
+- Second part of output is on the right: ``step`` resumes from the best model ``percent ~ year``  
+- R considers:
+    * doing nothing (``<none>``), i.e. keeping the current model  
+    * adding more predictors (polynomials: ``+ I(year^k)``)  
+    * removing the year predictor (``- year``)  
+- For each option, R computes the AIC and ranks them by lowest value 
+- The lowest AIC comes from doing nothing -- the current model is already best
+- Running `step` again would yield the same result. Thus, the final model is: ``percent ~ year``  
+
+:::
+
+
+
 
 ## Conclusions {.smaller}
 
-- Old conclusions:
+- Old conclusions (Lecture 10):
     * *Linear model* has lower $R^2$ than *Order 6 model*
-    * F-test for model selection chooses *Order 6 model* over *Linear model*
+    * F-test for Model Selection chooses *Order 6 model* over *Linear model*
     * Hence *Order 6 model* seems better than *Linear model*
 
 - New conclusions:
-    * *Order 6 model* is more complex than the *Linear model*
-    * In particular *Order 6 model* has higher AIC than the *Linear model*
     * Stepwise regression chooses *Linear model* over *Order 6 model*
 
 - **Bottom line:** The new findings are in line with our intuition: 

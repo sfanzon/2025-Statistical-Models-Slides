@@ -425,33 +425,33 @@
   </style>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
   <style>
-  .Corollary {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Example {
-    --color1: #bce5de;
-    --color2: #21aa93;
-  }
-  .DONE {
-    --color1: #cce7b1;
-    --color2: #86b754;
-  }
-  .TODO {
-    --color1: #e7b1b4;
-    --color2: #8c3236;
-  }
-  .Problem {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Proposition {
+  .Warning {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
   .Remark {
     --color1: #bce5de;
     --color2: #21aa93;
+  }
+  .Problem {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Question {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Lemma {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Important {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Idea {
+    --color1: #f4cce0;
+    --color2: #db4d92;
   }
   .Theorem {
     --color1: #f4cce0;
@@ -461,15 +461,31 @@
     --color1: #c6e6ed;
     --color2: #1995ad;
   }
+  .TODO {
+    --color1: #e7b1b4;
+    --color2: #8c3236;
+  }
   .Proof {
     --color1: #f1f1f2;
     --color2: #c0c0c1;
+  }
+  .Conjecture {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Proposition {
+    --color1: #f4cce0;
+    --color2: #db4d92;
   }
   .Axiom {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
-  .Lemma {
+  .DONE {
+    --color1: #cce7b1;
+    --color2: #86b754;
+  }
+  .Corollary {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
@@ -477,25 +493,9 @@
     --color1: #c6e6ed;
     --color2: #1995ad;
   }
-  .Question {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Idea {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Conjecture {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Important {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Warning {
-    --color1: #f4cce0;
-    --color2: #db4d92;
+  .Example {
+    --color1: #bce5de;
+    --color2: #21aa93;
   }
   </style>
 </head>
@@ -537,6 +537,9 @@
 <li>Multicollinearity</li>
 <li>Stepwise regression</li>
 <li>Stepwise regression and overfitting</li>
+<li>One-way ANOVA</li>
+<li>Factors in R</li>
+<li>Anova with aov</li>
 <li>Dummy variable regression models</li>
 </ol>
 </section></section>
@@ -2888,34 +2891,869 @@ percent ~ year
 </ul>
 </section></section>
 <section>
-<section id="part-5-dummy-variable-regression-models" class="title-slide slide level1 center" data-background-color="#cc0164" data-visibility="uncounted">
-<h1>Part 5: <br>Dummy variable <br> regression models</h1>
+<section id="part-4-one-way-anova" class="title-slide slide level1 center" data-background-color="#cc0164" data-visibility="uncounted">
+<h1>Part 4: <br> One-way ANOVA</h1>
 <div class="footer">
 <div color="#cc0164">
 
 </div>
 </div>
 </section>
-<section id="outline" class="slide level2">
-<h2>Outline</h2>
+<section id="introduction" class="slide level2 smaller">
+<h2>Introduction</h2>
+<ul>
+<li><p>ANOVA means <em>Analysis of variance</em></p></li>
+<li><p>Method of comparing means across samples</p></li>
+<li><p>We first present ANOVA in the traditional way</p></li>
+<li><p>Then we show that the ANOVA model is just a special form of linear regression</p>
+<ul>
+<li>In particular, ANOVA models can be fitted with <code>lm</code></li>
+</ul></li>
+</ul>
+</section>
+<section id="one-way-anova" class="slide level2 smaller">
+<h2>One-way ANOVA</h2>
+<ul>
+<li>ANOVA allows to compare population means for several independent samples
+<ul>
+<li>Can be seen as generalization of t-test for two independent samples</li>
+</ul></li>
+<li>Suppose we have <span class="math inline">k</span> populations of interest, with distribution <span class="math inline">N(\mu_k,\sigma^2)</span>
+<ul>
+<li>Note that the variance is the same for all populations</li>
+</ul></li>
+<li>Sample from population <span class="math inline">i</span> is denoted <span class="math inline">x_{i1}, x_{i2}, \ldots , x_{in_i}</span></li>
+</ul>
+<p><strong>Goal</strong>: Compare population means <span class="math inline">\mu_i</span></p>
+<p><strong>Hypothesis set:</strong> We test for a difference in means</p>
+<p><span class="math display">\begin{align*}
+H_0 \colon  &amp; \mu_1 = \mu_2 = \ldots = \mu_k \\
+H_1 \colon &amp; \mu_i \neq \mu_j \,\, \text{ for at least one pair } \, i \neq j
+\end{align*}</span></p>
+</section>
+<section id="constructing-a-test-statistic" class="slide level2 smaller">
+<h2>Constructing a Test statistic</h2>
+<ul>
+<li>We formulate a statistic which compares
+<ul>
+<li>variations within a single group to</li>
+<li>variations among the groups</li>
+</ul></li>
+<li>Denote the mean of the i-th sample by</li>
+</ul>
+<p><span class="math display">
+\overline{x}_i = \frac{1}{n_i} \sum_{j=1}^{n_i} x_{ij}
+</span></p>
+<ul>
+<li>Denote the <em>grand mean</em> of all samples by</li>
+</ul>
+<p><span class="math display">
+\overline{x} = \frac{1}{k} \sum_{i=1}^k  \overline{x}_i  =  \frac{1}{k} \sum_{i=1}^k \left( \frac{1}{n_i} \sum_{j=1}^{n_i} x_{ij} \right)
+</span></p>
+</section>
+<section id="section-24" class="slide level2 smaller">
+<h2></h2>
+<ul>
+<li>The <strong>total sum of squares</strong> is</li>
+</ul>
+<p><span class="math display">
+\mathop{\mathrm{TSS}}:= \sum_{i=1}^{k} \sum_{j=1}^{n_i} ( x_{ij} - \overline{x} )^2
+</span></p>
+<ul>
+<li><p><span class="math inline">\mathop{\mathrm{TSS}}</span> measures deviation of samples from the grand mean <span class="math inline">\overline{x}</span></p></li>
+<li><p>The <strong>Error Sum of Squares</strong> is</p></li>
+</ul>
+<p><span class="math display">
+\mathop{\mathrm{ESS}}= \sum_{i=1}^k \sum_{j=1}^{n_i} (x_{ij} - \overline{x}_i)^2
+</span></p>
+<ul>
+<li><p>The interior sum of <span class="math inline">\mathop{\mathrm{ESS}}</span> measures the variation within the i-th group</p></li>
+<li><p><span class="math inline">\mathop{\mathrm{ESS}}</span> is then a measure of the within-group variability</p></li>
+</ul>
+</section>
+<section id="section-25" class="slide level2 smaller">
+<h2></h2>
+<ul>
+<li>The <strong>Treatment Sum of Squares</strong> is</li>
+</ul>
+<p><span class="math display">
+\mathop{\mathrm{TrSS}}= \sum_{i=1}^{k} n_i ( \overline{x}_i - \overline{x})^2
+</span></p>
+<ul>
+<li><p><span class="math inline">\mathop{\mathrm{TrSS}}</span> compares the means for each group <span class="math inline">\overline{x}_i</span> with the grand mean <span class="math inline">\overline{x}</span></p></li>
+<li><p><span class="math inline">\mathop{\mathrm{TrSS}}</span> is then a measure of variability among the groups</p></li>
+<li><p>Note: <em>Treatment</em> comes from medical experiments, where the population mean models the effect of some treatment</p></li>
+</ul>
+<div id="Proposition*-5.1" class="Proposition">
+<p></p><details class="Proposition fbx-simplebox fbx-default" open=""><summary><strong>Proposition</strong></summary><div>The following decomposition holds<p></p>
+<p><span class="math display">
+\mathop{\mathrm{TSS}}= \mathop{\mathrm{ESS}}+ \mathop{\mathrm{TrSS}}
+</span></p>
+</div></details>
+</div>
+</section>
+<section id="the-anova-f-statistic" class="slide level2 smaller">
+<h2>The ANOVA F-statistic</h2>
+<div id="Definition*-5.2" class="Definition">
+<p></p><details class="Definition fbx-simplebox fbx-default" open=""><summary><strong>Definition</strong></summary><div>The F-statistic for the one-way ANOVA test is<p></p>
+<p><span class="math display">
+F = \frac{ \mathop{\mathrm{TrSS}}}{ k - 1  } \bigg/
+      \frac{ \mathop{\mathrm{ESS}}}{ n - k  }
+</span></p>
+</div></details>
+</div>
+<div id="Theorem*-5.3" class="Theorem">
+<p></p><details class="Theorem fbx-simplebox fbx-default" open=""><summary><strong>Theorem</strong></summary><div>Assume to have <span class="math inline">k</span> independent, i.i.d samples from <span class="math inline">N(\mu_i,\sigma^2)</span>. Then<p></p>
+<p><span class="math display">
+F \ \sim \ F_{k-1,n-k}
+</span></p>
+</div></details>
+</div>
+</section>
+<section id="section-26" class="slide level2 smaller">
+<h2></h2>
+<div style="font-size: 0.93em">
+<p><span class="math display">\begin{align*}
+\text{Case 1: } \, H_0 \, \text{ holds } &amp; \, \iff \,  \text{Population means are all the same}  \\[15pt]
+&amp; \, \iff \,  \text{i-th sample mean is similar to grand mean: } \, \overline{x}_i  \approx \overline{x}  \,, \quad \forall\, i\\[15pt]
+&amp; \, \iff \, \mathop{\mathrm{TrSS}}= \sum_{i=1}^{k} n_i ( \overline{x}_i - \overline{x})^2 \approx 0  \, \iff \, F = \frac{ \mathop{\mathrm{TrSS}}}{ k - 1  } \bigg/
+      \frac{ \mathop{\mathrm{ESS}}}{ n - k  }  \approx 0
+\end{align*}</span></p>
+<p><span class="math display">\begin{align*}
+\text{Case 2: } \, H_1 \, \text{ holds } &amp; \, \iff \,  \text{At least two population means are different}  \\[15pt]
+&amp; \, \iff \,  \text{At least two populations satisfy } \, (\overline{x}_i - \overline{x})^2 \gg 0  \\[15pt]
+&amp; \, \iff \, \mathop{\mathrm{TrSS}}= \sum_{i=1}^{k} n_i ( \overline{x}_i - \overline{x})^2 \gg 0  \, \iff \, F = \frac{ \mathop{\mathrm{TrSS}}}{ k - 1  } \bigg/
+      \frac{ \mathop{\mathrm{ESS}}}{ n - k  }  \gg 0
+\end{align*}</span></p>
+<p><strong>Therefore, the test is one-sided: <span class="math inline">\,\,</span> Reject <span class="math inline">H_0 \iff F \gg 0</span></strong></p>
+</div>
+</section>
+<section id="the-one-way-anova-f-test" class="slide level2 smaller">
+<h2>The one-way ANOVA F-test</h2>
+<p>Suppose given k <strong>independent</strong> samples</p>
+<ul>
+<li>Sample <span class="math inline">x_{i1}, \ldots, x_{in_i}</span> i.i.d from <span class="math inline">N(\mu_i,\sigma^2)</span></li>
+</ul>
+<p><strong>Goal</strong>: Compare population means <span class="math inline">\mu_i</span></p>
+<p><strong>Hypothesis set:</strong> We test for a difference in means</p>
+<p><span class="math display">\begin{align*}
+H_0 \colon  &amp; \mu_1 = \mu_2 = \ldots = \mu_k \\
+H_1 \colon &amp; \mu_i \neq \mu_j \,\, \text{ for at least one pair } \, i \neq j
+\end{align*}</span></p>
+</section>
+<section id="procedure-3-steps" class="slide level2 smaller">
+<h2>Procedure: 3 Steps</h2>
 <ol type="1">
-<li>Dummy variable regression</li>
-<li>Factors in R</li>
-<li>ANOVA models</li>
-<li>ANOVA F-test and regression</li>
-<li>Two-way ANOVA</li>
-<li>Two-way ANOVA with interactions</li>
-<li>ANCOVA</li>
+<li><strong>Calculation</strong>: Compute the samples mean and grand mean <span class="math display">
+\overline{x}_i = \frac{1}{n_i} \sum_{j=1}^{n_i} x_{ij} \,, \qquad
+\overline{x} = \frac{1}{k} \sum_{i=1}^k  \overline{x}_i  
+</span> Compute the <span class="math inline">\mathop{\mathrm{TrSS}}</span> and <span class="math inline">\mathop{\mathrm{ESS}}</span> <span class="math display">
+\mathop{\mathrm{TrSS}}= \sum_{i=1}^{k} n_i ( \overline{x}_i - \overline{x})^2 \,, \qquad \mathop{\mathrm{ESS}}= \sum_{i=1}^k \sum_{j=1}^{n_i} (x_{ij} - \overline{x}_i)^2
+</span> Compute the F-statistic <span class="math display">
+F = \frac{ \mathop{\mathrm{TrSS}}}{ k - 1  } \bigg/
+   \frac{ \mathop{\mathrm{ESS}}}{ n - k  }  \  \sim \ F_{k-1,n-k}
+</span></li>
 </ol>
+</section>
+<section id="section-27" class="slide level2 smaller">
+<h2></h2>
+<ol start="2" type="1">
+<li><strong>Statistical Tables or R</strong>: Find either
+<ul>
+<li>Critical value <span class="math inline">F^*</span> in <a href="files/Statistics_Tables.pdf">Table 3</a></li>
+<li>p-value in R</li>
+</ul></li>
+</ol>
+<p><br></p>
+<ol start="3" type="1">
+<li><strong>Interpretation</strong>: Reject <span class="math inline">H_0</span> when either <span class="math display">
+p &lt; 0.05 \qquad \text{ or } \qquad F \in \,\,\text{Rejection Region}
+</span></li>
+</ol>
+<table class="caption-top">
+<colgroup>
+<col style="width: 35%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Alternative</th>
+<th>Rejection Region</th>
+<th><span class="math inline">F^*</span></th>
+<th>p-value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\exists \,\, i \neq j</span> s.t. <span class="math inline">\mu_i \neq \mu_j</span></td>
+<td><span class="math inline">F &gt; F^*</span></td>
+<td><span class="math inline">F_{k-1,n-k}(0.05)</span></td>
+<td><span class="math inline">P(F_{k-1,n-k} &gt; F)</span></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="worked-example-calorie-consumption" class="slide level2 smaller">
+<h2>Worked Example: Calorie Consumption</h2>
+<ul>
+<li><p>Consider 15 subjects split at random into 3 groups</p></li>
+<li><p>Each group is assigned a month</p></li>
+<li><p>For each group we record the number of calories consumed on a randomly chosen day</p></li>
+<li><p>Assume that calories consumed are normally distributed with common variance, but maybe different means</p></li>
+</ul>
+<table class="caption-top">
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>May</strong></td>
+<td style="text-align: left;">2166</td>
+<td style="text-align: left;">1568</td>
+<td style="text-align: left;">2233</td>
+<td style="text-align: left;">1882</td>
+<td style="text-align: left;">2019</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Sep</strong></td>
+<td style="text-align: left;">2279</td>
+<td style="text-align: left;">2075</td>
+<td style="text-align: left;">2131</td>
+<td style="text-align: left;">2009</td>
+<td style="text-align: left;">1793</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Dec</strong></td>
+<td style="text-align: left;">2226</td>
+<td style="text-align: left;">2154</td>
+<td style="text-align: left;">2583</td>
+<td style="text-align: left;">2010</td>
+<td style="text-align: left;">2190</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Question:</strong> Is there a difference in calories consumed each month?</p>
+</section>
+<section id="boxplot-of-the-data" class="slide level2 smaller">
+<h2>Boxplot of the data</h2>
+<h3 id="to-visually-compare-sample-means-for-each-population">To visually compare sample means for each population</h3>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Enter the data</span></span>
+<span id="cb61-2"><a aria-hidden="true" tabindex="-1"></a>may <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2166</span>, <span class="dv">1568</span>, <span class="dv">2233</span>, <span class="dv">1882</span>, <span class="dv">2019</span>)</span>
+<span id="cb61-3"><a aria-hidden="true" tabindex="-1"></a>sep <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2279</span>, <span class="dv">2075</span>, <span class="dv">2131</span>, <span class="dv">2009</span>, <span class="dv">1793</span>)</span>
+<span id="cb61-4"><a aria-hidden="true" tabindex="-1"></a>dec <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2226</span>, <span class="dv">2154</span>, <span class="dv">2583</span>, <span class="dv">2010</span>, <span class="dv">2190</span>)</span>
+<span id="cb61-5"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-6"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Combine vectors into a list and label them</span></span>
+<span id="cb61-7"><a aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">May =</span> may, <span class="at">September =</span> sep, <span class="at">December =</span> dec)</span>
+<span id="cb61-8"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-9"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Create the boxplot</span></span>
+<span id="cb61-10"><a aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(data,</span>
+<span id="cb61-11"><a aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">"Boxplot of Calories Consumed each month"</span>,</span>
+<span id="cb61-12"><a aria-hidden="true" tabindex="-1"></a>        <span class="at">ylab =</span> <span class="st">"Daily calories consumed"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="section-28" class="slide level2 smaller">
+<h2></h2>
+
+<img data-src="lecture_11_files/figure-revealjs/unnamed-chunk-20-1.png" width="960" class="r-stretch"><ul>
+<li><p>It seems that consumption is, on average, higher in colder months</p></li>
+<li><p>We suspect population means are different: need one-way ANOVA F-test</p></li>
+</ul>
+</section>
+<section id="performing-the-one-way-anova-f-test" class="slide level2 smaller">
+<h2>Performing the one-way ANOVA F-test</h2>
+<ul>
+<li>We first compute sample means and grand mean <span class="math display">
+\overline{x}_i = \frac{1}{n_i} \sum_{j=1}^{n_i} x_{ij} \,, \qquad
+\overline{x} = \frac{1}{k} \sum_{i=1}^k  \overline{x}_i  
+</span></li>
+</ul>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Compute means for each sample</span></span>
+<span id="cb62-2"><a aria-hidden="true" tabindex="-1"></a>may.bar <span class="ot">&lt;-</span> <span class="fu">mean</span>(may)</span>
+<span id="cb62-3"><a aria-hidden="true" tabindex="-1"></a>sep.bar <span class="ot">&lt;-</span> <span class="fu">mean</span>(sep)</span>
+<span id="cb62-4"><a aria-hidden="true" tabindex="-1"></a>dec.bar <span class="ot">&lt;-</span> <span class="fu">mean</span>(dec)</span>
+<span id="cb62-5"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-6"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-7"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Compute grand mean</span></span>
+<span id="cb62-8"><a aria-hidden="true" tabindex="-1"></a>x.bar <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">c</span>(may, sep, dec))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="section-29" class="slide level2 smaller">
+<h2></h2>
+<ul>
+<li><p>There are 3 groups, each with <span class="math inline">n_i = 5</span> samples</p></li>
+<li><p>Compute the <span class="math inline">\mathop{\mathrm{TrSS}}</span> and <span class="math inline">\mathop{\mathrm{ESS}}</span> <span class="math display">
+\mathop{\mathrm{TrSS}}= \sum_{i=1}^{k} n_i ( \overline{x}_i - \overline{x})^2 = 5 \sum_{i=1}^{k} ( \overline{x}_i - \overline{x})^2 \,, \qquad \mathop{\mathrm{ESS}}= \sum_{i=1}^k \sum_{j=1}^{n_i} (x_{ij} - \overline{x}_i)^2
+</span></p></li>
+</ul>
+<div style="font-size: 0.92em">
+<div class="sourceCode" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Compute TrSS</span></span>
+<span id="cb63-2"><a aria-hidden="true" tabindex="-1"></a>TrSS <span class="ot">&lt;-</span> <span class="dv">5</span> <span class="sc">*</span> ( (may.bar <span class="sc">-</span> x.bar)<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> (sep.bar <span class="sc">-</span> x.bar)<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> (dec.bar <span class="sc">-</span> x.bar)<span class="sc">^</span><span class="dv">2</span> )</span>
+<span id="cb63-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Compute ESS</span></span>
+<span id="cb63-5"><a aria-hidden="true" tabindex="-1"></a>ESS <span class="ot">&lt;-</span> <span class="fu">sum</span>((may <span class="sc">-</span> may.bar)<span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span> <span class="fu">sum</span>((sep <span class="sc">-</span> sep.bar)<span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span> <span class="fu">sum</span>((dec <span class="sc">-</span> dec.bar)<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb63-6"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-7"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Print result</span></span>
+<span id="cb63-8"><a aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">TrSS =</span> TrSS, <span class="at">ESS =</span> ESS)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>    TrSS      ESS 
+174664.1 586719.6 </code></pre>
+</div>
+</div>
+</section>
+<section id="section-30" class="slide level2 smaller">
+<h2></h2>
+<ul>
+<li><p>We have <span class="math inline">k = 3</span> groups; <span class="math inline">\, n = 15</span> total samples</p></li>
+<li><p>Compute the F-statistic</p></li>
+</ul>
+<p><span class="math display">
+F = \frac{ \mathop{\mathrm{TrSS}}}{ k - 1  } \bigg/
+      \frac{ \mathop{\mathrm{ESS}}}{ n - k  }  \  \sim \ F_{k-1,n-k}
+</span></p>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Enter number of groups and sample size</span></span>
+<span id="cb65-2"><a aria-hidden="true" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="dv">3</span>; n <span class="ot">&lt;-</span> <span class="dv">15</span></span>
+<span id="cb65-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Compute F-statistic</span></span>
+<span id="cb65-5"><a aria-hidden="true" tabindex="-1"></a>F.obs <span class="ot">=</span> ( TrSS<span class="sc">/</span>(k<span class="dv">-1</span>) ) <span class="sc">/</span> ( ESS<span class="sc">/</span>(n<span class="sc">-</span>k) )</span>
+<span id="cb65-6"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-7"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Print</span></span>
+<span id="cb65-8"><a aria-hidden="true" tabindex="-1"></a>F.obs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.786177</code></pre>
+</div>
+</div>
+</section>
+<section id="section-31" class="slide level2 smaller">
+<h2></h2>
+<ul>
+<li>Compute the p-value</li>
+</ul>
+<p><span class="math display">
+p = P( F_{k-1,n-k} &gt; F ) = 1 - P( F_{k-1,n-k} \leq F )
+</span></p>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Compute the p-value</span></span>
+<span id="cb67-2"><a aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pf</span>(F.obs, <span class="at">df1 =</span> k<span class="dv">-1</span>, <span class="at">df2 =</span> n<span class="sc">-</span>k)</span>
+<span id="cb67-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb67-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Print</span></span>
+<span id="cb67-5"><a aria-hidden="true" tabindex="-1"></a>p</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.2093929</code></pre>
+</div>
+</div>
+<div style="font-size: 0.10em">
+<p><br></p>
+</div>
+<ul>
+<li><p>The p-value is <span class="math inline">p &gt; 0.05 \quad \implies \quad</span> Do not reject <span class="math inline">H_0</span></p></li>
+<li><p>No reason to believe that population means are different</p></li>
+<li><p>Conclusion: Despite the boxplot, the variation in average monthly calories consumption can be explained by chance only</p></li>
+</ul>
+<p><strong>Next: Use native R command for ANOVA test - Need Factors</strong></p>
 </section></section>
 <section>
-<section id="part-1-dummy-variable-regression" class="title-slide slide level1 center" data-background-color="#cc0164" data-visibility="uncounted">
-<h1>Part 1: <br>Dummy variable <br> regression</h1>
+<section id="part-5-factors-in-r" class="title-slide slide level1 center" data-background-color="#cc0164" data-visibility="uncounted">
+<h1>Part 5: <br>Factors in R</h1>
 <div class="footer">
 <div color="#cc0164">
 
 </div>
 </div>
+</section>
+<section id="factors-in-r" class="slide level2 smaller">
+<h2>Factors in R</h2>
+<ul>
+<li><p><strong>Factors:</strong> A way to represent discrete variables taking a finite number of values</p></li>
+<li><p><strong>Example:</strong> Suppose to have a vector of people’s names</p></li>
+</ul>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a aria-hidden="true" tabindex="-1"></a>firstname <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Liz"</span>, <span class="st">"Jolene"</span>, <span class="st">"Susan"</span>, <span class="st">"Boris"</span>, <span class="st">"Rochelle"</span>, <span class="st">"Tim"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li>Let us store the sex of each person as either
+<ul>
+<li>Numbers: <span class="math inline">\, \texttt{1}</span> represents female and <span class="math inline">\texttt{0}</span> represents male</li>
+<li>Strings: <span class="math inline">\, \texttt{"female"}</span> and <span class="math inline">\texttt{"male"}</span></li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a aria-hidden="true" tabindex="-1"></a>sex.num <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb70-2"><a aria-hidden="true" tabindex="-1"></a>sex.char <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"female"</span>, <span class="st">"female"</span>, <span class="st">"female"</span>, <span class="st">"male"</span>, <span class="st">"female"</span>, <span class="st">"male"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="the-factor-command" class="slide level2 smaller">
+<h2>The factor command</h2>
+<ul>
+<li>The <span class="math inline">\, \texttt{factor}</span> command turns a vector into a factor</li>
+</ul>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a aria-hidden="true" tabindex="-1"></a>sex.num <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb71-2"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb71-3"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Turn sex.num into a factor</span></span>
+<span id="cb71-4"><a aria-hidden="true" tabindex="-1"></a>sex.num.factor <span class="ot">&lt;-</span> <span class="fu">factor</span>(sex.num)</span>
+<span id="cb71-5"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb71-6"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Print the factor obtained</span></span>
+<span id="cb71-7"><a aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(sex.num.factor)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1 1 1 0 1 0
+Levels: 0 1</code></pre>
+</div>
+</div>
+<div style="font-size: 0.20em">
+<p><br></p>
+</div>
+<ul>
+<li><p>The factor <span class="math inline">\, \texttt{sex.num.factor}</span> looks like the original vector <span class="math inline">\, \texttt{sex.num}</span></p></li>
+<li><p>The difference is that the factor <span class="math inline">\, \texttt{sex.num.factor}</span> contains <strong>levels</strong></p>
+<ul>
+<li>In this case the levels are <span class="math inline">\, \texttt{0}</span> and <span class="math inline">\, \texttt{1}</span></li>
+<li>Levels are all the (discrete) values assumed by the vector <span class="math inline">\, \texttt{sex.num}</span></li>
+</ul></li>
+</ul>
+</section>
+<section id="the-factor-command-1" class="slide level2 smaller">
+<h2>The factor command</h2>
+<ul>
+<li>In the same way we can convert <span class="math inline">\, \texttt{sex.char}</span> into a factor</li>
+</ul>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a aria-hidden="true" tabindex="-1"></a>sex.char <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"female"</span>, <span class="st">"female"</span>, <span class="st">"female"</span>, <span class="st">"male"</span>, <span class="st">"female"</span>, <span class="st">"male"</span>)</span>
+<span id="cb73-2"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-3"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Turn sex.char into a factor</span></span>
+<span id="cb73-4"><a aria-hidden="true" tabindex="-1"></a>sex.char.factor <span class="ot">&lt;-</span> <span class="fu">factor</span>(sex.char)</span>
+<span id="cb73-5"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-6"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Print the factor obtained</span></span>
+<span id="cb73-7"><a aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(sex.char.factor)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] female female female male   female male  
+Levels: female male</code></pre>
+</div>
+</div>
+<div style="font-size: 0.20em">
+<p><br></p>
+</div>
+<ul>
+<li><p>Again, the factor <span class="math inline">\, \texttt{sex.char.factor}</span> looks like the original vector <span class="math inline">\, \texttt{sex.char}</span></p></li>
+<li><p>Again, the difference is that the factor <span class="math inline">\, \texttt{sex.char.factor}</span> contains <strong>levels</strong></p>
+<ul>
+<li>In this case the levels are strings <span class="math inline">\, \texttt{"female"}</span> and <span class="math inline">\, \texttt{"male"}</span></li>
+<li>These 2 strings are all the values assumed by the vector <span class="math inline">\, \texttt{sex.char}</span></li>
+</ul></li>
+</ul>
+</section>
+<section id="subsetting-factors" class="slide level2 smaller">
+<h2>Subsetting factors</h2>
+<ul>
+<li>Factors can be subsetted exactly like vectors</li>
+</ul>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a aria-hidden="true" tabindex="-1"></a>sex.num.factor</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1 1 1 0 1 0
+Levels: 0 1</code></pre>
+</div>
+</div>
+<div style="font-size: 0.30em">
+<p><br></p>
+</div>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a aria-hidden="true" tabindex="-1"></a>sex.num.factor[<span class="dv">2</span><span class="sc">:</span><span class="dv">5</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1 1 0 1
+Levels: 0 1</code></pre>
+</div>
+</div>
+</section>
+<section id="subsetting-factors-1" class="slide level2 smaller">
+<h2>Subsetting factors</h2>
+<ul>
+<li><strong>Warning:</strong> After subsetting a factor, all defined levels are still stored
+<ul>
+<li>This is true even if some of the levels are no longer represented in the subsetted factor</li>
+</ul></li>
+</ul>
+<div style="font-size: 0.30em">
+<p><br></p>
+</div>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a aria-hidden="true" tabindex="-1"></a>sex.char.factor</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] female female female male   female male  
+Levels: female male</code></pre>
+</div>
+</div>
+<div style="font-size: 0.30em">
+<p><br></p>
+</div>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a aria-hidden="true" tabindex="-1"></a>sex.char.factor[<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="dv">5</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] female female female female
+Levels: female male</code></pre>
+</div>
+</div>
+<div style="font-size: 0.30em">
+<p><br></p>
+</div>
+<ul>
+<li><p>The levels of <code>sex.char.factor[c(1:3, 5)]</code> are still <span class="math inline">\, \texttt{"female"}</span> and <span class="math inline">\, \texttt{"male"}</span></p></li>
+<li><p>This is despite <code>sex.char.factor[c(1:3, 5)]</code> only containing <span class="math inline">\, \texttt{"female"}</span></p></li>
+</ul>
+</section>
+<section id="the-levels-function" class="slide level2 smaller">
+<h2>The levels function</h2>
+<ul>
+<li>The levels of a factor can be extracted with the function <span class="math inline">\, \texttt{levels}</span></li>
+</ul>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(sex.char.factor)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "female" "male"  </code></pre>
+</div>
+</div>
+<div style="font-size: 0.30em">
+<p><br></p>
+</div>
+<ul>
+<li><strong>Note:</strong> Levels of a factor are always stored as <strong>strings</strong>, even if originally numbers</li>
+</ul>
+<div style="font-size: 0.10em">
+<p><br></p>
+</div>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(sex.num.factor)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "0" "1"</code></pre>
+</div>
+</div>
+<div style="font-size: 0.10em">
+<p><br></p>
+</div>
+<ul>
+<li><p>The levels of <span class="math inline">\, \texttt{sex.num.factor}</span> are the strings <span class="math inline">\, \texttt{"0"}</span> and <span class="math inline">\, \texttt{"1"}</span></p></li>
+<li><p>This is despite the original vector <span class="math inline">\, \texttt{sex.num}</span> being numeric</p></li>
+<li><p>The command <span class="math inline">\, \texttt{factor}</span> converted numeric levels into strings</p></li>
+</ul>
+</section>
+<section id="relabelling-a-factor" class="slide level2 smaller">
+<h2>Relabelling a factor</h2>
+<ul>
+<li><p>The function <span class="math inline">\, \texttt{levels}</span> can also be used to <strong>relabel</strong> factors</p></li>
+<li><p>For example we can relabel</p>
+<ul>
+<li><span class="math inline">\, \texttt{female}</span> into <span class="math inline">\, \texttt{f}</span></li>
+<li><span class="math inline">\, \texttt{male}</span> into <span class="math inline">\, \texttt{m}</span></li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb87-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Relabel levels of sex.char.factor</span></span>
+<span id="cb87-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(sex.char.factor) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"f"</span>, <span class="st">"m"</span>)</span>
+<span id="cb87-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb87-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Print relabelled factor</span></span>
+<span id="cb87-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(sex.char.factor)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] f f f m f m
+Levels: f m</code></pre>
+</div>
+</div>
+</section>
+<section id="logical-subsetting-of-factors" class="slide level2 smaller">
+<h2>Logical subsetting of factors</h2>
+<ul>
+<li><p>Logical subsetting is done exactly like in the case of vectors</p></li>
+<li><p><strong>Important:</strong> Need to remember that levels are always <strong>strings</strong></p></li>
+<li><p><strong>Example:</strong> To identify all the men in <span class="math inline">\, \texttt{sex.num.factor}</span> we do</p></li>
+</ul>
+<div style="font-size: 0.20em">
+<p><br></p>
+</div>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a aria-hidden="true" tabindex="-1"></a>sex.num.factor <span class="sc">==</span> <span class="st">"0"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE FALSE FALSE  TRUE FALSE  TRUE</code></pre>
+</div>
+</div>
+<div style="font-size: 0.20em">
+<p><br></p>
+</div>
+<ul>
+<li>To retrieve names of men stored in <span class="math inline">\, \texttt{firstname}</span> use logical subsetting</li>
+</ul>
+<div style="font-size: 0.20em">
+<p><br></p>
+</div>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a aria-hidden="true" tabindex="-1"></a>firstname <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Liz"</span>, <span class="st">"Jolene"</span>, <span class="st">"Susan"</span>, <span class="st">"Boris"</span>, <span class="st">"Rochelle"</span>, <span class="st">"Tim"</span>)</span>
+<span id="cb91-2"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-3"><a aria-hidden="true" tabindex="-1"></a>firstname[ sex.num.factor <span class="sc">==</span> <span class="st">"0"</span> ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Boris" "Tim"  </code></pre>
+</div>
+</div>
+</section></section>
+<section>
+<section id="part-6-anova-with-aov" class="title-slide slide level1 center" data-background-color="#cc0164" data-visibility="uncounted">
+<h1>Part 6: <br>ANOVA with aov</h1>
+<div class="footer">
+<div color="#cc0164">
+
+</div>
+</div>
+</section>
+<section id="anova-with-aov" class="slide level2 smaller">
+<h2>Anova with aov</h2>
+<ul>
+<li>We have conducted the one-way ANOVA F-test by hand
+<ul>
+<li>This is cumbersome with large datasets with many populations</li>
+<li>The quick way in R is to use the command <code>aov</code> (<em>analysis of variance</em>)</li>
+</ul></li>
+</ul>
+</section>
+<section id="method" class="slide level2 smaller">
+<h2>Method</h2>
+<ul>
+<li><p>Place all the samples into one long vector <code>values</code></p></li>
+<li><p>Create a vector with corresponding group labels <code>ind</code></p></li>
+<li><p>Turn <code>ind</code> into a factor</p></li>
+<li><p>Combine <code>values</code> and <code>ind</code> into a dataframe <code>d</code></p></li>
+<li><p>Therefore, dataframe <code>d</code> contains:</p>
+<ul>
+<li>First Column: <em>values</em> for each sample</li>
+<li>Second Column: <em>ind</em>, indicating the group the corresponding sample is from</li>
+</ul></li>
+<li><p>The ANOVA F-test is performed with</p></li>
+</ul>
+<p><span class="math display">
+\text{aov(values } \sim \text{ ind, data = d)}
+</span></p>
+<ul>
+<li><code>values ~ ind</code> is the formula coupling values to the corresponding group</li>
+</ul>
+</section>
+<section id="example-1-calorie-consumption" class="slide level2 smaller">
+<h2>Example 1: Calorie Consumption</h2>
+<ul>
+<li><p>Recall: we have 15 subjects split at random into 3 groups</p></li>
+<li><p>Each group is assigned a month</p></li>
+<li><p>For each group we record the number of calories consumed on a randomly chosen day</p></li>
+<li><p>Assume that calories consumed are normally distributed with common variance, but maybe different means</p></li>
+</ul>
+<table class="caption-top">
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>May</strong></td>
+<td style="text-align: left;">2166</td>
+<td style="text-align: left;">1568</td>
+<td style="text-align: left;">2233</td>
+<td style="text-align: left;">1882</td>
+<td style="text-align: left;">2019</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Sep</strong></td>
+<td style="text-align: left;">2279</td>
+<td style="text-align: left;">2075</td>
+<td style="text-align: left;">2131</td>
+<td style="text-align: left;">2009</td>
+<td style="text-align: left;">1793</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Dec</strong></td>
+<td style="text-align: left;">2226</td>
+<td style="text-align: left;">2154</td>
+<td style="text-align: left;">2583</td>
+<td style="text-align: left;">2010</td>
+<td style="text-align: left;">2190</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Question:</strong> Is there a difference in calories consumed each month?</p>
+</section>
+<section id="preparing-the-data" class="slide level2 smaller">
+<h2>Preparing the data</h2>
+<div style="font-size: 0.89em">
+<div class="columns">
+<div class="column" style="width:60%;">
+<div class="sourceCode" id="cb93"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb93-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Enter the data</span></span>
+<span id="cb93-2"><a aria-hidden="true" tabindex="-1"></a>may <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2166</span>, <span class="dv">1568</span>, <span class="dv">2233</span>, <span class="dv">1882</span>, <span class="dv">2019</span>)</span>
+<span id="cb93-3"><a aria-hidden="true" tabindex="-1"></a>sep <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2279</span>, <span class="dv">2075</span>, <span class="dv">2131</span>, <span class="dv">2009</span>, <span class="dv">1793</span>)</span>
+<span id="cb93-4"><a aria-hidden="true" tabindex="-1"></a>dec <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2226</span>, <span class="dv">2154</span>, <span class="dv">2583</span>, <span class="dv">2010</span>, <span class="dv">2190</span>)</span>
+<span id="cb93-5"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb93-6"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Combine values into one long vector</span></span>
+<span id="cb93-7"><a aria-hidden="true" tabindex="-1"></a>values <span class="ot">&lt;-</span> <span class="fu">c</span>(may, sep, dec)</span>
+<span id="cb93-8"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb93-9"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Create vector of group labels</span></span>
+<span id="cb93-10"><a aria-hidden="true" tabindex="-1"></a>ind <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"May"</span>, <span class="st">"Sep"</span>, <span class="st">"Dec"</span>), <span class="at">each =</span> <span class="dv">5</span>)</span>
+<span id="cb93-11"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb93-12"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Turn vector of group labels into a factor</span></span>
+<span id="cb93-13"><a aria-hidden="true" tabindex="-1"></a>ind <span class="ot">&lt;-</span> <span class="fu">factor</span>(ind)</span>
+<span id="cb93-14"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb93-15"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Combine values and labels into a data frame</span></span>
+<span id="cb93-16"><a aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(values, ind)</span>
+<span id="cb93-17"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb93-18"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Print d for visualization</span></span>
+<span id="cb93-19"><a aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(d)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div><div class="column" style="width:40%;">
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>   values ind
+1    2166 May
+2    1568 May
+3    2233 May
+4    1882 May
+5    2019 May
+6    2279 Sep
+7    2075 Sep
+8    2131 Sep
+9    2009 Sep
+10   1793 Sep
+11   2226 Dec
+12   2154 Dec
+13   2583 Dec
+14   2010 Dec
+15   2190 Dec</code></pre>
+</div>
+</div>
+</div></div>
+</div>
+</section>
+<section id="boxplot-of-the-data-1" class="slide level2 smaller">
+<h2>Boxplot of the data</h2>
+<ul>
+<li><p>Previously, we constructed a boxplot by placing the data into a list</p></li>
+<li><p>Now that we have a dataframe, the commands are much simpler:</p>
+<ul>
+<li>Pass the dataframe <code>d</code> to <code>boxplot</code></li>
+<li>Pass the formula <code>values ~ ind</code></li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb95-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(values <span class="sc">~</span> ind, <span class="at">data =</span> d,</span>
+<span id="cb95-2"><a aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">"Boxplot of Calories Consumed each month"</span>,</span>
+<span id="cb95-3"><a aria-hidden="true" tabindex="-1"></a>        <span class="at">ylab =</span> <span class="st">"Daily calories consumed"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="section-32" class="slide level2 smaller">
+<h2></h2>
+
+<img data-src="lecture_11_files/figure-revealjs/unnamed-chunk-36-1.png" width="960" class="r-stretch"><ul>
+<li><p>Already observed: Consumption is, on average, higher in colder months</p></li>
+<li><p>We suspect population means are different: need one-way ANOVA F-test</p></li>
+<li><p>We have already conducted the test by hand. We now use <code>aov</code></p></li>
+</ul>
+</section>
+<section id="calling-aov" class="slide level2 smaller">
+<h2>Calling aov</h2>
+<ul>
+<li>Data is stored in dataframe <code>d</code>
+<ul>
+<li>1st column <code>values</code> contains calories consumed</li>
+<li>2nd column <code>ind</code> contains month labels</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb96-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Perform ANOVA F-test for difference in means</span></span>
+<span id="cb96-2"><a aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">aov</span>(values <span class="sc">~</span> ind, <span class="at">data =</span> d)</span>
+<span id="cb96-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb96-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Print summary</span></span>
+<span id="cb96-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>            Df Sum Sq Mean Sq F value Pr(&gt;F)
+ind          2 174664   87332   1.786  0.209
+Residuals   12 586720   48893               </code></pre>
+</div>
+</div>
+<ul>
+<li><p>As obtained with hand calculation, the p-value is <span class="math inline">p = 0.209</span></p></li>
+<li><p><span class="math inline">p &gt; 0.05 \implies</span> Do not reject <span class="math inline">H_0</span>: Population means are similar</p></li>
+</ul>
+</section>
+<section id="example-2-anova-vs-two-sample-t-test" class="slide level2 smaller">
+<h2>Example 2: ANOVA vs Two-sample t-test</h2>
+<p>When only 2 groups are present, they coincide:</p>
+<ul>
+<li><p>ANOVA F-test for difference in means</p></li>
+<li><p>Two-sample t-test for difference in means<br>
+(with assumption of equal variance)</p></li>
+</ul>
+<p><strong>Example:</strong> Let us compare calories data only for the months of May and Dec</p>
+<p><br></p>
+<table class="caption-top">
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>May</strong></td>
+<td style="text-align: left;">2166</td>
+<td style="text-align: left;">1568</td>
+<td style="text-align: left;">2233</td>
+<td style="text-align: left;">1882</td>
+<td style="text-align: left;">2019</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Dec</strong></td>
+<td style="text-align: left;">2226</td>
+<td style="text-align: left;">2154</td>
+<td style="text-align: left;">2583</td>
+<td style="text-align: left;">2010</td>
+<td style="text-align: left;">2190</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="section-33" class="slide level2 smaller">
+<h2></h2>
+<ul>
+<li>First, let us conduct a two-sample t-test for difference in means</li>
+</ul>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb98-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Enter the data</span></span>
+<span id="cb98-2"><a aria-hidden="true" tabindex="-1"></a>may <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2166</span>, <span class="dv">1568</span>, <span class="dv">2233</span>, <span class="dv">1882</span>, <span class="dv">2019</span>)</span>
+<span id="cb98-3"><a aria-hidden="true" tabindex="-1"></a>dec <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2226</span>, <span class="dv">2154</span>, <span class="dv">2583</span>, <span class="dv">2010</span>, <span class="dv">2190</span>)</span>
+<span id="cb98-4"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb98-5"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Two-sample t-test for difference in means</span></span>
+<span id="cb98-6"><a aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(may, dec, <span class="at">var.equal =</span> T)<span class="sc">$</span>p.value</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.1259272</code></pre>
+</div>
+</div>
+<p><br></p>
+<ul>
+<li><p>The p-value is <span class="math inline">p \approx 0.126</span></p></li>
+<li><p>Since <span class="math inline">p &gt; 0.05</span>, we do not reject <span class="math inline">H_0</span></p></li>
+<li><p>In particular, we conclude that populations means are similar:</p>
+<ul>
+<li>Calories consumed in May and December do not differ on average</li>
+</ul></li>
+</ul>
+</section>
+<section id="section-34" class="slide level2 smaller">
+<h2></h2>
+<div style="font-size: 0.92em">
+<ul>
+<li>Let us now compare the two population means with the ANOVA F-test</li>
+</ul>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb100-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Combine values into one long vector</span></span>
+<span id="cb100-2"><a aria-hidden="true" tabindex="-1"></a>values <span class="ot">&lt;-</span> <span class="fu">c</span>(may, dec)</span>
+<span id="cb100-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb100-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Create factor of group labels</span></span>
+<span id="cb100-5"><a aria-hidden="true" tabindex="-1"></a>ind <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"May"</span>, <span class="st">"Dec"</span>), <span class="at">each =</span> <span class="dv">5</span>))</span>
+<span id="cb100-6"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb100-7"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Combine values and labels into a data frame</span></span>
+<span id="cb100-8"><a aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(values, ind)</span>
+<span id="cb100-9"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb100-10"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Perform ANOVA F-test</span></span>
+<span id="cb100-11"><a aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">aov</span>(values <span class="sc">~</span> ind, <span class="at">data =</span> d)</span>
+<span id="cb100-12"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb100-13"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Print summary</span></span>
+<span id="cb100-14"><a aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>            Df Sum Sq Mean Sq F value Pr(&gt;F)
+ind          1 167702  167702   2.919  0.126
+Residuals    8 459636   57455               </code></pre>
+</div>
+</div>
+<ul>
+<li>The p-values <span class="math inline">p \approx 0.126</span> coincide! ANOVA F-test and Two-sample t-test are equivalent</li>
+</ul>
+</div>
+</section></section>
+<section>
+<section id="part-1-dummy-variable-regression" class="title-slide slide level1 center" data-background-color="#cc0164" data-visibility="uncounted">
+<h1>Part 1: <br>Dummy variable <br> regression</h1>
 <div class="footer">
 <div color="#cc0164">
 
@@ -3028,7 +3866,7 @@ percent ~ year
 </div>
 </div>
 </section>
-<section id="section-24" class="slide level2 smaller">
+<section id="section-35" class="slide level2 smaller">
 <h2></h2>
 <div style="font-size: 0.90em">
 <ul>
@@ -3166,7 +4004,7 @@ Y = \beta_0 \cdot (1) + \beta_1 D_1 + \beta_2 D_2 + \beta_3 D_3 + \beta_4 D_4   
 <li>In the above <span class="math inline">Y</span> is the quartely <em>Fridge sales data</em></li>
 </ul>
 </section>
-<section id="section-25" class="slide level2 smaller">
+<section id="section-36" class="slide level2 smaller">
 <h2></h2>
 <ul>
 <li>Each data entry belongs to exactly one Quarter, so that</li>
@@ -3215,7 +4053,7 @@ D_2 + D_3 + D_4 \not\equiv 1
 <li>This way we <strong>avoid</strong> Multicollinearity <span class="math inline">\quad \implies \quad</span> <strong>no trap!</strong></li>
 </ul>
 </section>
-<section id="section-26" class="slide level2 smaller">
+<section id="section-37" class="slide level2 smaller">
 <h2></h2>
 <ul>
 <li><strong>Question:</strong> How do we interpret the coefficients in the model</li>
@@ -3237,7 +4075,7 @@ Y &amp; = \beta_1 \cdot ( D_1 + D_2 + D_3 + D_4 ) + \beta_2 D_2 + \beta_3 D_3 + 
 &amp; = \beta_1 D_1 + (\beta_1 + \beta_2) D_2 + (\beta_1 + \beta_3) D_3 + (\beta_1 + \beta_4 ) D_4 + \varepsilon
 \end{align*}</span></p>
 </section>
-<section id="section-27" class="slide level2 smaller">
+<section id="section-38" class="slide level2 smaller">
 <h2></h2>
 <ul>
 <li>Therefore the regression coefficients are such that
@@ -3325,7 +4163,7 @@ D_1 + D_2 + \ldots + D_m = 1
 Y = \beta_1 D_1 + (\beta_1 + \beta_2) D_2 + \ldots + (\beta_1 + \beta_m) D_m + \varepsilon
 </span></p>
 </section>
-<section id="section-28" class="slide level2 smaller">
+<section id="section-39" class="slide level2 smaller">
 <h2></h2>
 <p><strong>Conclusion:</strong> When fitting regression model with dummy variables</p>
 <ul>
@@ -3333,224 +4171,6 @@ Y = \beta_1 D_1 + (\beta_1 + \beta_2) D_2 + \ldots + (\beta_1 + \beta_m) D_m + \
 <li><p>Increase for successive dummy variables <span class="math inline">D_i</span> with <span class="math inline">i &gt; 1</span> is computed by <span class="math inline">\beta_1 + \beta_i</span></p></li>
 </ul>
 <p><strong>Intercept coefficient acts as base reference point</strong></p>
-</section></section>
-<section>
-<section id="part-2-factors-in-r" class="title-slide slide level1 center" data-background-color="#cc0164" data-visibility="uncounted">
-<h1>Part 2: <br>Factors in R</h1>
-<div class="footer">
-<div color="#cc0164">
-
-</div>
-</div>
-<div class="footer">
-<div color="#cc0164">
-
-</div>
-</div>
-</section>
-<section id="factors-in-r" class="slide level2 smaller">
-<h2>Factors in R</h2>
-<ul>
-<li><p>Before proceeding we need to introduce <strong>factors</strong> in R</p></li>
-<li><p><strong>Factors:</strong> A way to represent discrete variables taking a finite number of values</p></li>
-<li><p><strong>Example:</strong> Suppose to have a vector of people’s names</p></li>
-</ul>
-<div class="sourceCode" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a aria-hidden="true" tabindex="-1"></a>firstname <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Liz"</span>, <span class="st">"Jolene"</span>, <span class="st">"Susan"</span>, <span class="st">"Boris"</span>, <span class="st">"Rochelle"</span>, <span class="st">"Tim"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<ul>
-<li>Let us store the sex of each person as either
-<ul>
-<li>Numbers: <span class="math inline">\, \texttt{1}</span> represents female and <span class="math inline">\texttt{0}</span> represents male</li>
-<li>Strings: <span class="math inline">\, \texttt{"female"}</span> and <span class="math inline">\texttt{"male"}</span></li>
-</ul></li>
-</ul>
-<div class="sourceCode" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a aria-hidden="true" tabindex="-1"></a>sex.num <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
-<span id="cb63-2"><a aria-hidden="true" tabindex="-1"></a>sex.char <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"female"</span>, <span class="st">"female"</span>, <span class="st">"female"</span>, <span class="st">"male"</span>, <span class="st">"female"</span>, <span class="st">"male"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-<section id="the-factor-command" class="slide level2 smaller">
-<h2>The factor command</h2>
-<ul>
-<li>The <span class="math inline">\, \texttt{factor}</span> command turns a vector into a factor</li>
-</ul>
-<div class="sourceCode" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Turn sex.num into a factor</span></span>
-<span id="cb64-2"><a aria-hidden="true" tabindex="-1"></a>sex.num.factor <span class="ot">&lt;-</span> <span class="fu">factor</span>(sex.num)</span>
-<span id="cb64-3"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb64-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Print the factor obtained</span></span>
-<span id="cb64-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(sex.num.factor)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 1 1 1 0 1 0
-Levels: 0 1</code></pre>
-</div>
-</div>
-<div style="font-size: 0.20em">
-<p><br></p>
-</div>
-<ul>
-<li><p>The factor <span class="math inline">\, \texttt{sex.num.factor}</span> looks like the original vector <span class="math inline">\, \texttt{sex.num}</span></p></li>
-<li><p>The difference is that the factor <span class="math inline">\, \texttt{sex.num.factor}</span> contains <strong>levels</strong></p>
-<ul>
-<li>In this case the levels are <span class="math inline">\, \texttt{0}</span> and <span class="math inline">\, \texttt{1}</span></li>
-<li>Levels are all the (discrete) values assumed by the vector <span class="math inline">\, \texttt{sex.num}</span></li>
-</ul></li>
-</ul>
-</section>
-<section id="the-factor-command-1" class="slide level2 smaller">
-<h2>The factor command</h2>
-<ul>
-<li>In the same way we can convert <span class="math inline">\, \texttt{sex.char}</span> into a factor</li>
-</ul>
-<div class="sourceCode" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Turn sex.char into a factor</span></span>
-<span id="cb66-2"><a aria-hidden="true" tabindex="-1"></a>sex.char.factor <span class="ot">&lt;-</span> <span class="fu">factor</span>(sex.char)</span>
-<span id="cb66-3"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb66-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Print the factor obtained</span></span>
-<span id="cb66-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(sex.char.factor)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] female female female male   female male  
-Levels: female male</code></pre>
-</div>
-</div>
-<div style="font-size: 0.20em">
-<p><br></p>
-</div>
-<ul>
-<li><p>Again, the factor <span class="math inline">\, \texttt{sex.char.factor}</span> looks like the original vector <span class="math inline">\, \texttt{sex.char}</span></p></li>
-<li><p>Again, the difference is that the factor <span class="math inline">\, \texttt{sex.char.factor}</span> contains <strong>levels</strong></p>
-<ul>
-<li>In this case the levels are strings <span class="math inline">\, \texttt{"female"}</span> and <span class="math inline">\, \texttt{"male"}</span></li>
-<li>These 2 strings are all the values assumed by the vector <span class="math inline">\, \texttt{sex.char}</span></li>
-</ul></li>
-</ul>
-</section>
-<section id="subsetting-factors" class="slide level2 smaller">
-<h2>Subsetting factors</h2>
-<ul>
-<li>Factors can be subset exactly like vectors</li>
-</ul>
-<div class="sourceCode" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a aria-hidden="true" tabindex="-1"></a>sex.num.factor[<span class="dv">2</span><span class="sc">:</span><span class="dv">5</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 1 1 0 1
-Levels: 0 1</code></pre>
-</div>
-</div>
-</section>
-<section id="subsetting-factors-1" class="slide level2 smaller">
-<h2>Subsetting factors</h2>
-<ul>
-<li><strong>Warning:</strong> After subsetting a factor, all defined levels are still stored
-<ul>
-<li>This is true even if some of the levels are no longer represented in the subsetted factor</li>
-</ul></li>
-</ul>
-<div style="font-size: 0.30em">
-<p><br></p>
-</div>
-<div class="sourceCode" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a aria-hidden="true" tabindex="-1"></a>subset.factor <span class="ot">&lt;-</span> sex.char.factor[<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="dv">5</span>)]</span>
-<span id="cb70-2"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb70-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(subset.factor)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] female female female female
-Levels: female male</code></pre>
-</div>
-</div>
-<div style="font-size: 0.30em">
-<p><br></p>
-</div>
-<ul>
-<li><p>The levels of <span class="math inline">\, \texttt{subset.factor}</span> are still <span class="math inline">\, \texttt{"female"}</span> and <span class="math inline">\, \texttt{"male"}</span></p></li>
-<li><p>This is despite <span class="math inline">\, \texttt{subset.factor}</span> only containing <span class="math inline">\, \texttt{"female"}</span></p></li>
-</ul>
-</section>
-<section id="the-levels-function" class="slide level2 smaller">
-<h2>The levels function</h2>
-<ul>
-<li>The levels of a factor can be extracted with the function <span class="math inline">\, \texttt{levels}</span></li>
-</ul>
-<div class="sourceCode" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(sex.char.factor)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "0" "1"</code></pre>
-</div>
-</div>
-<div style="font-size: 0.30em">
-<p><br></p>
-</div>
-<ul>
-<li><strong>Note:</strong> Levels of a factor are always stored as <strong>strings</strong>, even if originally numbers</li>
-</ul>
-<div style="font-size: 0.10em">
-<p><br></p>
-</div>
-<div class="sourceCode" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(sex.num.factor)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "0" "1"</code></pre>
-</div>
-</div>
-<div style="font-size: 0.10em">
-<p><br></p>
-</div>
-<ul>
-<li><p>The levels of <span class="math inline">\, \texttt{sex.num.factor}</span> are the strings <span class="math inline">\, \texttt{"0"}</span> and <span class="math inline">\, \texttt{"1"}</span></p></li>
-<li><p>This is despite the original vector <span class="math inline">\, \texttt{sex.num}</span> being numeric</p></li>
-<li><p>The command <span class="math inline">\, \texttt{factor}</span> converted numeric levels into strings</p></li>
-</ul>
-</section>
-<section id="relabelling-a-factor" class="slide level2 smaller">
-<h2>Relabelling a factor</h2>
-<ul>
-<li><p>The function <span class="math inline">\, \texttt{levels}</span> can also be used to <strong>relabel</strong> factors</p></li>
-<li><p>For example we can relabel</p>
-<ul>
-<li><span class="math inline">\, \texttt{female}</span> into <span class="math inline">\, \texttt{f}</span></li>
-<li><span class="math inline">\, \texttt{male}</span> into <span class="math inline">\, \texttt{m}</span></li>
-</ul></li>
-</ul>
-<div class="sourceCode" id="cb76"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Relabel levels of sex.char.factor</span></span>
-<span id="cb76-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(sex.char.factor) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"f"</span>, <span class="st">"m"</span>)</span>
-<span id="cb76-3"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb76-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Print relabelled factor</span></span>
-<span id="cb76-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(sex.char.factor)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] f f f m f m
-Levels: f m</code></pre>
-</div>
-</div>
-</section>
-<section id="logical-subsetting-of-factors" class="slide level2 smaller">
-<h2>Logical subsetting of factors</h2>
-<ul>
-<li><p>Logical subsetting is done exactly like in the case of vectors</p></li>
-<li><p><strong>Important:</strong> Need to remember that levels are always <strong>strings</strong></p></li>
-<li><p><strong>Example:</strong> To identify all the men in <span class="math inline">\, \texttt{sex.num.factor}</span> we do</p></li>
-</ul>
-<div style="font-size: 0.20em">
-<p><br></p>
-</div>
-<div class="sourceCode" id="cb78"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a aria-hidden="true" tabindex="-1"></a>sex.num.factor <span class="sc">==</span> <span class="st">"0"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] FALSE FALSE FALSE  TRUE FALSE  TRUE</code></pre>
-</div>
-</div>
-<div style="font-size: 0.20em">
-<p><br></p>
-</div>
-<ul>
-<li>To retrieve names of men stored in <span class="math inline">\, \texttt{firstname}</span> use logical subsetting</li>
-</ul>
-<div style="font-size: 0.20em">
-<p><br></p>
-</div>
-<div class="sourceCode" id="cb80"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a aria-hidden="true" tabindex="-1"></a>firstname[ sex.num.factor <span class="sc">==</span> <span class="st">"0"</span> ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "Boris" "Tim"  </code></pre>
-</div>
-</div>
 </section></section>
 <section>
 <section id="part-3-anova-models" class="title-slide slide level1 center" data-background-color="#cc0164" data-visibility="uncounted">
@@ -3596,7 +4216,7 @@ Levels: f m</code></pre>
 </ol></li>
 </ul>
 </section>
-<section id="section-29" class="slide level2 smaller">
+<section id="section-40" class="slide level2 smaller">
 <h2></h2>
 <ul>
 <li><p>Code for this example is available here <a href="datasets/anova.R">anova.R</a></p></li>
@@ -3630,18 +4250,18 @@ Levels: f m</code></pre>
 <ul>
 <li>We read the data into a data-frame as usual</li>
 </ul>
-<div class="sourceCode" id="cb83"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Load dataset on Fridge Sales</span></span>
-<span id="cb83-2"><a aria-hidden="true" tabindex="-1"></a>sales <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="at">file =</span> <span class="st">"fridge_sales.txt"</span>,</span>
-<span id="cb83-3"><a aria-hidden="true" tabindex="-1"></a>                    <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb83-4"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb83-5"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Assign data-frame columns to vectors</span></span>
-<span id="cb83-6"><a aria-hidden="true" tabindex="-1"></a>fridge <span class="ot">&lt;-</span> sales[ , <span class="dv">1</span>]</span>
-<span id="cb83-7"><a aria-hidden="true" tabindex="-1"></a>durables <span class="ot">&lt;-</span> sales[ , <span class="dv">2</span>]</span>
-<span id="cb83-8"><a aria-hidden="true" tabindex="-1"></a>q1 <span class="ot">&lt;-</span> sales[ , <span class="dv">3</span>]</span>
-<span id="cb83-9"><a aria-hidden="true" tabindex="-1"></a>q2 <span class="ot">&lt;-</span> sales[ , <span class="dv">4</span>]</span>
-<span id="cb83-10"><a aria-hidden="true" tabindex="-1"></a>q3 <span class="ot">&lt;-</span> sales[ , <span class="dv">5</span>]</span>
-<span id="cb83-11"><a aria-hidden="true" tabindex="-1"></a>q4 <span class="ot">&lt;-</span> sales[ , <span class="dv">6</span>]</span>
-<span id="cb83-12"><a aria-hidden="true" tabindex="-1"></a>quarter <span class="ot">&lt;-</span> sales[ , <span class="dv">7</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb104-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Load dataset on Fridge Sales</span></span>
+<span id="cb104-2"><a aria-hidden="true" tabindex="-1"></a>sales <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="at">file =</span> <span class="st">"fridge_sales.txt"</span>,</span>
+<span id="cb104-3"><a aria-hidden="true" tabindex="-1"></a>                    <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb104-4"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb104-5"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Assign data-frame columns to vectors</span></span>
+<span id="cb104-6"><a aria-hidden="true" tabindex="-1"></a>fridge <span class="ot">&lt;-</span> sales[ , <span class="dv">1</span>]</span>
+<span id="cb104-7"><a aria-hidden="true" tabindex="-1"></a>durables <span class="ot">&lt;-</span> sales[ , <span class="dv">2</span>]</span>
+<span id="cb104-8"><a aria-hidden="true" tabindex="-1"></a>q1 <span class="ot">&lt;-</span> sales[ , <span class="dv">3</span>]</span>
+<span id="cb104-9"><a aria-hidden="true" tabindex="-1"></a>q2 <span class="ot">&lt;-</span> sales[ , <span class="dv">4</span>]</span>
+<span id="cb104-10"><a aria-hidden="true" tabindex="-1"></a>q3 <span class="ot">&lt;-</span> sales[ , <span class="dv">5</span>]</span>
+<span id="cb104-11"><a aria-hidden="true" tabindex="-1"></a>q4 <span class="ot">&lt;-</span> sales[ , <span class="dv">6</span>]</span>
+<span id="cb104-12"><a aria-hidden="true" tabindex="-1"></a>quarter <span class="ot">&lt;-</span> sales[ , <span class="dv">7</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="processing-dummy-variables-in-r" class="slide level2 smaller">
 <h2>Processing dummy variables in R</h2>
@@ -3665,7 +4285,7 @@ Levels: f m</code></pre>
 <div style="font-size: 0.10em">
 <p><br></p>
 </div>
-<div class="sourceCode" id="cb84"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">factor</span>(quarter)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb105-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">factor</span>(quarter)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4 1 2 3 4
@@ -3693,20 +4313,20 @@ Levels: 1 2 3 4</code></pre>
 <ol type="1">
 <li>Use a dummy variable approach (and arbitrarily excluding <span class="math inline">\, \texttt{q1}</span>)</li>
 </ol>
-<div class="sourceCode" id="cb86"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb86-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># We drop q1 to avoid dummy variable trap</span></span>
-<span id="cb86-2"><a aria-hidden="true" tabindex="-1"></a>dummy.lm <span class="ot">&lt;-</span> <span class="fu">lm</span> (fridge <span class="sc">~</span> q2 <span class="sc">+</span> q3 <span class="sc">+</span> q4)</span>
-<span id="cb86-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(dummy.lm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb107-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># We drop q1 to avoid dummy variable trap</span></span>
+<span id="cb107-2"><a aria-hidden="true" tabindex="-1"></a>dummy.lm <span class="ot">&lt;-</span> <span class="fu">lm</span> (fridge <span class="sc">~</span> q2 <span class="sc">+</span> q3 <span class="sc">+</span> q4)</span>
+<span id="cb107-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(dummy.lm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div style="font-size: 0.10em">
 <p><br></p>
 </div>
 <ol start="2" type="1">
 <li>Using the <span class="math inline">\, \texttt{factor}</span> command on <span class="math inline">\, \texttt{quarter}</span></li>
 </ol>
-<div class="sourceCode" id="cb87"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb87-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Need to convert quarter to a factor</span></span>
-<span id="cb87-2"><a aria-hidden="true" tabindex="-1"></a>quarter.f <span class="ot">&lt;-</span> <span class="fu">factor</span>(quarter)</span>
-<span id="cb87-3"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb87-4"><a aria-hidden="true" tabindex="-1"></a>factor.lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(fridge <span class="sc">~</span> quarter.f)</span>
-<span id="cb87-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(factor.lm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb108-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Need to convert quarter to a factor</span></span>
+<span id="cb108-2"><a aria-hidden="true" tabindex="-1"></a>quarter.f <span class="ot">&lt;-</span> <span class="fu">factor</span>(quarter)</span>
+<span id="cb108-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb108-4"><a aria-hidden="true" tabindex="-1"></a>factor.lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(fridge <span class="sc">~</span> quarter.f)</span>
+<span id="cb108-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(factor.lm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div style="font-size: 0.10em">
 <p><br></p>
 </div>
@@ -3959,7 +4579,7 @@ H_1 &amp; \colon  \mu_i \neq \mu_j \, \text{ for at least one pair i and j}
 <ul>
 <li>Plot Quarter against Fridge sales</li>
 </ul>
-<div class="sourceCode" id="cb93"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb93-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(quarter, fridge)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb114-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(quarter, fridge)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
 <li><p>We clearly see 4 populations</p></li>
 <li><p>Averages appear different</p></li>
@@ -3969,7 +4589,7 @@ H_1 &amp; \colon  \mu_i \neq \mu_j \, \text{ for at least one pair i and j}
 <div class="cell-output-display">
 <div>
 <figure>
-<p><img data-src="lecture_11_files/figure-revealjs/unnamed-chunk-32-1.png" width="960"></p>
+<p><img data-src="lecture_11_files/figure-revealjs/unnamed-chunk-43-1.png" width="960"></p>
 </figure>
 </div>
 </div>
@@ -3980,8 +4600,8 @@ H_1 &amp; \colon  \mu_i \neq \mu_j \, \text{ for at least one pair i and j}
 <ul>
 <li>To implement ANOVA F-test in R you need to use command <span class="math inline">\, \texttt{factor}</span></li>
 </ul>
-<div class="sourceCode" id="cb94"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb94-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Turn vector quarter into a factor</span></span>
-<span id="cb94-2"><a aria-hidden="true" tabindex="-1"></a>quarter.f <span class="ot">&lt;-</span> <span class="fu">factor</span>(quarter)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb115-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Turn vector quarter into a factor</span></span>
+<span id="cb115-2"><a aria-hidden="true" tabindex="-1"></a>quarter.f <span class="ot">&lt;-</span> <span class="fu">factor</span>(quarter)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div style="font-size: 0.3em">
 <p><br></p>
 </div>
@@ -3997,11 +4617,11 @@ H_1 &amp; \colon  \mu_i \neq \mu_j \, \text{ for at least one pair i and j}
 <ul>
 <li>To perform the ANOVA F-test do</li>
 </ul>
-<div class="sourceCode" id="cb95"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb95-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Fit ANOVA model</span></span>
-<span id="cb95-2"><a aria-hidden="true" tabindex="-1"></a>factor.aov <span class="ot">&lt;-</span> <span class="fu">aov</span>(fridge <span class="sc">~</span> quarter.f)</span>
-<span id="cb95-3"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb95-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Print output</span></span>
-<span id="cb95-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(factor.aov)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb116-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Fit ANOVA model</span></span>
+<span id="cb116-2"><a aria-hidden="true" tabindex="-1"></a>factor.aov <span class="ot">&lt;-</span> <span class="fu">aov</span>(fridge <span class="sc">~</span> quarter.f)</span>
+<span id="cb116-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb116-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Print output</span></span>
+<span id="cb116-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(factor.aov)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="anova-output" class="slide level2 smaller">
 <h2>ANOVA output</h2>
@@ -4400,7 +5020,7 @@ H_1 &amp; \colon \text{ At least one of the above } \beta_j \neq 0
 \beta_1 = \mu_1 \,, \qquad \beta_i = \mu_i - \mu_1 \quad \forall \,  i &gt; 1
 </span></p>
 </section>
-<section id="section-30" class="slide level2 smaller">
+<section id="section-41" class="slide level2 smaller">
 <h2></h2>
 <ul>
 <li>In particular we obtain</li>

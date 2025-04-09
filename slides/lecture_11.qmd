@@ -37,7 +37,10 @@ $
 1. Multicollinearity
 2. Stepwise regression
 3. Stepwise regression and overfitting
-4. Dummy variable regression models
+4. One-way ANOVA
+5. Factors in R
+6. Anova with aov
+7. Dummy variable regression models
 
 
 
@@ -2535,6 +2538,7 @@ percent ~ year
 
 
 
+::: {.content-hidden}
 
 
 # Part 5: <br>Dummy variable <br> regression models{background-color="#cc0164" visibility="uncounted"}
@@ -2559,15 +2563,1197 @@ percent ~ year
 7. ANCOVA
 
 
+:::
 
 
-# Part 1: <br>Dummy variable <br> regression {background-color="#cc0164" visibility="uncounted"}
+
+# Part 4: <br> One-way ANOVA {background-color="#cc0164" visibility="uncounted"}
 
 ::: footer
 
 <div color="#cc0164">  </div>
 
 :::
+
+
+
+
+## Introduction {.smaller}
+
+- ANOVA means *Analysis of variance*
+
+- Method of comparing means across samples
+
+- We first present ANOVA in the traditional way
+
+- Then we show that the ANOVA model is just a special form of linear regression 
+    * In particular, ANOVA models can be fitted with ``lm``
+
+
+## One-way ANOVA {.smaller}
+
+
+- ANOVA allows to compare population means for several independent samples
+    * Can be seen as generalization of t-test for two independent samples
+
+- Suppose we have $k$ populations of interest, with distribution $N(\mu_k,\sigma^2)$
+    * Note that the variance is the same for all populations
+
+- Sample from population $i$ is denoted $x_{i1}, x_{i2}, \ldots , x_{in_i}$
+
+
+**Goal**: Compare population means $\mu_i$
+
+**Hypothesis set:** We test for a difference in means
+
+\begin{align*}
+H_0 \colon  & \mu_1 = \mu_2 = \ldots = \mu_k \\
+H_1 \colon & \mu_i \neq \mu_j \,\, \text{ for at least one pair } \, i \neq j
+\end{align*}
+
+
+## Constructing a Test statistic {.smaller}
+
+- We formulate a statistic which compares
+    * variations within a single group to
+    * variations among the groups
+
+
+- Denote the mean of the i-th sample by 
+
+$$
+\overline{x}_i = \frac{1}{n_i} \sum_{j=1}^{n_i} x_{ij}
+$$
+
+
+- Denote the *grand mean* of all samples by 
+
+$$
+\overline{x} = \frac{1}{k} \sum_{i=1}^k  \overline{x}_i  =  \frac{1}{k} \sum_{i=1}^k \left( \frac{1}{n_i} \sum_{j=1}^{n_i} x_{ij} \right)
+$$
+
+
+
+
+## {.smaller}
+
+
+- The **total sum of squares** is 
+
+$$
+\TSS := \sum_{i=1}^{k} \sum_{j=1}^{n_i} ( x_{ij} - \overline{x} )^2
+$$
+
+
+- $\TSS$ measures deviation of samples from the grand mean $\overline{x}$
+
+
+- The **Error Sum of Squares** is 
+
+$$
+\ESS = \sum_{i=1}^k \sum_{j=1}^{n_i} (x_{ij} - \overline{x}_i)^2
+$$
+
+- The interior sum of $\ESS$ measures the variation within the i-th group
+
+- $\ESS$ is then a measure of the within-group variability
+
+
+
+
+## {.smaller}
+
+- The **Treatment Sum of Squares** is
+
+$$
+\TrSS = \sum_{i=1}^{k} n_i ( \overline{x}_i - \overline{x})^2
+$$
+
+- $\TrSS$ compares the means for each group $\overline{x}_i$  with the grand mean $\overline{x}$
+
+- $\TrSS$ is then a measure of variability among the groups
+
+- Note: *Treatment* comes from medical experiments, where the population mean models the effect of some treatment
+
+::: Proposition
+
+The following decomposition holds
+
+$$
+\TSS = \ESS + \TrSS
+$$
+
+:::
+
+
+
+
+## The ANOVA F-statistic {.smaller}
+
+::: Definition
+
+The F-statistic for the one-way ANOVA test is
+
+$$
+F = \frac{ \TrSS }{ k - 1  } \bigg/
+      \frac{ \ESS }{ n - k  } 
+$$
+
+:::
+
+::: Theorem 
+
+Assume to have $k$ independent, i.i.d samples from $N(\mu_i,\sigma^2)$. Then
+
+$$
+F \ \sim \ F_{k-1,n-k} 
+$$
+
+:::
+
+
+
+##  {.smaller}
+
+::: {style="font-size: 0.93em"}
+
+
+\begin{align*}
+\text{Case 1: } \, H_0 \, \text{ holds } & \, \iff \,  \text{Population means are all the same}  \\[15pt]
+ & \, \iff \,  \text{i-th sample mean is similar to grand mean: } \, \overline{x}_i  \approx \overline{x}  \,, \quad \forall\, i\\[15pt]
+ & \, \iff \, \TrSS = \sum_{i=1}^{k} n_i ( \overline{x}_i - \overline{x})^2 \approx 0  \, \iff \, F = \frac{ \TrSS }{ k - 1  } \bigg/
+      \frac{ \ESS }{ n - k  }  \approx 0 
+ \end{align*}
+
+\begin{align*}
+\text{Case 2: } \, H_1 \, \text{ holds } & \, \iff \,  \text{At least two population means are different}  \\[15pt]
+ & \, \iff \,  \text{At least two populations satisfy } \, (\overline{x}_i - \overline{x})^2 \gg 0  \\[15pt]
+ & \, \iff \, \TrSS = \sum_{i=1}^{k} n_i ( \overline{x}_i - \overline{x})^2 \gg 0  \, \iff \, F = \frac{ \TrSS }{ k - 1  } \bigg/
+      \frac{ \ESS }{ n - k  }  \gg 0 
+ \end{align*}
+
+**Therefore, the test is one-sided: $\,\,$ Reject $H_0 \iff F \gg 0$**
+
+:::
+
+
+
+
+
+
+## The one-way ANOVA F-test {.smaller}
+
+
+Suppose given k **independent** samples
+
+- Sample $x_{i1}, \ldots, x_{in_i}$ i.i.d from $N(\mu_i,\sigma^2)$
+
+
+
+**Goal**: Compare population means $\mu_i$
+
+**Hypothesis set:** We test for a difference in means
+
+\begin{align*}
+H_0 \colon  & \mu_1 = \mu_2 = \ldots = \mu_k \\
+H_1 \colon & \mu_i \neq \mu_j \,\, \text{ for at least one pair } \, i \neq j
+\end{align*}
+
+
+
+
+
+## Procedure: 3 Steps {.smaller}
+
+1. **Calculation**: Compute the samples mean and grand mean 
+$$
+\overline{x}_i = \frac{1}{n_i} \sum_{j=1}^{n_i} x_{ij} \,, \qquad 
+\overline{x} = \frac{1}{k} \sum_{i=1}^k  \overline{x}_i  
+$$
+Compute the $\TrSS$ and $\ESS$ 
+$$
+\TrSS = \sum_{i=1}^{k} n_i ( \overline{x}_i - \overline{x})^2 \,, \qquad \ESS = \sum_{i=1}^k \sum_{j=1}^{n_i} (x_{ij} - \overline{x}_i)^2
+$$
+Compute the F-statistic
+$$
+F = \frac{ \TrSS }{ k - 1  } \bigg/
+      \frac{ \ESS }{ n - k  }  \  \sim \ F_{k-1,n-k} 
+$$
+
+
+
+## {.smaller}
+
+2. **Statistical Tables or R**: Find either
+    * Critical value $F^*$ in [Table 3](files/Statistics_Tables.pdf)
+    * p-value in R
+
+<br>
+
+3. **Interpretation**: Reject $H_0$ when either
+$$
+p < 0.05 \qquad \text{ or } \qquad F \in \,\,\text{Rejection Region}
+$$
+
+
+
+
+| Alternative                               | Rejection Region  | $F^*$              | p-value              |
+|-------------------------------------------|-------------------|--------------------|----------------------|
+| $\exists \,\, i \neq j$ s.t. $\mu_i \neq \mu_j$ | $F > F^*$         | $F_{k-1,n-k}(0.05)$| $P(F_{k-1,n-k} > F)$ |
+: {tbl-colwidths="[35,20,20,25]"}
+
+
+
+## Worked Example: Calorie Consumption {.smaller}
+
+- Consider 15 subjects split at random into 3 groups
+
+- Each group is assigned a month 
+
+- For each group we record the number of calories consumed on a randomly chosen day
+
+- Assume that calories consumed are normally distributed with common variance, but maybe different means
+
+|       |      |      |      |      |      | 
+|:---   |:--   |:--   |:--   |:--   |:--   |         
+|**May**| 2166 | 1568 | 2233 | 1882 | 2019 |
+|**Sep**| 2279 | 2075 | 2131 | 2009 | 1793 |
+|**Dec**| 2226 | 2154 | 2583 | 2010 | 2190 |
+
+
+**Question:** Is there a difference in calories consumed each month?
+
+
+
+## Boxplot of the data {.smaller}
+### To visually compare sample means for each population
+
+```r
+# Enter the data
+may <- c(2166, 1568, 2233, 1882, 2019)
+sep <- c(2279, 2075, 2131, 2009, 1793)
+dec <- c(2226, 2154, 2583, 2010, 2190)
+
+# Combine vectors into a list and label them
+data <- list(May = may, September = sep, December = dec)
+
+# Create the boxplot
+boxplot(data,
+        main = "Boxplot of Calories Consumed each month",
+        ylab = "Daily calories consumed")
+```
+
+
+
+## {.smaller}
+
+```{r}
+# Enter the data
+may <- c(2166, 1568, 2233, 1882, 2019)
+sep <- c(2279, 2075, 2131, 2009, 1793)
+dec <- c(2226, 2154, 2583, 2010, 2190)
+
+# Combine vectors into a list and label them
+data <- list(May = may, September = sep, December = dec)
+
+# Create the boxplot
+boxplot(data,
+        main = "Boxplot of Calories Consumed each month",
+        ylab = "Daily calories consumed")
+```
+
+- It seems that consumption is, on average, higher in colder months
+
+- We suspect population means are different: need one-way ANOVA F-test
+
+
+
+## Performing the one-way ANOVA F-test {.smaller}
+
+- We first compute sample means and grand mean
+$$
+\overline{x}_i = \frac{1}{n_i} \sum_{j=1}^{n_i} x_{ij} \,, \qquad 
+\overline{x} = \frac{1}{k} \sum_{i=1}^k  \overline{x}_i  
+$$
+
+```r
+# Compute means for each sample
+may.bar <- mean(may)
+sep.bar <- mean(sep)
+dec.bar <- mean(dec)
+
+
+# Compute grand mean
+x.bar <- mean(c(may, sep, dec))
+```
+
+
+## {.smaller}
+
+- There are 3 groups, each with $n_i = 5$ samples
+
+- Compute the $\TrSS$ and $\ESS$ 
+$$
+\TrSS = \sum_{i=1}^{k} n_i ( \overline{x}_i - \overline{x})^2 = 5 \sum_{i=1}^{k} ( \overline{x}_i - \overline{x})^2 \,, \qquad \ESS = \sum_{i=1}^k \sum_{j=1}^{n_i} (x_{ij} - \overline{x}_i)^2
+$$
+
+
+::: {style="font-size: 0.92em"}
+
+```r
+# Compute TrSS
+TrSS <- 5 * ( (may.bar - x.bar)^2 + (sep.bar - x.bar)^2 + (dec.bar - x.bar)^2 )
+
+# Compute ESS
+ESS <- sum((may - may.bar)^2) + sum((sep - sep.bar)^2) + sum((dec - dec.bar)^2)
+
+# Print result
+c(TrSS = TrSS, ESS = ESS)
+```
+
+:::
+
+```{r}
+# Enter the data
+may <- c(2166, 1568, 2233, 1882, 2019)
+sep <- c(2279, 2075, 2131, 2009, 1793)
+dec <- c(2226, 2154, 2583, 2010, 2190)
+
+# Compute means for each sample
+may.bar <- mean(may)
+sep.bar <- mean(sep)
+dec.bar <- mean(dec)
+
+# Compute grand mean
+x.bar <- mean(c(may, sep, dec))
+
+# Compute TrSS
+TrSS <- 5 * (may.bar - x.bar)^2 + 5 * (sep.bar - x.bar)^2 + 5 * (dec.bar - x.bar)^2
+
+# Compute ESS
+ESS <- sum((may - may.bar)^2) + sum((sep - sep.bar)^2) + sum((dec - dec.bar)^2)
+
+# Print result
+c(TrSS = TrSS, ESS = ESS)
+```
+
+
+
+## {.smaller}
+
+- We have $k = 3$ groups; $\, n = 15$ total samples
+
+- Compute the F-statistic
+
+$$
+F = \frac{ \TrSS }{ k - 1  } \bigg/
+      \frac{ \ESS }{ n - k  }  \  \sim \ F_{k-1,n-k} 
+$$
+
+
+
+```r
+# Enter number of groups and sample size
+k <- 3; n <- 15
+
+# Compute F-statistic
+F.obs = ( TrSS/(k-1) ) / ( ESS/(n-k) )
+
+# Print
+F.obs
+```
+
+```{r}
+# Enter the data
+may <- c(2166, 1568, 2233, 1882, 2019)
+sep <- c(2279, 2075, 2131, 2009, 1793)
+dec <- c(2226, 2154, 2583, 2010, 2190)
+
+# Compute means for each sample
+may.bar <- mean(may)
+sep.bar <- mean(sep)
+dec.bar <- mean(dec)
+
+# Compute grand mean
+x.bar <- mean(c(may, sep, dec))
+
+# Compute TrSS
+TrSS <- 5 * (may.bar - x.bar)^2 + 5 * (sep.bar - x.bar)^2 + 5 * (dec.bar - x.bar)^2
+
+# Compute ESS
+ESS <- sum((may - may.bar)^2) + sum((sep - sep.bar)^2) + sum((dec - dec.bar)^2)
+
+# Enter number of groups and sample size
+k <- 3; n <- 15
+
+# Compute F-statistic
+F.obs = ( TrSS/(k-1) ) / ( ESS/(n-k) )
+
+# Print
+F.obs
+```
+
+
+
+## {.smaller}
+
+- Compute the p-value
+
+$$
+p = P( F_{k-1,n-k} > F ) = 1 - P( F_{k-1,n-k} \leq F )
+$$
+
+
+```r 
+# Compute the p-value
+p <- 1 - pf(F.obs, df1 = k-1, df2 = n-k)
+
+# Print
+p
+```
+
+
+```{r} 
+# Enter the data
+may <- c(2166, 1568, 2233, 1882, 2019)
+sep <- c(2279, 2075, 2131, 2009, 1793)
+dec <- c(2226, 2154, 2583, 2010, 2190)
+
+# Compute means for each sample
+may.bar <- mean(may)
+sep.bar <- mean(sep)
+dec.bar <- mean(dec)
+
+# Compute grand mean
+x.bar <- mean(c(may, sep, dec))
+
+# Compute TrSS
+TrSS <- 5 * (may.bar - x.bar)^2 + 5 * (sep.bar - x.bar)^2 + 5 * (dec.bar - x.bar)^2
+
+# Compute ESS
+ESS <- sum((may - may.bar)^2) + sum((sep - sep.bar)^2) + sum((dec - dec.bar)^2)
+
+# Enter number of groups and sample size
+k <- 3; n <- 15
+
+# Compute F-statistic
+F.obs = ( TrSS/(k-1) ) / ( ESS/(n-k) )
+
+# Compute the p-value
+p <- 1 - pf(F.obs, df1 = k-1, df2 = n-k)
+
+# Print
+p
+```
+
+::: {style="font-size: 0.10em"}
+
+<br>
+
+:::
+
+- The p-value is $p > 0.05 \quad \implies \quad$ Do not reject $H_0$
+
+- No reason to believe that population means are different
+
+- Conclusion: Despite the boxplot, the variation in average monthly calories consumption can be explained by chance only 
+
+**Next: Use native R command for ANOVA test - Need Factors**
+
+
+
+
+
+
+# Part 5: <br>Factors in R {background-color="#cc0164" visibility="uncounted"}
+
+::: footer
+
+<div color="#cc0164">  </div>
+
+:::
+
+
+
+## Factors in R {.smaller}
+
+
+- **Factors:** A way to represent discrete variables taking a finite number of values
+
+
+- **Example:** Suppose to have a vector of people's names
+
+```r
+firstname <- c("Liz", "Jolene", "Susan", "Boris", "Rochelle", "Tim")
+```
+
+- Let us store the sex of each person as either 
+    * Numbers: $\, \texttt{1}$ represents female and $\texttt{0}$ represents male
+    * Strings: $\, \texttt{"female"}$ and $\texttt{"male"}$
+
+
+```r
+sex.num <- c(1, 1, 1, 0, 1, 0)
+sex.char <- c("female", "female", "female", "male", "female", "male")
+```
+
+
+## The factor command {.smaller}
+
+- The $\, \texttt{factor}$ command turns a vector into a factor
+
+```r
+sex.num <- c(1, 1, 1, 0, 1, 0)
+
+# Turn sex.num into a factor
+sex.num.factor <- factor(sex.num)
+
+# Print the factor obtained
+print(sex.num.factor)
+```
+
+```{r}
+sex.num <- c(1, 1, 1, 0, 1, 0)
+
+# Turn sex.num into a factor
+sex.num.factor <- factor(sex.num)
+
+# Print the factor obtained
+print(sex.num.factor)
+```
+
+::: {style="font-size: 0.20em"}
+
+<br>
+
+:::
+
+- The factor $\, \texttt{sex.num.factor}$ looks like the original vector $\, \texttt{sex.num}$
+
+- The difference is that the factor $\, \texttt{sex.num.factor}$ contains **levels**
+    * In this case the levels are $\, \texttt{0}$ and $\, \texttt{1}$
+    * Levels are all the (discrete) values assumed by the vector $\, \texttt{sex.num}$
+
+
+
+## The factor command {.smaller}
+
+- In the same way we can convert $\, \texttt{sex.char}$ into a factor
+
+```r
+sex.char <- c("female", "female", "female", "male", "female", "male")
+
+# Turn sex.char into a factor
+sex.char.factor <- factor(sex.char)
+
+# Print the factor obtained
+print(sex.char.factor)
+```
+
+```{r}
+sex.char <- c("female", "female", "female", "male", "female", "male")
+
+# Turn sex.char into a factor
+sex.char.factor <- factor(sex.char)
+
+# Print the factor obtained
+print(sex.char.factor)
+```
+
+
+::: {style="font-size: 0.20em"}
+
+<br>
+
+:::
+
+- Again, the factor $\, \texttt{sex.char.factor}$ looks like the original vector $\, \texttt{sex.char}$
+
+- Again, the difference is that the factor $\, \texttt{sex.char.factor}$ contains **levels**
+    * In this case the levels are strings $\, \texttt{"female"}$ and $\, \texttt{"male"}$
+    * These 2 strings are all the values assumed by the vector $\, \texttt{sex.char}$
+
+
+
+## Subsetting factors {.smaller}
+
+- Factors can be subsetted exactly like vectors
+
+
+```r
+sex.num.factor
+```
+```{r} 
+sex.num <- c(1, 1, 1, 0, 1, 0)
+sex.num.factor <- factor(sex.num)
+print(sex.num.factor)
+```
+
+::: {style="font-size: 0.30em"}
+
+<br>
+
+:::
+
+
+```r
+sex.num.factor[2:5]
+```
+
+```{r} 
+sex.num <- c(1, 1, 1, 0, 1, 0)
+sex.num.factor <- factor(sex.num)
+print(sex.num.factor[2:5])
+```
+
+
+
+
+
+## Subsetting factors {.smaller}
+
+
+- **Warning:** After subsetting a factor, all defined levels are still stored
+    * This is true even if some of the levels are no longer represented in the subsetted factor
+
+::: {style="font-size: 0.30em"}
+
+<br>
+
+:::
+
+```r
+sex.char.factor
+```
+
+```{r}
+sex.char <- c("female", "female", "female", "male", "female", "male")
+sex.char.factor <- factor(sex.char)
+sex.char.factor
+```
+
+::: {style="font-size: 0.30em"}
+
+<br>
+
+:::
+
+
+```r
+sex.char.factor[c(1:3, 5)]
+```
+
+```{r}
+sex.char <- c("female", "female", "female", "male", "female", "male")
+sex.char.factor <- factor(sex.char)
+sex.char.factor[c(1:3, 5)]
+```
+
+::: {style="font-size: 0.30em"}
+
+<br>
+
+:::
+
+
+- The levels of ``sex.char.factor[c(1:3, 5)]`` are still $\, \texttt{"female"}$ and $\, \texttt{"male"}$
+
+- This is despite ``sex.char.factor[c(1:3, 5)]`` only containing $\, \texttt{"female"}$
+
+
+
+
+## The levels function {.smaller}
+
+- The levels of a factor can be extracted with the function $\, \texttt{levels}$
+
+```r 
+levels(sex.char.factor)
+```
+
+```{r} 
+sex.char <- c("female", "female", "female", "male", "female", "male")
+
+sex.char.factor <- factor(sex.char)
+
+# Print the factor obtained
+print(levels(sex.char.factor))
+```
+
+
+::: {style="font-size: 0.30em"}
+
+<br>
+
+:::
+
+
+- **Note:** Levels of a factor are always stored as **strings**, even if originally numbers
+
+
+::: {style="font-size: 0.10em"}
+
+<br>
+
+:::
+
+```r 
+levels(sex.num.factor)
+```
+
+```{r} 
+sex.num <- c(1, 1, 1, 0, 1, 0)
+
+sex.num.factor <- factor(sex.num)
+
+print(levels(sex.num.factor))
+```
+
+
+::: {style="font-size: 0.10em"}
+
+<br>
+
+:::
+
+- The levels of $\, \texttt{sex.num.factor}$ are the strings $\, \texttt{"0"}$ and $\, \texttt{"1"}$
+
+- This is despite the original vector $\, \texttt{sex.num}$ being numeric
+
+- The command $\, \texttt{factor}$ converted numeric levels into strings
+
+
+
+
+
+## Relabelling a factor {.smaller}
+
+- The function $\, \texttt{levels}$ can also be used to **relabel** factors
+
+- For example we can relabel
+    * $\, \texttt{female}$ into $\, \texttt{f}$
+    * $\, \texttt{male}$ into $\, \texttt{m}$
+
+
+```r
+# Relabel levels of sex.char.factor
+levels(sex.char.factor) <- c("f", "m")
+
+# Print relabelled factor
+print(sex.char.factor)
+```
+
+```{r}
+sex.char <- c("female", "female", "female", "male", "female", "male")
+sex.char.factor <- factor(sex.char)
+
+levels(sex.char.factor) <- c("f", "m")
+print(sex.char.factor)
+```
+
+
+
+## Logical subsetting of factors {.smaller}
+
+- Logical subsetting is done exactly like in the case of vectors
+
+- **Important:** Need to remember that levels are always **strings**
+
+- **Example:** To identify all the men in $\, \texttt{sex.num.factor}$ we do
+
+::: {style="font-size: 0.20em"}
+
+<br>
+
+:::
+
+```r
+sex.num.factor == "0"
+```
+
+```{r}
+sex.num <- c(1, 1, 1, 0, 1, 0)
+
+sex.num.factor <- factor(sex.num)
+
+sex.num.factor == "0"
+```
+
+
+::: {style="font-size: 0.20em"}
+
+<br>
+
+:::
+
+
+- To retrieve names of men stored in $\, \texttt{firstname}$ use logical subsetting
+
+::: {style="font-size: 0.20em"}
+
+<br>
+
+:::
+
+```r
+firstname <- c("Liz", "Jolene", "Susan", "Boris", "Rochelle", "Tim")
+
+firstname[ sex.num.factor == "0" ]
+```
+
+```{r}
+firstname <- c("Liz", "Jolene", "Susan", "Boris", "Rochelle", "Tim")
+
+sex.num <- c(1, 1, 1, 0, 1, 0)
+
+sex.num.factor <- factor(sex.num)
+
+firstname[ sex.num.factor == "0" ]
+```
+
+
+
+
+
+# Part 6: <br>ANOVA with aov {background-color="#cc0164" visibility="uncounted"}
+
+::: footer
+
+<div color="#cc0164">  </div>
+
+:::
+
+
+
+## Anova with aov  {.smaller}
+
+- We have conducted the one-way ANOVA F-test by hand
+    *  This is cumbersome with large datasets with many populations
+    * The quick way in R is to use the command ``aov`` (*analysis of variance*)
+
+
+## Method  {.smaller}
+
+- Place all the samples into one long vector ``values``
+
+- Create a vector with corresponding group labels ``ind``
+
+- Turn ``ind`` into a factor
+
+- Combine ``values`` and ``ind`` into a dataframe ``d``
+
+
+- Therefore, dataframe ``d`` contains:
+    * First Column: *values* for each sample
+    * Second Column: *ind*, indicating the group the corresponding sample is from
+
+
+- The ANOVA F-test is performed with
+
+$$
+\text{aov(values } \sim \text{ ind, data = d)}
+$$
+
+
+- ``values ~ ind`` is the formula coupling values to the corresponding group
+
+
+
+
+## Example 1: Calorie Consumption {.smaller}
+
+- Recall: we have 15 subjects split at random into 3 groups
+
+- Each group is assigned a month 
+
+- For each group we record the number of calories consumed on a randomly chosen day
+
+- Assume that calories consumed are normally distributed with common variance, but maybe different means
+
+|       |      |      |      |      |      | 
+|:---   |:--   |:--   |:--   |:--   |:--   |         
+|**May**| 2166 | 1568 | 2233 | 1882 | 2019 |
+|**Sep**| 2279 | 2075 | 2131 | 2009 | 1793 |
+|**Dec**| 2226 | 2154 | 2583 | 2010 | 2190 |
+
+
+**Question:** Is there a difference in calories consumed each month?
+
+
+
+
+
+## Preparing the data {.smaller}
+
+
+::: {style="font-size: 0.89em"}
+
+:::: {.columns}
+
+::: {.column width="60%"}
+
+```r
+# Enter the data
+may <- c(2166, 1568, 2233, 1882, 2019)
+sep <- c(2279, 2075, 2131, 2009, 1793)
+dec <- c(2226, 2154, 2583, 2010, 2190)
+
+# Combine values into one long vector
+values <- c(may, sep, dec)
+
+# Create vector of group labels
+ind <- rep(c("May", "Sep", "Dec"), each = 5)
+
+# Turn vector of group labels into a factor
+ind <- factor(ind)
+
+# Combine values and labels into a data frame
+d <- data.frame(values, ind)
+
+# Print d for visualization
+print(d)
+```
+
+:::
+
+
+
+::: {.column width="40%"}
+
+```{r}
+# Enter the data
+may <- c(2166, 1568, 2233, 1882, 2019)
+sep <- c(2279, 2075, 2131, 2009, 1793)
+dec <- c(2226, 2154, 2583, 2010, 2190)
+
+# Combine values into one long vector
+values <- c(may, sep, dec)
+
+# Create vector of group labels
+ind <- rep(c("May", "Sep", "Dec"), each = 5)
+
+# Turn vector of group labels into a factor
+ind <- factor(ind)
+
+# Combine values and labels into a data frame
+d <- data.frame(values, ind)
+
+# Print d for visualization
+print(d)
+```
+
+:::
+
+:::
+
+:::
+
+
+
+## Boxplot of the data {.smaller}
+
+- Previously, we constructed a boxplot by placing the data into a list
+
+- Now that we have a dataframe, the commands are much simpler:
+    * Pass the dataframe ``d`` to ``boxplot``
+    * Pass the formula ``values ~ ind``
+
+
+```r
+boxplot(values ~ ind, data = d,
+        main = "Boxplot of Calories Consumed each month",
+        ylab = "Daily calories consumed")
+```
+
+
+
+## {.smaller}
+
+```{r}
+# Enter the data
+may <- c(2166, 1568, 2233, 1882, 2019)
+sep <- c(2279, 2075, 2131, 2009, 1793)
+dec <- c(2226, 2154, 2583, 2010, 2190)
+
+# Combine values into one long vector
+values <- c(may, sep, dec)
+
+# Create vector of group labels
+ind <- rep(c("May", "Sep", "Dec"), each = 5)
+
+# Turn vector of group labels into a factor
+ind <- factor(ind)
+
+# Combine values and labels into a data frame
+d <- data.frame(values, ind)
+
+boxplot(values ~ ind, data = d,
+        main = "Boxplot of Calories Consumed each month",
+        ylab = "Daily calories consumed")
+```
+
+
+- Already observed: Consumption is, on average, higher in colder months
+
+- We suspect population means are different: need one-way ANOVA F-test
+
+- We have already conducted the test by hand. We now use ``aov``
+
+
+
+## Calling aov {.smaller}
+
+- Data is stored in dataframe ``d``
+    * 1st column ``values`` contains calories consumed
+    * 2nd column ``ind`` contains month labels
+
+```r
+# Perform ANOVA F-test for difference in means
+model <- aov(values ~ ind, data = d)
+
+# Print summary
+summary(model)
+```
+
+
+
+```{r}
+# Enter the data
+may <- c(2166, 1568, 2233, 1882, 2019)
+sep <- c(2279, 2075, 2131, 2009, 1793)
+dec <- c(2226, 2154, 2583, 2010, 2190)
+
+# Combine values into one long vector
+values <- c(may, sep, dec)
+
+# Create vector of group labels
+ind <- rep(c("May", "Sep", "Dec"), each = 5)
+
+# Turn vector of group labels into a factor
+ind <- factor(ind)
+
+# Combine values and labels into a data frame
+d <- data.frame(values, ind)
+
+# Perform ANOVA F-test
+model <- aov(values ~ ind, data = d)
+
+# Print summary
+summary(model)
+```
+
+- As obtained with hand calculation, the p-value is $p = 0.209$
+
+- $p > 0.05 \implies$ Do not reject $H_0$: Population means are similar
+
+
+
+## Example 2: ANOVA vs Two-sample t-test {.smaller}
+
+When only 2 groups are present, they coincide:
+
+- ANOVA F-test for difference in means
+
+- Two-sample t-test for difference in means  
+(with assumption of equal variance)
+
+**Example:** Let us compare calories data only for the months of May and Dec
+
+<br>
+
+|       |      |      |      |      |      | 
+|:---   |:--   |:--   |:--   |:--   |:--   |         
+|**May**| 2166 | 1568 | 2233 | 1882 | 2019 |
+|**Dec**| 2226 | 2154 | 2583 | 2010 | 2190 |
+
+
+
+## {.smaller}
+
+- First, let us conduct a two-sample t-test for difference in means
+
+```r
+# Enter the data
+may <- c(2166, 1568, 2233, 1882, 2019)
+dec <- c(2226, 2154, 2583, 2010, 2190)
+
+# Two-sample t-test for difference in means
+t.test(may, dec, var.equal = T)$p.value
+```
+
+```{r}
+# Enter the data
+may <- c(2166, 1568, 2233, 1882, 2019)
+dec <- c(2226, 2154, 2583, 2010, 2190)
+
+# Two-sample t-test for difference in means
+t.test(may, dec, var.equal = T)$p.value
+```
+
+
+<br>
+
+- The p-value is $p \approx 0.126$
+
+- Since $p > 0.05$, we do not reject $H_0$
+
+- In particular, we conclude that populations means are similar:
+    * Calories consumed in May and December do not differ on average
+
+
+
+## {.smaller}
+
+::: {style="font-size: 0.92em"}
+
+- Let us now compare the two population means with the ANOVA F-test
+
+```r
+# Combine values into one long vector
+values <- c(may, dec)
+
+# Create factor of group labels
+ind <- factor(rep(c("May", "Dec"), each = 5))
+
+# Combine values and labels into a data frame
+d <- data.frame(values, ind)
+
+# Perform ANOVA F-test
+model <- aov(values ~ ind, data = d)
+
+# Print summary
+summary(model)
+```
+
+
+```{r}
+# Enter the data
+may <- c(2166, 1568, 2233, 1882, 2019)
+dec <- c(2226, 2154, 2583, 2010, 2190)
+
+# Combine values into one long vector
+values <- c(may, dec)
+
+# Create factor of group labels
+ind <- factor(rep(c("May", "Dec"), each = 5))
+
+# Combine values and labels into a data frame
+d <- data.frame(values, ind)
+
+# Perform ANOVA F-test
+model <- aov(values ~ ind, data = d)
+
+# Print summary
+summary(model)
+```
+
+- The p-values $p \approx 0.126$ coincide! ANOVA F-test and Two-sample t-test are equivalent
+
+:::
+
+
+# Part 1: <br>Dummy variable <br> regression {background-color="#cc0164" visibility="uncounted"}
 
 ::: footer
 
@@ -2947,322 +4133,6 @@ $\beta_1 + \beta_i$
 
 **Intercept coefficient acts as base reference point**
 
-
-
-
-
-# Part 2: <br>Factors in R {background-color="#cc0164" visibility="uncounted"}
-
-::: footer
-
-<div color="#cc0164">  </div>
-
-:::
-
-::: footer
-
-<div color="#cc0164">  </div>
-
-:::
-
-
-## Factors in R {.smaller}
-
-- Before proceeding we need to introduce **factors** in R
-
-- **Factors:** A way to represent discrete variables taking a finite number of values
-
-
-- **Example:** Suppose to have a vector of people's names
-
-```r
-firstname <- c("Liz", "Jolene", "Susan", "Boris", "Rochelle", "Tim")
-```
-
-- Let us store the sex of each person as either 
-    * Numbers: $\, \texttt{1}$ represents female and $\texttt{0}$ represents male
-    * Strings: $\, \texttt{"female"}$ and $\texttt{"male"}$
-
-
-```r
-sex.num <- c(1, 1, 1, 0, 1, 0)
-sex.char <- c("female", "female", "female", "male", "female", "male")
-```
-
-
-## The factor command {.smaller}
-
-- The $\, \texttt{factor}$ command turns a vector into a factor
-
-```r
-# Turn sex.num into a factor
-sex.num.factor <- factor(sex.num)
-
-# Print the factor obtained
-print(sex.num.factor)
-```
-
-```{r}
-sex.num <- c(1, 1, 1, 0, 1, 0)
-
-# Turn sex.num into a factor
-sex.num.factor <- factor(sex.num)
-
-# Print the factor obtained
-print(sex.num.factor)
-```
-
-::: {style="font-size: 0.20em"}
-
-<br>
-
-:::
-
-- The factor $\, \texttt{sex.num.factor}$ looks like the original vector $\, \texttt{sex.num}$
-
-- The difference is that the factor $\, \texttt{sex.num.factor}$ contains **levels**
-    * In this case the levels are $\, \texttt{0}$ and $\, \texttt{1}$
-    * Levels are all the (discrete) values assumed by the vector $\, \texttt{sex.num}$
-
-
-
-## The factor command {.smaller}
-
-- In the same way we can convert $\, \texttt{sex.char}$ into a factor
-
-```r
-# Turn sex.char into a factor
-sex.char.factor <- factor(sex.char)
-
-# Print the factor obtained
-print(sex.char.factor)
-```
-
-```{r}
-sex.char <- c("female", "female", "female", "male", "female", "male")
-
-# Turn sex.char into a factor
-sex.char.factor <- factor(sex.char)
-
-# Print the factor obtained
-print(sex.char.factor)
-```
-
-
-::: {style="font-size: 0.20em"}
-
-<br>
-
-:::
-
-- Again, the factor $\, \texttt{sex.char.factor}$ looks like the original vector $\, \texttt{sex.char}$
-
-- Again, the difference is that the factor $\, \texttt{sex.char.factor}$ contains **levels**
-    * In this case the levels are strings $\, \texttt{"female"}$ and $\, \texttt{"male"}$
-    * These 2 strings are all the values assumed by the vector $\, \texttt{sex.char}$
-
-
-
-## Subsetting factors {.smaller}
-
-- Factors can be subset exactly like vectors
-
-```r
-sex.num.factor[2:5]
-```
-
-```{r} 
-sex.num <- c(1, 1, 1, 0, 1, 0)
-sex.num.factor <- factor(sex.num)
-print(sex.num.factor[2:5])
-```
-
-
-
-
-
-## Subsetting factors {.smaller}
-
-
-- **Warning:** After subsetting a factor, all defined levels are still stored
-    * This is true even if some of the levels are no longer represented in the subsetted factor
-
-::: {style="font-size: 0.30em"}
-
-<br>
-
-:::
-
-```r
-subset.factor <- sex.char.factor[c(1:3, 5)]
-
-print(subset.factor)
-```
-
-```{r}
-sex.char <- c("female", "female", "female", "male", "female", "male")
-sex.char.factor <- factor(sex.char)
-print(sex.char.factor[c(1:3, 5)])
-```
-
-::: {style="font-size: 0.30em"}
-
-<br>
-
-:::
-
-
-- The levels of $\, \texttt{subset.factor}$ are still $\, \texttt{"female"}$ and $\, \texttt{"male"}$
-
-- This is despite $\, \texttt{subset.factor}$ only containing $\, \texttt{"female"}$
-
-
-
-## The levels function {.smaller}
-
-- The levels of a factor can be extracted with the function $\, \texttt{levels}$
-
-```r 
-levels(sex.char.factor)
-```
-
-```{r} 
-sex.char <- c("female", "female", "female", "male", "female", "male")
-
-sex.char.factor <- factor(sex.char)
-
-# Print the factor obtained
-print(levels(sex.num.factor))
-```
-
-
-::: {style="font-size: 0.30em"}
-
-<br>
-
-:::
-
-
-- **Note:** Levels of a factor are always stored as **strings**, even if originally numbers
-
-
-::: {style="font-size: 0.10em"}
-
-<br>
-
-:::
-
-```r 
-levels(sex.num.factor)
-```
-
-```{r} 
-sex.num <- c(1, 1, 1, 0, 1, 0)
-
-sex.num.factor <- factor(sex.num)
-
-print(levels(sex.num.factor))
-```
-
-
-::: {style="font-size: 0.10em"}
-
-<br>
-
-:::
-
-- The levels of $\, \texttt{sex.num.factor}$ are the strings $\, \texttt{"0"}$ and $\, \texttt{"1"}$
-
-- This is despite the original vector $\, \texttt{sex.num}$ being numeric
-
-- The command $\, \texttt{factor}$ converted numeric levels into strings
-
-
-
-
-
-## Relabelling a factor {.smaller}
-
-- The function $\, \texttt{levels}$ can also be used to **relabel** factors
-
-- For example we can relabel
-    * $\, \texttt{female}$ into $\, \texttt{f}$
-    * $\, \texttt{male}$ into $\, \texttt{m}$
-
-
-```r
-# Relabel levels of sex.char.factor
-levels(sex.char.factor) <- c("f", "m")
-
-# Print relabelled factor
-print(sex.char.factor)
-```
-
-```{r}
-sex.char <- c("female", "female", "female", "male", "female", "male")
-sex.char.factor <- factor(sex.char)
-
-levels(sex.char.factor) <- c("f", "m")
-print(sex.char.factor)
-```
-
-
-
-## Logical subsetting of factors {.smaller}
-
-- Logical subsetting is done exactly like in the case of vectors
-
-- **Important:** Need to remember that levels are always **strings**
-
-- **Example:** To identify all the men in $\, \texttt{sex.num.factor}$ we do
-
-::: {style="font-size: 0.20em"}
-
-<br>
-
-:::
-
-```r
-sex.num.factor == "0"
-```
-
-```{r}
-sex.num <- c(1, 1, 1, 0, 1, 0)
-
-sex.num.factor <- factor(sex.num)
-
-sex.num.factor == "0"
-```
-
-
-::: {style="font-size: 0.20em"}
-
-<br>
-
-:::
-
-
-- To retrieve names of men stored in $\, \texttt{firstname}$ use logical subsetting
-
-::: {style="font-size: 0.20em"}
-
-<br>
-
-:::
-
-```r
-firstname[ sex.num.factor == "0" ]
-```
-
-```{r}
-firstname <- c("Liz", "Jolene", "Susan", "Boris", "Rochelle", "Tim")
-
-sex.num <- c(1, 1, 1, 0, 1, 0)
-
-sex.num.factor <- factor(sex.num)
-
-firstname[ sex.num.factor == "0" ]
-```
 
 
 

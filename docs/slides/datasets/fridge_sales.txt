@@ -1,4 +1,4 @@
-fridge.sales  durable.goods.sales      Q1      Q2      Q3      Q4   Quarter
+fridge.sales  durable.goods.sales      q1      q2      q3      q4   quarter
 	1317		    252.6	1	0	0	0  	  1
 	1615	            272.4	0	1	0	0  	  2
 	1662		    270.9	0	0	1	0	  3

@@ -41,6 +41,8 @@ $
 5. Factors in R
 6. Anova with aov
 7. Dummy variable regression models
+8. ANOVA as Regression 
+9. ANCOVA
 
 
 
@@ -1214,11 +1216,19 @@ cor(x2, x3)
 - The $R^2$ obtained from regressing predictor variables $X$ is greater than the overall $R^2$ obtained by regressing $Y$ against all the $X$ variables
 
 
-In the *Expenditure* vs *Income* and *Wealth* dataset we have
+In the *Expenditure* vs *Income* and *Wealth* dataset we have:
 
 - Regressing $Y$ against $X_2$ and $X_3$ gives $R^2=0.9635$
 
 - Regressing $X_2$ against $X_3$ gives $R^2 = 0.9979$
+
+```r
+# Fit model
+klein <- lm(x2 ~ x3)
+
+# Read R^2 in summary
+summary(klein)
+```
 
 **Klein's rule of thumb suggests that Multicollinearity will be a serious problem**
 
@@ -2537,36 +2547,6 @@ percent ~ year
 
 
 
-
-::: {.content-hidden}
-
-
-# Part 5: <br>Dummy variable <br> regression models{background-color="#cc0164" visibility="uncounted"}
-
-::: footer
-
-<div color="#cc0164">  </div>
-
-:::
-
-
-
-## Outline
-
-
-1. Dummy variable regression
-2. Factors in R
-3. ANOVA models
-4. ANOVA F-test and regression
-5. Two-way ANOVA
-6. Two-way ANOVA with interactions
-7. ANCOVA
-
-
-:::
-
-
-
 # Part 4: <br> One-way ANOVA {background-color="#cc0164" visibility="uncounted"}
 
 ::: footer
@@ -2592,7 +2572,6 @@ percent ~ year
 
 ## One-way ANOVA {.smaller}
 
-
 - ANOVA allows to compare population means for several independent samples
     * Can be seen as generalization of t-test for two independent samples
 
@@ -2610,6 +2589,11 @@ percent ~ year
 H_0 \colon  & \mu_1 = \mu_2 = \ldots = \mu_k \\
 H_1 \colon & \mu_i \neq \mu_j \,\, \text{ for at least one pair } \, i \neq j
 \end{align*}
+
+
+**ANOVA is generalization of two-sample t-test to multiple populations**
+
+
 
 
 ## Constructing a Test statistic {.smaller}
@@ -3176,6 +3160,43 @@ print(sex.char.factor)
 
 
 
+## Reordering the Levels {.smaller}
+
+- Factor levels are automatically ordered by R
+    * Increasing order for numerical factors; Alphabetical order for string factors
+
+- We can manually reorder the factor levels. For example, compare:
+
+```r
+sex.char <- c("female", "female", "female", "male", "female", "male")
+
+# Turn sex.char into a factor
+factor(sex.char)
+```
+
+```{r}
+sex.char <- c("female", "female", "female", "male", "female", "male")
+
+# Turn sex.char into a factor
+factor(sex.char)
+```
+
+<br>
+
+```r
+# Turn sex.char into a factor, swapping the levels
+factor(sex.char, levels = c("male", "female"))
+```
+
+```{r}
+sex.char <- c("female", "female", "female", "male", "female", "male")
+
+# Turn sex.char into a factor, swapping the levels
+factor(sex.char, levels = c("male", "female"))
+```
+
+
+
 ## Subsetting factors {.smaller}
 
 - Factors can be subsetted exactly like vectors
@@ -3487,7 +3508,7 @@ $$
 ## Preparing the data {.smaller}
 
 
-::: {style="font-size: 0.89em"}
+::: {style="font-size: 0.86em"}
 
 :::: {.columns}
 
@@ -3506,7 +3527,8 @@ values <- c(may, sep, dec)
 ind <- rep(c("May", "Sep", "Dec"), each = 5)
 
 # Turn vector of group labels into a factor
-ind <- factor(ind)
+# Note that we order the levels
+ind <- factor(ind, levels = c("May", "Sep", "Dec"))
 
 # Combine values and labels into a data frame
 d <- data.frame(values, ind)
@@ -3534,7 +3556,8 @@ values <- c(may, sep, dec)
 ind <- rep(c("May", "Sep", "Dec"), each = 5)
 
 # Turn vector of group labels into a factor
-ind <- factor(ind)
+# Note that we order the levels
+ind <- factor(ind, levels = c("May", "Sep", "Dec"))
 
 # Combine values and labels into a data frame
 d <- data.frame(values, ind)
@@ -3583,7 +3606,8 @@ values <- c(may, sep, dec)
 ind <- rep(c("May", "Sep", "Dec"), each = 5)
 
 # Turn vector of group labels into a factor
-ind <- factor(ind)
+# Note that we order the levels
+ind <- factor(ind, levels = c("May", "Sep", "Dec"))
 
 # Combine values and labels into a data frame
 d <- data.frame(values, ind)
@@ -3748,12 +3772,23 @@ model <- aov(values ~ ind, data = d)
 summary(model)
 ```
 
+::: {style="font-size: 0.10em"}
+
+<br>
+
+:::
+
 - The p-values $p \approx 0.126$ coincide! ANOVA F-test and Two-sample t-test are equivalent
+
+- This fact is discussed in details in the next 2 Parts
 
 :::
 
 
-# Part 1: <br>Dummy variable <br> regression {background-color="#cc0164" visibility="uncounted"}
+
+
+
+# Part 7: <br>Dummy variable <br> Regression {background-color="#cc0164" visibility="uncounted"}
 
 ::: footer
 
@@ -3765,10 +3800,11 @@ summary(model)
 ## Explaining the terminology {.smaller}
 
 
-- **Dummy variable:** Variables $X$ which are quantitative in nature
+- **Dummy variable:** Variables $X$ which are qualitative in nature
 
 - **ANOVA:** refers to situations where regression models contain 
     * **only** dummy variables $X$
+    * This generalizes the ANCOVA F-test seen earlier
 
 
 - **ANCOVA:** refers to situations where regression models contain a combination of 
@@ -3807,8 +3843,8 @@ summary(model)
     * Such variables are represented by $X$ taking discrete values
 
 - Examples of dummy variables with several levels
+    * Month: Jan, Feb, Mar, ...
     * Season: Summer, Autumn, Winter, Spring
-    * Sex: Male, Female, Non-binary, ...
     * Priority: Low, Medium, High
     * Quarterly sales data: Q1, Q2, Q3, Q4
     * UK regions: East Midlands, London Essex, North East/Yorkshire, ...
@@ -3884,17 +3920,16 @@ print(sales)
 
 1. Include $4-1 = 3$ dummy variables with values 0 / 1
     * Each dummy variable represents 1 Quarter
-    * We need 3 variables to represent 4 Quarters (if we include intercept)
+    * We need 3 variables to represent 4 Quarters (plus the intercept)
 
 2. Include one variable which takes values 1 / 2 / 3 / 4 
 
 
 **Differences between the two approaches:**
 
-1. This method is good to first understand dummy variable regression
+1. This method works with command ``lm``
 
-2. This is the most efficient way of organising cathegorical data in R
-    * usese the command $\, \texttt{factor}$
+2. This method works with the command ``aov``
 
 
 
@@ -3903,15 +3938,15 @@ print(sales)
 - Suppose you follow the first approach:
     * Encode each quarter with a separate variable
 
-- If you have 4 different levels you would need 
+- If you have 4 different levels, you would need 
     * $4-1=3$ dummy variables
     * the intercept term
 
-- In general: if you have $m$ different levels you would need 
-    * $m-1$ dummy variables
+- In general: if you have $k$ different levels, you would need 
+    * $k-1$ dummy variables
     * the intercept term
 
-**Question:** Why only $m - 1$ dummy variables?
+**Question:** Why only $k - 1$ dummy variables?
 
 **Answer:** To avoid the **dummy variable trap**
 
@@ -3920,13 +3955,13 @@ print(sales)
 ## Example: Dummy variable trap {.smaller}
 
 
-To illustrate the dummy variable trap consider the following
+To illustrate the dummy variable trap, consider the following
 
-- Encode each Quarter with one dummy variable $D_i$
+- Encode each Quarter with one dummy variable $\one_i$
 
 $$
-D_i = \begin{cases}
-1 & \text{ if data belongs to Quarter i} \\
+\one_j(i) = \begin{cases}
+1 & \text{ if sample i belongs to Quarter j} \\
 0 & \text{ otherwise} \\
 \end{cases}
 $$
@@ -3935,19 +3970,19 @@ $$
 - Consider the regression model with intercept
 
 $$
-Y = \beta_0 \cdot (1) + \beta_1 D_1 + \beta_2 D_2 + \beta_3 D_3 + \beta_4 D_4   + \e
+Y = \beta_0 \cdot (1) + \beta_1 \one_1 + \beta_2 \one_2 + \beta_3 \one_3 + \beta_4 \one_4   + \e
 $$
 
-- In the above $Y$ is the quartely *Fridge sales data*
+- In the above, $Y$ is the quartely *Fridge sales data*
 
 
 
 ## {.smaller}
 
-- Each data entry belongs to exactly one Quarter, so that
+- Each data entry belongs to exactly one Quarter. Thus
 
 $$
-D_1 + D_2 + D_3 + D_4 = 1
+\one_1 + \one_2 + \one_3 + \one_4 = 1
 $$
 
 
@@ -3980,17 +4015,17 @@ $$
 - **How?** Drop one dummy variable (e.g. the first) and consider the model
 
 $$
-Y = \beta_1 \cdot (1) + \beta_2 D_2 + \beta_3 D_3 + \beta_4 D_4  + \e
+Y = \beta_1 \cdot (1) + \beta_2 \one_2 + \beta_3 \one_3 + \beta_4 \one_4  + \e
 $$
 
 
-- If data belongs to Q1 then $D_2 = D_3 = D_4 = 0$
+- If data belongs to Q1, then $\one_2 = \one_3 = \one_4 = 0$
 
 
 - Therefore, in general, we have
 
 $$
-D_2 + D_3 + D_4 \not\equiv 1
+\one_2 + \one_3 + \one_4 \not\equiv 1
 $$
 
 - This way we **avoid** Multicollinearity $\quad \implies \quad$ **no trap!**
@@ -4003,39 +4038,42 @@ $$
 - **Question:** How do we interpret the coefficients in the model 
 
 $$
-Y = \beta_1 \cdot (1)  + \beta_2 D_2 + \beta_3 D_3 + \beta_4 D_4  + \e \qquad ?
+Y = \beta_1 \cdot (1)  + \beta_2 \one_2 + \beta_3 \one_3 + \beta_4 \one_4  + \e \qquad ?
 $$
 
 
 - **Answer:** Recall the relationship 
 
 $$
-D_1 + D_2 + D_3 + D_4 = 1
+\one_1 + \one_2 + \one_3 + \one_4 = 1
 $$
 
 - Substituting in the regression model we get
 
 \begin{align*}
-Y & = \beta_1 \cdot ( D_1 + D_2 + D_3 + D_4 ) + \beta_2 D_2 + \beta_3 D_3 + \beta_4 D_4  + \e \\[10pts]
-& = \beta_1 D_1 + (\beta_1 + \beta_2) D_2 + (\beta_1 + \beta_3) D_3 + (\beta_1 + \beta_4 ) D_4 + \e  
+Y & = \beta_1 \cdot ( \one_1 + \one_2 + \one_3 + \one_4 ) + \beta_2 \one_2 + \beta_3 \one_3 + \beta_4 \one_4  + \e \\[10pts]
+& = \beta_1 \one_1 + (\beta_1 + \beta_2) \one_2 + (\beta_1 + \beta_3) \one_3 + (\beta_1 + \beta_4 ) \one_4 + \e  
 \end{align*}
 
 
 
 ## {.smaller}
 
-- Therefore the regression coefficients are such that
-    * $\beta_1$ describes increase for $D_1$
-    * $\beta_1 + \beta_2$ describes increase for $D_2$
-    * $\beta_1 + \beta_3$ describes increase for $D_3$
-    * $\beta_1 + \beta_4$ describes increase for $D_4$
+Therefore, the regression coefficients are such that
+
+| Group        | Increase Described By         |
+|--------------|-------------------------------|
+| $\one_1$        | $\beta_1$                     |
+| $\one_2$        | $\beta_1 + \beta_2$           |
+| $\one_3$        | $\beta_1 + \beta_3$           |
+| $\one_4$        | $\beta_1 + \beta_4$           |
 
 
 **Conclusion:** When fitting regression model with dummy variables
 
-- Increase for first dummy variable $D_1$ is intercept term $\beta_1$
+- Increase for first dummy variable $\one_1$ is intercept term $\beta_1$
 
-- Increase for successive dummy variables $D_i$ with $i > 1$ is computed by
+- Increase for successive dummy variables $\one_i$ with $i > 1$ is computed by
 $\beta_1 + \beta_i$
 
 
@@ -4047,15 +4085,15 @@ $\beta_1 + \beta_i$
 ## General case: Dummy variable trap {.smaller}
 
 
-- Suppose to have a qualitative $X$ variable which takes $m$ different levels
-    * E.g. the previous example has $m = 4$ quarters
+- Suppose to have a qualitative variable $X$ which takes $k$ different levels
+    * E.g. the previous example has $k = 4$ quarters
 
 
-- Encode each level of $X$ in one dummy variable $D_i$
+- Encode each level of $X$ in one dummy variable $\one_j$
 
 $$
-D_i = \begin{cases}
-1 & \text{ if X has level i} \\
+\one_j(i) = \begin{cases}
+1 & \text{ if } X(i) = j \\
 0 & \text{ otherwise} \\
 \end{cases}
 $$
@@ -4064,7 +4102,7 @@ $$
 - To each data entry corresponds one and only one level of $X$, so that 
 
 $$
-D_1 + D_2 + \ldots + D_m = 1
+\one_1 + \one_2 + \ldots + \one_k = 1
 $$
 
 
@@ -4074,24 +4112,23 @@ $$
 
 ## General case: Avoid the trap!  {.smaller}
 
-
-- We drop the first dummy variable $D_1$ and consider the model
-
-$$
-Y = \beta_1 \cdot (1)  + \beta_2 D_2 + \beta_3 D_3 + \ldots + \beta_m D_m  + \e 
-$$
-
-
-- For data points such that $X = 1$ we have
+- We drop the first dummy variable $\one_1$ and consider the model
 
 $$
-D_2 = D_3 = \ldots = D_m = 0
+Y = \beta_1 \cdot (1)  + \beta_2 \one_2 + \beta_3 \one_3 + \ldots + \beta_k \one_k  + \e 
+$$
+
+
+- For data points such that $X = 1$, we have
+
+$$
+\one_2 = \one_3 = \ldots = \one_k = 0
 $$
 
 - Therefore, in general, we get
 
 $$
-D_2 + D_3 + \ldots + D_m \not \equiv 1
+\one_2 + \one_3 + \ldots + \one_k \not \equiv 1
 $$
 
 - This way we avoid Multicollinearity $\quad \implies \quad$ **no trap!**
@@ -4103,19 +4140,19 @@ $$
 - How to interpret the coefficients in the model
 
 $$
-Y = \beta_1 \cdot (1)  + \beta_2 D_2 + \beta_3 D_3 + \ldots + \beta_m D_m  + \e  \quad ?
+Y = \beta_1 \cdot (1)  + \beta_2 \one_2 + \beta_3 \one_3 + \ldots + \beta_k \one_k  + \e  \quad ?
 $$
 
 - We can argue similarly to the case $m = 4$ and use the constraint
 
 $$
-D_1 + D_2 + \ldots + D_m = 1
+\one_1 + \one_2 + \ldots + \one_k = 1
 $$
 
 - Substituting in the regression model we get
 
 $$
-Y = \beta_1 D_1 + (\beta_1 + \beta_2) D_2 + \ldots + (\beta_1 + \beta_m) D_m + \e
+Y = \beta_1 \one_1 + (\beta_1 + \beta_2) \one_2 + \ldots + (\beta_1 + \beta_k) \one_k + \e
 $$
 
 
@@ -4125,9 +4162,14 @@ $$
 
 **Conclusion:** When fitting regression model with dummy variables
 
-- Increase for first dummy variable $D_1$ is intercept term $\beta_1$
+| Group        | Increase Described By         |
+|--------------|-------------------------------|
+| $\one_1$     | $\beta_1$                     |
+| $\one_i$     | $\beta_1 + \beta_i$           |
 
-- Increase for successive dummy variables $D_i$ with $i > 1$ is computed by
+- Increase for first dummy variable $\one_1$ is intercept term $\beta_1$
+
+- Increase for successive dummy variables $\one_i$ with $i > 1$ is computed by
 $\beta_1 + \beta_i$
 
 
@@ -4137,7 +4179,7 @@ $\beta_1 + \beta_i$
 
 
 
-# Part 3: <br> ANOVA models {background-color="#cc0164" visibility="uncounted"}
+# Part 8: <br> ANOVA as Regression {background-color="#cc0164" visibility="uncounted"}
 
 ::: footer
 
@@ -4145,41 +4187,625 @@ $\beta_1 + \beta_i$
 
 :::
 
-::: footer
 
-<div color="#cc0164">  </div>
+
+
+## ANOVA F-test and regression {.smaller}
+
+
+- ANOVA can be seen as linear regression problem, by using *dummy variables*
+
+- In particular, we will show that
+    * **ANOVA F-test is equivalent to F-test for overall significance**
+
+::: {style="font-size: 0.2em"}
+
+<br>
+
+:::
+
+
+
+- We have already seen a particular instance of this fact in the Homework
+    * **Simple linear regression can be used to perform two-sample t-test**  
+    (recall that two-sample t-test is just the ANOVA F-test with two populations)
+
+
+::: {style="font-size: 0.2em"}
+
+<br>
+
+:::
+
+- This was done by considering the model
+
+$$
+Y_i = \beta_1 + \beta_2 \, \one_2 (i) + \e_i
+$$
+
+
+
+## Simple regression for two-sample t-test {.smaller}
+
+
+- Assume given two independent normal populations $N(\mu_1, \sigma^2)$ and $N(\mu_2, \sigma^2)$
+
+- We have two samples
+  * Sample of size $n_1$ iid from population $1$
+  $$
+  a = (a_1, \ldots, a_{n_1})
+  $$
+  * Sample of size $n_2$ iid from population $2$
+  $$
+  b = (b_1, \ldots, b_{n_2})
+  $$
+
+
+- The data vector $y$ is obtained by concatenating $a$ and $b$
+
+$$
+y = (a,b) = (a_1, \ldots, a_{n_1}, b_1, \ldots, b_{n_2} )
+$$
+
+
+
+## {.smaller}
+
+- We then considered the dummy variable model
+
+$$
+Y_i = \beta_1 + \beta_2 \, \one_2 (i) + \e_i
+$$
+
+- Here $\one_2 (i)$ is the dummy variable relative to population $B$
+
+$$
+\one_2(i) = \begin{cases}
+1 & \text{ if i-th sample belongs to population 2} \\
+0 & \text{ otherwise}
+\end{cases}
+$$
+
+- The regression function is therefore
+
+$$
+\Expect[Y | \one_2 = x] = \beta_1 + \beta_2 x 
+$$
+
+
+
+## {.smaller}
+
+
+- By construction, we have that 
+
+$$
+Y | \text{sample belongs to population 1}  \ \sim \ N(\mu_1, \sigma^2)
+$$
+
+
+- Therefore, by definition of $\one_2$, we get
+
+$$
+\Expect[Y | \one_2 = 0] = \Expect [Y | \text{ sample belongs to population 1}] = \mu_1
+$$
+
+
+- On the other hand, the regression function is
+
+$$
+\Expect[Y | \one_2 = x] = \beta_1 + \beta_2 x 
+$$
+
+- Thus
+
+$$
+\Expect[Y | \one_2 = 0] = \beta_1 + \beta_2 \cdot 0 = \beta_1
+\qquad \implies \qquad \beta_1 = \mu_1
+$$
+
+
+
+##  {.smaller}
+
+- Similarly, by construction, we have that 
+
+$$
+Y | \text{sample belongs to population 2}  \ \sim \ N(\mu_2, \sigma^2)
+$$
+
+- Therefore, by definition of $\one_2$, we get
+
+$$
+\Expect[Y | \one_2 = 1] = \Expect [Y | \text{ sample belongs to population 2}] = \mu_2
+$$
+
+
+- On the other hand, the regression function is
+
+$$
+\Expect[Y | \one_2 = x] = \beta_1 + \beta_2 x 
+$$
+
+- Thus
+
+$$
+\Expect[Y | \one_2 = 1] = \beta_1 + \beta_2 
+\qquad \implies \qquad \beta_1 + \beta_2 = \mu_2
+$$
+
+
+
+
+##  {.smaller}
+
+::: {style="font-size: 0.93em"}
+
+- Therefore, we have proven
+
+$$
+\beta_1 = \mu_1 \,, \qquad \beta_1 + \beta_2 = \mu_2 \qquad \implies \qquad \beta_2 = \mu_2 - \mu_1
+$$
+
+- Recall the the regression model is 
+
+$$
+Y_i = \beta_1 + \beta_2  \, \one_{2} (i) + \e_i 
+$$
+
+- The hypothesis for F-test for Overall Significance for above model is 
+
+$$
+H_0 \colon \beta_2 = 0 \,, \qquad H_1 \colon \beta_2 \neq 0
+$$
+
+
+- Since $\beta_2 = \mu_2 - \mu_1$, the above hypothesis is equivalent to
+$$
+H_0 \colon \mu_1 = \mu_2 \,, \qquad  H_1 \colon \mu_1 \neq \mu_2 
+$$
+
+- **Hypotheses for F-test of Overall Significance and two-sample t-test are equivalent**
+
+:::
+
+
+
+## {.smaller}
+
+- In the Homework, we have also proven that the ML estimators for the model
+$$
+Y_i = \beta_1 + \beta_2  \, \one_{2} (i) + \e_i 
+$$
+satisfy
+$$
+\hat{\beta}_1 = \overline{a} \,, \qquad 
+\hat{\beta}_2 = \overline{b} - \overline{a}
+$$
+
+- With this information, it is easy to check that they are equivalent
+    * F-statistic for Overall Significance
+    * t-statistic for two-sample t-test
+
+
+- **F-test of Overall Significance and two-sample t-test are equivalent**
+
+
+## {.smaller}
+
+- In particular, the (fitted) dummy variable regression model is
+
+\begin{align*}
+Y_i & = \hat{\beta}_1 + \hat{\beta}_2  \, \one_{2} (i) + \e_i \\[10pt]
+& = \overline{a} + (\overline{b} - \overline{a}) \, \one_{2} (i) + \e_i
+\end{align*}
+
+
+- Therefore, the predictions are:
+
+\begin{align*}
+\Expect[Y| \text{Sample is from population 1}] & = \overline{a} \\[10pt]
+\Expect[Y| \text{Sample is from population 2}] & = \overline{b}
+\end{align*}
+
+
+
+
+## ANOVA F-test and Regression {.smaller}
+
+Now, consider the general ANOVA case
+
+- Assume given $k$ independent populations with normal distribution $N(\mu_i,\sigma^2)$
+
+::: {style="font-size: 0.1em"}
+
+<br>
+
+:::
+
+- **Example:** In Fridge sales example we have $k = 4$ populations (the 4 quarters)
+
+::: {style="font-size: 0.1em"}
+
+<br>
+
+:::
+
+- The ANOVA hypothesis for difference in populations means is
+
+\begin{align*}
+H_0 & \colon \mu_1 = \mu_2 = \ldots =  \mu_k  \\ 
+H_1 & \colon \mu_i \neq \mu_j \text{ for at least one pair i and j}
+\end{align*}
+
+
+- **Goal:** Show the ANOVA F-test for above hypothesis can be obtained with regression
+
+
+
+##  {.smaller}
+
+- We want to introduce dummy variable regression model which models ANOVA
+
+- To each population, associate a dummy variable
+$$
+\one_{i}(j) = \begin{cases}
+1 & \text{ if j-th sample belongs to population i} \\
+0 & \text{ otherwise} \\
+\end{cases}
+$$
+
+
+- Denote by $x_{i1}, \ldots, x_{in_i}$ the iid sample of size $n_{i}$ from population $i$
+
+- Concatenate these samples into a long vector (length $n_1 + \ldots + n_2$)
+$$
+y = (\underbrace{x_{11}, \ldots, x_{1n_1}}_{\text{population 1}}, \, \underbrace{x_{21}, \ldots, x_{2n_2}}_{\text{population 2}} , \,  \ldots, \, \underbrace{x_{k1}, \ldots, x_{kn_k}}_{\text{population k}})
+$$
+
+- Consider the dummy variable model (with $\one_{1}$ omitted)
+$$
+Y_i = \beta_1 + \beta_2 \, \one_{2} (i) + \beta_3 \, \one_{3} (i) +  \ldots  + \beta_k \, \one_{k} (i) + \e_i 
+$$
+
+
+
+##  {.smaller}
+
+::: {style="font-size: 0.95em"}
+
+- In particular, the regression function is
+$$
+\Expect[Y | \one_{2} = x_2 , \, \ldots, \, \one_{k} = x_k ] = \beta_1 + \beta_2 \, x_2 +  \ldots  + \beta_k \, x_k
+$$
+
+- By construction, we have that 
+$$
+Y | \text{sample belongs to population i} \ \sim \ N(\mu_i , \sigma^2)
+$$
+
+- A sample point belongs to population $1$ if and only if 
+$$
+\one_{2} = \one_{3} = \ldots = \one_{k} = 0
+$$
+
+
+- Hence, we can compute the conditional expectation
+$$
+\Expect[ Y | \one_{2} = 0 , \, \ldots, \, \one_{k} = 0] = 
+\Expect[Y | \text{sample belongs to population 1}] = \mu_1 
+$$
+
+
+- On the other hand, by definition of regression function, we get
+$$
+\Expect[ Y | \one_{2} = 0 , \, \ldots, \, \one_{k} = 0] = \beta_1 + \beta_2 \cdot 0 + \ldots + \beta_k \cdot 0 = \beta_1 \quad \implies \quad \mu_1 = \beta_1
+$$
+
+:::
+
+
+
+##  {.smaller}
+
+::: {style="font-size: 0.95em"}
+
+- Similarly, a sample point belongs to population $2$ if and only if
+$$
+\one_{2} = 1 \quad \text{and} \quad \one_{1} = \one_{3} = \ldots = \one_{k} = 0
+$$
+
+
+- Hence, we can compute the conditional expectation
+$$
+\Expect[ Y | \one_{2} = 1 ,  \, \one_{3} = 0, \, \ldots, \, \one_{k} = 0] = 
+\Expect[Y | \text{sample belongs to population } A_2] = \mu_2
+$$
+
+
+- On the other hand, by definition of regression function, we get
+$$
+\Expect[ Y | \one_{2} = 1 , \, \one_{3} = 0, \, \ldots, \, \one_{k} = 0] = \beta_1 + \beta_2 \cdot 1 + \ldots + \beta_k \cdot 0 = \beta_1 + \beta_2
+$$
+
+- Therefore, we conclude that 
+$$
+\mu_2 = \beta_1 + \beta_2
+$$
+
+- Arguing in a similar way, we can show that
+$$
+\mu_i = \beta_1 + \beta_i \,, \quad \forall \, i \geq 2
+$$
+
+:::
+
+
+
+##  {.smaller}
+
+::: {style="font-size: 0.95em"}
+
+- Therefore, we have proven
+$$
+\mu_1 = \beta_1 \,, \quad \mu_i = \beta_1 + \beta_i  \quad \forall \, i \geq 2 \quad \, \implies \quad \,
+\beta_1 = \mu_1 \,, \quad \beta_i = \mu_i - \mu_1 \quad \forall \,  \, i \geq 2
+$$
+
+
+- Recall that the regression model is
+$$
+Y_i = \beta_1 + \beta_2 \, \one_{2} (i) +   \ldots  + \beta_k \, \one_{k} (i) + \e_i 
+$$
+
+- The hypothesis for F-test for Overall Significance for above model is
+$$
+H_0 \colon  \beta_2 = \beta_3 = \ldots = \beta_k = 0 \,, \qquad 
+H_1 \colon \exists \, i \in \{2, \ldots, k\} \text{ s.t. } \beta_i \neq 0
+$$
+
+- Since $\beta_i = \mu_i - \mu_1$ for all $i \geq 2$, the above is equivalent to
+$$
+H_0 \colon \mu_1 = \mu_2 = \ldots = \mu_k \,  \qquad
+H_1 \colon \mu_i \neq \mu_j \text{ for at least one pair } i \neq j
+$$
+
+- **Hypotheses for F-test of Overall Significance and ANOVA F-test are equivalent**
 
 :::
 
 
 
 
-## Analysis of variance (ANOVA) models in R {.smaller}
+## {.smaller}
+
+
+- Denote by $\overline{x}_i$ the mean of the sample $x_{i1}, \ldots, x_{i n_i}$ from population i
+
+- It is easy to prove that the ML estimators for the model
+$$
+Y_i = \beta_1 + \beta_2  \, \one_{2} (i) +  + \beta_k  \, \one_{k} (i) + \e_i 
+$$
+satisfy
+$$
+\hat{\beta}_1 = \overline{x}_1 \,, \qquad 
+\hat{\beta}_i = \overline{x}_i - \overline{x}_1 \, \quad \forall  \, i \geq 2
+$$
+
+- With this information, it is easy to check that they are equivalent
+    * F-statistic for Overall Significance
+    * F-statistic for ANOVA F-test
+
+
+- **F-test of Overall Significance and ANOVA F-test are equivalent**
+
+
+## {.smaller}
+
+- In particular, the (fitted) dummy variable regression model is
+
+\begin{align*}
+Y_i & = \hat{\beta}_1 + \hat{\beta}_2  \, \one_{2} (i) + \hat{\beta}_k  \, \one_{k} (i) + \e_i \\[10pt]
+& = \overline{x}_1 + (\overline{x}_2 - \overline{x}_1) \, \one_{2} (i) + \ldots +  (\overline{x}_k - \overline{x}_1)  \, \one_{k} (i) + \e_i
+\end{align*}
+
+
+- Therefore, the predictions are:
+
+$$
+\Expect[Y| \text{Sample is from population i}] = \hat{\beta}_1 + \hat{\beta}_i = \overline{x}_i
+$$
+
+
+
+
+
+
+
+## Worked Example {.smaller}
 
 - The data in [fridge_sales.txt](datasets/fridge_sales.txt) links
     * *Sales of fridges* and *Sales of durable goods*
     * to the time of year (*Quarter*)
 
-- For the moment ignore the data on the *Sales of durable goods* 
+- For the moment, ignore the data on the *Sales of durable goods* 
 
-::: {style="font-size: 0.20em"}
 
-<br>
 
-:::
+- **Goal:** Determine if *Fridge sales* are linked to the *time of the year*
 
-- **Goal:** Fit regression and analysis of variance models to link
-    * *Fridge sales* to the *time of the year*
-
-::: {style="font-size: 0.20em"}
-
-<br>
-
-:::
 
 - There are two ways this can be achieved in R
-    1. A regression approach using the command $\, \texttt{lm}$
-    2. An analysis of variance (ANOVA) approach using the command $\, \texttt{aov}$
+    1. ANOVA F-test for equality of means -- using the command $\, \texttt{aov}$ 
+    2. Dummy variable regression approach -- using the command $\, \texttt{lm}$
+
+
+
+<br>
+
+- Code for this example is available here [anova.R](datasets/anova.R) 
+
+
+
+##  {.smaller}
+
+
+- Data is in the file [fridge_sales.txt](datasets/fridge_sales.txt) 
+    * We read the data into a data-frame as usual
+    * The first 4 rows of the data-set are given below
+
+```r
+# Load dataset on Fridge Sales
+d <- read.table(file = "fridge_sales.txt", header = TRUE)
+
+# Print first 4 rows
+head(d, n=4)
+```
+
+```{r}
+d <- read.table(file = "datasets/fridge_sales.txt",
+                    header = TRUE)
+
+head(d, n=4)
+```
+
+::: {style="font-size: 0.20em"}
+
+<br>
+
+:::
+
+
+
+::: {.column width="58%"}
+
+- Quantitative variables
+    * *Fridge sales*
+    * *Durable goods sales* $\,$ (ignore for now)
+
+:::
+
+::: {.column width="38%"}
+
+- Qualitative variables
+    * *q1, q2, q3, q4*
+    * *quarter*
+
+:::
+
+
+
+## Preparing the data {.smaller}
+
+
+- The variables ``d$q1``, ``d$q2``, ``d$q3``, ``d$q4`` are vectors taking the values $\, \texttt{0}$ and $\, \texttt{1}$
+    * No further data processing is needed
+    * **Remember:** To avoid dummy variable trap, only 3 of these 4 dummy variables can be included (if the model also includes an intercept term)
+
+
+::: {style="font-size: 0.10em"}
+
+<br>
+
+:::
+
+- The variable ``d$quarter`` is a vector taking the values $\, \texttt{1}, \texttt{2}, \texttt{3}, \texttt{4}$
+    * Need to convert this into a factor
+
+::: {style="font-size: 0.10em"}
+
+<br>
+
+:::
+
+
+```r
+d$quarter <- factor(d$quarter)
+
+print(d$quarter)
+```
+
+```{r}
+# Load dataset on Fridge Sales
+d <- read.table(file = "datasets/fridge_sales.txt", header = TRUE)
+
+d$quarter <- factor(d$quarter)
+d$quarter
+```
+
+
+
+
+##  {.smaller}
+
+```r
+# Make boxplot of Fridge Sales vs Quarter
+boxplot(fridge.sales ~ quarter, data = d,
+        main = "Quarterly Fridge sales", ylab = "Fridge sales")
+```
+
+
+
+```{r}
+# Load dataset on Fridge Sales
+d <- read.table(file = "datasets/fridge_sales.txt", header = TRUE)
+
+d$quarter <- factor(d$quarter)
+
+boxplot(fridge.sales ~ quarter, data = d,
+        main = "Quarterly Fridge sales", ylab = "Fridge sales")
+```
+
+
+- Fridge sales seem higher in Q2 and Q3
+
+- We suspect population means are different: need one-way ANOVA F-test
+
+
+
+
+
+## ANOVA and Regression {.smaller}
+
+As already mentioned, there are 2 ways of performing ANOVA F-test
+
+1. ANOVA F-test for equality of means -- using the command $\, \texttt{aov}$
+2. Dummy variable regression approach -- using the command $\, \texttt{lm}$
+
+
+
+::: {style="font-size: 0.20em"}
+
+<br>
+
+:::
+
+- As already discussed in the previous Part, 
+    * **Both approaches lead to the same numerical answer**
+    
+
+
+
+
+
+
+## 1. ANOVA F-test with aov {.smaller}
+
+- We have *Fridge Sales* data for each quarter
+    * Each *Quarter* represents a population
+    * Let $\mu_i$ denote the average (population) fridge sales in quarter i
+ 
+- Hypothesis for comparing quarterly fridge sales are
+
+\begin{align*}
+H_0 & \colon \mu_{1} =  \mu_{2} = \mu_3 = \mu_4   \\
+H_1 & \colon  \mu_i \neq \mu_j \, \text{ for at least one pair } i \neq j
+\end{align*}
+
+
+- To decide on the above hypothesis, we use the **ANOVA F-test**
+
+- Already seen an example of this with the *calories consumption* dataset
 
 
 
@@ -4188,113 +4814,50 @@ $\beta_1 + \beta_i$
 
 ##  {.smaller}
 
-- Code for this example is available here [anova.R](datasets/anova.R) 
 
-- Data is in the file [fridge_sales.txt](datasets/fridge_sales.txt) 
+```r
+# Perform ANOVA F-test - Recall: quarter needs to be a factor
+anova <- aov(fridge.sales ~ quarter, data = d)
 
-- The first 4 rows of the data-set are given below
+# Print output
+summary(anova)
+```
+
+
+::: {style="font-size: 0.5em"}
+
+<br>
+
+:::
 
 
 ```{r}
-sales <- read.table(file = "datasets/fridge_sales.txt",
-                    header = TRUE)
-
-head(sales, n=4)
-```
-
-::: {style="font-size: 0.20em"}
-
-<br>
-
-:::
-
-- Therefore we have the variables
-    * *Fridge sales*
-    * *Durable goods sales* $\quad$ (ignored for now)
-    * *Q1, Q2, Q3, Q4*
-    * *Quarter*
-
-
-
-
-## Reading the data into R {.smaller}
-
-
-- We read the data into a data-frame as usual
-
-```r
 # Load dataset on Fridge Sales
-sales <- read.table(file = "fridge_sales.txt",
-                    header = TRUE)
+d <- read.table(file = "datasets/fridge_sales.txt", header = TRUE)
 
-# Assign data-frame columns to vectors
-fridge <- sales[ , 1]
-durables <- sales[ , 2]
-q1 <- sales[ , 3]
-q2 <- sales[ , 4]
-q3 <- sales[ , 5]
-q4 <- sales[ , 6]
-quarter <- sales[ , 7]
+d$quarter <- factor(d$quarter)
+
+# Perform ANOVA F-test
+anova <- aov(fridge.sales ~ quarter, data = d)
+
+# Print output
+summary(anova)
 ```
 
-
-
-
-## Processing dummy variables in R {.smaller}
-
-- The variables $\, \texttt{q1, q2, q3, q4} \,$ are vectors taking the values $\, \texttt{0}$ and $\, \texttt{1}$
-    * No further data processing is needed for $\, \texttt{q1, q2, q3, q4}$
-    * **Remember:** To avoid dummy variable trap only 3 of these 4 dummy variables can be included (if the model also includes an intercept term)
-
-
-::: {style="font-size: 0.20em"}
-
-<br>
-
-:::
-
-- The variable $\, \texttt{quarter}$ is a vector taking the values $\, \texttt{1}, \texttt{2}, \texttt{3}, \texttt{4}$
-    * Need to tell R this is a qualitative variable
-    * This is done with the $\, \texttt{factor}$ command
-
-::: {style="font-size: 0.10em"}
+::: {style="font-size: 0.5em"}
 
 <br>
 
 :::
 
 
-```r
-factor(quarter)
-```
-
-```{r}
-# Load dataset on Fridge Sales
-sales <- read.table(file = "datasets/fridge_sales.txt",
-                    header = TRUE)
-
-quarter <- sales[ , 7]
-print(factor(quarter))
-```
+- The F-statistic for the ANOVA F-test is $\,\, F = 10.6$
 
 
+- The p-value for ANOVA F-test is $\,\, p = 7.91 \times 10^{-5}$
 
-
-## Regression and ANOVA {.smaller}
-
-As already mentioned, there are 2 ways of fitting regression and ANOVA models in R
-
-1. A regression approach using the command $\, \texttt{lm}$
-2. An analysis of variance approach using the command $\, \texttt{aov}$
-
-
-::: {style="font-size: 0.20em"}
-
-<br>
-
-:::
-
-- Both approaches lead to the same numerical answers in our example
+- Therefore $p < 0.05$, and we reject $H_0$
+    * Evidence that average Fridge sales are different in at least two quarters
 
 
 
@@ -4302,33 +4865,64 @@ As already mentioned, there are 2 ways of fitting regression and ANOVA models in
 
 
 
+## 2. Dummy variable Regression approach {.smaller}
 
-## Regression approach {.smaller}
+- Encode each Quarter with one dummy variable $\one_i$
 
-We can proceed in 2 equivalent ways
+$$
+\one_i(j) = \begin{cases}
+1 & \text{ if sample j belongs to Quarter i} \\
+0 & \text{ otherwise} \\
+\end{cases}
+$$
 
-1. Use a dummy variable approach (and arbitrarily excluding $\, \texttt{q1}$)
+
+- Let $Y$ denote the *Fridge sales* data
+
+
+- Consider the dummy variable regression model 
+
+$$
+Y =  \beta_1  + \beta_2 \one_2 + \beta_3 \one_3 + \beta_4 \one_4   + \e
+$$
+
+- Note: We have dropped the variable $\one_1$ to avoid dummy variable trap
+
+
+
+
+## {.smaller}
+
+We can fit the following model in 2 equivalent ways
+
+\begin{equation} \tag{1}
+Y =  \beta_1  + \beta_2 \one_2 + \beta_3 \one_3 + \beta_4 \one_4   + \e
+\end{equation}
+
+
+
+
+1. Quarter dummy variables already present in the dataset: they are $\, \texttt{q2}$, $\, \texttt{q3}$, $\, \texttt{q4}$
+
 
 ```r
 # We drop q1 to avoid dummy variable trap
-dummy.lm <- lm (fridge ~ q2 + q3 + q4)
-summary(dummy.lm)
+dummy <- lm (fridge.sales ~ q2 + q3 + q4, data = d)
+summary(dummy)
 ```
 
-::: {style="font-size: 0.10em"}
+::: {style="font-size: 0.15em"}
 
 <br>
 
 :::
 
-2. Using the $\, \texttt{factor}$ command on $\, \texttt{quarter}$
+2. Quarters are also stored in the factor $\, \texttt{quarter}$
+    * ``lm`` automatically encodes $\, \texttt{quarter}$ into 3 dummy variables $\, \texttt{q2}$, $\, \texttt{q3}$, $\, \texttt{q4}$
 
 ```r
-# Need to convert quarter to a factor
-quarter.f <- factor(quarter)
-
-factor.lm <- lm(fridge ~ quarter.f)
-summary(factor.lm)
+auto <- lm(fridge.sales ~ quarter, data = d)
+summary(auto)
 ```
 
 ::: {style="font-size: 0.10em"}
@@ -4337,17 +4931,18 @@ summary(factor.lm)
 
 :::
 
-- Get the same numerical answers using both approaches
+
+- Both commands fit the same linear model (1)
 
 
 
-## Output for dummy variable approach {.smaller}
+## Output for first command {.smaller}
 
 ::: {style="font-size: 0.83em"}
 
 ```verbatim
 Call:
-lm(formula = fridge ~ q2 + q3 + q4)
+lm(formula = fridge.sales ~ q2 + q3 + q4, data = d)
 
 Coefficients:
             Estimate Std. Error t value Pr(>|t|)    
@@ -4375,28 +4970,26 @@ F-statistic:  10.6 on 3 and 28 DF,  p-value: 7.908e-05
 
 
 
-## Output for factor approach {.smaller}
-
+## Output for second command {.smaller}
 
 ::: {style="font-size: 0.83em"}
 
 ```verbatim
 Call:
-lm(formula = fridge ~ quarter.f)
+lm(formula = fridge.sales ~ quarter, data = d)
 
 Coefficients:
             Estimate Std. Error t value Pr(>|t|)    
 (Intercept)  1222.12      59.99  20.372  < 2e-16 ***
-quarter.f2    245.37      84.84   2.892 0.007320 ** 
-quarter.f3    347.63      84.84   4.097 0.000323 ***
-quarter.f4    -62.12      84.84  -0.732 0.470091    
+quarter2      245.37      84.84   2.892 0.007320 ** 
+quarter3      347.63      84.84   4.097 0.000323 ***
+quarter4      -62.12      84.84  -0.732 0.470091    
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
 Residual standard error: 169.7 on 28 degrees of freedom
 Multiple R-squared:  0.5318,	Adjusted R-squared:  0.4816 
 F-statistic:  10.6 on 3 and 28 DF,  p-value: 7.908e-05
-
 ```
 
 :::
@@ -4409,37 +5002,36 @@ F-statistic:  10.6 on 3 and 28 DF,  p-value: 7.908e-05
 
 
 
-- The two outputs are essentially the same (only difference is variables names)
+- The two outputs are the same (only difference is variables names)
 
-- $\, \texttt{quarter.f}$ is a factor with four levels $\, \texttt{1}, \texttt{2}, \texttt{3}, \texttt{4}$
+- $\, \texttt{quarter}$ is a factor with four levels $\, \texttt{1}, \texttt{2}, \texttt{3}, \texttt{4}$
 
-- Variables $\, \texttt{quarter.f2}, \texttt{quarter.f3}, \texttt{quarter.f4}$ refer to the levels 
-$\, \texttt{2}, \texttt{3}, \texttt{4}$ in $\, \texttt{quarter.f}$
-
-
+- Variables $\, \texttt{quarter2}, \texttt{quarter3}, \texttt{quarter4}$ refer to the levels 
+$\, \texttt{2}, \texttt{3}, \texttt{4}$
 
 
-## Output for factor approach {.smaller}
+
+
+## Output for second command {.smaller}
 
 ::: {style="font-size: 0.83em"}
 
 ```verbatim
 Call:
-lm(formula = fridge ~ quarter.f)
+lm(formula = fridge.sales ~ quarter, data = d)
 
 Coefficients:
             Estimate Std. Error t value Pr(>|t|)    
 (Intercept)  1222.12      59.99  20.372  < 2e-16 ***
-quarter.f2    245.37      84.84   2.892 0.007320 ** 
-quarter.f3    347.63      84.84   4.097 0.000323 ***
-quarter.f4    -62.12      84.84  -0.732 0.470091    
+quarter2      245.37      84.84   2.892 0.007320 ** 
+quarter3      347.63      84.84   4.097 0.000323 ***
+quarter4      -62.12      84.84  -0.732 0.470091    
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
 Residual standard error: 169.7 on 28 degrees of freedom
 Multiple R-squared:  0.5318,	Adjusted R-squared:  0.4816 
 F-statistic:  10.6 on 3 and 28 DF,  p-value: 7.908e-05
-
 ```
 
 :::
@@ -4451,29 +5043,29 @@ F-statistic:  10.6 on 3 and 28 DF,  p-value: 7.908e-05
 :::
 
 
-- $\, \texttt{lm}$ is treating  $\, \texttt{quarter.f2}, \texttt{quarter.f3}, \texttt{quarter.f4}$ as if they were dummy variables
+- $\, \texttt{lm}$ interprets $\, \texttt{quarter2}, \texttt{quarter3}, \texttt{quarter4}$ as dummy variables
 
-- Note that $\, \texttt{lm}$ automatically drops $\, \texttt{quarter.f1}$ to prevent dummy variable trap
+- Note that $\, \texttt{lm}$ automatically drops $\, \texttt{quarter1}$ to prevent dummy variable trap
 
-- Thus $\, \texttt{lm}$ behaves the same way as if we passed dummy variables $\, \texttt{q2}, \texttt{q3}, \texttt{q4}$
+- Thus: $\, \texttt{lm}$ behaves the same way as if we passed dummy variables $\, \texttt{q2}, \texttt{q3}, \texttt{q4}$
 
 
 
 
 ## Computing regression coefficients {.smaller}
 
-::: {style="font-size: 0.86em"}
+::: {style="font-size: 0.90em"}
 
 ```verbatim
 Call:
-lm(formula = fridge ~ q2 + q3 + q4)
+lm(formula = fridge.sales ~ q2 + q3 + q4, data = d)
 
 Coefficients:
             Estimate Std. Error t value Pr(>|t|)    
 (Intercept)  1222.12      59.99  20.372  < 2e-16 ***
 q2            245.37      84.84   2.892 0.007320 ** 
 q3            347.63      84.84   4.097 0.000323 ***
-q4            -62.12      84.84  -0.732 0.470091    
+q4            -62.12      84.84  -0.732 0.470091     
 ```
 
 :::
@@ -4496,11 +5088,11 @@ q4            -62.12      84.84  -0.732 0.470091
 
 ## Computing regression coefficients {.smaller}
 
-::: {style="font-size: 0.86em"}
+::: {style="font-size: 0.90em"}
 
 ```verbatim
 Call:
-lm(formula = fridge ~ q2 + q3 + q4)
+lm(formula = fridge.sales ~ q2 + q3 + q4, data = d)
 
 Coefficients:
             Estimate Std. Error t value Pr(>|t|)    
@@ -4522,7 +5114,7 @@ q4            -62.12      84.84  -0.732 0.470091
 ::: {style="font-size: 0.9em"}
 
 | Dummy variable |  Coefficient formula | Estimated coefficient        |
-|:--------------:|:--------------------:|:----------------------------:|
+|--------------:|--------------------:|----------------------------:|
 | $\texttt{q1}$  | $\beta_1$            | $1222.12$                    |
 | $\texttt{q2}$  | $\beta_1 + \beta_2$  | $1222.12 + 245.37 = 1467.49$ |
 | $\texttt{q3}$  | $\beta_1 + \beta_3$  | $1222.12 + 347.63 = 1569.75$ |
@@ -4536,7 +5128,7 @@ q4            -62.12      84.84  -0.732 0.470091
 
 ## Regression formula {.smaller}
 
-- Therefore the linear regression formula obtained is
+- Therefore, the linear regression formula obtained is
 
 \begin{align*}
 \Expect[\text{ Fridge sales } ] = & \,\, 1222.12 \times \, \text{Q1} + 
@@ -4557,246 +5149,78 @@ $$
 ## Sales estimates {.smaller}
 
 
-Therefore the expected sales for each quarter are
+- Therefore, the expected sales for each quarter are
 
 \begin{align*}
-\Expect[\text{ Fridge sales } | \text{ Q1 } = 1] & = 1222.12 \\[15pts]
-\Expect[\text{ Fridge sales } | \text{ Q2 } = 1] & = 1467.49 \\[15pts]
-\Expect[\text{ Fridge sales } | \text{ Q3 } = 1] & = 1569.75 \\[15pts]
-\Expect[\text{ Fridge sales } | \text{ Q4 } = 1] & = 1160 \\[15pts]
+\Expect[\text{ Fridge sales } | \text{ Q1} = 1] & = 1222.12  \,, \qquad
+\Expect[\text{ Fridge sales } | \text{ Q2} = 1]  = 1467.49 \\[15pts]
+\Expect[\text{ Fridge sales } | \text{ Q3} = 1] & = 1569.75 \,, \qquad
+\Expect[\text{ Fridge sales } | \text{ Q4} = 1]  = 1160
 \end{align*}
 
+- These estimates coincide with sample means in each quarter  
+(As already noted, this is true for any dummy variable regression model)
 
-
-
-## ANOVA for the same problem {.smaller}
-
-- First of all: **What is ANOVA?**
-
-- ANOVA stands for Analysis of Variance
-
-- ANOVA is used to compare means of independent populations:
-    * Suppose to have $M$ normally distributed populations $N(\mu_k, \sigma^2)$ $\,\,\,\,\qquad$ (with same variance)
-    * The goal is to compare the populations averages $\mu_k$
-    * For $M = 2$ this can be done with the two-sample t-test
-    * For $M > 2$ we use ANOVA 
-
-**ANOVA is a generalization of two-sample t-test to multiple populations**
-
-
-
-## The ANOVA F-test {.smaller}
-
-- To compare populations averages we use the hypotheses
-
-\begin{align*}
-H_0 & \colon \mu_{1} =  \mu_{2} =  \ldots =  \mu_{M}  \\
-H_1 & \colon  \mu_i \neq \mu_j \, \text{ for at least one pair i and j}
-\end{align*}
-
-
-- To decide on the above hypothesis we use the **ANOVA F-test**
-
-
-- We omit mathematical details. All you need to know is that
-    * ANOVA F-test is performed in R with the function $\, \texttt{aov}$
-    * This function outputs the so-called ANOVA table
-    * ANOVA table contains the F-statistic and relative p-value for ANOVA F-test
-
-**If $p < 0.05$ we reject $H_0$ and there is a difference in populations averages**
-
-
-
-## ANOVA F-test for fridge sales {.smaller}
-
-- In the *Fridge Sales* example we wish to compare *Fridge sales numbers*
-    * We have *Fridge Sales* data for each quarter
-    * Each *Quarter* represents a population
-    * We want to compare average fridge sales for each Quarter
-
-::: {style="font-size: 0.20em"}
-
-<br>
-
-:::
-
-- **ANOVA hypothesis test:** is there a difference in average sales for each Quarter?
-    * If $\mu_{i}$ is average sales in Quarter $i$ then
-    \begin{align*}
-    H_0 & \colon \mu_{1} =  \mu_{2} =  \mu_{3} =  \mu_{4}  \\
-    H_1 & \colon  \mu_i \neq \mu_j \, \text{ for at least one pair i and j}
-    \end{align*}
-
-
-## Plotting the data {.smaller}
-
-
-::: {.column width="44%"}
-
-<br>
-
-<br>
-
-- Plot Quarter against Fridge sales
 
 ```r
-plot(quarter, fridge)
+# For example, compute average fridge sales in Q3
+
+fridge.sales.q3 <- d$fridge.sales[ d$quarter == 3 ]
+
+mean(fridge.sales.q3)
 ```
 
-- We clearly see 4 populations
+```{r}
+d <- read.table(file = "datasets/fridge_sales.txt", header = TRUE)
 
-- Averages appear different
+# For example, compute average fridge sales in Q3
 
-:::
+fridge.sales.q3 <- d$fridge.sales[ d$quarter == 3 ]
 
-
-::: {.column width="55%"}
-
-```{r} 
-#| fig-asp: 1
-
-# Load dataset on Fridge Sales
-sales <- read.table(file = "datasets/fridge_sales.txt",
-                    header = TRUE)
-
-quarter <- sales[ , 7]
-fridge <- sales[ , 1]
-
-# Scatter plot of data
-plot(quarter, fridge, xlab = "", ylab = "", pch = 16, cex = 1.5)
-
-# Add labels
-mtext("Quarter", side = 1, line = 3, cex = 2.1)
-mtext("Fridge sales", side = 2, line = 2.5, cex = 2.1)
-```
-
-:::
-
-
-
-## ANOVA F-test for fridge sales {.smaller}
-
-- To implement ANOVA F-test in R you need to use command $\, \texttt{factor}$
-
-```r
-# Turn vector quarter into a factor
-quarter.f <- factor(quarter)
-```
-
-::: {style="font-size: 0.3em"}
-
-<br>
-
-:::
-
-- The factor $\, \texttt{quarter.f} \,$ allows to *label* the *fridge sales* data
-    * Factor level $\, \texttt{k} \,$ corresponds to *fridge sales* in Quarter $k$
-
-
-::: {style="font-size: 0.3em"}
-
-<br>
-
-:::
-
-
-- To perform the ANOVA F-test do
-
-```r
-# Fit ANOVA model
-factor.aov <- aov(fridge ~ quarter.f)
-
-# Print output
-summary(factor.aov)
+mean(fridge.sales.q3)
 ```
 
 
 
-## ANOVA output {.smaller}
+## ANOVA F-test from regression {.smaller}
 
-- The summary gives the following analysis of variance (ANOVA) table
+- ANOVA F-test is equivalend to F-test for Overall Significance of model
+$$
+Y =  \beta_1  + \beta_2 \one_2 + \beta_3 \one_3 + \beta_4 \one_4   + \e
+$$
 
-::: {style="font-size: 0.5em"}
+- Therefore, look at F-test line in the summary of model
+$$
+\texttt{lm(fridge} \, \sim \, \texttt{q2 + q3 + q4)}
+$$
 
-<br>
-
-:::
 
 ```verbatim
-            Df Sum Sq Mean Sq F value   Pr(>F)    
-quarter.f    3 915636  305212    10.6 7.91e-05 ***
-Residuals   28 806142   28791                     
----
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+F-statistic:  10.6 on 3 and 28 DF,  p-value: 7.908e-05
 ```
 
-::: {style="font-size: 0.5em"}
+
+::: {style="font-size: 0.15em"}
 
 <br>
 
 :::
 
+- F-statistic is $\,\, F = 10.6 \, , \quad$ p-value is $\,\, p = 7.908 \times 10^{-5}$
 
-- The F-statistic for the ANOVA F-test is $\,\, F = 10.6$
+- **These coincide with F-statistic and p-value for ANOVA F-test**
 
-
-- The p-value for ANOVA F-test is $\,\, p = 7.91 \times 10^{-5}$
-
-- Therefore $p < 0.05$ and we reject $H_0$
+- Therefore $p < 0.05$, and we reject $H_0$
     * Evidence that average Fridge sales are different in at least two quarters
 
 
 
 
-## ANOVA F-statistic from regression {.smaller}
-
-**Alternative way to get ANOVA F-statistic:** Look at output of dummy variable model 
-
-$$
-\texttt{lm(fridge} \, \sim \, \texttt{q2 + q3 + q4)}
-$$
-
-::: {style="font-size: 0.2em"}
-
-<br>
-
-:::
-
-```verbatim
-Residual standard error: 169.7 on 28 degrees of freedom
-Multiple R-squared:  0.5318,	Adjusted R-squared:  0.4816 
-F-statistic:  10.6 on 3 and 28 DF,  p-value: 7.908e-05
-```
-
-
-::: {style="font-size: 0.5em"}
-
-<br>
-
-:::
-
-- The F-test for **overall fit** gives
-    * F-statistic $\,\, F = 10.6$
-    * p-value $\,\, p = 7.908 \times 10^{-5}$
-
-
-**These always coincide with F-statistic and p-value for ANOVA F-test! $\quad$ Why?**
- 
 
 
 
 
-
-
-
-
-# Part 5: <br> ANOVA F-test <br> and regression{background-color="#cc0164" visibility="uncounted"}
-
-::: footer
-
-<div color="#cc0164">  </div>
-
-:::
+# Part 9: <br> ANCOVA {background-color="#cc0164" visibility="uncounted"}
 
 ::: footer
 
@@ -4806,425 +5230,85 @@ F-statistic:  10.6 on 3 and 28 DF,  p-value: 7.908e-05
 
 
 
+## ANCOVA {.smaller}
 
 
-## ANOVA F-test and regression {.smaller}
+Linear regression models seen so far:
+
+- Regular regression: All $X$ variables are quantitative
+- ANOVA: Dummy variable models, where all $X$ variables are qualitative
 
 
-- **ANOVA F-test equivalent to F-test for overall significance**
+ANCOVA:
 
-::: {style="font-size: 0.2em"}
+- means *Analysis of Covariance*
+- Refers to regression models containing both:
+    * Qualitative dummy variables **and** 
+    * quantitative variables
 
-<br>
+
+## Main point of ANCOVA {.smaller}
+
+- Allows to fit regression models with different slopes and different intercept to different parts of the data set
+
+- These are sometimes referred to as *segmented regression models* 
+
+- The effect is to potentially fit different regression lines to each segment of the data
+
+- For example, consider the regressione model
+
+$$
+Y=\beta_1+\beta_2 X + \beta_3 Q + \beta_4 XQ  + \e
+$$
+
+- $X$ is quantitative variable; $Q$ is qualitative, with values $Q = 0, 1$
+
+- $XQ$ is called **interaction term**
+
+\begin{align*}
+Q & = 0 \quad \implies \quad Y = \beta_1 + \beta_2 X + \e
+Q & = 1 \quad \implies \quad Y = (\beta_1 + \beta_3) + \beta_2 X + \e
+\end{eqnarray*}
+$\bullet$ If $Q=1$ the result is a model with different intercepts and different slopes
+\begin{eqnarray*}
+Y=(\beta_1+\beta_2)+(\beta_3X+\beta_4)X+u
+\end{eqnarray*}
+$\bullet$ If $Q=1$ and $\beta_4=0$ the result is a model with a different intercept but the same slope term
+\begin{eqnarray*}
+Y=(\beta_1+\beta_2)+\beta_4X+u
+\end{eqnarray*}
+
+
+
+
+
+
+
+::: {.content-hidden}
+
+Next time: Split this lecture in 2 lectures
+
+Also add the sections:
+
+10. Two-way ANOVA
+11. Two-way ANOVA with interactions
+
+
+You can find these done in Lecture 11 of John Fry 
+
+- the example is only qualitative: no data is provided
+- Also, John uses ``aov`` to fit two-way anova. I would just use ``lm`` as it is clearer
+- Make numerical examples - you can find them in section 12.4 of Verzani
+
+- Also, Verzani uses interaction plots to visualize data. Good idea to introduce them
+
+- Since you have already explained ANOVA vs Regression in details, you can be quick like Verzani and John
+
+- Maybe it's good to do two-way anova BEFORE ANCOVA like John does (Verzani does ancova before two-way anoca)
+
+
 
 :::
-
-
-- This happens because 
-    * **Linear regression can be used to perform ANOVA F-test**
-
-::: {style="font-size: 0.2em"}
-
-<br>
-
-:::
-
-- We have already seen a particular instance of this fact in the Homework
-    * **Simple linear regression can be used to perform two-sample t-test**
-
-
-::: {style="font-size: 0.2em"}
-
-<br>
-
-:::
-
-- This was done by considering the model
-
-$$
-Y_i = \alpha + \beta \, 1_B (i) + \e_i
-$$
-
-
-
-## Simple regression for two-sample t-test {.smaller}
-
-In more details:
-
-- $A$ and $B$ are two normal populations $N(\mu_A, \sigma^2)$ and $N(\mu_B, \sigma^2)$
-
-- We have two samples
-  * Sample of size $n_A$ from population $A$
-  $$
-  a = (a_1, \ldots, a_{n_A})
-  $$
-  * Sample of size $n_B$ from population $B$
-  $$
-  b = (b_1, \ldots, b_{n_B})
-  $$
-
-
-## Simple regression for two-sample t-test {.smaller}
-
-- The data vector $y$ is obtained by concatenating $a$ and $b$
-
-$$
-y = (a,b) = (a_1, \ldots, a_{n_A}, b_1, \ldots, b_{n_B} )
-$$
-
-
-
-- We then considered the dummy variable model
-
-$$
-Y_i = \alpha + \beta \, 1_B (i) + \e_i
-$$
-
-- Here $1_B (i)$ is the dummy variable relative to population $B$
-
-$$
-1_B(i) = \begin{cases}
-1 & \text{ if i-th sample belongs to population B} \\
-0 & \text{ otherwise}
-\end{cases}
-$$
-
-
-
-## Simple regression for two-sample t-test {.smaller}
-
-
-- The regression function is therefore
-
-$$
-\Expect[Y | 1_B = x] = \alpha + \beta x 
-$$
-
-
-- By construction we have that 
-
-$$
-Y | \text{sample belongs to population A}  \ \sim \ N(\mu_A, \sigma^2)
-$$
-
-
-- Therefore by definition of $1_B$ we get
-
-$$
-\Expect[Y | 1_B = 0] = \Expect [Y | \text{ sample belongs to population A}] = \mu_A
-$$
-
-
-
-
-## Simple regression for two-sample t-test {.smaller}
-
-- On the other hand, the regression function is
-
-$$
-\Expect[Y | 1_B = x] = \alpha + \beta x 
-$$
-
-
-- Thus
-
-$$
-\Expect[Y | 1_B = 0] = \alpha + \beta \cdot 0 = \alpha 
-$$
-
-
-- Recall that $\, \Expect[Y | 1_B = 0] = \mu_A$
-
-- Hence we get
-
-$$
-\alpha = \mu_A
-$$
-
-
-## Simple regression for two-sample t-test {.smaller}
-
-- Similarly, we get that 
-
-
-$$
-\Expect[Y | 1_B = 1] = \Expect [Y | \text{ sample belongs to population B}] = \mu_B
-$$
-
-- On the other hand, using the regression function we get
-
-$$
-\Expect[Y | 1_B = 1] = \alpha + \beta \cdot 1 = \alpha + \beta
-$$
-
-- Therefore
-
-$$
-\alpha + \beta = \mu_B 
-$$
-
-
-
-## Simple regression for two-sample t-test {.smaller}
-
-- Since $\alpha = \mu_A$ we get 
-
-$$
-\alpha + \beta = \mu_B  \quad \implies \quad \beta = \mu_B - \mu_A
-$$
-
-
-- In particular we have shown that the regression model is 
-
-\begin{align*}
-Y_i & = \alpha + \beta \, 1_{B} (i) + \e_i \\[10pts]
-    & = \mu_A + (\mu_B - \mu_A) \, 1_{B} (i) + \e_i 
-\end{align*}
-
-
-
-## Simple regression for two-sample t-test {.smaller}
-
-- F-test for overall significance for previous slide model is 
-
-\begin{align*}
-H_0 \colon \beta = 0 \\ 
-H_1 \colon \beta \neq 0
-\end{align*}
-
-
-- Since $\beta = \mu_B - \mu_A$ the above is equivalent to
-
-\begin{align*}
-H_0 \colon \mu_A = \mu_B \\ 
-H_1 \colon \mu_A \neq \mu_B 
-\end{align*}
-
-
-::: {style="font-size: 0.2em"}
-
-<br>
-
-:::
-
-
-**F-test for overall significance is equivalent to two-sample t-test**
-
-
-
-
-## ANOVA F-test and regression {.smaller}
-
-We now consider the general ANOVA case
-
-- Suppose to have $M$ populations $A_i$ with normal distribution $N(\mu_i,\sigma^2)$ $\qquad$
-(with same variance)
-
-::: {style="font-size: 0.1em"}
-
-<br>
-
-:::
-
-- **Example:** In Fridge sales example we have $M = 4$ populations (the 4 quarters)
-
-::: {style="font-size: 0.1em"}
-
-<br>
-
-:::
-
-- The ANOVA F-test for difference in populations means is
-
-\begin{align*}
-H_0 & \colon \mu_1 = \mu_2 = \ldots =  \mu_M  \\ 
-H_1 & \colon \mu_i \neq \mu_j \text{ for at least one pair i and j}
-\end{align*}
-
-
-- **Goal:** Show that the above test can be obtained with regression
-
-
-
-## Setting up dummy variable model {.smaller}
-
-- We want to introduce dummy variable regression model which models ANOVA
-
-- To each population $A_i$ associate a dummy variable
-
-$$
-1_{A_i}(i) = \begin{cases}
-1 & \text{ if i-th sample belongs to population } A_i \\
-0 & \text{ otherwise} \\
-\end{cases}
-$$
-
-
-- Suppose to have samples $a_i$ of size $n_{A_i}$ from population $A_i$
-
-- Concatenate these samples into a long vector (length $n_{A_1} + \ldots + n_{A_M}$)
-
-$$
-y = (a_1, \ldots, a_M)
-$$
-
-
-## Setting up dummy variable model {.smaller}
-
-- Consider the dummy variable model (with $1_{A_1}$ omitted)
-
-$$
-Y_i = \beta_1 + \beta_2 \, 1_{A_2} (i) + \beta_3 \, 1_{A_3} (i) +  \ldots  + \beta_M \, 1_{A_M} (i) + \e_i 
-$$
-
-
-- The regression function is therefore
-
-$$
-\Expect[Y | 1_{A_2} = x_2 , \, \ldots, \, 1_{A_M} = x_M ] = \beta_1 + \beta_2 \, x_2 +  \ldots  + \beta_M \, x_M
-$$
-
-
-- By construction we have that 
-
-$$
-Y | \text{sample belongs to population } A_i \ \sim \ N(\mu_i , \sigma^2)
-$$
-
-
-
-## Conditional expectations {.smaller}
-
-- The sample belongs to population $A_1$ if and only if 
-
-$$
-1_{A_2} = 1_{A_3} = \ldots = 1_{A_M} = 0
-$$
-
-
-- Hence we can compute the conditional expectation
-
-$$
-\Expect[ Y | 1_{A_2} = 0 , \, \ldots, \, 1_{A_M} = 0] = 
-\Expect[Y | \text{sample belongs to population } A_1] = \mu_1 
-$$
-
-
-- On the other hand, by definition of regression function, we get
-
-$$
-\Expect[ Y | 1_{A_2} = 0 , \, \ldots, \, 1_{A_M} = 0] = \beta_1 + \beta_2 \cdot 0 + \ldots + \beta_M \cdot 0 = \beta_1
-$$
-
-- We conclude that $\,\, \mu_1 = \beta_1$
-
-
-
-
-## Conditional expectations {.smaller}
-
-- Similarly, the sample belongs to population $A_2$ if and only if
-
-$$
-1_{A_2} = 1 \quad \text{and} \quad 1_{A_1} = 1_{A_3} = \ldots = 1_{A_M} = 0
-$$
-
-
-- Hence we can compute the conditional expectation
-
-$$
-\Expect[ Y | 1_{A_2} = 1 , \, \ldots, \, 1_{A_M} = 0] = 
-\Expect[Y | \text{sample belongs to population } A_2] = \mu_2
-$$
-
-
-- On the other hand, by definition of regression function, we get
-
-$$
-\Expect[ Y | 1_{A_2} = 1 , \, \ldots, \, 1_{A_M} = 0] = \beta_1 + \beta_2 \cdot 1 + \ldots + \beta_M \cdot 0 = \beta_1 + \beta_2
-$$
-
-- We conclude that $\,\, \mu_2 = \beta_1 + \beta_2$
-
-
-
-## Conditional expectations {.smaller}
-
-- We have shown that 
-
-$$
-\mu_1 = \beta_1 \quad \text{ and } \quad \mu_2 = \beta_1 + \beta_2
-$$
-
-- Therefore we obtain
-
-$$
-\beta_1 = \mu_1 \quad \text{ and } \quad \beta_2 = \mu_2 - \mu_1 
-$$
-
-
-- Arguing in a similar way, we can show that also
-
-$$
-\beta_i = \mu_i - \mu_1  \qquad \forall \, i > 1
-$$
-
-
-
-## Conclusion {.smaller}
-
-
-- The considered dummy variable model is
-
-\begin{align*}
-Y_i & = \beta_1 + \beta_2 \, 1_{A_2} (i) +   \ldots  + \beta_M \, 1_{A_M} (i) + \e_i 
-\end{align*}
-
-
-
-- The F-test of overall significance for the above regression model is 
-
-\begin{align*}
-H_0 & \colon  \beta_2 = \beta_3 = \ldots = \beta_M = 0 \\ 
-H_1 & \colon \text{ At least one of the above } \beta_j \neq 0
-\end{align*}
-
-
-- We have also shown that 
-
-$$
-\beta_1 = \mu_1 \,, \qquad \beta_i = \mu_i - \mu_1 \quad \forall \,  i > 1
-$$
-
-
-##  {.smaller}
-
-- In particular we obtain
-
-\begin{align*}
-\beta_2 =  \ldots = \beta_M = 0 & \quad \iff 
-\quad \mu_2 - \mu_1 =  \ldots = \mu_M - \mu_1 = 0 \\[10pts] 
-& \quad \iff \quad \mu_2 = \ldots = \mu_M = \mu_1
-\end{align*}
-
-
-- Thefore the F-test for overall significance is equivalent to ANOVA F-test
-
-\begin{align*}
-H_0 & \colon \mu_1 = \mu_2 = \ldots = \mu_M \\ 
-H_1 & \colon \mu_i \neq \mu_j \text{ for at least one pair i and j}
-\end{align*}
-
-::: {style="font-size: 0.2em"}
-
-<br>
-
-:::
-
-**F-test for overall significance is equivalent to ANOVA F-test**
-
-
-
 
 
 

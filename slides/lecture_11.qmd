@@ -5583,7 +5583,7 @@ Model 2: fridge.sales ~ quarter + durable.goods.sales
 
 :::
 
-- The p-value is $p < 0.05 \quad \implies \quad$ Reject H_0
+- The p-value is $p < 0.05 \quad \implies \quad$ Reject $H_0$
 
 - The ANCOVA model offers a better fit than the linear model
 

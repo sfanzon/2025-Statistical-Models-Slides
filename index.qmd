@@ -98,7 +98,7 @@ There are 11 lectures in this module. Links to the slides and lecture titles are
 | Lecture 8   | [Multiple Regression](slides/codes/multiple_regression.R) <br> [R2 multiple regression](slides/codes/R2_multiple_regression.R) |
 | Lecture 9  | [Simple Regression](slides/codes/simple_regression.R)  <br> [Longley regression](slides/codes/longley_regression.R)  |
 | Lecture 10  | [Longley selection](slides/codes/longley_selection.R) <br> [Galileo](slides/codes/galileo.R) <br> [Divorces](slides/codes/divorces.R) <br> [Heteroscedasticity](slides/codes/heteroscedasticity.R) <br> [Autocorrelation](slides/codes/autocorrelation.R)  |
-| Lecture 11  | [Multicollinearity](slides/codes/multicollinearity.R) <br> [Stepwise regression: Longley](slides/codes/longley_stepwise.R) <br> [Stepwise regression: Divorces](slides/codes/divorces_stepwise.R)  <br> [Anova models](slides/codes/anova.R)           |
+| Lecture 11  | [Multicollinearity](slides/codes/multicollinearity.R) <br> [Stepwise regression: Longley](slides/codes/longley_stepwise.R) <br> [Stepwise regression: Divorces](slides/codes/divorces_stepwise.R)  <br> [Anova](slides/codes/anova.R) <br> [Ancova](slides/codes/ancova.R)           |
 : {tbl-colwidths="[30,70]"}
 
 

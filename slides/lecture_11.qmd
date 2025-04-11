@@ -1284,7 +1284,7 @@ cat(paste(temp.1[9:19], collapse = "\n"))
 ::: {style="font-size: 0.93em"}
 
 - $R^ 2 = 0.9621$ which is quite high
-- p-value for $\beta_2$ is $p = 9.8 \times 10^{-7} < 0.5 \quad \implies \quad$ *Income* variable is significant
+- p-value for $\beta_2$ is $p = 9.8 \times 10^{-7} < 0.05 \quad \implies \quad$ *Income* variable is significant
 - Estimate is $\hat \beta_2 = 0.50909 > 0$
 
 **Strong evidence that *Expenditure* increases as *Income* increases**
@@ -1320,7 +1320,7 @@ cat(paste(temp.2[9:19], collapse = "\n"))
 ::: {style="font-size: 0.93em"}
 
 - $R^ 2 = 0.9567$ which is quite high
-- p-value for $\beta_2$ is $p = 9.8 \times 10^{-7} < 0.5 \quad \implies \quad$ *Wealth* variable is significant
+- p-value for $\beta_2$ is $p = 9.8 \times 10^{-7} < 0.05 \quad \implies \quad$ *Wealth* variable is significant
 - Estimate is $\hat \beta_2 = 0.049764 > 0$
 
 **Strong evidence that *Expenditure* increases as *Wealth* increases**
@@ -3804,7 +3804,7 @@ summary(model)
 
 - **ANOVA:** refers to situations where regression models contain 
     * **only** dummy variables $X$
-    * This generalizes the ANCOVA F-test seen earlier
+    * This generalizes the ANOVA F-test seen earlier
 
 
 - **ANCOVA:** refers to situations where regression models contain a combination of 
@@ -4584,7 +4584,7 @@ $$
 
 - It is easy to prove that the ML estimators for the model
 $$
-Y_i = \beta_1 + \beta_2  \, \one_{2} (i) +  + \beta_k  \, \one_{k} (i) + \e_i 
+Y_i = \beta_1 + \beta_2  \, \one_{2} (i) + \ldots + \beta_k  \, \one_{k} (i) + \e_i 
 $$
 satisfy
 $$
@@ -4624,6 +4624,7 @@ $$
 
 ## Worked Example {.smaller}
 
+
 - The data in [fridge_sales.txt](datasets/fridge_sales.txt) links
     * *Sales of fridges* and *Sales of durable goods*
     * to the time of year (*Quarter*)
@@ -4643,7 +4644,7 @@ $$
 
 <br>
 
-- Code for this example is available here [anova.R](datasets/anova.R) 
+- Code for this example is available here [anova.R](codes/anova.R) 
 
 
 
@@ -4902,12 +4903,13 @@ Y =  \beta_1  + \beta_2 \one_2 + \beta_3 \one_3 + \beta_4 \one_4   + \e
 
 
 
-1. Quarter dummy variables already present in the dataset: they are $\, \texttt{q2}$, $\, \texttt{q3}$, $\, \texttt{q4}$
+1. Use quarter dummy variables $\, \texttt{q2}$, $\, \texttt{q3}$, $\, \texttt{q4}$ already present in the dataset
 
 
 ```r
 # We drop q1 to avoid dummy variable trap
 dummy <- lm (fridge.sales ~ q2 + q3 + q4, data = d)
+
 summary(dummy)
 ```
 
@@ -4917,12 +4919,13 @@ summary(dummy)
 
 :::
 
-2. Quarters are also stored in the factor $\, \texttt{quarter}$
+2. Use quarters stored in the factor $\, \texttt{quarter}$
     * ``lm`` automatically encodes $\, \texttt{quarter}$ into 3 dummy variables $\, \texttt{q2}$, $\, \texttt{q3}$, $\, \texttt{q4}$
 
 ```r
-auto <- lm(fridge.sales ~ quarter, data = d)
-summary(auto)
+dummy.equivalent <- lm(fridge.sales ~ quarter, data = d)
+
+summary(dummy.equivalent)
 ```
 
 ::: {style="font-size: 0.10em"}
@@ -5247,15 +5250,13 @@ ANCOVA:
     * quantitative variables
 
 
-## Main point of ANCOVA {.smaller}
+## ANCOVA main feature {.smaller}
 
-- Allows to fit regression models with different slopes and different intercept to different parts of the data set
+- Regression models with different slopes / intercept for different parts of the dataset
 
 - These are sometimes referred to as *segmented regression models* 
 
-- The effect is to potentially fit different regression lines to each segment of the data
-
-- For example, consider the regressione model
+- For example, consider the ANCOVA regression model
 
 $$
 Y=\beta_1+\beta_2 X + \beta_3 Q + \beta_4 XQ  + \e
@@ -5265,18 +5266,329 @@ $$
 
 - $XQ$ is called **interaction term**
 
+
+# {.smaller}
+
+With reference to the ANCOVA model
+$$
+Y=\beta_1+\beta_2 X + \beta_3 Q + \beta_4 XQ  + \e
+$$
+
+
+- If $Q=0$
+$$
+Y=\beta_1+\beta_2 X+ \e
+$$
+
+- If $Q=1$, the result is a model with different intercept and slope
+$$
+Y=(\beta_1+\beta_3)+(\beta_2 +\beta_4)X+ \e
+$$
+
+- If $Q=1$ and $\beta_4=0$, we get model with a different intercept but the same slope
+$$
+Y=(\beta_1+\beta_3)+\beta_2 X+ \e
+$$
+
+
+- ANCOVA models are simply fitted with ``lm``
+
+
+
+
+## Worked Example {.smaller}
+
+- Code for this example is available here [ancova.R](codes/ancova.R) 
+
+
+- The data in [fridge_sales.txt](datasets/fridge_sales.txt) links
+    * *Sales of fridges* and *Sales of durable goods*
+    * to the time of year (*Quarter*)
+
+
+- **Goal:** Predict *Fridge sales* in terms of *durable goods sales* and *time of the year*
+
+- Denote by $F$ the *Fridge sales* and by $D$ the *durable goods sales*
+
+- To predict Fridge sales from *durable goods sales*, we could simply fit the model
+
+$$
+F = \beta_1 + \beta_2 D + \e
+$$
+
+- However, the intercept $\beta_1$ can potentially change depending on the quarter
+
+- To account for quarterly trends, we fit ANCOVA model instead
+
+
+
+
+
+
+## Preparing the data {.smaller}
+
+::: {style="font-size: 0.94em"}
+
+- Read the data [fridge_sales.txt](datasets/fridge_sales.txt)  into a data-frame
+
+```r
+# Load dataset on Fridge Sales
+d <- read.table(file = "fridge_sales.txt", header = TRUE)
+
+# Print first 4 rows
+head(d, n=4)
+```
+
+```{r}
+d <- read.table(file = "datasets/fridge_sales.txt",
+                    header = TRUE)
+
+head(d, n=4)
+```
+
+::: {style="font-size: 0.10em"}
+
+<br>
+
+:::
+
+
+
+- Variables ``d$q1``, ``d$q2``, ``d$q3``, ``d$q4`` are vectors taking the values $\, \texttt{0}$ and $\, \texttt{1}$
+
+- The variable ``d$quarter`` is a vector taking the values $\, \texttt{1}, \texttt{2}, \texttt{3}, \texttt{4}$
+    * Need to convert this into a factor
+
+```r
+d$quarter <- factor(d$quarter)
+```
+
+:::
+
+
+
+## ANCOVA Model {.smaller}
+
+- As before, we encode each Quarter with one dummy variable $\one_i$
+
+$$
+\one_i(j) = \begin{cases}
+1 & \text{ if sample j belongs to Quarter i} \\
+0 & \text{ otherwise} \\
+\end{cases}
+$$
+
+
+- The ANCOVA model is
+
+$$
+F =  \beta_1  + \beta_2 \one_2 + \beta_3 \one_3 + \beta_4 \one_4 + \beta_5 D  + \e
+$$
+
+- Note: We have dropped the variable $\one_1$ to avoid dummy variable trap
+
+- This way, the intercept will vary depending on the quarter
+
+
+
+
+## {.smaller}
+
+We can fit the ANCOVA model below in 2 equivalent ways
+
+\begin{equation} \tag{2}
+F =  \beta_1  + \beta_2 \one_2 + \beta_3 \one_3 + \beta_4 \one_4 + \beta_5 D  + \e
+\end{equation}
+
+
+
+1. Use quarter dummy variables $\, \texttt{q2}$, $\, \texttt{q3}$, $\, \texttt{q4}$ already present in the dataset
+
+
+```r
+# Drop q1 to avoid dummy variable trap
+ancova <- lm(fridge.sales ~ q2 + q3 + q4 + durable.goods.sales, data = d)
+```
+
+::: {style="font-size: 0.15em"}
+
+<br>
+
+:::
+
+2. Use quarters stored in the factor $\, \texttt{quarter}$
+    * ``lm`` automatically encodes $\, \texttt{quarter}$ into 3 dummy variables $\, \texttt{q2}$, $\, \texttt{q3}$, $\, \texttt{q4}$
+
+```r
+# Fit ANCOVA model
+ancova.equiv <- lm(fridge.sales ~ quarter + durable.goods.sales, data = d)
+```
+
+::: {style="font-size: 0.10em"}
+
+<br>
+
+:::
+
+
+- Both commands fit the same linear model (2)
+
+
+
+## Output  {.smaller}
+
+
+![](images/ancova.png){width=80%}
+
+
+
+
+## Computing regression coefficients {.smaller}
+
+::: {style="font-size: 0.90em"}
+
+```verbatim
+Call:
+lm(formula = fridge.sales ~ q2 + q3 + q4 + durable.goods.sales, 
+    data = d)
+Coefficients:
+                    Estimate Std. Error t value Pr(>|t|)    
+(Intercept)         456.2440   178.2652   2.559 0.016404 *  
+q2                  242.4976    65.6259   3.695 0.000986 ***
+q3                  325.2643    65.8148   4.942 3.56e-05 ***
+q4                  -86.0804    65.8432  -1.307 0.202116    
+durable.goods.sales   2.7734     0.6233   4.450 0.000134 ***    
+```
+
+:::
+
+
+::: {style="font-size: 0.3em"}
+
+<br>
+
+:::
+
+
+- Recall that $\, \texttt{Intercept}$ refers to coefficient for $\, \texttt{q1}$
+
+- Coefficients for $\, \texttt{q2}, \texttt{q3}, \texttt{q4}$ are obtained by summing $\, \texttt{Intercept}$ to coefficient in appropriate row
+
+
+
+
+
+## Computing regression coefficients {.smaller}
+
+::: {style="font-size: 0.90em"}
+
+```verbatim
+Call:
+lm(formula = fridge.sales ~ q2 + q3 + q4 + durable.goods.sales, 
+    data = d)
+Coefficients:
+                    Estimate Std. Error t value Pr(>|t|)    
+(Intercept)         456.2440   178.2652   2.559 0.016404 *  
+q2                  242.4976    65.6259   3.695 0.000986 ***
+q3                  325.2643    65.8148   4.942 3.56e-05 ***
+q4                  -86.0804    65.8432  -1.307 0.202116    
+durable.goods.sales   2.7734     0.6233   4.450 0.000134 ***    
+```
+
+:::
+
+
+::: {style="font-size: 0.5em"}
+
+<br>
+
+:::
+
+::: {style="font-size: 0.9em"}
+
+| Variable |  Coefficient formula | Estimated coefficient        |
+|--------------:|--------------------:|----------------------------:|
+| $\texttt{q1}$  | $\beta_1$            | $\approx 456.24$                    |
+| $\texttt{q2}$  | $\beta_1 + \beta_2$  | $456.244 + 242.4976 \approx 698.74$ |
+| $\texttt{q3}$  | $\beta_1 + \beta_3$  | $456.244 + 325.2643 \approx 781.51$ |
+| $\texttt{q4}$  | $\beta_1 + \beta_4$  | $456.244 - 86.0804 \approx 370.16$     |
+| $D$  | $\beta_5$  | $\approx 2.77$     |
+
+
+:::
+
+
+
+
+## Regression formula and lines {.smaller}
+
+::: {style="font-size: 0.95em"}
+
+- Therefore, the linear regression formula obtained is
+
 \begin{align*}
-Q & = 0 \quad \implies \quad Y = \beta_1 + \beta_2 X + \e
-Q & = 1 \quad \implies \quad Y = (\beta_1 + \beta_3) + \beta_2 X + \e
-\end{eqnarray*}
-$\bullet$ If $Q=1$ the result is a model with different intercepts and different slopes
-\begin{eqnarray*}
-Y=(\beta_1+\beta_2)+(\beta_3X+\beta_4)X+u
-\end{eqnarray*}
-$\bullet$ If $Q=1$ and $\beta_4=0$ the result is a model with a different intercept but the same slope term
-\begin{eqnarray*}
-Y=(\beta_1+\beta_2)+\beta_4X+u
-\end{eqnarray*}
+\Expect[\text{ Fridge sales } ] = & \,\, 456.24  \times \, \text{Q1} + 
+698.74 \times \, \text{Q2} + \\[5pts]
+& \,\, 781.51 \times \, \text{Q3} + 370.16 \times \, \text{Q4} + 2.77 \times \text{D}
+\end{align*}
+
+- Therefore, we obtain the following regression lines
+
+
+| Quarter          |   Regression line                  |
+|:-------          |:------------------------           |
+| Q1               | $F = 456.24 + 2.77 \times \text{D}$  |
+| Q2               | $F = 698.74 + 2.77 \times \text{D}$  |
+| Q3               | $F = 781.51 + 2.77 \times \text{D}$  |
+| Q4               | $F = 370.16 + 2.77 \times \text{D}$  |
+
+
+- **Each quarter has a different intercept: Different baseline fridge sales**
+
+:::
+
+
+
+## Conclusion {.smaller}
+
+- We compare the ANCOVA model to the simple linear model
+
+```r
+# Fit simple linear model
+linear <- lm(fridge.sales ~ durable.goods.sales, data = d)
+
+# F-test for Model Selection
+anova(linear, ancova)
+```
+
+::: {style="font-size: 0.10em"}
+
+<br>
+
+:::
+
+```verbatim
+Analysis of Variance Table
+
+Model 1: fridge.sales ~ durable.goods.sales
+Model 2: fridge.sales ~ quarter + durable.goods.sales
+  Res.Df     RSS Df Sum of Sq     F    Pr(>F)    
+1     30 1377145                                 
+2     27  465085  3    912060 17.65 1.523e-06 ***
+```
+
+::: {style="font-size: 0.10em"}
+
+<br>
+
+:::
+
+- The p-value is $p < 0.05 \quad \implies \quad$ Reject H_0
+
+- The ANCOVA model offers a better fit than the linear model
+
+
+
 
 
 
@@ -5305,6 +5617,7 @@ You can find these done in Lecture 11 of John Fry
 - Since you have already explained ANOVA vs Regression in details, you can be quick like Verzani and John
 
 - Maybe it's good to do two-way anova BEFORE ANCOVA like John does (Verzani does ancova before two-way anoca)
+    * This way you can do a nice final ANCOVA example with interactions and all -- This is what John does in Lecture 11. The fridge sales example is used to check model with interaction term durable goods times quarter, vs model without this term, vs model without durable goods. Selection is done with model selection. 
 
 
 

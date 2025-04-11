@@ -425,6 +425,46 @@
   </style>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
   <style>
+  .Definition {
+    --color1: #c6e6ed;
+    --color2: #1995ad;
+  }
+  .Proof {
+    --color1: #f1f1f2;
+    --color2: #c0c0c1;
+  }
+  .Axiom {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Idea {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Warning {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Theorem {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Proposition {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Question {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .DONE {
+    --color1: #cce7b1;
+    --color2: #86b754;
+  }
+  .Corollary {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
   .TODO {
     --color1: #e7b1b4;
     --color2: #8c3236;
@@ -433,69 +473,29 @@
     --color1: #f4cce0;
     --color2: #db4d92;
   }
-  .Example {
-    --color1: #bce5de;
-    --color2: #21aa93;
-  }
-  .Theorem {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Axiom {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .DONE {
-    --color1: #cce7b1;
-    --color2: #86b754;
-  }
-  .Conjecture {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Corollary {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
   .Remark {
     --color1: #bce5de;
     --color2: #21aa93;
-  }
-  .Problem {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Idea {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Question {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Proof {
-    --color1: #f1f1f2;
-    --color2: #c0c0c1;
-  }
-  .Notation {
-    --color1: #c6e6ed;
-    --color2: #1995ad;
-  }
-  .Proposition {
-    --color1: #f4cce0;
-    --color2: #db4d92;
-  }
-  .Warning {
-    --color1: #f4cce0;
-    --color2: #db4d92;
   }
   .Important {
     --color1: #f4cce0;
     --color2: #db4d92;
   }
-  .Definition {
+  .Conjecture {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Problem {
+    --color1: #f4cce0;
+    --color2: #db4d92;
+  }
+  .Notation {
     --color1: #c6e6ed;
     --color2: #1995ad;
+  }
+  .Example {
+    --color1: #bce5de;
+    --color2: #21aa93;
   }
   </style>
 </head>
@@ -1777,7 +1777,7 @@ F-statistic: 202.9 on 1 and 8 DF,  p-value: 5.753e-07</code></pre>
 <div style="font-size: 0.93em">
 <ul>
 <li><span class="math inline">R^ 2 = 0.9621</span> which is quite high</li>
-<li>p-value for <span class="math inline">\beta_2</span> is <span class="math inline">p = 9.8 \times 10^{-7} &lt; 0.5 \quad \implies \quad</span> <em>Income</em> variable is significant</li>
+<li>p-value for <span class="math inline">\beta_2</span> is <span class="math inline">p = 9.8 \times 10^{-7} &lt; 0.05 \quad \implies \quad</span> <em>Income</em> variable is significant</li>
 <li>Estimate is <span class="math inline">\hat \beta_2 = 0.50909 &gt; 0</span></li>
 </ul>
 <p><strong>Strong evidence that <em>Expenditure</em> increases as <em>Income</em> increases</strong></p>
@@ -1805,7 +1805,7 @@ F-statistic: 176.7 on 1 and 8 DF,  p-value: 9.802e-07</code></pre>
 <div style="font-size: 0.93em">
 <ul>
 <li><span class="math inline">R^ 2 = 0.9567</span> which is quite high</li>
-<li>p-value for <span class="math inline">\beta_2</span> is <span class="math inline">p = 9.8 \times 10^{-7} &lt; 0.5 \quad \implies \quad</span> <em>Wealth</em> variable is significant</li>
+<li>p-value for <span class="math inline">\beta_2</span> is <span class="math inline">p = 9.8 \times 10^{-7} &lt; 0.05 \quad \implies \quad</span> <em>Wealth</em> variable is significant</li>
 <li>Estimate is <span class="math inline">\hat \beta_2 = 0.049764 &gt; 0</span></li>
 </ul>
 <p><strong>Strong evidence that <em>Expenditure</em> increases as <em>Wealth</em> increases</strong></p>
@@ -3809,7 +3809,7 @@ Residuals    8 459636   57455               </code></pre>
 <li><p><strong>ANOVA:</strong> refers to situations where regression models contain</p>
 <ul>
 <li><strong>only</strong> dummy variables <span class="math inline">X</span></li>
-<li>This generalizes the ANCOVA F-test seen earlier</li>
+<li>This generalizes the ANOVA F-test seen earlier</li>
 </ul></li>
 <li><p><strong>ANCOVA:</strong> refers to situations where regression models contain a combination of</p>
 <ul>
@@ -4567,7 +4567,7 @@ H_1 \colon \mu_i \neq \mu_j \text{ for at least one pair } i \neq j
 <ul>
 <li><p>Denote by <span class="math inline">\overline{x}_i</span> the mean of the sample <span class="math inline">x_{i1}, \ldots, x_{i n_i}</span> from population i</p></li>
 <li><p>It is easy to prove that the ML estimators for the model <span class="math display">
-Y_i = \beta_1 + \beta_2  \, \mathbf{1}_{2} (i) +  + \beta_k  \, \mathbf{1}_{k} (i) + \varepsilon_i
+Y_i = \beta_1 + \beta_2  \, \mathbf{1}_{2} (i) + \ldots + \beta_k  \, \mathbf{1}_{k} (i) + \varepsilon_i
 </span> satisfy <span class="math display">
 \hat{\beta}_1 = \overline{x}_1 \,, \qquad
 \hat{\beta}_i = \overline{x}_i - \overline{x}_1 \, \quad \forall  \, i \geq 2
@@ -4614,7 +4614,7 @@ Y_i &amp; = \hat{\beta}_1 + \hat{\beta}_2  \, \mathbf{1}_{2} (i) + \hat{\beta}_k
 </ul>
 <p><br></p>
 <ul>
-<li>Code for this example is available here <a href="datasets/anova.R">anova.R</a></li>
+<li>Code for this example is available here <a href="codes/anova.R">anova.R</a></li>
 </ul>
 </section>
 <section id="section-52" class="slide level2 smaller">
@@ -4798,22 +4798,24 @@ Y =  \beta_1  + \beta_2 \mathbf{1}_2 + \beta_3 \mathbf{1}_3 + \beta_4 \mathbf{1}
 Y =  \beta_1  + \beta_2 \mathbf{1}_2 + \beta_3 \mathbf{1}_3 + \beta_4 \mathbf{1}_4   + \varepsilon
 \end{equation}</span></p>
 <ol type="1">
-<li>Quarter dummy variables already present in the dataset: they are <span class="math inline">\, \texttt{q2}</span>, <span class="math inline">\, \texttt{q3}</span>, <span class="math inline">\, \texttt{q4}</span></li>
+<li>Use quarter dummy variables <span class="math inline">\, \texttt{q2}</span>, <span class="math inline">\, \texttt{q3}</span>, <span class="math inline">\, \texttt{q4}</span> already present in the dataset</li>
 </ol>
 <div class="sourceCode" id="cb115"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb115-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># We drop q1 to avoid dummy variable trap</span></span>
 <span id="cb115-2"><a aria-hidden="true" tabindex="-1"></a>dummy <span class="ot">&lt;-</span> <span class="fu">lm</span> (fridge.sales <span class="sc">~</span> q2 <span class="sc">+</span> q3 <span class="sc">+</span> q4, <span class="at">data =</span> d)</span>
-<span id="cb115-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(dummy)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb115-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb115-4"><a aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(dummy)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div style="font-size: 0.15em">
 <p><br></p>
 </div>
 <ol start="2" type="1">
-<li>Quarters are also stored in the factor <span class="math inline">\, \texttt{quarter}</span>
+<li>Use quarters stored in the factor <span class="math inline">\, \texttt{quarter}</span>
 <ul>
 <li><code>lm</code> automatically encodes <span class="math inline">\, \texttt{quarter}</span> into 3 dummy variables <span class="math inline">\, \texttt{q2}</span>, <span class="math inline">\, \texttt{q3}</span>, <span class="math inline">\, \texttt{q4}</span></li>
 </ul></li>
 </ol>
-<div class="sourceCode" id="cb116"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb116-1"><a aria-hidden="true" tabindex="-1"></a>auto <span class="ot">&lt;-</span> <span class="fu">lm</span>(fridge.sales <span class="sc">~</span> quarter, <span class="at">data =</span> d)</span>
-<span id="cb116-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(auto)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb116-1"><a aria-hidden="true" tabindex="-1"></a>dummy.equivalent <span class="ot">&lt;-</span> <span class="fu">lm</span>(fridge.sales <span class="sc">~</span> quarter, <span class="at">data =</span> d)</span>
+<span id="cb116-2"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb116-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(dummy.equivalent)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div style="font-size: 0.10em">
 <p><br></p>
 </div>
@@ -5063,13 +5065,12 @@ Y =  \beta_1  + \beta_2 \mathbf{1}_2 + \beta_3 \mathbf{1}_3 + \beta_4 \mathbf{1}
 </ul></li>
 </ul>
 </section>
-<section id="main-point-of-ancova" class="slide level2 smaller">
-<h2>Main point of ANCOVA</h2>
+<section id="ancova-main-feature" class="slide level2 smaller">
+<h2>ANCOVA main feature</h2>
 <ul>
-<li><p>Allows to fit regression models with different slopes and different intercept to different parts of the data set</p></li>
+<li><p>Regression models with different slopes / intercept for different parts of the dataset</p></li>
 <li><p>These are sometimes referred to as <em>segmented regression models</em></p></li>
-<li><p>The effect is to potentially fit different regression lines to each segment of the data</p></li>
-<li><p>For example, consider the regressione model</p></li>
+<li><p>For example, consider the ANCOVA regression model</p></li>
 </ul>
 <p><span class="math display">
 Y=\beta_1+\beta_2 X + \beta_3 Q + \beta_4 XQ  + \varepsilon
@@ -5078,11 +5079,290 @@ Y=\beta_1+\beta_2 X + \beta_3 Q + \beta_4 XQ  + \varepsilon
 <li><p><span class="math inline">X</span> is quantitative variable; <span class="math inline">Q</span> is qualitative, with values <span class="math inline">Q = 0, 1</span></p></li>
 <li><p><span class="math inline">XQ</span> is called <strong>interaction term</strong></p></li>
 </ul>
-<p>\begin{align*} Q &amp; = 0 Y = _1 + _2 X + Q &amp; = 1 Y = (_1 + _3) + _2 X + \end{eqnarray*} <span class="math inline">\bullet</span> If <span class="math inline">Q=1</span> the result is a model with different intercepts and different slopes <span class="math display">\begin{eqnarray*}
-Y=(\beta_1+\beta_2)+(\beta_3X+\beta_4)X+u
-\end{eqnarray*}</span> <span class="math inline">\bullet</span> If <span class="math inline">Q=1</span> and <span class="math inline">\beta_4=0</span> the result is a model with a different intercept but the same slope term <span class="math display">\begin{eqnarray*}
-Y=(\beta_1+\beta_2)+\beta_4X+u
-\end{eqnarray*}</span></p>
+</section></section>
+<section>
+<section id="section-56" class="title-slide slide level1 smaller center">
+<h1></h1>
+<p>With reference to the ANCOVA model <span class="math display">
+Y=\beta_1+\beta_2 X + \beta_3 Q + \beta_4 XQ  + \varepsilon
+</span></p>
+<ul>
+<li><p>If <span class="math inline">Q=0</span> <span class="math display">
+Y=\beta_1+\beta_2 X+ \varepsilon
+</span></p></li>
+<li><p>If <span class="math inline">Q=1</span>, the result is a model with different intercept and slope <span class="math display">
+Y=(\beta_1+\beta_3)+(\beta_2 +\beta_4)X+ \varepsilon
+</span></p></li>
+<li><p>If <span class="math inline">Q=1</span> and <span class="math inline">\beta_4=0</span>, we get model with a different intercept but the same slope <span class="math display">
+Y=(\beta_1+\beta_3)+\beta_2 X+ \varepsilon
+</span></p></li>
+<li><p>ANCOVA models are simply fitted with <code>lm</code></p></li>
+</ul>
+</section>
+<section id="worked-example-1" class="slide level2 smaller">
+<h2>Worked Example</h2>
+<ul>
+<li><p>Code for this example is available here <a href="codes/ancova.R">ancova.R</a></p></li>
+<li><p>The data in <a href="datasets/fridge_sales.txt">fridge_sales.txt</a> links</p>
+<ul>
+<li><em>Sales of fridges</em> and <em>Sales of durable goods</em></li>
+<li>to the time of year (<em>Quarter</em>)</li>
+</ul></li>
+<li><p><strong>Goal:</strong> Predict <em>Fridge sales</em> in terms of <em>durable goods sales</em> and <em>time of the year</em></p></li>
+<li><p>Denote by <span class="math inline">F</span> the <em>Fridge sales</em> and by <span class="math inline">D</span> the <em>durable goods sales</em></p></li>
+<li><p>To predict Fridge sales from <em>durable goods sales</em>, we could simply fit the model</p></li>
+</ul>
+<p><span class="math display">
+F = \beta_1 + \beta_2 D + \varepsilon
+</span></p>
+<ul>
+<li><p>However, the intercept <span class="math inline">\beta_1</span> can potentially change depending on the quarter</p></li>
+<li><p>To account for quarterly trends, we fit ANCOVA model instead</p></li>
+</ul>
+</section>
+<section id="preparing-the-data-2" class="slide level2 smaller">
+<h2>Preparing the data</h2>
+<div style="font-size: 0.94em">
+<ul>
+<li>Read the data <a href="datasets/fridge_sales.txt">fridge_sales.txt</a> into a data-frame</li>
+</ul>
+<div class="sourceCode" id="cb125"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb125-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Load dataset on Fridge Sales</span></span>
+<span id="cb125-2"><a aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="at">file =</span> <span class="st">"fridge_sales.txt"</span>, <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb125-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb125-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Print first 4 rows</span></span>
+<span id="cb125-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(d, <span class="at">n=</span><span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>  fridge.sales durable.goods.sales q1 q2 q3 q4 quarter
+1         1317               252.6  1  0  0  0       1
+2         1615               272.4  0  1  0  0       2
+3         1662               270.9  0  0  1  0       3
+4         1295               273.9  0  0  0  1       4</code></pre>
+</div>
+</div>
+<div style="font-size: 0.10em">
+<p><br></p>
+</div>
+<ul>
+<li><p>Variables <code>d$q1</code>, <code>d$q2</code>, <code>d$q3</code>, <code>d$q4</code> are vectors taking the values <span class="math inline">\, \texttt{0}</span> and <span class="math inline">\, \texttt{1}</span></p></li>
+<li><p>The variable <code>d$quarter</code> is a vector taking the values <span class="math inline">\, \texttt{1}, \texttt{2}, \texttt{3}, \texttt{4}</span></p>
+<ul>
+<li>Need to convert this into a factor</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb127"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb127-1"><a aria-hidden="true" tabindex="-1"></a>d<span class="sc">$</span>quarter <span class="ot">&lt;-</span> <span class="fu">factor</span>(d<span class="sc">$</span>quarter)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="ancova-model" class="slide level2 smaller">
+<h2>ANCOVA Model</h2>
+<ul>
+<li>As before, we encode each Quarter with one dummy variable <span class="math inline">\mathbf{1}_i</span></li>
+</ul>
+<p><span class="math display">
+\mathbf{1}_i(j) = \begin{cases}
+1 &amp; \text{ if sample j belongs to Quarter i} \\
+0 &amp; \text{ otherwise} \\
+\end{cases}
+</span></p>
+<ul>
+<li>The ANCOVA model is</li>
+</ul>
+<p><span class="math display">
+F =  \beta_1  + \beta_2 \mathbf{1}_2 + \beta_3 \mathbf{1}_3 + \beta_4 \mathbf{1}_4 + \beta_5 D  + \varepsilon
+</span></p>
+<ul>
+<li><p>Note: We have dropped the variable <span class="math inline">\mathbf{1}_1</span> to avoid dummy variable trap</p></li>
+<li><p>This way, the intercept will vary depending on the quarter</p></li>
+</ul>
+</section>
+<section id="section-57" class="slide level2 smaller">
+<h2></h2>
+<p>We can fit the ANCOVA model below in 2 equivalent ways</p>
+<p><span class="math display">\begin{equation} \tag{2}
+F =  \beta_1  + \beta_2 \mathbf{1}_2 + \beta_3 \mathbf{1}_3 + \beta_4 \mathbf{1}_4 + \beta_5 D  + \varepsilon
+\end{equation}</span></p>
+<ol type="1">
+<li>Use quarter dummy variables <span class="math inline">\, \texttt{q2}</span>, <span class="math inline">\, \texttt{q3}</span>, <span class="math inline">\, \texttt{q4}</span> already present in the dataset</li>
+</ol>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb128-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Drop q1 to avoid dummy variable trap</span></span>
+<span id="cb128-2"><a aria-hidden="true" tabindex="-1"></a>ancova <span class="ot">&lt;-</span> <span class="fu">lm</span>(fridge.sales <span class="sc">~</span> q2 <span class="sc">+</span> q3 <span class="sc">+</span> q4 <span class="sc">+</span> durable.goods.sales, <span class="at">data =</span> d)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div style="font-size: 0.15em">
+<p><br></p>
+</div>
+<ol start="2" type="1">
+<li>Use quarters stored in the factor <span class="math inline">\, \texttt{quarter}</span>
+<ul>
+<li><code>lm</code> automatically encodes <span class="math inline">\, \texttt{quarter}</span> into 3 dummy variables <span class="math inline">\, \texttt{q2}</span>, <span class="math inline">\, \texttt{q3}</span>, <span class="math inline">\, \texttt{q4}</span></li>
+</ul></li>
+</ol>
+<div class="sourceCode" id="cb129"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb129-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Fit ANCOVA model</span></span>
+<span id="cb129-2"><a aria-hidden="true" tabindex="-1"></a>ancova.equiv <span class="ot">&lt;-</span> <span class="fu">lm</span>(fridge.sales <span class="sc">~</span> quarter <span class="sc">+</span> durable.goods.sales, <span class="at">data =</span> d)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div style="font-size: 0.10em">
+<p><br></p>
+</div>
+<ul>
+<li>Both commands fit the same linear model (2)</li>
+</ul>
+</section>
+<section id="output" class="slide level2 smaller">
+<h2>Output</h2>
+
+<img data-src="images/ancova.png" style="width:80.0%" class="r-stretch"></section>
+<section id="computing-regression-coefficients-2" class="slide level2 smaller">
+<h2>Computing regression coefficients</h2>
+<div style="font-size: 0.90em">
+<pre class="verbatim"><code>Call:
+lm(formula = fridge.sales ~ q2 + q3 + q4 + durable.goods.sales, 
+    data = d)
+Coefficients:
+                    Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)         456.2440   178.2652   2.559 0.016404 *  
+q2                  242.4976    65.6259   3.695 0.000986 ***
+q3                  325.2643    65.8148   4.942 3.56e-05 ***
+q4                  -86.0804    65.8432  -1.307 0.202116    
+durable.goods.sales   2.7734     0.6233   4.450 0.000134 ***    </code></pre>
+</div>
+<div style="font-size: 0.3em">
+<p><br></p>
+</div>
+<ul>
+<li><p>Recall that <span class="math inline">\, \texttt{Intercept}</span> refers to coefficient for <span class="math inline">\, \texttt{q1}</span></p></li>
+<li><p>Coefficients for <span class="math inline">\, \texttt{q2}, \texttt{q3}, \texttt{q4}</span> are obtained by summing <span class="math inline">\, \texttt{Intercept}</span> to coefficient in appropriate row</p></li>
+</ul>
+</section>
+<section id="computing-regression-coefficients-3" class="slide level2 smaller">
+<h2>Computing regression coefficients</h2>
+<div style="font-size: 0.90em">
+<pre class="verbatim"><code>Call:
+lm(formula = fridge.sales ~ q2 + q3 + q4 + durable.goods.sales, 
+    data = d)
+Coefficients:
+                    Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)         456.2440   178.2652   2.559 0.016404 *  
+q2                  242.4976    65.6259   3.695 0.000986 ***
+q3                  325.2643    65.8148   4.942 3.56e-05 ***
+q4                  -86.0804    65.8432  -1.307 0.202116    
+durable.goods.sales   2.7734     0.6233   4.450 0.000134 ***    </code></pre>
+</div>
+<div style="font-size: 0.5em">
+<p><br></p>
+</div>
+<div style="font-size: 0.9em">
+<table class="caption-top">
+<colgroup>
+<col style="width: 23%">
+<col style="width: 32%">
+<col style="width: 44%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">Variable</th>
+<th style="text-align: right;">Coefficient formula</th>
+<th style="text-align: right;">Estimated coefficient</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;"><span class="math inline">\texttt{q1}</span></td>
+<td style="text-align: right;"><span class="math inline">\beta_1</span></td>
+<td style="text-align: right;"><span class="math inline">\approx 456.24</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;"><span class="math inline">\texttt{q2}</span></td>
+<td style="text-align: right;"><span class="math inline">\beta_1 + \beta_2</span></td>
+<td style="text-align: right;"><span class="math inline">456.244 + 242.4976 \approx 698.74</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;"><span class="math inline">\texttt{q3}</span></td>
+<td style="text-align: right;"><span class="math inline">\beta_1 + \beta_3</span></td>
+<td style="text-align: right;"><span class="math inline">456.244 + 325.2643 \approx 781.51</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;"><span class="math inline">\texttt{q4}</span></td>
+<td style="text-align: right;"><span class="math inline">\beta_1 + \beta_4</span></td>
+<td style="text-align: right;"><span class="math inline">456.244 - 86.0804 \approx 370.16</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;"><span class="math inline">D</span></td>
+<td style="text-align: right;"><span class="math inline">\beta_5</span></td>
+<td style="text-align: right;"><span class="math inline">\approx 2.77</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="regression-formula-and-lines" class="slide level2 smaller">
+<h2>Regression formula and lines</h2>
+<div style="font-size: 0.95em">
+<ul>
+<li>Therefore, the linear regression formula obtained is</li>
+</ul>
+<p><span class="math display">\begin{align*}
+{\rm I\kern-.3em E}[\text{ Fridge sales } ] = &amp; \,\, 456.24  \times \, \text{Q1} +
+698.74 \times \, \text{Q2} + \\[5pts]
+&amp; \,\, 781.51 \times \, \text{Q3} + 370.16 \times \, \text{Q4} + 2.77 \times \text{D}
+\end{align*}</span></p>
+<ul>
+<li>Therefore, we obtain the following regression lines</li>
+</ul>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Quarter</th>
+<th style="text-align: left;">Regression line</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Q1</td>
+<td style="text-align: left;"><span class="math inline">F = 456.24 + 2.77 \times \text{D}</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Q2</td>
+<td style="text-align: left;"><span class="math inline">F = 698.74 + 2.77 \times \text{D}</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Q3</td>
+<td style="text-align: left;"><span class="math inline">F = 781.51 + 2.77 \times \text{D}</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Q4</td>
+<td style="text-align: left;"><span class="math inline">F = 370.16 + 2.77 \times \text{D}</span></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Each quarter has a different intercept: Different baseline fridge sales</strong></li>
+</ul>
+</div>
+</section>
+<section id="conclusion" class="slide level2 smaller">
+<h2>Conclusion</h2>
+<ul>
+<li>We compare the ANCOVA model to the simple linear model</li>
+</ul>
+<div class="sourceCode" id="cb132"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb132-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Fit simple linear model</span></span>
+<span id="cb132-2"><a aria-hidden="true" tabindex="-1"></a>linear <span class="ot">&lt;-</span> <span class="fu">lm</span>(fridge.sales <span class="sc">~</span> durable.goods.sales, <span class="at">data =</span> d)</span>
+<span id="cb132-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb132-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># F-test for Model Selection</span></span>
+<span id="cb132-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(linear, ancova)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div style="font-size: 0.10em">
+<p><br></p>
+</div>
+<pre class="verbatim"><code>Analysis of Variance Table
+
+Model 1: fridge.sales ~ durable.goods.sales
+Model 2: fridge.sales ~ quarter + durable.goods.sales
+  Res.Df     RSS Df Sum of Sq     F    Pr(&gt;F)    
+1     30 1377145                                 
+2     27  465085  3    912060 17.65 1.523e-06 ***</code></pre>
+<div style="font-size: 0.10em">
+<p><br></p>
+</div>
+<ul>
+<li><p>The p-value is <span class="math inline">p &lt; 0.05 \quad \implies \quad</span> Reject H_0</p></li>
+<li><p>The ANCOVA model offers a better fit than the linear model</p></li>
+</ul>
 </section>
 <section id="references" class="slide level2 smaller scrollable">
 <h2>References</h2>
